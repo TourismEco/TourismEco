@@ -1,7 +1,7 @@
 # EcoTourism
 
 ## Composition du groupe
-Line Bransolle, Mohamedatni Aya, Rémy Gilibert, Lucas Triozon, Cassandra Sénécaille, Hugo Gonçalves
+Line Bransolle, Aya Mohamedatni, Rémy Gilibert, Lucas Triozon, Cassandra Sénécaille, Hugo Gonçalves
 
 
 ## Sujet décrit en 10 lignes
