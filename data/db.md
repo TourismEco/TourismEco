@@ -17,10 +17,12 @@ Sur les données de départs et d'arrivées, les montants peuvent dépasser la p
 ### `pays`
 |Champ|Description|
 |--|--|
-|*id*|Clé primaire, code de chaque pays. 2 à 3 caractères.|
+|*id*|Clé primaire, code de chaque pays. Suit la norme ISO 3166-1 alpha-2|
 |lat|Latitude géographique du pays|
 |lon|Longitude géographique du pays|
 |nom|Nom complet du pays|
+|A3|Code ISO 3166-1 alpha-3 du pays|
+|Num|Code ISO 3166-1 numérique du pays|
 
 ### `arrivees`
 |Champ|Description|

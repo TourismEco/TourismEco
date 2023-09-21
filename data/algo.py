@@ -204,8 +204,22 @@ def nameToCode():
     cnx.close()
 
 
+def addCodes():
+    from sql import connectSQL
+    codes = readCSV("iso")
+    cnx, cur = connectSQL("projetL3")
+
+    for i in codes:
+        cur.execute(f"UPDATE pays SET A3 = '{i['A3']}', Num={i['Num']} WHERE id = '{i['A2']}'")
+
+    cnx.commit()
+
+    # DELETE FROM pays WHERE id = 'BV' OR id = 'AN' OR id = 'GZ' OR id = 'HM' OR id = 'SJ';
+
 #baseCsvAdd()
-toSQL()
-nameToCode()
+# toSQL()
+# nameToCode()
+
+addCodes()
 
 
