@@ -216,10 +216,22 @@ def addCodes():
 
     # DELETE FROM pays WHERE id = 'BV' OR id = 'AN' OR id = 'GZ' OR id = 'HM' OR id = 'SJ';
 
+def addEmojis():
+    from sql import connectSQL
+    emojis = readCSV("countries")
+    cnx, cur = connectSQL("projetL3")
+
+    for i in emojis:
+        cur.execute(f"UPDATE pays SET emoji = '{i['emoji']}', emojiU='{i['emojiU']}' WHERE id = '{i['iso2']}'")
+
+    cnx.commit()
+    cnx.close()
+
 #baseCsvAdd()
 # toSQL()
 # nameToCode()
 
-addCodes()
+#addCodes()
+addEmojis()
 
 
