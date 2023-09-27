@@ -1,0 +1,13 @@
+:root {
+    --black: #0A0908;
+    --blue: #22333B;
+    --beige: #22333B;
+    --beige-brown: #C6AC8F;
+    --brown: #5E503F;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
