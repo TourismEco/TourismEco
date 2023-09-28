@@ -1,15 +1,15 @@
 # La base de données
 ## Tables
-- [`pays`](https://github.com/L3S518-LLHAR-kek/projet_L3/edit/main/data/db.md#pays) : table centrale, contient des informations sur les pays de nos tables
-- [`villes`](https://github.com/L3S518-LLHAR-kek/projet_L3/edit/main/data/db.md#villes) : liste de villes, avec leur population
-- [`guerre`](https://github.com/L3S518-LLHAR-kek/projet_L3/edit/main/data/db.md#guerre) : liste d'état de guerre qu'un pays peut avoir
-- [`arrivees`](https://github.com/L3S518-LLHAR-kek/projet_L3/edit/main/data/db.md#arrivees) : statistiques d'arrivées touristique dans chaque pays, en milliers
-- [`departs`](https://github.com/L3S518-LLHAR-kek/projet_L3/edit/main/data/db.md#departs) : statistiques de départs touristiques dans chaque pays, en milliers
-- [`argent`](https://github.com/L3S518-LLHAR-kek/projet_L3/edit/main/data/db.md#argent) : statistiques sur l'argent généré par le tourisme entrant et sortant
-- [`emploi`](https://github.com/L3S518-LLHAR-kek/projet_L3/edit/main/data/db.md#emploi) : statistiques des emplois liant le tourisme dans chaque pays
-- [`cpi`](https://github.com/L3S518-LLHAR-kek/projet_L3/edit/main/data/db.md#cpi) : statistiques sur le Consumer Price Index, prix global de la vie dans un pays
-- [`pib`](https://github.com/L3S518-LLHAR-kek/projet_L3/edit/main/data/db.md#pib) : statistiques sur le Produit Interieur Brut de chaque pays
-- [`gpi`](https://github.com/L3S518-LLHAR-kek/projet_L3/edit/main/data/db.md#gpi) : statistiques sur le Global Peace Index, calculant la sureté d'un pays
+- [`pays`](https://github.com/L3S518-LLHAR-kek/projet_L3/blob/main/data/db.md#pays) : table centrale, contient des informations sur les pays de nos tables
+- [`villes`](https://github.com/L3S518-LLHAR-kek/projet_L3/blob/main/data/db.md#villes) : liste de villes, avec leur population
+- [`guerre`](https://github.com/L3S518-LLHAR-kek/projet_L3/blob/main/data/db.md#guerre) : liste d'état de guerre qu'un pays peut avoir
+- [`arrivees`](https://github.com/L3S518-LLHAR-kek/projet_L3/blob/main/data/db.md#arrivees) : statistiques d'arrivées touristique dans chaque pays, en milliers
+- [`departs`](https://github.com/L3S518-LLHAR-kek/projet_L3/blob/main/data/db.md#departs) : statistiques de départs touristiques dans chaque pays, en milliers
+- [`argent`](https://github.com/L3S518-LLHAR-kek/projet_L3/blob/main/data/db.md#argent) : statistiques sur l'argent généré par le tourisme entrant et sortant
+- [`emploi`](https://github.com/L3S518-LLHAR-kek/projet_L3/blob/main/data/db.md#emploi) : statistiques des emplois liant le tourisme dans chaque pays
+- [`cpi`](https://github.com/L3S518-LLHAR-kek/projet_L3/blob/main/data/db.md#cpi) : statistiques sur le Consumer Price Index, prix global de la vie dans un pays
+- [`pib`](https://github.com/L3S518-LLHAR-kek/projet_L3/blob/main/data/db.md#pib) : statistiques sur le Produit Interieur Brut de chaque pays
+- [`gpi`](https://github.com/L3S518-LLHAR-kek/projet_L3/blob/main/data/db.md#gpi) : statistiques sur le Global Peace Index, calculant la sureté d'un pays
 
 ## Schémas
 ### `pays`
