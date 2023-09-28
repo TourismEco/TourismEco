@@ -138,7 +138,8 @@ def agglomerate():
     #tags = ["Departs"]
     #tags = ["GPI"]
     #tags = ["emploi"]
-    tags = ["gdp"]
+    #tags = ["gdp"]
+    tags = ["CO2","GES","ElecRenew"]
 
     allTable =[]
     for i in tags:
@@ -146,8 +147,8 @@ def agglomerate():
 
     final = []
 
-    for i in range(1995,2023):
-        for j in range(217):
+    for i in range(1990,2021):
+        for j in range(211):
             dictA = {"Pays":allTable[0][j]["Pays"],"Annee":i}
             for z, t in enumerate(allTable):
                 dictA[tags[z]] = t[j][str(i)]
@@ -181,7 +182,7 @@ def toSQL():
     final = agglomerate()
     #final = readCSV("CPI")
 
-    cnx, cur = connectSQL("projet")
+    cnx, cur = connectSQL("projetl3")
     #cur.execute("CREATE TABLE IF NOT EXISTS arrivees (id INT PRIMARY KEY AUTO_INCREMENT, id_pays VARCHAR(50), annee INT, arriveesTotal INT, arriveesAF INT, arriveesAM INT, arriveesEA INT, arriveesEU INT, arriveesME INT, arriveesSA INT, arriveesAutre INT, arriveesPerso INT, arriveesPro INT, arriveesAvion INT, arriveesEau INT, arriveesTerre INT)")
     #cur.execute("CREATE TABLE IF NOT EXISTS pays (id VARCHAR(3) PRIMARY KEY, lat FLOAT, lon FLOAT, nom VARCHAR(50))")
     #cur.execute("CREATE TABLE IF NOT EXISTS argent (id INT PRIMARY KEY AUTO_INCREMENT, id_pays VARCHAR(50), annee INT, depenses INT, recettes INT)")
@@ -189,8 +190,9 @@ def toSQL():
     #cur.execute("CREATE TABLE IF NOT EXISTS gpi (id INT PRIMARY KEY AUTO_INCREMENT, id_pays VARCHAR(3), annee INT, gpi DOUBLE)")
     #cur.execute("CREATE TABLE IF NOT EXISTS cpi (id INT PRIMARY KEY AUTO_INCREMENT, id_pays VARCHAR(3), annee INT, cpi DOUBLE)")
     #cur.execute("CREATE TABLE IF NOT EXISTS emploi (id INT PRIMARY KEY AUTO_INCREMENT, id_pays VARCHAR(50), annee INT, emplois INT)")
-    cur.execute("CREATE TABLE IF NOT EXISTS pib (id INT PRIMARY KEY AUTO_INCREMENT, id_pays VARCHAR(50), annee INT, pib BIGINT)")
+    #cur.execute("CREATE TABLE IF NOT EXISTS pib (id INT PRIMARY KEY AUTO_INCREMENT, id_pays VARCHAR(50), annee INT, pib BIGINT)")
 
+    cur.execute("CREATE TABLE IF NOT EXISTS ecologie (id INT PRIMARY KEY AUTO_INCREMENT, id_pays VARCHAR(3), annee INT, co2 DOUBLE, ges DOUBLE, elecRenew DOUBLE)")
     for i,e in enumerate(final):
         ajout_value=""
         for value in e.values():
@@ -201,7 +203,7 @@ def toSQL():
             else:
                 ajout_value+=f"{value},"
 
-        cur.execute(f"INSERT INTO pib VALUES ({1+i},{ajout_value[:-1]})")
+        cur.execute(f"INSERT INTO ecologie VALUES ({1+i},{ajout_value[:-1]})")
 
     
     cnx.commit()
@@ -272,9 +274,9 @@ def addEmojis():
     cnx.close()
 
 def toIso2():
-    cnx, cur = connectSQL("projet")
+    cnx, cur = connectSQL("projetl3")
     for i in cur.execute("SELECT id, iso_3, iso_alpha FROM pays").fetchall():
-        cur.execute(f"UPDATE cpi SET id_pays='{i['id']}' WHERE id_pays='{i['iso_alpha']}'")
+        cur.execute(f"UPDATE ecologie SET id_pays='{i['id']}' WHERE id_pays='{i['iso_3']}'")
 
     cnx.commit()
     # DELETE FROM gpi WHERE id_pays = 'TLS';
@@ -289,15 +291,36 @@ def filterCsv():
     
     return newListe
 
-    
 
-#toIso2()
+def comparePays():
+    cnx, cur = connectSQL("projetl3")
+    pays = cur.execute("SELECT id FROM pays").fetchall()
+    liste = []
+    for i in pays:
+        a = {"Pays":i["id"]}
+        for j in ["departs","cpi","ecologie","gpi","pib","villes"]:
+            if cur.execute(f"SELECT DISTINCT id_pays FROM {j} WHERE id_pays = '{i['id']}'").fetchone() != None:
+                a[j] = True
+            else:
+                a[j] = False
+        liste.append(a.copy())
+    
+    cur.execute("CREATE TABLE IF NOT EXISTS checking (id VARCHAR(3) PRIMARY KEY, depart BOOLEAN, cpi BOOLEAN, ecologie BOOLEAN, gpi BOOLEAN, pib BOOLEAN, villes BOOLEAN)")
+    for i in liste:
+        cur.execute(f"INSERT INTO checking VALUES ('{i['Pays']}',{i['departs']},{i['cpi']},{i['ecologie']},{i['gpi']},{i['pib']},{i['villes']})")
+    
+    cnx.commit()
+
+comparePays()
+
+#
 
 #baseCsvAdd()
 
 #baseCsv()
-toSQL()
-nameToCode()
+#toSQL()
+#toIso2()
+#nameToCode()
 
 #addCodes()
 #addEmojis()
