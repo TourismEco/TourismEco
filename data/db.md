@@ -1,18 +1,31 @@
 # La base de données
-## Tables
+Version actuelle : 2.0
+
+Dernière mise à jour : 30/09/23
+## Sommaire
+### Tables principales
 - [`pays`](https://github.com/L3S518-LLHAR-kek/projet_L3/blob/main/data/db.md#pays) : table centrale, contient des informations sur les pays de nos tables
 - [`villes`](https://github.com/L3S518-LLHAR-kek/projet_L3/blob/main/data/db.md#villes) : liste de villes, avec leur population
 - [`guerre`](https://github.com/L3S518-LLHAR-kek/projet_L3/blob/main/data/db.md#guerre) : liste d'état de guerre qu'un pays peut avoir
-- [`arrivees`](https://github.com/L3S518-LLHAR-kek/projet_L3/blob/main/data/db.md#arrivees) : statistiques d'arrivées touristique dans chaque pays, en milliers
-- [`departs`](https://github.com/L3S518-LLHAR-kek/projet_L3/blob/main/data/db.md#departs) : statistiques de départs touristiques dans chaque pays, en milliers
-- [`argent`](https://github.com/L3S518-LLHAR-kek/projet_L3/blob/main/data/db.md#argent) : statistiques sur l'argent généré par le tourisme entrant et sortant
-- [`emploi`](https://github.com/L3S518-LLHAR-kek/projet_L3/blob/main/data/db.md#emploi) : statistiques des emplois liant le tourisme dans chaque pays
-- [`cpi`](https://github.com/L3S518-LLHAR-kek/projet_L3/blob/main/data/db.md#cpi) : statistiques sur le Consumer Price Index, prix global de la vie dans un pays
-- [`pib`](https://github.com/L3S518-LLHAR-kek/projet_L3/blob/main/data/db.md#pib) : statistiques sur le Produit Interieur Brut de chaque pays
-- [`gpi`](https://github.com/L3S518-LLHAR-kek/projet_L3/blob/main/data/db.md#gpi) : statistiques sur le Global Peace Index, calculant la sureté d'un pays
+- [`checking`](https://github.com/L3S518-LLHAR-kek/projet_L3/blob/main/data/db.md#checking) : table de vérité affichant la présence ou non des pays dans les différentes tables
+
+### Tables de stats
+- Tourisme
+  - [`arrivees`](https://github.com/L3S518-LLHAR-kek/projet_L3/blob/main/data/db.md#arrivees) : statistiques d'arrivées touristique dans chaque pays, en milliers
+  - [`departs`](https://github.com/L3S518-LLHAR-kek/projet_L3/blob/main/data/db.md#departs) : statistiques de départs touristiques dans chaque pays, en milliers
+  - [`argent`](https://github.com/L3S518-LLHAR-kek/projet_L3/blob/main/data/db.md#argent) : statistiques sur l'argent généré par le tourisme entrant et sortant
+  - [`emploi`](https://github.com/L3S518-LLHAR-kek/projet_L3/blob/main/data/db.md#emploi) : statistiques des emplois liant le tourisme dans chaque pays
+- Économie
+  - [`cpi`](https://github.com/L3S518-LLHAR-kek/projet_L3/blob/main/data/db.md#cpi) : statistiques sur le Consumer Price Index, prix global de la vie dans un pays
+  - [`pib`](https://github.com/L3S518-LLHAR-kek/projet_L3/blob/main/data/db.md#pib) : statistiques sur le Produit Interieur Brut de chaque pays
+- Autre
+  - [`gpi`](https://github.com/L3S518-LLHAR-kek/projet_L3/blob/main/data/db.md#gpi) : statistiques sur le Global Peace Index, calculant la sureté d'un pays
+  - [`ecologie`](https://github.com/L3S518-LLHAR-kek/projet_L3/blob/main/data/db.md#ecologie) : statistiques liées à l'écologie
+
 
 ## Schémas
 ### `pays`
+Notre table principale, chaque table possède une clé étrangère qui se réfère à la colonne `id`.
 |Champ|Type|Description|
 |--|--|--|
 |*id*|VARCHAR|Clé primaire, code de chaque pays. Suit la norme ISO 3166-1 alpha-2|
@@ -32,6 +45,9 @@ Sources :
 - https://wisevoter.com/country-rankings/countries-currently-at-war/
 
 ### `villes`
+Liste de villes, avec leur populations et coordonnées géographiques.
+
+Deux pays n'ont aucune villes référencées : Macao et Territoires palestiniens.
 |Champ|Type|Description|
 |--|--|--|
 |*id*|INT|Clé primaire, id numérique de la ligne|
@@ -46,6 +62,8 @@ Source :
 - ?
 
 ### `guerre`
+Décrit les statuts de guerre possibles.
+
 |Champ|Type|Description|
 |--|--|--|
 |*id*|INT|Clé primaire, id numérique de la ligne|
@@ -57,12 +75,13 @@ Statuts possibles :
 - 2 : Guerre de la drogue
 - 3 : Guerre civile
 - 4 : Terrorisme
-- 5 : Guerre ethnique
 
 Sources : 
 - https://wisevoter.com/country-rankings/countries-currently-at-war/
 
 ### `arrivees`
+Statistiques d'arrivées touristique.
+
 |Champ|Type|Description|
 |--|--|--|
 |*id*|INT|Clé primaire, id numérique de la ligne.|
@@ -86,6 +105,8 @@ Sources :
 - https://www.unwto.org/tourism-statistics/key-tourism-statistics
 
 ### `departs`
+Statistiques de départs touristique.
+
 |Champ|Type|Description|
 |--|--|--|
 |*id*|INT|Clé primaire, id numérique de la ligne.|
@@ -97,6 +118,8 @@ Sources :
 - https://www.unwto.org/tourism-statistics/key-tourism-statistics
 
 ### `argent`
+Statistiques sur l'argent rapporté ou dépensé dans le tourisme.
+
 |Champ|Type|Description|
 |--|--|--|
 |*id*|INT|Clé primaire, id numérique de la ligne.|
@@ -109,6 +132,8 @@ Sources :
 - https://www.unwto.org/tourism-statistics/key-tourism-statistics
 
 ### `emploi`
+Statistiques sur l'emploi générés par le tourisme.
+
 |Champ|Type|Description|
 |--|--|--|
 |*id*|INT|Clé primaire, id numérique de la ligne.|
@@ -120,6 +145,8 @@ Sources :
 - https://www.unwto.org/tourism-statistics/key-tourism-statistics
 
 ### `cpi`
+Prix de la vie dans chaque pays.
+
 |Champ|Type|Description|
 |--|--|--|
 |*id*|INT|Clé primaire, id numérique de la ligne.|
@@ -131,6 +158,7 @@ Sources :
 - https://data.un.org/Default.aspx
 
 ### `pib`
+Produit Intérieur Brut de chaque pays.
 |Champ|Type|Description|
 |--|--|--|
 |*id*|INT|Clé primaire, id numérique de la ligne.|
@@ -139,9 +167,10 @@ Sources :
 |pib|BIGINT|Produit intérieur brut en US$|
 
 Sources :
-- ?
+- https://databank.worldbank.org/reports.aspx?source=2&series=NY.GDP.MKTP.CD&country#
 
 ### `gpi`
+Indice de paix (et de sûreté) de chaque pays
 |Champ|Type|Description|
 |--|--|--|
 |*id*|INT|Clé primaire, id numérique de la ligne.|
@@ -154,3 +183,22 @@ Sources :
 - https://en.wikipedia.org/wiki/Global_Peace_Index
 
 
+### `ecologie`
+Statistiques sur l'écologie
+|Champ|Type|Description|
+|--|--|--|
+|*id*|INT|Clé primaire, id numérique de la ligne.|
+|id_pays|VARCHAR|Clé étrangère, code du pays concerné par la ligne|
+|annee|INT|Date des données|
+|co2|DOUBLE|Émissions de CO2 du pays|
+|ges|DOUBLE|Émissions de gaz à effet de serre du pays|
+|elecRenew|DOUBLE|% d'électricité renouvelable produite dans le pays (1990-2015)|
+
+Sources :
+- https://data.worldbank.org/topic/environment
+
+### `checking`
+|Champ|Type|Description|
+|--|--|--|
+|*id*|VARCHAR|Clé primaire, id du pays. Tous les id sont ceux listés par AMCharts|
+|//|//|Chaque colonne représente une table. Valeur 0 si le pays est absent de la table, 1 en cas de présence|
