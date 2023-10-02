@@ -165,9 +165,11 @@ Produit Intérieur Brut de chaque pays.
 |id_pays|VARCHAR|Clé étrangère, code du pays concerné par la ligne|
 |annee|INT|Date des données|
 |pib|BIGINT|Produit intérieur brut en US$|
+|pibParHab|BIGINT|Produit intérieur brut par habitant en US$|
 
 Sources :
 - https://databank.worldbank.org/reports.aspx?source=2&series=NY.GDP.MKTP.CD&country#
+- https://datacatalog.worldbank.org/search/dataset/0037712/World-Development-Indicators
 
 ### `gpi`
 Indice de paix (et de sûreté) de chaque pays
@@ -196,6 +198,7 @@ Statistiques sur l'écologie
 
 Sources :
 - https://data.worldbank.org/topic/environment
+- https://ourworldindata.org/grapher/share-electricity-renewables?time=1986
 
 ### `checking`
 |Champ|Type|Description|

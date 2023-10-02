@@ -179,4 +179,35 @@ def filterCsv():
     
     return newListe
 
-addEmojisFile()
+def updateRenew():
+    global db
+
+    cnx, cur = connectSQL(db)
+    csv = readCSV("share-electricity-renewables")
+    isos = readCSV("iso")
+    to2 = {i["A3"]:i["A2"] for i in isos}
+
+    for i in csv:
+        if i["Code"] != "" and int(i["Year"]) >= 1990 and int(i["Year"]) <= 2020:  
+            cur.execute(f"UPDATE ecologie SET elecRenew={i['Value']} WHERE id_pays='{to2[i['Code']]}' AND annee={i['Year']}")
+    cnx.commit()
+
+def addPibCapita():
+    global db
+
+    cnx, cur = connectSQL(db)
+    csv = readCSV("gdp-per-capita-worldbank")
+    isos = readCSV("iso")
+    to2 = {i["A3"]:i["A2"] for i in isos}
+
+    for i in csv:
+        if i["Code"] != "" and int(i["Year"]) >= 1995 and int(i["Year"]) <= 2021:  
+            cur.execute(f"UPDATE pib SET pibParHab={i['GDPcapita']} WHERE id_pays='{to2[i['Code']]}' AND annee={i['Year']}")
+    cnx.commit()
+
+            
+
+# addEmojisFile()
+
+#updateRenew()
+addPibCapita()

@@ -206,6 +206,9 @@ def clearTables(liste):
             cur.execute(f"DELETE FROM {j} WHERE id_pays = '{i}'")
         cur.execute(f"DELETE FROM pays WHERE id = '{i}'")
     cnx.commit()
-    
+
+if __name__ == "__main__":
+    pass
+
 # baseCsv("allData"," Inbound Tourism-Arrivals","test",1341,6,2,5,1995,2021,"Basic data and indicators")
-checking()
+# checking()
