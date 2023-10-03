@@ -205,9 +205,21 @@ def addPibCapita():
             cur.execute(f"UPDATE pib SET pibParHab={i['GDPcapita']} WHERE id_pays='{to2[i['Code']]}' AND annee={i['Year']}")
     cnx.commit()
 
-            
+def addTwemoji():
+    global db
+
+    cnx, cur = connectSQL(db)
+    for i in cur.execute("SELECT * FROM pays").fetchall():
+        u = i["emojiU"]
+        li = u.split(" ")
+        li = list(map(lambda x:x[2:].lower(),li))
+        li = "-".join(li)
+        cur.execute(f"UPDATE pays SET emojiSVG='{li}' WHERE id = '{i['id']}';")
+    cnx.commit()
+
 
 # addEmojisFile()
 
 #updateRenew()
-addPibCapita()
+# addPibCapita()
+addTwemoji()

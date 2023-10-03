@@ -1,7 +1,7 @@
 # La base de données
 Version actuelle : 2.0
 
-Dernière mise à jour : 30/09/23
+Dernière mise à jour : 03/10/23
 ## Sommaire
 ### Tables principales
 - [`pays`](https://github.com/L3S518-LLHAR-kek/projet_L3/blob/main/data/db.md#pays) : table centrale, contient des informations sur les pays de nos tables
@@ -36,6 +36,7 @@ Notre table principale, chaque table possède une clé étrangère qui se réfè
 |iso_alpha|INT|Code ISO 3166-1 numérique du pays|
 |emoji|VARCHAR|Emoji associé au pays|
 |emojiU|VARCHAR|Emoji associé au pays en Unicode|
+|emojiSVG|VARCHAR|Nom du fichier .svg associé au drapeau|
 |id_guerre|INT|ID du statut de guerre du pays, clé étrangère de `guerre`|
 
 Sources :
@@ -43,6 +44,7 @@ Sources :
 - https://developers.google.com/public-data/docs/canonical/countries_csv?hl=fr
 - https://developers.google.com/public-data/docs/canonical/countries_csv?hl=en
 - https://wisevoter.com/country-rankings/countries-currently-at-war/
+- https://github.com/twitter/twemoji/releases/tag/v14.0.2
 
 ### `villes`
 Liste de villes, avec leur populations et coordonnées géographiques.
