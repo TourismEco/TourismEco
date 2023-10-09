@@ -217,9 +217,27 @@ def addTwemoji():
         cur.execute(f"UPDATE pays SET emojiSVG='{li}' WHERE id = '{i['id']}';")
     cnx.commit()
 
+def addContinent():
+    global db
+    csv = readCSV("countries")
+    cnx, cur = connectSQL(db)
+    dictCo = {"1":1,"3":4,"4":5,"5":6}
+    for i in csv:
+        if i["region_id"] == '2':
+            if i["subregion_id"] == '8':
+                cur.execute(f"UPDATE pays SET id_continent = 3 WHERE id = '{i['iso2']}'")
+            else:
+                cur.execute(f"UPDATE pays SET id_continent = 2 WHERE id = '{i['iso2']}'")
+        elif i["region_id"] in ("6",""):
+            pass
+        else:
+            cur.execute(f"UPDATE pays SET id_continent = {dictCo[i['region_id']]} WHERE id = '{i['iso2']}'")
+    cnx.commit()
 
 # addEmojisFile()
 
 #updateRenew()
 # addPibCapita()
-addTwemoji()
+#addTwemoji()
+
+addContinent()
