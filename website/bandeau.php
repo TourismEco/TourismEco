@@ -8,36 +8,169 @@
 <body>
     <header>
         <div id="bandeau-container">
-            <img id="bandeau-image" src="paris3.jpg" alt="Bandeau">
-            <p id="bandeau-info">Informations sous l'image</p>
+            <img class="img" src="paris4.jpg" alt="Bandeau">
 
             <?php
-            if (isset($_GET['id'])) {
-                $id = $_GET['id']; // Use 'id' instead of 'FR'
-
                 // Connexion à la base de données en utilisant la fonction getBD() du fichier bd.php
-                require("path/to/getDB.php");
-                $bdd = getBD();
+                require("getDB.php");
+                $conn = getDb();
 
-                // Sélectionner les données de l'article avec l'ID correspondant
-                $sql = "SELECT * FROM pays WHERE id = $id";
-                $result = $bdd->query($sql);
+                if ($conn) {
+                    $mysql = "SELECT * FROM pays WHERE id = 'FR'";
+                    $result = $conn->query($mysql);
 
-                if ($ligne = $result->fetch()) {
-                    echo "<h1 id='bandeau-title'>" . $ligne["nom"] . "</h1>";
-                    echo "<p id='bandeau-info-t'>" . "Informations sous titre" . "</p>";
-                    
-                } else {
-                    echo "Aucun article trouvé.";
+                    if ($result) {
+                        $ligne = $result->fetch();
+
+                        if ($ligne) {
+                            echo "<div class= one>";
+                            echo "<h1 >" . $ligne["nom"] . "</h1>";
+                            echo "</div>";
+                        } else {
+                            echo "Aucun article trouvé.";
+                        }
+
+                        // Fermer la résultat de la requête
+                        $result->closeCursor();
+                    } else {
+                        echo "Erreur dans la requête SQL.";
+                    }
                 }
+                if ($conn) {
+                    $mysql = "SELECT * FROM pays WHERE id = 'FR'";
+                    $result = $conn->query($mysql);
 
-                // Fermer la connexion à la base de données
-                $result->closeCursor();
-            } else {
-                echo "ID de l'article non spécifié.";
-            }
-            ?>
-        
+                    if ($result) {
+                        $ligne = $result->fetch();
+
+                        if ($ligne) {
+                            echo "<div class= logo>";
+                            echo "<img src='assets/twemoji/".$ligne["emojiSVG"].".svg'>";
+                            echo "</div>";
+                        } else {
+                            echo "Aucun article trouvé.";
+                        }
+
+                        // Fermer la résultat de la requête
+                        $result->closeCursor();
+                    } else {
+                        echo "Erreur dans la requête SQL.";
+                    }
+                }
+                if ($conn) {
+                    $mysql = "SELECT * FROM villes WHERE id_pays = 'FR' and capitale=1";
+                    $result = $conn->query($mysql);
+
+                    if ($result) {
+                        $ligne = $result->fetch();
+
+                        if ($ligne) {
+                            echo "<div class= 'capital'>";
+                            echo "<p >" ."Capital : ". $ligne["nom"] . "</p>";
+                            echo "</div>";
+                        } else {
+                            echo "Aucun article trouvé.";
+                        }
+
+                        // Fermer la résultat de la requête
+                        $result->closeCursor();
+                    } else {
+                        echo "Erreur dans la requête SQL.";
+                    }
+                }
+                if ($conn) {
+                    $mysql = "SELECT * FROM pib WHERE id_pays = 'FR' and annee = 2021";
+                    $result = $conn->query($mysql);
+
+                    if ($result) {
+                        $ligne = $result->fetch();
+
+                        if ($ligne) {
+                            while ($ligne) {
+                                echo "<p class='two'>" ."PIB : ". $ligne["pib"] . "</p>";
+                                $ligne = $result->fetch();
+                            }
+
+                        } else {
+                            echo "Aucun article trouvé.";
+                        }
+
+                        // Fermer la résultat de la requête
+                        $result->closeCursor();
+                    } else {
+                        echo "Erreur dans la requête SQL.";
+                    }
+                }
+                if ($conn) {
+                    $mysql = "SELECT * FROM ecologie WHERE id_pays = 'FR' and annee = 2020";
+                    $result = $conn->query($mysql);
+
+                    if ($result) {
+                        $ligne = $result->fetch();
+
+                        if ($ligne) {
+                            while ($ligne) {
+                                echo "<p class='tree'>" ."CO2 : ". $ligne["co2"] . "</p>";
+                                $ligne = $result->fetch();
+                            }
+
+                        } else {
+                            echo "Aucun article trouvé.";
+                        }
+
+                        // Fermer la résultat de la requête
+                        $result->closeCursor();
+                    } else {
+                        echo "Erreur dans la requête SQL.";
+                    }
+                } 
+                if ($conn) {
+                    $mysql = "SELECT * FROM pib WHERE id_pays = 'FR' and annee = 2021";
+                    $result = $conn->query($mysql);
+
+                    if ($result) {
+                        $ligne = $result->fetch();
+
+                        if ($ligne) {
+                            while ($ligne) {
+                                echo "<p class='four'>" ."PIB : ". $ligne["pibParHab"] . "</p>";
+                                $ligne = $result->fetch();
+                            }
+
+                        } else {
+                            echo "Aucun article trouvé.";
+                        }
+
+                        // Fermer la résultat de la requête
+                        $result->closeCursor();
+                    } else {
+                        echo "Erreur dans la requête SQL.";
+                    }
+                }
+                if ($conn) {
+                    $mysql = "SELECT * FROM gpi WHERE id_pays = 'FR' and annee = 2023";
+                    $result = $conn->query($mysql);
+
+                    if ($result) {
+                        $ligne = $result->fetch();
+
+                        if ($ligne) {
+                            while ($ligne) {
+                                echo "<p class='five'>" ." GPI: ". $ligne["gpi"] . "</p>";
+                                $ligne = $result->fetch();
+                            }
+
+                        } else {
+                            echo "Aucun article trouvé.";
+                        }
+
+                        // Fermer la résultat de la requête
+                        $result->closeCursor();
+                    } else {
+                        echo "Erreur dans la requête SQL.";
+                    }
+                }
+            ?>        
         </div>
     </header>
     <main>
