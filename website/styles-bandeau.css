@@ -1,0 +1,39 @@
+/* styles.css */
+#bandeau-container {
+    position: relative;
+    text-align: center;
+}
+
+#bandeau-image {
+    width: 100%; /* Pour remplir la largeur du conteneur */
+    height: auto; /* Pour conserver les proportions de l'image */
+}
+
+#bandeau-title {
+    position: absolute;
+    top: 20%;
+    left: 10%;
+    transform: translate(-50%, -50%);
+    background-color:transparent;
+    color: white;
+    padding: 5px;
+}
+#bandeau-info-t {
+    position: absolute;
+    top: 30%;
+    left: 20%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 5px;
+}
+#bandeau-info {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 5px;
+}
+
