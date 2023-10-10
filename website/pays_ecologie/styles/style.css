@@ -1,0 +1,80 @@
+/*
+:root {
+    --black: #0A0908;
+    --blue: #22333B;
+    --beige: #22333B;
+    --beige-brown: #C6AC8F;
+    --brown: #5E503F;
+}
+*/
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: lightgrey;
+}
+
+
+.container {
+    float : left; 
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Aligne le contenu à gauche */
+    justify-content: flex-start; /* Aligne le contenu en haut */
+}
+
+.c2-container {
+    margin-left: 25px;
+    display: flex; /* Organise les c2 horizontalement */
+    gap: 10px; 
+}
+
+.text-container {
+    margin-left: 20px;
+    overflow: hidden;
+    margin-top: 100px;
+}
+
+.text-container p{
+    white-space: normal;
+}
+
+
+
+#c1 {
+    width: 300px;
+    height: 300px;
+    flex-shrink: 0;
+    border-radius: 15px;
+    margin-bottom: 10px; 
+}
+
+#c2{
+    width: 110px;
+    height: 110px;
+    flex-shrink: 0;
+    border-radius: 15px;
+}
+
+
+img {
+    background: url(../images/logo_planete.png) lightgray 0 0 / auto no-repeat;
+    float: left;
+    display: flex;
+    width: 657.245px;
+    height: 464.893px;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    background-color: #ffffff;
+    margin-right: 20px;
+    margin-top: 50px;
+}
+
+p{
+    width: 718px;
+    height: 435px;
+}
+

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang= "fr" class = "nouveau">
+
+<head>
+
+<meta charset="UTF-8">
+<link href="styles/style.css" rel="stylesheet" type="text/css" />
+<title> Nouveau Client </title>
+</head>
+ <body> 
+    <!--navbar-->
+    <!--code de Rémy-->
+
+    <div class="container">
+        <canvas id='c1' style='background-color: #322727;'></canvas>
+        <div class="c2-container">
+            <canvas id='c2' style='background-color: #322727;'></canvas>
+            <canvas id='c2' style='background-color: #322727;'></canvas>
+        </div>
+        <script>
+            // Contexte du canvas c1
+            var canvas = document.getElementById('c1');
+            var context = canvas.getContext('2d');
+            // Dessin de la lettre A
+            context.fillStyle = "#0DEF4C"; // Couleur de remplissage de la lettre
+            context.font = "200px Inter"; // Style de police de la lettre
+            context.fillText("A", 60, 140); // Dessinez la lettre "A" à la position (100, 140)
+
+             // Contexte du canvas c2
+             var canvas = document.getElementById('c2');
+            var context = canvas.getContext('2d');
+            // Dessin de la lettre D
+            context.fillStyle = "#B4EF0D"; // Couleur de remplissage de la lettre
+            context.font = "100px Inter"; // Style de police de la lettre
+            context.fillText("D", 110, 110); // Dessinez la lettre "A" à la position (100, 140)
+
+
+        </script>
+
+    </div>
+
+    <div class="text-container">
+        <h3> EcoToursim Score</h3>
+        <p>La France a un score A ! C’est excellent !
+            blablablablabla analyse blablabla il faut y aller blablablablu
+            
+            Le pays se place au 5ème rang mondial, et 1er à l’échelle de son continent.
+        </p>
+    </div>
+    
+
+    <!--Code Cassy-->
+
+    <img  src = "images/radar_chart.png"/>
+
+    <div class="text-container">
+        <h3>Lorem ipsum</h3>
+        <p>Lorem ipsum Lorem ipsum dolor sit amet, 
+            consectetur adipiscing elit, sed do eiusmod tempor 
+            incididunt ut labore et dolore magna aliqua. 
+            Ut enim ad minim veniam, quis nostrud exercitation ullamco 
+            laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate 
+        </p>
+    </div>
+    
+     <!--Code Cassy-->
+
+    <img  src = "images/line_chart.png" />
+
+    <div class="text-container">
+        <h3>Lorem ipsum</h3>
+        <p>Lorem ipsum Lorem ipsum dolor sit amet, 
+            consectetur adipiscing elit, sed do eiusmod tempor 
+            incididunt ut labore et dolore magna aliqua. 
+            Ut enim ad minim veniam, quis nostrud exercitation ullamco 
+            laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate 
+        </p>
+    </div>
+    
+
+</body>  
+</html>
