@@ -234,10 +234,19 @@ def addContinent():
             cur.execute(f"UPDATE pays SET id_continent = {dictCo[i['region_id']]} WHERE id = '{i['iso2']}'")
     cnx.commit()
 
+def renameEmojis():
+    import os
+    cnx, cur = connectSQL(db)
+    for i in cur.execute("SELECT id, emojiSVG FROM pays").fetchall():
+        os.rename(f"website/assets/twemoji/{i['emojiSVG']}.svg",f"website/assets/twemoji/{i['id']}.svg")
+
+
 # addEmojisFile()
 
 #updateRenew()
 # addPibCapita()
 #addTwemoji()
 
-addContinent()
+# addContinent()
+
+renameEmojis()
