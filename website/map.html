@@ -2,7 +2,8 @@
 <style>
   #chartdiv {
     width: 100%;
-    height: 500px;
+    height: 100%;
+    background-color: #354F52;
   }
   </style>
   
@@ -43,7 +44,8 @@
   var continentSeries = chart.series.push(am5map.MapPolygonSeries.new(root, {
     geoJSON: am5geodata_continentsLow,
     geodataNames:am5geodata_lang_FR,
-    exclude: ["antarctica"]
+    exclude: ["antarctica"],
+    fill:am5.color("#84A98C")
   }));
   
   continentSeries.mapPolygons.template.setAll({
@@ -52,7 +54,7 @@
   });
   
   continentSeries.mapPolygons.template.states.create("hover", {
-    fill: root.interfaceColors.get("primaryButtonActive")
+    fill: am5.color("#CAD2C5")
   });
   
   // Set up zooming in on clicked continent
@@ -69,7 +71,8 @@
     geoJSON: am5geodata_worldLow,
     geodataNames:am5geodata_lang_FR,
     exclude: ["AX","BL","BQ","BV","CW","HM","MF","SJ","SS","SX","TL","UM","AF","AQ","CC","CX","EH","FK","FO","GG","GI","GL","GQ","GS","IM","IO","JE","KP","LR","NF","NR","PM","PN","SH","SO","SZ","TF","TK","VA","WF","YT"],
-    visible: false
+    visible: false,
+    fill:am5.color("#84A98C")
   }));
   
   countrySeries.mapPolygons.template.setAll({
@@ -78,7 +81,7 @@
   });
   
   countrySeries.mapPolygons.template.states.create("hover", {
-    fill: root.interfaceColors.get("primaryButtonActive")
+    fill: am5.color("#CAD2C5")
   });
 
   countrySeries.mapPolygons.template.events.on("click", function (ev) {
@@ -95,9 +98,17 @@
     interactiveChildren: false,
     icon: am5.Graphics.new(root, {
       svgPath: "M16,8 L14,8 L14,16 L10,16 L10,10 L6,10 L6,16 L2,16 L2,8 L0,8 L8,0 L16,8 Z M16,8",
-      fill: am5.color(0xffffff)
+      fill: am5.color(0x000000)
     })
   }));
+
+  homeButton.get("background").setAll({
+    fill: am5.color("#CAD2C5")
+  })
+
+  homeButton.get("background").states.create("hover", {}).setAll({
+    fill:am5.color("#84A98C"),
+  });
   
   homeButton.events.on("click", function() {
     chart.goHome();
@@ -137,18 +148,28 @@ var buttons = chart.children.push(am5.Container.new(root, {
 }));
 
   function createButton(text, fun) {
-  var button = buttons.children.push(am5.Button.new(root, {
-    paddingTop: 0,
-    paddingRight: 0,
-    paddingBottom: 0,
-    paddingLeft: 0,
-    marginLeft: 5,
-    marginRight: 5,
-    label: am5.Label.new(root, {
-      text: text,
-    })
-  }));
+    var button = buttons.children.push(am5.Button.new(root, {
+      paddingTop: 0,
+      paddingRight: 0,
+      paddingBottom: 0,
+      paddingLeft: 0,
+      marginLeft: 5,
+      marginRight: 5,
+      label: am5.Label.new(root, {
+        text: text,
+        fill:am5.color("#000000")
+      })
+    }
+  ));
   
+  button.get("background").setAll({
+    fill: am5.color("#CAD2C5")
+  })
+
+  button.get("background").states.create("hover", {}).setAll({
+    fill:am5.color("#84A98C"),
+  });
+
   button.events.on("click", function() {
     fun();
   });
