@@ -1,8 +1,5 @@
 ignore/
 *.pyc
-<<<<<<< HEAD
 .DS_Store
-=======
 *.DS_Store
 .vscode/
->>>>>>> 5b89eec48fcef536dd1b741fb7c7f80925417336
