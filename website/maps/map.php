@@ -66,6 +66,41 @@ $data = implode(",", $data);
             visible: false,
             fill:am5.color("#84A98C")
         }));
+
+        var html = 
+`    <div style="display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(1,100px);
+    width: 240px;
+    height: 80px;
+    justify-content: center;
+    align-items: center;
+    word-break: break-word;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;">
+        <img style="grid-column: 1 / 3;
+        grid-row: 1;
+        width: 240px;
+        height: 80px;
+        object-fit: cover;" 
+        src='../paris4.jpg' alt='Bandeau'>
+
+        <div style="grid-column: 2;
+        grid-row: 1;
+        justify-content: center;">
+            <h1 style="font-size: 20px;
+            color: black;  ">{name}</h1>
+        </div>
+
+        <div style="grid-column: 1;
+        grid-row: 1;
+        width: 100%;">
+            <img style="width: 70px;
+            height: 70px;" src='../assets/twemoji/{id}.svg'>
+        </div>
+    </div>
+`
+
         
 
         var previousPolygon;
@@ -74,7 +109,10 @@ $data = implode(",", $data);
             serie.mapPolygons.template.setAll({
                 tooltipText: "{name}",
                 toggleKey: "active",
-                interactive: true
+                interactive: true,
+                tooltip: am5.Tooltip.new(root, {
+                    labelHTML: html,
+                }),
             });
             
             serie.mapPolygons.template.states.create("hover", {
