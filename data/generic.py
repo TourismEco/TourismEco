@@ -207,7 +207,33 @@ def clearTables(liste):
         cur.execute(f"DELETE FROM pays WHERE id = '{i}'")
     cnx.commit()
 
+def merge(main,liste,rename,remove=False):
+    global db
+    cnx, cur = connectSQL(db)
+
+    dictTypes = {int:"INT",float:"DOUBLE",str:"VARCHAR(45)"}
+    
+    for tab in liste:
+        cols = cur.execute(f"SHOW COLUMNS FROM {tab}").fetchall()
+        cols = cols[3:]
+        for row in cols:
+            field = row['Field']
+            cur.execute(f"ALTER TABLE {main} ADD COLUMN {field} {str(row['Type'])[2:-1]} NULL")
+            for z in cur.execute(f"SELECT * FROM {tab}").fetchall():
+                if z[field] == None:
+                    z[field] = "NULL"
+                cur.execute(f"UPDATE {main} SET {field} = {z[field]} WHERE id_pays = '{z['id_pays']}' AND annee = {z['annee']}")
+        
+        if remove:
+            cur.execute(f"DROP TABLE {tab}")
+
+    cur.execute(f"ALTER TABLE {main} RENAME TO {rename}")
+
+    cnx.commit()
+
 if __name__ == "__main__":
+    # merge("arrivees",["departs","argent","emploi"],"tourisme")
+    merge("pib",["cpi"],"economie")
     pass
 
 # baseCsv("allData"," Inbound Tourism-Arrivals","test",1341,6,2,5,1995,2021,"Basic data and indicators")
