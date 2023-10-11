@@ -6,17 +6,20 @@ class Mysql {
     private static $instance = null;
     private $connection;
 
-    private function __construct($host, $username, $password, $database) {
-        $this->connection = new mysqli($host, $username, $password, $database);
-
-        if ($this->connection->connect_error) {
-            die("Connection failed: " . $this->connection->connect_error);
-        }
+    private function __construct($hostname, $username, $password, $database) {
+        try {
+            $this->connection = new PDO("mysql:host=$hostname;dbname=$database", $username, $password);
+            // set the PDO error mode to exception
+            $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            echo "Connected successfully";
+          } catch(PDOException $e) {
+            echo "Connection failed: " . $e->getMessage();
+          }
     }
 
     public static function getDB($host="localhost", $username="root", $password="root", $database="projet") {
-        if (this::$instance === null) {
-            this::$instance = new Mysql($host, $username, $password, $database);
+        if (self::$instance === null) {
+            self::$instance = new Mysql($host, $username, $password, $database);
         }
         return self::$instance;
     }
@@ -29,11 +32,12 @@ class Mysql {
         return $this->connection->prepare($query);
     }
 
-    public function execute(string $query) {
-        return $this->connection->execute($query);
-    }
-
-    public function close() {
-        $this->connection->close();
+    public function close():bool {
+        if($this->connection instanceof mysqli){
+            return $this->connection->close();
+        }
+        else{
+            return true; //there is no close function for PDO
+        }
     }
 }

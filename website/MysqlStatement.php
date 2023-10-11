@@ -3,20 +3,23 @@
 class MysqlStatement
 {
     private $stmt;
+    private $query;
 
-    public function __construct(mysqli_stmt $stmt) {
+    public function __construct(mysqli_stmt|PDOStatement $stmt) {
         $this->stmt = $stmt;
     }
 
-    public function bindParam($param, &$var, $type, $maxlen = null, $driverdata = null) {
-        return $this->stmt->bind_param($param, $var, $type, $maxlen, $driverdata);
-    }
 
     public function execute($params = null) {
-        if ($params) {
-            return $this->stmt->execute($params);
+        if($this->stmt instanceof PDOStatement) {
+            if ($params) {
+                return $this->stmt->execute($params);
+            } else {
+                return $this->stmt->execute();
+            }
         } else {
-            return $this->stmt->execute();
+            //$this->stmt->execute_query();
+            return null; //pour le moment le temps que je debug...
         }
     }
 
@@ -25,8 +28,12 @@ class MysqlStatement
     }
 
     public function close() {
-        return $this->stmt->close();
-    }
+        if($this->stmt instanceof PDOStatement) {
+            return $this->stmt->closeCursor();
+        } else {
+            return $this->stmt->close();
+        }
+}
     
 
     public function getStmt() {
