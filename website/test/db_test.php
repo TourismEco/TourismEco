@@ -8,38 +8,24 @@
     
     <body>
         <?php
-        require_once "../Mysql.php";
-        require_once "../MysqlStatement.php";
+        require_once "../functions.php";
 
-        //A VOIR PLUS TARD
-        $conn = Mysql::getDB();
-        /*
-        $query = "SELECT * FROM Pays WHERE emoji = ? AND id_continent= ?";
-        $stmnt = new MysqlStatement($conn->prepare($query));
-        $stmnt->bindParam("si", $condition1, $condition2);
-        $condition1 = "??";
-        $condition2 = 2;
-        $stmnt->execute();
-        $stmnt->bindResult($col1, $col2, $col3);
-        $conn = new mysqli("localhost", "root", "root", "projet");
-        $query = "SELECT * FROM Pays WHERE emoji = ? AND id_continent= ?";
-        $stmnt = $conn->prepare($query);
-        $stmnt->execute(["??", 2]);
-        */
-        
-        $conn = Mysql::getDB();
-        $query = "SELECT * FROM Pays WHERE emoji = ? AND id_continent= ?";
-        $stmnt = $conn->prepare($query);
-        $stmnt->execute(["??", 2]);
+        $conn = getDB();
+        $query = "SELECT * FROM Pays WHERE emoji = :emoji AND id_continent= :id_continent";
+        $stmt = $conn->prepare($query);
+        $emoji = "??";
+        $continent = 2;
+        $stmt->bindParam(":emoji", $emoji, PDO::PARAM_STR);
+        $stmt->bindParam(":id_continent", $continent, PDO::PARAM_INT);
+        $stmt->execute();
 
-        while ($row = $stmnt->fetch()){
+        while ($row = $stmt->fetch()){
             print_r($row);
             echo "<br><br>";
-            var_dump($row);
         }
-        $stmnt->close();
 
-        $conn->close();
+        $stmt->closeCursor();
+        $conn = null;
     ?>
     </body>
 </html>
