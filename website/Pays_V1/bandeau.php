@@ -12,175 +12,98 @@
     background-color: #f2f2f2;
   }
 </style>
+
 <body>
     <header>
         <div id="bandeau-container">
             <img class="img" src="images/paris4.jpg" alt="Bandeau">
 
             <?php
-                // Connexion à la base de données en utilisant la fonction getBD() du fichier bd.php
-               
+                // Connexion à la base de données en utilisant la fonction getDB() du fichier functions.php
+               require_once "../functions.php";
 
-                $conn = new PDO('mysql:host=localhost;dbname=ecotourisme;charset=utf8','root', '');
+                $conn = getDB();
+
+                $query = "SELECT * FROM pays WHERE id = :id_pays";
+                $id_pays = "FR";
+                $sth = $conn->prepare($query);
+                $sth->bindParam(":id_pays", $id_pays, PDO::PARAM_STR);
+                $sth->execute();
+
+                $ligne = $sth->fetch();
+                echo <<<HTML
+                    <div class= one>
+                    <h1>$ligne[nom]</h1>
+                    </div>
+                    <div class= logo>
+                        <img src='../assets/twemoji/$ligne[emojiSVG].svg'>
+                    </div>
+HTML;
                 
-            
-    
-                if ($conn) {
-                    $mysql = "SELECT * FROM pays WHERE id = 'FR'";
-                    $result = $conn->query($mysql);
+                $query = "SELECT * FROM villes WHERE id_pays = :id_pays and capitale = :is_capitale";
+                $sth = $conn->prepare($query);
+                $is_capitale = 1;
+                $sth->bindParam(":id_pays", $id_pays, PDO::PARAM_STR);
+                $sth->bindParam(":is_capitale", $is_capitale, PDO::PARAM_INT);
+                $sth->execute();
 
-                    if ($result) {
-                        $ligne = $result->fetch();
+                $ligne = $sth->fetch();
+                echo <<<HTML
+                        <div class= 'capital'>
+                            <p >Capital : $ligne[nom]</p>
+                        </div>
+HTML;
+                
+                $query = "SELECT * FROM pib WHERE id_pays = :id_pays and annee = :annee";
+                $sth = $conn->prepare($query);
+                $annee = 2021;
+                $sth->bindParam(":id_pays", $id_pays, PDO::PARAM_STR);
+                $sth->bindParam(":annee", $annee, PDO::PARAM_INT);
+                $sth->execute();
 
-                        if ($ligne) {
-                            echo "<div class= one>";
-                            echo "<h1 >" . $ligne["nom"] . "</h1>";
-                            echo "</div>";
-                        } else {
-                            echo "Aucun article trouvé.";
-                        }
+                $ligne = $sth->fetch();
+                echo <<<HTML
+                    <p class='two'>PIB : $ligne[pib]</p>
+HTML;
+                                
+                    $query = "SELECT * FROM ecologie WHERE id_pays = :id_pays and annee = :annee";
+                    $sth = $conn->prepare($query);
+                    $annee = 2020;
+                    $sth->bindParam(":id_pays", $id_pays, PDO::PARAM_STR);
+                    $sth->bindParam(":annee", $annee, PDO::PARAM_INT);
+                    $sth->execute();
 
-                        // Fermer la résultat de la requête
-                        $result->closeCursor();
-                    } else {
-                        echo "Erreur dans la requête SQL.";
+                    while ($ligne = $sth->fetch()) {
+                        echo <<<HTML
+                        <p class='three'>CO2 : $ligne[co2]</p>
+HTML;
                     }
-                }
-                if ($conn) {
-                    $mysql = "SELECT * FROM pays WHERE id = 'FR'";
-                    $result = $conn->query($mysql);
-
-                    if ($result) {
-                        $ligne = $result->fetch();
-
-                        if ($ligne) {
-                            echo "<div class= logo>";
-                            echo "<img src='assets/twemoji/".$ligne["emojiSVG"].".svg'>";
-                            echo "</div>";
-                        } else {
-                            echo "Aucun article trouvé.";
-                        }
-
-                        // Fermer la résultat de la requête
-                        $result->closeCursor();
-                    } else {
-                        echo "Erreur dans la requête SQL.";
+                
+                    $query = "SELECT * FROM pib WHERE id_pays = :id_pays and annee = :annee";
+                    $sth = $conn->prepare($query);
+                    $annee = 2021;
+                    $sth->bindParam(":id_pays", $id_pays, PDO::PARAM_STR);
+                    $sth->bindParam(":annee", $annee, PDO::PARAM_INT);
+                    $sth->execute();
+                    while ($ligne = $sth->fetch()) {
+                        echo <<<HTML
+                        <p class='four'>PIB : $ligne[pibParHab]</p>
+HTML;
                     }
-                }
-                if ($conn) {
-                    $mysql = "SELECT * FROM villes WHERE id_pays = 'FR' and capitale=1";
-                    $result = $conn->query($mysql);
 
-                    if ($result) {
-                        $ligne = $result->fetch();
+                    $query = "SELECT * FROM gpi WHERE id_pays = :id_pays and annee = :annee";
+                    $sth = $conn->prepare($query);
+                    $annee = 2023;
+                    $sth->bindParam(":id_pays", $id_pays, PDO::PARAM_STR);
+                    $sth->bindParam(":annee", $annee, PDO::PARAM_INT);
+                    $sth->execute();
 
-                        if ($ligne) {
-                            echo "<div class= 'capital'>";
-                            echo "<p >" ."Capital : ". $ligne["nom"] . "</p>";
-                            echo "</div>";
-                        } else {
-                            echo "Aucun article trouvé.";
-                        }
-
-                        // Fermer la résultat de la requête
-                        $result->closeCursor();
-                    } else {
-                        echo "Erreur dans la requête SQL.";
+                    while ($ligne = $sth->fetch()) {
+                        echo <<<HTML
+                          <p class='five'>GPI: $ligne[gpi]</p>
+HTML;
                     }
-                }
-                if ($conn) {
-                    $mysql = "SELECT * FROM pib WHERE id_pays = 'FR' and annee = 2021";
-                    $result = $conn->query($mysql);
-
-                    if ($result) {
-                        $ligne = $result->fetch();
-
-                        if ($ligne) {
-                            while ($ligne) {
-                                echo "<p class='two'>" ."PIB : ". $ligne["pib"] . "</p>";
-                                $ligne = $result->fetch();
-                            }
-
-                        } else {
-                            echo "Aucun article trouvé.";
-                        }
-
-                        // Fermer la résultat de la requête
-                        $result->closeCursor();
-                    } else {
-                        echo "Erreur dans la requête SQL.";
-                    }
-                }
-                if ($conn) {
-                    $mysql = "SELECT * FROM ecologie WHERE id_pays = 'FR' and annee = 2020";
-                    $result = $conn->query($mysql);
-
-                    if ($result) {
-                        $ligne = $result->fetch();
-
-                        if ($ligne) {
-                            while ($ligne) {
-                                echo "<p class='tree'>" ."CO2 : ". $ligne["co2"] . "</p>";
-                                $ligne = $result->fetch();
-                            }
-
-                        } else {
-                            echo "Aucun article trouvé.";
-                        }
-
-                        // Fermer la résultat de la requête
-                        $result->closeCursor();
-                    } else {
-                        echo "Erreur dans la requête SQL.";
-                    }
-                } 
-                if ($conn) {
-                    $mysql = "SELECT * FROM pib WHERE id_pays = 'FR' and annee = 2021";
-                    $result = $conn->query($mysql);
-
-                    if ($result) {
-                        $ligne = $result->fetch();
-
-                        if ($ligne) {
-                            while ($ligne) {
-                                echo "<p class='four'>" ."PIB : ". $ligne["pibParHab"] . "</p>";
-                                $ligne = $result->fetch();
-                            }
-
-                        } else {
-                            echo "Aucun article trouvé.";
-                        }
-
-                        // Fermer la résultat de la requête
-                        $result->closeCursor();
-                    } else {
-                        echo "Erreur dans la requête SQL.";
-                    }
-                }
-                if ($conn) {
-                    $mysql = "SELECT * FROM gpi WHERE id_pays = 'FR' and annee = 2023";
-                    $result = $conn->query($mysql);
-
-                    if ($result) {
-                        $ligne = $result->fetch();
-
-                        if ($ligne) {
-                            while ($ligne) {
-                                echo "<p class='five'>" ." GPI: ". $ligne["gpi"] . "</p>";
-                                $ligne = $result->fetch();
-                            }
-
-                        } else {
-                            echo "Aucun article trouvé.";
-                        }
-
-                        // Fermer la résultat de la requête
-                        $result->closeCursor();
-                    } else {
-                        echo "Erreur dans la requête SQL.";
-                    }
-                }
-            ?>        
+            ?>
         </div>
     </header>
     <main>
