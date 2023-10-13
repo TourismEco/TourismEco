@@ -8,10 +8,24 @@
     
     <body>
         <?php
-        require "../getDB.php";
+        require_once "../functions.php";
+
         $conn = getDB();
-        $query = "SELECT * FROM PAYS";
-        $result = $conn->query($query);
-        print_r($result) ?>
+        $query = "SELECT * FROM Pays WHERE emoji = :emoji AND id_continent= :id_continent";
+        $stmt = $conn->prepare($query);
+        $emoji = "??";
+        $continent = 2;
+        $stmt->bindParam(":emoji", $emoji, PDO::PARAM_STR);
+        $stmt->bindParam(":id_continent", $continent, PDO::PARAM_INT);
+        $stmt->execute();
+
+        while ($row = $stmt->fetch()){
+            print_r($row);
+            echo "<br><br>";
+        }
+
+        $stmt->closeCursor();
+        $conn = null;
+    ?>
     </body>
 </html>
