@@ -1,23 +1,43 @@
 <!-- Styles -->
 <?php
-require("../getDB.php");
+require("../functions.php");
 $cur = getDB();
 
-$result = $cur->query("SELECT * FROM villes WHERE id_pays = 'FR'");
+$query = "SELECT * FROM villes WHERE id_pays = :id_pays";
+$id_pays = "CA";
+$sth = $cur -> prepare($query);
+$sth -> bindParam(":id_pays", $id_pays, PDO::PARAM_STR);
+$sth -> execute();
 
-$data = array();
-while ($rs = $result->fetch_assoc()) {
-    $data[] = "{id:".$rs['id'] .",
-                title:'".$rs['nom']."',
-                geometry:{type:'Point', coordinates:[".$rs['lon'] .",".$rs['lat'] ."]}}";
+$cities = array();
+$capitals = array();
+while ($rs = $sth->fetch()) {
+    if (!$rs["capitale"]) {
+        $cities[] = <<<END
+            {id:{$rs['id']},
+                title:'{$rs['nom']}',
+                geometry:{type:'Point', coordinates:[{$rs['lon']},{$rs['lat']}]},
+            }
+        END;
+    } else {
+        $capitals[] = <<<END
+            {id:{$rs['id']},
+                title:'{$rs['nom']}',
+                geometry:{type:'Point', coordinates:[{$rs['lon']},{$rs['lat']}]},
+            }
+        END;
+    }
+    
 }
 
-$data = implode(",", $data);
+$cities = implode(",", $cities);
+$capitals = implode(",", $capitals);
+
 ?>
 
 <!-- Styles -->
 <style>
-    #chartdiv {
+    #map {
         width: 100%;
         height: 95%;
         background-color: #354F52;
@@ -38,7 +58,7 @@ $data = implode(",", $data);
     am5.ready(function() {
         
         // Set up
-        var root = am5.Root.new("chartdiv");
+        var root = am5.Root.new("map");
 
         root.setThemes([
             am5themes_Animated.new(root)
@@ -66,7 +86,40 @@ $data = implode(",", $data);
             visible: false,
             fill:am5.color("#84A98C")
         }));
-        
+
+        var html = 
+            `<div style="display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                grid-template-rows: repeat(1,100px);
+                width: 240px;
+                height: 80px;
+                justify-content: center;
+                align-items: center;
+                word-break: break-word;
+                text-align: center;
+                font-family: Arial, Helvetica, sans-serif;">
+                <img style="grid-column: 1 / 3;
+                    grid-row: 1;
+                    width: 240px;
+                    height: 80px;
+                    object-fit: cover;" 
+                    src='../paris4.jpg' alt='Bandeau'>
+
+                <div style="grid-column: 2;
+                    grid-row: 1;
+                    justify-content: center;">
+                        <h1 style="font-size: 20px;
+                        color: black;  ">{name}</h1>
+                </div>
+
+                <div style="grid-column: 1;
+                    grid-row: 1;
+                    width: 100%;">
+                    <img style="width: 70px;
+                        height: 70px;" src='../assets/twemoji/{id}.svg'>
+                </div>
+            </div>
+            `
 
         var previousPolygon;
         function setActionsSeries(serie) {
@@ -74,7 +127,10 @@ $data = implode(",", $data);
             serie.mapPolygons.template.setAll({
                 tooltipText: "{name}",
                 toggleKey: "active",
-                interactive: true
+                interactive: true,
+                tooltip: am5.Tooltip.new(root, {
+                    labelHTML: html,
+                }),
             });
             
             serie.mapPolygons.template.states.create("hover", {
@@ -83,6 +139,8 @@ $data = implode(",", $data);
 
             serie.mapPolygons.template.events.on("click", function (ev) {
                 serie.zoomToDataItem(ev.target.dataItem);
+                console.log(serie)
+                console.log(ev.target)
             });
 
             serie.mapPolygons.template.states.create("active", {
@@ -103,7 +161,6 @@ $data = implode(",", $data);
 
         setActionsSeries(countrySeries)
         setActionsSeries(continentSeries)
-
     
         // Home
         var homeButton = chart.children.push(am5.Button.new(root, {
@@ -210,17 +267,40 @@ $data = implode(",", $data);
             });
         });
 
-        var data = [<?= $data;?>];
+        // Capitales
+        var capitalSeries = chart.series.push(
+            am5map.MapPointSeries.new(root, {})
+        );
 
-        citySeries.data.setAll(data);
+        // visible city circles
+        capitalSeries.bullets.push(function() {
+            var circle = am5.Circle.new(root, {
+                radius: 6,
+                tooltipText: "{title}",
+                tooltipY: 0,
+                fill: am5.color(0xb8602e),
+                stroke: root.interfaceColors.get("background"),
+                strokeWidth: 2
+            });
+
+            return am5.Bullet.new(root, {
+                sprite: circle
+            });
+        });
+
+        var cities = [<?= $cities;?>];
+        var capitals = [<?= $capitals;?>];
+
+        citySeries.data.setAll(cities);
+        capitalSeries.data.setAll(capitals);
 
         createButton("Monde", switchToContinent);
         createButton("Continents", switchToContinent);
         createButton("Pays", switchToCountries);
-    
+        
     }); // end am5.ready()
 
 </script>
     
     <!-- HTML -->
-<div id="chartdiv"></div>
+<div id="map"></div>
