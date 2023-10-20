@@ -37,7 +37,7 @@ $capitals = implode(",", $capitals);
 
 <!-- Styles -->
 <style>
-    #chartdiv {
+    #map {
         width: 100%;
         height: 95%;
         background-color: #354F52;
@@ -121,8 +121,6 @@ $capitals = implode(",", $capitals);
             </div>
             `
 
-        
-
         var previousPolygon;
         function setActionsSeries(serie) {
 
@@ -141,6 +139,8 @@ $capitals = implode(",", $capitals);
 
             serie.mapPolygons.template.events.on("click", function (ev) {
                 serie.zoomToDataItem(ev.target.dataItem);
+                console.log(serie)
+                console.log(ev.target)
             });
 
             serie.mapPolygons.template.states.create("active", {
@@ -161,7 +161,6 @@ $capitals = implode(",", $capitals);
 
         setActionsSeries(countrySeries)
         setActionsSeries(continentSeries)
-
     
         // Home
         var homeButton = chart.children.push(am5.Button.new(root, {
@@ -298,7 +297,7 @@ $capitals = implode(",", $capitals);
         createButton("Monde", switchToContinent);
         createButton("Continents", switchToContinent);
         createButton("Pays", switchToCountries);
-    
+        
     }); // end am5.ready()
 
 </script>
