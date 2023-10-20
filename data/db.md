@@ -1,26 +1,20 @@
 # La base de données
-Version actuelle : 2.0
+Version actuelle : 3.0
 
-Dernière mise à jour : 03/10/23
+Dernière mise à jour : 20/10/23
 ## Sommaire
 ### Tables principales
 - [`pays`](https://github.com/L3S518-LLHAR-kek/projet_L3/blob/main/data/db.md#pays) : table centrale, contient des informations sur les pays de nos tables
 - [`villes`](https://github.com/L3S518-LLHAR-kek/projet_L3/blob/main/data/db.md#villes) : liste de villes, avec leur population
 - [`guerre`](https://github.com/L3S518-LLHAR-kek/projet_L3/blob/main/data/db.md#guerre) : liste d'état de guerre qu'un pays peut avoir
+- [`continents`](https://github.com/L3S518-LLHAR-kek/projet_L3/blob/main/data/db.md#continents) : liste des continents qu'un pays peut appartenir
 - [`checking`](https://github.com/L3S518-LLHAR-kek/projet_L3/blob/main/data/db.md#checking) : table de vérité affichant la présence ou non des pays dans les différentes tables
 
 ### Tables de stats
-- Tourisme
-  - [`arrivees`](https://github.com/L3S518-LLHAR-kek/projet_L3/blob/main/data/db.md#arrivees) : statistiques d'arrivées touristique dans chaque pays, en milliers
-  - [`departs`](https://github.com/L3S518-LLHAR-kek/projet_L3/blob/main/data/db.md#departs) : statistiques de départs touristiques dans chaque pays, en milliers
-  - [`argent`](https://github.com/L3S518-LLHAR-kek/projet_L3/blob/main/data/db.md#argent) : statistiques sur l'argent généré par le tourisme entrant et sortant
-  - [`emploi`](https://github.com/L3S518-LLHAR-kek/projet_L3/blob/main/data/db.md#emploi) : statistiques des emplois liant le tourisme dans chaque pays
-- Économie
-  - [`cpi`](https://github.com/L3S518-LLHAR-kek/projet_L3/blob/main/data/db.md#cpi) : statistiques sur le Consumer Price Index, prix global de la vie dans un pays
-  - [`pib`](https://github.com/L3S518-LLHAR-kek/projet_L3/blob/main/data/db.md#pib) : statistiques sur le Produit Interieur Brut de chaque pays
-- Autre
-  - [`gpi`](https://github.com/L3S518-LLHAR-kek/projet_L3/blob/main/data/db.md#gpi) : statistiques sur le Global Peace Index, calculant la sureté d'un pays
-  - [`ecologie`](https://github.com/L3S518-LLHAR-kek/projet_L3/blob/main/data/db.md#ecologie) : statistiques liées à l'écologie
+- [`tourisme`](https://github.com/L3S518-LLHAR-kek/projet_L3/blob/main/data/db.md#tourisme) : statistiques liées au tourisme
+- [`economie`](https://github.com/L3S518-LLHAR-kek/projet_L3/blob/main/data/db.md#economie) : statistiques liées à l'économie
+- [`ecologie`](https://github.com/L3S518-LLHAR-kek/projet_L3/blob/main/data/db.md#ecologie) : statistiques liées à l'écologie
+- [`surete`](https://github.com/L3S518-LLHAR-kek/projet_L3/blob/main/data/db.md#surete) : statistiques sur le Global Peace Index, calculant la sureté d'un pays  
 
 
 ## Schémas
@@ -61,7 +55,7 @@ Deux pays n'ont aucune villes référencées : Macao et Territoires palestiniens
 |population|INT|Nombre d'habitant dans la ville|
 
 Source :
-- ?
+- https://simplemaps.com/data/world-cities
 
 ### `guerre`
 Décrit les statuts de guerre possibles.
@@ -81,8 +75,16 @@ Statuts possibles :
 Sources : 
 - https://wisevoter.com/country-rankings/countries-currently-at-war/
 
-### `arrivees`
-Statistiques d'arrivées touristique.
+### `continents`
+Décrit les statuts de guerre possibles.
+
+|Champ|Type|Description|
+|--|--|--|
+|*id*|INT|Clé primaire, id numérique de la ligne|
+|nom|VARCHAR|Nom du continent|
+
+### `tourisme`
+Statistiques sur le tourisme de chaque pays.
 
 |Champ|Type|Description|
 |--|--|--|
@@ -102,52 +104,16 @@ Statistiques d'arrivées touristique.
 |arriveesAvion|INT|Nombre d'arrivées dans le pays **_par voie aérienne_** sur l'année, en milliers|
 |arriveesEau|INT|Nombre d'arrivées dans le pays **_par voie maritime_** sur l'année, en milliers|
 |arriveesTerre|INT|Nombre d'arrivées dans le pays **_par voie terrestre_** sur l'année, en milliers|
-
-Sources :
-- https://www.unwto.org/tourism-statistics/key-tourism-statistics
-
-### `departs`
-Statistiques de départs touristique.
-
-|Champ|Type|Description|
-|--|--|--|
-|*id*|INT|Clé primaire, id numérique de la ligne.|
-|id_pays|VARCHAR|Clé étrangère, code du pays concerné par la ligne|
-|annee|INT|Date des données|
 |departs|INT|Nombre total de départs depuis le pays sur l'année, en milliers|
-
-Sources :
-- https://www.unwto.org/tourism-statistics/key-tourism-statistics
-
-### `argent`
-Statistiques sur l'argent rapporté ou dépensé dans le tourisme.
-
-|Champ|Type|Description|
-|--|--|--|
-|*id*|INT|Clé primaire, id numérique de la ligne.|
-|id_pays|VARCHAR|Clé étrangère, code du pays concerné par la ligne|
-|annee|INT|Date des données|
 |depenses|INT|Argent dépensé lors des voyages de personnes parties du pays, en millions de US$|
 |recettes|INT|Argent récolté lors des voyages de personnes venant dans le pays, en millions de US$|
+|emploi|INT|Nombre d'emploi généré par le tourisme|
 
 Sources :
 - https://www.unwto.org/tourism-statistics/key-tourism-statistics
 
-### `emploi`
-Statistiques sur l'emploi générés par le tourisme.
-
-|Champ|Type|Description|
-|--|--|--|
-|*id*|INT|Clé primaire, id numérique de la ligne.|
-|id_pays|VARCHAR|Clé étrangère, code du pays concerné par la ligne|
-|annee|INT|Date des données|
-|departs|INT|Nombre d'emploi généré par le tourisme|
-
-Sources :
-- https://www.unwto.org/tourism-statistics/key-tourism-statistics
-
-### `cpi`
-Prix de la vie dans chaque pays.
+### `economie`
+Statistiques économique de chaque pays. 
 
 |Champ|Type|Description|
 |--|--|--|
@@ -155,25 +121,15 @@ Prix de la vie dans chaque pays.
 |id_pays|VARCHAR|Clé étrangère, code du pays concerné par la ligne|
 |annee|INT|Date des données|
 |cpi|INT|Indice des prix de consommation, en US$|
-
-Sources :
-- https://data.un.org/Default.aspx
-
-### `pib`
-Produit Intérieur Brut de chaque pays.
-|Champ|Type|Description|
-|--|--|--|
-|*id*|INT|Clé primaire, id numérique de la ligne.|
-|id_pays|VARCHAR|Clé étrangère, code du pays concerné par la ligne|
-|annee|INT|Date des données|
 |pib|BIGINT|Produit intérieur brut en US$|
 |pibParHab|BIGINT|Produit intérieur brut par habitant en US$|
 
 Sources :
+- https://data.un.org/Default.aspx
 - https://databank.worldbank.org/reports.aspx?source=2&series=NY.GDP.MKTP.CD&country#
 - https://datacatalog.worldbank.org/search/dataset/0037712/World-Development-Indicators
 
-### `gpi`
+### `surete`
 Indice de paix (et de sûreté) de chaque pays
 |Champ|Type|Description|
 |--|--|--|
