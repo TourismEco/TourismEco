@@ -1,3 +1,11 @@
+<style>
+  #chartdiv {
+    /*width: 100%;
+    height: 100%;
+    background-color: #f2f2f2;*/
+  }
+  </style>
+
 <?php
 // Votre connexion MySQLi
 $servername = "127.0.0.1";
@@ -13,7 +21,7 @@ if ($conn->connect_error) {
 }
 
 $query = "
-SELECT annee,emplois/4 as emplois FROM `emploi` Where id_pays='FR' AND emplois is not null;";
+SELECT annee,pib/1000000 as pib FROM pib Where id_pays ='FR';";
 
 $result = $conn->query($query);
 
@@ -21,7 +29,7 @@ $report_data = array();
 while ($rs = $result->fetch_assoc()) {
     $report_data[] = array(
         "year" => $rs['annee'], // Renommez "country" en "year"
-        "value" => $rs['emplois']
+        "value" => $rs['pib']
     );
 }
 
@@ -56,13 +64,27 @@ root.setThemes([
   am5themes_Animated.new(root)
 ]);
 
+var gradient = am5.LinearGradient.new(root, {
+  stops: [{
+    color: am5.color(0x2F3E46)
+  }, {
+    color: am5.color(0x2F3E46)
+  }, {
+    color: am5.color(0x2F3E46)
+  }]
+});
+
 
 // Create chart
 // https://www.amcharts.com/docs/v5/charts/xy-chart/
 var chart = root.container.children.push(am5xy.XYChart.new(root, {
   wheelX: "panX",
   wheelY: "zoomX",
-  pinchZoomX: true
+  pinchZoomX: true,
+  layout: root.verticalLayout,
+  background: am5.Rectangle.new(root, {
+    fillGradient: gradient
+  })
 }));
 
 
@@ -83,13 +105,30 @@ var xAxis = chart.xAxes.push(am5xy.CategoryAxis.new(root, {
   tooltip: am5.Tooltip.new(root, {})
 }));
 
+
+var xRenderer = xAxis.get("renderer");
+
+xRenderer.labels.template.setAll({
+  fill: am5.color(0xFBFBFD),
+  fillOpacity: 0.7
+});
+xRenderer.grid.template.set("forceHidden", true);
+
 var yAxis = chart.yAxes.push(am5xy.ValueAxis.new(root, {
   renderer: am5xy.AxisRendererY.new(root, {
     pan: "zoom"
   }),
   min: 0, // Définissez la valeur minimale de l'axe Y
-  max: 500000, // Définissez la valeur maximale de l'axe Y
+  max: 3850000, // Définissez la valeur maximale de l'axe Y
 }));
+
+var yRenderer = yAxis.get("renderer");
+
+yRenderer.labels.template.setAll({
+  fill: am5.color(0xFBFBFD),
+  fillOpacity: 0.7
+});
+
 
 // Add series
 // https://www.amcharts.com/docs/v5/charts/xy-chart/series/
@@ -101,8 +140,10 @@ var series = chart.series.push(am5xy.LineSeries.new(root, {
   categoryXField: "year", // Utilisez "year" comme le champ de catégorie
   tooltip: am5.Tooltip.new(root, {
     labelText: "{valueY}"
-  })
+  }),
+  stroke: am5.color("#BB5C00") 
 }));
+
 
 series.bullets.push(function() {
   var graphics = am5.Circle.new(root, {
@@ -110,7 +151,7 @@ series.bullets.push(function() {
     interactive: true,
     cursorOverStyle: "ns-resize",
     stroke: series.get("stroke"),
-    fill: am5.color(0xffffff)
+    fill: am5.color(0xBB5C00)
   });
 
   return am5.Bullet.new(root, {
@@ -123,6 +164,8 @@ series.bullets.push(function() {
 chart.set("scrollbarX", am5.Scrollbar.new(root, {
   orientation: "horizontal"
 }));
+
+chart.set("scrollbarY", am5.Scrollbar.new(root, { orientation: "vertical" }));
 
 
 // Définir les données
