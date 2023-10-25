@@ -41,18 +41,27 @@ var html =
         `
 
 function switchToCountries(){
+    /* 
+    Fonction qui passe de la vue continent à la vue pays
+    */
     continentSeries.hide();
     countrySeries.show();
     chart.goHome();
 }
 
 function switchToContinent(){
+    /* 
+    Fonction qui passe de la vue pays à la vue continent
+    */
     countrySeries.hide();
     continentSeries.show();
     chart.goHome();
 }
 
 function setActionsSeries(serie,compare=false) {
+    /* 
+    Fonction détermine les actions au clic et au survol des séries. Comportement spécial si la carte est celle des comparaisons, automatiquement FALSE 
+    */
 
     serie.mapPolygons.template.setAll({
         tooltipText: "{name}",
@@ -67,11 +76,10 @@ function setActionsSeries(serie,compare=false) {
         fill: am5.color("#CAD2C5"),
     });
 
-    
-
     serie.mapPolygons.template.states.create("active", {
         fill: am5.color("#52796F")
     });
+
 
     if (compare) {
         serie.mapPolygons.template.on("active", function(active, target) {
@@ -110,7 +118,9 @@ function setActionsSeries(serie,compare=false) {
 }
 
 function createButton(text, fun) {
-
+    /* 
+    Fonction qui crée un bouton, avec un texte et une fonction qui sera appliquée
+    */
     var button = buttons.children.push(am5.Button.new(root, {
         paddingTop: 0,
         paddingRight: 0,
@@ -138,7 +148,11 @@ function createButton(text, fun) {
 }  
 
 function createMap(fun=null,args=[]) {
-     // Set up
+    /* 
+    Création de la carte. Si fun est spécifié, une fonction sera executée une fois que toute la carte et les données sont initialisés, pour la modifier. Pour passer des données à fun, il faut spécifier args (array)
+    */
+    
+
     root = am5.Root.new("map");
 
     root.setThemes([
@@ -227,6 +241,9 @@ function createMap(fun=null,args=[]) {
 }
 
 function addBullets(radius,color, data) {
+    /* 
+    Ajout des points
+    */
 
     serie = chart.series.push(
         am5map.MapPointSeries.new(root, {})
@@ -253,6 +270,9 @@ function addBullets(radius,color, data) {
 }  
 
 function addCountry(idpays,cities,capitals) {
+    /* 
+    Fait le focus sur un pays et ajoute ses villes
+    */
 
     console.log(idpays, cities, capitals)
 
@@ -265,7 +285,6 @@ function addCountry(idpays,cities,capitals) {
     console.log(elem)
     countrySeries.zoomToDataItem(elem);
     elem._settings.mapPolygon.set("active",true)
-
 }
 
 
@@ -274,14 +293,12 @@ var poly2
 function compare(pays1,pays2) {
     buttons.removeAll()
     switchToCountries()
-    // actionsCompare(countrySeries)
 
     poly1 = countrySeries.getDataItemById(pays1)
     poly2 = countrySeries.getDataItemById(pays2)
 
     poly1._settings.mapPolygon.set("active",true)
     poly2._settings.mapPolygon.set("active",true)
-    
 }
 
 function changeComp1() {
