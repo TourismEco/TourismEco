@@ -1,5 +1,5 @@
 import pandas as pd
-from generic import readCSV 
+from generic import readCSV, isos2
 from sql import connectSQL
 
 db = "projet"
@@ -241,6 +241,24 @@ def renameEmojis():
         os.rename(f"website/assets/twemoji/{i['emojiSVG']}.svg",f"website/assets/twemoji/{i['id']}.svg")
 
 
+def addPop():
+    csv = readCSV("Population")
+    liste = []
+
+    for i in csv:
+        if i["ISO2_code"] not in isos2 or int(i["Time"]) < 1990 or int(i["Time"]) > 2022:
+            continue
+        liste.append({"id":i["ISO2_code"],"annee":i["Time"],"pop":i["TPopulation1Jan"],"densite":i["PopDensity"]})
+    
+    cnx, cur = connectSQL(db)
+    cur.execute("DROP TABLE IF EXISTS population")
+    cur.execute("CREATE TABLE IF NOT EXISTS population (id INT PRIMARY KEY, id_pays VARCHAR(3), annee INT, population DOUBLE, densite DOUBLE)")
+
+    for i,e in enumerate(liste):
+        cur.execute(f"INSERT INTO population VALUES ({i},'{e['id']}',{e['annee']},{e['pop']},{e['densite']})")
+    
+    cnx.commit()
+
 # addEmojisFile()
 
 #updateRenew()
@@ -249,4 +267,6 @@ def renameEmojis():
 
 # addContinent()
 
-renameEmojis()
+# renameEmojis()
+
+addPop()
