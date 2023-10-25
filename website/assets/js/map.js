@@ -4,6 +4,7 @@ var previousPolygon;
 var chart;
 var root;
 var buttons;
+var incr = 0
 
 var html = 
         `<div style="display: grid;
@@ -51,7 +52,7 @@ function switchToContinent(){
     chart.goHome();
 }
 
-function setActionsSeries(serie) {
+function setActionsSeries(serie,compare=false) {
 
     serie.mapPolygons.template.setAll({
         tooltipText: "{name}",
@@ -66,24 +67,46 @@ function setActionsSeries(serie) {
         fill: am5.color("#CAD2C5"),
     });
 
-    serie.mapPolygons.template.events.on("click", function (ev) {
-        serie.zoomToDataItem(ev.target.dataItem);
-    });
+    
 
     serie.mapPolygons.template.states.create("active", {
         fill: am5.color("#52796F")
     });
 
-    
-    serie.mapPolygons.template.on("active", function(active, target) {
-       target.set("interactive",false)
-       if (previousPolygon && previousPolygon != target) {
-           previousPolygon.set("active", false);  
-           previousPolygon.set("interactive",true)
-       }
-       previousPolygon = target;
-    });
+    if (compare) {
+        serie.mapPolygons.template.on("active", function(active, target) {
+            if (active) {
+                incr++
+                if (incr == 1) {
+                    poly1.set("active", false);  
+                    poly1.set("interactive",true)
+                    poly1 = target
+                    document.getElementById("pays1").value = poly1._dataItem.dataContext.id
+                } else if (incr == 2) {
+                    poly2.set("active", false);  
+                    poly2.set("interactive",true)
+                    poly2 = target
+                    document.getElementById("pays2").value = poly2._dataItem.dataContext.id
+                    incr = 0
+                }
+            }
+        })
+    } else {
+        serie.mapPolygons.template.on("active", function(active, target) {
+            if (active) {
+                target.set("interactive",false)
+                if (previousPolygon && previousPolygon != target) {
+                    previousPolygon.set("active", false);  
+                    previousPolygon.set("interactive",true)
+                }
+                previousPolygon = target;
+            }
+        })
 
+        serie.mapPolygons.template.events.on("click", function (ev) {
+            serie.zoomToDataItem(ev.target.dataItem);
+        });
+    }
 }
 
 function createButton(text, fun) {
@@ -114,7 +137,7 @@ function createButton(text, fun) {
     });
 }  
 
-function createMap(fun=null) {
+function createMap(fun=null,args=[]) {
      // Set up
     root = am5.Root.new("map");
 
@@ -145,7 +168,7 @@ function createMap(fun=null) {
         fill:am5.color("#84A98C")
     }));    
 
-    setActionsSeries(countrySeries)
+    setActionsSeries(countrySeries, compare=(fun==compare))
     setActionsSeries(continentSeries)
 
     // Home
@@ -242,7 +265,33 @@ function addCountry(idpays,cities,capitals) {
     console.log(elem)
     countrySeries.zoomToDataItem(elem);
     elem._settings.mapPolygon.set("active",true)
-    previousPolygon = elem._settings.mapPolygon
 
 }
-       
+
+
+var poly1
+var poly2
+function compare(pays1,pays2) {
+    buttons.removeAll()
+    switchToCountries()
+    // actionsCompare(countrySeries)
+
+    poly1 = countrySeries.getDataItemById(pays1)
+    poly2 = countrySeries.getDataItemById(pays2)
+
+    poly1._settings.mapPolygon.set("active",true)
+    poly2._settings.mapPolygon.set("active",true)
+    
+}
+
+function changeComp1() {
+    incr = 0
+    p1 = countrySeries.getDataItemById(document.getElementById("pays1").value)
+    p1._settings.mapPolygon.set("active",true)
+}
+
+function changeComp2() {
+    incr = 1
+    p2 = countrySeries.getDataItemById(document.getElementById("pays2").value)
+    p2._settings.mapPolygon.set("active",true)
+}
