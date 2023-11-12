@@ -176,7 +176,6 @@ def checking():
     pays = ["AD","AE","AF","AG","AI","AL","AM","AO","AQ","AR","AS","AT","AU","AW","AX","AZ","BA","BB","BD","BE","BF","BG","BH","BI","BJ","BL","BM","BN","BO","BQ","BR","BS","BT","BV","BW","BY","BZ","CA","CC","CD","CF","CG","CH","CI","CK","CL","CM","CN","CO","CR","CU","CV","CW","CX","CY","CZ","DE","DJ","DK","DM","DO","DZ","EC","EE","EG","EH","ER","ES","ET","FI","FJ","FK","FM","FO","FR","GA","GB","GD","GE","GF","GG","GH","GI","GL","GM","GN","GP","GQ","GR","GS","GT","GU","GW","GY","HK","HM","HN","HR","HT","HU","ID","IE","IL","IM","IN","IO","IQ","IR","IS","IT","JE","JM","JO","JP","KE","KG","KH","KI","KM","KN","KP","KR","KW","KY","KZ","LA","LB","LC","LI","LK","LR","LS","LT","LU","LV","LY","MA","MC","MD","ME","MF","MG","MH","MK","ML","MM","MN","MO","MP","MQ","MR","MS","MT","MU","MV","MW","MX","MY","MZ","NA","NC","NE","NF","NG","NI","NL","NO","NP","NR","NU","NZ","OM","PA","PE","PF","PG","PH","PK","PL","PM","PN","PR","PS","PT","PW","PY","QA","RE","RO","RS","RU","RW","SA","SB","SC","SD","SE","SG","SH","SI","SJ","SK","SL","SM","SN","SO","SR","SS","ST","SV","SX","SY","SZ","TC","TD","TF","TG","TH","TJ","TK","TL","TM","TN","TO","TR","TT","TV","TW","TZ","UA","UG","UM","US","UY","UZ","VA","VC","VE","VG","VI","VN","VU","WF","WS","YE","YT","ZA","ZM","ZW"] # pays listés sur AMCharts
 
     liste = []
-    print(len(pays))
     for i in pays:
         a = {"Code":i}
         
@@ -185,16 +184,16 @@ def checking():
         else:
             a["pays"] = False
 
-        for j in ["arrivees","cpi","ecologie","gpi","pib","villes"]:
+        for j in ["tourisme","economie","ecologie","surete","villes"]:
             if cur.execute(f"SELECT DISTINCT id_pays FROM {j} WHERE id_pays = '{i}'").fetchone() != None:
                 a[j] = True
             else:
                 a[j] = False
         liste.append(a.copy())
     
-    cur.execute("CREATE TABLE IF NOT EXISTS checking (id VARCHAR(3) PRIMARY KEY, pays BOOLEAN, arrivees BOOLEAN, cpi BOOLEAN, ecologie BOOLEAN, gpi BOOLEAN, pib BOOLEAN, villes BOOLEAN)")
+    cur.execute("CREATE TABLE IF NOT EXISTS checking (id VARCHAR(3) PRIMARY KEY, pays BOOLEAN, tourisme BOOLEAN, economie BOOLEAN, ecologie BOOLEAN, surete BOOLEAN, villes BOOLEAN)")
     for i in liste:
-        cur.execute(f"INSERT INTO checking VALUES ('{i['Code']}',{i['pays']},{i['arrivees']},{i['cpi']},{i['ecologie']},{i['gpi']},{i['pib']},{i['villes']})")
+        cur.execute(f"INSERT INTO checking VALUES ('{i['Code']}',{i['pays']},{i['tourisme']},{i['economie']},{i['ecologie']},{i['surete']},{i['villes']})")
     
     cnx.commit()
 
@@ -202,7 +201,7 @@ def clearTables(liste):
     global db
     cnx, cur = connectSQL(db)
 
-    tables = ["arrivees","departs","cpi","gpi","emploi","argent","ecologie","pib","villes"]
+    tables = ["tourisme","surete","economie","ecologie","villes"]
     for i in liste:
         for j in tables:
             cur.execute(f"DELETE FROM {j} WHERE id_pays = '{i}'")
@@ -233,9 +232,16 @@ def merge(main,liste,rename,remove=False):
 
     cnx.commit()
 
+def checkNULL(table):
+    cnx, cur = connectSQL(db)
+    liste = cur.execute(f"SELECT * FROM ")
+
 if __name__ == "__main__":
     # merge("arrivees",["departs","argent","emploi"],"tourisme")
-    merge("pib",["cpi"],"economie")
+    # merge("pib",["cpi"],"economie")
+    # clearTables(["AI","CK","GF","GP","KN","MQ","MS","NU","PS","RE","TW"])
+    clearTables(["ST","MR"])
+    checking()
     pass
 
 # baseCsv("allData"," Inbound Tourism-Arrivals","test",1341,6,2,5,1995,2021,"Basic data and indicators")

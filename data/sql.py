@@ -1,5 +1,5 @@
 # Implémentation personnalisée des classes curseur et réponses du connecteur MySQL.
-# Tout a été écrit par moi-même pour un projet ultérieur, et réutilisé ici.
+# Tout a été écrit par moi-même pour un projet antérieur, et réutilisé ici.
 # NE RIEN TOUCHER PAR PITIE, JE SAIS OU VOUS HABITEZ!!!!!!!!
 
 import mysql.connector # version 8.0.30
