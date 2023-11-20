@@ -7,27 +7,6 @@ body {
     margin:0px;
 }
 
-h1 {
-    margin-top: 10px;
-}
-
-.container-stats {
-    background-color:#2F3E46;
-}
-
-.container-map {
-    display: flex;
-    justify-content: center;
-    background-color: #354F52;
-    padding: 35px 0;
-}
-
-#map {
-    width: 70%;
-    height: 400px;
-    margin:auto
-}
-
 #bandeau {
     display: flex;
 }
@@ -58,6 +37,12 @@ h1 {
     z-index: -1;
 }
 
+.logo {
+    grid-column: 1/2;
+    grid-row: 1/2;
+    width: 120%;
+}
+
 .infos {
     grid-row: 5;
     text-align: center;
@@ -84,32 +69,3 @@ h1 {
     font-size: 20px;
 }
 
-
-.flex{
-    display: flex;
-    margin:0 100px;
-    padding-bottom:35px;
-}
-
-#t1{
-    margin: 0;
-    text-align: center;
-    padding: 35px;
-}
-.p50{
-    width:40%;
-    line-height: 1.5;
-    margin-right:50px;
-    text-align: justify;
-}
-
-#chartdiv {
-    width: 50%;
-    height: 500px;
-}
-
-#spider {
-    width: 50%;
-    height: 500px;
-    background-color: #354F52;
-}

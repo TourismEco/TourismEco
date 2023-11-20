@@ -141,12 +141,9 @@
         HTML;
 
         $a= array();
+        $pic = array("test1.jpg","berlin.jpeg");
 
         foreach (array($pays1,$pays2) as $key => $id_pays) {
-            echo <<<HTML
-                <div class="bandeau-container">              
-                <img class="img" src="../paris4.jpg" alt="Bandeau">
-            HTML;
             
             $query = "SELECT * FROM pays WHERE id = :id_pays";
             $sth = $cur->prepare($query);
@@ -155,12 +152,10 @@
 
             $ligne = $sth->fetch();
             echo <<<HTML
-                <div class= nom>
-                <h1>$ligne[nom]</h1>
-                </div>
-                <div class= logo>
-                    <img src='../assets/twemoji/$ligne[id].svg'>
-                </div>
+                <div class="bandeau-container">     
+                <img class="img" src='../$pic[$key]' alt="Bandeau">
+                <img class="flag" src='../assets/twemoji/$ligne[id].svg'>
+                <h1 class="nom">$ligne[nom]</h1>
             HTML;
 
             $a[]=$ligne["nom"];
@@ -174,9 +169,7 @@
 
             $ligne = $sth->fetch();
             echo <<<HTML
-                <div class= 'capital'>
-                    <p >Capital : $ligne[nom]</p>
-                </div>
+                <p class="capital">Capitale : $ligne[nom]</p>
             HTML;
 
             $search = array(array("tourisme","arriveesTotal","Arrivées"), array("ecologie","co2","CO2"), array("economie","pibParHab","PIB/Hab"), array("surete","gpi","Indice de sureté"));
@@ -192,7 +185,10 @@
 
                 $ligne = $sth->fetch();
                 echo <<<HTML
-                    <p class='infos'>$text : $ligne[$arg]</p>
+                    <div class='infos'>
+                        <p>$text</p>
+                        <p class="stat">$ligne[$arg]</p>
+                    </div>
                 HTML;
             }
             
