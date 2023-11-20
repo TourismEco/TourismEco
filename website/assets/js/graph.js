@@ -11,7 +11,7 @@ function newSeries(name, value) {
         valueYField: value,
         categoryXField: "year",
         tooltip: am5.Tooltip.new(root2, {
-            labelText:"{name}"+":"+"{valueY}"
+            labelText: "{name} : {valueY}"
         })
     }));
 }
@@ -32,7 +32,7 @@ function customLine(serie) {
     });
 }
 
-function createGraph(data,name1,name2) {
+function createGraph(data, name1, name2) {
     root2 = am5.Root.new("chartdiv");
     // Set themes
     root2.setThemes([
@@ -68,7 +68,6 @@ function createGraph(data,name1,name2) {
         }),
     }));
 
-    // Add series 1
     var series = newSeries(name1,"value")
     var series2 = newSeries(name2,"value2")
 
@@ -90,8 +89,6 @@ function createGraph(data,name1,name2) {
 
     console.log(series)
 
-    // Add scrollbar
-    // https://www.amcharts.com/docs/v5/charts/xy-chart/scrollbars/
     graph.set("scrollbarX", am5.Scrollbar.new(root2, {
         orientation: "horizontal"
     }));
@@ -100,7 +97,6 @@ function createGraph(data,name1,name2) {
     series.data.setAll(data);
     series2.data.setAll(data);
 
-    // Make stuff animate on load
     series.appear(1000);
     series2.appear(1000);
     graph.appear(1000, 100);
