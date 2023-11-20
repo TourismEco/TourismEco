@@ -44,6 +44,7 @@
         }
 
         echo <<<HTML
+            <form method="get">
             <select name="pays1" id="pays1" onchange="changeComp1()">  
         HTML;
 
@@ -84,18 +85,20 @@
             }
 
         echo <<<HTML
-            </select>  
+            </select>
+            <input type="submit" value="maj variable">
+            </form>  
             <div class="container-map">
                 <div id="map"></div>
             </div>
 
             <script>
-                createMap(fun=compare,args=["FR","JP"])
+                createMap(fun=compare,args=['$pays1','$pays2'])
             </script>
 
             <div id="bandeau">
         HTML;
-
+        $a= array();
         foreach (array($pays1,$pays2) as $key => $id_pays) {
             echo <<<HTML
                 <div class="bandeau-container">              
@@ -106,7 +109,7 @@
             $sth = $cur->prepare($query);
             $sth->bindParam(":id_pays", $id_pays, PDO::PARAM_STR);
             $sth->execute();
-
+        
             $ligne = $sth->fetch();
             echo <<<HTML
                 <div class= nom>
@@ -117,6 +120,8 @@
                 </div>
             HTML;
             
+            $a[]=$ligne["nom"];
+
             $query = "SELECT * FROM villes WHERE id_pays = :id_pays and capitale = :is_capitale";
             $sth = $cur->prepare($query);
             $is_capitale = 1;
@@ -174,8 +179,8 @@
                 $query = "
                 SELECT eco1.annee, eco1.co2 as eco1, eco2.co2 as eco2
                 FROM ecologie as eco1, ecologie as eco2
-                WHERE eco1.id_pays = 'FR'
-                AND eco2.id_pays = 'JP'
+                WHERE eco1.id_pays = '$pays1'
+                AND eco2.id_pays = '$pays2'
                 AND eco1.annee = eco2.annee;
                 ";
 
@@ -198,7 +203,7 @@
 
             <script>
                 console.log([<?=$data?>])
-                createGraph([<?=$data?>])
+                createGraph([<?=$data?>],"<?=$a[0]?>","<?=$a[1]?>")
             </script>
         </div>
     </div>

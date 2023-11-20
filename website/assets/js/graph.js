@@ -11,7 +11,7 @@ function newSeries(name, value) {
         valueYField: value,
         categoryXField: "year",
         tooltip: am5.Tooltip.new(root2, {
-            labelText: "{valueY}"
+            labelText:"{name}"+":"+"{valueY}"
         })
     }));
 }
@@ -32,7 +32,7 @@ function customLine(serie) {
     });
 }
 
-function createGraph(data) {
+function createGraph(data,name1,name2) {
     root2 = am5.Root.new("chartdiv");
     // Set themes
     root2.setThemes([
@@ -69,8 +69,8 @@ function createGraph(data) {
     }));
 
     // Add series 1
-    var series = newSeries("Series 1","value")
-    var series2 = newSeries("Series 2","value2")
+    var series = newSeries(name1,"value")
+    var series2 = newSeries(name2,"value2")
 
     customLine(series)
     customLine(series2)
