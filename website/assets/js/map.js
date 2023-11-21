@@ -22,13 +22,13 @@ var html =
                 width: 240px;
                 height: 80px;
                 object-fit: cover;" 
-                src='../paris4.jpg' alt='Bandeau'>
+                src='../assets/img/{id}.jpg'>
 
             <div style="grid-column: 2;
                 grid-row: 1;
                 justify-content: center;">
                     <h1 style="font-size: 20px;
-                    color: black;  ">{name}</h1>
+                    color: white;  ">{name}</h1>
             </div>
 
             <div style="grid-column: 1;
@@ -160,9 +160,19 @@ function createMap(fun=null,args=[]) {
     
     map = root.container.children.push(am5map.MapChart.new(root, {
         panX: "rotateX",
+        wheelX: "none",
+        wheelY: "none",
         projection: am5map.geoNaturalEarth1()
     }));
-     
+
+    zoom = map.set("zoomControl", am5map.ZoomControl.new(root, {}));
+    zoom.minusButton.setAll({fill:"#000000"})
+    zoom.minusButton.get("background").setAll({
+        fill: am5.color("#CAD2C5")
+    })
+    zoom.plusButton.get("background").setAll({
+        fill: am5.color("#CAD2C5")
+    })
      
     // Continents
     continentSeries = map.series.push(am5map.MapPolygonSeries.new(root, {
@@ -300,14 +310,20 @@ function compare(pays1,pays2) {
     poly2._settings.mapPolygon.set("active",true)
 }
 
-function changeComp1() {
-    incr = 0
-    p1 = countrySeries.getDataItemById(document.getElementById("pays1").value)
-    p1._settings.mapPolygon.set("active",true)
-}
+$(document).ready(function() {
+    $("#pays1").on("change", function() {
+        incr = 0
+        p1 = countrySeries.getDataItemById($(this).val())
+        p1._settings.mapPolygon.set("active",true)
+    })
+    
+    $("#pays2").on("change", function() {
+        incr = 1
+        p2 = countrySeries.getDataItemById($(this).val())
+        p2._settings.mapPolygon.set("active",true)
+    })
+})
 
-function changeComp2() {
-    incr = 1
-    p2 = countrySeries.getDataItemById(document.getElementById("pays2").value)
-    p2._settings.mapPolygon.set("active",true)
-}
+
+
+

@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>EcoTourism - Comparaison</title>
-    <link rel="stylesheet" href="styles/styles-bandeau.css">
+    <link rel="stylesheet" href="styles-bandeau.css">
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
     <!-- Base -->
     <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
@@ -92,10 +94,21 @@
             $sth -> execute();
 
             echo <<<HTML
-                <select name="$arg" id="$arg" onchange="changeComp1()">  
+                <select name="$arg" id="$arg">  
+                <optgroup label="Océanie">
             HTML;
 
+            $tmp = 6;
+            $continents = array(1=>"Afrique",2=>"Amérique du Nord",3=>"Amérique du Sud",4=>"Asie",5=>"Europe",6=>"Océanie");
+
             while ($rs = $sth->fetch()) {
+                if ($tmp != $rs["id_continent"]) {
+                    $tmp = $rs["id_continent"];
+                    echo <<<HTML
+                        </optgroup>
+                        <optgroup label=$continents[$tmp]>
+                    HTML;
+                }
                 if ($rs["id"] == $pays) {
                     echo <<<HTML
                         <option value=$rs[id] selected>$rs[nom]</option>
@@ -108,13 +121,14 @@
             }
 
             echo <<<HTML
+                </optgroup>
                 </select>  
             HTML;
         }
 
         $cur = getDB();
 
-        $query = "SELECT * FROM pays ORDER BY nom ASC";
+        $query = "SELECT * FROM pays ORDER BY id_continent DESC, nom ASC";
         $sth = $cur -> prepare($query);
 
         $pays1 = getPays("pays1", "FR");
@@ -129,6 +143,7 @@
 
         echo <<<HTML
             <input type="submit" value="maj variable">
+            </form>
             <div class="container-map">
                 <div id="map"></div>
             </div>
@@ -141,7 +156,6 @@
         HTML;
 
         $a= array();
-        $pic = array("test1.jpg","berlin.jpeg");
 
         foreach (array($pays1,$pays2) as $key => $id_pays) {
             
@@ -153,7 +167,7 @@
             $ligne = $sth->fetch();
             echo <<<HTML
                 <div class="bandeau-container">     
-                <img class="img" src='../$pic[$key]' alt="Bandeau">
+                <img class="img" src='../assets/img/$ligne[id].jpg' alt="Bandeau">
                 <img class="flag" src='../assets/twemoji/$ligne[id].svg'>
                 <h1 class="nom">$ligne[nom]</h1>
             HTML;
@@ -209,7 +223,7 @@
     <div class=score></div>
 
     <div class="container-stats">
-        <h2 id=t1>Courbe de comparaison</h1>
+        <h2 id=t1>Courbe de comparaison</h2>
         <div class= "flex">
             <p class=p50>Actuellement le [pays 1] est au dessus du [pays 2], montrant que [pays 1] pollue plus que [pays 2]. Au cours du temps on peut voir que le tourisme ipsum dolor sit amet, consectetur adipiscing elit. Curabitur a metus pellentesque massa lacinia scelerisque et nec purus. Proin mattis elementum euismod. Curabitur et felis felis. Donec vel nulla malesuada, tempor nisi in, faucibus nulla. Cras at ipsum tempor, rutrum sapien ut, auctor sapien.
             Curabitur a metus pellentesque massa lacinia scelerisque et nec purus. Proin mattis elementum euismod. </p>
@@ -250,12 +264,19 @@
             </script>
         </div>
     </div>
-
-    <div id="spider"></div>
-    <script>
-        console.log({<?=$dataSpider1?>})
-        spider({<?=$dataSpider1?>}, {<?=$dataSpider2?>} ,"<?=$a[0]?>","<?=$a[1]?>")
-    </script>
+    
+    <div class="container-spider">
+        <h2 id=t1>Spider plot</h1>
+        <div class= "flex">
+            <div id="spider"></div>
+            <script>
+                console.log({<?=$dataSpider1?>})
+                spider({<?=$dataSpider1?>}, {<?=$dataSpider2?>} ,"<?=$a[0]?>","<?=$a[1]?>")
+            </script>
+            <p class=p50>Actuellement le [pays 1] est au dessus du [pays 2], montrant que [pays 1] pollue plus que [pays 2]. Au cours du temps on peut voir que le tourisme ipsum dolor sit amet, consectetur adipiscing elit. Curabitur a metus pellentesque massa lacinia scelerisque et nec purus. Proin mattis elementum euismod. Curabitur et felis felis. Donec vel nulla malesuada, tempor nisi in, faucibus nulla. Cras at ipsum tempor, rutrum sapien ut, auctor sapien.
+            Curabitur a metus pellentesque massa lacinia scelerisque et nec purus. Proin mattis elementum euismod. </p>
+        </div>
+    </div>
 </body>
 </html>
 
