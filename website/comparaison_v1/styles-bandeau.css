@@ -118,3 +118,11 @@ h1 {
     height: 500px;
     background-color: #354F52;
 }
+
+#bar {
+    width: 60%;
+    height: 500px;
+    background-color: #183A37;
+    margin-right:35px
+}
+
