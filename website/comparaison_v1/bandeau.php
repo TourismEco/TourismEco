@@ -23,6 +23,9 @@
     <script src="https://cdn.amcharts.com/lib/5/radar.js"></script>
     <script src="../assets/js/spiderCompare.js"></script>
 
+    <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
+    <script src="../assets/js/Clustered_Column_Chart.js"></script>
+
 </head>
 
 <body>
@@ -129,6 +132,7 @@
 
         echo <<<HTML
             <input type="submit" value="maj variable">
+            </form>
             <div class="container-map">
                 <div id="map"></div>
             </div>
@@ -245,6 +249,34 @@
                 }
 
                 $data = implode(",", $data);
+                
+                $query2 = "
+                SELECT eco1.annee, eco1.pibParHab as eco1, eco2.pibParHab as eco2
+                FROM economie as eco1, economie as eco2
+                WHERE eco1.id_pays = '$pays1'
+                AND eco2.id_pays = '$pays2'
+                AND eco1.annee = eco2.annee;
+                ";
+
+                
+                $result2 = $conn->query($query2);
+
+                $data2 = array();
+                while ($rs = $result2->fetch()) {
+                    foreach (array('eco1','eco2') as $key => $value) {
+                        if (!isset($rs[$value])){
+                            $rs[$value]=0;
+                        } 
+                    } 
+                    $data2[] = <<<END
+                        {year:'{$rs['annee']}',
+                            value:{$rs['eco1']},
+                            value2:{$rs['eco2']},
+                        }
+                    END;
+                }
+
+                $data2 = implode(",", $data2);
 
             ?>
 
@@ -253,12 +285,19 @@
                 createGraph([<?=$data?>],"<?=$a[0]?>","<?=$a[1]?>")
             </script>
         </div>
+        <div id="bar"></div>
+        <script>
+            graphBar([<?=$data2?>],"<?=$a[0]?>","<?=$a[1]?>")
+        </script>
+        
+
     </div>
 
     <div id="spider"></div>
     <script>
         console.log({<?=$dataSpider1?>})
         spider({<?=$dataSpider1?>}, {<?=$dataSpider2?>} ,"<?=$a[0]?>","<?=$a[1]?>")
+        
     </script>
 </body>
 </html>
