@@ -50,8 +50,8 @@ function graphBar(data, name1, name2) {
       })
     }));
 
-    makeSeries(name2,"value", data)
-    makeSeries(name1,"value2",data)
+    makeSeries(name1,"value", data)
+    makeSeries(name2,"value2",data)
 
     chartBar.appear(1000, 100);
 }
