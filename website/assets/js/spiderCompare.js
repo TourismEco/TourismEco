@@ -2,6 +2,9 @@ var rootSpider
 var spider
 var xAxisSpi;
 var yAxisSpi;
+var year;
+var serieSp1;
+var serieSp2;
 
 function serieSpider(color, nom) {
     series = spider.series.push(am5radar.RadarLineSeries.new(rootSpider, {
@@ -77,11 +80,11 @@ function spider(data1, data2, name1, name2) {
         renderer: yRenderer
     }));
 
-    var series1 = serieSpider("#52796F",name1)
-    var series2 = serieSpider("#83A88B",name2)
+    seriesSp1 = serieSpider("#52796F",name1)
+    seriesSp2 = serieSpider("#83A88B",name2)
     
-    series1.data.setAll(data1["2020"]);
-    series2.data.setAll(data2["2020"]);
+    seriesSp1.data.setAll(data1["2020"]);
+    seriesSp2.data.setAll(data2["2020"]);
     xAxis.data.setAll(data1["2020"]);
 
     // Create controls
@@ -122,7 +125,7 @@ function spider(data1, data2, name1, name2) {
     var yearTemp = 2020
 
     slider.events.on("rangechanged", function () {
-        var year = firstYear + Math.round(slider.get("start", 0) * (lastYear - firstYear));
+        year = firstYear + Math.round(slider.get("start", 0) * (lastYear - firstYear));
         slider.startGrip.get("label").set("text", year + "");
         if (year != yearTemp) {
             updateData(year);
@@ -133,13 +136,22 @@ function spider(data1, data2, name1, name2) {
 
     function updateData(year) {
         if (data1[year]) {
-            series1.data.setAll(data1[year]);
-            series2.data.setAll(data2[year])
+            seriesSp1.data.setAll(data1[year]);
+            seriesSp2.data.setAll(data2[year])
         }
     }
 
-    series1.appear(1000);
-    series2.appear(1000);
+    seriesSp1.appear(1000);
+    seriesSp2.appear(1000);
     spider.appear(1000, 100);
 
+}
+
+
+function changeAjax(serie,data) {
+    if (serie == 0) {
+        seriesSp1.data.setAll(data[year]);
+    } else {
+        seriesSp2.data.setAll(data[year]);
+    }
 }

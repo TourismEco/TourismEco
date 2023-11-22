@@ -102,3 +102,9 @@ function createGraph(data, name1, name2) {
     graph.appear(1000, 100);
 
 }
+
+function changeAjaxBar(data) {
+    xAxis.data.setAll(data);
+    series.data.setAll(data);
+    series2.data.setAll(data);
+}

@@ -16,7 +16,7 @@
     <script src="https://cdn.amcharts.com/lib/5/geodata/continentsLow.js"></script>
     <script src="https://cdn.amcharts.com/lib/5/geodata/worldLow.js"></script>
     <script src="https://cdn.amcharts.com/lib/5/geodata/lang/FR.js"></script>
-    <script src="../assets/js/map.js"></script>
+    
 
     <!-- Graph -->
     <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
@@ -26,6 +26,9 @@
     <script src="../assets/js/spiderCompare.js"></script>
 
     <script src="../assets/js/Clustered_Column_Chart.js"></script>
+
+
+    <script src="../assets/js/map.js"></script>
 
 </head>
 
@@ -108,7 +111,7 @@
                     $tmp = $rs["id_continent"];
                     echo <<<HTML
                         </optgroup>
-                        <optgroup label=$continents[$tmp]>
+                        <optgroup label="$continents[$tmp]">
                     HTML;
                 }
                 if ($rs["id"] == $pays) {
@@ -168,7 +171,7 @@
 
             $ligne = $sth->fetch();
             echo <<<HTML
-                <div class="bandeau-container">     
+                <div class="bandeau-container" id="bandeau$key">     
                 <img class="img" src='../assets/img/$ligne[id].jpg' alt="Bandeau">
                 <img class="flag" src='../assets/twemoji/$ligne[id].svg'>
                 <h1 class="nom">$ligne[nom]</h1>
@@ -203,7 +206,7 @@
                 echo <<<HTML
                     <div class='infos'>
                         <p>$text</p>
-                        <p class="stat">$ligne[$arg]</p>
+                        <p id=$arg class="stat">$ligne[$arg]</p>
                     </div>
                 HTML;
             }
