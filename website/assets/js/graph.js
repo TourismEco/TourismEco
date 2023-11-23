@@ -2,6 +2,8 @@ var root2
 var graph;
 var xAxis;
 var yAxis;
+var serieBar1;
+var serieBar2;
 
 function newSeries(name, value) {
     return graph.series.push(am5xy.LineSeries.new(root2, {
@@ -68,18 +70,18 @@ function createGraph(data, name1, name2) {
         }),
     }));
 
-    var series = newSeries(name1,"value")
-    var series2 = newSeries(name2,"value2")
+    serieBar1 = newSeries(name1,"value")
+    serieBar2 = newSeries(name2,"value2")
 
-    customLine(series)
-    customLine(series2)
+    customLine(serieBar1)
+    customLine(serieBar2)
 
-    series.bullets.push(function() {
+    serieBar1.bullets.push(function() {
         var graphics = am5.Circle.new(root2, {
             radius: 4,
             interactive: true,
             cursorOverStyle: "ns-resize",
-            stroke: series.get("stroke"),
+            stroke: serieBar1.get("stroke"),
             fill: am5.color(0xffffff)
         });
         return am5.Bullet.new(root2, {
@@ -87,24 +89,24 @@ function createGraph(data, name1, name2) {
         });
         });
 
-    console.log(series)
+    console.log(serieBar1)
 
     graph.set("scrollbarX", am5.Scrollbar.new(root2, {
         orientation: "horizontal"
     }));
 
     xAxis.data.setAll(data);
-    series.data.setAll(data);
-    series2.data.setAll(data);
+    serieBar1.data.setAll(data);
+    serieBar2.data.setAll(data);
 
-    series.appear(1000);
-    series2.appear(1000);
+    serieBar1.appear(1000);
+    serieBar2.appear(1000);
     graph.appear(1000, 100);
 
 }
 
 function changeAjaxBar(data) {
     xAxis.data.setAll(data);
-    series.data.setAll(data);
-    series2.data.setAll(data);
+    serieBar1.data.setAll(data);
+    serieBar2.data.setAll(data);
 }
