@@ -56,15 +56,8 @@ $result = $cur->query($query);
 $dataLine = array();
 
 while ($rs = $result->fetch()) {
-    $dataLine[] = <<<END
-        {year:'{$rs['annee']}',
-            value:{$rs['eco1']},
-            value2:{$rs['eco2']},
-        }
-    END;
+    $dataLine[] = array("year"=>$rs['annee'],"value"=>$rs['eco1'],"value2"=>$rs['eco2']);
 }
-
-$dataLine = implode(",", $dataLine);
 
 // Bar
 $query2 = "
@@ -84,26 +77,8 @@ while ($rs = $result2->fetch()) {
             $rs[$value]=0;
         } 
     } 
-    $dataBar[] = <<<END
-        {year:'{$rs['annee']}',
-            value:{$rs['eco1']},
-            value2:{$rs['eco2']},
-        }
-    END;
+    $dataBar[] = array("year"=>$rs['annee'],"value"=>$rs['eco1'],"value2"=>$rs['eco2']);
 }
-
-$dataBar = implode(",", $dataBar);
-
-
-
-
-
-
-
-
-
-
-
 
 // SPIDER
 function dataSpider($pays) {
@@ -140,24 +115,21 @@ function dataSpider($pays) {
                 $rs[$value]=0;
             } 
         }
-        
-        $data[] = <<<END
-            $rs[annee]:
-                [{"var":"PIB","value":$rs[pib],"val2":100},
-                {"var":"% renew","value":$rs[Enr],"val2":100},
-                {"var":"CO2","value":$rs[co2],"val2":100},
-                {"var":"Arrivées","value":$rs[arrivees],"val2":100},
-                {"var":"Départs","value":$rs[departs],"val2":100},
-                {"var":"GPI","value":$rs[gpi],"val2":100},
-                {"var":"CPI","value":$rs[cpi],"val2":100}]
 
-        END;
+        $data[$rs["annee"]] = array(
+            array("var"=>"PIB","value"=>$rs["pib"]),
+            array("var"=>"% renew","value"=>$rs["Enr"]),
+            array("var"=>"CO2","value"=>$rs["co2"]),
+            array("var"=>"Arrivées","value"=>$rs["arrivees"]),
+            array("var"=>"Départs","value"=>$rs["departs"]),
+            array("var"=>"GPI","value"=>$rs["gpi"]),
+            array("var"=>"CPI","value"=>$rs["cpi"]),);
     }
 
-    return implode(",", $data);
+    return $data;
 }
 
-$dataAjax = array("nom"=>$nom,"capitale"=>$capitale,"bandeau"=>$dataBandeau,"spider"=>$dataSpider,"line"=>$dataLine,"bar"=>$dataBar,"id_pays"=>$id_pays);
+$dataAjax = array("nom"=>$nom,"capitale"=>$capitale,"bandeau"=>$dataBandeau,"id_pays"=>$id_pays,"spider"=>json_encode($dataSpider),"line"=>json_encode($dataLine),"bar"=>json_encode($dataBar),"id_pays"=>$id_pays);
 
 header('Content-Type: application/json; charset=utf-8');
 echo json_encode($dataAjax);

@@ -20,14 +20,15 @@
 
     <!-- Graph -->
     <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
-    <script src="../assets/js/graph.js"></script>
+    <script src="../assets/js/lineCompare.js"></script>
 
     <script src="https://cdn.amcharts.com/lib/5/radar.js"></script>
     <script src="../assets/js/spiderCompare.js"></script>
 
-    <script src="../assets/js/Clustered_Column_Chart.js"></script>
+    <script src="../assets/js/barCompare.js"></script>
 
-
+    <script src="../assets/js/amTools.js"></script>
+    <script src="../assets/js/ajax.js"></script>
     <script src="../assets/js/map.js"></script>
 
 </head>
@@ -147,7 +148,7 @@
         createSelect($sth, "pays2", $pays2);
 
         echo <<<HTML
-            <input type="submit" value="maj variable">
+            <input type="submit" value="Reload">
             </form>
             <div class="container-map">
                 <div id="map"></div>
@@ -299,7 +300,9 @@
                 console.log([<?=$dataLine?>])
                 createGraph([<?=$dataLine?>],"<?=$a[0]?>","<?=$a[1]?>")
             </script>
+            
         </div>
+
     </div>
 
     <div class="container-stats" style="background-color:#183A37">

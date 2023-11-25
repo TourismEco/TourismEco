@@ -16,10 +16,9 @@ function serieSpider(color, nom) {
         tooltip:am5.Tooltip.new(rootSpider, {
             labelText:"{name} : {valueY}",
         }),
-            stroke:color,
-            fill:color,
-        }));
-    
+        stroke:color,
+        fill:color,
+    }));
     
         series.strokes.template.setAll({
             strokeWidth: 2,
@@ -39,45 +38,20 @@ function serieSpider(color, nom) {
 
 function spider(data1, data2, name1, name2) {
 
-    rootSpider = am5.Root.new("spider");
+    rootSpider = newRoot("spider")
+    fig = am5radar.RadarChart.new(rootSpider, {})
 
-    rootSpider.setThemes([
-        am5themes_Animated.new(rootSpider)
-    ]);
-
-    spider = rootSpider.container.children.push(am5radar.RadarChart.new(rootSpider, {
-        panX: false,
-        panY: false,
-        wheelX: "panX",
-        wheelY: "zoomX"
-    }));
-
-    cursor = spider.set("cursor", am5radar.RadarCursor.new(rootSpider, {
-        behavior: "zoomX"
-    }));
-
-    cursor.lineY.set("visible", false);
-
-    xRenderer = am5radar.AxisRendererCircular.new(rootSpider, {});
-        xRenderer.labels.template.setAll({
-        radius: 10,
-        fill:"#FFFFFF"
-    });
-
-    yRenderer = am5radar.AxisRendererRadial.new(rootSpider, {});
-        yRenderer.labels.template.setAll({
-        fill:"#FFFFFF"
-    });
+    spider = addToRoot(rootSpider, fig, am5radar.RadarCursor);
 
     xAxis = spider.xAxes.push(am5xy.CategoryAxis.new(rootSpider, {
         maxDeviation: 0,
         categoryField: "var",
-        renderer: xRenderer,
+        renderer: newXRenderer(rootSpider, am5radar.AxisRendererCircular),
         tooltip: am5.Tooltip.new(rootSpider, {})
     }));
 
     yAxis = spider.yAxes.push(am5xy.ValueAxis.new(rootSpider, {
-        renderer: yRenderer
+        renderer: newYRenderer(rootSpider, am5radar.AxisRendererRadial)
     }));
 
     seriesSp1 = serieSpider("#52796F",name1)
@@ -89,13 +63,14 @@ function spider(data1, data2, name1, name2) {
 
     // Create controls
     var container = spider.children.push(am5.Container.new(rootSpider, {
-        y: am5.p100,
-        centerX: am5.p50,
-        centerY: am5.p100,
-        x: am5.p50,
-        width: am5.percent(90),
+        centerX: am5.p0,
+        centerY: am5.p50,
+        width: 400,
         layout: rootSpider.horizontalLayout,
-        paddingBottom: 10
+        paddingBottom: 50,
+        paddingRight:50,
+        paddingLeft:50,
+        rotation:90
     }));
 
     var firstYear = 2008
@@ -104,7 +79,7 @@ function spider(data1, data2, name1, name2) {
     var slider = container.children.push(am5.Slider.new(rootSpider, {
         orientation: "horizontal",
         start: 1,
-        centerY: am5.p50,
+        centerX: am5.p50,
     }));
 
     slider.get("background").setAll(
@@ -119,6 +94,7 @@ function spider(data1, data2, name1, name2) {
         paddingBottom: 0,
         paddingLeft: 0,
         fill:"#000000",
+        rotation:-90
     }));
 
     // updateData(2020);
@@ -129,7 +105,6 @@ function spider(data1, data2, name1, name2) {
         slider.startGrip.get("label").set("text", year + "");
         if (year != yearTemp) {
             updateData(year);
-            console.log(year, yearTemp)
             yearTemp = year
         }
     });
@@ -148,7 +123,7 @@ function spider(data1, data2, name1, name2) {
 }
 
 
-function changeAjax(serie,data) {
+function spiderAjax(serie,data) {
     if (serie == 0) {
         seriesSp1.data.setAll(data[year]);
     } else {

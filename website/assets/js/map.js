@@ -89,61 +89,16 @@ function setActionsSeries(serie,compare=false) {
                     poly1.set("active", false);  
                     poly1.set("interactive",true)
                     poly1 = target
-                    document.getElementById("pays1").value = poly1._dataItem.dataContext.id
-
-                    $.ajax({
-                        method:"GET",
-                        url:"ajax.php",
-                        data:{id_pays:poly1._dataItem.dataContext.id,pays_not:$("#pays2").val()},
-                        success:function(result) {
-                            bandeau = result["bandeau"]
-                            container = $("#bandeau0")
-            
-                            infos = container.children(".infos")
-                            infos.children("#arriveesTotal").html(bandeau[0]) 
-                            infos.children("#co2").html(bandeau[1]) 
-                            infos.children("#pibParHab").html(bandeau[2]) 
-                            infos.children("#gpi").html(bandeau[3]) 
-            
-                            container.children(".nom").html(result["nom"])
-                            container.children(".flag").attr("src","../assets/twemoji/"+result["id_pays"]+".svg")
-                            container.children(".capital").html("Capitale : "+result["capitale"])
-                            container.children(".img").attr("src","../assets/img/"+result["id_pays"]+".jpg")
-                            
-                            // changeAjax(0,obj)
-                        }
-                    })
-
+                    $("#pays1").val(poly1._dataItem.dataContext.id)
+                    compareAjax("0", poly1._dataItem.dataContext.id, $("#pays2").val())
 
                 } else if (incr == 2) {
                     poly2.set("active", false);  
                     poly2.set("interactive",true)
                     poly2 = target
-                    document.getElementById("pays2").value = poly2._dataItem.dataContext.id
+                    $("#pays2").val(poly2._dataItem.dataContext.id)
                     incr = 0
-
-                    $.ajax({
-                        method:"GET",
-                        url:"ajax.php",
-                        data:{id_pays:poly2._dataItem.dataContext.id,pays_not:$("#pays1").val()},
-                        success:function(result) {
-                            bandeau = result["bandeau"]
-                            container = $("#bandeau1")
-            
-                            infos = container.children(".infos")
-                            infos.children("#arriveesTotal").html(bandeau[0]) 
-                            infos.children("#co2").html(bandeau[1]) 
-                            infos.children("#pibParHab").html(bandeau[2]) 
-                            infos.children("#gpi").html(bandeau[3]) 
-            
-                            container.children(".nom").html(result["nom"])
-                            container.children(".flag").attr("src","../assets/twemoji/"+result["id_pays"]+".svg")
-                            container.children(".capital").html("Capitale : "+result["capitale"])
-                            container.children(".img").attr("src","../assets/img/"+result["id_pays"]+".jpg")
-                            
-                            // changeAjax(0,obj)
-                        }
-                    })
+                    compareAjax("1", poly2._dataItem.dataContext.id, $("#pays1").val())
                 }
             }
         })
@@ -357,74 +312,3 @@ function compare(pays1,pays2) {
     poly1._settings.mapPolygon.set("active",true)
     poly2._settings.mapPolygon.set("active",true)
 }
-
-
-$(document).ready(function() {
-    $("#pays1").on("change", function() {
-        incr = 0
-        p1 = countrySeries.getDataItemById($(this).val())
-        p1._settings.mapPolygon.set("active",true)
-
-        $.ajax({
-            method:"GET",
-            url:"ajax.php",
-            data:{id_pays:$(this).val(),pays_not:$("#pays2").val()},
-            success:function(result) {
-                bandeau = result["bandeau"]
-                console.log(bandeau)
-                container = $("#bandeau0")
-
-                infos = container.children(".infos")
-                infos.children("#arriveesTotal").html(bandeau[0]) 
-                infos.children("#co2").html(bandeau[1]) 
-                infos.children("#pibParHab").html(bandeau[2]) 
-                infos.children("#gpi").html(bandeau[3]) 
-
-                container.children(".nom").html(result["nom"])
-                container.children(".flag").attr("src","../assets/twemoji/"+result["id_pays"]+".svg")
-                container.children(".capital").html("Capitale : "+result["capitale"])
-                container.children(".img").attr("src","../assets/img/"+result["id_pays"]+".jpg")
-                
-                // changeAjax(0,obj)
-            }
-        })
-    })
-    
-    $("#pays2").on("change", function() {
-        incr = 1
-        p2 = countrySeries.getDataItemById($(this).val())
-        p2._settings.mapPolygon.set("active",true)
-
-        $.ajax({
-            method:"GET",
-            url:"ajax.php",
-            data:{id_pays:$(this).val(),pays_not:$("#pays1").val()},
-            success:function(result) {
-                bandeau = result["bandeau"]
-                console.log(bandeau)
-                container = $("#bandeau1")
-
-                infos = container.children(".infos")
-                infos.children("#arriveesTotal").html(bandeau[0]) 
-                infos.children("#co2").html(bandeau[1]) 
-                infos.children("#pibParHab").html(bandeau[2]) 
-                infos.children("#gpi").html(bandeau[3]) 
-
-                container.children(".nom").html(result["nom"])
-                container.children(".flag").attr("src","../assets/twemoji/"+result["id_pays"]+".svg")
-                container.children(".capital").html("Capitale : "+result["capitale"])
-                container.children(".img").attr("src","../assets/img/"+result["id_pays"]+".jpg")
-                obj = JSON.parse(result["spider"])
-                // console.log(JSON.parse(result["bar"]))
-
-                // changeAjaxBar(result["bar"])
-                
-                // changeAjax(0,obj)
-            }
-        })
-    })
-})
-
-
-
-
