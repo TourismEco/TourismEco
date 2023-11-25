@@ -22,13 +22,13 @@ var html =
                 width: 240px;
                 height: 80px;
                 object-fit: cover;" 
-                src='../paris4.jpg' alt='Bandeau'>
+                src='../assets/img/{id}.jpg'>
 
             <div style="grid-column: 2;
                 grid-row: 1;
                 justify-content: center;">
                     <h1 style="font-size: 20px;
-                    color: black;  ">{name}</h1>
+                    color: white;  ">{name}</h1>
             </div>
 
             <div style="grid-column: 1;
@@ -89,13 +89,16 @@ function setActionsSeries(serie,compare=false) {
                     poly1.set("active", false);  
                     poly1.set("interactive",true)
                     poly1 = target
-                    document.getElementById("pays1").value = poly1._dataItem.dataContext.id
+                    $("#pays1").val(poly1._dataItem.dataContext.id)
+                    // compareAjax("0", poly1._dataItem.dataContext.id, $("#pays2").val())
+
                 } else if (incr == 2) {
                     poly2.set("active", false);  
                     poly2.set("interactive",true)
                     poly2 = target
-                    document.getElementById("pays2").value = poly2._dataItem.dataContext.id
+                    $("#pays2").val(poly2._dataItem.dataContext.id)
                     incr = 0
+                    // compareAjax("1", poly2._dataItem.dataContext.id, $("#pays1").val())
                 }
             }
         })
@@ -160,9 +163,19 @@ function createMap(fun=null,args=[]) {
     
     map = root.container.children.push(am5map.MapChart.new(root, {
         panX: "rotateX",
+        wheelX: "none",
+        wheelY: "none",
         projection: am5map.geoNaturalEarth1()
     }));
-     
+
+    zoom = map.set("zoomControl", am5map.ZoomControl.new(root, {}));
+    zoom.minusButton.setAll({fill:"#000000"})
+    zoom.minusButton.get("background").setAll({
+        fill: am5.color("#CAD2C5")
+    })
+    zoom.plusButton.get("background").setAll({
+        fill: am5.color("#CAD2C5")
+    })
      
     // Continents
     continentSeries = map.series.push(am5map.MapPolygonSeries.new(root, {
@@ -298,16 +311,4 @@ function compare(pays1,pays2) {
 
     poly1._settings.mapPolygon.set("active",true)
     poly2._settings.mapPolygon.set("active",true)
-}
-
-function changeComp1() {
-    incr = 0
-    p1 = countrySeries.getDataItemById(document.getElementById("pays1").value)
-    p1._settings.mapPolygon.set("active",true)
-}
-
-function changeComp2() {
-    incr = 1
-    p2 = countrySeries.getDataItemById(document.getElementById("pays2").value)
-    p2._settings.mapPolygon.set("active",true)
 }

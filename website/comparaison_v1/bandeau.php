@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>EcoTourism - Comparaison</title>
-    <link rel="stylesheet" href="styles/styles-bandeau.css">
+    <link rel="stylesheet" href="styles-bandeau.css">
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
     <!-- Base -->
     <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
@@ -14,17 +16,20 @@
     <script src="https://cdn.amcharts.com/lib/5/geodata/continentsLow.js"></script>
     <script src="https://cdn.amcharts.com/lib/5/geodata/worldLow.js"></script>
     <script src="https://cdn.amcharts.com/lib/5/geodata/lang/FR.js"></script>
-    <script src="../assets/js/map.js"></script>
+    
 
     <!-- Graph -->
     <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
-    <script src="../assets/js/graph.js"></script>
+    <script src="../assets/js/lineCompare.js"></script>
 
     <script src="https://cdn.amcharts.com/lib/5/radar.js"></script>
     <script src="../assets/js/spiderCompare.js"></script>
 
-    <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
-    <script src="../assets/js/Clustered_Column_Chart.js"></script>
+    <script src="../assets/js/barCompare.js"></script>
+
+    <script src="../assets/js/amTools.js"></script>
+    <script src="../assets/js/ajax.js"></script>
+    <script src="../assets/js/map.js"></script>
 
 </head>
 
@@ -95,10 +100,21 @@
             $sth -> execute();
 
             echo <<<HTML
-                <select name="$arg" id="$arg" onchange="changeComp1()">  
+                <select name="$arg" id="$arg">  
+                <optgroup label="Océanie">
             HTML;
 
+            $tmp = 6;
+            $continents = array(1=>"Afrique",2=>"Amérique du Nord",3=>"Amérique du Sud",4=>"Asie",5=>"Europe",6=>"Océanie");
+
             while ($rs = $sth->fetch()) {
+                if ($tmp != $rs["id_continent"]) {
+                    $tmp = $rs["id_continent"];
+                    echo <<<HTML
+                        </optgroup>
+                        <optgroup label="$continents[$tmp]">
+                    HTML;
+                }
                 if ($rs["id"] == $pays) {
                     echo <<<HTML
                         <option value=$rs[id] selected>$rs[nom]</option>
@@ -111,13 +127,14 @@
             }
 
             echo <<<HTML
+                </optgroup>
                 </select>  
             HTML;
         }
 
         $cur = getDB();
 
-        $query = "SELECT * FROM pays ORDER BY nom ASC";
+        $query = "SELECT * FROM pays ORDER BY id_continent DESC, nom ASC";
         $sth = $cur -> prepare($query);
 
         $pays1 = getPays("pays1", "FR");
@@ -131,7 +148,7 @@
         createSelect($sth, "pays2", $pays2);
 
         echo <<<HTML
-            <input type="submit" value="maj variable">
+            <input type="submit" value="Reload">
             </form>
             <div class="container-map">
                 <div id="map"></div>
@@ -147,10 +164,6 @@
         $a= array();
 
         foreach (array($pays1,$pays2) as $key => $id_pays) {
-            echo <<<HTML
-                <div class="bandeau-container">              
-                <img class="img" src="../paris4.jpg" alt="Bandeau">
-            HTML;
             
             $query = "SELECT * FROM pays WHERE id = :id_pays";
             $sth = $cur->prepare($query);
@@ -159,12 +172,10 @@
 
             $ligne = $sth->fetch();
             echo <<<HTML
-                <div class= nom>
-                <h1>$ligne[nom]</h1>
-                </div>
-                <div class= logo>
-                    <img src='../assets/twemoji/$ligne[id].svg'>
-                </div>
+                <div class="bandeau-container" id="bandeau$key">     
+                <img class="img" src='../assets/img/$ligne[id].jpg' alt="Bandeau">
+                <img class="flag" src='../assets/twemoji/$ligne[id].svg'>
+                <h1 class="nom">$ligne[nom]</h1>
             HTML;
 
             $a[]=$ligne["nom"];
@@ -178,9 +189,7 @@
 
             $ligne = $sth->fetch();
             echo <<<HTML
-                <div class= 'capital'>
-                    <p >Capital : $ligne[nom]</p>
-                </div>
+                <p class="capital">Capitale : $ligne[nom]</p>
             HTML;
 
             $search = array(array("tourisme","arriveesTotal","Arrivées"), array("ecologie","co2","CO2"), array("economie","pibParHab","PIB/Hab"), array("surete","gpi","Indice de sureté"));
@@ -196,7 +205,10 @@
 
                 $ligne = $sth->fetch();
                 echo <<<HTML
-                    <p class='infos'>$text : $ligne[$arg]</p>
+                    <div class='infos'>
+                        <p>$text</p>
+                        <p id=$arg class="stat">$ligne[$arg]</p>
+                    </div>
                 HTML;
             }
             
@@ -212,93 +224,103 @@
         $dataSpider1 = dataSpider($pays1);
         $dataSpider2 = dataSpider($pays2);
 
+        $query = "
+        SELECT eco1.annee, eco1.co2 as eco1, eco2.co2 as eco2
+        FROM ecologie as eco1, ecologie as eco2
+        WHERE eco1.id_pays = '$pays1'
+        AND eco2.id_pays = '$pays2'
+        AND eco1.annee = eco2.annee;
+        ";
+
+        $result = $cur->query($query);
+        $dataLine = array();
+
+        while ($rs = $result->fetch()) {
+            $dataLine[] = <<<END
+                {year:'{$rs['annee']}',
+                    value:{$rs['eco1']},
+                    value2:{$rs['eco2']},
+                }
+            END;
+        }
+
+        $dataLine = implode(",", $dataLine);
+
+        $query2 = "
+        SELECT eco1.annee, eco1.pibParHab as eco1, eco2.pibParHab as eco2
+        FROM economie as eco1, economie as eco2
+        WHERE eco1.id_pays = '$pays1'
+        AND eco2.id_pays = '$pays2'
+        AND eco1.annee = eco2.annee;
+        ";
+
+        $result2 = $cur->query($query2);
+
+        $dataBar = array();
+        while ($rs = $result2->fetch()) {
+            foreach (array('eco1','eco2') as $key => $value) {
+                if (!isset($rs[$value])){
+                    $rs[$value]=0;
+                } 
+            } 
+            $dataBar[] = <<<END
+                {year:'{$rs['annee']}',
+                    value:{$rs['eco1']},
+                    value2:{$rs['eco2']},
+                }
+            END;
+        }
+
+        $dataBar = implode(",", $dataBar);
+
     ?>
 
     <div class=score></div>
 
+    <div class="container-spider">
+        <h2 id=t1>Spider plot</h1>
+        <div class= "flex">
+            <div id="spider"></div>
+            <script>
+                console.log({<?=$dataSpider1?>})
+                spider({<?=$dataSpider1?>}, {<?=$dataSpider2?>} ,"<?=$a[0]?>","<?=$a[1]?>")
+            </script>
+            <p class=p50>Actuellement le [pays 1] est au dessus du [pays 2], montrant que [pays 1] pollue plus que [pays 2]. Au cours du temps on peut voir que le tourisme ipsum dolor sit amet, consectetur adipiscing elit. Curabitur a metus pellentesque massa lacinia scelerisque et nec purus. Proin mattis elementum euismod. Curabitur et felis felis. Donec vel nulla malesuada, tempor nisi in, faucibus nulla. Cras at ipsum tempor, rutrum sapien ut, auctor sapien.
+            Curabitur a metus pellentesque massa lacinia scelerisque et nec purus. Proin mattis elementum euismod. </p>
+        </div>
+    </div>
+
     <div class="container-stats">
-        <h2 id=t1>Courbe de comparaison</h1>
+        <h2 id=t1>Courbe de comparaison</h2>
         <div class= "flex">
             <p class=p50>Actuellement le [pays 1] est au dessus du [pays 2], montrant que [pays 1] pollue plus que [pays 2]. Au cours du temps on peut voir que le tourisme ipsum dolor sit amet, consectetur adipiscing elit. Curabitur a metus pellentesque massa lacinia scelerisque et nec purus. Proin mattis elementum euismod. Curabitur et felis felis. Donec vel nulla malesuada, tempor nisi in, faucibus nulla. Cras at ipsum tempor, rutrum sapien ut, auctor sapien.
             Curabitur a metus pellentesque massa lacinia scelerisque et nec purus. Proin mattis elementum euismod. </p>
             <div id="chartdiv"></div>
-            <?php
-                // Votre connexion MySQLi
-
-                $conn = getDB();
-
-                $query = "
-                SELECT eco1.annee, eco1.co2 as eco1, eco2.co2 as eco2
-                FROM ecologie as eco1, ecologie as eco2
-                WHERE eco1.id_pays = '$pays1'
-                AND eco2.id_pays = '$pays2'
-                AND eco1.annee = eco2.annee;
-                ";
-
-                
-                $result = $conn->query($query);
-
-                $data = array();
-                while ($rs = $result->fetch()) {
-                    $data[] = <<<END
-                        {year:'{$rs['annee']}',
-                            value:{$rs['eco1']},
-                            value2:{$rs['eco2']},
-                        }
-                    END;
-                }
-
-                $data = implode(",", $data);
-                
-                $query2 = "
-                SELECT eco1.annee, eco1.pibParHab as eco1, eco2.pibParHab as eco2
-                FROM economie as eco1, economie as eco2
-                WHERE eco1.id_pays = '$pays1'
-                AND eco2.id_pays = '$pays2'
-                AND eco1.annee = eco2.annee;
-                ";
-
-                
-                $result2 = $conn->query($query2);
-
-                $data2 = array();
-                while ($rs = $result2->fetch()) {
-                    foreach (array('eco1','eco2') as $key => $value) {
-                        if (!isset($rs[$value])){
-                            $rs[$value]=0;
-                        } 
-                    } 
-                    $data2[] = <<<END
-                        {year:'{$rs['annee']}',
-                            value:{$rs['eco1']},
-                            value2:{$rs['eco2']},
-                        }
-                    END;
-                }
-
-                $data2 = implode(",", $data2);
-
-            ?>
-
             <script>
-                console.log([<?=$data?>])
-                createGraph([<?=$data?>],"<?=$a[0]?>","<?=$a[1]?>")
+                console.log([<?=$dataLine?>])
+                createGraph([<?=$dataLine?>],"<?=$a[0]?>","<?=$a[1]?>")
             </script>
+            
         </div>
-        <div id="bar"></div>
-        <script>
-            graphBar([<?=$data2?>],"<?=$a[0]?>","<?=$a[1]?>")
-        </script>
-        
 
     </div>
 
-    <div id="spider"></div>
-    <script>
-        console.log({<?=$dataSpider1?>})
-        spider({<?=$dataSpider1?>}, {<?=$dataSpider2?>} ,"<?=$a[0]?>","<?=$a[1]?>")
-        
-    </script>
+    <div class="container-stats" style="background-color:#183A37">
+        <h2 id=t1>Barres</h2>
+        <div class= "flex">
+            <div id="bar"></div>
+            <p class=p50>Actuellement le [pays 1] est au dessus du [pays 2], montrant que [pays 1] pollue plus que [pays 2]. Au cours du temps on peut voir que le tourisme ipsum dolor sit amet, consectetur adipiscing elit. Curabitur a metus pellentesque massa lacinia scelerisque et nec purus. Proin mattis elementum euismod. Curabitur et felis felis. Donec vel nulla malesuada, tempor nisi in, faucibus nulla. Cras at ipsum tempor, rutrum sapien ut, auctor sapien.
+            Curabitur a metus pellentesque massa lacinia scelerisque et nec purus. Proin mattis elementum euismod. </p>
+            
+            <script>
+                graphBar([<?=$dataBar?>],"<?=$a[0]?>","<?=$a[1]?>")
+            </script>
+        </div>
+       
+
+    </div>
+    
+    
 </body>
 </html>
 
