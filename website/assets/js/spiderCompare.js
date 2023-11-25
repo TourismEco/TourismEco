@@ -1,72 +1,22 @@
-var rootSpider
-var spider
-var xAxisSpi;
-var yAxisSpi;
 var year;
 var serieSp1;
 var serieSp2;
 
-function serieSpider(color, nom) {
-    series = spider.series.push(am5radar.RadarLineSeries.new(rootSpider, {
-        name:nom,
-        xAxis: xAxis,
-        yAxis: yAxis,
-        valueYField: "value",
-        categoryXField: "var",
-        tooltip:am5.Tooltip.new(rootSpider, {
-            labelText:"{name} : {valueY}",
-        }),
-        stroke:color,
-        fill:color,
-    }));
-    
-        series.strokes.template.setAll({
-            strokeWidth: 2,
-        });
-    
-        series.bullets.push(function () {
-        return am5.Bullet.new(rootSpider, {
-            sprite: am5.Circle.new(rootSpider, {
-            radius: 5,
-            fill: color
-            })
-        });
-    });
-
-    return series
-}
-
 function spider(data1, data2, name1, name2) {
 
-    rootSpider = newRoot("spider")
-    fig = am5radar.RadarChart.new(rootSpider, {})
+    g = new Spider("spider")
+    g.initXAxis("var", data1["2020"])
+    g.initYAxis()
 
-    spider = addToRoot(rootSpider, fig, am5radar.RadarCursor);
-
-    xAxis = spider.xAxes.push(am5xy.CategoryAxis.new(rootSpider, {
-        maxDeviation: 0,
-        categoryField: "var",
-        renderer: newXRenderer(rootSpider, am5radar.AxisRendererCircular),
-        tooltip: am5.Tooltip.new(rootSpider, {})
-    }));
-
-    yAxis = spider.yAxes.push(am5xy.ValueAxis.new(rootSpider, {
-        renderer: newYRenderer(rootSpider, am5radar.AxisRendererRadial)
-    }));
-
-    seriesSp1 = serieSpider("#52796F",name1)
-    seriesSp2 = serieSpider("#83A88B",name2)
-    
-    seriesSp1.data.setAll(data1["2020"]);
-    seriesSp2.data.setAll(data2["2020"]);
-    xAxis.data.setAll(data1["2020"]);
+    seriesSp1 = g.addSerie(data1["2020"], name1, "#52796F", "var", "value")
+    seriesSp2 = g.addSerie(data2["2020"], name2, "#83A88B", "var", "value")
 
     // Create controls
-    var container = spider.children.push(am5.Container.new(rootSpider, {
+    var container = g.graph.children.push(am5.Container.new(g.root, {
         centerX: am5.p0,
         centerY: am5.p50,
         width: 400,
-        layout: rootSpider.horizontalLayout,
+        layout: g.root.horizontalLayout,
         paddingBottom: 50,
         paddingRight:50,
         paddingLeft:50,
@@ -76,7 +26,7 @@ function spider(data1, data2, name1, name2) {
     var firstYear = 2008
     var lastYear = 2020
 
-    var slider = container.children.push(am5.Slider.new(rootSpider, {
+    var slider = container.children.push(am5.Slider.new(g.root, {
         orientation: "horizontal",
         start: 1,
         centerX: am5.p50,
@@ -87,7 +37,7 @@ function spider(data1, data2, name1, name2) {
     )
 
     slider.startGrip.get("icon").set("forceHidden", true);
-    slider.startGrip.set("label", am5.Label.new(rootSpider, {
+    slider.startGrip.set("label", am5.Label.new(g.root, {
         text: firstYear + "",
         paddingTop: 0,
         paddingRight: 0,
@@ -118,7 +68,8 @@ function spider(data1, data2, name1, name2) {
 
     seriesSp1.appear(1000);
     seriesSp2.appear(1000);
-    spider.appear(1000, 100);
+    g.graph.appear(1000, 100);
+    
 
 }
 
