@@ -1,0 +1,68 @@
+:root {
+    --color1 : #2F3E46;
+    --color2: #354F52;
+    --color3 : #52796F;
+    --color4 : #84A98C;
+    --color5 : #183A37; 
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.bandeau {
+    position : relative;
+    height : 351px;
+    width : 100%;
+    margin-top: 736px;
+    background: url("../images/image_monde.png");
+    background-repeat: no-repeat;
+    background-size: 100% 100%; 
+    text-align: center;
+}
+
+.bandeau h1 {
+    color: white;
+    margin: 0; 
+    width: 737px;
+    height: 72px;
+    position: absolute;
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%); 
+
+}
+
+.section1 {
+    background-color: var(--color1);
+    height : 840px;
+    width : 100%;
+}
+
+.section2{
+    background-color: var(--color5);
+    height : 991px;
+    width : 100%;
+    text-align : center;
+}
+
+.section2 h2 {
+    top: 30px;
+    transform: translateX(50%);
+    width: 651px;
+    height: 67px;
+    color: white;
+    font-family: 'Oswald', sans-serif;
+    text-transform: uppercase;
+    margin: 0;
+}
+
+.footer {
+    background-color: var(--color1);
+    height : 181px;
+    width : 100%;
+    
+}
+
