@@ -5,6 +5,7 @@ class Graphique {
         this.graph = this.root.container.children.push(figObj.new(this.root, {}))
         this.xAxis = null
         this.yAxis = null
+        this.legend = null
 
         var cursor = this.graph.set("cursor", cursorObj.new(this.root, {}));
         cursor.lineY.set("visible", false);
@@ -50,7 +51,7 @@ class Graphique {
         }));
     }
 
-    addSerie(data, name, color, xField, yField, obj) {
+    addSerie(data, name, color, xField, yField, obj, labelText) {
         var base = this
 
         var serie = this.graph.series.push(obj.new(base.root, {
@@ -60,7 +61,7 @@ class Graphique {
             valueYField: yField,
             categoryXField: xField,
             tooltip: am5.Tooltip.new(base.root, {
-                labelText: "{name} : {valueY}"
+                labelText: labelText
             }),
             stroke:color,
             fill:color,
@@ -68,6 +69,13 @@ class Graphique {
         
         serie.data.setAll(data)
         serie.appear(1000)
+
+        // serie.set("valueYField","Canada")
+        // serie.data.setAll(data)
+
+        if (this.legend != null) {
+            this.legend.data.push(serie)
+        }
 
         return serie
     }
@@ -85,6 +93,16 @@ class Graphique {
             });
         });
     }
+
+    addLegend() {
+        this.legend = this.graph.children.push(
+            am5.Legend.new(g.root, {
+                centerX: am5.p50,
+                x: am5.p50,
+                fill:"#FFFFFF"
+            })
+        );
+    }
 }
 
 class Spider extends Graphique {
@@ -94,11 +112,18 @@ class Spider extends Graphique {
     initXAxis(field, data) {
         super.initXAxis(am5radar.AxisRendererCircular, field, data)
     }
+
     initYAxis() {
-        super.initYAxis(am5radar.AxisRendererRadial)
+        var base = this
+        this.yAxis = this.graph.yAxes.push(am5xy.ValueAxis.new(base.root, {
+            min:0,
+            max:100,
+            renderer: base.newYRenderer(am5radar.AxisRendererRadial)
+        }));
     }
+
     addSerie(data, name, color, xField, yField) {
-        var serie = super.addSerie(data, name, color, xField, yField, am5radar.RadarLineSeries)
+        var serie = super.addSerie(data, name, color, xField, yField, am5radar.RadarLineSeries, "{name} : {valueY}")
         super.addBullets(serie, color)
         return serie
     }
@@ -116,7 +141,7 @@ class Line extends Graphique {
         super.initYAxis(am5xy.AxisRendererY)
     }
     addSerie(data, name, color, xField, yField) {
-        var serie = super.addSerie(data, name, color, xField, yField, am5xy.LineSeries)
+        var serie = super.addSerie(data, name, color, xField, yField, am5xy.LineSeries, "{name} : {valueY}")
         super.addBullets(serie, color)
         return serie
     }
@@ -130,9 +155,13 @@ class Bar extends Graphique {
         super.initXAxis(am5xy.AxisRendererX, field, data)
     }
     initYAxis() {
-        super.initYAxis(am5xy.AxisRendererY)
+        var base = this
+        this.yAxis = this.graph.yAxes.push(am5xy.ValueAxis.new(base.root, {
+            renderer: base.newYRenderer(am5xy.AxisRendererY),
+            numberFormat: "#'%'",
+        }));
     }
     addSerie(data, name, color, xField, yField) {
-        return super.addSerie(data, name, color, xField, yField, am5xy.ColumnSeries)
+        return super.addSerie(data, name, color, xField, yField, am5xy.ColumnSeries, "{name} : {valueY}%")
     }
 }

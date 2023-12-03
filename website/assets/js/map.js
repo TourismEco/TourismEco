@@ -89,16 +89,16 @@ function setActionsSeries(serie,compare=false) {
                     poly1.set("active", false);  
                     poly1.set("interactive",true)
                     poly1 = target
-                    $("#pays1").val(poly1._dataItem.dataContext.id)
-                    // compareAjax("0", poly1._dataItem.dataContext.id, $("#pays2").val())
+                    $("#pays0").val(poly1._dataItem.dataContext.id)
+                    compareAjax("0", poly1._dataItem.dataContext.id, $("#pays1").val())
 
                 } else if (incr == 2) {
                     poly2.set("active", false);  
                     poly2.set("interactive",true)
                     poly2 = target
-                    $("#pays2").val(poly2._dataItem.dataContext.id)
+                    $("#pays1").val(poly2._dataItem.dataContext.id)
                     incr = 0
-                    // compareAjax("1", poly2._dataItem.dataContext.id, $("#pays1").val())
+                    compareAjax("1", poly2._dataItem.dataContext.id, $("#pays0").val())
                 }
             }
         })

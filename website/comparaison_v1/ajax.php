@@ -84,21 +84,15 @@ while ($rs = $result2->fetch()) {
 function dataSpider($pays) {
     $conn = getDB();
 
-    $query = "
-    SELECT ecologie.annee as annee,
-    economie.pibParHab as pib,
-    ecologie.elecRenew * 1000 as Enr,
-    ecologie.co2/10000 as co2, 
-    tourisme.arriveesTotal as arrivees, 
-    tourisme.departs as departs, 
-    surete.gpi * 10000 as gpi, 
-    economie.cpi as cpi
+    $query = "SELECT ecologie.annee as annee,
+    pibParHab AS pib, elecRenew AS Enr, co2, arriveesTotal AS arrivees, departs, gpi, cpi
 
-    FROM ecologie, economie, tourisme, surete
+    FROM ecologie_norm AS ecologie, economie_norm AS economie, tourisme_norm AS tourisme, surete_norm AS surete
     WHERE ecologie.id_pays = economie.id_pays
     AND economie.id_pays = tourisme.id_pays
     AND tourisme.id_pays = surete.id_pays
     AND surete.id_pays = '$pays'
+    AND ecologie.annee >= 2008
 
     AND ecologie.annee = economie.annee
     AND economie.annee = tourisme.annee
@@ -113,7 +107,10 @@ function dataSpider($pays) {
         foreach (array("pib","Enr","co2","arrivees","departs","gpi","cpi") as $key => $value) {
             if (!isset($rs[$value])){
                 $rs[$value]=0;
-            } 
+            } else {
+                $rs[$value] = round($rs[$value],2);
+            }
+            
         }
 
         $data[$rs["annee"]] = array(
@@ -129,7 +126,7 @@ function dataSpider($pays) {
     return $data;
 }
 
-$dataAjax = array("nom"=>$nom,"capitale"=>$capitale,"bandeau"=>$dataBandeau,"id_pays"=>$id_pays,"spider"=>json_encode($dataSpider),"line"=>json_encode($dataLine),"bar"=>json_encode($dataBar),"id_pays"=>$id_pays);
+$dataAjax = array("nom"=>$nom,"capitale"=>$capitale,"bandeau"=>$dataBandeau,"id_pays"=>$id_pays,"spider"=>json_encode($dataSpider),"line"=>json_encode($dataLine),"bar"=>json_encode($dataBar));
 
 header('Content-Type: application/json; charset=utf-8');
 echo json_encode($dataAjax);

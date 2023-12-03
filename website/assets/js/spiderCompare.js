@@ -7,6 +7,7 @@ function spider(data1, data2, name1, name2) {
     g = new Spider("spider")
     g.initXAxis("var", data1["2020"])
     g.initYAxis()
+    g.addLegend()
 
     seriesSp1 = g.addSerie(data1["2020"], name1, "#52796F", "var", "value")
     seriesSp2 = g.addSerie(data2["2020"], name2, "#83A88B", "var", "value")

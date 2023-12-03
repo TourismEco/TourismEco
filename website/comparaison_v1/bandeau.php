@@ -40,27 +40,31 @@
         function dataSpider($pays) {
             $conn = getDB();
 
-            $query = "
-            SELECT ecologie.annee as annee,
-            economie.pibParHab as pib,
-            ecologie.elecRenew * 1000 as Enr,
-            ecologie.co2/10000 as co2, 
-            tourisme.arriveesTotal as arrivees, 
-            tourisme.departs as departs, 
-            surete.gpi * 10000 as gpi, 
-            economie.cpi as cpi
+            // $minmaxq = "SELECT 
+            // MIN(pibParHab) AS minPib, MIN(elecRenew) as minEle, MIN(co2) AS minCo2, MIN(arriveesTotal) AS minArr, MIN(departs) AS minDep, MIN(gpi) AS minGPI, MIN(cpi) AS minCpi,
+            // MAX(pibParHab) AS maxPib, MAX(elecRenew) AS maxEle, MAX(co2) AS maxCo2, MAX(arriveesTotal) AS maxArr, MAX(departs) AS maxDep, MAX(gpi) AS maxGPI, MAX(cpi) AS maxCPI
+            // FROM ecologie, economie, tourisme, surete";
 
-            FROM ecologie, economie, tourisme, surete
+            // $result = $conn->query($minmaxq);
+            // $minmax = $result->fetch(PDO::FETCH_ASSOC);
+
+            $query = "SELECT ecologie.annee as annee,
+            pibParHab AS pib, elecRenew AS Enr, co2, arriveesTotal AS arrivees, departs, gpi, cpi
+
+            FROM ecologie_norm AS ecologie, economie_norm AS economie, tourisme_norm AS tourisme, surete_norm AS surete
             WHERE ecologie.id_pays = economie.id_pays
             AND economie.id_pays = tourisme.id_pays
             AND tourisme.id_pays = surete.id_pays
             AND surete.id_pays = '$pays'
+            AND ecologie.annee >= 2008
 
             AND ecologie.annee = economie.annee
             AND economie.annee = tourisme.annee
             AND tourisme.annee = surete.annee  
             ORDER BY `ecologie`.`annee` DESC;
             ";
+
+            $search = array(array("tourisme","arriveesTotal","Arrivées"), array("tourisme","departs","Départs"), array("ecologie","co2","CO2"), array("ecologie","elecRenew","% elec renew"), array("economie","pibParHab","PIB/Hab"), array("economie","cpi","CPI"), array("surete","gpi","Indice de sureté"));
 
             $result = $conn->query($query);
 
@@ -74,13 +78,13 @@
                 
                 $data[] = <<<END
                     $rs[annee]:
-                        [{"var":"PIB","value":$rs[pib],"val2":100},
-                        {"var":"% renew","value":$rs[Enr],"val2":100},
-                        {"var":"CO2","value":$rs[co2],"val2":100},
-                        {"var":"Arrivées","value":$rs[arrivees],"val2":100},
-                        {"var":"Départs","value":$rs[departs],"val2":100},
-                        {"var":"GPI","value":$rs[gpi],"val2":100},
-                        {"var":"CPI","value":$rs[cpi],"val2":100}]
+                        [{"var":"PIB","value":$rs[pib]},
+                        {"var":"% renew","value":$rs[Enr]},
+                        {"var":"CO2","value":$rs[co2],},
+                        {"var":"Arrivées","value":$rs[arrivees]},
+                        {"var":"Départs","value":$rs[departs]},
+                        {"var":"GPI","value":$rs[gpi]},
+                        {"var":"CPI","value":$rs[cpi]}]
 
                 END;
             }
@@ -141,15 +145,11 @@
         $pays2 = getPays("pays2", "JP");
 
         echo <<<HTML
-            <form method="get">
+            
         HTML;
 
-        createSelect($sth, "pays1", $pays1);
-        createSelect($sth, "pays2", $pays2);
-
         echo <<<HTML
-            <input type="submit" value="Reload">
-            </form>
+            
             <div class="container-map">
                 <div id="map"></div>
             </div>
@@ -157,7 +157,7 @@
             <script>
                 createMap(fun=compare,args=['$pays1','$pays2'])
             </script>
-
+            <form method="get">
             <div id="bandeau">
         HTML;
 
@@ -171,7 +171,9 @@
             $sth->execute();
 
             $ligne = $sth->fetch();
+
             echo <<<HTML
+                
                 <div class="bandeau-container" id="bandeau$key">     
                 <img class="img" src='../assets/img/$ligne[id].jpg' alt="Bandeau">
                 <img class="flag" src='../assets/twemoji/$ligne[id].svg'>
@@ -192,6 +194,10 @@
                 <p class="capital">Capitale : $ligne[nom]</p>
             HTML;
 
+            $query = "SELECT * FROM pays ORDER BY id_continent DESC, nom ASC";
+            $sthSelect = $cur -> prepare($query);
+            createSelect($sthSelect, "pays".$key, $id_pays);
+
             $search = array(array("tourisme","arriveesTotal","Arrivées"), array("ecologie","co2","CO2"), array("economie","pibParHab","PIB/Hab"), array("surete","gpi","Indice de sureté"));
 
             foreach ($search as $key => $value) {
@@ -204,12 +210,12 @@
                 $sth->execute();
 
                 $ligne = $sth->fetch();
-                echo <<<HTML
-                    <div class='infos'>
-                        <p>$text</p>
-                        <p id=$arg class="stat">$ligne[$arg]</p>
-                    </div>
-                HTML;
+                // echo <<<HTML
+                //     <div class='infos'>
+                //         <p>$text</p>
+                //         <p id=$arg class="stat">$ligne[$arg]</p>
+                //     </div>
+                // HTML;
             }
             
             echo <<<HTML
@@ -218,7 +224,10 @@
         }
 
         echo <<<HTML
+        
             </div>
+            <input type="submit" value="Reload">
+            </form>
         HTML;
 
         $dataSpider1 = dataSpider($pays1);
@@ -275,29 +284,73 @@
 
     ?>
 
-    <div class=score></div>
+    <div class="container-score">
+        <h2 id=t1>Scores EcoTourism</h1>
+        <div class=score> 
+            <div class="score-box">A</div>
+            <div class="trait"></div>
+            <div class="score-box" style="background-color:#BB5C00">D</div>
+        </div>
+    </div>
+   
 
     <div class="container-spider">
-        <h2 id=t1>Spider plot</h1>
+        <h2 id=t1>Indicateurs clés</h1>
         <div class= "flex">
             <div id="spider"></div>
             <script>
-                console.log({<?=$dataSpider1?>})
                 spider({<?=$dataSpider1?>}, {<?=$dataSpider2?>} ,"<?=$a[0]?>","<?=$a[1]?>")
             </script>
-            <p class=p50>Actuellement le [pays 1] est au dessus du [pays 2], montrant que [pays 1] pollue plus que [pays 2]. Au cours du temps on peut voir que le tourisme ipsum dolor sit amet, consectetur adipiscing elit. Curabitur a metus pellentesque massa lacinia scelerisque et nec purus. Proin mattis elementum euismod. Curabitur et felis felis. Donec vel nulla malesuada, tempor nisi in, faucibus nulla. Cras at ipsum tempor, rutrum sapien ut, auctor sapien.
-            Curabitur a metus pellentesque massa lacinia scelerisque et nec purus. Proin mattis elementum euismod. </p>
+                <table class=p50 style="text-align:center">
+                    <tr>
+                        <th>USA</th>
+                        <th>Indic</th>
+                        <th>Chine</th>
+                    </tr>
+                    <tr>
+                        <td>667</td>
+                        <td>Test</td>
+                        <td>667</td>
+                    </tr>
+                    <tr>
+                        <td>667</td>
+                        <td>Test</td>
+                        <td>667</td>
+                    </tr>
+                    <tr>
+                        <td>667</td>
+                        <td>Test</td>
+                        <td>667</td>
+                    </tr>
+                    <tr>
+                        <td>667</td>
+                        <td>Test</td>
+                        <td>667</td>
+                    </tr>
+                    <tr>
+                        <td>667</td>
+                        <td>Test</td>
+                        <td>667</td>
+                    </tr>
+                    <tr>
+                        <td>667</td>
+                        <td>Test</td>
+                        <td>667</td>
+                    </tr>
+                    
+
+                </table>
         </div>
     </div>
 
     <div class="container-stats">
-        <h2 id=t1>Courbe de comparaison</h2>
+        <h2 id=t1>Comparaison de chaque indicateur</h2>
         <div class= "flex">
             <p class=p50>Actuellement le [pays 1] est au dessus du [pays 2], montrant que [pays 1] pollue plus que [pays 2]. Au cours du temps on peut voir que le tourisme ipsum dolor sit amet, consectetur adipiscing elit. Curabitur a metus pellentesque massa lacinia scelerisque et nec purus. Proin mattis elementum euismod. Curabitur et felis felis. Donec vel nulla malesuada, tempor nisi in, faucibus nulla. Cras at ipsum tempor, rutrum sapien ut, auctor sapien.
             Curabitur a metus pellentesque massa lacinia scelerisque et nec purus. Proin mattis elementum euismod. </p>
             <div id="chartdiv"></div>
             <script>
-                console.log([<?=$dataLine?>])
+
                 createGraph([<?=$dataLine?>],"<?=$a[0]?>","<?=$a[1]?>")
             </script>
             
@@ -305,20 +358,64 @@
 
     </div>
 
-    <div class="container-stats" style="background-color:#183A37">
-        <h2 id=t1>Barres</h2>
+    <div class="trait-hori"></div>
+
+    <div class="container-stats">
+        <h2 id=t1>Croissance des indicateurs</h2>
         <div class= "flex">
             <div id="bar"></div>
             <p class=p50>Actuellement le [pays 1] est au dessus du [pays 2], montrant que [pays 1] pollue plus que [pays 2]. Au cours du temps on peut voir que le tourisme ipsum dolor sit amet, consectetur adipiscing elit. Curabitur a metus pellentesque massa lacinia scelerisque et nec purus. Proin mattis elementum euismod. Curabitur et felis felis. Donec vel nulla malesuada, tempor nisi in, faucibus nulla. Cras at ipsum tempor, rutrum sapien ut, auctor sapien.
             Curabitur a metus pellentesque massa lacinia scelerisque et nec purus. Proin mattis elementum euismod. </p>
             
             <script>
-                graphBar([<?=$dataBar?>],"<?=$a[0]?>","<?=$a[1]?>")
+                data = [
+                    {
+                        "categ":"CPI",
+                        "Canada":2,
+                        "USA":2.23,
+                    },
+                    {
+                        "categ":"Arrivées",
+                        "Canada":-1,
+                        "USA":4,
+                    },
+                    {
+                        "categ":"PIB/Hab",
+                        "Canada":0.2,
+                        "USA":0.3,
+                    },
+                    {
+                        "categ":"CO2",
+                        "Canada":-0.5,
+                        "USA":-3,
+                    },
+                    {
+                        "categ":"GPI",
+                        "Canada":3.33,
+                        "USA":3.33,
+                    }
+                ]
+                graphBar(data,"<?=$a[0]?>","<?=$a[1]?>")
             </script>
         </div>
        
 
     </div>
+
+
+    <div id="carousel-wrapper">
+        <div id="menu">
+            <div id="current-option">
+                <span id="current-option-text1" data-previous-text="" data-next-text=""></span>
+                <span id="current-option-text2" data-previous-text="" data-next-text=""></span>
+            </div>
+            <button id="previous-option"></button>
+            <button id="next-option"></button>
+        </div>
+        <div id="image"></div>
+    </div>
+
+    <script src="../assets/js/carousel.js"></script>
     
     
 </body>
