@@ -1,7 +1,13 @@
 <?php
 
 // Votre connexion MySQLi
-$conn = new mysqli('127.0.0.1', 'root', '', 'Ecotourisme', 3306);
+$servername = "127.0.0.1";
+$username = "root";
+$password = "root";
+$database = "ecotourisme";
+$port = 8889;
+
+$conn = new mysqli($servername, $username, $password, $database, $port);
 
 if ($conn->connect_error) {
     die("Erreur de connexion à la base de données : " . $conn->connect_error);
