@@ -1,0 +1,46 @@
+html {
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+}
+h1 {
+    font-size: 25px;
+    color: black;   
+}
+
+#hover-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3,100px);
+    width: 240px; /* Set the image width to 100% of the viewport width */
+    height: 80px;
+    justify-content: center;
+    align-items: center;
+    word-break: break-word;
+    hyphens: manual;
+}
+
+.fond {
+    grid-column: 1 / 3;
+    grid-row: 1;
+    width: 240px; /* Set the image width to 100% of the viewport width */
+    height: 80px;
+    object-fit: cover;
+}
+
+.logo {
+    grid-column: 1;
+    grid-row: 1;
+    width: 100%;
+}
+
+.drapeau {
+    width: 70px;
+    height: 70px;
+}
+
+.one {
+    grid-column: 2;
+    grid-row: 1;
+    justify-content: center;
+}
+

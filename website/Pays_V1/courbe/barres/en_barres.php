@@ -1,7 +1,7 @@
 <?php
 
 // Votre connexion MySQLi
-$conn = new mysqli('127.0.0.1', 'root', 'root', 'Ecotourisme', 3306);
+$conn = new mysqli('127.0.0.1', 'root', '', 'Ecotourisme', 3306);
 
 if ($conn->connect_error) {
     die("Erreur de connexion à la base de données : " . $conn->connect_error);

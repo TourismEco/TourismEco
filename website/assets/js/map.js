@@ -1,7 +1,7 @@
 var countrySeries;
 var continentSeries;
 var previousPolygon;
-var chart;
+var map;
 var root;
 var buttons;
 var incr = 0
@@ -22,13 +22,13 @@ var html =
                 width: 240px;
                 height: 80px;
                 object-fit: cover;" 
-                src='../paris4.jpg' alt='Bandeau'>
+                src='../assets/img/{id}.jpg'>
 
             <div style="grid-column: 2;
                 grid-row: 1;
                 justify-content: center;">
                     <h1 style="font-size: 20px;
-                    color: black;  ">{name}</h1>
+                    color: white;  ">{name}</h1>
             </div>
 
             <div style="grid-column: 1;
@@ -46,7 +46,7 @@ function switchToCountries(){
     */
     continentSeries.hide();
     countrySeries.show();
-    chart.goHome();
+    map.goHome();
 }
 
 function switchToContinent(){
@@ -55,7 +55,7 @@ function switchToContinent(){
     */
     countrySeries.hide();
     continentSeries.show();
-    chart.goHome();
+    map.goHome();
 }
 
 function setActionsSeries(serie,compare=false) {
@@ -89,13 +89,16 @@ function setActionsSeries(serie,compare=false) {
                     poly1.set("active", false);  
                     poly1.set("interactive",true)
                     poly1 = target
-                    document.getElementById("pays1").value = poly1._dataItem.dataContext.id
+                    $("#pays0").val(poly1._dataItem.dataContext.id)
+                    compareAjax("0", poly1._dataItem.dataContext.id, $("#pays1").val())
+
                 } else if (incr == 2) {
                     poly2.set("active", false);  
                     poly2.set("interactive",true)
                     poly2 = target
-                    document.getElementById("pays2").value = poly2._dataItem.dataContext.id
+                    $("#pays1").val(poly2._dataItem.dataContext.id)
                     incr = 0
+                    compareAjax("1", poly2._dataItem.dataContext.id, $("#pays0").val())
                 }
             }
         })
@@ -151,7 +154,6 @@ function createMap(fun=null,args=[]) {
     /* 
     Création de la carte. Si fun est spécifié, une fonction sera executée une fois que toute la carte et les données sont initialisés, pour la modifier. Pour passer des données à fun, il faut spécifier args (array)
     */
-    
 
     root = am5.Root.new("map");
 
@@ -159,14 +161,24 @@ function createMap(fun=null,args=[]) {
         am5themes_Animated.new(root)
     ]);
     
-    chart = root.container.children.push(am5map.MapChart.new(root, {
+    map = root.container.children.push(am5map.MapChart.new(root, {
         panX: "rotateX",
+        wheelX: "none",
+        wheelY: "none",
         projection: am5map.geoNaturalEarth1()
     }));
-     
+
+    zoom = map.set("zoomControl", am5map.ZoomControl.new(root, {}));
+    zoom.minusButton.setAll({fill:"#000000"})
+    zoom.minusButton.get("background").setAll({
+        fill: am5.color("#CAD2C5")
+    })
+    zoom.plusButton.get("background").setAll({
+        fill: am5.color("#CAD2C5")
+    })
      
     // Continents
-    continentSeries = chart.series.push(am5map.MapPolygonSeries.new(root, {
+    continentSeries = map.series.push(am5map.MapPolygonSeries.new(root, {
         geoJSON: am5geodata_continentsLow,
         geodataNames:am5geodata_lang_FR,
         exclude: ["antarctica"],
@@ -174,7 +186,7 @@ function createMap(fun=null,args=[]) {
     }));
     
     // Pays
-    countrySeries = chart.series.push(am5map.MapPolygonSeries.new(root, {
+    countrySeries = map.series.push(am5map.MapPolygonSeries.new(root, {
         geoJSON: am5geodata_worldLow,
         geodataNames:am5geodata_lang_FR,
         exclude: ["AX","BL","BQ","BV","CW","HM","MF","SJ","SS","SX","TL","UM","AF","AQ","CC","CX","EH","FK","FO","GG","GI","GL","GQ","GS","IM","IO","JE","KP","LR","NF","NR","PM","PN","SH","SO","SZ","TF","TK","VA","WF","YT","AI","CK","GF","GP","KN","MQ","MS","NU","PS","RE","TW","ST","MR"],
@@ -186,7 +198,7 @@ function createMap(fun=null,args=[]) {
     setActionsSeries(continentSeries)
 
     // Home
-    var homeButton = chart.children.push(am5.Button.new(root, {
+    var homeButton = map.children.push(am5.Button.new(root, {
         paddingTop: 10,
         paddingBottom: 10,
         x: am5.percent(100),
@@ -207,11 +219,11 @@ function createMap(fun=null,args=[]) {
     });
     
     homeButton.events.on("click", function() {
-        chart.goHome();
+        map.goHome();
     });
 
     // Add projection buttons
-    buttons = chart.children.push(am5.Container.new(root, {
+    buttons = map.children.push(am5.Container.new(root, {
         x: am5.p50,
         centerX: am5.p50,
         y: am5.p100,
@@ -245,7 +257,7 @@ function addBullets(radius,color, data) {
     Ajout des points
     */
 
-    serie = chart.series.push(
+    serie = map.series.push(
         am5map.MapPointSeries.new(root, {})
     );
 
@@ -299,16 +311,4 @@ function compare(pays1,pays2) {
 
     poly1._settings.mapPolygon.set("active",true)
     poly2._settings.mapPolygon.set("active",true)
-}
-
-function changeComp1() {
-    incr = 0
-    p1 = countrySeries.getDataItemById(document.getElementById("pays1").value)
-    p1._settings.mapPolygon.set("active",true)
-}
-
-function changeComp2() {
-    incr = 1
-    p2 = countrySeries.getDataItemById(document.getElementById("pays2").value)
-    p2._settings.mapPolygon.set("active",true)
 }

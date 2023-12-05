@@ -2,29 +2,35 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    background-color: 52796F;
 }
 
 html{
-    background-color: FFFFFF;
+    margin: 0;
+    padding: 0;
+    background-color: #2F3E46;
+    font-family: Arial, Helvetica, sans-serif;
+    width: auto;
+}
+
+h1{
+    margin-bottom: 0;
 }
 
 /* couleur de fond */
-.map{
-    background-color: 2F3E46;
+#map{
+    background-color: #354F52;
 }
 
 .score{
-    background-color: 52796F;
+    background-color: #52796F;
 }
+
 
 /* Styles pour le conteneur principal */
 .container {
     display: flex;
-    justify-content: flex-start; /* Les éléments sont alignés à gauche */
-    align-items: flex-start; /* Les éléments sont alignés en haut */
     padding: 20px;
-    background-color: 2F3E46;
+    background-color: #2F3E46;
     color: white;
 }
 
@@ -39,31 +45,16 @@ html{
     flex: 1; /* Le bloc de texte prend deux fois plus d'espace que le bloc du graphique */
 }
 
-.logoEcon img {
-    max-width: 30px; /* Assurez-vous que le logo ne dépasse pas la largeur du conteneur */
-    height: auto; /* Gardez le rapport hauteur/largeur de l'image */
-    position: absolute; /* Position absolue pour positionner le logo */
-    left: 52%; /* Positionnez le logo à gauche du bloc du graphique */
-}
-
-.logoEcolo img {
-    max-width: 1.5%; /* Assurez-vous que le logo ne dépasse pas la largeur du conteneur */
-    height: auto; /* Gardez le rapport hauteur/largeur de l'image */
-    position: absolute; /* Position absolue pour positionner le logo */
-    left: 2%; /* Positionnez le logo à gauche du bloc du graphique */
-    
-}
 
 .topnav {
     overflow: hidden;
     background-color: #333;
-    
     display: grid;
     grid-template-columns: repeat(20, 1fr);
     gap: 1px;
     grid-auto-rows: minmax(50px, auto);
 }
-  
+
 .topnav a {
     float: left;
     color: #f2f2f2;
@@ -74,12 +65,12 @@ html{
     padding-left: 10px;
     padding-right: 10px;
 }
-  
+
 .topnav a:hover {
     background-color: #ddd;
     color: black;
 }
-  
+
 .topnav a.active {
     background-color: #333;
     color: white;
@@ -95,6 +86,7 @@ html{
 .logoNavBar{
     margin-left:0;
     grid-column:1;
+    width: 50px;
     
 }
 
@@ -114,12 +106,12 @@ p{
     border-radius: 10px;
     background-color: #333;
     grid-column: 18;
-  }
-  
-  .styled:hover {
+}
+
+.styled:hover {
     background-color: #3f3f3f;
-  }
-  
+}
+
 
 /* Bouton pour se connecter*/
 .styled2 {
@@ -134,11 +126,11 @@ p{
     background-color: #333;
     grid-column-start: 19;
     grid-column-end: 20;
-  }
-  
-  .styled2:hover {
-    background-color: #3f3f3f;
-  }
+}
+
+.styled2:hover {
+background-color: #3f3f3f;
+}
 
 
 .search{
@@ -146,4 +138,96 @@ p{
     color:white;
     grid-column:17 ;
     border-color: #333;
+}
+
+#bandeau-container {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 1px;
+    grid-auto-rows: minmax(48px, 48px);
+    color:white;
+}
+
+#bandeau-image {
+    width: 100vw; /* Set the image width to 100% of the viewport width */
+    height: auto; /* Maintain the image's aspect ratio */
+    color: white;
+    font-family: Arial;
+}
+img{
+    width: 100px;
+    height: auto;
+}
+.img{
+    grid-column: 1 / 7;
+    grid-row: 1 / 6;
+    width: 100vw; /* Set the image width to 100% of the viewport width */
+    height: 240px;
+    object-fit: cover;
+}
+.logo{
+    grid-column: 1;
+    grid-row: 1/3;
+    width: 100%;
+    margin-left: 130px;
+    margin-top: 15px;
+}
+.one {
+    margin: 10px;
+    grid-column: 2;
+    grid-row: 1;
+    font-family: Arial;
+    margin-top: 30px;
+    font-size: 20px;
+    
+}
+.two {
+    grid-column:1;
+    grid-row: 5;
+    margin-left: 30px;
+    font-family: Arial;
+    font-size: 20px;
+}
+.three {
+    grid-column:2;
+    grid-row: 5;
+    margin-left: 30px;
+    font-family: Arial;
+    font-size: 20px;
+
+}
+.four {
+    grid-column:3;
+    grid-row: 5;
+    font-family: Arial;
+    margin-left: 30px;
+    font-size: 20px;
+
+}
+.five {
+    grid-column:4;
+    grid-row: 5;
+    font-family: Arial;
+    font-size: 20px;
+
+}
+.capital {
+    grid-column:2;
+    grid-row:2;
+    font-family: Arial;
+    margin-left: 20px;
+    margin-top: 20px;
+    font-size: 20px;
+}
+
+#comparateur{
+    padding: 20px;
+    color: white;
+    background-color: #354F52;
+    text-align: center;
+}
+
+#text{
+    color: white;
+    text-align: center;
 }
