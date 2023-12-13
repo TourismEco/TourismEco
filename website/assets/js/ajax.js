@@ -3,6 +3,7 @@ function compareAjax(incr, id_pays, pays_not) {
         method:"GET",
         url:"ajax.php",
         data:{id_pays:id_pays,pays_not:pays_not},
+        async:false,
         success:function(result) {
             bandeau = result["bandeau"]
             container = $("#bandeau"+incr)
@@ -18,26 +19,32 @@ function compareAjax(incr, id_pays, pays_not) {
             container.children(".capital").html("Capitale : "+result["capitale"])
             container.children(".img").attr("src","../assets/img/"+result["id_pays"]+".jpg")
 
-            spiderAjax(incr, JSON.parse(result["spider"]))
-            console.log(JSON.parse(result["line"]))
-            lineAjax(JSON.parse(result["line"]))
+            // spiderAjax(incr, JSON.parse(result["spider"]))
+
+            result["line"] = JSON.parse(result["line"])
+            for (var i=0;i<result["line"].length;i++) {
+                result["line"][i]["value"] = parseFloat(result["line"][i]["value"])
+                result["line"][i]["value2"] = parseFloat(result["line"][i]["value2"])
+            }
+
+            lineAjax(incr, result["line"], result["nom"])
         }
     })    
 }
 
 
 $(document).ready(function() {
-    $("#pays1").on("change", function() {
+    $("#pays0").on("change", function() {
         incr = 0
         p1 = countrySeries.getDataItemById($(this).val())
         p1._settings.mapPolygon.set("active",true)
-        compareAjax("0", $(this).val(), $("#pays2").val())
+        compareAjax("0", $(this).val(), $("#pays1").val())
     })
     
-    $("#pays2").on("change", function() {
+    $("#pays1").on("change", function() {
         incr = 1
         p2 = countrySeries.getDataItemById($(this).val())
         p2._settings.mapPolygon.set("active",true)
-        compareAjax("1", $(this).val(), $("#pays1").val())
+        compareAjax("1", $(this).val(), $("#pays0").val())
     })
 })

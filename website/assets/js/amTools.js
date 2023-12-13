@@ -1,6 +1,5 @@
 class Graphique {
     constructor(id, figObj, cursorObj) {
-        console.log(id)
         this.root = am5.Root.new(id)
         this.graph = this.root.container.children.push(figObj.new(this.root, {}))
         this.xAxis = null
@@ -68,10 +67,6 @@ class Graphique {
         }));        
         
         serie.data.setAll(data)
-        serie.appear(1000)
-
-        // serie.set("valueYField","Canada")
-        // serie.data.setAll(data)
 
         if (this.legend != null) {
             this.legend.data.push(serie)
@@ -96,7 +91,7 @@ class Graphique {
 
     addLegend() {
         this.legend = this.graph.children.push(
-            am5.Legend.new(g.root, {
+            am5.Legend.new(this.root, {
                 centerX: am5.p50,
                 x: am5.p50,
                 fill:"#FFFFFF"

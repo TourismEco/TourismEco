@@ -37,6 +37,50 @@
     <?php
         require("../functions.php");
 
+        function dataLine($pays) {
+            $conn = getDB();
+
+            $query = "SELECT ecologie.annee as annee,
+            pibParHab AS pib, elecRenew AS Enr, co2, arriveesTotal AS arrivees, departs, gpi, cpi
+
+            FROM ecologie, economie, tourisme, surete
+            WHERE ecologie.id_pays = economie.id_pays
+            AND economie.id_pays = tourisme.id_pays
+            AND tourisme.id_pays = surete.id_pays
+            AND surete.id_pays = '$pays'
+
+            AND ecologie.annee = economie.annee
+            AND economie.annee = tourisme.annee
+            AND tourisme.annee = surete.annee  
+            ORDER BY `ecologie`.`annee` ASC;
+            ";
+
+            $result = $conn->query($query);
+
+            $data = array();
+            while ($rs = $result->fetch(PDO::FETCH_ASSOC)) {
+                foreach (array("pib","Enr","co2","arrivees","departs","gpi","cpi") as $key => $value) {
+                    if (!isset($rs[$value])){
+                        $rs[$value]=0;
+                    } 
+                }
+
+                $data[] = <<<END
+                    {year:'{$rs['annee']}',
+                        pib:{$rs['pib']},
+                        Enr:{$rs['Enr']},
+                        co2:{$rs['co2']},
+                        arrivees:{$rs['arrivees']},
+                        departs:{$rs['departs']},
+                        gpi:{$rs['gpi']},
+                        cpi:{$rs['cpi']},
+                    }
+                END;
+            }
+
+            return implode(",", $data);
+        }
+
         function dataSpider($pays) {
             $conn = getDB();
 
@@ -56,7 +100,6 @@
             AND economie.id_pays = tourisme.id_pays
             AND tourisme.id_pays = surete.id_pays
             AND surete.id_pays = '$pays'
-            AND ecologie.annee >= 2008
 
             AND ecologie.annee = economie.annee
             AND economie.annee = tourisme.annee
@@ -233,27 +276,8 @@
         $dataSpider1 = dataSpider($pays1);
         $dataSpider2 = dataSpider($pays2);
 
-        $query = "
-        SELECT eco1.annee, eco1.co2 as eco1, eco2.co2 as eco2
-        FROM ecologie as eco1, ecologie as eco2
-        WHERE eco1.id_pays = '$pays1'
-        AND eco2.id_pays = '$pays2'
-        AND eco1.annee = eco2.annee;
-        ";
-
-        $result = $cur->query($query);
-        $dataLine = array();
-
-        while ($rs = $result->fetch()) {
-            $dataLine[] = <<<END
-                {year:'{$rs['annee']}',
-                    value:{$rs['eco1']},
-                    value2:{$rs['eco2']},
-                }
-            END;
-        }
-
-        $dataLine = implode(",", $dataLine);
+        $dataLine1 = dataLine($pays1);
+        $dataLine2 = dataLine($pays2);
 
         $query2 = "
         SELECT eco1.annee, eco1.pibParHab as eco1, eco2.pibParHab as eco2
@@ -351,7 +375,7 @@
             <div id="chartdiv"></div>
             <script>
 
-                createGraph([<?=$dataLine?>],"<?=$a[0]?>","<?=$a[1]?>")
+                createGraph([<?=$dataLine1?>],[<?=$dataLine2?>],"<?=$a[0]?>","<?=$a[1]?>")
             </script>
             
         </div>
