@@ -27,7 +27,7 @@ function compareAjax(incr, id_pays, pays_not) {
                 result["line"][i]["value2"] = parseFloat(result["line"][i]["value2"])
             }
 
-            lineAjax(incr, result["line"], result["nom"])
+            // lineAjax(incr, result["line"], result["nom"])
         }
     })    
 }

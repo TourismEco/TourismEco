@@ -367,12 +367,24 @@
 
     <div class="container-stats">
         <h2 id=t1>Comparaison de chaque indicateur</h2>
+        <div class=container-buttons>
+            <button onclick="changeVar('co2')" class=button-compare>Émissions de CO2</button>
+            <button onclick="changeVar('pib')" class=button-compare>PIB par habitant</button>
+            <button onclick="changeVar('gpi')" class=button-compare>Indice de paix</button>
+            <button onclick="changeVar('arrivees')" class=button-compare>Arrivées</button>
+            <button onclick="changeVar('departs')" class=button-compare>Départs</button>
+            <button onclick="changeVar('cpi')" class=button-compare>Consumer Price Index</button>
+            <button onclick="changeVar('Enr')" class=button-compare>% énergies renouvellables</button>
+        </div>
         <div class= "flex">
-            <p class=p50>Actuellement le [pays 1] est au dessus du [pays 2], montrant que [pays 1] pollue plus que [pays 2]. Au cours du temps on peut voir que le tourisme ipsum dolor sit amet, consectetur adipiscing elit. Curabitur a metus pellentesque massa lacinia scelerisque et nec purus. Proin mattis elementum euismod. Curabitur et felis felis. Donec vel nulla malesuada, tempor nisi in, faucibus nulla. Cras at ipsum tempor, rutrum sapien ut, auctor sapien.
-            Curabitur a metus pellentesque massa lacinia scelerisque et nec purus. Proin mattis elementum euismod. </p>
-            <button onclick="changeVar('co2')">CO2</button>
-            <button onclick="changeVar('pib')">PIB</button>
-            <button onclick="changeVar('gpi')">Peace</button>
+            <div class=p50>
+                
+                <p>Actuellement le [pays 1] est au dessus du [pays 2], montrant que [pays 1] pollue plus que [pays 2]. Au cours du temps on peut voir que le tourisme ipsum dolor sit amet, consectetur adipiscing elit. Curabitur a metus pellentesque massa lacinia scelerisque et nec purus. Proin mattis elementum euismod. Curabitur et felis felis. Donec vel nulla malesuada, tempor nisi in, faucibus nulla. Cras at ipsum tempor, rutrum sapien ut, auctor sapien.
+                Curabitur a metus pellentesque massa lacinia scelerisque et nec purus. Proin mattis elementum euismod. </p>
+                
+            </div>
+            
+            
             <div id="chartdiv"></div>
             <script>
 
