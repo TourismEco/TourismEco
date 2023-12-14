@@ -39,6 +39,9 @@ function getMin(data,type) {
     min = 0
     while (min < data.length && data[min][type] == null) {
         min++
+    }
+    if (min == data.length) {
+        return 2026
     }   
     return data[min]["year"]
 }
@@ -48,6 +51,9 @@ function getMax(data, type) {
     while (max > 0 && data[max][type] == null) {
         max--
     }
+    if (max == 0) {
+        return 1800
+    } 
     return data[max]["year"]
 }
 
