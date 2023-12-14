@@ -40,20 +40,18 @@
         function dataLine($pays) {
             $conn = getDB();
 
-            $query = "SELECT ecologie.annee as annee,
-            pibParHab AS pib, elecRenew AS Enr, co2, arriveesTotal AS arrivees, departs, gpi, cpi
-
-            FROM ecologie, economie, tourisme, surete
-            WHERE ecologie.id_pays = economie.id_pays
-            AND economie.id_pays = tourisme.id_pays
-            AND tourisme.id_pays = surete.id_pays
-            AND surete.id_pays = '$pays'
-
-            AND ecologie.annee = economie.annee
-            AND economie.annee = tourisme.annee
-            AND tourisme.annee = surete.annee  
-            ORDER BY `ecologie`.`annee` ASC;
-            ";
+            $query = "SELECT allk.id_pays, allk.annee, co2, elecRenew AS Enr, pibParHab AS pib, cpi, gpi, arriveesTotal AS arrivees, departs
+            FROM (SELECT id_pays, annee FROM economie UNION 
+                  SELECT id_pays, annee FROM tourisme UNION
+                  SELECT id_pays, annee FROM surete UNION
+                  SELECT id_pays, annee FROM ecologie
+                 ) allk 
+            LEFT OUTER JOIN economie ON allk.id_pays = economie.id_pays AND allk.annee = economie.annee 
+            LEFT OUTER JOIN ecologie ON allk.id_pays = ecologie.id_pays AND allk.annee = ecologie.annee 
+            LEFT OUTER JOIN surete ON allk.id_pays = surete.id_pays AND allk.annee = surete.annee 
+            LEFT OUTER JOIN tourisme ON allk.id_pays = tourisme.id_pays AND allk.annee = tourisme.annee
+            WHERE allk.id_pays = '$pays'
+            ORDER BY allk.annee;";
 
             $result = $conn->query($query);
 
@@ -61,7 +59,7 @@
             while ($rs = $result->fetch(PDO::FETCH_ASSOC)) {
                 foreach (array("pib","Enr","co2","arrivees","departs","gpi","cpi") as $key => $value) {
                     if (!isset($rs[$value])){
-                        $rs[$value]=0;
+                        $rs[$value]="null";
                     } 
                 }
 
@@ -184,8 +182,8 @@
         $query = "SELECT * FROM pays ORDER BY id_continent DESC, nom ASC";
         $sth = $cur -> prepare($query);
 
-        $pays1 = getPays("pays1", "FR");
-        $pays2 = getPays("pays2", "JP");
+        $pays1 = getPays("pays0", "FR");
+        $pays2 = getPays("pays1", "JP");
 
         echo <<<HTML
             
@@ -372,6 +370,9 @@
         <div class= "flex">
             <p class=p50>Actuellement le [pays 1] est au dessus du [pays 2], montrant que [pays 1] pollue plus que [pays 2]. Au cours du temps on peut voir que le tourisme ipsum dolor sit amet, consectetur adipiscing elit. Curabitur a metus pellentesque massa lacinia scelerisque et nec purus. Proin mattis elementum euismod. Curabitur et felis felis. Donec vel nulla malesuada, tempor nisi in, faucibus nulla. Cras at ipsum tempor, rutrum sapien ut, auctor sapien.
             Curabitur a metus pellentesque massa lacinia scelerisque et nec purus. Proin mattis elementum euismod. </p>
+            <button onclick="changeVar('co2')">CO2</button>
+            <button onclick="changeVar('pib')">PIB</button>
+            <button onclick="changeVar('gpi')">Peace</button>
             <div id="chartdiv"></div>
             <script>
 
