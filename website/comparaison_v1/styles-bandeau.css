@@ -49,7 +49,7 @@ h1 {
 .img {
     grid-column: 1 / 5;
     grid-row: 1 / 5;
-    width: 50vw; /* Set the image width to 50% of the viewport width */
+    width: 100%; /* Set the image width to 50% of the viewport width */
     height: 250px;
     object-fit: cover;
     filter: brightness(50%);
@@ -85,7 +85,7 @@ h1 {
 
 .flex{
     display: flex;
-    margin:20px 100px;
+    margin:20px 40px;
 }
 
 #t1{
@@ -96,33 +96,18 @@ h1 {
 .p50{
     width:40%;
     line-height: 1.5;
-    margin-right:50px;
     text-align: justify;
 }
 
-#chartdiv {
+.graph {
     width: 60%;
     height: 450px;
-    margin-left:50px;
-}
-
-#spider {
-    width: 60%;
-    height: 500px;
     background-color: #354F52;
-}
-
-#bar {
-    width: 60%;
-    height: 500px;
-    background-color: #354F52;
-    margin-right:35px
 }
 
 .score {
     display: flex;
     justify-content: center;
-    padding-bottom: 35px;
 }
 
 .score-box {

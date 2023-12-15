@@ -371,6 +371,7 @@
                     <div class="score-box">A</div>
                     <div class="trait"></div>
                     <div class="score-box" style="background-color:#BB5C00">D</div>
+                    
                 </div>
             </div>
         
@@ -378,7 +379,7 @@
             <div class="container-stats bg-354F52">
                 <h2 id=t1>Indicateurs clés</h1>
                 <div class= "flex">
-                    <div id="spider"></div>
+                    <div class=graph id="spider"></div>
                     <script>
                         spider({<?=$dataSpider1?>}, {<?=$dataSpider2?>} ,"<?=$a[0]?>","<?=$a[1]?>")
                     </script>
@@ -444,7 +445,7 @@
                     </div>
                     
                     
-                    <div id="chartdiv"></div>
+                    <div class=graph id="chartdiv"></div>
                     <script>
 
                         createGraph([<?=$dataLine1?>],[<?=$dataLine2?>],"<?=$a[0]?>","<?=$a[1]?>")
@@ -459,7 +460,7 @@
             <div class="container-stats bg-354F52">
                 <h2 id=t1>Croissance des indicateurs</h2>
                 <div class= "flex">
-                    <div id="bar"></div>
+                    <div class=graph id="bar"></div>
                     <p class=p50>Actuellement le [pays 1] est au dessus du [pays 2], montrant que [pays 1] pollue plus que [pays 2]. Au cours du temps on peut voir que le tourisme ipsum dolor sit amet, consectetur adipiscing elit. Curabitur a metus pellentesque massa lacinia scelerisque et nec purus. Proin mattis elementum euismod. Curabitur et felis felis. Donec vel nulla malesuada, tempor nisi in, faucibus nulla. Cras at ipsum tempor, rutrum sapien ut, auctor sapien.
                     Curabitur a metus pellentesque massa lacinia scelerisque et nec purus. Proin mattis elementum euismod. </p>
                     
