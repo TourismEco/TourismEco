@@ -267,7 +267,7 @@
         echo <<<HTML
         
             </div>
-            <input type="submit" value="Reload">
+            <!-- <input type="submit" value="Reload"> -->
             </form>
         HTML;
 
@@ -306,154 +306,229 @@
 
     ?>
 
-    <div class="container-score">
-        <h2 id=t1>Scores EcoTourism</h1>
-        <div class=score> 
-            <div class="score-box">A</div>
-            <div class="trait"></div>
-            <div class="score-box" style="background-color:#BB5C00">D</div>
-        </div>
-    </div>
-   
-
-    <div class="container-spider">
-        <h2 id=t1>Indicateurs clés</h1>
-        <div class= "flex">
-            <div id="spider"></div>
-            <script>
-                spider({<?=$dataSpider1?>}, {<?=$dataSpider2?>} ,"<?=$a[0]?>","<?=$a[1]?>")
-            </script>
-                <table class=p50 style="text-align:center">
-                    <tr>
-                        <th>USA</th>
-                        <th>Indic</th>
-                        <th>Chine</th>
-                    </tr>
-                    <tr>
-                        <td>667</td>
-                        <td>Test</td>
-                        <td>667</td>
-                    </tr>
-                    <tr>
-                        <td>667</td>
-                        <td>Test</td>
-                        <td>667</td>
-                    </tr>
-                    <tr>
-                        <td>667</td>
-                        <td>Test</td>
-                        <td>667</td>
-                    </tr>
-                    <tr>
-                        <td>667</td>
-                        <td>Test</td>
-                        <td>667</td>
-                    </tr>
-                    <tr>
-                        <td>667</td>
-                        <td>Test</td>
-                        <td>667</td>
-                    </tr>
-                    <tr>
-                        <td>667</td>
-                        <td>Test</td>
-                        <td>667</td>
-                    </tr>
-                    
-
-                </table>
-        </div>
-    </div>
-
-    <div class="container-stats">
-        <h2 id=t1>Comparaison de chaque indicateur</h2>
-        <div class=container-buttons>
-            <button onclick="changeVar('co2')" class=button-compare>Émissions de CO2</button>
-            <button onclick="changeVar('pib')" class=button-compare>PIB par habitant</button>
-            <button onclick="changeVar('gpi')" class=button-compare>Indice de paix</button>
-            <button onclick="changeVar('arrivees')" class=button-compare>Arrivées</button>
-            <button onclick="changeVar('departs')" class=button-compare>Départs</button>
-            <button onclick="changeVar('cpi')" class=button-compare>Consumer Price Index</button>
-            <button onclick="changeVar('Enr')" class=button-compare>% énergies renouvellables</button>
-        </div>
-        <div class= "flex">
-            <div class=p50>
-                
-                <p>Actuellement le [pays 1] est au dessus du [pays 2], montrant que [pays 1] pollue plus que [pays 2]. Au cours du temps on peut voir que le tourisme ipsum dolor sit amet, consectetur adipiscing elit. Curabitur a metus pellentesque massa lacinia scelerisque et nec purus. Proin mattis elementum euismod. Curabitur et felis felis. Donec vel nulla malesuada, tempor nisi in, faucibus nulla. Cras at ipsum tempor, rutrum sapien ut, auctor sapien.
-                Curabitur a metus pellentesque massa lacinia scelerisque et nec purus. Proin mattis elementum euismod. </p>
-                
-            </div>
-            
-            
-            <div id="chartdiv"></div>
-            <script>
-
-                createGraph([<?=$dataLine1?>],[<?=$dataLine2?>],"<?=$a[0]?>","<?=$a[1]?>")
-            </script>
-            
-        </div>
-
-    </div>
-
-    <div class="trait-hori"></div>
-
-    <div class="container-stats">
-        <h2 id=t1>Croissance des indicateurs</h2>
-        <div class= "flex">
-            <div id="bar"></div>
-            <p class=p50>Actuellement le [pays 1] est au dessus du [pays 2], montrant que [pays 1] pollue plus que [pays 2]. Au cours du temps on peut voir que le tourisme ipsum dolor sit amet, consectetur adipiscing elit. Curabitur a metus pellentesque massa lacinia scelerisque et nec purus. Proin mattis elementum euismod. Curabitur et felis felis. Donec vel nulla malesuada, tempor nisi in, faucibus nulla. Cras at ipsum tempor, rutrum sapien ut, auctor sapien.
-            Curabitur a metus pellentesque massa lacinia scelerisque et nec purus. Proin mattis elementum euismod. </p>
-            
-            <script>
-                data = [
-                    {
-                        "categ":"CPI",
-                        "Canada":2,
-                        "USA":2.23,
-                    },
-                    {
-                        "categ":"Arrivées",
-                        "Canada":-1,
-                        "USA":4,
-                    },
-                    {
-                        "categ":"PIB/Hab",
-                        "Canada":0.2,
-                        "USA":0.3,
-                    },
-                    {
-                        "categ":"CO2",
-                        "Canada":-0.5,
-                        "USA":-3,
-                    },
-                    {
-                        "categ":"GPI",
-                        "Canada":3.33,
-                        "USA":3.33,
-                    }
-                ]
-                graphBar(data,"<?=$a[0]?>","<?=$a[1]?>")
-            </script>
-        </div>
-       
-
-    </div>
-
-
-    <div id="carousel-wrapper">
-        <div id="menu">
-            <div id="current-option">
-                <span id="current-option-text1" data-previous-text="" data-next-text=""></span>
-                <span id="current-option-text2" data-previous-text="" data-next-text=""></span>
-            </div>
-            <button id="previous-option"></button>
-            <button id="next-option"></button>
-        </div>
-        <div id="image"></div>
-    </div>
-
-    <script src="../assets/js/carousel.js"></script>
+    <div class="grille">
     
+        <div class="sidebar">
+            <div class="container-mini bg-354F52" style="width: 300px;height:300px">
+                <div class="mini-bandeau"> 
+                    <img class="img-small" src='../assets/img/US.jpg' alt="Bandeau">
+                    <img class="flag-small" src='../assets/twemoji/US.svg'>
+                    <h2 class="nom-small">United States</h2>
+                </div>
+
+                <div class=mini-stats> 
+
+
+                </div>
+
+            </div>
+
+            <div class="container-mini bg-52796F" style="width: 300px;height:300px">
+                <div class="mini-bandeau"> 
+                    <img class="img-small" src='../assets/img/CA.jpg' alt="Bandeau">
+                    <img class="flag-small" src='../assets/twemoji/CA.svg'>
+                    <h2 class="nom-small">Canada</h2>
+                </div>
+
+                <div class=mini-stats> 
+
+
+                </div>
+
+            </div>
+
+            <div class="container-mini bg-52796F" style="width: 300px">
+                <div class="mini-bandeau"> 
+                    <img id=plus class="flag-small" src='../assets/img/plus.svg'>
+                    <h2 class="nom-small">Ajouter un pays</h2>
+                </div>
+
+                <div class=mini-stats> 
+
+
+                </div>
+
+            </div>
+
+            <div class="container-mini bg-52796F" style="width: 300px">
+                <div class="mini-navig">
+                    <p>Scores EcoTourism</p>
+                    <p>Indicateurs clés</p>
+                    <p>Comparaison de chaque indicateur</p>
+                    <p>Croissance des indicateurs</p>
+                    <p>Savez-vous ?</p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="main">
+            <div class="container-stats bg-52796F">
+                <h2 id=t1>Scores EcoTourism</h1>
+                <div class=score> 
+                    <div class="score-box">A</div>
+                    <div class="trait"></div>
+                    <div class="score-box" style="background-color:#BB5C00">D</div>
+                </div>
+            </div>
+        
+
+            <div class="container-stats bg-354F52">
+                <h2 id=t1>Indicateurs clés</h1>
+                <div class= "flex">
+                    <div id="spider"></div>
+                    <script>
+                        spider({<?=$dataSpider1?>}, {<?=$dataSpider2?>} ,"<?=$a[0]?>","<?=$a[1]?>")
+                    </script>
+                        <table class=p50 style="text-align:center">
+                            <tr>
+                                <th>USA</th>
+                                <th>Indic</th>
+                                <th>Chine</th>
+                            </tr>
+                            <tr>
+                                <td>667</td>
+                                <td>Test</td>
+                                <td>667</td>
+                            </tr>
+                            <tr>
+                                <td>667</td>
+                                <td>Test</td>
+                                <td>667</td>
+                            </tr>
+                            <tr>
+                                <td>667</td>
+                                <td>Test</td>
+                                <td>667</td>
+                            </tr>
+                            <tr>
+                                <td>667</td>
+                                <td>Test</td>
+                                <td>667</td>
+                            </tr>
+                            <tr>
+                                <td>667</td>
+                                <td>Test</td>
+                                <td>667</td>
+                            </tr>
+                            <tr>
+                                <td>667</td>
+                                <td>Test</td>
+                                <td>667</td>
+                            </tr>
+                            
+
+                        </table>
+                </div>
+            </div>
+
+            <div class="container-stats bg-354F52">
+                <h2 id=t1>Comparaison de chaque indicateur</h2>
+                <div class=container-buttons>
+                    <button onclick="changeVar('co2')" class=button-compare>Émissions de CO2</button>
+                    <button onclick="changeVar('pib')" class=button-compare>PIB par habitant</button>
+                    <button onclick="changeVar('gpi')" class=button-compare>Indice de paix</button>
+                    <button onclick="changeVar('arrivees')" class=button-compare>Arrivées</button>
+                    <button onclick="changeVar('departs')" class=button-compare>Départs</button>
+                    <button onclick="changeVar('cpi')" class=button-compare>Consumer Price Index</button>
+                    <button onclick="changeVar('Enr')" class=button-compare>% énergies renouvellables</button>
+                </div>
+                <div class= "flex">
+                    <div class=p50>
+                        
+                        <p>Actuellement le [pays 1] est au dessus du [pays 2], montrant que [pays 1] pollue plus que [pays 2]. Au cours du temps on peut voir que le tourisme ipsum dolor sit amet, consectetur adipiscing elit. Curabitur a metus pellentesque massa lacinia scelerisque et nec purus. Proin mattis elementum euismod. Curabitur et felis felis. Donec vel nulla malesuada, tempor nisi in, faucibus nulla. Cras at ipsum tempor, rutrum sapien ut, auctor sapien.
+                        Curabitur a metus pellentesque massa lacinia scelerisque et nec purus. Proin mattis elementum euismod. </p>
+                        
+                    </div>
+                    
+                    
+                    <div id="chartdiv"></div>
+                    <script>
+
+                        createGraph([<?=$dataLine1?>],[<?=$dataLine2?>],"<?=$a[0]?>","<?=$a[1]?>")
+                    </script>
+                    
+                </div>
+
+            </div>
+
+            <!-- <div class="trait-hori"></div> -->
+
+            <div class="container-stats bg-354F52">
+                <h2 id=t1>Croissance des indicateurs</h2>
+                <div class= "flex">
+                    <div id="bar"></div>
+                    <p class=p50>Actuellement le [pays 1] est au dessus du [pays 2], montrant que [pays 1] pollue plus que [pays 2]. Au cours du temps on peut voir que le tourisme ipsum dolor sit amet, consectetur adipiscing elit. Curabitur a metus pellentesque massa lacinia scelerisque et nec purus. Proin mattis elementum euismod. Curabitur et felis felis. Donec vel nulla malesuada, tempor nisi in, faucibus nulla. Cras at ipsum tempor, rutrum sapien ut, auctor sapien.
+                    Curabitur a metus pellentesque massa lacinia scelerisque et nec purus. Proin mattis elementum euismod. </p>
+                    
+                    <script>
+                        data = [
+                            {
+                                "categ":"CPI",
+                                "Canada":2,
+                                "USA":2.23,
+                            },
+                            {
+                                "categ":"Arrivées",
+                                "Canada":-1,
+                                "USA":4,
+                            },
+                            {
+                                "categ":"PIB/Hab",
+                                "Canada":0.2,
+                                "USA":0.3,
+                            },
+                            {
+                                "categ":"CO2",
+                                "Canada":-0.5,
+                                "USA":-3,
+                            },
+                            {
+                                "categ":"GPI",
+                                "Canada":3.33,
+                                "USA":3.33,
+                            }
+                        ]
+                        graphBar(data,"<?=$a[0]?>","<?=$a[1]?>")
+                    </script>
+                </div>
+            
+
+            </div>
+            
+            <div class='container-double'>
+                <div class="container-stats bg-52796F marg-r">
+                    <h2 id=t1>Savez-vous ?</h2>
+                    <div id="carousel-wrapper">
+                
+                        <div id="menu">
+                            <div id="current-option">
+                                <span id="current-option-text1" data-previous-text="" data-next-text=""></span>
+                                <span id="current-option-text2" data-previous-text="" data-next-text=""></span>
+                            </div>
+                            <button id="previous-option"></button>
+                            <button id="next-option"></button>
+                        </div>
+                        <div id="image"></div>
+                    </div>
+                </div>    
+
+                <div class="container-stats bg-52796F marg-l">
+                    <h2 id=t1>Définitions</h2>
+                    
+                </div>
+                </div>    
+
+            </div>
+             
+            
+
+            <script src="../assets/js/carousel.js"></script>
+        </div>
+    
+    </div>
     
 </body>
 </html>
