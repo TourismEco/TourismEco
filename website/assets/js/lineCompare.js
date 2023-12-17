@@ -2,15 +2,17 @@ var serieLine1;
 var serieLine2;
 
 
-function createGraph(data1, data2, name1, name2) {
-    console.log(data1)
+function createGraph() {
     l = new Line("chartdiv")
-    l.initXAxis("year", getAnnees(data1, data2, "co2"))
+
+    annees = []
+    for (var i = 1990;i<2024;i++) {
+        annees.push({"year":i.toString()})
+    }
+    l.initXAxis("year", annees)
+
     l.initYAxis()
     l.addLegend()
-
-    serieLine1 = l.addSerie(data1, name1, "#52796F", "year", "co2")
-    serieLine2 = l.addSerie(data2, name2, "#83A88B", "year", "co2")
 
     // g.graph.set("scrollbarX", am5.Scrollbar.new(g.root, {
     //     orientation: "horizontal"
@@ -20,16 +22,18 @@ function createGraph(data1, data2, name1, name2) {
     console.log("25")
 }
 
+var color = ["#52796F","#83A88B"]
 function lineAjax(incr, data, name) {
-
-    if (incr == 0) {
-        serieLine1.data.setAll(data);
-        serieLine1.setAll({
-            name:name
-        })
+    console.log(data)
+    if (l.series.length == incr) {
+        l.addSerie(data, name, color[incr], "year", "co2")
+        if (incr == 1) {
+            l.xAxis.data.setAll(getAnnees(l.series[0].data,l.series[1].data,l.type))
+        }
     } else {
-        serieLine2.data.setAll(data);
-        serieLine2.setAll({
+        l.series[incr].data = data
+        l.series[incr].serie.data.setAll(data);
+        l.series[incr].serie.setAll({
             name:name
         })
     }
@@ -51,7 +55,7 @@ function getMax(data, type) {
     while (max > 0 && data[max][type] == null) {
         max--
     }
-    if (max == 0) {
+    if (max <= 0) {
         return 1800
     } 
     return data[max]["year"]
@@ -69,11 +73,10 @@ function getAnnees(data1, data2, type) {
 }
 
 function changeVar(type) {
-    
-    serieLine1.set("valueYField",type)
-    serieLine2.set("valueYField",type)
-    serieLine1.data.setAll(serieLine1.data._values)
-    serieLine2.data.setAll(serieLine2.data._values)
-
-    l.xAxis.data.setAll(getAnnees(serieLine1.data._values,serieLine2.data._values,type))
+    for (var s of l.series) {
+        s.serie.set("valueYField",type)
+        s.serie.data.setAll(s.data)
+    }
+    l.type = type
+    l.xAxis.data.setAll(getAnnees(l.series[0].data,l.series[1].data,type))
 }

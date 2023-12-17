@@ -50,7 +50,7 @@ h1 {
     grid-column: 1 / 5;
     grid-row: 1 / 5;
     width: 100%; /* Set the image width to 50% of the viewport width */
-    height: 250px;
+    height: 200px;
     object-fit: cover;
     filter: brightness(50%);
     z-index: -1;
@@ -257,6 +257,18 @@ select {
 
 .marg-r {
     margin-right:10px
+}
+
+#bandeau0 {
+  order:0
+}
+
+#bandeau1 {
+  order:1
+}
+
+#bandeau2 {
+  order:2
 }
 
 

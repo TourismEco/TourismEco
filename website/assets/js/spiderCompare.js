@@ -1,16 +1,11 @@
 var year;
-var serieSp1;
-var serieSp2;
 
-function spider(data1, data2, name1, name2) {
+function spider() {
 
     g = new Spider("spider")
-    g.initXAxis("var", data1["2020"])
+    g.initXAxis("var", [{"var":"pib"},{"var":"Enr"},{"var":"co2"},{"var":"arrivees"},{"var":"departs"},{"var":"gpi"},{"var":"cpi"}])
     g.initYAxis()
     g.addLegend()
-
-    seriesSp1 = g.addSerie(data1["2020"], name1, "#52796F", "var", "value")
-    seriesSp2 = g.addSerie(data2["2020"], name2, "#83A88B", "var", "value")
 
     // Create controls
     var container = g.graph.children.push(am5.Container.new(g.root, {
@@ -50,6 +45,7 @@ function spider(data1, data2, name1, name2) {
 
     // updateData(2020);
     var yearTemp = 2020
+    year = 2020
 
     slider.events.on("rangechanged", function () {
         year = firstYear + Math.round(slider.get("start", 0) * (lastYear - firstYear));
@@ -61,24 +57,28 @@ function spider(data1, data2, name1, name2) {
     });
 
     function updateData(year) {
-        if (data1[year]) {
-            seriesSp1.data.setAll(data1[year]);
-            seriesSp2.data.setAll(data2[year])
+        for (var s of g.series) {
+            s.serie.data.setAll(s.data[year]);
         }
+            
     }
 
-    seriesSp1.appear(1000);
-    seriesSp2.appear(1000);
     g.graph.appear(1000, 100);
     
 
 }
 
-
-function spiderAjax(serie,data) {
-    if (serie == 0) {
-        seriesSp1.data.setAll(data[year]);
+var color = ["#52796F","#83A88B"]
+function spiderAjax(incr,data,name) {
+    console.log(data[year], year, name)
+    if (g.series.length == incr) {
+        g.addSerie(data, name, color[incr], "var", "value")
+        g.series[incr].serie.data.setAll(data[year]);
     } else {
-        seriesSp2.data.setAll(data[year]);
+        g.series[incr].data = data
+        g.series[incr].serie.data.setAll(data[year]);
+        g.series[incr].serie.setAll({
+            name:name
+        })
     }
 }
