@@ -5,6 +5,7 @@ class Graphique {
         this.xAxis = null
         this.yAxis = null
         this.legend = null
+        this.series = []
 
         var cursor = this.graph.set("cursor", cursorObj.new(this.root, {}));
         cursor.lineY.set("visible", false);
@@ -71,6 +72,8 @@ class Graphique {
         if (this.legend != null) {
             this.legend.data.push(serie)
         }
+
+        this.series.push(serie)
 
         return serie
     }
