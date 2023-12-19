@@ -1,10 +1,10 @@
 <?php
 require("../functions.php");
 
-function dataLine($pays,$implode) {
+function dataLine($pays) {
     $conn = getDB();
 
-    $query = "SELECT allk.id_pays, allk.annee AS year, co2, elecRenew AS Enr, pibParHab AS pib, cpi, gpi, arriveesTotal AS arrivees, departs
+    $query = "SELECT allk.id_pays, allk.annee AS year, co2, elecRenew AS Enr, pibParHab AS pib, cpi, gpi, arriveesTotal*1000 AS arrivees, departs*1000 AS departs
     FROM (SELECT id_pays, annee FROM economie UNION 
             SELECT id_pays, annee FROM tourisme UNION
             SELECT id_pays, annee FROM surete UNION
@@ -26,20 +26,14 @@ function dataLine($pays,$implode) {
                 $rs[$value]="null";
             } 
         }
-
         $data[] = $rs;
 
     }
 
-    if ($implode) {
-        return implode(",", $data);
-    } else {
-        return $data;
-    }
-    
+    return $data;    
 }
 
-function dataSpider($pays,$implode) {
+function dataSpider($pays) {
     $conn = getDB();
 
     $query = "SELECT ecologie.annee as annee,
@@ -57,8 +51,6 @@ function dataSpider($pays,$implode) {
     ORDER BY `ecologie`.`annee` DESC;
     ";
 
-    $search = array(array("tourisme","arriveesTotal","Arrivées"), array("tourisme","departs","Départs"), array("ecologie","co2","CO2"), array("ecologie","elecRenew","% elec renew"), array("economie","pibParHab","PIB/Hab"), array("economie","cpi","CPI"), array("surete","gpi","Indice de sureté"));
-
     $result = $conn->query($query);
 
     $data = array();
@@ -72,13 +64,7 @@ function dataSpider($pays,$implode) {
         }
     }
 
-    if ($implode) {
-        return implode(",", $data);
-    } else {
-        return $data;
-    }
+    return $data;
 }
-
-
 
 ?>

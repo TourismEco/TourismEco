@@ -5,18 +5,9 @@ var serieLine2;
 function createGraph() {
     l = new Line("chartdiv")
 
-    annees = []
-    for (var i = 1990;i<2024;i++) {
-        annees.push({"year":i.toString()})
-    }
-    l.initXAxis("year", annees)
-
+    l.initXAxis("year", getAnnees(1990,2024))
     l.initYAxis()
     l.addLegend()
-
-    // g.graph.set("scrollbarX", am5.Scrollbar.new(g.root, {
-    //     orientation: "horizontal"
-    // }));
 
     l.graph.appear(1000, 100);
     console.log("25")
@@ -45,7 +36,7 @@ function getMin(data,type) {
         min++
     }
     if (min == data.length) {
-        return 2026
+        return 2077
     }   
     return data[min]["year"]
 }
@@ -56,15 +47,12 @@ function getMax(data, type) {
         max--
     }
     if (max <= 0) {
-        return 1800
+        return 1984
     } 
     return data[max]["year"]
 }
 
-function getAnnees(data1, data2, type) {
-    min = Math.min(getMin(data1,type),getMin(data2,type))
-    max = Math.max(getMax(data1,type),getMax(data2,type))
-
+function getAnnees(min,max) {
     annees = []
     for (var i = min;i<max+1;i++) {
         annees.push({"year":i.toString()})
@@ -78,5 +66,8 @@ function changeVar(type) {
         s.serie.data.setAll(s.data)
     }
     l.type = type
-    l.xAxis.data.setAll(getAnnees(l.series[0].data,l.series[1].data,type))
+
+    min = Math.min(getMin(data1,type),getMin(data2,type))
+    max = Math.max(getMax(data1,type),getMax(data2,type))
+    l.xAxis.data.setAll(getAnnees(min,max))
 }

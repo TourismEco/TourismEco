@@ -23,10 +23,10 @@ $ligne = $sth->fetch();
 $capitale = $ligne["nom"];
 
 // Spider
-$dataSpider = dataSpider($id_pays,false);
+$dataSpider = dataSpider($id_pays);
 
 // Line
-$dataLine = dataLine($id_pays,false);
+$dataLine = dataLine($id_pays);
 
 // Bar
 $query2 = "

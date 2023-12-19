@@ -35,8 +35,6 @@
 
 <body>
     <?php
-        require("data.php");
-
         function getPays($arg, $default) {
             if (isset($_GET[$arg])) {
                 return $_GET[$arg];
@@ -45,22 +43,8 @@
             }
         }
 
-        $cur = getDB();
-
         $pays1 = getPays("pays0", "FR");
         $pays2 = getPays("pays1", "JP");
-        $noms = array();
-
-        foreach (array($pays1,$pays2) as $key => $id_pays) {
-            $query = "SELECT * FROM pays WHERE id = :id_pays";
-            $sth = $cur->prepare($query);
-            $sth->bindParam(":id_pays", $id_pays, PDO::PARAM_STR);
-            $sth->execute();
-
-            $ligne = $sth->fetch();
-            $noms[]=$ligne["nom"];
-        }
-
     ?>
 
     <div class="container-map">
@@ -295,7 +279,7 @@
         
         spider()
         createGraph()
-        graphBar(data,"<?=$noms[0]?>","<?=$noms[1]?>")
+        graphBar(data,"Test1","Test2")
         createMapCompare(['<?=$pays1?>','<?=$pays2?>'])
 
     </script>
