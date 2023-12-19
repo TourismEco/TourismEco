@@ -1,8 +1,5 @@
 <?php
 
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
-
 // Votre connexion MySQLi
 $conn = new mysqli('127.0.0.1', 'root', '', 'ecotourisme', 3306);
 
@@ -24,7 +21,8 @@ $result = $conn->query($query);
 // Récupérez les données de la requête SQL
 $data = array();
 while ($row = $result->fetch_assoc()) {
-    $data[] = $row;
+  $row['value'] = floatval($row['value']);
+  $data[] = $row;
 }
 
 $conn->close();
@@ -133,6 +131,9 @@ am5.ready(function() {
   // Make stuff animate on load
   series.appear(1000);
   chart.appear(1000, 100);
+
+  console.log(<?php echo json_encode($data); ?>);
+
 
 }); // end am5.ready()
 </script>
