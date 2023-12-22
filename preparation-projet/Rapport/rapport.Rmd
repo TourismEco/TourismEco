@@ -27,7 +27,7 @@ Acknowledgements:
 - Nos plus sincères remerciements vont à notre encadrant pédagogique, Théodore Michel-Picque, pour les conseils avisés sur notre travail.
 - Nous remercions aussi notre enseignant, Jérôme Pasquet, pour la personne qu'il est ainsi que ses cours sur la sécurité et le développement web.
 - Lucas TRIOZON remercie Adrien, Alison et Wilfried pour leur aide technique et morale tout au long du projet, et Helene Carles pour lui avoir enseigné la passion de l'informatique.
-- Attention toute particulière pour la CGT et TAM qui nous permet de vivre dans un monde meilleur chaque jour.
+- Attention toute particulière pour la CGT et TAM qui nous permettent de vivre dans un monde meilleur chaque jour.
 #biblio-style: elsarticle-harv
 session: 2023
 team: Groupe Écotourisme
@@ -59,7 +59,7 @@ Ce qui distingue fondamentalement notre plateforme est son approche intégrée. 
 
 
 # Sujet
-Dans cette section du rapport, nous explorerons en détail la modélisation de notre projet à travers l'utilisation d'UML (Unified Modeling Language) et du Canvas, ainsi que la définition de nos besoins et exigences dans le cahier des charges. Ces outils puissants nous permettront de visualiser et de structurer les différents aspects de notre projet, offrant ainsi une compréhension approfondie de son architecture.
+Dans cette section du rapport, nous explorerons en détail la modélisation de notre projet à travers le cas d'utilisation en UML (Unified Modeling Language) et du Canvas, ainsi que la définition de nos besoins et exigences dans le cahier des charges. Ces outils puissants nous permettront de visualiser et de structurer les différents aspects de notre projet, offrant ainsi une compréhension approfondie de son architecture.
 
 Notre projet aborde plusieurs besoins et problèmes clés auxquels sont confrontés les voyageurs d'aujourd'hui. En premier lieu, nous répondons à la quête d'économie des voyageurs en les aidant à réduire leurs dépenses, proposant ainsi une réponse adaptée au voyage économique. Simultanément, notre initiative s'engage en faveur de la responsabilité environnementale en encourageant des pratiques de voyage respectueuses de l'environnement. 
 De plus, notre solution vise à démystifier le processus de voyage en fournissant des informations claires et accessibles. En simplifiant les démarches, nous aspirons à rendre l'expérience de voyage plus transparente et moins intimidante pour nos utilisateurs.
@@ -86,8 +86,7 @@ Pour constituer notre base de données, nous avons réalisé des recherches appr
 En outre, nous avons intégré des données non chiffrées, notamment des listes de pays, de villes, et des pays en conflit, que nous avons traitées de manière spécifique. La plupart de ces fichiers étaient au format xlsx, nécessitant un traitement à l'aide de Python. Cette approche méthodique garantit la fiabilité et la pertinence des informations fournies par notre plateforme, renforçant ainsi la qualité de l'expérience utilisateur.
 
 A présent, nous allons nous intéresser à la modélisation pour mieux appréhender la complexité et la cohérence de notre initiative. 
-Pour cela on va s’intéresser à un utilisateur. Il a deux possibilités, soit s’identifier ou se créer 
-un compte ou alors aller sur le site de façon anonyme. Si l’utilisateur décide s’identifier,l’utilisateur aura la possibilité d'estimer son empreinte carbone ainsi que le coût d'un trajet depuis son domicile jusqu'à une destination spécifique. Cette fonctionnalité lui permettra d'obtenir rapidement une estimation des dépenses liées à son voyage tout en développant sa conscience environnementale. De plus, il peut mettre en favoris ses destinations favorite ou ses projets de voyage. Ainsi, grâce à la sauvegarde des informations, l’utilisateur peut garder son historique des calculs et des trajets mais aussi de ses favoris. 
+Pour cela on va s’intéresser à un utilisateur. Il a deux possibilités, soit s’identifier ou se créer un compte ou alors aller sur le site de façon anonyme. Si l’utilisateur décide s’identifier,l’utilisateur aura la possibilité d'estimer son empreinte carbone ainsi que le coût d'un trajet depuis son domicile jusqu'à une destination spécifique. Cette fonctionnalité lui permettra d'obtenir rapidement une estimation des dépenses liées à son voyage tout en développant sa conscience environnementale. De plus, il peut mettre en favoris ses destinations favorite ou ses projets de voyage. Ainsi, grâce à la sauvegarde des informations, l’utilisateur peut garder son historique des calculs et des trajets mais aussi de ses favoris. 
 Ensuite, un utilisateur connecter ou non peut lire les rapport d’analyse statistiques basé sur 
 des aspects économique et/ou écologique. De plus en recherchant une région du monde ou en comparant différentes données (jusqu’à deux régions du monde différentes) il pourra visualiser des données en fonction de ces recherches pour pouvoir mieux s’informer ou mieux décider. 
 
@@ -216,9 +215,6 @@ Cela a nécessité un traitement spécifique pour tout uniformiser, qui sera dé
     -   **Lien :** [\textcolor{blue}{OpenFlights}](https://github.com/jpatokal/openflights)
 
 ## Traitements
-
-### Généralités
-
 Au vu de la quantité de sources que nous avons, réunir toutes les tables et données au sein d'une même structure a été un défi.
 Par exemple, chaque fichier n'utilise pas forcément les mêmes identifiants pour définir un même pays : code ISO2, code ISO3 ou même le nom du pays directement.
 
@@ -794,7 +790,7 @@ Par la suite, nous pouvons retrouver des graphiques de comparaison, comme le pib
 
 Pour finir, l’utilisateur pourra retrouver une comparaison de l’indice de sûreté de chaque pays, avec un “le saviez-vous” pour expliquer ce que représente cet indicateur.
 
-## Inscription/Connexion
+## Page Inscription/Connexion
 
 Le site web offre aux utilisateurs la possibilité de créer un compte personnel et de se connecter à leur espace privé. Lors de l’inscription, l’utilisateur renseigne un nom et un mot de passe pour son compte et doit indiquer son pays et sa ville d’origine, qui seront utilisés comme point de départ pour les calculs du service de calculateur.
 Pour être accessible, les pages connexion et inscription sont facilement compréhensible. Ce qui permettra à tous d’avoir accès aux pages supplémentaires.
@@ -842,7 +838,6 @@ Le calculateur a pour objectif de faciliter la planification du voyage et de sen
 
 # Développement et outils
 ## Graphique
-
 ### Choix de notre bibliothèque
 Une fois notre sujet et nos premières idées posées, nous nous sommes rendu compte que nous allions avoir besoin de deux choses importantes : de pouvoir créer des cartes (si possible interactives), car nous sommes sur un projet avec une dimension géographique, et des graphiques pour représenter nos données. Nous avons donc fait des recherches sur les outils existants et utilisables pour notre site. 
 
@@ -1022,11 +1017,8 @@ A l’heure actuelle, la classe mère fait 100 lignes. La création de séries d
 
 Cette classe est encore expérimentale. Nous pensons qu’elle nous fait aller dans le bon sens, en terme de bonne pratique de code et d’utilisation. L’objectif est de faire de cette classe notre socle pour les graphiques, de l’optimiser, de la rendre modulable et compatible avec des manipulations DOM, HTMX et AJAX. Ce n’est pour l’instant pas totalement le cas.
 
-
 ## Carte
-
 ### Introduction
-
 Le principal argument pour utiliser amCharts 5 était la possibilité de faire des cartes puissantes. Nous allons maintenant voir ce qu’il en retourne. A noter que nous sortons du schéma orienté objet présenté précédemment. Ce ne sont pas les mêmes classes et attributs à manipuler, et son interactivité est incomparable. La carte que nous avons créé est encapsulée dans un autre objet indépendant, qui permet aussi une meilleure lisibilité du code.
 
 Les cartes amCharts restent dans la même idée que le reste : dures à manipuler, mais une fois faites, elles deviennent un véritable atout pour notre interface.
@@ -1050,7 +1042,6 @@ Plusieurs boutons dans les coins de la carte permettent de contrôler la vue : z
 En première approche donc, elle n’a rien de spécial, c’est une carte tout à fait normale et élégante. Derrière cet affichage se cache une classe nommée “EcoMap”, qui encapsule toutes les actions nécessaires à l’affichage de la carte.
 
 ### Action au survol
-
 Maintenant que nous avons ce patron, il faut le rendre intéressant et intéractif. Un premier événement que nous allons voir est le survol, ou “hover”. Nous avons décidé d’abord de mettre en évidence le pays survolé en changeant sa couleur.
 
 Quelque chose d’intéressant dans amCharts est la possibilité d’intégrer du HTML dans les graphiques. Notamment dans ce qui est appelé “Tooltip” : la zone qui est affichée quand un élément quelconque est survolé. S’il n’est pas configuré, seul le nom du pays est présent quand on survole un Polygon. 
@@ -1088,7 +1079,6 @@ Cela donne ce résultat :
 Les images et drapeaux proviennent de nos assets.
 
 ### Action à la sélection
-
 Un pays peut être sélectionné de différentes façons. La plus évidente est au clic sur la carte, mais il peut l’être aussi depuis l’URL directement, ainsi que via une recherche sur notre site. Dans chaque cas, la sélection se traduit sur la carte par “l’activation” du polygone du pays dans notre carte. C’est un attribut proposé par amCharts, et dont on peut contrôler le comportement via des événements.
 
 Quand le pays est choisi par la carte, les événements se déclenchent de manière automatique. Dans les autres cas, il faut récupérer l’objet Polygon que l’on veut, et faire basculer son attribut “active” manuellement.
@@ -1103,7 +1093,7 @@ Voici ce qui ce passe quand un pays est sélectionné sur notre carte :
 
 <!--Dimensions: 1600x900-->
 <!--Ratio:1.77-->
-![Carte avec sélection de l'Afrique](images/brazil_map.png){width="12cm" height="6.77cm"}
+![Mapa com a seleção do Brazil](images/brazil_map.png){width="12cm" height="6.77cm"}
 
 Ici, on a cliqué sur le Brésil. La carte a effectué un zoom et un centrage sur le pays, qui est passé en couleur foncée pour être mis en avant. A cela s’ajoute les villes majeures du Brésil, représentées par les points jaunes. Le point rouge symbolise la capitale Brasilia. 
 
@@ -1134,7 +1124,7 @@ Cette carte est spécifique à la page comparateur, nous pouvons y faire des mod
 
 
 
-## Comparateur
+## Page Comparateur
 La Comparateur a une portée analytique très importante, qui se doit de compléter les pages individuelles des pays. Sa réalisation technique passe par un croisement efficace des données de plusieurs territoires. 
 
 Actuellement, cet outil est limité à deux pays, mais des mesures ont déjà été prises en vue d'une éventuelle expansion permettant des comparaisons théoriquement illimitées. Néanmoins, pour des raisons de lisibilité, notre maximum sera probablement de l'ordre de 3 à 5 pays. 
@@ -1157,7 +1147,7 @@ Derrière chaque graphique se cache des requêtes SQL pour récupérer nos donn�
 
 <!--Dimensions:807x429-->
 <!--Ratio:1.88-->
-![Line chart de page comparateur](images/line_comp.png)
+![Line chart de page comparateur](images/line_comp.png){width="12cm" height="6.38cm"}
 
 Pour ne pas avoir à faire quatre requêtes SQL différentes pour chaque table, on choisit de faire une seule grande requête en joignant toutes les tables entre elles, par l’année et le pays de chaque ligne.
 
@@ -1185,7 +1175,7 @@ Pour cette figure nous voulions une dynamique interactive, alors nous avons ajou
 
 <!--Dimensions:947x63-->
 <!--Ratio:15-->
-![Boutons interactifs](images/boutons_comp.png)
+![Boutons interactifs](images/boutons_comp.png){width="12cm" height="0.8cm"}
 
 Avec les données transmises, le clic sur n’importe quel bouton appelle une fonction qui modifie pour chaque série de données quelle colonne afficher, sans avoir à faire de requête SQL supplémentaire, car tout est déjà stocké. Une autre fonction a été écrite pour adapter l’échelle de l’axe X, car elle dépend d’étiquettes statiques.
 
@@ -1195,7 +1185,7 @@ Dans l’ensemble, nous nous sommes assez éloignés de la maquette sur cette pa
 
 <!--Dimensions:1600x900-->
 <!--Ratio:1.77-->
-![Affichage de la page comparateur](images/newhtml_comp.png)
+![Affichage de la page comparateur](images/newhtml_comp.png){width="15cm" height="8.47cm"}
 
 Tout d’abord, nous avons ajouté un Spider Plot qui n’était pas prévu de base. Il est inspiré de celui qui est prévu pour la page Pays. Le slider latéral permet de changer l’année des données affichées.
 
@@ -1205,9 +1195,43 @@ Une innovation notable sur la page "Comparateur" est la séparation de la page e
 
 Si toutes ces implémentations de style et de lisibilité sont convaincantes, elles seront intégrées aux autres pages de statistiques.
 
-# Planning
+## Page Monde
+Comme pour toutes les pages de notre projet, elle repose sur un script PHP dans lequel nous avons inséré différents graphiques et éléments d’analyses, ici pour afficher des statistiques mondiales. Cette page comporte trois graphiques, notre carte interactive, la navbar et le footer. Elle suit globalement ce qui a été pensé lors du maquettage, sans artifice particulier. Cette page n'est pas finale et manque encore des éléments pour
+qu'elle fonctionne totalement, elle sera donc améliorée et terminée dans un futur proche.
+Tout d’abord nous avons créé nos graphiques. Le premier graphique correspond aux dix premiers pays avec le plus d'arrivées touristiques. Pour cela nous nous sommes basés sur un graphique amCharts, que nous avons adapté, avec une requête permettant d’obtenir les arrivées touristiques (table tourisme) et les pays correspondants (table pays). Nous avons sélectionné les 10 premiers pays afin d’établir un classement.
 
-La planification d’un projet demeure un élément crucial pour assurer une progression efficace et la réussite du projet. Nous avons mis en place un planning, en prenant en compte les ajustements nécessaires pour répondre aux éventuels défis rencontrés. Nous avons utilisé Mindview  pour fournir une visualisation claire des tâches et des dépendances. Le diagramme généré a été d'une grande valeur pour la communication interne et ont facilité la compréhension des membres de l'équipe sur les différentes phases du projet. Ainsi il nous servira à illustrer ce rapport.
+```{SQL}
+SELECT pays.nom AS country, SUM(tourisme.arriveesTotal) AS value
+FROM tourisme, pays 
+WHERE tourisme.id_pays = pays.id 
+GROUP BY pays.nom 
+ORDER BY value DESC
+LIMIT 10;
+```
+
+Le deuxième graphique va permettre de faire une moyenne des différents score écotourisme dans le Monde. Mais les scores ne sont pas encore calculés donc le graphique ne peut pas encore être relié à la base de données.
+Pour finir, nous avons imaginé une treemap : un graphique qui permet de visualiser les données de manière hiérarchisées. Elle représente la proportion des arrivées touristiques par pays et par continent. Il est lié à la base de données mais n’est pas complètement terminé. On observe pour l’instant seulement la proportion par contient, mais nous n’avons pas encore réussi à le faire par pays. Pour générer ce graphique, nous avons utilisé une requête qui relie la table pays, continent et tourisme.
+
+```{SQL}
+SELECT 
+    continents.nom as continent, 
+    pays.nom AS pays, 
+    SUM(tourisme.arriveesTotal) as arrivees_par_continent 
+FROM 
+    tourisme, continents, pays 
+WHERE 
+    tourisme.id_pays = pays.id AND 
+    pays.id_continent = continents.id 
+GROUP BY 
+    continents.nom
+ORDER BY 
+    continents.nom, arrivees_par_continent DESC;
+```
+
+Ensuite, nous avons créé une feuille de style CSS qui suit ce qui a été imaginé dans le maquettage Figma. Pour la navbar et le footer, ils ne sont pas encore créés et seront incorporés à toutes les pages courant janvier.
+
+# Planning
+La planification d’un projet demeure un élément crucial pour assurer une progression efficace et la réussite du projet. Nous avons mis en place un planning, en prenant en compte les ajustements nécessaires pour répondre aux éventuels défis rencontrés. Nous avons utilisé le logiciel Mindview pour fournir une visualisation claire des tâches et des dépendances. Le diagramme généré a été d'une grande valeur pour la communication interne et a facilité la compréhension des membres de l'équipe sur les différentes phases du projet. Ainsi il nous servira à illustrer ce rapport.
 
 ## Global
 <!--Dimensions: 541 × 126-->
@@ -1223,7 +1247,7 @@ Les réunions de travail ont permis de définir clairement les objectifs et les 
 Dans cette phase, l'équipe a consacré huit jours à la création de modèles UML détaillés. Ces modèles ont servi de fondement conceptuel, facilitant la visualisation des différentes composantes site.
 
 - **Élaboration du Canevas (8 jours):**
-Le canevas du projet, fournie une représentation visuelle de l'architecture globale. Cette étape a permis de valider les besoins du projet avant de passer à des phases plus détaillées.
+Le canevas du projet, fournit une représentation visuelle de l'architecture globale. Cette étape a permis de valider les besoins du projet avant de passer à des phases plus détaillées.
 
 - **Conception MCD/MOD (8 jours):**
 Huit jours ont été alloués à la conception du Modèle Conceptuel de Données (MCD) et du Modèle Organisationnel de Données (MOD). Ces modèles ont permis de définir la structure des données et les relations, guidant ainsi le développement ultérieur.
@@ -1239,7 +1263,7 @@ Ainsi comme montré sur l’image plus tôt la mise en place avant codage nous a
 <!-- Ratio de 3.14 -->
 ![Diagramme de Gantt Base de données](images/db_gantt.png){width="12cm" height="3.82cm"}
 
-La gestion évolutive de la base de données a été une composante cruciale du développement du projet, consolidant progressivement les données touristiques et économiques pour offrir une expérience riche et complète. Voici un aperçu détaillé des différentes étapes de développement dans la partie base de données:
+La gestion évolutive de la base de données a été une composante cruciale du développement du projet, consolidant progressivement les données touristiques, économiques et diverses pour offrir une expérience riche et complète. Voici un aperçu détaillé des différentes étapes de développement dans la partie base de données:
 
 - **13/09 - 21/09:**
 Au cours de cette phase initiale, la première version de la base de données a été élaborée, avec un accent particulier sur les données touristiques et les informations essentielles sur chaque pays. Des réflexions approfondies ont orienté la conception initiale pour garantir une fondation solide.
@@ -1269,7 +1293,7 @@ Première Version (Fond de Carte, Tests) (9 jours)
 Durant cette période, l'équipe a concentré ses efforts sur la création de la première version de la carte. C'était la première fois que nous approchions cet outil, et la création de cette version initiale visait à explorer les fonctionnalités offertes et à évaluer sa pertinence. Cette étape préliminaire était importante pour prendre une décision sur l'utilisation de l'outil, ce qui a confirmé notre choix de poursuivre avec amCharts.
 - **10/10 - 11/10:**
 Comportement au survol (HTML des Mini-Cartes, Tests) (2 jours)
-La seconde phase du développement, centrée sur le comportement au survol, s'est basée sur les premiers bandeaux réalisés pour la page pays. En utilisant ces éléments comme référence, l'équipe a rédigé le code HTML derrière l'affichage des mini-maps au survol (pays change de couleur au survol), renforçant ainsi l'interface utilisateur.
+Cette étape a été guidée par les premiers bandeaux réalisés pour la page pays, servant de référence pour rédiger le code HTML des mini-cartes au survol. Ceci a renforcé la cohérence de l'interface utilisateur.
 - **12/10 - 13/10:**
 Affichage des Villes, Focus sur un Pays (2 jours)
 Ces deux jours ont été consacrés à l'extension des fonctionnalités du projet, notamment l'affichage des villes et la fonction de mise en évidence d'un pays spécifique. Ces ajouts enrichissent l'expérience utilisateur en fournissant des informations un peu plus détaillées sur les différentes pays. 
@@ -1284,7 +1308,7 @@ Réécriture en Orienté Objet + Villes Dynamiques au Clic (3 jours)
 Une refonte majeure a été entreprise en adoptant une approche orientée objet. Inspirée par l'architecture POO mise en place pour les graphiques, cette transition améliore la lisibilité du code, favorise la réutilisation des fonctionnalités, et simplifie la gestion des futures évolutions du projet.
 
 \newpage
-## Page Pays/ Monde/ Comparateur
+## Page Pays / Monde / Comparateur
 
 <!--Ratio de 2.65-->
 
@@ -1295,9 +1319,8 @@ Chaque page, caractérisée par des fonctionnalités graphiques avancées, a fai
 - **Page Pays:**
 La page pays a été conçue pour offrir une expérience approfondie, avec des graphiques détaillés reflétant diverses données économiques, touristiques et environnementales. 
 - **Page Monde:**
-La complexité des graphiques de la page Monde, agrégeant des données de multiples pays, a demandé une période étendue pour garantir une représentation précise. 
-
-## Page Comparateur
+La complexité des graphiques de la page Monde, agrégeant des données de multiples pays, a demandé une période étendue pour garantir une représentation précise.
+- **Page Comparateur**
 La page comparateur, met en œuvre des graphiques comparatifs entre deux pays, a exigé une période supplémentaire pour perfectionner les interactions utilisateur. L'extension a permis d'affiner les fonctionnalités de comparaison, d'ajuster les détails visuels et de garantir une expérience plus fluide.La mise en œuvre de fonctionnalités graphiques avancées a aussi été mis en place.
 
 ## Pages annexes
@@ -1305,9 +1328,9 @@ La page comparateur, met en œuvre des graphiques comparatifs entre deux pays, a
 <!--Ratio de 2-->
 ![Diagramme de Gantt: Pages annexes](images/annex_gantt.png){width="12cm" height="6cm"}
 
-La conception et le développement des pages Profil, Inscription, Connexion, About, Catalogue des Pays, ainsi que la Footer/Navbar ont été impactés par les ajustements précédents. Ces pages étaient initialement planifiées entre le 21 novembre et le 3 janvier. Ici la collaboration en binôme se poursuivra. Voici un les tâches à accomplir au cours de cette période:
+La conception et le développement des pages Profil, Inscription, Connexion, About, Catalogue des Pays, ainsi que la Footer/Navbar ont été impactés par les ajustements précédents. En effet, nous pensions faire ces pages en premier lieu, cependant nous avons eu d'autres rendus ce qui nous a ralenti dans notre dynamique productive. Ainsi, nous avons décidé de retarder ces tâches pour les vacances de fin d'année comme il suit:
 
-- **Page Profil (18/12 - 15/01):**
+- **Page Profil (18/12 - 15/01):** 
 Cette page centrale accueillera les fonctionnalités de gestion de profil utilisateur, offrant une expérience personnalisée.
 - **Pages d'Inscription et de Connexion (18/12 - 15/01):**
 Ces pages seront créées pour une inscription et une connexion sécurisée.
@@ -1318,7 +1341,11 @@ La création du catalogue des pays facilitera la navigation à travers les infor
 - **Footer/Navbar (18/12 - 15/01):**
 Le Footer  et la Navbar, seront ajustés pour assurer une navigation intuitive sur l'ensemble du site. Les liens vers les différentes pages, y compris les nouvelles, seront intégrés de manière cohérente.
 
+\tiny NB: Dû aux fêtes de fin d'année, nous nous laissons un délai supérieur à la normale afin de se reposer
+\normalsize
+
 \newpage
+
 ## Dernière pages et enjeux cruciaux
  
 Au cours de la période s'étendant du 15 janvier au 29 janvier, les efforts de développement seront concentrés sur la création des pages Continent et Calculateur. Parallèlement, un contrôle qualité exhaustif sera effectué sur l'ensemble des pages du site pour garantir une expérience utilisateur homogène. Ces pages ont également été affectées par les ajustements de planning antérieurs.
