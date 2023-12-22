@@ -40,11 +40,11 @@ library(DBI)
 library(RMySQL)
 conn <- DBI::dbConnect(
   drv = RMySQL::MySQL(),    # database driver à utiliser
-  host = "localhost", # parfois: host = "localhost"
+  host = "localhost",       # parfois: host = "localhost"
   port = 3306,              # le port s'affiche parfois dans l'URL de votre navigateur 
-  username = "root", # parfois: user = "root"
-  password = "root",  # si pas de mot de passe. mettre: password = ""
-  dbname = "ecotourisme",    # nom de votre base
+  username = "root",        # parfois: user = "root"
+  password = "root",        # si pas de mot de passe. mettre: password = ""
+  dbname = "ecotourisme",   # nom de votre base
 )
 ```
 
@@ -214,7 +214,7 @@ Cela a nécessité un traitement spécifique pour tout uniformiser, qui sera dé
 
     -   **Lien :** [\textcolor{blue}{OpenFlights}](https://github.com/jpatokal/openflights)
 
-
+## Traitements
 
 ### Généralités
 
@@ -402,6 +402,309 @@ WHERE dst_apid
 NOT IN (SELECT apid FROM airports) OR src_apid 
 NOT IN (SELECT apid FROM airports); 
 ```
+
+## Descriptif des tables
+
+Une fois les données traitées, il faut les rendre prêtes à l'usage en choisissant la meilleure structure de stockage au sein de notre base de données.
+Voici le descriptif des tables créées.
+
+### Synthèse
+
+| Nom        | Colonnes | Lignes | Clés étrangères   | N° source |
+|------------|----------|--------|-------------------|-----------|
+| pays       | 10       | 195    | continent, guerre | 1, 8      |
+| tourisme   | 20       | 4780   | pays              | 2         |
+| economie   | 7        | 5465   | pays              | 3, 4      |
+| ecologie   | 6        | 6014   | pays              | 5, 6      |
+| surete     | 4        | 2432   | pays              | 7         |
+| villes     | 7        | 2277   | pays              | 9         |
+| guerre     | 2        | 6      | /                 | 8         |
+| continents | 2        | 6      | /                 | /         |
+| airports   | 6        | 1260   | pays, ville       | 10        |
+| routes     | 3        | 20556  | airports          | 10        |
+| users      | 5        | N/A    | pays, ville       | /         |
+
+### Description individuelle
+
+-   **pays : données de la source 1, 195 lignes, 10 colonnes**
+
+| Champ        | Type    | Description                                                         |
+|------------------------|------------------------|------------------------|
+| id           | VARCHAR | Clé primaire, code de chaque pays. Suit la norme ISO 3166-1 alpha-2 |
+| lat          | DOUBLE  | Latitude géographique du pays                                       |
+| lon          | DOUBLE  | Longitude géographique du pays                                      |
+| nom          | VARCHAR | Nom complet du pays                                                 |
+| iso_3        | VARCHAR | Code ISO 3166-1 alpha-3 du pays                                     |
+| iso_alpha    | INT     | Code ISO 3166-1 numérique du pays                                   |
+| emoji        | VARCHAR | Emoji drapeau associé au pays                                       |
+| emojiU       | VARCHAR | Emoji drapeau associé au pays en caractères Unicode                 |
+| id_guerre    | INT     | ID du statut de guerre du pays, clé étrangère de guerre             |
+| id_continent | INT     | ID du continent du pays, clé étrangère de continents                |
+
+-   **tourisme : données de la source 2, 4780 lignes, 20 colonnes**
+
+| Champ         | Type    | Description                                                                               |
+|------------------------|------------------------|------------------------|
+| id            | INT     | Clé primaire, id numérique de la ligne.                                                   |
+| id_pays       | VARCHAR | Code du pays concerné par la ligne, clé étrangère de pays                                 |
+| annee         | INT     | Date des données                                                                          |
+| arriveesTotal | INT     | Nombre total d'arrivées dans le pays sur l'année, en milliers                             |
+| arriveesAF    | INT     | Nombre d'arrivées dans le pays venant d'Afrique sur l'année, en milliers                  |
+| arriveesAM    | INT     | Nombre d'arrivées dans le pays venant d'Amérique sur l'année, en milliers                 |
+| arriveesEA    | INT     | Nombre d'arrivées dans le pays venant d'Asie de l'Est sur l'année, en milliers            |
+| arriveesEU    | INT     | Nombre d'arrivées dans le pays venant d'Europe sur l'année, en milliers                   |
+| arriveesME    | INT     | Nombre d'arrivées dans le pays venant du Moyen Orient sur l'année, en milliers            |
+| arriveesSA    | INT     | Nombre d'arrivées dans le pays venant d'Asie du Sud sur l'année, en milliers              |
+| arriveesAutre | INT     | Nombre d'arrivées dans le pays venant d'ailleurs (non classifié) sur l'année, en milliers |
+| arriveesPerso | INT     | Nombre d'arrivées dans le pays pour des raisons personnelles sur l'année, en milliers     |
+| arriveesPro   | INT     | Nombre d'arrivées dans le pays pour des raisons professionnelles sur l'année, en milliers |
+| arriveesAvion | INT     | Nombre d'arrivées dans le pays par voie aérienne sur l'année, en milliers                 |
+| arriveesEau   | INT     | Nombre d'arrivées dans le pays par voie maritime sur l'année, en milliers                 |
+| arriveesTerre | INT     | Nombre d'arrivées dans le pays par voie terrestre sur l'année, en milliers                |
+| departs       | INT     | Nombre total de départs depuis le pays sur l'année, en milliers                           |
+| depenses      | INT     | Argent dépensé lors des voyages de personnes parties du pays, en millions de US\$         |
+| recettes      | INT     | Argent récolté lors des voyages de personnes venant dans le pays, en millions de US\$     |
+| emploi        | INT     | Nombre d'emplois généré par le tourisme                                                   |
+
+-   **economie : données des sources 3 et 4, 5465 lignes, 7 colonnes**
+
+| Champ     | Type    | Description                                               |
+|------------------------|------------------------|------------------------|
+| id        | INT     | Clé primaire, id numérique de la ligne.                   |
+| id_pays   | VARCHAR | Code du pays concerné par la ligne, clé étrangère de pays |
+| annee     | INT     | Date des données                                          |
+| cpi       | INT     | Indice des prix de consommation, en US\$                  |
+| pib       | BIGINT  | Produit intérieur brut en US\$                            |
+| pibParHab | BIGINT  | Produit intérieur brut par habitant en US\$               |
+
+-   **ecologie : données des sources 5 et 6, 6014 lignes, 6 colonnes**
+
+| Champ     | Type    | Description                                                     |
+|------------------------|------------------------|------------------------|
+| id        | INT     | Clé primaire, id numérique de la ligne.                         |
+| id_pays   | VARCHAR | Code du pays concerné par la ligne, clé étrangère de pays       |
+| annee     | INT     | Date des données                                                |
+| co2       | DOUBLE  | Émissions de CO2 du pays                                        |
+| ges       | DOUBLE  | Émissions de gaz à effet de serre du pays                       |
+| elecRenew | DOUBLE  | \% d'électricité renouvelable produite dans le pays (1990-2015) |
+
+-   **surete : données de la source 7, 2432 lignes, 4 colonnes**
+
+| Champ   | Type    | Description                                               |
+|------------------------|------------------------|------------------------|
+| id      | INT     | Clé primaire, id numérique de la ligne.                   |
+| id_pays | VARCHAR | Code du pays concerné par la ligne, clé étrangère de pays |
+| annee   | INT     | Date des données                                          |
+| cpi     | INT     | Indice de paix                                            |
+
+-   **villes : données de la source 9, 2277 lignes, 7 colonnes**
+
+| Champ      | Type    | Description                                               |
+|------------------------|------------------------|------------------------|
+| id         | INT     | Clé primaire, id numérique de la ligne.                   |
+| nom        | VARCHAR | Nom de la ville                                           |
+| lat        | DOUBLE  | Latitude géographique de la ville                         |
+| lon        | DOUBLE  | Longitude géographique de la ville                        |
+| id_pays    | VARCHAR | Code du pays concerné par la ligne, clé étrangère de pays |
+| capitale   | BOOLEAN | Vrai si la ville est une capitale                         |
+| population | INT     | Nombre d'habitant dans la ville                           |
+
+-   **guerre : données de la source 8, 6 lignes, 2 colonnes**
+
+| Champ  | Type    | Description                             |
+|--------|---------|-----------------------------------------|
+| id     | INT     | Clé primaire, id numérique de la ligne. |
+| statut | VARCHAR | Intitulé du statut                      |
+
+-   **continents : 6 lignes, 2 colonnes**
+
+| Champ | Type    | Description                             |
+|-------|---------|-----------------------------------------|
+| id    | INT     | Clé primaire, id numérique de la ligne. |
+| nom   | VARCHAR | Nom du continent                        |
+
+-   **airports : données de la source 10, 1260 lignes, 6 colonnes**
+
+| Champ    | Type    | Description                                                     |
+|------------------------|------------------------|------------------------|
+| id       | INT     | Clé primaire, id numérique de l'aéroport.                       |
+| nom      | VARCHAR | Nom de l'aéroport                                               |
+| id_ville | INT     | ID de la ville où se trouve l'aéroport, clé étrangère de villes |
+| id_pays  | VARCHAR | ID du pays où se trouve l'aéroport, clé étrangère de pays       |
+| lat      | DOUBLE  | Latitude géographique de la ville                               |
+| lon      | DOUBLE  | Longitude géographique de la ville                              |
+
+-   **routes : données de la source 10, 20556 lignes, 3 colonnes**
+
+| Champ            | Type | Description                                                       |
+|------------------------|------------------------|------------------------|
+| id               | INT  | Clé primaire, id numérique de la route aérienne.                  |
+| airportDepartID  | INT  | ID de l'aéroport de départ de la route, clé étrangère de airports |
+| airportArriveeID | INT  | ID de l'aéroport d'arrivée de la route, clé étrangère de airports |
+
+-   **users : table qui gère les utilisateurs de notre site, 5 colonnes**
+
+| Champ    | Type    | Description                                                           |
+|------------------------|------------------------|------------------------|
+| id       | INT     | Clé primaire, id numérique de l'utilisateur                           |
+| nom      | VARCHAR | Nom de l'utilisateur                                                  |
+| id_ville | INT     | ID de la ville de résidence de l'utilisateur, clé étrangère de villes |
+| id_pays  | VARCHAR | ID du pays de résidence de l'utilisateur, clé étrangère de pays       |
+| mdp      | TEXT    | Mot de passe hashé de l'utilisateur                                   |
+
+\newpage
+
+
+## MCD / MOD
+
+### MCD
+
+![MCD](images/MCD.png){width="80%" height="60%"}
+
+\newpage
+
+### MOD
+
+![MOD](images/MOD.png){width="80%" height="60%"}
+
+\newpage
+
+
+
+## Difficultés
+
+Comme évoqué plus tôt dans le rapport, les difficultés principales lors de la création de notre base de données ont été de trouver les données adéquates provenant de sources sûres et de les associer.
+Mais ce ne sont pas les seuls.
+
+Une fois toutes nos données importées dans nos tables, nous avons fait face à un problème : chaque table ne contient pas les mêmes pays.
+Il faut savoir que l'ONU reconnaît officiellement 197 États dans le monde.
+Mais tous ne partagent pas leurs statistiques internes, ajoutées au fait que nos sources sont toutes différentes, et que certaines donnent une importance à des états semi-autonomes, il y a des disparités.
+Un tri doit être fait !
+
+Pour cela nous avons choisi une approche globale, et de regarder quels pays étaient présents dans chaque table.
+Nous avons créé une table complémentaire, nommée checking :
+
+-   **checking : 249 lignes, 7 colonnes**
+
+| Champ    | Type    | Description                                        |
+|----------|---------|----------------------------------------------------|
+| id       | VARCHAR | Clé primaire, id du pays.                          |
+| pays     | BOOLEAN | Vrai si le pays est présent dans la table pays     |
+| tourisme | BOOLEAN | Vrai si le pays est présent dans la table tourisme |
+| economie | BOOLEAN | Vrai si le pays est présent dans la table economie |
+| ecologie | BOOLEAN | Vrai si le pays est présent dans la table ecologie |
+| surete   | BOOLEAN | Vrai si le pays est présent dans la table surete   |
+| villes   | BOOLEAN | Vrai si le pays est présent dans la table villes   |
+
+Cette table est alimentée par un script Python, qui va regarder pour chacun des 249 pays listés dans notre carte intéractive s'il a au moins une occurrence dans les tables de statistiques.
+
+```{Python}
+
+def checking():
+    global db
+    cnx, cur = connectSQL(db)
+    cur.execute("DROP TABLE IF EXISTS checking;")
+
+    pays = ["AD","AE","AF","AG","AI","AL","AM","AO","AQ","AR","AS","AT","AU","AW",
+            "AX","AZ","BA","BB","BD","BE","BF","BG","BH","BI","BJ","BL","BM","BN",
+            "BO","BQ","BR","BS","BT","BV","BW","BY","BZ","CA","CC","CD","CF","CG",
+            "CH","CI","CK","CL","CM","CN","CO","CR","CU","CV","CW","CX","CY","CZ",
+            "DE","DJ","DK","DM","DO","DZ","EC","EE","EG","EH","ER","ES","ET","FI",
+            "FJ","FK","FM","FO","FR","GA","GB","GD","GE","GF","GG","GH","GI","GL",
+            "GM","GN","GP","GQ","GR","GS","GT","GU","GW","GY","HK","HM","HN","HR",
+            "HT","HU","ID","IE","IL","IM","IN","IO","IQ","IR","IS","IT","JE","JM",
+            "JO","JP","KE","KG","KH","KI","KM","KN","KP","KR","KW","KY","KZ","LA",
+            "LB","LC","LI","LK","LR","LS","LT","LU","LV","LY","MA","MC","MD","ME",
+            "MF","MG","MH","MK","ML","MM","MN","MO","MP","MQ","MR","MS","MT","MU",
+            "MV","MW","MX","MY","MZ","NA","NC","NE","NF","NG","NI","NL","NO","NP",
+            "NR","NU","NZ","OM","PA","PE","PF","PG","PH","PK","PL","PM","PN","PR",
+            "PS","PT","PW","PY","QA","RE","RO","RS","RU","RW","SA","SB","SC","SD",
+            "SE","SG","SH","SI","SJ","SK","SL","SM","SN","SO","SR","SS","ST","SV",
+            "SX","SY","SZ","TC","TD","TF","TG","TH","TJ","TK","TL","TM","TN","TO",
+            "TR","TT","TV","TW","TZ","UA","UG","UM","US","UY","UZ","VA","VC","VE",
+            "VG","VI","VN","VU","WF","WS","YE","YT","ZA","ZM","ZW"] 
+    # pays listés sur AMCharts
+
+    liste = []
+    for i in pays:
+        a = {"Code":i}
+        
+        if cur.execute(f"SELECT DISTINCT id FROM pays WHERE id = '{i}'").fetchone() != None:
+            a["pays"] = True
+        else:
+            a["pays"] = False
+
+        for j in ["tourisme","economie","ecologie","surete","villes"]:
+            if cur.execute(f"SELECT DISTINCT id_pays FROM {j}" 
+                           f"WHERE id_pays = '{i}'").fetchone() != None:
+                a[j] = True
+            else:
+                a[j] = False
+        liste.append(a.copy())
+    cur.execute("""
+        CREATE TABLE IF NOT EXISTS checking (
+            id VARCHAR(3) PRIMARY KEY,
+            pays BOOLEAN,
+            tourisme BOOLEAN,
+            economie BOOLEAN,
+            ecologie BOOLEAN,
+            surete BOOLEAN,
+            villes BOOLEAN
+        )
+    """)
+    for i in liste:
+        cur.execute(f"""
+    INSERT INTO checking VALUES (
+        '{i['Code']}',
+        {i['pays']},
+        {i['tourisme']},
+        {i['economie']},
+        {i['ecologie']},
+        {i['surete']},
+        {i['villes']}
+    )
+""")
+
+    
+    cnx.commit()
+    
+```
+
+La lecture de cette table nous a permis de retirer 54 pays, qui n'étaient pas présents dans au moins une de ces tables : pays, tourisme, economie, ecologie.
+Nous n'avons pas considéré surete car c'est une statistique complémentaire, qui n'est pas au coeur de notre sujet.
+Pareil pour villes, qui est un bonus pour notre carte.
+Cet autre script Python permet de supprimer de toutes nos tables de stats de pays donnés manuellement dans une liste :
+
+```{Python}
+def clearTables(liste):
+    global db
+    cnx, cur = connectSQL(db)
+
+    tables = ["tourisme","surete","economie","ecologie","villes"]
+    for i in liste:
+        for j in tables:
+            cur.execute(f"DELETE FROM {j} WHERE id_pays = '{i}'")
+        cur.execute(f"DELETE FROM pays WHERE id = '{i}'")
+    cnx.commit()
+    
+```
+
+## Conclusion
+
+Au moment où nous rédigeons cette partie de rapport, le mercredi 15 novembre, la base de données n'est pas encore finalisée.
+Des finitions restent à réaliser, possiblement dans le tri des pays par exemple, ou même ajouter des statistiques qui nous manqueraient.
+
+Sa création n'a pas été simple, mais permet déjà de donner un aperçu de la structure qu'aura notre site, et de ce qu'il proposera.
+
+Trouver des données fiables et savoir les exploiter est une étape très importante du travail, qui conditionne toute la suite du projet.
+
+Nous nous retrouvons donc avec 11 tables différentes, connectées entre elles par des clés étrangères.
+Elles gravitent principalement autour de la table pays, et proviennent de sources diverses et complémentaires : ONU, Banque Mondiale, deux projets collaboratifs, etc... Au vue de la quantité de données, le traitement automatisé par Python et SQL nous a permis de gagner un temps incalculable, car les manœuvres manuelles pour filtrer et modifier les données ont été assez faibles.
+
+La critique que l'on pourrait tout de même adresser à ces méthodes est la nécessité d'avoir un ordinateur (très) puissant pour effectuer les opérations en temps rapide, et sans risque de Timeout Error.
+
+Chaque membre du projet sans exception a été impliqué dans le processus de création de la base de données.
+Elle a surtout été vérifiée et validée plusieurs fois avant chaque publication sur GitHub.
 
 # Maquettage
 Le maquettage est une étape importante pour la création d’un site internet. Cela permet de modéliser les idées du groupe, et ainsi avoir une base lors de l’étape de la création du code. C'est aussi un moyen d'affirmer une identité visuelle qui nous suivra tout au long de notre projet.
