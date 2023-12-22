@@ -6,15 +6,15 @@ author:
 - GONÇALVES Hugo,
 - MOHAMEDATNI Aya,
 - SÉNÉCAILLE Cassandra,
-- Triozon Lucas
+- TRIOZON Lucas
 date: "`r Sys.Date()`"
 output: 
   pdf_document:
     toc: true
     toc_depth: 2
-    fig_caption: yes
-    keep_md: no
-    keep_tex: yes
+    fig_caption: true
+    keep_md: false
+    keep_tex: false
     template: template.tex
     pandoc_args:
     - --top-level-division="chapter"
@@ -24,11 +24,14 @@ toc_title: "Table des matières"
 coursecode: TE5PR1MI
 #csl: iso690-author-date-fr-no-abstract.csl
 Acknowledgements:
-- Nos plus sincères remerciements vont à notre encadrant pédagogique pour les conseils avisés sur notre travail.
+- Nos plus sincères remerciements vont à notre encadrant pédagogique, Théodore Michel-Picque, pour les conseils avisés sur notre travail.
+- Nous remercions aussi notre enseignant, Jérôme Pasquet, pour la personne qu'il est ainsi que ses cours sur la sécurité et le développement web.
+- Lucas TRIOZON remercie Adrien, Alison et Wilfried pour leur aide technique et morale tout au long du projet, et Helene Carles pour lui avoir enseigné la passion de l'informatique.
+- Attention toute particulière pour la CGT et TAM qui nous permet de vivre dans un monde meilleur chaque jour.
 #biblio-style: elsarticle-harv
 session: 2023
 team: Groupe Écotourisme
-Abstract: résume du projet là
+Abstract: résumé du projet là
 ---
 
 ```{r setup, include=FALSE}
@@ -42,23 +45,16 @@ conn <- DBI::dbConnect(
   username = "root", # parfois: user = "root"
   password = "root",  # si pas de mot de passe. mettre: password = ""
   dbname = "ecotourisme",    # nom de votre base
-  #unix.sock = "/Applications/MAMP/tmp/mysql/mysql.sock"
 )
 ```
 
-```{sql connection=conn, max.print = 10, tab.cap = "Pays"}
-SELECT id
-FROM pays
-```
-
-
-# Introduction
+# Introduction{.unnumbered}
 Lorsque les vacances approchent, l’envie de quitter la routine quotidienne s'accompagne souvent de la recherche d'une destination idéale. Pour cette étape, plusieurs critères peuvent entrer en compte: le prix, évidemment, mais aussi le moyen de transport, l’hébergement, les activités ou encore l’empreinte carbone.\par
 Le tourisme est une activité humaine qui a des impacts multiples et complexes sur l’environnement, l’économie et la société. Selon l’Organisation mondiale du tourisme (OMT), le tourisme international a atteint 1,4 milliard d’arrivées en 2018, soit une croissance de 6 % par rapport à l’année précédente. Cette tendance à la hausse devrait se poursuivre dans les prochaines années, avec une projection de 1,8 milliard d’arrivées en 2030.\par
 En effet, face au changement climatique, de plus en plus de personnes souhaitent faire attention à impacter le moins possible l’environnement lors de leurs déplacements. Pendant longtemps, le tourisme a été appréhendé uniquement au niveau de ses retombées économiques. En 2018, la consommation touristique représentait 7,4 % du PIB en France, avec une croissance dynamique, portée principalement par les visiteurs étrangers.\par
 Dans le même temps, le secteur engendre de nombreuses pressions sur l'environnement, et en particulier sur le climat. Selon des données, le tourisme génère actuellement 11 % des émissions de gaz à effet de serre en France. À l'heure où le monde ressent l'urgence de prendre des mesures significatives face aux défis environnementaux, le secteur du tourisme émerge comme l'un des contributeurs majeurs aux émissions de gaz à effet de serre.\par
 Cependant, il n’existe pas de solution simple et universelle pour concilier tourisme et développement durable. Chaque destination présente des spécificités et des défis qui nécessitent une analyse approfondie et une adaptation permanente. C’est pourquoi nous avons créé Écotourisme, une plateforme en ligne innovante qui propose aux voyageurs une navigation personnalisée et responsable. Écotourisme se positionne comme la réponse à cette quête, prenant en compte une variété de critères, dont le prix, le moyen de transport, et surtout, l'empreinte carbone.\par
-Écotourisme a été conçu pour répondre aux trois besoins principaux de nos utilisateurs: la réduction des dépenses, la simplification du processus de voyage, et la promotion de la responsabilité environnementale. Notre projet joue également un rôle de comparateur statistique. En effet, en collectant des données, nous présentons des statistiques couvrant de nombreuses années et divers indicateurs liés à l'économie, à l'écologie et au tourisme. À l'aide de graphiques et d'un score "Ecotourisme" attribué à chaque pays, les utilisateurs ont accès à des données globales, continentales et nationales. De plus, il est possible de comparer les données statistiques entre deux pays et choisir celui qui correspond le mieux à vos attentes et à vos valeurs. Que vous soyez un voyageur économe, un éco-voyageur engagé, ou simplement un passionné soucieux de minimiser son impact sur l'environnement, Écotourisme est votre solution.\par
+Écotourisme a été conçu pour répondre aux trois besoins principaux de nos utilisateurs: la réduction des dépenses, la simplification du processus de voyage, et la promotion de la responsabilité environnementale. Notre projet joue également un rôle de comparateur statistique. En effet, en collectant des données, nous présentons des statistiques couvrant de nombreuses années et divers indicateurs liés à l'économie, à l'écologie et au tourisme. À l'aide de graphiques et d'un score Écotourisme attribué à chaque pays, les utilisateurs ont accès à des données globales, continentales et nationales. De plus, il est possible de comparer les données statistiques entre deux pays et choisir celui qui correspond le mieux à vos attentes et à vos valeurs. Que vous soyez un voyageur économe, un éco-voyageur engagé, ou simplement un passionné soucieux de minimiser son impact sur l'environnement, Écotourisme est votre solution.\par
 Ce qui distingue fondamentalement notre plateforme est son approche intégrée. Contrairement à d'autres services qui se concentrent uniquement sur l'aspect économique ou environnemental, Écotourisme fusionne ces deux dimensions pour offrir une solution complète. Ce rapport a pour but de présenter notre projet Écotourisme, une plateforme qui propose aux voyageurs une offre personnalisée et responsable, basée sur des données statistiques et des critères économiques et environnementaux. 
 
 
@@ -94,7 +90,11 @@ Pour cela on va s’intéresser à un utilisateur. Il a deux possibilités, soit
 un compte ou alors aller sur le site de façon anonyme. Si l’utilisateur décide s’identifier,l’utilisateur aura la possibilité d'estimer son empreinte carbone ainsi que le coût d'un trajet depuis son domicile jusqu'à une destination spécifique. Cette fonctionnalité lui permettra d'obtenir rapidement une estimation des dépenses liées à son voyage tout en développant sa conscience environnementale. De plus, il peut mettre en favoris ses destinations favorite ou ses projets de voyage. Ainsi, grâce à la sauvegarde des informations, l’utilisateur peut garder son historique des calculs et des trajets mais aussi de ses favoris. 
 Ensuite, un utilisateur connecter ou non peut lire les rapport d’analyse statistiques basé sur 
 des aspects économique et/ou écologique. De plus en recherchant une région du monde ou en comparant différentes données (jusqu’à deux régions du monde différentes) il pourra visualiser des données en fonction de ces recherches pour pouvoir mieux s’informer ou mieux décider. 
-Pour conclure, lors de la conception et du développement de notre plateforme Ecotourisme, certaines contraintes et limitations cruciales doivent être prises en compte pour garantir le succès du projet. Les principales contraintes comprennent:
+
+<!--Ratio de 1.10-->
+![Diagramme de cas d'utilisation UML](images/uml.png){height="13.4cm" width="12cm"}
+
+Pour conclure, lors de la conception et du développement de notre plateforme Écotourisme, certaines contraintes et limitations cruciales doivent être prises en compte pour garantir le succès du projet. Les principales contraintes comprennent:
 
 - **Conformité aux normes de sécurité:** La plateforme devra respecter les normes de sécurité les plus strictes pour assurer la confidentialité des données des utilisateurs et garantir une expérience en ligne sécurisée.
 - **Synchronisation des différentes avancées de chacun:** En raison de la collaboration entre les membres de l'équipe, il est impératif de maintenir une synchronisation constante des progrès réalisés par chacun. Des mécanismes de communication et de suivi seront mis en place pour assurer une collaboration efficace.
@@ -103,7 +103,7 @@ Pour conclure, lors de la conception et du développement de notre plateforme Ec
 - **Résolution des problèmes techniques sur le site:** Tout problème technique sur la plateforme sera traité de manière rapide et efficace. Nous collaborons activement pour identifier l'origine du problème et le résoudre promptement.
 Processus de conception et d'imagination du site: Le processus de conception et d'imagination du site sera continu et itératif. Les membres de l'équipe auront la possibilité de contribuer à l'évolution constante du site, favorisant ainsi la créativité et l'innovation.
 
-Ces contraintes et limitations guideront notre équipe tout au long du projet, garantissant que notre plateforme Ecotourisme répondra aux normes les plus élevées, tout en restant flexible et innovante dans sa conception et son développement.
+Ces contraintes et limitations guideront notre équipe tout au long du projet, garantissant que notre plateforme Écotourisme répondra aux normes les plus élevées, tout en restant flexible et innovante dans sa conception et son développement.
 
 # Base de données
 
@@ -238,11 +238,11 @@ Simultanément au développement des nouvelles pages, un contrôle qualité comp
 ## Conclusion planning
 Nous avons rencontré des difficultés imprévues, notamment des contraintes de temps dues à la complexité des tâches ainsi qu'aux facteurs externes (examens...) ainsi des ajustements ont été nécessaires. Chaque membre de l'équipe s'est investi dans des domaines spécifiques (pages différentes sur fonctionnement de binôme et tâches annexes), permettant une meilleure efficacité. La collaboration en binôme a renforcé la créativité et la résolution de problèmes, favorisant ainsi de meilleurs résultats. À l'approche de la phase finale du projet, nous restons résolus à surmonter les obstacles restants et à livrer un site final répondant aux normes élevées que nous avons fixées.
 
-# Conclusion
+# Conclusion{.unnumbered}
 Pour conclure ce rapport, Écotourisme se dresse comme une réponse novatrice aux défis environnementaux posés par l'industrie du tourisme. À l'heure où ce secteur contribue de manière significative aux émissions de gaz à effet de serre, notre plateforme incite à une approche plus responsable du voyage.\par
 Notre engagement en faveur d'un tourisme responsable se manifeste à travers une approche intégrée. Écotourisme n'est pas seulement une plateforme économique, mais un écosystème complet où le plaisir du voyage coexiste avec la responsabilité écologique. 
 Ce rapport, subdivisé en plusieurs parties clés, témoigne de notre engagement envers la transparence. À travers la présentation des objectifs, de la base de données, du développement, et des outils, nous partageons chaque étape de notre parcours. 
-Lors de la conception et du développement de notre plateforme Ecotourisme, certaines contraintes et limitations cruciales ont été prises en compte pour garantir le succès du projet. Ces contraintes et limitations guideront notre équipe tout au long du projet, garantissant que notre plateforme "Ecotourisme" répondra aux normes les plus élevées, tout en restant flexible et innovante dans sa conception et son développement.\par
+Lors de la conception et du développement de notre plateforme Écotourisme, certaines contraintes et limitations cruciales ont été prises en compte pour garantir le succès du projet. Ces contraintes et limitations guideront notre équipe tout au long du projet, garantissant que notre plateforme Écotourisme répondra aux normes les plus élevées, tout en restant flexible et innovante dans sa conception et son développement.\par
 La section dédiée à l'empreinte carbone souligne l'importance cruciale de comprendre les conséquences environnementales de nos choix de déplacement. En mettant en lumière les émissions de CO2 associées à différents trajets, nous avons souhaité éduquer nos utilisateurs et les inciter à des choix de voyage plus durables.\par
 Écotourisme n'est pas simplement une plateforme de voyage, mais une invitation à repenser la manière dont nous explorons le monde. Nous croyons en un avenir où le plaisir du voyage s'aligne avec la préservation de notre planète.\par
 Ensemble, avec nos utilisateurs, et la communauté mondiale, nous façonnons un avenir du tourisme plus respectueux, plus vert, et plus durable. Rejoignez-nous dans cette aventure vers un monde où chaque voyage compte, non seulement pour nous, mais aussi pour les générations futures. Voyagez avec conscience. Voyagez avec Écotourisme.
