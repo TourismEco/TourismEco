@@ -259,6 +259,29 @@ def addPop():
     
     cnx.commit()
 
+def addGrowth(table,cols):
+    cnx, cur = connectSQL(db)
+    for col in cols:
+        for i in isos2:
+            get = cur.execute(f"""SELECT id_pays, annee, {col},
+            IF(@last_entry = 0, 0, round((({col} - @last_entry) / @last_entry) * 100,2)) "grow",
+            @last_entry := {col} AS tmp
+            FROM
+            (SELECT @last_entry := 0) x,
+            (SELECT id_pays, annee, sum({col}) {col}
+            FROM {table}
+            WHERE id_pays = "{i}"
+            GROUP BY annee) y;""").fetchall()
+
+            for j in get:
+                if j["grow"] is None:
+                    j["grow"] = 0
+                cur.execute(f"UPDATE {table}_grow SET {col} = {j['grow']} WHERE id_pays = '{i}' AND annee = {j['annee']}")
+            
+    cnx.commit()
+
+    
+
 # addEmojisFile()
 
 #updateRenew()
@@ -269,4 +292,9 @@ def addPop():
 
 # renameEmojis()
 
-addPop()
+# addPop()
+    
+# addGrowth("economie",["pib","pibParHab","cpi"])
+addGrowth("tourisme",["arriveesTotal","arriveesAF","arriveesAM","arriveesEA","arriveesEU","arriveesME","arriveesSA","arriveesAutre","arriveesPerso","arriveesPro","arriveesAvion","arriveesEau","arriveesTerre","departs","depenses","recettes","emplois"])
+addGrowth("surete",["gpi"])
+addGrowth("ecologie",["co2","ges","elecRenew"])

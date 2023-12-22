@@ -170,6 +170,27 @@ select {
     height: 25px;
 }
 
+.button-compare {
+    padding: 10px;
+    margin: 10px;
+    border-radius: 10px;
+    border: none;
+    color: white;
+    background-color: #52796F;
+    transition: all .5s;
+}
+
+.button-compare:hover {
+    background-color: #354F52;
+    transition: all .5s;
+}
+
+.container-buttons {
+    display: flex;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+
 
 
 

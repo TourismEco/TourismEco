@@ -1,11 +1,11 @@
 class Graphique {
     constructor(id, figObj, cursorObj) {
-        console.log(id)
         this.root = am5.Root.new(id)
         this.graph = this.root.container.children.push(figObj.new(this.root, {}))
         this.xAxis = null
         this.yAxis = null
         this.legend = null
+        this.series = []
 
         var cursor = this.graph.set("cursor", cursorObj.new(this.root, {}));
         cursor.lineY.set("visible", false);
@@ -68,14 +68,12 @@ class Graphique {
         }));        
         
         serie.data.setAll(data)
-        serie.appear(1000)
-
-        // serie.set("valueYField","Canada")
-        // serie.data.setAll(data)
 
         if (this.legend != null) {
             this.legend.data.push(serie)
         }
+
+        this.series.push(serie)
 
         return serie
     }
@@ -96,7 +94,7 @@ class Graphique {
 
     addLegend() {
         this.legend = this.graph.children.push(
-            am5.Legend.new(g.root, {
+            am5.Legend.new(this.root, {
                 centerX: am5.p50,
                 x: am5.p50,
                 fill:"#FFFFFF"

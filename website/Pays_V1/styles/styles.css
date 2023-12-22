@@ -27,23 +27,28 @@ h1{
 
 
 /* Styles pour le conteneur principal */
-.container {
+.containers {
     display: flex;
     padding: 20px;
+    margin: 0px;
     background-color: #2F3E46;
     color: white;
 }
 
 /* Styles pour le bloc du graphique */
+
 .graphique {
-    flex: 1; /* Le bloc du graphique prend autant d'espace que possible */
-    margin-right: 20px; /* Marge à droite pour séparer du texte */
+    flex: 1;
+    margin-right: 20px;
 }
 
 /* Styles pour le bloc de texte */
+
 .texte {
-    flex: 1; /* Le bloc de texte prend deux fois plus d'espace que le bloc du graphique */
+    flex: 1;
 }
+
+
 
 
 .topnav {
@@ -94,7 +99,8 @@ p{
     margin-top: 20px;
 }
 
-/* Bouton pour s'inscrire */
+/* Bouton pour s'inscrire */ 
+
 .styled {
     border: 0;
     line-height: 2.5;
@@ -114,6 +120,7 @@ p{
 
 
 /* Bouton pour se connecter*/
+
 .styled2 {
     font-size: 10px;
     border: 0;
@@ -149,8 +156,8 @@ background-color: #3f3f3f;
 }
 
 #bandeau-image {
-    width: 100vw; /* Set the image width to 100% of the viewport width */
-    height: auto; /* Maintain the image's aspect ratio */
+    width: 100vw;
+    height: auto;
     color: white;
     font-family: Arial;
 }
@@ -161,7 +168,7 @@ img{
 .img{
     grid-column: 1 / 7;
     grid-row: 1 / 6;
-    width: 100vw; /* Set the image width to 100% of the viewport width */
+    width: 100vw;
     height: 240px;
     object-fit: cover;
 }
@@ -220,6 +227,7 @@ img{
     font-size: 20px;
 }
 
+
 #comparateur{
     padding: 20px;
     color: white;
@@ -231,3 +239,4 @@ img{
     color: white;
     text-align: center;
 }
+
