@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.12.22)  22 DEC 2023 21:04
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.12.22)  22 DEC 2023 23:23
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -451,7 +451,7 @@ Package pdftex.def Info: logo-upvm_4.jpg  used on input line 88.
 [1
 
 {/Users/hugogoncalves/Library/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map} <./logo-upvm_4.jpg>]
-Underfull \hbox (badness 10000) in paragraph at lines 98--107
+Underfull \hbox (badness 10000) in paragraph at lines 98--115
 
  []
 
@@ -476,21 +476,16 @@ File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
 \openout5 = `rapport.toc'.
 
 [3]
-Overfull \hbox (32.0761pt too wide) in paragraph at lines 152--159
-[]\T1/cmr/m/n/12 Le tourisme est une ac-tiv-ité hu-maine qui a des im-pacts mul-ti-ples et com-plexes sur l'environnement,
- []
-
-
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.218 
+l.227 
        [1
 
 ] [2]
 Chapitre 1.
 
-Overfull \hbox (6.06715pt too wide) in paragraph at lines 230--246
+Overfull \hbox (6.06715pt too wide) in paragraph at lines 241--248
 []\T1/cmr/m/n/12 Notre pro-jet aborde plusieurs be-soins et prob-lèmes clés auxquels sont con-fron-tés les voyageurs
  []
 
@@ -500,375 +495,378 @@ Overfull \hbox (6.06715pt too wide) in paragraph at lines 230--246
 <images/uml.png, id=284, 1126.2075pt x 1242.6425pt>
 File: images/uml.png Graphic file (type png)
 <use images/uml.png>
-Package pdftex.def Info: images/uml.png  used on input line 352.
+Package pdftex.def Info: images/uml.png  used on input line 375.
 (pdftex.def)             Requested size: 341.42206pt x 381.25232pt.
 [5
 pdfTeX warning (ext4): destination with the same identifier (name{figure.1.1}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.381   \textbf
-               {Adaptation aux emplois du temps de tous:} Compte tenu des <./images/uml.png>] [6]
+l.398   \textbf
+               {IntÃ©gration des idÃ©es individuelles:} Notre approche <./images/uml.png>] [6]
 Chapitre 2.
 [7
 
 ] [8]
 
-Package xcolor Warning: Incompatible color definition on input line 656.
+Package xcolor Warning: Incompatible color definition on input line 679.
 
-LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 657.
+LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 680.
 (/Users/hugogoncalves/Library/TinyTeX/texmf-dist/tex/latex/base/t1cmtt.fd
 File: t1cmtt.fd 2023/04/13 v2.5m Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `T1/cmtt/bx/n' in size <12> not available
-(Font)              Font shape `T1/cmtt/m/n' tried instead on input line 659.
-LaTeX Font Info:    Trying to load font information for TS1+cmtt on input line 664.
+(Font)              Font shape `T1/cmtt/m/n' tried instead on input line 682.
+LaTeX Font Info:    Trying to load font information for TS1+cmtt on input line 690.
 (/Users/hugogoncalves/Library/TinyTeX/texmf-dist/tex/latex/base/ts1cmtt.fd
 File: ts1cmtt.fd 2023/04/13 v2.5m Standard LaTeX font definitions
 )
 
-Package xcolor Warning: Incompatible color definition on input line 704.
+Package xcolor Warning: Incompatible color definition on input line 729.
 
 
-Package xcolor Warning: Incompatible color definition on input line 704.
+Package xcolor Warning: Incompatible color definition on input line 729.
 
 
-Package xcolor Warning: Incompatible color definition on input line 704.
+Package xcolor Warning: Incompatible color definition on input line 729.
 
 [9]
 
-Package xcolor Warning: Incompatible color definition on input line 704.
+Package xcolor Warning: Incompatible color definition on input line 729.
 
 
-Package xcolor Warning: Incompatible color definition on input line 704.
+Package xcolor Warning: Incompatible color definition on input line 729.
 
 
-Package xcolor Warning: Incompatible color definition on input line 706.
+Package xcolor Warning: Incompatible color definition on input line 731.
 
 
-Package xcolor Warning: Incompatible color definition on input line 726.
+Package xcolor Warning: Incompatible color definition on input line 751.
 
 
-Package xcolor Warning: Incompatible color definition on input line 726.
+Package xcolor Warning: Incompatible color definition on input line 751.
 
 
-Package xcolor Warning: Incompatible color definition on input line 726.
+Package xcolor Warning: Incompatible color definition on input line 751.
 
 [10]
 
-Package xcolor Warning: Incompatible color definition on input line 726.
+Package xcolor Warning: Incompatible color definition on input line 751.
 
 
-Package xcolor Warning: Incompatible color definition on input line 726.
+Package xcolor Warning: Incompatible color definition on input line 751.
 
 
-Overfull \hbox (6.68497pt too wide) in paragraph at lines 728--736
+Overfull \hbox (6.68497pt too wide) in paragraph at lines 753--761
 \T1/cmr/m/n/12 touris-tiques to-taux (Out-bound Tourism-Departures), dépenses touris-tiques (Out-bound Tourism-
  []
 
 [11]
 
-Package xcolor Warning: Incompatible color definition on input line 855.
+Package xcolor Warning: Incompatible color definition on input line 880.
 
 
-Package xcolor Warning: Incompatible color definition on input line 861.
+Package xcolor Warning: Incompatible color definition on input line 886.
 
 
-Package xcolor Warning: Incompatible color definition on input line 861.
+Package xcolor Warning: Incompatible color definition on input line 886.
 
 
-Package xcolor Warning: Incompatible color definition on input line 866.
+Package xcolor Warning: Incompatible color definition on input line 891.
 
 
-Package xcolor Warning: Incompatible color definition on input line 873.
+Package xcolor Warning: Incompatible color definition on input line 898.
 
 
-Package xcolor Warning: Incompatible color definition on input line 873.
+Package xcolor Warning: Incompatible color definition on input line 898.
 
 [12] [13] [14] [15] [16] [17] [18]
 <images/MCD.png, id=384, 294.09875pt x 613.29124pt>
 File: images/MCD.png Graphic file (type png)
 <use images/MCD.png>
-Package pdftex.def Info: images/MCD.png  used on input line 1270.
+Package pdftex.def Info: images/MCD.png  used on input line 1293.
 (pdftex.def)             Requested size: 227.62349pt x 474.3132pt.
 [19
 pdfTeX warning (ext4): destination with the same identifier (name{figure.2.1}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.1274 \newpage
+l.1297 \newpage
                 <./images/MCD.png>]
 <images/MOD.png, id=393, 857.45343pt x 524.71031pt>
 File: images/MOD.png Graphic file (type png)
 <use images/MOD.png>
-Package pdftex.def Info: images/MOD.png  used on input line 1281.
+Package pdftex.def Info: images/MOD.png  used on input line 1304.
 (pdftex.def)             Requested size: 341.43141pt x 209.40802pt.
 [20
 pdfTeX warning (ext4): destination with the same identifier (name{figure.2.2}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.1285 \newpage
+l.1308 \newpage
                 <./images/MOD.png>]
-Overfull \hbox (8.65407pt too wide) in paragraph at lines 1329--1329
+Overfull \hbox (8.65407pt too wide) in paragraph at lines 1352--1352
 []|\T1/cmr/m/n/12 VARCHAR|  
  []
 
 
-Overfull \hbox (8.82347pt too wide) in paragraph at lines 1330--1330
+Overfull \hbox (8.82347pt too wide) in paragraph at lines 1353--1353
 []|\T1/cmr/m/n/12 BOOLEAN|  
  []
 
 
-Overfull \hbox (8.82347pt too wide) in paragraph at lines 1331--1331
+Overfull \hbox (8.82347pt too wide) in paragraph at lines 1354--1354
 []|\T1/cmr/m/n/12 BOOLEAN|  
  []
 
 
-Overfull \hbox (8.82347pt too wide) in paragraph at lines 1333--1333
+Overfull \hbox (8.82347pt too wide) in paragraph at lines 1356--1356
 []|\T1/cmr/m/n/12 BOOLEAN|  
  []
 
 
-Overfull \hbox (8.82347pt too wide) in paragraph at lines 1335--1335
+Overfull \hbox (8.82347pt too wide) in paragraph at lines 1358--1358
 []|\T1/cmr/m/n/12 BOOLEAN|  
  []
 
 
-Overfull \hbox (8.82347pt too wide) in paragraph at lines 1337--1337
+Overfull \hbox (8.82347pt too wide) in paragraph at lines 1360--1360
 []|\T1/cmr/m/n/12 BOOLEAN|  
  []
 
 
-Overfull \hbox (8.82347pt too wide) in paragraph at lines 1338--1338
+Overfull \hbox (8.82347pt too wide) in paragraph at lines 1361--1361
 []|\T1/cmr/m/n/12 BOOLEAN|  
  []
 
 
-Package xcolor Warning: Incompatible color definition on input line 1345.
+Package xcolor Warning: Incompatible color definition on input line 1368.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1417.
+Package xcolor Warning: Incompatible color definition on input line 1448.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1417.
+Package xcolor Warning: Incompatible color definition on input line 1448.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1417.
+Package xcolor Warning: Incompatible color definition on input line 1448.
 
 [21]
 
-Package xcolor Warning: Incompatible color definition on input line 1417.
+Package xcolor Warning: Incompatible color definition on input line 1448.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1417.
+Package xcolor Warning: Incompatible color definition on input line 1448.
 
 
-Underfull \vbox (badness 10000) detected at line 1417
+Underfull \vbox (badness 10000) detected at line 1448
  []
 
 
-Package xcolor Warning: Incompatible color definition on input line 1417.
+Package xcolor Warning: Incompatible color definition on input line 1448.
 
 [22]
 
-Package xcolor Warning: Incompatible color definition on input line 1417.
+Package xcolor Warning: Incompatible color definition on input line 1448.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1417.
+Package xcolor Warning: Incompatible color definition on input line 1448.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1427.
+Package xcolor Warning: Incompatible color definition on input line 1458.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1441.
+Package xcolor Warning: Incompatible color definition on input line 1472.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1441.
+Package xcolor Warning: Incompatible color definition on input line 1472.
 
-[23]
+[23] [24]
 Chapitre 3.
-<images/figma.png, id=419, 1059.96pt x 433.62pt>
+<images/figma.png, id=423, 1059.96pt x 433.62pt>
 File: images/figma.png Graphic file (type png)
 <use images/figma.png>
-Package pdftex.def Info: images/figma.png  used on input line 1504.
+Package pdftex.def Info: images/figma.png  used on input line 1531.
 (pdftex.def)             Requested size: 398.34123pt x 163.32167pt.
-[24
+[25
 
 
 pdfTeX warning (ext4): destination with the same identifier (name{figure.3.1}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.1508 \newpage
+l.1535 \newpage
                 <./images/figma.png>]
-<images/carousel_maq.png, id=426, 736.7525pt x 756.8275pt>
+<images/carousel_maq.png, id=430, 736.7525pt x 756.8275pt>
 File: images/carousel_maq.png Graphic file (type png)
 <use images/carousel_maq.png>
-Package pdftex.def Info: images/carousel_maq.png  used on input line 1536.
+Package pdftex.def Info: images/carousel_maq.png  used on input line 1563.
 (pdftex.def)             Requested size: 341.42845pt x 351.9558pt.
-[25
+[26
 pdfTeX warning (ext4): destination with the same identifier (name{figure.3.2}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.1547 
+l.1574 
         <./images/carousel_maq.png>]
-<images/unnamed.png, id=433, 609.27625pt x 379.4175pt>
+<images/unnamed.png, id=437, 609.27625pt x 379.4175pt>
 File: images/unnamed.png Graphic file (type png)
 <use images/unnamed.png>
-Package pdftex.def Info: images/unnamed.png  used on input line 1550.
+Package pdftex.def Info: images/unnamed.png  used on input line 1577.
 (pdftex.def)             Requested size: 341.44337pt x 213.39865pt.
-<images/map_maq.png, id=434, 732.7375pt x 513.92pt>
-File: images/map_maq.png Graphic file (type png)
-<use images/map_maq.png>
-Package pdftex.def Info: images/map_maq.png  used on input line 1571.
-(pdftex.def)             Requested size: 341.43498pt x 240.4289pt.
-[26
+[27
 pdfTeX warning (ext4): destination with the same identifier (name{figure.3.3}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.1574 
-        <./images/unnamed.png>]
-<images/jauges_maq.png, id=442, 728.7225pt x 612.2875pt>
+l.1581 \newpage
+                <./images/unnamed.png>]
+<images/map_maq.png, id=445, 732.7375pt x 513.92pt>
+File: images/map_maq.png Graphic file (type png)
+<use images/map_maq.png>
+Package pdftex.def Info: images/map_maq.png  used on input line 1600.
+(pdftex.def)             Requested size: 341.43498pt x 240.4289pt.
+<images/jauges_maq.png, id=446, 728.7225pt x 612.2875pt>
 File: images/jauges_maq.png Graphic file (type png)
 <use images/jauges_maq.png>
-Package pdftex.def Info: images/jauges_maq.png  used on input line 1586.
+Package pdftex.def Info: images/jauges_maq.png  used on input line 1615.
 (pdftex.def)             Requested size: 341.43216pt x 286.80351pt.
-[27
+[28
 pdfTeX warning (ext4): destination with the same identifier (name{figure.3.4}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.1589 
+l.1618 
         <./images/map_maq.png>]
-<images/graphpays_maq.png, id=449, 725.71124pt x 826.08624pt>
+<images/graphpays_maq.png, id=453, 725.71124pt x 826.08624pt>
 File: images/graphpays_maq.png Graphic file (type png)
 <use images/graphpays_maq.png>
-Package pdftex.def Info: images/graphpays_maq.png  used on input line 1599.
-(pdftex.def)             Requested size: 341.43867pt x 388.09671pt.
-[28
+Package pdftex.def Info: images/graphpays_maq.png  used on input line 1628.
+(pdftex.def)             Requested size: 284.53223pt x 323.23116pt.
+[29
 pdfTeX warning (ext4): destination with the same identifier (name{figure.3.5}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.1602 
+l.1631 
         <./images/jauges_maq.png>]
-<images/comppays_maq.png, id=455, 727.71875pt x 433.62pt>
+<images/comppays_maq.png, id=459, 727.71875pt x 433.62pt>
 File: images/comppays_maq.png Graphic file (type png)
 <use images/comppays_maq.png>
-Package pdftex.def Info: images/comppays_maq.png  used on input line 1605.
-(pdftex.def)             Requested size: 341.43933pt x 202.58398pt.
-[29
+Package pdftex.def Info: images/comppays_maq.png  used on input line 1638.
+(pdftex.def)             Requested size: 284.53093pt x 169.29637pt.
+[30
 pdfTeX warning (ext4): destination with the same identifier (name{figure.3.6}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.1614 \section{Page Monde}\label{page-monde}}
-                                              
+l.1642 \newpage
+               
 pdfTeX warning (ext4): destination with the same identifier (name{figure.3.7}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.1614 \section{Page Monde}\label{page-monde}}
-                                               <./images/graphpays_maq.png> <./images/comppays_maq.png>]
-<images/monde_maq.png, id=462, 672.5125pt x 818.05624pt>
+l.1642 \newpage
+                <./images/graphpays_maq.png> <./images/comppays_maq.png>]
+Overfull \hbox (9.46085pt too wide) in paragraph at lines 1647--1652
+\T1/cmr/m/n/12 s'informer sur les dif-férents pays, et de choisir une des-ti-na-tion en fonc-tion de dif-férents graphiques.
+ []
+
+<images/monde_maq.png, id=466, 672.5125pt x 818.05624pt>
 File: images/monde_maq.png Graphic file (type png)
 <use images/monde_maq.png>
-Package pdftex.def Info: images/monde_maq.png  used on input line 1618.
+Package pdftex.def Info: images/monde_maq.png  used on input line 1667.
 (pdftex.def)             Requested size: 341.43758pt x 416.26697pt.
-<images/treemap_maq.png, id=463, 679.53876pt x 523.9575pt>
-File: images/treemap_maq.png Graphic file (type png)
-<use images/treemap_maq.png>
-Package pdftex.def Info: images/treemap_maq.png  used on input line 1624.
-(pdftex.def)             Requested size: 341.42757pt x 262.62569pt.
-[30
+[31
 pdfTeX warning (ext4): destination with the same identifier (name{figure.3.8}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.1627 
+l.1674 
         <./images/monde_maq.png>]
-<images/comp_maq.png, id=470, 709.65125pt x 773.89125pt>
-File: images/comp_maq.png Graphic file (type png)
-<use images/comp_maq.png>
-Package pdftex.def Info: images/comp_maq.png  used on input line 1637.
-(pdftex.def)             Requested size: 341.44086pt x 375.28957pt.
-[31
+<images/treemap_maq.png, id=473, 679.53876pt x 523.9575pt>
+File: images/treemap_maq.png Graphic file (type png)
+<use images/treemap_maq.png>
+Package pdftex.def Info: images/treemap_maq.png  used on input line 1677.
+(pdftex.def)             Requested size: 341.42757pt x 262.62569pt.
+[32
 pdfTeX warning (ext4): destination with the same identifier (name{figure.3.9}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.1640 
-        <./images/treemap_maq.png>]
-<images/graphcomp_maq.png, id=477, 704.6325pt x 733.74126pt>
+l.1681 \newpage
+                <./images/treemap_maq.png>]
+<images/comp_maq.png, id=479, 709.65125pt x 773.89125pt>
+File: images/comp_maq.png Graphic file (type png)
+<use images/comp_maq.png>
+Package pdftex.def Info: images/comp_maq.png  used on input line 1695.
+(pdftex.def)             Requested size: 341.44086pt x 375.28957pt.
+<images/graphcomp_maq.png, id=480, 704.6325pt x 733.74126pt>
 File: images/graphcomp_maq.png Graphic file (type png)
 <use images/graphcomp_maq.png>
-Package pdftex.def Info: images/graphcomp_maq.png  used on input line 1665.
-(pdftex.def)             Requested size: 341.43456pt x 355.66255pt.
-[32
+Package pdftex.def Info: images/graphcomp_maq.png  used on input line 1716.
+(pdftex.def)             Requested size: 312.9745pt x 325.79169pt.
+[33
 pdfTeX warning (ext4): destination with the same identifier (name{figure.3.10}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.1668 
+l.1719 
         <./images/comp_maq.png>]
-<images/savezvous_maq.png, id=483, 697.60625pt x 527.9725pt>
+<images/savezvous_maq.png, id=488, 697.60625pt x 527.9725pt>
 File: images/savezvous_maq.png Graphic file (type png)
 <use images/savezvous_maq.png>
-Package pdftex.def Info: images/savezvous_maq.png  used on input line 1676.
-(pdftex.def)             Requested size: 341.4362pt x 252.94054pt.
-[33
+Package pdftex.def Info: images/savezvous_maq.png  used on input line 1726.
+(pdftex.def)             Requested size: 312.98318pt x 237.00537pt.
+[34
 pdfTeX warning (ext4): destination with the same identifier (name{figure.3.11}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.1679 
-        <./images/graphcomp_maq.png>]
-<images/register_maq.png, id=490, 704.6325pt x 637.38126pt>
-File: images/register_maq.png Graphic file (type png)
-<use images/register_maq.png>
-Package pdftex.def Info: images/register_maq.png  used on input line 1703.
-(pdftex.def)             Requested size: 341.43456pt x 310.13127pt.
-[34
+l.1745 
+       
 pdfTeX warning (ext4): destination with the same identifier (name{figure.3.12}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.1706 
-        <./images/savezvous_maq.png>]
+l.1745 
+        <./images/graphcomp_maq.png> <./images/savezvous_maq.png>]
+<images/register_maq.png, id=496, 704.6325pt x 637.38126pt>
+File: images/register_maq.png Graphic file (type png)
+<use images/register_maq.png>
+Package pdftex.def Info: images/register_maq.png  used on input line 1748.
+(pdftex.def)             Requested size: 256.07591pt x 232.74434pt.
 <images/login_maq.png, id=497, 619.31375pt x 482.80376pt>
 File: images/login_maq.png Graphic file (type png)
 <use images/login_maq.png>
-Package pdftex.def Info: images/login_maq.png  used on input line 1709.
-(pdftex.def)             Requested size: 341.44576pt x 273.15298pt.
+Package pdftex.def Info: images/login_maq.png  used on input line 1754.
+(pdftex.def)             Requested size: 256.08432pt x 200.02094pt.
 [35
 pdfTeX warning (ext4): destination with the same identifier (name{figure.3.13}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.1721   L
-          es derniÃ¨res recherches effectuÃ©es: il s'agit de l'historique des
+l.1765 
+       
 pdfTeX warning (ext4): destination with the same identifier (name{figure.3.14}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.1721   L
-          es derniÃ¨res recherches effectuÃ©es: il s'agit de l'historique des <./images/register_maq.png> <./images/login_maq.png>]
+l.1765 
+        <./images/register_maq.png> <./images/login_maq.png>]
 <images/profil_maq.png, id=505, 624.3325pt x 784.9325pt>
 File: images/profil_maq.png Graphic file (type png)
 <use images/profil_maq.png>
-Package pdftex.def Info: images/profil_maq.png  used on input line 1746.
+Package pdftex.def Info: images/profil_maq.png  used on input line 1791.
 (pdftex.def)             Requested size: 256.07324pt x 324.0761pt.
 [36
 pdfTeX warning (ext4): destination with the same identifier (name{figure.3.15}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.1750 \newpage
+l.1795 \newpage
                 <./images/profil_maq.png>]
 <images/calc2_maq.png, id=511, 707.64375pt x 533.995pt>
 File: images/calc2_maq.png Graphic file (type png)
 <use images/calc2_maq.png>
-Package pdftex.def Info: images/calc2_maq.png  used on input line 1797.
+Package pdftex.def Info: images/calc2_maq.png  used on input line 1842.
 (pdftex.def)             Requested size: 341.43597pt x 258.64503pt.
 [37
 pdfTeX warning (ext4): destination with the same identifier (name{figure.3.16}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.1802 ...tils}\label{duxe9veloppement-et-outils}}
+l.1847 ...tils}\label{duxe9veloppement-et-outils}}
                                                    <./images/calc2_maq.png>]
 Chapitre 4.
 <images/example_graph.png, id=520, 1447.4075pt x 617.30624pt>
 File: images/example_graph.png Graphic file (type png)
 <use images/example_graph.png>
-Package pdftex.def Info: images/example_graph.png  used on input line 1843.
+Package pdftex.def Info: images/example_graph.png  used on input line 1888.
 (pdftex.def)             Requested size: 341.42178pt x 145.96182pt.
 
-Package xcolor Warning: Incompatible color definition on input line 1847.
+Package xcolor Warning: Incompatible color definition on input line 1892.
 
 [38
 
@@ -876,176 +874,172 @@ Package xcolor Warning: Incompatible color definition on input line 1847.
 pdfTeX warning (ext4): destination with the same identifier (name{figure.4.1}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.1847 \begin{Shaded}
+l.1892 \begin{Shaded}
                       <./images/example_graph.png>]
 
-Package xcolor Warning: Incompatible color definition on input line 1947.
+Package xcolor Warning: Incompatible color definition on input line 1982.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1947.
+Package xcolor Warning: Incompatible color definition on input line 1982.
 
 
-Underfull \vbox (badness 10000) detected at line 1947
+Underfull \vbox (badness 10000) detected at line 1982
  []
 
 
-Package xcolor Warning: Incompatible color definition on input line 1947.
+Package xcolor Warning: Incompatible color definition on input line 1982.
 
 [39]
 
-Package xcolor Warning: Incompatible color definition on input line 1947.
+Package xcolor Warning: Incompatible color definition on input line 1982.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1947.
-
-
-Underfull \vbox (badness 10000) detected at line 1947
- []
-
-
-Package xcolor Warning: Incompatible color definition on input line 1947.
+Package xcolor Warning: Incompatible color definition on input line 1982.
 
 [40]
 
-Package xcolor Warning: Incompatible color definition on input line 1947.
+Package xcolor Warning: Incompatible color definition on input line 2040.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1947.
+Package xcolor Warning: Incompatible color definition on input line 2069.
 
 
-Package xcolor Warning: Incompatible color definition on input line 2005.
+Package xcolor Warning: Incompatible color definition on input line 2069.
 
 
-Package xcolor Warning: Incompatible color definition on input line 2033.
-
-
-Package xcolor Warning: Incompatible color definition on input line 2033.
-
-
-Package xcolor Warning: Incompatible color definition on input line 2033.
+Package xcolor Warning: Incompatible color definition on input line 2069.
 
 [41]
 
-Package xcolor Warning: Incompatible color definition on input line 2033.
+Package xcolor Warning: Incompatible color definition on input line 2069.
 
 
-Package xcolor Warning: Incompatible color definition on input line 2033.
+Package xcolor Warning: Incompatible color definition on input line 2069.
 
 
-Package xcolor Warning: Incompatible color definition on input line 2041.
+Package xcolor Warning: Incompatible color definition on input line 2077.
 
 
-Package xcolor Warning: Incompatible color definition on input line 2053.
+Package xcolor Warning: Incompatible color definition on input line 2091.
 
 
-Package xcolor Warning: Incompatible color definition on input line 2053.
+Package xcolor Warning: Incompatible color definition on input line 2091.
 
 [42]
-<images/base_map.png, id=547, 1606.0pt x 903.375pt>
+<images/base_map.png, id=549, 1606.0pt x 903.375pt>
 File: images/base_map.png Graphic file (type png)
 <use images/base_map.png>
-Package pdftex.def Info: images/base_map.png  used on input line 2110.
+Package pdftex.def Info: images/base_map.png  used on input line 2148.
 (pdftex.def)             Requested size: 341.4359pt x 192.62285pt.
 [43
 pdfTeX warning (ext4): destination with the same identifier (name{figure.4.2}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.2120 P
-        lusieurs boutons dans les coins de la carte permettent de contrÃ´ler la <./images/base_map.png>]
-<images/wohtml_map.png, id=556, 566.115pt x 487.8225pt>
+l.2174 
+        <./images/base_map.png>]
+<images/wohtml_map.png, id=557, 566.115pt x 487.8225pt>
 File: images/wohtml_map.png Graphic file (type png)
 <use images/wohtml_map.png>
-Package pdftex.def Info: images/wohtml_map.png  used on input line 2145.
+Package pdftex.def Info: images/wohtml_map.png  used on input line 2183.
 (pdftex.def)             Requested size: 341.44244pt x 294.19936pt.
 
-Package xcolor Warning: Incompatible color definition on input line 2153.
+Package xcolor Warning: Incompatible color definition on input line 2191.
+
+
+Package xcolor Warning: Incompatible color definition on input line 2209.
+
+
+Package xcolor Warning: Incompatible color definition on input line 2209.
+
+
+Package xcolor Warning: Incompatible color definition on input line 2209.
 
 [44
 pdfTeX warning (ext4): destination with the same identifier (name{figure.4.3}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.2167 \end{Shaded}
+l.2209 \end{Shaded}
                     <./images/wohtml_map.png>]
 
-Package xcolor Warning: Incompatible color definition on input line 2167.
+Package xcolor Warning: Incompatible color definition on input line 2209.
 
 
-Package xcolor Warning: Incompatible color definition on input line 2167.
+Package xcolor Warning: Incompatible color definition on input line 2209.
 
 <images/withhtml_map.png, id=563, 491.8375pt x 376.40625pt>
 File: images/withhtml_map.png Graphic file (type png)
 <use images/withhtml_map.png>
-Package pdftex.def Info: images/withhtml_map.png  used on input line 2183.
+Package pdftex.def Info: images/withhtml_map.png  used on input line 2225.
 (pdftex.def)             Requested size: 341.44707pt x 262.63828pt.
+
+Package xcolor Warning: Incompatible color definition on input line 2246.
+
 [45
 pdfTeX warning (ext4): destination with the same identifier (name{figure.4.4}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.2198 
-        <./images/withhtml_map.png>]
+l.2246 \begin{Shaded}
+                      <./images/withhtml_map.png>]
 
-Package xcolor Warning: Incompatible color definition on input line 2204.
-
-
-Package xcolor Warning: Incompatible color definition on input line 2210.
+Package xcolor Warning: Incompatible color definition on input line 2252.
 
 
-Package xcolor Warning: Incompatible color definition on input line 2210.
+Package xcolor Warning: Incompatible color definition on input line 2252.
 
 <images/brazil_map.png, id=572, 1606.0pt x 903.375pt>
 File: images/brazil_map.png Graphic file (type png)
 <use images/brazil_map.png>
-Package pdftex.def Info: images/brazil_map.png  used on input line 2216.
+Package pdftex.def Info: images/brazil_map.png  used on input line 2258.
 (pdftex.def)             Requested size: 341.4359pt x 192.62285pt.
 [46
 pdfTeX warning (ext4): destination with the same identifier (name{figure.4.5}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.2253 
+l.2308 
         <./images/brazil_map.png>]
 <images/comp_map.png, id=579, 891.33pt x 422.57875pt>
 File: images/comp_map.png Graphic file (type png)
 <use images/comp_map.png>
-Package pdftex.def Info: images/comp_map.png  used on input line 2272.
+Package pdftex.def Info: images/comp_map.png  used on input line 2313.
 (pdftex.def)             Requested size: 341.42903pt x 161.89699pt.
 [47
 pdfTeX warning (ext4): destination with the same identifier (name{figure.4.6}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.2302 
+l.2348 
         <./images/comp_map.png>] [48]
-<images/line_comp.png, id=591, 810.02625pt x 430.60875pt>
+<images/line_comp.png, id=592, 810.02625pt x 430.60875pt>
 File: images/line_comp.png Graphic file (type png)
 <use images/line_comp.png>
-Package pdftex.def Info: images/line_comp.png  used on input line 2379.
+Package pdftex.def Info: images/line_comp.png  used on input line 2420.
 (pdftex.def)             Requested size: 341.43234pt x 181.5312pt.
 
-Package xcolor Warning: Incompatible color definition on input line 2387.
+Package xcolor Warning: Incompatible color definition on input line 2428.
 
 
-Package xcolor Warning: Incompatible color definition on input line 2402.
+Package xcolor Warning: Incompatible color definition on input line 2447.
 
 
-Package xcolor Warning: Incompatible color definition on input line 2402.
+Package xcolor Warning: Incompatible color definition on input line 2447.
 
 [49
 pdfTeX warning (ext4): destination with the same identifier (name{figure.4.7}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.2414 
+l.2464 
         <./images/line_comp.png>]
 <images/boutons_comp.png, id=598, 950.55125pt x 63.23625pt>
 File: images/boutons_comp.png Graphic file (type png)
 <use images/boutons_comp.png>
-Package pdftex.def Info: images/boutons_comp.png  used on input line 2426.
+Package pdftex.def Info: images/boutons_comp.png  used on input line 2471.
 (pdftex.def)             Requested size: 341.42946pt x 22.76213pt.
 <images/newhtml_comp.png, id=599, 1606.0pt x 903.375pt>
 File: images/newhtml_comp.png Graphic file (type png)
 <use images/newhtml_comp.png>
-Package pdftex.def Info: images/newhtml_comp.png  used on input line 2447.
+Package pdftex.def Info: images/newhtml_comp.png  used on input line 2492.
 (pdftex.def)             Requested size: 426.78876pt x 240.99222pt.
 
-Overfull \hbox (2.84288pt too wide) in paragraph at lines 2447--2448
+Overfull \hbox (2.84288pt too wide) in paragraph at lines 2492--2493
  [][] 
  []
 
@@ -1053,47 +1047,47 @@ Overfull \hbox (2.84288pt too wide) in paragraph at lines 2447--2448
 pdfTeX warning (ext4): destination with the same identifier (name{figure.4.8}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.2461 
+l.2506 
        
 pdfTeX warning (ext4): destination with the same identifier (name{figure.4.9}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.2461 
+l.2506 
         <./images/boutons_comp.png> <./images/newhtml_comp.png>]
 
-Package xcolor Warning: Incompatible color definition on input line 2492.
+Package xcolor Warning: Incompatible color definition on input line 2537.
 
 
-Package xcolor Warning: Incompatible color definition on input line 2501.
+Package xcolor Warning: Incompatible color definition on input line 2546.
 
 
-Package xcolor Warning: Incompatible color definition on input line 2501.
+Package xcolor Warning: Incompatible color definition on input line 2546.
 
 
-Package xcolor Warning: Incompatible color definition on input line 2515.
+Package xcolor Warning: Incompatible color definition on input line 2560.
 
 
-Package xcolor Warning: Incompatible color definition on input line 2531.
+Package xcolor Warning: Incompatible color definition on input line 2576.
 
 
-Package xcolor Warning: Incompatible color definition on input line 2531.
+Package xcolor Warning: Incompatible color definition on input line 2576.
 
 
-Package xcolor Warning: Incompatible color definition on input line 2531.
+Package xcolor Warning: Incompatible color definition on input line 2576.
 
 [51]
 
-Package xcolor Warning: Incompatible color definition on input line 2531.
+Package xcolor Warning: Incompatible color definition on input line 2576.
 
 
-Package xcolor Warning: Incompatible color definition on input line 2531.
+Package xcolor Warning: Incompatible color definition on input line 2576.
 
 [52]
 Chapitre 5.
 <images/global_gantt.png, id=618, 407.27156pt x 94.85437pt>
 File: images/global_gantt.png Graphic file (type png)
 <use images/global_gantt.png>
-Package pdftex.def Info: images/global_gantt.png  used on input line 2556.
+Package pdftex.def Info: images/global_gantt.png  used on input line 2601.
 (pdftex.def)             Requested size: 341.44704pt x 79.38475pt.
 [53
 
@@ -1101,52 +1095,52 @@ Package pdftex.def Info: images/global_gantt.png  used on input line 2556.
 pdfTeX warning (ext4): destination with the same identifier (name{figure.5.1}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.2596 \end{itemize}
+l.2641 \end{itemize}
                      <./images/global_gantt.png>] [54]
 <images/db_gantt.png, id=630, 466.3824pt x 148.3944pt>
 File: images/db_gantt.png Graphic file (type png)
 <use images/db_gantt.png>
-Package pdftex.def Info: images/db_gantt.png  used on input line 2611.
+Package pdftex.def Info: images/db_gantt.png  used on input line 2656.
 (pdftex.def)             Requested size: 341.43126pt x 108.69156pt.
 [55
 pdfTeX warning (ext4): destination with the same identifier (name{figure.5.2}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.2668 \newpage
+l.2713 \newpage
                 <./images/db_gantt.png>]
 <images/map_gantt.png, id=638, 405.76593pt x 107.65219pt>
 File: images/map_gantt.png Graphic file (type png)
 <use images/map_gantt.png>
-Package pdftex.def Info: images/map_gantt.png  used on input line 2675.
+Package pdftex.def Info: images/map_gantt.png  used on input line 2720.
 (pdftex.def)             Requested size: 341.44164pt x 91.33559pt.
 [56
 pdfTeX warning (ext4): destination with the same identifier (name{figure.5.3}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.2726 \newpage
+l.2771 \newpage
                 <./images/map_gantt.png>]
 <images/html_gantt.png, id=646, 408.02437pt x 159.59625pt>
 File: images/html_gantt.png Graphic file (type png)
 <use images/html_gantt.png>
-Package pdftex.def Info: images/html_gantt.png  used on input line 2734.
+Package pdftex.def Info: images/html_gantt.png  used on input line 2779.
 (pdftex.def)             Requested size: 341.44937pt x 128.6074pt.
 <images/annex_gantt.png, id=647, 407.27156pt x 217.5628pt>
 File: images/annex_gantt.png Graphic file (type png)
 <use images/annex_gantt.png>
-Package pdftex.def Info: images/annex_gantt.png  used on input line 2770.
+Package pdftex.def Info: images/annex_gantt.png  used on input line 2815.
 (pdftex.def)             Requested size: 341.44704pt x 170.72742pt.
 [57
 pdfTeX warning (ext4): destination with the same identifier (name{figure.5.4}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.2781 
+l.2826 
        
 pdfTeX warning (ext4): destination with the same identifier (name{figure.5.5}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.2781 
+l.2826 
         <./images/html_gantt.png> <./images/annex_gantt.png>] [58]
-Overfull \hbox (0.59123pt too wide) in paragraph at lines 2828--2833
+Overfull \hbox (0.59123pt too wide) in paragraph at lines 2873--2878
 \T1/cmr/m/n/12 péri-ence ap-pro-fondie, avec des graphiques dé-tail-lés re-flé-tant di-verses don-nées économiques,
  []
 
@@ -1158,21 +1152,21 @@ LaTeX2e <2023-11-01>
 L3 programming layer <2023-12-11>
  ***********
 Package rerunfilecheck Info: File `rapport.out' has not changed.
-(rerunfilecheck)             Checksum: 56F7CAF6F726147CD73661E7DC559846;6609.
+(rerunfilecheck)             Checksum: CB1F12E6380D1F643AB71C9713B4C9A9;6635.
  ) 
 Here is how much of TeX's memory you used:
- 12154 strings out of 476135
- 190190 string characters out of 5793497
+ 12160 strings out of 476135
+ 190275 string characters out of 5793497
  1950457 words of memory out of 5000000
- 33790 multiletter control sequences out of 15000+600000
- 571237 words of font info for 71 fonts, out of 8000000 for 9000
+ 33793 multiletter control sequences out of 15000+600000
+ 573484 words of font info for 74 fonts, out of 8000000 for 9000
  16 hyphenation exceptions out of 8191
  80i,7n,82p,556b,710s stack positions out of 10000i,1000n,20000p,200000b,200000s
- </Users/hugogoncalves/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm0600.600pk> </Users/hugogoncalves/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/tctt1200.600pk> </Users/hugogoncalves/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecti1200.600pk> </Users/hugogoncalves/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/tcit1200.600pk> </Users/hugogoncalves/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecit1200.600pk> </Users/hugogoncalves/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt1200.600pk> </Users/hugogoncalves/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1440.600pk> </Users/hugogoncalves/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1200.600pk> </Users/hugogoncalves/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1200.600pk> </Users/hugogoncalves/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/eccc1728.600pk> </Users/hugogoncalves/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/eccc1095.600pk> </Users/hugogoncalves/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1200.600pk> </Users/hugogoncalves/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1728.600pk>
-Output written on rapport.pdf (64 pages, 4146437 bytes).
+ </Users/hugogoncalves/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbi2488.600pk> </Users/hugogoncalves/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm0600.600pk> </Users/hugogoncalves/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/tctt1200.600pk> </Users/hugogoncalves/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecti1200.600pk> </Users/hugogoncalves/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/tcit1200.600pk> </Users/hugogoncalves/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecit1200.600pk> </Users/hugogoncalves/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt1200.600pk> </Users/hugogoncalves/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1440.600pk> </Users/hugogoncalves/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1200.600pk> </Users/hugogoncalves/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1200.600pk> </Users/hugogoncalves/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/eccc1728.600pk> </Users/hugogoncalves/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/eccc1095.600pk> </Users/hugogoncalves/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1200.600pk> </Users/hugogoncalves/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1728.600pk>
+Output written on rapport.pdf (64 pages, 4156704 bytes).
 PDF statistics:
- 1260 PDF objects out of 1440 (max. 8388607)
- 649 compressed objects within 7 object streams
+ 1282 PDF objects out of 1440 (max. 8388607)
+ 653 compressed objects within 7 object streams
  206 named destinations out of 1000 (max. 500000)
  547 words of extra memory for PDF output out of 10000 (max. 10000000)
 
