@@ -107,12 +107,425 @@ Ces contraintes et limitations guideront notre équipe tout au long du projet, g
 
 # Base de données
 
+## Introduction
+
+Dans le cadre d'un projet nécessitant l'usage et la visualisation de données, le bon stockage de ces dernières est une étape primordiale dont repose la réussite du travail.
+Cela comprend le choix des données, leur traitement, leur structuration jusqu'à enfin les requêtes qui sont effectuées dessus.
+Il est nécessaire d'être méticuleux dans les définitions et les relations entre les tables, afin d'avoir une base de qualité et qui n'est pas confuse.
+
+C'est une tâche d'autant plus complexe quand on traite d'un sujet multifacteur, et qui nécessite une quantité de données importantes : elles doivent concerner les plus de pays possible pour une analyse plus complète, sur une échelle de temps assez importante pour tirer des conclusions, et des statistiques différentes à mettre en perspective.
+
+L'objectif principal était d'avoir des données liées à l'économie, au tourisme et à l'écologie.
+Les limitations de chaque données se sont ensuite imposées à nous au fil de nos recherches.
+
+## Provenance des données
+
+La complexité de notre sujet a fait que nous avons dû nous baser sur des données traitant de thèmes différents (tourisme, écologie et économie), et provenant donc de diverses sources.
+Toutes sont en accès libre sur Internet, exploitables, et proviennent pour la majeure partie d'organismes que nous jugeons fiables.
+La plupart sont en format csv, mais certaines sous forme de tableau Excel, plus une dernière source qui est déjà en SQL.
+Cela a nécessité un traitement spécifique pour tout uniformiser, qui sera détaillé dans la partie suivante.
+
+-   **Source de données 1 :**
+
+    -   **Description :** Liste de tous les pays du monde avec informations générales.
+    -   **Provenance :** Projet collaboratif très complet.
+    -   **Format :** Fichier CSV.
+    -   **Lien :** [\textcolor{blue}{Countries Database}](https://github.com/dr5hn/countries-states-cities-database/blob/master/csv/countries.csv)
+    -   **Complément :** Noms de pays en français [Google Public Data](https://developers.google.com/public-data/docs/canonical/countries_csv?hl=fr)
+
+-   **Source de données 2 :**
+
+    -   **Description :** Statistiques sur le tourisme mondial : arrivées, départs, recettes et dépenses par pays.
+    -   **Provenance :** Données de l'UNWTO : l'organisation mondiale du tourisme, branche des Nations Unies.
+    -   **Format :** Fichier Excel comprenant 12 feuilles.
+    -   **Lien :** [\textcolor{blue}{UNWTO Tourism Statistics}](https://www.unwto.org/tourism-statistics/key-tourism-statistics)
+
+-   **Source de données 3**
+
+    -   **Description :** Statistiques économiques : PIB et PIB/hab.
+
+    -   **Provenance :** Données de la Banque Mondiale.
+
+    -   **Format :** Fichier CSV.
+
+    -   **Lien :** [\textcolor{blue}{World Bank GDP Statistics}](https://databank.worldbank.org/reports.aspx?source=2&series=NY.GDP.MKTP.CD)
+
+-   **Source de données 4**
+
+    -   **Description :** Statistiques économiques : prix de consommation.
+
+    -   **Provenance :** Données des Nations Unies.
+
+    -   **Format :** Fichier CSV.
+
+    -   **Lien :** [\textcolor{blue}{UN Consumer Price Index}](https://data.un.org/_Docs/SYB/CSV/SYB66_128_202310_Consumer%20Price%20Index.csv)
+
+-   **Source de données 5**
+
+    -   **Description :** Statistiques écologiques : émissions de CO2 et de gaz à effet de serre par pays.
+
+    -   **Provenance :** Données de la Banque Mondiale.
+
+    -   **Format :** Fichiers Excel.
+
+    -   **Liens :** [\textcolor{blue}{CO2 Emissions}](https://data.worldbank.org/indicator/EN.ATM.CO2E.KT) et [\textcolor{blue}{GHG Emissions}](https://data.worldbank.org/indicator/EN.ATM.GHGT.KT.CE)
+
+-   **Source de données 6**
+
+    -   **Description :** Statistiques écologiques : part d'énergie renouvelable produite par pays.
+
+    -   **Provenance :** Données de Ember, think tank indépendant.
+
+    -   **Format :** Fichier CSV.
+
+    -   **Lien :** [\textcolor{blue}{Renewable Energy Share}](https://ourworldindata.org/grapher/share-electricity-renewables?time=1986)
+
+-   **Source de données 7**
+
+    -   **Description :** Statistiques diverses : Global Peace Index par pays.
+
+    -   **Provenance :** Données par Institute for Economics and Peace.
+
+    -   **Format :** Fichier CSV.
+
+    -   **Liens :** [\textcolor{blue}{Vision of Humanity}](https://www.visionofhumanity.org/maps/#/) et [\textcolor{blue}{Wikipedia - Global Peace Index}](https://en.wikipedia.org/wiki/Global_Peace_Index)
+
+-   **Source de données 8**
+
+    -   **Description :** Statistiques diverses : liste des pays en conflit.
+
+    -   **Provenance :** Table HTML.
+
+    -   **Lien :** [\textcolor{blue}{Countries Currently at War}](https://wisevoter.com/country-rankings/countries-currently-at-war/)
+
+-   **Source de données 9**
+
+    -   **Description :** Liste mondiale de villes.
+
+    -   **Provenance :** Fichier CSV.
+
+    -   **Lien :** [\textcolor{blue}{World Cities}](https://simplemaps.com/data/world-cities)
+
+-   **Source de données 10**
+
+    -   **Description :** Liste mondiale d'aéroports et routes aériennes.
+
+    -   **Provenance :** Projet collaboratif, données SQL.
+
+    -   **Lien :** [\textcolor{blue}{OpenFlights}](https://github.com/jpatokal/openflights)
+
+
+
+### Généralités
+
+Au vu de la quantité de sources que nous avons, réunir toutes les tables et données au sein d'une même structure a été un défi.
+Par exemple, chaque fichier n'utilise pas forcément les mêmes identifiants pour définir un même pays : code ISO2, code ISO3 ou même le nom du pays directement.
+
+ISO 3166-1 alpha-2 et ISO 3166-1 alpha-3 sont des normes internationales définissant respectivement des codes de deux et trois lettres pour la représentation normalisée des noms de pays.
+
+De plus, une de nos sources de données est un fichier Excel formaté, où l'extraction manuelle est impossible.
+
+Pour faire cela, nous avons écrit plusieurs scripts Python pour manipuler les fichiers Excel et CSV et injecter les données finales dans notre base.
+
+-   **Source de données 1 :**
+
+Nous avons filtré le document pour ne conserver que les colonnes intéressantes : noms, codes ISO, coordonnées géographiques, drapeaux, continent.
+Cela constitue le socle de nos tables.
+
+Les noms ont été traduits en français avec la source complémentaire.
+Les pays entre notre source initiale et le complément ont été réunis par le code ISO2.
+Cette source étant incomplète, certains noms ont dû être repris manuellement.
+
+Par la suite, nous avons supprimé certains pays qui ne figuraient dans aucun de nos jeux de données statistiques (détaillé dans les difficultés).
+
+-   **Source de données 2 :**
+
+Le fichier Excel fourni par l'UNWTO est extrêmement formaté : chaque pays possède plusieurs lignes de stats, avec les années en colonnes, et un header contenant des informations sur plusieurs lignes.
+Ce n'est absolument pas idéal pour traiter les informations, mais par chance un pattern ressort de ce fichier à travers chaque feuille, ce qui permet d'automatiser l'extraction facilement à l'aide de Python.
+
+Ce traitement consiste à prendre les feuilles qui nous intéressent et à donner les intervalles de lignes entre les stats que l'on recherche, puis le programme génère un fichier CSV complet qui reproduit la feuille.
+Ce CSV est ensuite retraité pour créer une nouvelle table, cette fois-ci en faisant passer les années dans les lignes.
+Ce deuxième traitement permet aussi la fusion de plusieurs feuilles en mettant chaque statistique différente en colonnes.
+
+Voici ces deux fonctions en Python :
+
+```{python}
+
+def baseCsv(nameXlsx, nameSheet, nameCsv, maxRow, pad, plus, head, start, stop, pays, 
+checkIso=False, checkNA=False, xls=False):
+    """Cette fonction traite un fichier xlsx pour le transvaser en un fichier CSV 
+    lisible. 
+    Il est nécessaire que le fichier soit formatté de telle sorte que chaque année
+    soit en colonne, et chaque pays en ligne. Elle nécessite beaucoup de paramètres 
+    à entrer à la main :
+    - `nameXlsx`, `nameSheet`, `nameCsv` : nom du fichier XLSX, nom de la feuille, 
+    et nom du CSV que l'on veut créer
+    - `maxRow`, `pad`, `plus`, `head` : nombre de lignes dans le fichier, écart 
+    entre chaque pays, écart entre le nom du pays et les données, nombre de lignes 
+    d'en-tête à ignorer
+    - `start` et `stop` : année de début et de fin des données
+    - `pays` : nom de la colonne où est inséré le nom du pays
+    - Paramètres optionnels : `checkIso` pour filtrer les pays / `checkNA` pour 
+    retirer les valeurs nulles / `xls` si le fichier est un .xls au lieu de .xlxs
+    Le fichier Excel doit se trouver dans le répertoire data/xlsx, et le CSV sera 
+    sauvegardé dans data/csv"""
+
+    with open(f"data/csv/{nameCsv}.csv", "w", encoding="UTF-8") as file:
+
+        ext = "xls" if xls else "xlsx"
+        df = pd.read_excel(f"data/xlsx/{nameXlsx}.{ext}", nameSheet, header=head)
+        print(len(df))
+
+        liste = [i for i in range(start, stop+1)]
+        file.write("Pays;"+";".join(list(map(lambda x: str(x), liste)))+"\n")
+
+        for row in range(0, maxRow, pad):
+            string = str(df[pays][row])
+
+            if checkIso and string not in isos:
+                continue
+
+            for col in liste:
+                if not checkNA and df[col][row+plus] == "..":
+                    string += ";NULL"
+                elif checkNA and pd.isna(df[col][row+plus]):
+                    string += ";NULL"
+                else:
+                    string += f";{df[col][row+plus]}"
+
+            file.write(string+"\n")
+
+    file.close()
+
+```
+
+```{python}
+def agglomerate(tags,start,stop,maxRow):
+    from copy import deepcopy
+
+    allTable =[]
+    for i in tags:
+        allTable.append(deepcopy(readCSV(i)))
+
+    final = []
+
+    for i in range(start,stop+1):
+        for j in range(maxRow):
+            dictA = {"Pays":allTable[0][j]["Pays"],"Annee":i}
+            for z, t in enumerate(allTable):
+                dictA[tags[z]] = t[j][str(i)]
+            final.append(dictA.copy())
+    
+    return final
+```
+
+Nous avons conservé les statistiques (depuis la feuille) : arrivées touristiques totales (Indound Tourism-Arivals), arrivées depuis chaque région du monde (Inbound Tourism-Regions), arrivées pour raisons personnelles et professionnelles (Inbound Tourism-Purpose), départs touristiques totaux (Outbound Tourism-Departures), dépenses touristiques (Outbound Tourism-Expenditure), recettes touristiques (Inbound Tourism-Expenditure), moyen d'arrivée dans le pays (Indound Tourism-Transport) et enfin les emplois liés au tourisme (Employment)
+
+Certains pays ont été supprimés, car ils ne figuraient pas dans notre liste de pays ou parce qu'ils ne présentaient pas assez de données.
+
+Les noms des pays ont dû être remplacés par leur codes ISO2, afin de coller à la table principale
+
+-   **Source de données 3 :**
+
+Suppression des données qui ne sont pas datées entre 1995 et 2021.
+
+Remplacement des noms de pays par leur code ISO2.
+
+-   **Source de données 4 :**
+
+Conservation des données qui sont sous l'intitulé "Consumer price index: General"
+
+Remplacement des codes numériques des pays par leur code ISO2.
+
+-   **Source de données 5 :**
+
+De la même manière que la source de donnée 1, nous avons deux tableaux Excel avec chaque pays en ligne et les années en colonne, mais moins formaté, et ne présentant qu'une statistique par pays.
+Notre script python étant flexible, le processus de traitement pour rendre les données exploitables a été le même.
+
+Suppression des données qui ne sont pas datées entre 1990 et 2020.
+
+Remplacement des codes ISO3 des pays par leur code ISO2.
+
+-   **Source de données 6 :**
+
+Remplacement des codes ISO3 des pays par leur code ISO2.
+
+-   **Source de données 7 :**
+
+Traitement identique à la source de données 5.
+Feuille choisie : Overall Scores.
+
+Remplacement des codes ISO3 des pays par leur code ISO2.
+
+-   **Source de données 8 :**
+
+La source ne fournit pas directement de fichier, mais seulement une table produite en HTML.
+Nous avons copié collé cette table dans un fichier CSV, puis traduit les pays et types de conflits auxquels ils sont confrontés.
+
+-   **Source de données 9 :**
+
+Tri des colonnes pour conserver le nom des villes (city), la latitude (lat), la longitude (lng), le code du pays (ISO2), si la ville est une capitale (capital), et la population de la ville (population).
+
+Transformation de la colonne capital pour avoir des valeurs booléennes si la ville est une capitale ou non à la place de la valeur 'primary'.
+
+Traitement des villes, pour faire le tri et ne garder que quelques villes par pays.
+
+On garde la ou les capitales, puis entre 5 et 20 villes connues ou les plus peuplées par pays.
+
+Simplification des caractères spéciaux pour les villes, pour éviter les erreurs de syntaxe.
+
+Remplacement des virgules par des points pour les longitudes et latitudes.
+
+-   **Source de données 10 :**
+
+Cette source est déjà sous format SQL.
+Elle a été importée en dernier, une fois que notre base était bien constituée.
+Nous avons importé les deux tables qui nous intéressaient pour notre base, les aéroports et les routes aériennes, puis les avons traitées par des requêtes SQL.
+
+Filtrage des colonnes : id, noms et lieux des aéroports et aéroports d'arrivée et de départ des routes.
+
+Remplacement des noms de pays par leur code ISO2 et remplacement des noms de villes par leur ID dans notre base.
+
+Tri des aéroports pour ne garder que ceux des villes venant de la source de données 9, stockées dans une table nommée villes.
+
+```{SQL}
+DELETE FROM airports 
+WHERE CONCAT(city,id_pays)
+NOT IN (SELECT CONCAT(nom,id_pays) FROM villes);
+```
+
+Par conséquent, suppression de toutes les routes aériennes ayant pour aéroport d'arrivée ou de départ un aéroport qui a été supprimé.
+
+```{SQL}
+DELETE FROM routes 
+WHERE dst_apid 
+NOT IN (SELECT apid FROM airports) OR src_apid 
+NOT IN (SELECT apid FROM airports); 
+```
+
+# Maquettage
+Le maquettage est une étape importante pour la création d’un site internet. Cela permet de modéliser les idées du groupe, et ainsi avoir une base lors de l’étape de la création du code. C'est aussi un moyen d'affirmer une identité visuelle qui nous suivra tout au long de notre projet.
+Au fil de notre réflexion de nouvelles idées et fonctionnalités globales ont émergé, dépassant le cadre de la maquette, et nécessitant des aménagements sur la base de données par exemple. Chaque membre a eu des idées bien précises sur comment articuler notre site, alors nous avons pu les partager, les modifier, ou surtout les faire évoluer ensemble. Le but pour nous était de faire un site internet intéractif, et facile d’accès. Et ainsi répondre efficacement aux problèmes imposés par notre cahier des charges.
+
+## Page d'accueil
+La page d’accueil possède un rôle à ne pas négliger. Même si elle ne contient aucunes données ou analyse, elle se doit d’être élégante et agréable pour convaincre l’utilisateur de poursuivre sa navigation. Nous avons donc pensé à une page simple et informative.
+
+Dès son arrivée, l’utilisateur retrouvera un carrousel de photos afin de captiver son attention. Il pourra explorer le monde via notre carte interactive, qui sera présente dans toutes les pages de statistiques de notre site internet pour une question de praticité. L’utilisateur pourra découvrir des informations détaillées sur chaque destination en interagissant avec cette carte.
+
+<!--TODO-->
+<!--![Capture d'écran: Page d'accueil](images/home-header.png){width="12cm" height="20cm"}-->
+<!--TODO-->
+<!--![Capture d'écran: Section Page d'accueil](images/home-section.png){}-->
+
+Ensuite, une partie description permettra à l’utilisateur d’en savoir plus sur les valeurs que nous voulons défendre qui sont liées à l’écotourisme. Il pourra découvrir l’importance de voyager de manière responsable et apprendre à maîtriser son budget tout en contribuant à la préservation de la planète.
+
+## Page Pays
+<!--TODO-->
+<!--![Capture d'écran: Carte Page Pays](images/country-map.png)-->
+
+La page pays est un élément central pour notre site. Elle regroupe des données, que nous avons décidé de présenter sous forme de graphiques. Cela permettra aux utilisateurs d’avoir une meilleure vision des statistiques importantes du pays.
+Après que l’utilisateur aura sélectionné le pays qui l’intéresse sur la carte intéractive, la page pays s’ouvre.
+Il pourra retrouver une carte avec les villes les plus visitées et/ou connues du pays
+concerné.
+Nous avons décidé de montrer les informations clés en créant un bandeau regroupant les différents indicateurs comme le taux de CO2, le PIB par habitant,... Il permettra aux utilisateurs d’avoir une vision globale du pays concerné sans avoir à parcourir toute la page.
+
+<!--TODO-->
+<!--![Capture d'écran: Description Page Pays](images/country-desc.png)-->
+
+Par la suite, nous pouvons trouvée une description du pays pour donner envie aux utilisateurs de voyager via des informations fares, comme les monuments importants, etc,... Un score écotourisme est attribué pour chaque pays. Allant de la couleur verte (très bon score) à la couleur rouge (mauvaisscore). Ce score est calculé à partir d'indicateurs économiques et écologiques spécifiques que nous détaillons. Nous avons décidé d'attribuer une lettre et une couleur, afin de rendre ce score compréhensible et accessible à tous.
+
+<!--TODO-->
+<!--![Capture d'écran: Graphiques Page Pays](images/country-plots.png)-->
+
+À travers cinq graphiques informatifs, l'utilisateur pourra explorer les tendances au fil des années, les arrivées touristiques par continent, l'évolution des émissions de CO2 et gaz à effet de serre, le lien entre le PIB et le tourisme, ainsi qu'un comparateur rapide. Par la suite, différents graphiques seront mis en place pour avoir une vision globale et plus claire des statistiques importantes.
+
+<!--TODO-->
+<!--![Capture d'écran: Description Page Pays](images/country-desc.png)-->
+
+Le dernier graphique permettra d’avoir des pays à comparer avec le pays concerné, il suffira que l’utilisateur clique dessus pour avoir les informations sur le pays qu’il veut.
+
+## Page Monde
+
+<!--TODO-->
+<!--![Capture d'écran: Header Page Monde](images/world-desc.png)-->
+
+Cette autre page statistique offre une perspective mondiale permettant aux utilisateurs de s’informer sur les différents pays, et de choisir une destination en fonction de différents graphiques.
+On peut retrouver notre carte intéractive, pour choisir un pays en particulier, ou par la suite des statistiques globales.
+On retrouve le graphique Top 10 des pays les plus visités et la proportion de chaque score écotourisme attribué. Ces deux graphiques permettent d’avoir une vision globale sur le monde.
+
+<!--TODO-->
+<!--![Capture d'écran: Graphiques Page Monde](images/world-plots.png)-->
+
+Le dernier graphique est plus complexe que les autres. On peut retrouver les arrivées totales touristiques, par pays et par continents. Le but étant de montrer quel pays a été le plus attractif pour le continent.
+
+## Page Comparateur
+
+<!--TODO-->
+<!--![Capture d'écran: Header Page Comparateur](images/comparateur-header.png)-->
+
+Notre page comparaison à pour objectif d’aider les utilisateurs à choisir entre deux pays qui pourraient les intéresser.
+On retrouve notre map intéractive, pour sélectionner les pays que l’on veut comparer, ainsi que les scores écotourismes attribués.
+
+<!--TODO-->
+<!--![Capture d'écran: Graphiques Page Comparateur](images/comparateur-plots.png)-->
+
+Par la suite, nous pouvons retrouver des graphiques de comparaison, comme le pib par habitants, et les émissions de CO2. L’utilisateur pourra donc avoir une vision plus globale des indicateurs statistiques du pays.
+
+<!--TODO-->
+<!--![Capture d'écran: Graphique CO2 Page Comparateur](images/comparateur-plots.png)-->
+
+Pour finir, l’utilisateur pourra retrouver une comparaison de l’indice de sûreté de chaque pays, avec un “le saviez-vous” pour expliquer ce que représente cet indicateur.
+
+## Inscription/Connexion
+
+Le site web offre aux utilisateurs la possibilité de créer un compte personnel et de se connecter à leur espace privé. Lors de l’inscription, l’utilisateur renseigne un nom et un mot de passe pour son compte et doit indiquer son pays et sa ville d’origine, qui seront utilisés comme point de départ pour les calculs du service de calculateur.
+Pour être accessible, les pages connexion et inscription sont facilement compréhensible. Ce qui permettra à tous d’avoir accès aux pages supplémentaires.
+Après avoir validé son inscription, l’utilisateur peut se connecter à son compte en entrant son identifiant et son mot de passe. Après avoir validé son inscription, l’utilisateur peut se connecter à son compte en entrant son identifiant et son mot de passe. Il sera alors redirigé vers une page profil, qui regroupe les informations relatives à son activité sur le site.
+
+<!--TODO-->
+<!--![Capture d'écran: Page inscription](images/comparateur-plots.png)-->
+
+<!--TODO-->
+<!--![Capture d'écran: Page connexion](images/comparateur-plots.png)-->
+
+
+## Page Profil
+Sur cette page, il pourra consulter:
+
+- Les dernières recherches effectuées: il s’agit de l’historique des pays
+qu’il a cherché.
+- Les pays favoris: il s’agit de la liste des pays qu’il a sélectionnés comme étant ses préférences de voyage.
+- Les paramètres du compte: il s’agit des options qui lui permettent de personnaliser son compte et son expérience sur le site. Il pourra notamment modifier le pays et la ville qu’il a indiqués lors de l’inscription, s’il souhaite changer son point de départ pour les calculs du service de calculateur.
+- La déconnexion: il s’agit du bouton qui lui permet de se déconnecter de son compte et de quitter son espace privé. Il pourra ainsi protéger ses données personnelles et éviter que d’autres personnes accèdent à son compte sans son autorisation.
+
+La page profil a pour objectif de faciliter l’utilisation du site et de rendre le voyageur plus autonome et plus informé. Elle permet également de personnaliser le compte et de conserver les traces des recherches effectuées.
+
+<!--TODO-->
+<!--![Capture d'écran: Page profil](images/profil.png)-->
+
+## Page Calculateur
+
+<!--TODO-->
+<!--![Capture d'écran: Page profil](images/profil.png)-->
+
+<!--TODO-->
+<!--![Capture d'écran: Page profil](images/profil.png)-->
+
+Le site web propose un service de calculateur pour les utilisateurs qui souhaitent voyager de manière responsable et économique. Pour accéder à ce service, l’utilisateur doit s’inscrire sur le site et se connecter à son compte. Une fois connecté, il peut accéder à la page calculateur, où il trouvera un formulaire à remplir. Le formulaire lui demande de saisir la ville et le pays de destination. Il lui demande également de choisir la durée de son séjour et le mode de transport qu’il préfère parmi trois options: l’avion, le train ou la voiture.
+En fonction des informations fournies, le calculateur va estimer plusieurs éléments liés au voyage, tels que:
+
+- **L’empreinte carbone:** il s’agit de la quantité de gaz à effet de serre émise par le voyageur et son mode de transport.
+- **Le coût du trajet:** il s’agit du prix du billet ou du carburant pour se rendre à la destination.
+- **Le coût du séjour:** il s’agit du budget nécessaire pour se loger, se nourrir et se divertir sur place. Le calculateur va se baser sur le coût de la vie moyen dans la destination et la durée du séjour pour estimer le coût total.
+- **Les estimations supplémentaires:** il s’agit des données complémentaires qui peuvent être utiles pour le voyageur, comme l’aéroport le plus proche du départ, si le mode de transport choisi est l’avion, ou la distance et le temps de trajet, si le mode de transport choisi est le train ou la voiture. Le calculateur va calculer ces estimations en utilisant les données dans notre base de donnée.
+
+Le calculateur a pour objectif de faciliter la planification du voyage et de sensibiliser le voyageur aux impacts environnementaux et économiques de son choix. Il permet également de comparer les avantages et les inconvénients de chaque mode de transport et de choisir le plus adapté à ses besoins et à ses envies.
+
 # Développement et outils
 
 # Planning
 **Rapport d'Avancement du Projet**
 
-## Introduction
 La planification d’un projet demeure un élément crucial pour assurer une progression efficace et la réussite du projet. Nous avons mis en place un planning, en prenant en compte les ajustements nécessaires pour répondre aux éventuels défis rencontrés. Nous avons utilisé Mindview  pour fournir une visualisation claire des tâches et des dépendances. Le diagramme généré a été d'une grande valeur pour la communication interne et ont facilité la compréhension des membres de l'équipe sur les différentes phases du projet. Ainsi il nous servira à illustrer ce rapport.
 
 ## Global
@@ -197,9 +610,9 @@ Une refonte majeure a été entreprise en adoptant une approche orientée objet.
 
 Chaque page, caractérisée par des fonctionnalités graphiques avancées, a fait l'objet d'un travail en binôme, favorisant la collaboration et la génération d'idées innovantes. Initialement planifiées sur une plage de 21 à 41 jours, ces périodes ont été recalculées et étendues jusqu'au 22 décembre en raison de contraintes imprévues. (Partiels et difficultés sous-estimées).
 
-**Page Pays:**
+- **Page Pays:**
 La page pays a été conçue pour offrir une expérience approfondie, avec des graphiques détaillés reflétant diverses données économiques, touristiques et environnementales. 
-**Page Monde:**
+- **Page Monde:**
 La complexité des graphiques de la page Monde, agrégeant des données de multiples pays, a demandé une période étendue pour garantir une représentation précise. 
 
 ## Page Comparateur
