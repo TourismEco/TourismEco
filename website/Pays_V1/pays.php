@@ -2,13 +2,13 @@
 // Votre connexion MySQLi
 require 'functions.php';
 
-    try {
+    // try {
         $conn = getDB();
-        // Définissez le mode d'erreur PDO sur exception
-        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    } catch(PDOException $e) {
-        echo "Erreur de connexion à la base de données: " . $e->getMessage();
-    }
+    //     // Définissez le mode d'erreur PDO sur exception
+    //     // $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    // } catch(PDOException $e) {
+    //     echo "Erreur de connexion à la base de données: " . $e->getMessage();
+    // }
 
 
 $query = "
