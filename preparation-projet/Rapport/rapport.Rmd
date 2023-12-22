@@ -91,6 +91,7 @@ un compte ou alors aller sur le site de façon anonyme. Si l’utilisateur déci
 Ensuite, un utilisateur connecter ou non peut lire les rapport d’analyse statistiques basé sur 
 des aspects économique et/ou écologique. De plus en recherchant une région du monde ou en comparant différentes données (jusqu’à deux régions du monde différentes) il pourra visualiser des données en fonction de ces recherches pour pouvoir mieux s’informer ou mieux décider. 
 
+<!--Dimensions: 1122 × 1238-->
 <!--Ratio de 1.10-->
 ![Diagramme de cas d'utilisation UML](images/uml.png){height="13.4cm" width="12cm"}
 
@@ -253,11 +254,9 @@ Voici ces deux fonctions en Python :
 
 def baseCsv(nameXlsx, nameSheet, nameCsv, maxRow, pad, plus, head, start, stop, pays, 
 checkIso=False, checkNA=False, xls=False):
-    """Cette fonction traite un fichier xlsx pour le transvaser en un fichier CSV 
-    lisible. 
-    Il est nécessaire que le fichier soit formatté de telle sorte que chaque année
-    soit en colonne, et chaque pays en ligne. Elle nécessite beaucoup de paramètres 
-    à entrer à la main :
+    """
+    Cette fonction traite un fichier xlsx pour le transvaser en un fichier CSV lisible. 
+    Il est nécessaire que le fichier soit formatté de telle sorte que chaque année soit en colonne, et chaque pays en ligne. Elle nécessite beaucoup de paramètres à entrer à la main:
     - `nameXlsx`, `nameSheet`, `nameCsv` : nom du fichier XLSX, nom de la feuille, 
     et nom du CSV que l'on veut créer
     - `maxRow`, `pad`, `plus`, `head` : nombre de lignes dans le fichier, écart 
@@ -268,7 +267,8 @@ checkIso=False, checkNA=False, xls=False):
     - Paramètres optionnels : `checkIso` pour filtrer les pays / `checkNA` pour 
     retirer les valeurs nulles / `xls` si le fichier est un .xls au lieu de .xlxs
     Le fichier Excel doit se trouver dans le répertoire data/xlsx, et le CSV sera 
-    sauvegardé dans data/csv"""
+    sauvegardé dans data/csv
+    """
 
     with open(f"data/csv/{nameCsv}.csv", "w", encoding="UTF-8") as file:
 
@@ -558,14 +558,16 @@ Voici le descriptif des tables créées.
 ## MCD / MOD
 
 ### MCD
-
-![MCD](images/MCD.png){width="80%" height="60%"}
+<!--Dimensions: 586 × 1222-->
+<!--Ratio: 0.48-->
+![MCD](images/MCD.png){width="8cm" height="16.67cm"}
 
 \newpage
 
 ### MOD
-
-![MOD](images/MOD.png){width="80%" height="60%"}
+<!--Dimensions: 1139 × 697-->
+<!--Ratio: 1.63-->
+![MOD](images/MOD.png){width="12cm" height="7.36cm"}
 
 \newpage
 
@@ -707,75 +709,88 @@ Chaque membre du projet sans exception a été impliqué dans le processus de cr
 Elle a surtout été vérifiée et validée plusieurs fois avant chaque publication sur GitHub.
 
 # Maquettage
-Le maquettage est une étape importante pour la création d’un site internet. Cela permet de modéliser les idées du groupe, et ainsi avoir une base lors de l’étape de la création du code. C'est aussi un moyen d'affirmer une identité visuelle qui nous suivra tout au long de notre projet.
-Au fil de notre réflexion de nouvelles idées et fonctionnalités globales ont émergé, dépassant le cadre de la maquette, et nécessitant des aménagements sur la base de données par exemple. Chaque membre a eu des idées bien précises sur comment articuler notre site, alors nous avons pu les partager, les modifier, ou surtout les faire évoluer ensemble. Le but pour nous était de faire un site internet intéractif, et facile d’accès. Et ainsi répondre efficacement aux problèmes imposés par notre cahier des charges.
+Le maquettage est une étape importante pour la création d’un site internet. Cela permet de modéliser les idées du groupe, et ainsi avoir une base lors de l’étape de la création du code. C’est aussi un moyen d’affirmer une identité visuelle qui nous suivra tout au long de notre projet. Le maquettage consiste à réaliser des schémas ou des prototypes de l’interface du site, en tenant compte des besoins des utilisateurs, des contraintes techniques et des objectifs du projet. Il permet de tester et de valider le design, l’ergonomie et la navigation du site avant de passer à la phase de développement.
+Au fil de notre réflexion, de nouvelles idées et fonctionnalités globales ont émergé, dépassant le cadre de la maquette, et nécessitant des aménagements sur la base de données par exemple. La base de données stocke et organise les informations du site, comme les données des utilisateurs, les contenus, les images, etc. Nous avons donc dû adapter la structure et les relations de la base de données en fonction des nouvelles fonctionnalités que nous voulions implémenter. Chaque membre a eu des idées bien précises sur comment articuler notre site, alors nous avons pu les partager, les modifier, et surtout les faire évoluer ensemble. Le but pour nous était de faire un site internet interactif, et facile d’accès. Et ainsi répondre efficacement aux problèmes imposés par notre cahier des charges. Le cahier des charges sert de référence tout au long du projet pour vérifier que nous respectons les attentes du client et les normes de qualité.
+
+
+\vskip 5em
+
+<!--Dimensions: 1408 × 576-->
+<!--Ratio:2.44-->
+![Figma](images/figma.png){width="14cm" height="5.74cm"}
+
+\newpage
 
 ## Page d'accueil
-La page d’accueil possède un rôle à ne pas négliger. Même si elle ne contient aucunes données ou analyse, elle se doit d’être élégante et agréable pour convaincre l’utilisateur de poursuivre sa navigation. Nous avons donc pensé à une page simple et informative.
+La page d’accueil possède un rôle à ne pas négliger. Même si elle ne contient pas de données ou d’analyse, elle se doit d’être simple et agréable pour convaincre l’utilisateur de poursuivre sa navigation. Nous avons donc pensé pour notre projet à une page élégante et informative. Elle utilise des couleurs sobres et harmonieuses, ainsi qu’une typographie claire et lisible. Elle dispose d’un menu de navigation qui permet d’accéder facilement aux différentes rubriques du site. Et affiche également le logo et le nom de notre site, qui reflètent notre identité visuelle et notre thématique.
 
-Dès son arrivée, l’utilisateur retrouvera un carrousel de photos afin de captiver son attention. Il pourra explorer le monde via notre carte interactive, qui sera présente dans toutes les pages de statistiques de notre site internet pour une question de praticité. L’utilisateur pourra découvrir des informations détaillées sur chaque destination en interagissant avec cette carte.
+Dès son arrivée, l’utilisateur retrouvera un carrousel de photos afin de captiver son attention. Ces photos sont choisies aléatoirement parmi les destinations les plus populaires, les plus insolites ou les plus méconnues du monde. 
+L’utilisateur pourra explorer le monde via notre carte interactive, qui sera présente dans toutes les pages de statistiques de notre site internet. Ainsi il sera facile de découvrir des informations détaillées sur chaque destination en interagissant avec cette carte.
 
-<!--TODO-->
-<!--![Capture d'écran: Page d'accueil](images/home-header.png){width="12cm" height="20cm"}-->
-<!--TODO-->
-<!--![Capture d'écran: Section Page d'accueil](images/home-section.png){}-->
+\vskip 2em
 
-Ensuite, une partie description permettra à l’utilisateur d’en savoir plus sur les valeurs que nous voulons défendre qui sont liées à l’écotourisme. Il pourra découvrir l’importance de voyager de manière responsable et apprendre à maîtriser son budget tout en contribuant à la préservation de la planète.
+<!--Ratio : 0.97-->
+![Page d'accueil](images/carousel_maq.png){width="12cm" height="12.37cm"}
+
+Finalement, la page d’accueil présente le but et le contenu de notre site, en donnant un aperçu des différentes rubriques du site, comme les statistiques, le calculateur etc. Ces descriptions permettront à l’utilisateur d’en savoir plus sur les valeurs que nous voulons défendre. Il pourra découvrir l’importance de voyager de manière responsable et apprendre à maîtriser son budget tout en contribuant à la préservation de la planète. 
+
+<!--Ratio : 1.6-->
+![Section Page d'accueil](images/unnamed.png){width="12cm" height="7.5cm"}
 
 ## Page Pays
-<!--TODO-->
-<!--![Capture d'écran: Carte Page Pays](images/country-map.png)-->
+La page pays est un élément central de notre site. Elle regroupe des données que nous avons décidé de présenter sous forme de graphiques. Cela permettra aux utilisateurs d’avoir une meilleure vision des statistiques importantes du pays.
+Après que l’utilisateur ait sélectionné le pays qui l’intéresse sur la carte interactive, la page pays s’ouvre. Il pourra retrouver une carte avec les villes les plus visitées et/ou connues du pays concerné. Nous avons décidé de montrer les informations clés en créant un bandeau regroupant les différents indicateurs comme le taux de CO2, le PIB par habitant, etc. Il permettra aux utilisateurs d’avoir une vision globale du pays concerné sans avoir à parcourir toute la page.
 
-La page pays est un élément central pour notre site. Elle regroupe des données, que nous avons décidé de présenter sous forme de graphiques. Cela permettra aux utilisateurs d’avoir une meilleure vision des statistiques importantes du pays.
-Après que l’utilisateur aura sélectionné le pays qui l’intéresse sur la carte intéractive, la page pays s’ouvre.
-Il pourra retrouver une carte avec les villes les plus visitées et/ou connues du pays
-concerné.
-Nous avons décidé de montrer les informations clés en créant un bandeau regroupant les différents indicateurs comme le taux de CO2, le PIB par habitant,... Il permettra aux utilisateurs d’avoir une vision globale du pays concerné sans avoir à parcourir toute la page.
+<!--Dimensions:-->
+<!--Ratio : 1.42-->
+![Carte Page Pays](images/map_maq.png){width="12cm" height="8.45cm"}
 
-<!--TODO-->
-<!--![Capture d'écran: Description Page Pays](images/country-desc.png)-->
+Par la suite, nous pouvons trouver une description du pays pour donner envie aux utilisateurs de voyager via des informations phares, comme les monuments importants, etc,... Un score écotourisme est attribué pour chaque pays. Allant de la couleur verte (très bon score) à la couleur rouge (mauvais score). Ce score est calculé à partir d'indicateurs économiques et écologiques spécifiques que nous détaillons. Nous avons décidé d'attribuer une lettre et une couleur, afin de rendre ce score compréhensible et accessible à tous.
 
-Par la suite, nous pouvons trouvée une description du pays pour donner envie aux utilisateurs de voyager via des informations fares, comme les monuments importants, etc,... Un score écotourisme est attribué pour chaque pays. Allant de la couleur verte (très bon score) à la couleur rouge (mauvaisscore). Ce score est calculé à partir d'indicateurs économiques et écologiques spécifiques que nous détaillons. Nous avons décidé d'attribuer une lettre et une couleur, afin de rendre ce score compréhensible et accessible à tous.
-
-<!--TODO-->
-<!--![Capture d'écran: Graphiques Page Pays](images/country-plots.png)-->
+<!--Dimensions:-->
+<!--Ratio : 1.19-->
+![Description Page Pays](images/jauges_maq.png){width="12cm" height="10.08cm"}
 
 À travers cinq graphiques informatifs, l'utilisateur pourra explorer les tendances au fil des années, les arrivées touristiques par continent, l'évolution des émissions de CO2 et gaz à effet de serre, le lien entre le PIB et le tourisme, ainsi qu'un comparateur rapide. Par la suite, différents graphiques seront mis en place pour avoir une vision globale et plus claire des statistiques importantes.
 
-<!--TODO-->
-<!--![Capture d'écran: Description Page Pays](images/country-desc.png)-->
+<!--Dimensions:-->
+<!--Ratio 0.88-->
+![Graphiques Page Pays](images/graphpays_maq.png){width="12cm" height="13.64cm"}
+
+<!--Dimensions:-->
+<!--Ratio 1.68-->
+![Description Page Pays](images/comppays_maq.png){width="12cm" height="7.12cm"}
 
 Le dernier graphique permettra d’avoir des pays à comparer avec le pays concerné, il suffira que l’utilisateur clique dessus pour avoir les informations sur le pays qu’il veut.
 
 ## Page Monde
 
-<!--TODO-->
-<!--![Capture d'écran: Header Page Monde](images/world-desc.png)-->
+<!--Ratio 0.82-->
+![Header Page Monde](images/monde_maq.png){width="12cm" height="14.63cm"}
 
-Cette autre page statistique offre une perspective mondiale permettant aux utilisateurs de s’informer sur les différents pays, et de choisir une destination en fonction de différents graphiques.
-On peut retrouver notre carte intéractive, pour choisir un pays en particulier, ou par la suite des statistiques globales.
-On retrouve le graphique Top 10 des pays les plus visités et la proportion de chaque score écotourisme attribué. Ces deux graphiques permettent d’avoir une vision globale sur le monde.
-
-<!--TODO-->
-<!--![Capture d'écran: Graphiques Page Monde](images/world-plots.png)-->
+<!--Ratio 1.3-->
+![Graphiques Page Monde](images/treemap_maq.png){width="12cm" height="9.23cm"}
 
 Le dernier graphique est plus complexe que les autres. On peut retrouver les arrivées totales touristiques, par pays et par continents. Le but étant de montrer quel pays a été le plus attractif pour le continent.
 
 ## Page Comparateur
 
-<!--TODO-->
-<!--![Capture d'écran: Header Page Comparateur](images/comparateur-header.png)-->
+<!--Ratio 0.91-->
+![Header Page Comparateur](images/comp_maq.png){width="12cm" height="13.19cm"}
 
-Notre page comparaison à pour objectif d’aider les utilisateurs à choisir entre deux pays qui pourraient les intéresser.
-On retrouve notre map intéractive, pour sélectionner les pays que l’on veut comparer, ainsi que les scores écotourismes attribués.
+La page comparaison a pour objectif d’aider les utilisateurs à choisir entre deux pays qui pourraient les intéresser en fonction de leur caractéristiques mis en évidence par Ecotourisme.
+Sur cette page, l’utilisateur aura encore à disposition une carte interactive, qui permet de sélectionner les deux pays qu’il veut comparer, et d’afficher les scores Ecotourisme attribués à chacun d’eux. 
+Nous présentons également des graphiques de comparaison, qui permettent de visualiser les différences entre les deux pays choisis sur des indicateurs statistiques pertinents. Nous comparons, dans le premier graphique, le produit intérieur brut (PIB) par habitant, qui mesure le niveau de richesse et de développement économique d’un pays. Le second graphique mets en évidence les émissions de dioxyde de carbone (CO2) de chacun des deux pays ce qui mesurent l’impact d’un pays sur le réchauffement climatique. Ces graphiques permettent à l’utilisateur d’avoir une vision plus globale des enjeux liés au voyage responsable.
+Pour finir, nous proposons un graphique de comparaison de l’indice de sûreté de chaque pays, qui évalue le risque de violence ou de conflit dans un pays. Cet indice est basé sur des données provenant de sources fiables, telles que l’ONU ou l’ONG Vision of Humanity. Nous accompagnons cette comparaison d’un encadré “le saviez-vous”, qui explique ce que représente cet indicateur et pourquoi il est important pour Ecotourisme.
 
-<!--TODO-->
-<!--![Capture d'écran: Graphiques Page Comparateur](images/comparateur-plots.png)-->
+
+<!--Ratio 0.96-->
+![Graphiques Page Comparateur](images/graphcomp_maq.png){width="12cm" height="12.5cm"}
 
 Par la suite, nous pouvons retrouver des graphiques de comparaison, comme le pib par habitants, et les émissions de CO2. L’utilisateur pourra donc avoir une vision plus globale des indicateurs statistiques du pays.
 
-<!--TODO-->
-<!--![Capture d'écran: Graphique CO2 Page Comparateur](images/comparateur-plots.png)-->
+<!--Ratio 1.32-->
+![Graphique CO2 Page Comparateur](images/savezvous_maq.png){width="12cm" height="8.89cm"}
 
 Pour finir, l’utilisateur pourra retrouver une comparaison de l’indice de sûreté de chaque pays, avec un “le saviez-vous” pour expliquer ce que représente cet indicateur.
 
@@ -785,11 +800,11 @@ Le site web offre aux utilisateurs la possibilité de créer un compte personnel
 Pour être accessible, les pages connexion et inscription sont facilement compréhensible. Ce qui permettra à tous d’avoir accès aux pages supplémentaires.
 Après avoir validé son inscription, l’utilisateur peut se connecter à son compte en entrant son identifiant et son mot de passe. Après avoir validé son inscription, l’utilisateur peut se connecter à son compte en entrant son identifiant et son mot de passe. Il sera alors redirigé vers une page profil, qui regroupe les informations relatives à son activité sur le site.
 
-<!--TODO-->
-<!--![Capture d'écran: Page inscription](images/comparateur-plots.png)-->
+<!--Ratio 1.1-->
+![Page inscription](images/register_maq.png){width="12cm" height="10.9cm"}
 
-<!--TODO-->
-<!--![Capture d'écran: Page connexion](images/comparateur-plots.png)-->
+<!--Ratio 1.28-->
+![Page connexion](images/login_maq.png){width="12cm" height="9.6cm"}
 
 
 ## Page Profil
@@ -803,16 +818,12 @@ qu’il a cherché.
 
 La page profil a pour objectif de faciliter l’utilisation du site et de rendre le voyageur plus autonome et plus informé. Elle permet également de personnaliser le compte et de conserver les traces des recherches effectuées.
 
-<!--TODO-->
-<!--![Capture d'écran: Page profil](images/profil.png)-->
+<!--Ratio 0.79-->
+![Page profil](images/profil_maq.png){width="9cm" height="11.39cm"}
+
+\newpage
 
 ## Page Calculateur
-
-<!--TODO-->
-<!--![Capture d'écran: Page profil](images/profil.png)-->
-
-<!--TODO-->
-<!--![Capture d'écran: Page profil](images/profil.png)-->
 
 Le site web propose un service de calculateur pour les utilisateurs qui souhaitent voyager de manière responsable et économique. Pour accéder à ce service, l’utilisateur doit s’inscrire sur le site et se connecter à son compte. Une fois connecté, il peut accéder à la page calculateur, où il trouvera un formulaire à remplir. Le formulaire lui demande de saisir la ville et le pays de destination. Il lui demande également de choisir la durée de son séjour et le mode de transport qu’il préfère parmi trois options: l’avion, le train ou la voiture.
 En fonction des informations fournies, le calculateur va estimer plusieurs éléments liés au voyage, tels que:
@@ -824,16 +835,384 @@ En fonction des informations fournies, le calculateur va estimer plusieurs élé
 
 Le calculateur a pour objectif de faciliter la planification du voyage et de sensibiliser le voyageur aux impacts environnementaux et économiques de son choix. Il permet également de comparer les avantages et les inconvénients de chaque mode de transport et de choisir le plus adapté à ses besoins et à ses envies.
 
+<!--Ratio 1.21-->
+<!--![Calculateur vide](images/calc_maq.png){width="12cm" height="9.91cm"}-->
+<!--Ratio 1.32-->
+![Calculateur rempli](images/calc2_maq.png){width="12cm" height="9.09cm"}
+
 # Développement et outils
+## Graphique
+
+### Choix de notre bibliothèque
+Une fois notre sujet et nos premières idées posées, nous nous sommes rendu compte que nous allions avoir besoin de deux choses importantes : de pouvoir créer des cartes (si possible interactives), car nous sommes sur un projet avec une dimension géographique, et des graphiques pour représenter nos données. Nous avons donc fait des recherches sur les outils existants et utilisables pour notre site. 
+
+Notre intérêt s’est porté sur 3 bibliothèques JavaScript : Chart.js, Plotly et amCharts. Chacune a ses avantages et ses inconvénients, mais la puissance des cartes proposées par amCharts nous a orienté vers ce choix. Le principal problème de cette bibliothèque est sa complexité. C’est un outil très puissant mais dur à manipuler. Nous avons pris le pari d’arriver à nous en servir malgré tout, car nous avons jugé que ses possibilités et son esthétique valaient le coup.
+
+Nous utilisons donc amCharts 5, édité par l’entreprise éponyme. Elle propose des licences payantes, qui permettent de retirer les logos de l’entreprise dans le coin des graphiques. Pour notre cas, ils ne sont pas dérangeants, nous resterons donc sur la version gratuite. Il n’y a pas d’installation nécessaire, son utilisation passe par un CDN qui permet de maintenir à jour la bibliothèque.
+
+### Un exemple de graphique avec amCharts
+
+Source : [démo amCharts](https://www.amcharts.com/demos/column-with-rotated-series/)
+
+<!--Dimensions: 1442x615-->
+<!--Ratio: 2.34-->
+![Démo graphique amChart](images/example_graph.png){width="12cm" height="5.13cm"}
+```{JavaScript}
+am5.ready(function() {
+
+
+  var root = am5.Root.new("chartdiv");
+
+
+  root.setThemes([
+    am5themes_Animated.new(root)
+  ]);
+
+
+  var chart = root.container.children.push(am5xy.XYChart.new(root, {
+    panX: true,
+    panY: true,
+    wheelX: "panX",
+    wheelY: "zoomX",
+    pinchZoomX: true,
+    paddingLeft:0,
+    paddingRight:1
+  }));
+
+
+  var cursor = chart.set("cursor", am5xy.XYCursor.new(root, {}));
+  cursor.lineY.set("visible", false);
+
+
+  var xRenderer = am5xy.AxisRendererX.new(root, {
+    minGridDistance: 30,
+    minorGridEnabled: true
+  });
+
+
+  xRenderer.labels.template.setAll({
+    rotation: -90,
+    centerY: am5.p50,
+    centerX: am5.p100,
+    paddingRight: 15
+  });
+
+
+  xRenderer.grid.template.setAll({
+    location: 1
+  })
+
+
+  var xAxis = chart.xAxes.push(am5xy.CategoryAxis.new(root, {
+    maxDeviation: 0.3,
+    categoryField: "country",
+    renderer: xRenderer,
+    tooltip: am5.Tooltip.new(root, {})
+  }));
+
+
+  var yRenderer = am5xy.AxisRendererY.new(root, {
+    strokeOpacity: 0.1
+  })
+
+
+  var yAxis = chart.yAxes.push(am5xy.ValueAxis.new(root, {
+    maxDeviation: 0.3,
+    renderer: yRenderer
+  }));
+
+
+  var series = chart.series.push(am5xy.ColumnSeries.new(root, {
+    name: "Series 1",
+    xAxis: xAxis,
+    yAxis: yAxis,
+    valueYField: "value",
+    sequencedInterpolation: true,
+    categoryXField: "country",
+    tooltip: am5.Tooltip.new(root, {
+      labelText: "{valueY}"
+    })
+  }));
+
+
+  series.columns.template.setAll({ cornerRadiusTL: 5, cornerRadiusTR: 5, strokeOpacity: 0 });
+  series.columns.template.adapters.add("fill", function (fill, target) {
+    return chart.get("colors").getIndex(series.columns.indexOf(target));
+  });
+
+
+  series.columns.template.adapters.add("stroke", function (stroke, target) {
+    return chart.get("colors").getIndex(series.columns.indexOf(target));
+  });
+
+
+  xAxis.data.setAll(data);
+  series.data.setAll(data);
+
+
+  series.appear(1000);
+  chart.appear(1000, 100);
+
+
+});
+```
+
+Ce programme fait 81 lignes. C’est énorme pour un simple histogramme. Mais en réalité si on décompose les instructions, on se rend compte que nous sommes en contrôle total de toute la zone de graphique. On doit créer les axes, leur rendu, le curseur, les boutons, les données, et toute fonctionnalité annexe que l’on souhaite. Tous ces éléments sont modulables à notre guise, il n’y a pas de pré-paramétrage. On peut donc faire afficher ce que l’on veut, à condition de comprendre ce qu’il se passe. Le but n’est pas d’expliquer en détail ce script là, mais de comprendre que cette complexité n’est pas inutile, et qu’en réalité elle est évitable.
+
+### Encapsulation et simplification
+En parcourant la documentation et les exemples d’amCharts, on remarque que beaucoup d’éléments se répètent, et c’est normal, car en réalité les graphiques ont presque tous le même corps “basique” que l’on ne veut pas forcément toucher sauf si on a un but précis. C’est la même chose pour nos graphiques : au fil de leur création, nous avons vu que les instructions de base sont toujours les mêmes : on a les mêmes axes pour chaque graphique par exemple. Souvent la différence va se jouer dans les objets que l’on manipule, pour créer un Spider Plot, il ne faut pas utiliser les mêmes objets amCharts que pour un Bar Plot, et c’est ce qui fait la différence dans le rendu. A part ça, le procédé de création est le même : on doit créer les axes, le curseur, la légende, modifier les couleurs, ajouter les séries de données et les styliser. Pour avoir de l’unité dans notre site, le style des graphiques et des données sont les mêmes pour chaque figure.
+	
+Cela nous a donné une idée : vu que notre base est toujours la même, pourquoi ne pas créer un nouvel objet “Graphique”, qui servira de constructeur commun à tous nos autres graphiques ? Un encapsulation qui permettrait aussi de mieux manipuler des variables qui jusque là étaient un peu en vrac dans nos scripts, et souvent globales. Leur nature globale fait qu’elles se transmettent entre chaque script importé dans notre page, et cela crée des conflits. Avoir une approche orientée objet nous simplifierait la tâche sur cet aspect.
+	
+C’est une sorte de surcharge de notre bibliothèque, mais elle est au final nécessaire pour mieux programmer. Cette classe de base serait une interface pour ensuite des classes plus spécifiques : Spider, Bar, Line, … . 
+
+Nous n’allons pas montrer ici l’intégralité de notre classe mère que nous avons nommée “Graphique”, car l’expliquer demanderait 10 pages supplémentaires. Elle embarque un ensemble de méthodes et d’attributs pour générer des graphiques génériques. Ces méthodes vont attendre en argument des objets amCharts, qui vont déterminer la nature des graphiques. 
+
+Ces objets sont manipulés dans des classes filles spécifiques par type de graphique : Line Chart, Bar Plot, Spider Plot par exemple. Voici par exemple une sous-classe “Spider”, qui permet de créer des Spider Plot et la fonction pour l’afficher sur notre page.
+
+```{JavaScript}
+
+class Spider extends Graphique {
+    constructor(id) {
+        super(id, am5radar.RadarChart, am5radar.RadarCursor)
+    }
+
+
+    initXAxis(field, data) {
+        super.initXAxis(am5radar.AxisRendererCircular, field, data)
+    }
+
+
+    initYAxis() {
+        var base = this
+        this.yAxis = this.graph.yAxes.push(am5xy.ValueAxis.new(base.root, {
+            min:0,
+            max:100,
+            renderer: base.newYRenderer(am5radar.AxisRendererRadial)
+        }));
+    }
+
+
+    addSerie(data, name, color, xField, yField) {
+        var serie = super.addSerie(data, name, color, xField, yField, am5radar.RadarLineSeries, "{name} : {valueY}")
+        super.addBullets(serie, color)
+        return serie
+    }
+}
+```
+
+La classe Spider agit alors comme une boîte noire à laquelle nous avons confiance. Nous avons plus qu’à lui donner les données que l’on veut pour afficher la figure souhaitée. Elle sera par définition dans le même thème que toutes les autres, vu qu’elles héritent de la même base dictée par la classe “Graphique”.
+
+```{JavaScript}
+function spider(data1, data2, name1, name2) {
+    g = new Spider("spider")
+    g.initXAxis("var", data1["2020"])
+    g.initYAxis()
+    g.addLegend()
+
+
+    seriesSp1 = g.addSerie(data1["2020"], name1, "#52796F", "var", "value")
+    seriesSp2 = g.addSerie(data2["2020"], name2, "#83A88B", "var", "value")
+}
+```
+
+En 30 lignes, notre graphique spécifique est créé. 
+	
+A l’heure actuelle, la classe mère fait 100 lignes. La création de séries de données et de légendes est facilitée, et tous nos graphiques suivent des règles de mise en forme communes par ce biais. Au final, en fonction du nombre de graphiques qui seront au total dans notre site, l’économie de code pourrait s’élever à plus de 1000 lignes. La lisibilité et le maintien du code sont aussi garantis. 
+
+Cette classe est encore expérimentale. Nous pensons qu’elle nous fait aller dans le bon sens, en terme de bonne pratique de code et d’utilisation. L’objectif est de faire de cette classe notre socle pour les graphiques, de l’optimiser, de la rendre modulable et compatible avec des manipulations DOM, HTMX et AJAX. Ce n’est pour l’instant pas totalement le cas.
+
+
+## Carte
+
+### Introduction
+
+Le principal argument pour utiliser amCharts 5 était la possibilité de faire des cartes puissantes. Nous allons maintenant voir ce qu’il en retourne. A noter que nous sortons du schéma orienté objet présenté précédemment. Ce ne sont pas les mêmes classes et attributs à manipuler, et son interactivité est incomparable. La carte que nous avons créé est encapsulée dans un autre objet indépendant, qui permet aussi une meilleure lisibilité du code.
+
+Les cartes amCharts restent dans la même idée que le reste : dures à manipuler, mais une fois faites, elles deviennent un véritable atout pour notre interface.
+	
+L’objectif est d’obtenir une carte intéractive pour pouvoir se déplacer et chercher rapidement des pays, en complément à notre barre de recherche. Elle doit être très visuelle et intuitive, grâce à des événements au survol ou au clic. Elle permet aussi d’afficher des données, comme des villes par exemple.
+
+Son exploitation reste pour le moment expérimentale, comme tout ce qui est présenté dans cette partie technique. Tout tend à évoluer.
+
+Dans la suite de cette partie, le code ne sera pas détaillé de manière complète. Il est assez lourd et l’important à savoir est que chaque pays est un objet “Polygon”, compris dans une série de données et qu’il est soumis à divers événements que nous allons contrôler. Nous avons la main sur tous les zooms, les pays masqués, l’esthétique de la carte et tout ce que l’utilisateur pourrait faire en termes de manipulations.
+
+### Aspect de base
+
+<!--Dimensions: 1600x900-->
+<!--Ratio: 1.77-->
+![Fond de carte](images/base_map.png){width="12cm" height="6.77cm"}
+
+Voici notre première carte. Comme vu dans la partie maquettage, elle sera affichée sur notre page d’accueil et celle de statistiques. C’est une carte du monde classique, mis à part quelques espaces vides, car ce sont les pays que nous avons retiré de notre base de données pour des raisons expliquées plus tôt.
+
+Plusieurs boutons dans les coins de la carte permettent de contrôler la vue : zoomer, revenir à l’affichage de base, et passer sur une vue “continent”, où les formes des continents sont mises en valeur.
+
+En première approche donc, elle n’a rien de spécial, c’est une carte tout à fait normale et élégante. Derrière cet affichage se cache une classe nommée “EcoMap”, qui encapsule toutes les actions nécessaires à l’affichage de la carte.
+
+### Action au survol
+
+Maintenant que nous avons ce patron, il faut le rendre intéressant et intéractif. Un premier événement que nous allons voir est le survol, ou “hover”. Nous avons décidé d’abord de mettre en évidence le pays survolé en changeant sa couleur.
+
+Quelque chose d’intéressant dans amCharts est la possibilité d’intégrer du HTML dans les graphiques. Notamment dans ce qui est appelé “Tooltip” : la zone qui est affichée quand un élément quelconque est survolé. S’il n’est pas configuré, seul le nom du pays est présent quand on survole un Polygon. 
+
+<!--Dimensions: 564x486-->
+<!--Ratio: 1.16-->
+![Carte au survol de la France](images/wohtml_map.png){width="12cm" height="10.34cm"}
+
+C’est bien, mais cela ne nous suffit pas, nous voulons quelque chose de plus visuel et qui ressemble aux bandeaux que nous avons créés. Nous lui transmettons alors ce script HTML : 
+
+```{HTML}
+<div style="display: grid; grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(1,100px); width: 240px; height: 80px; justify-content: center; align-items: center; word-break: break-word; text-align: center; font-family: Arial, Helvetica, sans-serif;">
+      <img style="grid-column: 1 / 3; grid-row: 1; width: 240px; 
+height: 80px; object-fit: cover;" src='../assets/img/{id}.jpg'>
+      <div style="grid-column: 2; grid-row: 1; justify-content: center;">
+            <h1 style="font-size: 20px; color: white;  ">{name}</h1>
+      </div>
+      <div style="grid-column: 1; grid-row: 1; width: 100%;">
+            <img style="width: 70px; height: 70px;" 
+      src='../assets/twemoji/{id}.svg'>
+      </div>
+</div>
+```
+
+Malheureusement, nous ne pouvons pas fournir de balise <style> pour embarquer nos règles CSS et sommes obligés de faire avec les attributs style de chaque balise.
+	
+Ce qui rend ce script personnalisé pour chaque pays est la présence dans le code des balises {name} et {id}. Elles seront remplacées automatiquement par les arguments correspondants et liés au polygone qui est survolé.
+
+Cela donne ce résultat : 
+
+<!--Dimensions: 490x375-->
+<!--Ratio: 1.3-->
+![Carte au survol de la France avec HTML](images/withhtml_map.png){width="12cm" height="9.23cm"}
+
+Les images et drapeaux proviennent de nos assets.
+
+### Action à la sélection
+
+Un pays peut être sélectionné de différentes façons. La plus évidente est au clic sur la carte, mais il peut l’être aussi depuis l’URL directement, ainsi que via une recherche sur notre site. Dans chaque cas, la sélection se traduit sur la carte par “l’activation” du polygone du pays dans notre carte. C’est un attribut proposé par amCharts, et dont on peut contrôler le comportement via des événements.
+
+Quand le pays est choisi par la carte, les événements se déclenchent de manière automatique. Dans les autres cas, il faut récupérer l’objet Polygon que l’on veut, et faire basculer son attribut “active” manuellement.
+
+```{JavaScript}
+// this.countries est la série des pays de la carte
+var elem = this.countries.getDataItemById(id_pays)
+elem._settings.mapPolygon.set("active",true)
+```
+
+Voici ce qui ce passe quand un pays est sélectionné sur notre carte : 
+
+<!--Dimensions: 1600x900-->
+<!--Ratio:1.77-->
+![Carte avec sélection de l'Afrique](images/brazil_map.png){width="12cm" height="6.77cm"}
+
+Ici, on a cliqué sur le Brésil. La carte a effectué un zoom et un centrage sur le pays, qui est passé en couleur foncée pour être mis en avant. A cela s’ajoute les villes majeures du Brésil, représentées par les points jaunes. Le point rouge symbolise la capitale Brasilia. 
+
+Les villes ont été récupérées par une requête AJAX à notre serveur, qui après des appels à la base de données sur la table villes, renvoie un liste formatée utilisable par amCharts pour positionner les points. On doit fournir les positions géographiques de chaque ville pour qu’elles apparaissent. Au survol des points le nom des villes apparaît. 
+
+Si on clique sur un pays différent, le comportement se répète, en retirant toutes les informations du pays précédent : villes supprimées et couleur qui revient à la normale. Pour amCharts, ce n’est pas automatique ! Si un pays est déclaré actif une fois, mais que l’on ne précise pas quand il ne l’est plus, alors il le reste. Cela nécessite de stocker le dernier Polygon activé, et de le désactiver manuellement quand un nouveau pays est sélectionné.
+
+Aussi, on retire la nature interactive des Polygon quand ils sont sélectionnés, afin que le comportement hover et active ne se produisent plus.
+
+### Comparateur
+
+Comme vu dans la partie maquettage, une page comparateur est prévue. Celle-ci doit aussi avoir une carte, mais avec un comportement différent. Jusqu’ici, celle présentée ne permet la sélection que d’un seul pays simultanément : dès qu’un nouveau pays est sélectionné, il est mis en avant, et le précédent revient à sa forme normale. On veut donc pouvoir choisir et afficher plusieurs pays à la fois, et cela nécessite des aménagements.
+
+En termes de structure de code, la carte est exactement la même. On ne crée pas de nouvelle classe, juste de nouvelles méthodes. Notre architecture est faite de façon que notre objet carte ne génère rien par défaut. C’est nous qui modulons son comportement après l’avoir instancié. On a donc une fonction spéciale pour la page comparateur, qui instancie une carte et appelle les méthodes que l’on veut pour personnaliser l’expérience. Le changement majeur ici est dans la création de la série de pays : on ne va pas donner les mêmes instructions lors de l’événement d’activation.
+De plus, plus tard notre carte devra s’adapter et se moduler à un passage du mode pays à comparateur et inversement sans avoir à se recharger. Nous avons déjà mis en place en début de structure permettant cela, mais qui se précisera plus tard.
+
+Voici le résultat : 
+
+<!--Dimensions: 888x421-->
+<!--Ratio:2.11-->
+![Carte du comparateur](images/comp_map.png){width="12cm" height="5.69cm"}
+
+Ici on a choisi les États-Unis et la Chine.
+
+A la sélection donc, les villes ne sont plus affichées et les pays ne sont plus zoomés non plus. Ils sont juste affichés avec une couleur différente. L’enjeu est dans le stockage et l’alternance des pays. Imaginons que nous avons un pays 0 et un pays 1. Si on clique sur un pays depuis la carte, le pays 0 va changer. Et au prochain clic, ce sera le pays 1 qui changera. Puis à nouveau le pays 0. Nous avons programmé ce comportement, qui pourra peut-être changer. Le code est fait de façon qu’il s’adapte au nombre de pays maximum que l’on veut : si on précise que l’on peut comparer trois pays ensemble, alors l’alternance se fera sur une base de trois.
+
+Cette carte est spécifique à la page comparateur, nous pouvons y faire des modifications uniques qui n'impacteront que cette page. À l'heure actuelle donc, la sélection d'un pays fait un appel AJAX à notre serveur pour rafraîchir toutes les données affichées sur la page. C'est une pratique expérimentale qui sera peut-être généralisée aux autres pages de statistiques.
+
+
+
+## Comparateur
+La Comparateur a une portée analytique très importante, qui se doit de compléter les pages individuelles des pays. Sa réalisation technique passe par un croisement efficace des données de plusieurs territoires. 
+
+Actuellement, cet outil est limité à deux pays, mais des mesures ont déjà été prises en vue d'une éventuelle expansion permettant des comparaisons théoriquement illimitées. Néanmoins, pour des raisons de lisibilité, notre maximum sera probablement de l'ordre de 3 à 5 pays. 
+
+L'équipe chargée de la réalisation de cette page a réussi à avancer vite, et a donc pu faire beaucoup d'essais de concepts pour la faire fonctionner au mieux. On pourrait considérer qu'elle fait figure de laboratoire pour possiblement appliquer plus tard les méthodes validées aux autres pages. Il y a donc beaucoup d'expérimentation dans ce qui suit. 
+
+### Structure PHP, relation avec AJAX
+Le code de cette page a beaucoup évolué au cours de sa création. A la base, nous avions une grande page PHP statique, qui récupérait toutes les données nécessaires pour construire les graphiques, et les envoyait dans des fonctions JavaScript. C’est l’approche normale. Mais un constat nous a fait remettre en question cette manière de faire : la carte est plus puissante que ce que l’on pense, et un de ses inconvénients pourrait devenir un avantage. Comme expliqué précédemment, elle embarque une série d’événements, que nous avons programmés quand un pays est sélectionné par l’utilisateur. Ces événements ont été personnalisés pour cette page en particulier, et nous allons en profiter. 
+
+Un des objectifs annexes de notre site est d’assurer une fluidité totale entre chaque page. Cela passe par un retrait des rechargements par le navigateur. Pour se faire, il faut effectuer des requêtes à notre serveur, et modifier le contenu des pages de manière dynamique. On utilise une technologie très répandue et populaire : l’Asynchronous JavaScript And XML, abrégé communément en AJAX. Elle va nous permettre de communiquer de manière discrète à notre serveur, et de recevoir de nouvelles données, selon nos demandes.
+
+Donc quel rapport avec notre carte ? Lors de chaque sélection de pays, une fonction est appelée pendant l’événement d’activation pour effectuer une requête AJAX et récupérer toutes les informations le concernant. Une fois fait, le contenu de la page va s’ajuster via l’utilisation de jQuery et la manipulation d’amCharts : le bandeau du pays change, et les statistiques des graphiques aussi. Les changements dans les graphiques demandent l’écriture de fonctions spécifiques pour chaque figure, afin de bien ajuster les données.
+
+Cette sélection comporte une subtilité importante : on ne peut pas donner à la carte une liste de pays qui sont activés de base. Nous sommes obligés d’effectuer ce processus manuellement dès que la carte est prête. Notre comparateur n’est jamais vide, il y a toujours deux pays qui sont choisis quoi qu’il se passe. Dès lors, au premier chargement de la page, il est nécessaire d’activer nos pays de base. Cela signifie que dès que la page est chargée, deux événements d’activation sont déclenchés, avec leur comportement programmé : deux requêtes AJAX sont envoyées, et les données de la page sont actualisées pour les deux territoires.
+
+A partir de ce moment-là, plus besoin de précharger les données dans le script PHP, mais simplement laisser la carte agir, elle remplira la page à notre place. C’est un avantage conséquent, car jusque-là nous avions une multiplication du code, car le formatage des données entre la version PHP et la version AJAX n’était pas le même. Dès lors, notre page PHP ne contient que des conteneurs HTML et des graphiques vides, qui attendent d’être remplis. 
+
+### Requêtes SQL: focus sur notre Line Chart
+Derrière chaque graphique se cache des requêtes SQL pour récupérer nos données, et une en particulier est intéressante, celle du line chart. Cette requête utilise toutes les tables de statistiques de notre base de données, et l'interactivité de ce graphique permet de comparer chaque indicateur indépendamment les uns des autres.
+
+<!--Dimensions:807x429-->
+<!--Ratio:1.88-->
+![Line chart de page comparateur](images/line_comp.png)
+
+Pour ne pas avoir à faire quatre requêtes SQL différentes pour chaque table, on choisit de faire une seule grande requête en joignant toutes les tables entre elles, par l’année et le pays de chaque ligne.
+
+```{JavaScript}
+SELECT allk.id_pays, allk.annee AS year, co2, elecRenew AS Enr, pibParHab AS pib, cpi, gpi, arriveesTotal*1000 AS arrivees, departs*1000 AS departs
+    FROM ( id_pays, annee FROM economie UNION
+            SESELECTLECT id_pays, annee FROM tourisme UNION
+            SELECT id_pays, annee FROM surete UNION
+            SELECT id_pays, annee FROM ecologie
+            ) allk
+    LEFT OUTER JOIN economie ON allk.id_pays = economie.id_pays AND allk.annee = economie.annee
+    LEFT OUTER JOIN ecologie ON allk.id_pays = ecologie.id_pays AND allk.annee = ecologie.annee
+    LEFT OUTER JOIN surete ON allk.id_pays = surete.id_pays AND allk.annee = surete.annee
+    LEFT OUTER JOIN tourisme ON allk.id_pays = tourisme.id_pays AND allk.annee = tourisme.annee
+    WHERE allk.id_pays = '$pays'
+    ORDER BY allk.annee;";
+```
+
+Cette requête est assez complexe. La difficulté de ce genre de jointure est que chaque table ne possède pas la même étendue de temps. Elle effectue une union des tables économie, tourisme, sûreté, et écologie pour obtenir une liste complète des années disponibles pour chaque pays, sous un table nommée allk. Ensuite, elle utilise des jointures gauche (LEFT OUTER JOIN) pour rassembler toutes les statistiques sur cette table temporaire. Les colonnes sélectionnées incluent divers indicateurs tels que les émissions de CO2, les énergies renouvelables, le PIB par habitant, le Consumer Price Index (CPI), l'Indice de Paix Globale (GPI), les arrivées touristiques, et les départs.
+
+Si nous avions fait une requête classique, sans table intermédiaire, l’affichage aurait été tronqué, car l’espace de temps choisi aurait été celui de la première table choisie, alors que nous voulions avoir l’étendue maximale. Les valeurs manquantes sont remplacées par NULL.
+
+Pour cette figure nous voulions une dynamique interactive, alors nous avons ajouté des boutons permettant de choisir quel indicateur consulter.
+
+
+<!--Dimensions:947x63-->
+<!--Ratio:15-->
+![Boutons interactifs](images/boutons_comp.png)
+
+Avec les données transmises, le clic sur n’importe quel bouton appelle une fonction qui modifie pour chaque série de données quelle colonne afficher, sans avoir à faire de requête SQL supplémentaire, car tout est déjà stocké. Une autre fonction a été écrite pour adapter l’échelle de l’axe X, car elle dépend d’étiquettes statiques.
+
+### Démarquage de la maquette
+Dans l’ensemble, nous nous sommes assez éloignés de la maquette sur cette page. Plus nous étions dans la création, plus nous avons aperçu les limites de notre design initial, et avons cherché de nouvelles solutions. Elles seront peut-être conservées ou non.
+
+
+<!--Dimensions:1600x900-->
+<!--Ratio:1.77-->
+![Affichage de la page comparateur](images/newhtml_comp.png)
+
+Tout d’abord, nous avons ajouté un Spider Plot qui n’était pas prévu de base. Il est inspiré de celui qui est prévu pour la page Pays. Le slider latéral permet de changer l’année des données affichées.
+
+L'ajout de compartiments pour chaque partie graphique améliore la lisibilité et la compréhension globale. Ces sous-parties distinguées offrent une structure visuelle claire, permettant aux utilisateurs de différencier facilement les divers éléments graphiques présentés. Les marges offrent une vraie séparation, meilleures que le simple changement de couleur.
+
+Une innovation notable sur la page "Comparateur" est la séparation de la page en deux : le corps principal, et une petite partie latérale affichant des informations complémentaires aidant à la navigation. Ce panneau augmente l'accessibilité et pourrait renforcer l’expérience utilisateur, déjà en créant de l’espace. Ce qui s’y figurera n’est pas encore totalement défini. Ici, il est pensé des petits encarts pour des stats complémentaires pour chaque pays, et un sommaire pour la navigation. Il est aussi possible qu’il devienne sticky.
+
+Si toutes ces implémentations de style et de lisibilité sont convaincantes, elles seront intégrées aux autres pages de statistiques.
 
 # Planning
-**Rapport d'Avancement du Projet**
 
 La planification d’un projet demeure un élément crucial pour assurer une progression efficace et la réussite du projet. Nous avons mis en place un planning, en prenant en compte les ajustements nécessaires pour répondre aux éventuels défis rencontrés. Nous avons utilisé Mindview  pour fournir une visualisation claire des tâches et des dépendances. Le diagramme généré a été d'une grande valeur pour la communication interne et ont facilité la compréhension des membres de l'équipe sur les différentes phases du projet. Ainsi il nous servira à illustrer ce rapport.
 
 ## Global
-<!--Ratio de 8.9-->
-![Diagramme de Gantt global](images/global_gantt.png){width="12cm" height="1.34cm"}
+<!--Dimensions: 541 × 126-->
+<!--Ratio de 4.29-->
+![Diagramme de Gantt global](images/global_gantt.png){width="12cm" height="2.79cm"}
 
 Au cours des premiers cycles du projet, l'équipe a consacré une attention particulière à plusieurs phases clés, conformément au planning initial. Les activités suivantes ont été menées avec succès, contribuant à l'avancement global du projet:
 
