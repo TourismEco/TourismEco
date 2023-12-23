@@ -12,7 +12,7 @@
         echo <<<HTML
         <p> SALUT</p>
         <p><a href='test/db_test.php'>Database test</a></p>
-        <p><a href='Pays_V1/bandeau.php'>Bandeau test</a></p>
+        <p><a href='Pays_V1/pays.php'>Pays_V1 test</a></p>
 HTML;
 ?>
     </body>

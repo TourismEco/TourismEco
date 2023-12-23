@@ -32,7 +32,7 @@ CREATE TABLE `checking` (
   `pib` tinyint(1) DEFAULT NULL,
   `villes` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -56,7 +56,7 @@ CREATE TABLE `continents` (
   `id` int NOT NULL,
   `nom` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -86,7 +86,7 @@ CREATE TABLE `ecologie` (
   PRIMARY KEY (`id`),
   KEY `fkeco_idx` (`id_pays`),
   CONSTRAINT `fkeco` FOREIGN KEY (`id_pays`) REFERENCES `pays` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6542 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -116,7 +116,7 @@ CREATE TABLE `economie` (
   PRIMARY KEY (`id`),
   KEY `FK_idx` (`id_pays`),
   CONSTRAINT `FK` FOREIGN KEY (`id_pays`) REFERENCES `pays` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6077 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -140,7 +140,7 @@ CREATE TABLE `guerre` (
   `id` int NOT NULL,
   `statut` varchar(25) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -176,7 +176,7 @@ CREATE TABLE `pays` (
   KEY `continentFK_idx` (`id_continent`),
   CONSTRAINT `continentFK` FOREIGN KEY (`id_continent`) REFERENCES `continents` (`id`),
   CONSTRAINT `warFK` FOREIGN KEY (`id_guerre`) REFERENCES `guerre` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -204,7 +204,7 @@ CREATE TABLE `surete` (
   PRIMARY KEY (`id`),
   KEY `fkfkfkf_idx` (`id_pays`),
   CONSTRAINT `fkfkfkf` FOREIGN KEY (`id_pays`) REFERENCES `pays` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2609 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -248,7 +248,7 @@ CREATE TABLE `tourisme` (
   PRIMARY KEY (`id`),
   KEY `id_pays_idx` (`id_pays`),
   CONSTRAINT `id_paysFK` FOREIGN KEY (`id_pays`) REFERENCES `pays` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6022 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -270,16 +270,16 @@ DROP TABLE IF EXISTS `villes`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `villes` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `nom` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `nom` varchar(100) ,
   `lat` double NOT NULL,
   `lon` double NOT NULL,
-  `id_pays` varchar(3) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `id_pays` varchar(3),
   `capitale` tinyint(1) NOT NULL,
   `population` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_villes` (`id_pays`),
   CONSTRAINT `fk_villes` FOREIGN KEY (`id_pays`) REFERENCES `pays` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2452 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --

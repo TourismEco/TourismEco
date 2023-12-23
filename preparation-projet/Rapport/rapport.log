@@ -1,0 +1,1172 @@
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.12.22)  22 DEC 2023 23:23
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**rapport.tex
+(./rapport.tex
+LaTeX2e <2023-11-01>
+L3 programming layer <2023-12-11>
+(./unswthesis.cls
+Document Class: unswthesis 1999/11/10  v2.42  UNSW thesis class
+(/Users/hugogoncalves/Library/TinyTeX/texmf-dist/tex/latex/base/report.cls
+Document Class: report 2023/05/17 v1.4n Standard LaTeX document class
+(/Users/hugogoncalves/Library/TinyTeX/texmf-dist/tex/latex/base/size12.clo
+File: size12.clo 2023/05/17 v1.4n Standard LaTeX file (size option)
+)
+\c@part=\count187
+\c@chapter=\count188
+\c@section=\count189
+\c@subsection=\count190
+\c@subsubsection=\count191
+\c@paragraph=\count192
+\c@subparagraph=\count193
+\c@figure=\count194
+\c@table=\count195
+\abovecaptionskip=\skip48
+\belowcaptionskip=\skip49
+\bibindent=\dimen140
+)
+\chaprule=\skip50
+\ATchapskip=\skip51
+\@chapwidth=\skip52
+) (/Users/hugogoncalves/Library/TinyTeX/texmf-dist/tex/latex/graphics/color.sty
+Package: color 2022/01/06 v1.3d Standard LaTeX Color (DPC)
+(/Users/hugogoncalves/Library/TinyTeX/texmf-dist/tex/latex/graphics-cfg/color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package color Info: Driver file: pdftex.def on input line 149.
+(/Users/hugogoncalves/Library/TinyTeX/texmf-dist/tex/latex/graphics-def/pdftex.def
+File: pdftex.def 2022/09/22 v1.2b Graphics/color driver for pdftex
+) (/Users/hugogoncalves/Library/TinyTeX/texmf-dist/tex/latex/graphics/mathcolor.ltx)) (/Users/hugogoncalves/Library/TinyTeX/texmf-dist/tex/latex/fancyvrb/fancyvrb.sty
+Package: fancyvrb 2023/11/06 4.5b verbatim text (tvz,hv)
+(/Users/hugogoncalves/Library/TinyTeX/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 2022/05/29 v1.15 key=value parser (DPC)
+\KV@toks@=\toks17
+)
+\FV@CodeLineNo=\count196
+\FV@InFile=\read2
+\FV@TabBox=\box51
+\c@FancyVerbLine=\count197
+\FV@StepNumber=\count198
+\FV@OutFile=\write3
+) (/Users/hugogoncalves/Library/TinyTeX/texmf-dist/tex/latex/framed/framed.sty
+Package: framed 2011/10/22 v 0.96: framed or shaded text with page breaks
+\OuterFrameSep=\skip53
+\fb@frw=\dimen141
+\fb@frh=\dimen142
+\FrameRule=\dimen143
+\FrameSep=\dimen144
+) (./header.tex (/Users/hugogoncalves/Library/TinyTeX/texmf-dist/tex/latex/amsfonts/amsfonts.sty
+Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
+\@emptytoks=\toks18
+\symAMSa=\mathgroup4
+\symAMSb=\mathgroup5
+LaTeX Font Info:    Redeclaring math symbol \hbar on input line 98.
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
+) (/Users/hugogoncalves/Library/TinyTeX/texmf-dist/tex/latex/amsfonts/amssymb.sty
+Package: amssymb 2013/01/14 v3.01 AMS font symbols
+) (/Users/hugogoncalves/Library/TinyTeX/texmf-dist/tex/latex/amscls/amsthm.sty
+Package: amsthm 2020/05/29 v2.20.6
+\thm@style=\toks19
+\thm@bodyfont=\toks20
+\thm@headfont=\toks21
+\thm@notefont=\toks22
+\thm@headpunct=\toks23
+\thm@preskip=\skip54
+\thm@postskip=\skip55
+\thm@headsep=\skip56
+\dth@everypar=\toks24
+) (/Users/hugogoncalves/Library/TinyTeX/texmf-dist/tex/latex/base/latexsym.sty
+Package: latexsym 1998/08/17 v2.2e Standard LaTeX package (lasy symbols)
+\symlasy=\mathgroup6
+LaTeX Font Info:    Overwriting symbol font `lasy' in version `bold'
+(Font)                  U/lasy/m/n --> U/lasy/b/n on input line 52.
+) (/Users/hugogoncalves/Library/TinyTeX/texmf-dist/tex/latex/amsmath/amsmath.sty
+Package: amsmath 2023/05/13 v2.17o AMS math features
+\@mathmargin=\skip57
+For additional information on amsmath, use the `?' option.
+(/Users/hugogoncalves/Library/TinyTeX/texmf-dist/tex/latex/amsmath/amstext.sty
+Package: amstext 2021/08/26 v2.01 AMS text
+(/Users/hugogoncalves/Library/TinyTeX/texmf-dist/tex/latex/amsmath/amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0 generic functions
+\@emptytoks=\toks25
+\ex@=\dimen145
+)) (/Users/hugogoncalves/Library/TinyTeX/texmf-dist/tex/latex/amsmath/amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d Bold Symbols
+\pmbraise@=\dimen146
+) (/Users/hugogoncalves/Library/TinyTeX/texmf-dist/tex/latex/amsmath/amsopn.sty
+Package: amsopn 2022/04/08 v2.04 operator names
+)
+\inf@bad=\count199
+LaTeX Info: Redefining \frac on input line 234.
+\uproot@=\count266
+\leftroot@=\count267
+LaTeX Info: Redefining \overline on input line 399.
+LaTeX Info: Redefining \colon on input line 410.
+\classnum@=\count268
+\DOTSCASE@=\count269
+LaTeX Info: Redefining \ldots on input line 496.
+LaTeX Info: Redefining \dots on input line 499.
+LaTeX Info: Redefining \cdots on input line 620.
+\Mathstrutbox@=\box52
+\strutbox@=\box53
+LaTeX Info: Redefining \big on input line 722.
+LaTeX Info: Redefining \Big on input line 723.
+LaTeX Info: Redefining \bigg on input line 724.
+LaTeX Info: Redefining \Bigg on input line 725.
+\big@size=\dimen147
+LaTeX Font Info:    Redeclaring font encoding OML on input line 743.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 744.
+\macc@depth=\count270
+LaTeX Info: Redefining \bmod on input line 905.
+LaTeX Info: Redefining \pmod on input line 910.
+LaTeX Info: Redefining \smash on input line 940.
+LaTeX Info: Redefining \relbar on input line 970.
+LaTeX Info: Redefining \Relbar on input line 971.
+\c@MaxMatrixCols=\count271
+\dotsspace@=\muskip16
+\c@parentequation=\count272
+\dspbrk@lvl=\count273
+\tag@help=\toks26
+\row@=\count274
+\column@=\count275
+\maxfields@=\count276
+\andhelp@=\toks27
+\eqnshift@=\dimen148
+\alignsep@=\dimen149
+\tagshift@=\dimen150
+\tagwidth@=\dimen151
+\totwidth@=\dimen152
+\lineht@=\dimen153
+\@envbody=\toks28
+\multlinegap=\skip58
+\multlinetaggap=\skip59
+\mathdisplay@stack=\toks29
+LaTeX Info: Redefining \[ on input line 2953.
+LaTeX Info: Redefining \] on input line 2954.
+) (/Users/hugogoncalves/Library/TinyTeX/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 2021/09/16 v1.2d Enhanced LaTeX Graphics (DPC,SPQR)
+(/Users/hugogoncalves/Library/TinyTeX/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2022/03/10 v1.4e Standard LaTeX Graphics (DPC,SPQR)
+(/Users/hugogoncalves/Library/TinyTeX/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 2021/08/11 v1.11 sin cos tan (DPC)
+) (/Users/hugogoncalves/Library/TinyTeX/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: pdftex.def on input line 107.
+)
+\Gin@req@height=\dimen154
+\Gin@req@width=\dimen155
+) (/Users/hugogoncalves/Library/TinyTeX/texmf-dist/tex/latex/tools/afterpage.sty
+Package: afterpage 2023/07/04 v1.08 After-Page Package (DPC)
+\AP@output=\toks30
+\AP@partial=\box54
+\AP@footins=\box55
+) (/Users/hugogoncalves/Library/TinyTeX/texmf-dist/tex/latex/hyperref/hyperref.sty
+Package: hyperref 2023-11-26 v7.01g Hypertext links for LaTeX
+(/Users/hugogoncalves/Library/TinyTeX/texmf-dist/tex/generic/iftex/iftex.sty
+Package: iftex 2022/02/03 v1.0f TeX engine tests
+) (/Users/hugogoncalves/Library/TinyTeX/texmf-dist/tex/generic/infwarerr/infwarerr.sty
+Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
+) (/Users/hugogoncalves/Library/TinyTeX/texmf-dist/tex/latex/kvsetkeys/kvsetkeys.sty
+Package: kvsetkeys 2022-10-05 v1.19 Key value parser (HO)
+) (/Users/hugogoncalves/Library/TinyTeX/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty
+Package: kvdefinekeys 2019-12-19 v1.6 Define keys (HO)
+) (/Users/hugogoncalves/Library/TinyTeX/texmf-dist/tex/generic/pdfescape/pdfescape.sty
+Package: pdfescape 2019/12/09 v1.15 Implements pdfTeX's escape features (HO)
+(/Users/hugogoncalves/Library/TinyTeX/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty
+Package: ltxcmds 2023-12-04 v1.26 LaTeX kernel commands for general use (HO)
+) (/Users/hugogoncalves/Library/TinyTeX/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
+Package: pdftexcmds 2020-06-27 v0.33 Utility functions of pdfTeX for LuaTeX (HO)
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+)) (/Users/hugogoncalves/Library/TinyTeX/texmf-dist/tex/latex/hycolor/hycolor.sty
+Package: hycolor 2020-01-27 v1.10 Color options for hyperref/bookmark (HO)
+) (/Users/hugogoncalves/Library/TinyTeX/texmf-dist/tex/latex/letltxmacro/letltxmacro.sty
+Package: letltxmacro 2019/12/03 v1.6 Let assignment for LaTeX macros (HO)
+) (/Users/hugogoncalves/Library/TinyTeX/texmf-dist/tex/latex/auxhook/auxhook.sty
+Package: auxhook 2019-12-17 v1.6 Hooks for auxiliary files (HO)
+) (/Users/hugogoncalves/Library/TinyTeX/texmf-dist/tex/latex/hyperref/nameref.sty
+Package: nameref 2023-11-26 v2.56 Cross-referencing by name of section
+(/Users/hugogoncalves/Library/TinyTeX/texmf-dist/tex/latex/refcount/refcount.sty
+Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
+) (/Users/hugogoncalves/Library/TinyTeX/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
+Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
+(/Users/hugogoncalves/Library/TinyTeX/texmf-dist/tex/latex/kvoptions/kvoptions.sty
+Package: kvoptions 2022-06-15 v3.15 Key value format for package options (HO)
+))
+\c@section@level=\count277
+) (/Users/hugogoncalves/Library/TinyTeX/texmf-dist/tex/latex/etoolbox/etoolbox.sty
+Package: etoolbox 2020/10/05 v2.5k e-TeX tools for LaTeX (JAW)
+\etb@tempcnta=\count278
+)
+\@linkdim=\dimen156
+\Hy@linkcounter=\count279
+\Hy@pagecounter=\count280
+(/Users/hugogoncalves/Library/TinyTeX/texmf-dist/tex/latex/hyperref/pd1enc.def
+File: pd1enc.def 2023-11-26 v7.01g Hyperref: PDFDocEncoding definition (HO)
+Now handling font encoding PD1 ...
+... no UTF-8 mapping file for font encoding PD1
+) (/Users/hugogoncalves/Library/TinyTeX/texmf-dist/tex/generic/intcalc/intcalc.sty
+Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
+)
+\Hy@SavedSpaceFactor=\count281
+(/Users/hugogoncalves/Library/TinyTeX/texmf-dist/tex/latex/hyperref/puenc.def
+File: puenc.def 2023-11-26 v7.01g Hyperref: PDF Unicode definition (HO)
+Now handling font encoding PU ...
+... no UTF-8 mapping file for font encoding PU
+)
+Package hyperref Info: Option `colorlinks' set `true' on input line 4064.
+Package hyperref Info: Hyper figures OFF on input line 4181.
+Package hyperref Info: Link nesting OFF on input line 4186.
+Package hyperref Info: Hyper index ON on input line 4189.
+Package hyperref Info: Plain pages OFF on input line 4196.
+Package hyperref Info: Backreferencing OFF on input line 4201.
+Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
+Package hyperref Info: Bookmarks ON on input line 4448.
+\c@Hy@tempcnt=\count282
+(/Users/hugogoncalves/Library/TinyTeX/texmf-dist/tex/latex/url/url.sty
+\Urlmuskip=\muskip17
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
+)
+LaTeX Info: Redefining \url on input line 4786.
+\XeTeXLinkMargin=\dimen157
+(/Users/hugogoncalves/Library/TinyTeX/texmf-dist/tex/generic/bitset/bitset.sty
+Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
+(/Users/hugogoncalves/Library/TinyTeX/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty
+Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO)
+))
+\Fld@menulength=\count283
+\Field@Width=\dimen158
+\Fld@charsize=\dimen159
+Package hyperref Info: Hyper figures OFF on input line 6065.
+Package hyperref Info: Link nesting OFF on input line 6070.
+Package hyperref Info: Hyper index ON on input line 6073.
+Package hyperref Info: backreferencing OFF on input line 6080.
+Package hyperref Info: Link coloring ON on input line 6083.
+Package hyperref Info: Link coloring with OCG OFF on input line 6090.
+Package hyperref Info: PDF/A mode OFF on input line 6095.
+(/Users/hugogoncalves/Library/TinyTeX/texmf-dist/tex/latex/base/atbegshi-ltx.sty
+Package: atbegshi-ltx 2021/01/10 v1.0c Emulation of the original atbegshi
+package with kernel methods
+)
+\Hy@abspage=\count284
+\c@Item=\count285
+\c@Hfootnote=\count286
+)
+Package hyperref Info: Driver (autodetected): hpdftex.
+(/Users/hugogoncalves/Library/TinyTeX/texmf-dist/tex/latex/hyperref/hpdftex.def
+File: hpdftex.def 2023-11-26 v7.01g Hyperref driver for pdfTeX
+(/Users/hugogoncalves/Library/TinyTeX/texmf-dist/tex/latex/base/atveryend-ltx.sty
+Package: atveryend-ltx 2020/08/19 v1.0a Emulation of the original atveryend package
+with kernel methods
+)
+\Fld@listcount=\count287
+\c@bookmark@seq@number=\count288
+(/Users/hugogoncalves/Library/TinyTeX/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
+Package: rerunfilecheck 2022-07-10 v1.10 Rerun checks for auxiliary files (HO)
+(/Users/hugogoncalves/Library/TinyTeX/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty
+Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
+)
+Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 285.
+)
+\Hy@SectionHShift=\skip60
+)
+Package hyperref Info: Option `colorlinks' set `true' on input line 37.
+(/Users/hugogoncalves/Library/TinyTeX/texmf-dist/tex/latex/base/textcomp.sty
+Package: textcomp 2020/02/02 v2.0n Standard LaTeX package
+) (/Users/hugogoncalves/Library/TinyTeX/texmf-dist/tex/latex/tools/longtable.sty
+Package: longtable 2023-11-01 v4.19 Multi-page Table package (DPC)
+\LTleft=\skip61
+\LTright=\skip62
+\LTpre=\skip63
+\LTpost=\skip64
+\LTchunksize=\count289
+\LTcapwidth=\dimen160
+\LT@head=\box56
+\LT@firsthead=\box57
+\LT@foot=\box58
+\LT@lastfoot=\box59
+\LT@gbox=\box60
+\LT@cols=\count290
+\LT@rows=\count291
+\c@LT@tables=\count292
+\c@LT@chunks=\count293
+\LT@p@ftn=\toks31
+) (/Users/hugogoncalves/Library/TinyTeX/texmf-dist/tex/latex/booktabs/booktabs.sty
+Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
+\heavyrulewidth=\dimen161
+\lightrulewidth=\dimen162
+\cmidrulewidth=\dimen163
+\belowrulesep=\dimen164
+\belowbottomsep=\dimen165
+\aboverulesep=\dimen166
+\abovetopsep=\dimen167
+\cmidrulesep=\dimen168
+\cmidrulekern=\dimen169
+\defaultaddspace=\dimen170
+\@cmidla=\count294
+\@cmidlb=\count295
+\@aboverulesep=\dimen171
+\@belowrulesep=\dimen172
+\@thisruleclass=\count296
+\@lastruleclass=\count297
+\@thisrulewidth=\dimen173
+) (/Users/hugogoncalves/Library/TinyTeX/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count298
+\float@exts=\toks32
+\float@box=\box61
+\@float@everytoks=\toks33
+\@floatcapt=\box62
+) (/Users/hugogoncalves/Library/TinyTeX/texmf-dist/tex/latex/base/fontenc.sty
+Package: fontenc 2021/04/29 v2.0v Standard LaTeX package
+) (/Users/hugogoncalves/Library/TinyTeX/texmf-dist/tex/latex/ragged2e/ragged2e.sty
+Package: ragged2e 2023/06/22 v3.6 ragged2e Package
+\CenteringLeftskip=\skip65
+\RaggedLeftLeftskip=\skip66
+\RaggedRightLeftskip=\skip67
+\CenteringRightskip=\skip68
+\RaggedLeftRightskip=\skip69
+\RaggedRightRightskip=\skip70
+\CenteringParfillskip=\skip71
+\RaggedLeftParfillskip=\skip72
+\RaggedRightParfillskip=\skip73
+\JustifyingParfillskip=\skip74
+\CenteringParindent=\skip75
+\RaggedLeftParindent=\skip76
+\RaggedRightParindent=\skip77
+\JustifyingParindent=\skip78
+)
+\cslhangindent=\skip79
+\csllabelwidth=\skip80
+(/Users/hugogoncalves/Library/TinyTeX/texmf-dist/tex/latex/tools/calc.sty
+Package: calc 2023/07/08 v4.3 Infix arithmetic (KKT,FJ)
+\calc@Acount=\count299
+\calc@Bcount=\count300
+\calc@Adimen=\dimen174
+\calc@Bdimen=\dimen175
+\calc@Askip=\skip81
+\calc@Bskip=\skip82
+LaTeX Info: Redefining \setlength on input line 80.
+LaTeX Info: Redefining \addtolength on input line 81.
+\calc@Ccount=\count301
+\calc@Cskip=\skip83
+) (/Users/hugogoncalves/Library/TinyTeX/texmf-dist/tex/latex/fancyhdr/fancyhdr.sty
+Package: fancyhdr 2022/11/09 v4.1 Extensive control of page headers and footers
+\f@nch@headwidth=\skip84
+\f@nch@O@elh=\skip85
+\f@nch@O@erh=\skip86
+\f@nch@O@olh=\skip87
+\f@nch@O@orh=\skip88
+\f@nch@O@elf=\skip89
+\f@nch@O@erf=\skip90
+\f@nch@O@olf=\skip91
+\f@nch@O@orf=\skip92
+) (/Users/hugogoncalves/Library/TinyTeX/texmf-dist/tex/latex/tools/tabularx.sty
+Package: tabularx 2023/07/08 v2.11c `tabularx' package (DPC)
+(/Users/hugogoncalves/Library/TinyTeX/texmf-dist/tex/latex/tools/array.sty
+Package: array 2023/10/16 v2.5g Tabular extension package (FMi)
+\col@sep=\dimen176
+\ar@mcellbox=\box63
+\extrarowheight=\dimen177
+\NC@list=\toks34
+\extratabsurround=\skip93
+\backup@length=\skip94
+\ar@cellbox=\box64
+)
+\TX@col@width=\dimen178
+\TX@old@table=\dimen179
+\TX@old@col=\dimen180
+\TX@target=\dimen181
+\TX@delta=\dimen182
+\TX@cols=\count302
+\TX@ftn=\toks35
+) (/Users/hugogoncalves/Library/TinyTeX/texmf-dist/tex/latex/xcolor/xcolor.sty
+Package: xcolor 2023/11/15 v3.01 LaTeX color extensions (UK)
+(/Users/hugogoncalves/Library/TinyTeX/texmf-dist/tex/latex/graphics-cfg/color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package xcolor Info: Driver file: pdftex.def on input line 274.
+LaTeX Info: Redefining \color on input line 758.
+(/Users/hugogoncalves/Library/TinyTeX/texmf-dist/tex/latex/graphics/mathcolor.ltx)
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1350.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1354.
+Package xcolor Info: Model `RGB' extended on input line 1366.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1368.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1369.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1370.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1371.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1372.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1373.
+)
+Package hyperref Info: Option `colorlinks' set `true' on input line 112.
+) (/Users/hugogoncalves/Library/TinyTeX/texmf-dist/tex/latex/changepage/changepage.sty
+Package: changepage 2009/10/20 v1.0c check page and change page layout
+\c@cp@cntr=\count303
+\cp@tempcnt=\count304
+) (/Users/hugogoncalves/Library/TinyTeX/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
+File: l3backend-pdftex.def 2023-11-09 L3 backend support: PDF output (pdfTeX)
+\l__color_backend_stack_int=\count305
+\l__pdf_internal_box=\box65
+) (./rapport.aux)
+\openout1 = `rapport.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 85.
+LaTeX Font Info:    ... okay on input line 85.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 85.
+LaTeX Font Info:    ... okay on input line 85.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 85.
+LaTeX Font Info:    ... okay on input line 85.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 85.
+LaTeX Font Info:    ... okay on input line 85.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 85.
+LaTeX Font Info:    ... okay on input line 85.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 85.
+LaTeX Font Info:    ... okay on input line 85.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 85.
+LaTeX Font Info:    ... okay on input line 85.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 85.
+LaTeX Font Info:    ... okay on input line 85.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 85.
+LaTeX Font Info:    ... okay on input line 85.
+(/Users/hugogoncalves/Library/TinyTeX/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
+Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
+(/Users/hugogoncalves/Library/TinyTeX/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
+))
+Package hyperref Info: Link coloring ON on input line 85.
+(./rapport.out) (./rapport.out)
+\@outlinefile=\write4
+\openout4 = `rapport.out'.
+
+<logo-upvm_4.jpg, id=192, 180.675pt x 90.3375pt>
+File: logo-upvm_4.jpg Graphic file (type jpg)
+<use logo-upvm_4.jpg>
+Package pdftex.def Info: logo-upvm_4.jpg  used on input line 88.
+(pdftex.def)             Requested size: 142.26378pt x 71.13287pt.
+[1
+
+{/Users/hugogoncalves/Library/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map} <./logo-upvm_4.jpg>]
+Underfull \hbox (badness 10000) in paragraph at lines 98--115
+
+ []
+
+[1
+
+] (./rapport.toc
+LaTeX Font Info:    Trying to load font information for U+msa on input line 4.
+(/Users/hugogoncalves/Library/TinyTeX/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Trying to load font information for U+msb on input line 4.
+(/Users/hugogoncalves/Library/TinyTeX/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
+LaTeX Font Info:    Trying to load font information for U+lasy on input line 4.
+(/Users/hugogoncalves/Library/TinyTeX/texmf-dist/tex/latex/base/ulasy.fd
+File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
+) [2
+
+])
+\tf@toc=\write5
+\openout5 = `rapport.toc'.
+
+[3]
+pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.227 
+       [1
+
+] [2]
+Chapitre 1.
+
+Overfull \hbox (6.06715pt too wide) in paragraph at lines 241--248
+[]\T1/cmr/m/n/12 Notre pro-jet aborde plusieurs be-soins et prob-lèmes clés auxquels sont con-fron-tés les voyageurs
+ []
+
+[3
+
+] [4]
+<images/uml.png, id=284, 1126.2075pt x 1242.6425pt>
+File: images/uml.png Graphic file (type png)
+<use images/uml.png>
+Package pdftex.def Info: images/uml.png  used on input line 375.
+(pdftex.def)             Requested size: 341.42206pt x 381.25232pt.
+[5
+pdfTeX warning (ext4): destination with the same identifier (name{figure.1.1}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.398   \textbf
+               {IntÃ©gration des idÃ©es individuelles:} Notre approche <./images/uml.png>] [6]
+Chapitre 2.
+[7
+
+] [8]
+
+Package xcolor Warning: Incompatible color definition on input line 679.
+
+LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 680.
+(/Users/hugogoncalves/Library/TinyTeX/texmf-dist/tex/latex/base/t1cmtt.fd
+File: t1cmtt.fd 2023/04/13 v2.5m Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `T1/cmtt/bx/n' in size <12> not available
+(Font)              Font shape `T1/cmtt/m/n' tried instead on input line 682.
+LaTeX Font Info:    Trying to load font information for TS1+cmtt on input line 690.
+(/Users/hugogoncalves/Library/TinyTeX/texmf-dist/tex/latex/base/ts1cmtt.fd
+File: ts1cmtt.fd 2023/04/13 v2.5m Standard LaTeX font definitions
+)
+
+Package xcolor Warning: Incompatible color definition on input line 729.
+
+
+Package xcolor Warning: Incompatible color definition on input line 729.
+
+
+Package xcolor Warning: Incompatible color definition on input line 729.
+
+[9]
+
+Package xcolor Warning: Incompatible color definition on input line 729.
+
+
+Package xcolor Warning: Incompatible color definition on input line 729.
+
+
+Package xcolor Warning: Incompatible color definition on input line 731.
+
+
+Package xcolor Warning: Incompatible color definition on input line 751.
+
+
+Package xcolor Warning: Incompatible color definition on input line 751.
+
+
+Package xcolor Warning: Incompatible color definition on input line 751.
+
+[10]
+
+Package xcolor Warning: Incompatible color definition on input line 751.
+
+
+Package xcolor Warning: Incompatible color definition on input line 751.
+
+
+Overfull \hbox (6.68497pt too wide) in paragraph at lines 753--761
+\T1/cmr/m/n/12 touris-tiques to-taux (Out-bound Tourism-Departures), dépenses touris-tiques (Out-bound Tourism-
+ []
+
+[11]
+
+Package xcolor Warning: Incompatible color definition on input line 880.
+
+
+Package xcolor Warning: Incompatible color definition on input line 886.
+
+
+Package xcolor Warning: Incompatible color definition on input line 886.
+
+
+Package xcolor Warning: Incompatible color definition on input line 891.
+
+
+Package xcolor Warning: Incompatible color definition on input line 898.
+
+
+Package xcolor Warning: Incompatible color definition on input line 898.
+
+[12] [13] [14] [15] [16] [17] [18]
+<images/MCD.png, id=384, 294.09875pt x 613.29124pt>
+File: images/MCD.png Graphic file (type png)
+<use images/MCD.png>
+Package pdftex.def Info: images/MCD.png  used on input line 1293.
+(pdftex.def)             Requested size: 227.62349pt x 474.3132pt.
+[19
+pdfTeX warning (ext4): destination with the same identifier (name{figure.2.1}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.1297 \newpage
+                <./images/MCD.png>]
+<images/MOD.png, id=393, 857.45343pt x 524.71031pt>
+File: images/MOD.png Graphic file (type png)
+<use images/MOD.png>
+Package pdftex.def Info: images/MOD.png  used on input line 1304.
+(pdftex.def)             Requested size: 341.43141pt x 209.40802pt.
+[20
+pdfTeX warning (ext4): destination with the same identifier (name{figure.2.2}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.1308 \newpage
+                <./images/MOD.png>]
+Overfull \hbox (8.65407pt too wide) in paragraph at lines 1352--1352
+[]|\T1/cmr/m/n/12 VARCHAR|  
+ []
+
+
+Overfull \hbox (8.82347pt too wide) in paragraph at lines 1353--1353
+[]|\T1/cmr/m/n/12 BOOLEAN|  
+ []
+
+
+Overfull \hbox (8.82347pt too wide) in paragraph at lines 1354--1354
+[]|\T1/cmr/m/n/12 BOOLEAN|  
+ []
+
+
+Overfull \hbox (8.82347pt too wide) in paragraph at lines 1356--1356
+[]|\T1/cmr/m/n/12 BOOLEAN|  
+ []
+
+
+Overfull \hbox (8.82347pt too wide) in paragraph at lines 1358--1358
+[]|\T1/cmr/m/n/12 BOOLEAN|  
+ []
+
+
+Overfull \hbox (8.82347pt too wide) in paragraph at lines 1360--1360
+[]|\T1/cmr/m/n/12 BOOLEAN|  
+ []
+
+
+Overfull \hbox (8.82347pt too wide) in paragraph at lines 1361--1361
+[]|\T1/cmr/m/n/12 BOOLEAN|  
+ []
+
+
+Package xcolor Warning: Incompatible color definition on input line 1368.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1448.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1448.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1448.
+
+[21]
+
+Package xcolor Warning: Incompatible color definition on input line 1448.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1448.
+
+
+Underfull \vbox (badness 10000) detected at line 1448
+ []
+
+
+Package xcolor Warning: Incompatible color definition on input line 1448.
+
+[22]
+
+Package xcolor Warning: Incompatible color definition on input line 1448.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1448.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1458.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1472.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1472.
+
+[23] [24]
+Chapitre 3.
+<images/figma.png, id=423, 1059.96pt x 433.62pt>
+File: images/figma.png Graphic file (type png)
+<use images/figma.png>
+Package pdftex.def Info: images/figma.png  used on input line 1531.
+(pdftex.def)             Requested size: 398.34123pt x 163.32167pt.
+[25
+
+
+pdfTeX warning (ext4): destination with the same identifier (name{figure.3.1}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.1535 \newpage
+                <./images/figma.png>]
+<images/carousel_maq.png, id=430, 736.7525pt x 756.8275pt>
+File: images/carousel_maq.png Graphic file (type png)
+<use images/carousel_maq.png>
+Package pdftex.def Info: images/carousel_maq.png  used on input line 1563.
+(pdftex.def)             Requested size: 341.42845pt x 351.9558pt.
+[26
+pdfTeX warning (ext4): destination with the same identifier (name{figure.3.2}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.1574 
+        <./images/carousel_maq.png>]
+<images/unnamed.png, id=437, 609.27625pt x 379.4175pt>
+File: images/unnamed.png Graphic file (type png)
+<use images/unnamed.png>
+Package pdftex.def Info: images/unnamed.png  used on input line 1577.
+(pdftex.def)             Requested size: 341.44337pt x 213.39865pt.
+[27
+pdfTeX warning (ext4): destination with the same identifier (name{figure.3.3}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.1581 \newpage
+                <./images/unnamed.png>]
+<images/map_maq.png, id=445, 732.7375pt x 513.92pt>
+File: images/map_maq.png Graphic file (type png)
+<use images/map_maq.png>
+Package pdftex.def Info: images/map_maq.png  used on input line 1600.
+(pdftex.def)             Requested size: 341.43498pt x 240.4289pt.
+<images/jauges_maq.png, id=446, 728.7225pt x 612.2875pt>
+File: images/jauges_maq.png Graphic file (type png)
+<use images/jauges_maq.png>
+Package pdftex.def Info: images/jauges_maq.png  used on input line 1615.
+(pdftex.def)             Requested size: 341.43216pt x 286.80351pt.
+[28
+pdfTeX warning (ext4): destination with the same identifier (name{figure.3.4}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.1618 
+        <./images/map_maq.png>]
+<images/graphpays_maq.png, id=453, 725.71124pt x 826.08624pt>
+File: images/graphpays_maq.png Graphic file (type png)
+<use images/graphpays_maq.png>
+Package pdftex.def Info: images/graphpays_maq.png  used on input line 1628.
+(pdftex.def)             Requested size: 284.53223pt x 323.23116pt.
+[29
+pdfTeX warning (ext4): destination with the same identifier (name{figure.3.5}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.1631 
+        <./images/jauges_maq.png>]
+<images/comppays_maq.png, id=459, 727.71875pt x 433.62pt>
+File: images/comppays_maq.png Graphic file (type png)
+<use images/comppays_maq.png>
+Package pdftex.def Info: images/comppays_maq.png  used on input line 1638.
+(pdftex.def)             Requested size: 284.53093pt x 169.29637pt.
+[30
+pdfTeX warning (ext4): destination with the same identifier (name{figure.3.6}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.1642 \newpage
+               
+pdfTeX warning (ext4): destination with the same identifier (name{figure.3.7}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.1642 \newpage
+                <./images/graphpays_maq.png> <./images/comppays_maq.png>]
+Overfull \hbox (9.46085pt too wide) in paragraph at lines 1647--1652
+\T1/cmr/m/n/12 s'informer sur les dif-férents pays, et de choisir une des-ti-na-tion en fonc-tion de dif-férents graphiques.
+ []
+
+<images/monde_maq.png, id=466, 672.5125pt x 818.05624pt>
+File: images/monde_maq.png Graphic file (type png)
+<use images/monde_maq.png>
+Package pdftex.def Info: images/monde_maq.png  used on input line 1667.
+(pdftex.def)             Requested size: 341.43758pt x 416.26697pt.
+[31
+pdfTeX warning (ext4): destination with the same identifier (name{figure.3.8}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.1674 
+        <./images/monde_maq.png>]
+<images/treemap_maq.png, id=473, 679.53876pt x 523.9575pt>
+File: images/treemap_maq.png Graphic file (type png)
+<use images/treemap_maq.png>
+Package pdftex.def Info: images/treemap_maq.png  used on input line 1677.
+(pdftex.def)             Requested size: 341.42757pt x 262.62569pt.
+[32
+pdfTeX warning (ext4): destination with the same identifier (name{figure.3.9}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.1681 \newpage
+                <./images/treemap_maq.png>]
+<images/comp_maq.png, id=479, 709.65125pt x 773.89125pt>
+File: images/comp_maq.png Graphic file (type png)
+<use images/comp_maq.png>
+Package pdftex.def Info: images/comp_maq.png  used on input line 1695.
+(pdftex.def)             Requested size: 341.44086pt x 375.28957pt.
+<images/graphcomp_maq.png, id=480, 704.6325pt x 733.74126pt>
+File: images/graphcomp_maq.png Graphic file (type png)
+<use images/graphcomp_maq.png>
+Package pdftex.def Info: images/graphcomp_maq.png  used on input line 1716.
+(pdftex.def)             Requested size: 312.9745pt x 325.79169pt.
+[33
+pdfTeX warning (ext4): destination with the same identifier (name{figure.3.10}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.1719 
+        <./images/comp_maq.png>]
+<images/savezvous_maq.png, id=488, 697.60625pt x 527.9725pt>
+File: images/savezvous_maq.png Graphic file (type png)
+<use images/savezvous_maq.png>
+Package pdftex.def Info: images/savezvous_maq.png  used on input line 1726.
+(pdftex.def)             Requested size: 312.98318pt x 237.00537pt.
+[34
+pdfTeX warning (ext4): destination with the same identifier (name{figure.3.11}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.1745 
+       
+pdfTeX warning (ext4): destination with the same identifier (name{figure.3.12}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.1745 
+        <./images/graphcomp_maq.png> <./images/savezvous_maq.png>]
+<images/register_maq.png, id=496, 704.6325pt x 637.38126pt>
+File: images/register_maq.png Graphic file (type png)
+<use images/register_maq.png>
+Package pdftex.def Info: images/register_maq.png  used on input line 1748.
+(pdftex.def)             Requested size: 256.07591pt x 232.74434pt.
+<images/login_maq.png, id=497, 619.31375pt x 482.80376pt>
+File: images/login_maq.png Graphic file (type png)
+<use images/login_maq.png>
+Package pdftex.def Info: images/login_maq.png  used on input line 1754.
+(pdftex.def)             Requested size: 256.08432pt x 200.02094pt.
+[35
+pdfTeX warning (ext4): destination with the same identifier (name{figure.3.13}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.1765 
+       
+pdfTeX warning (ext4): destination with the same identifier (name{figure.3.14}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.1765 
+        <./images/register_maq.png> <./images/login_maq.png>]
+<images/profil_maq.png, id=505, 624.3325pt x 784.9325pt>
+File: images/profil_maq.png Graphic file (type png)
+<use images/profil_maq.png>
+Package pdftex.def Info: images/profil_maq.png  used on input line 1791.
+(pdftex.def)             Requested size: 256.07324pt x 324.0761pt.
+[36
+pdfTeX warning (ext4): destination with the same identifier (name{figure.3.15}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.1795 \newpage
+                <./images/profil_maq.png>]
+<images/calc2_maq.png, id=511, 707.64375pt x 533.995pt>
+File: images/calc2_maq.png Graphic file (type png)
+<use images/calc2_maq.png>
+Package pdftex.def Info: images/calc2_maq.png  used on input line 1842.
+(pdftex.def)             Requested size: 341.43597pt x 258.64503pt.
+[37
+pdfTeX warning (ext4): destination with the same identifier (name{figure.3.16}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.1847 ...tils}\label{duxe9veloppement-et-outils}}
+                                                   <./images/calc2_maq.png>]
+Chapitre 4.
+<images/example_graph.png, id=520, 1447.4075pt x 617.30624pt>
+File: images/example_graph.png Graphic file (type png)
+<use images/example_graph.png>
+Package pdftex.def Info: images/example_graph.png  used on input line 1888.
+(pdftex.def)             Requested size: 341.42178pt x 145.96182pt.
+
+Package xcolor Warning: Incompatible color definition on input line 1892.
+
+[38
+
+
+pdfTeX warning (ext4): destination with the same identifier (name{figure.4.1}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.1892 \begin{Shaded}
+                      <./images/example_graph.png>]
+
+Package xcolor Warning: Incompatible color definition on input line 1982.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1982.
+
+
+Underfull \vbox (badness 10000) detected at line 1982
+ []
+
+
+Package xcolor Warning: Incompatible color definition on input line 1982.
+
+[39]
+
+Package xcolor Warning: Incompatible color definition on input line 1982.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1982.
+
+[40]
+
+Package xcolor Warning: Incompatible color definition on input line 2040.
+
+
+Package xcolor Warning: Incompatible color definition on input line 2069.
+
+
+Package xcolor Warning: Incompatible color definition on input line 2069.
+
+
+Package xcolor Warning: Incompatible color definition on input line 2069.
+
+[41]
+
+Package xcolor Warning: Incompatible color definition on input line 2069.
+
+
+Package xcolor Warning: Incompatible color definition on input line 2069.
+
+
+Package xcolor Warning: Incompatible color definition on input line 2077.
+
+
+Package xcolor Warning: Incompatible color definition on input line 2091.
+
+
+Package xcolor Warning: Incompatible color definition on input line 2091.
+
+[42]
+<images/base_map.png, id=549, 1606.0pt x 903.375pt>
+File: images/base_map.png Graphic file (type png)
+<use images/base_map.png>
+Package pdftex.def Info: images/base_map.png  used on input line 2148.
+(pdftex.def)             Requested size: 341.4359pt x 192.62285pt.
+[43
+pdfTeX warning (ext4): destination with the same identifier (name{figure.4.2}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.2174 
+        <./images/base_map.png>]
+<images/wohtml_map.png, id=557, 566.115pt x 487.8225pt>
+File: images/wohtml_map.png Graphic file (type png)
+<use images/wohtml_map.png>
+Package pdftex.def Info: images/wohtml_map.png  used on input line 2183.
+(pdftex.def)             Requested size: 341.44244pt x 294.19936pt.
+
+Package xcolor Warning: Incompatible color definition on input line 2191.
+
+
+Package xcolor Warning: Incompatible color definition on input line 2209.
+
+
+Package xcolor Warning: Incompatible color definition on input line 2209.
+
+
+Package xcolor Warning: Incompatible color definition on input line 2209.
+
+[44
+pdfTeX warning (ext4): destination with the same identifier (name{figure.4.3}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.2209 \end{Shaded}
+                    <./images/wohtml_map.png>]
+
+Package xcolor Warning: Incompatible color definition on input line 2209.
+
+
+Package xcolor Warning: Incompatible color definition on input line 2209.
+
+<images/withhtml_map.png, id=563, 491.8375pt x 376.40625pt>
+File: images/withhtml_map.png Graphic file (type png)
+<use images/withhtml_map.png>
+Package pdftex.def Info: images/withhtml_map.png  used on input line 2225.
+(pdftex.def)             Requested size: 341.44707pt x 262.63828pt.
+
+Package xcolor Warning: Incompatible color definition on input line 2246.
+
+[45
+pdfTeX warning (ext4): destination with the same identifier (name{figure.4.4}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.2246 \begin{Shaded}
+                      <./images/withhtml_map.png>]
+
+Package xcolor Warning: Incompatible color definition on input line 2252.
+
+
+Package xcolor Warning: Incompatible color definition on input line 2252.
+
+<images/brazil_map.png, id=572, 1606.0pt x 903.375pt>
+File: images/brazil_map.png Graphic file (type png)
+<use images/brazil_map.png>
+Package pdftex.def Info: images/brazil_map.png  used on input line 2258.
+(pdftex.def)             Requested size: 341.4359pt x 192.62285pt.
+[46
+pdfTeX warning (ext4): destination with the same identifier (name{figure.4.5}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.2308 
+        <./images/brazil_map.png>]
+<images/comp_map.png, id=579, 891.33pt x 422.57875pt>
+File: images/comp_map.png Graphic file (type png)
+<use images/comp_map.png>
+Package pdftex.def Info: images/comp_map.png  used on input line 2313.
+(pdftex.def)             Requested size: 341.42903pt x 161.89699pt.
+[47
+pdfTeX warning (ext4): destination with the same identifier (name{figure.4.6}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.2348 
+        <./images/comp_map.png>] [48]
+<images/line_comp.png, id=592, 810.02625pt x 430.60875pt>
+File: images/line_comp.png Graphic file (type png)
+<use images/line_comp.png>
+Package pdftex.def Info: images/line_comp.png  used on input line 2420.
+(pdftex.def)             Requested size: 341.43234pt x 181.5312pt.
+
+Package xcolor Warning: Incompatible color definition on input line 2428.
+
+
+Package xcolor Warning: Incompatible color definition on input line 2447.
+
+
+Package xcolor Warning: Incompatible color definition on input line 2447.
+
+[49
+pdfTeX warning (ext4): destination with the same identifier (name{figure.4.7}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.2464 
+        <./images/line_comp.png>]
+<images/boutons_comp.png, id=598, 950.55125pt x 63.23625pt>
+File: images/boutons_comp.png Graphic file (type png)
+<use images/boutons_comp.png>
+Package pdftex.def Info: images/boutons_comp.png  used on input line 2471.
+(pdftex.def)             Requested size: 341.42946pt x 22.76213pt.
+<images/newhtml_comp.png, id=599, 1606.0pt x 903.375pt>
+File: images/newhtml_comp.png Graphic file (type png)
+<use images/newhtml_comp.png>
+Package pdftex.def Info: images/newhtml_comp.png  used on input line 2492.
+(pdftex.def)             Requested size: 426.78876pt x 240.99222pt.
+
+Overfull \hbox (2.84288pt too wide) in paragraph at lines 2492--2493
+ [][] 
+ []
+
+[50
+pdfTeX warning (ext4): destination with the same identifier (name{figure.4.8}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.2506 
+       
+pdfTeX warning (ext4): destination with the same identifier (name{figure.4.9}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.2506 
+        <./images/boutons_comp.png> <./images/newhtml_comp.png>]
+
+Package xcolor Warning: Incompatible color definition on input line 2537.
+
+
+Package xcolor Warning: Incompatible color definition on input line 2546.
+
+
+Package xcolor Warning: Incompatible color definition on input line 2546.
+
+
+Package xcolor Warning: Incompatible color definition on input line 2560.
+
+
+Package xcolor Warning: Incompatible color definition on input line 2576.
+
+
+Package xcolor Warning: Incompatible color definition on input line 2576.
+
+
+Package xcolor Warning: Incompatible color definition on input line 2576.
+
+[51]
+
+Package xcolor Warning: Incompatible color definition on input line 2576.
+
+
+Package xcolor Warning: Incompatible color definition on input line 2576.
+
+[52]
+Chapitre 5.
+<images/global_gantt.png, id=618, 407.27156pt x 94.85437pt>
+File: images/global_gantt.png Graphic file (type png)
+<use images/global_gantt.png>
+Package pdftex.def Info: images/global_gantt.png  used on input line 2601.
+(pdftex.def)             Requested size: 341.44704pt x 79.38475pt.
+[53
+
+
+pdfTeX warning (ext4): destination with the same identifier (name{figure.5.1}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.2641 \end{itemize}
+                     <./images/global_gantt.png>] [54]
+<images/db_gantt.png, id=630, 466.3824pt x 148.3944pt>
+File: images/db_gantt.png Graphic file (type png)
+<use images/db_gantt.png>
+Package pdftex.def Info: images/db_gantt.png  used on input line 2656.
+(pdftex.def)             Requested size: 341.43126pt x 108.69156pt.
+[55
+pdfTeX warning (ext4): destination with the same identifier (name{figure.5.2}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.2713 \newpage
+                <./images/db_gantt.png>]
+<images/map_gantt.png, id=638, 405.76593pt x 107.65219pt>
+File: images/map_gantt.png Graphic file (type png)
+<use images/map_gantt.png>
+Package pdftex.def Info: images/map_gantt.png  used on input line 2720.
+(pdftex.def)             Requested size: 341.44164pt x 91.33559pt.
+[56
+pdfTeX warning (ext4): destination with the same identifier (name{figure.5.3}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.2771 \newpage
+                <./images/map_gantt.png>]
+<images/html_gantt.png, id=646, 408.02437pt x 159.59625pt>
+File: images/html_gantt.png Graphic file (type png)
+<use images/html_gantt.png>
+Package pdftex.def Info: images/html_gantt.png  used on input line 2779.
+(pdftex.def)             Requested size: 341.44937pt x 128.6074pt.
+<images/annex_gantt.png, id=647, 407.27156pt x 217.5628pt>
+File: images/annex_gantt.png Graphic file (type png)
+<use images/annex_gantt.png>
+Package pdftex.def Info: images/annex_gantt.png  used on input line 2815.
+(pdftex.def)             Requested size: 341.44704pt x 170.72742pt.
+[57
+pdfTeX warning (ext4): destination with the same identifier (name{figure.5.4}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.2826 
+       
+pdfTeX warning (ext4): destination with the same identifier (name{figure.5.5}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.2826 
+        <./images/html_gantt.png> <./images/annex_gantt.png>] [58]
+Overfull \hbox (0.59123pt too wide) in paragraph at lines 2873--2878
+\T1/cmr/m/n/12 péri-ence ap-pro-fondie, avec des graphiques dé-tail-lés re-flé-tant di-verses don-nées économiques,
+ []
+
+[59] [60
+
+] (./rapport.aux)
+ ***********
+LaTeX2e <2023-11-01>
+L3 programming layer <2023-12-11>
+ ***********
+Package rerunfilecheck Info: File `rapport.out' has not changed.
+(rerunfilecheck)             Checksum: CB1F12E6380D1F643AB71C9713B4C9A9;6635.
+ ) 
+Here is how much of TeX's memory you used:
+ 12160 strings out of 476135
+ 190275 string characters out of 5793497
+ 1950457 words of memory out of 5000000
+ 33793 multiletter control sequences out of 15000+600000
+ 573484 words of font info for 74 fonts, out of 8000000 for 9000
+ 16 hyphenation exceptions out of 8191
+ 80i,7n,82p,556b,710s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ </Users/hugogoncalves/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbi2488.600pk> </Users/hugogoncalves/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm0600.600pk> </Users/hugogoncalves/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/tctt1200.600pk> </Users/hugogoncalves/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecti1200.600pk> </Users/hugogoncalves/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/tcit1200.600pk> </Users/hugogoncalves/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecit1200.600pk> </Users/hugogoncalves/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt1200.600pk> </Users/hugogoncalves/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1440.600pk> </Users/hugogoncalves/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1200.600pk> </Users/hugogoncalves/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1200.600pk> </Users/hugogoncalves/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/eccc1728.600pk> </Users/hugogoncalves/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/eccc1095.600pk> </Users/hugogoncalves/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1200.600pk> </Users/hugogoncalves/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1728.600pk>
+Output written on rapport.pdf (64 pages, 4156704 bytes).
+PDF statistics:
+ 1282 PDF objects out of 1440 (max. 8388607)
+ 653 compressed objects within 7 object streams
+ 206 named destinations out of 1000 (max. 500000)
+ 547 words of extra memory for PDF output out of 10000 (max. 10000000)
+

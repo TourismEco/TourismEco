@@ -4,10 +4,243 @@
     --beige: #22333B;
     --beige-brown: #C6AC8F;
     --brown: #5E503F;
+    --white: #F3EFF5;
+    --navbar-height: 60px;
 }
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+
+/* nav bar */
+.menu_wrapper *{
+    margin: 0;
+}
+
+.menu_wrapper {
+    display: flex;
+    position: fixed;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100vw;
+    z-index: 2;
+    gap: 24px; 
+    background-color: var(--black);
+    height: var(--navbar-height);
+    padding: 0px 16px;
+    align-items: center;
+    top:0;
+}
+
+.menu_bar {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+}
+
+.logo {
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+}
+
+.logo svg {
+    fill: var(--white);
+}
+     
+.navigation {    
+    display: flex;
+    flex-direction: row;
+    list-style-type: none;
+    align-items: center;
+    gap: 8px;
+    background-color: var(--black);
+}
+               
+.navigation > li {
+  display: flex;
+  position: relative;
+  cursor: pointer;
+  align-items: center;
+  height: 42px;
+}
+
+.navigation > li > button > svg {
+    stroke: var(--white);
+    fill: var(--white);
+    color: var(--white);
+    margin-top: -2px;
+    transition: all 0.2s ease-in-out;
+}
+
+.navigation > li > a {
+    color: var(--white);
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.navigation > li > button {
+    color: var(--white);
+    border-bottom: 2px solid transparent;
+    transition: all 0.3s ease;  /*all 0.2s ease-in-out*/
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    font-weight: 500;
+    gap: 4px;
+    opacity: 1;
+    align-items: center;
+    font-size: 14px;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+    background: none;
+    display: flex;
+    padding: 3px 0;
+    position: relative;
+}
+
+.navigation > li > button:hover, 
+.navigation > li > a:hover {
+    opacity: 0.75;
+}
+
+.navigation > li > button:hover > svg {
+    opacity: 0.75;
+    margin-top: 0px;
+}
+
+.dropdown {
+    position: absolute;
+    top: 42px;
+    min-width: 240px;
+    border-radius: 8px;
+    background-color: var(--white);
+    display: none;
+    flex-direction: column;
+    padding: 16px;
+    box-shadow: 0 5px 30px 
+        rgba(27, 31, 35, 0.1), 
+        0 0 1px rgba(27, 31, 35, 0.4), 
+        0 1px 2px rgba(27, 31, 35, 0.15);
+    z-index: 2;
+    animation: fadeIn 0.2s ease-in-out;
+}
+
+/* 
+Cette animation a été faite pour le dropdown de la navbar.
+Elle fait un fondu d'un élément de invisible à visible (opacité) 
+avec son échelle et sa position initiale
+Source de ma connaissance des keyframes
+https://www.w3schools.com/css/css3_animations.asp
+*/
+@keyframes fadeIn {
+    from {        
+        opacity: 0;
+        transform: scale(0.99)
+            translateY(-0.7em);
+        transform-origin: top;
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) 
+            translateY(0);
+    }
+}
+
+.dropdown h3 {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.list-menu-items {
+    display: flex;
+    list-style-type: none; 
+    flex-direction: column;
+    gap: 4px;
+}
+
+
+.list-menu-items > li > a {
+    display: flex;
+    gap: 16px;
+    font-size: 14px;
+    width: 100%;
+    color: var(--gray);
+    text-decoration: none;
+}
+
+.list-items-with-description {
+    list-style-type: none;
+}
+
+.list-items-with-description li {
+    display: flex;
+    padding: 4px;
+    gap: 16px;
+    width: 100%;
+}
+
+.list-items-with-description li:hover {
+    color: var(--primary);
+}
+
+.list-items-with-description li svg {
+    margin-top: 4px;
+    width: 16px;
+    height: 16px;
+}
+
+.list-items-with-description li:hover svg {
+    stroke: var(--primary);
+}
+
+.item-title h3 {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.item-title p {
+    font-size: 12px;
+}
+
+.navigation > li:hover .dropdown {
+    display: flex;
+    opacity: 1;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
+.action-buttons a {
+    color: var(--white);
+    text-decoration: none;
+    font-size: 16px;
+    white-space: nowrap;
+    padding: 4px 8px;
+    transition: all 0.2s ease-in-out;
+}
+
+.action-buttons a:hover {
+    opacity: .75;
+}
+
+.primary {
+    color: var(--white);
+    border-radius: 10px;
+    border: 1px solid var(--white);
+}
+
+.secondary {
+    background: none;
+    color: var(--white);
+    outline: none;
+    border: none;
 }

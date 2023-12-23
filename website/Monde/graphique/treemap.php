@@ -3,9 +3,12 @@
     <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
     <script src="https://cdn.amcharts.com/lib/5/hierarchy.js"></script>
     <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
-    <script type="text/javascript" src="test.js"></script>
   </head>
-<?php
+
+  <?php
+
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
 
 // Votre connexion MySQLi
 $conn = new mysqli('127.0.0.1', 'root', '', 'ecotourisme', 3306);
@@ -14,59 +17,67 @@ if ($conn->connect_error) {
     die("Erreur de connexion à la base de données : " . $conn->connect_error);
 }
 
-
 $query = "
-SELECT continents.nom as continent, pays.nom AS pays, SUM(tourisme.arriveesTotal) as arrivees_par_continent 
-FROM tourisme, continents, pays 
-WHERE tourisme.id_pays = pays.id AND pays.id_continent = continents.id 
-GROUP BY continents.nom;
+SELECT 
+    continents.nom as continent, 
+    pays.nom AS pays, 
+    SUM(tourisme.arriveesTotal) as arrivees_par_continent 
+FROM 
+    tourisme, continents, pays 
+WHERE 
+    tourisme.id_pays = pays.id AND 
+    pays.id_continent = continents.id 
+GROUP BY 
+    continents.nom
+ORDER BY 
+    continents.nom, arrivees_par_continent DESC;
 ";
 
 $result = $conn->query($query);
 
 $chart_data = array();
-$report_data = array();
 
 while ($rs = $result->fetch_assoc()) {
-  $continent = $rs['continent'];
-  $arrivees = intval($rs['arrivees_par_continent']);
-  $pays = $rs['pays'];
+    $continent = $rs['continent'];
+    $arrivees = intval($rs['arrivees_par_continent']);
+    $pays = $rs['pays'];
 
-  if (!isset($chart_data[$continent])) {
-      $chart_data[$continent] = array(
-          "value" => 0,
-          "children" => array(),
-      );
-  }
-  $chart_data[$continent]["children"][] = array(
-    "name" => $pays,
-    "value" => $arrivees,
-);
+    if (!isset($chart_data[$continent])) {
+        $chart_data[$continent] = array(
+            "value" => 0,
+            "children" => array(),
+            "top_countries_details" => array(),
+        );
+    }
+    
+    $chart_data[$continent]["children"][] = array(
+        "name" => $pays,
+        "value" => $arrivees,
+    );
 
-$chart_data[$continent]["value"] += $arrivees;
+    $chart_data[$continent]["top_countries_details"][] = array(
+      "name" => $pays,
+      "arrivees" => $arrivees,
+  );
+
+  $chart_data[$continent]["value"] += $arrivees * 1000;
 }
 
-//tableau simple 
+// Tableau simple 
 $final_data = array();
 foreach ($chart_data as $continent => $data) {
     $final_data[] = array(
         "name" => $continent,
         "value" => $data["value"],
         "children" => $data["children"],
+        "top_countries_details" => $data["top_countries_details"],
     );
-}
-
-while ($rs = $result->fetch_assoc()) {
-    $report_data[] = array(
-      "value" => $rs['arrivees_par_continent'],
-      "continent" => $rs['continent']
-    );
-
 }
 
 // Fermez la connexion à la base de données
 $conn->close();
 ?>
+
 
 <!-- Styles -->
 <style>

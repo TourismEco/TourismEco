@@ -12,6 +12,8 @@
     box-sizing: border-box;
 }
 
+
+
 .bandeau {
     position : relative;
     height : 351px;
@@ -26,6 +28,7 @@
 .bandeau h1 {
     color: white;
     margin: 0; 
+    font-size: 60px;
     width: 737px;
     height: 72px;
     position: absolute;
@@ -39,7 +42,30 @@
     background-color: var(--color1);
     height : 840px;
     width : 100%;
+    display: flex;
+    justify-content: space-between;
 }
+
+.graph-container {
+    width: 48%; /* Ajustez la largeur selon vos besoins */
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.section1 h2 {
+    width: 484px;
+    height: 61px;
+    flex-shrink: 0;
+    color:#FFF;
+    font-family: Oswald;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    text-transform: uppercase;
+}
+
+
 
 .section2{
     background-color: var(--color5);
@@ -48,15 +74,23 @@
     text-align : center;
 }
 
+
+#treemap {
+    width: 70%; 
+    margin: 0 auto; 
+    margin-top: 20%; 
+    margin-bottom: 20%;
+}
+
+
 .section2 h2 {
+    padding-top: 20px;
     top: 30px;
-    transform: translateX(50%);
-    width: 651px;
-    height: 67px;
+    text-align: center;
     color: white;
+    font-size: 40px;
     font-family: 'Oswald', sans-serif;
     text-transform: uppercase;
-    margin: 0;
 }
 
 .footer {
