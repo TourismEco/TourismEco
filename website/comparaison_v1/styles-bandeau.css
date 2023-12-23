@@ -205,6 +205,8 @@ select {
 
 .mini-bandeau {
     display:grid;
+    width:300px;
+    height: 80px;
 }
 
 .flag-small {
@@ -214,7 +216,9 @@ select {
     z-index: 5;
     align-self: center;
     margin: 0 10px;
-    color:white
+    color:white;
+    opacity: 100%;
+    transition: all .5s;
 }
 
 .nom-small {
@@ -223,7 +227,7 @@ select {
     z-index: 5;
     align-self: center;
     margin-left:90px;
-    font-size:20px
+    font-size:16px
 }
 
 .nom-region {
@@ -232,7 +236,8 @@ select {
     grid-row: 1;
     z-index: 5;
     align-self: center;
-    font-size:20px
+    font-size:16px;
+    text-align: center;
 }
 
 .container-mini {
@@ -308,12 +313,44 @@ select {
   align-self: center;
   color:white;
   opacity:0;
-  transition: all .4s;
+  transition: all .5s;
 }
 
 .mini-bandeau:hover .mini-score-box {
   opacity: 100%;
-  transition: all .4s;
+  transition: all .5s;
+}
+
+.mini-bandeau:hover .flag-small {
+  opacity: 0;
+  transition: all .5s;
+}
+
+.catalogue-buttons {
+    grid-row: 1;
+    grid-column: 2;
+    opacity: 0;
+    transition: all .5s;
+    z-index: 7;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+}
+
+.mini-bandeau:hover .catalogue-buttons {
+    opacity: 100%;
+    transition: all .5s;
+}
+
+.button-catalogue {
+    padding: 3px;
+    margin: 5px 10px;
+    border-radius: 7px;
+    border: none;
+    color: white;
+    background-color: #52796F;
+    transition: all .5s;
+    cursor:pointer
 }
 
 

@@ -38,6 +38,19 @@
 
     <div class="grille">
 
+        <div class="sidebar">
+
+            <div class="container-mini bg-52796F">
+                <div class="mini-bandeau"> 
+                    <h2 class="nom-region">Choisissez une région ou un pays pour commencer la découverte</h2>
+                </div>
+
+                <div class=mini-stats> 
+                </div>
+
+            </div>
+        </div>
+
         <div class="main">
             <div class="container-stats bg-52796F">
                 <h2 id="t1">Régions</h2>
@@ -50,6 +63,9 @@
                                     <div class="mini-bandeau"> 
                                         <img class="img-small" src='assets/img/$key.png' alt="Bandeau">
                                         <h2 class="nom-region">$value</h2>
+                                        <div class="catalogue-buttons">
+                                            <button class=button-catalogue>Consulter</button>
+                                        </div>
                                     </div>
                                 </div>
                             HTML;
@@ -72,6 +88,11 @@
                                         <img class="img-small" src='assets/img/$rs[id].jpg' alt="Bandeau">
                                         <img class="flag-small" src='assets/twemoji/$rs[id].svg'>
                                         <h2 class="nom-small">$rs[nom]</h2>
+                                        <div class="catalogue-buttons">
+                                            <button class=button-catalogue id=v-$rs[id]>Consulter</button>
+                                            <button class=button-catalogue id=c-$rs[id]>Comparer</button>
+                                        </div>
+                                        
                                     </div>
                                 </div>
                             HTML;
@@ -84,6 +105,16 @@
     <script>
         
         createMap()
+
+        $(".button-catalogue").on("click", function() {
+            var id = this.id
+            var id_pays = id.substring(2,4)
+            if (id[0] == "v") {
+                window.location.href = "Pays_V1/pays.php?id_pays="+id_pays;
+            } else {
+
+            }
+        })
 
     </script>
     
