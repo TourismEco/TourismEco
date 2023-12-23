@@ -1,9 +1,8 @@
 <?php
-require("../functions.php");
+require("data.php");
 $cur = getDB();
 
 $id_pays = $_GET["id_pays"];
-$pays_not = $_GET["pays_not"];
 
 // Nom
 $query = "SELECT * FROM pays WHERE id = :id_pays";
@@ -23,48 +22,17 @@ $sth->execute();
 $ligne = $sth->fetch();
 $capitale = $ligne["nom"];
 
-// Bandeau
-$search = array(array("tourisme","arriveesTotal","Arrivées"), array("ecologie","co2","CO2"), array("economie","pibParHab","PIB/Hab"), array("surete","gpi","Indice de sureté"));
-$dataBandeau = array();
-
-foreach ($search as $key => $value) {
-    $table = $value[0];
-    $arg = $value[1];
-    $text = $value[2];
-    $query = "SELECT ".$arg." FROM ".$table." WHERE id_pays = :id_pays AND ".$arg." IS NOT NULL ORDER BY Annee DESC";
-    $sth = $cur->prepare($query);
-    $sth->bindParam(":id_pays", $id_pays, PDO::PARAM_STR);
-    $sth->execute();
-
-    $ligne = $sth->fetch();
-    $dataBandeau[] = $ligne[$arg];
-}
-
 // Spider
 $dataSpider = dataSpider($id_pays);
 
 // Line
-$query = "
-SELECT eco1.annee, eco1.co2 as eco1, eco2.co2 as eco2
-FROM ecologie as eco1, ecologie as eco2
-WHERE eco1.id_pays = '$id_pays'
-AND eco2.id_pays = '$pays_not'
-AND eco1.annee = eco2.annee;
-";
-
-$result = $cur->query($query);
-$dataLine = array();
-
-while ($rs = $result->fetch()) {
-    $dataLine[] = array("year"=>$rs['annee'],"value"=>$rs['eco1'],"value2"=>$rs['eco2']);
-}
+$dataLine = dataLine($id_pays);
 
 // Bar
 $query2 = "
 SELECT eco1.annee, eco1.pibParHab as eco1, eco2.pibParHab as eco2
 FROM economie as eco1, economie as eco2
 WHERE eco1.id_pays = '$id_pays'
-AND eco2.id_pays = '$pays_not'
 AND eco1.annee = eco2.annee;
 ";
 
@@ -80,53 +48,7 @@ while ($rs = $result2->fetch()) {
     $dataBar[] = array("year"=>$rs['annee'],"value"=>$rs['eco1'],"value2"=>$rs['eco2']);
 }
 
-// SPIDER
-function dataSpider($pays) {
-    $conn = getDB();
-
-    $query = "SELECT ecologie.annee as annee,
-    pibParHab AS pib, elecRenew AS Enr, co2, arriveesTotal AS arrivees, departs, gpi, cpi
-
-    FROM ecologie_norm AS ecologie, economie_norm AS economie, tourisme_norm AS tourisme, surete_norm AS surete
-    WHERE ecologie.id_pays = economie.id_pays
-    AND economie.id_pays = tourisme.id_pays
-    AND tourisme.id_pays = surete.id_pays
-    AND surete.id_pays = '$pays'
-    AND ecologie.annee >= 2008
-
-    AND ecologie.annee = economie.annee
-    AND economie.annee = tourisme.annee
-    AND tourisme.annee = surete.annee  
-    ORDER BY `ecologie`.`annee` DESC;
-    ";
-
-    $result = $conn->query($query);
-
-    $data = array();
-    while ($rs = $result->fetch(PDO::FETCH_ASSOC)) {
-        foreach (array("pib","Enr","co2","arrivees","departs","gpi","cpi") as $key => $value) {
-            if (!isset($rs[$value])){
-                $rs[$value]=0;
-            } else {
-                $rs[$value] = round($rs[$value],2);
-            }
-            
-        }
-
-        $data[$rs["annee"]] = array(
-            array("var"=>"PIB","value"=>$rs["pib"]),
-            array("var"=>"% renew","value"=>$rs["Enr"]),
-            array("var"=>"CO2","value"=>$rs["co2"]),
-            array("var"=>"Arrivées","value"=>$rs["arrivees"]),
-            array("var"=>"Départs","value"=>$rs["departs"]),
-            array("var"=>"GPI","value"=>$rs["gpi"]),
-            array("var"=>"CPI","value"=>$rs["cpi"]),);
-    }
-
-    return $data;
-}
-
-$dataAjax = array("nom"=>$nom,"capitale"=>$capitale,"bandeau"=>$dataBandeau,"id_pays"=>$id_pays,"spider"=>json_encode($dataSpider),"line"=>json_encode($dataLine),"bar"=>json_encode($dataBar));
+$dataAjax = array("nom"=>$nom,"capitale"=>$capitale,"id_pays"=>$id_pays,"spider"=>json_encode($dataSpider),"line"=>json_encode($dataLine),"bar"=>json_encode($dataBar));
 
 header('Content-Type: application/json; charset=utf-8');
 echo json_encode($dataAjax);

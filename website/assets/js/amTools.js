@@ -13,6 +13,7 @@ class Graphique {
         this.root.setThemes([
             am5themes_Animated.new(this.root)
         ]);
+
     }
 
     newXRenderer(obj) {
@@ -73,7 +74,7 @@ class Graphique {
             this.legend.data.push(serie)
         }
 
-        this.series.push(serie)
+        this.series.push(new Serie(data,serie))
 
         return serie
     }
@@ -100,6 +101,13 @@ class Graphique {
                 fill:"#FFFFFF"
             })
         );
+    }
+}
+
+class Serie {
+    constructor(data,serie) {
+        this.data = data
+        this.serie = serie
     }
 }
 
@@ -131,6 +139,7 @@ class Spider extends Graphique {
 class Line extends Graphique {
     constructor(id) {
         super(id, am5xy.XYChart, am5xy.XYCursor)
+        this.type = "co2"
     }
     initXAxis(field, data) {
         super.initXAxis(am5xy.AxisRendererX, field, data)
