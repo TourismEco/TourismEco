@@ -52,42 +52,6 @@ $report_data = json_encode($report_data);
             <button class="favorite styled2" type="button">Se connecter</button>
 
         </div>
-    
-        <?php
-            require_once "functions.php";
-            $cur = getDB();
-
-            $query = "SELECT * FROM villes WHERE id_pays = :id_pays";
-            $id_pays = "CA";
-            $sth = $cur -> prepare($query);
-            $sth -> bindParam(":id_pays", $id_pays, PDO::PARAM_STR);
-            $sth -> execute();
-
-            $cities = array();
-            $capitals = array();
-            while ($rs = $sth->fetch()) {
-                if (!$rs["capitale"]) {
-                    $cities[] = <<<END
-                        {id:{$rs['id']},
-                            title:'{$rs['nom']}',
-                            geometry:{type:'Point', coordinates:[{$rs['lon']},{$rs['lat']}]},
-                        }
-                    END;
-                } else {
-                    $capitals[] = <<<END
-                        {id:{$rs['id']},
-                            title:'{$rs['nom']}',
-                            geometry:{type:'Point', coordinates:[{$rs['lon']},{$rs['lat']}]},
-                        }
-                    END;
-                }
-                
-            }
-
-            $cities = implode(",", $cities);
-            $capitals = implode(",", $capitals);
-
-        ?>
 
             <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
             <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
@@ -95,7 +59,7 @@ $report_data = json_encode($report_data);
             <script src="https://cdn.amcharts.com/lib/5/geodata/continentsLow.js"></script>
             <script src="https://cdn.amcharts.com/lib/5/geodata/worldLow.js"></script>
             <script src="https://cdn.amcharts.com/lib/5/geodata/lang/FR.js"></script>
-            
+            <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
             <script src="../assets/js/map.js"></script>
 
         <div id="map"></div>
@@ -107,7 +71,7 @@ $report_data = json_encode($report_data);
         </style>
 
         <script>
-            createMap(fun=addCountry,args=["<?=$id_pays?>",[<?= $cities;?>],[<?= $capitals;?>]])
+            createMap("FR")
         </script>
 
 
@@ -318,8 +282,6 @@ HTML;
 
                 <div id="chartdiv4"></div>
 
-
-                <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
                 <!-- amcharts devbanban.com -->
                 <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
                 <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
