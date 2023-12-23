@@ -19,7 +19,9 @@ function lineAjax(incr, data, name) {
     if (l.series.length == incr) {
         l.addSerie(data, name, color[incr], "year", "co2")
         if (incr == 1) {
-            l.xAxis.data.setAll(getAnnees(l.series[0].data,l.series[1].data,l.type))
+            min = Math.min(getMin(l.series[0].data,l.type),getMin(l.series[1].data,l.type))
+            max = Math.max(getMax(l.series[0].data,l.type),getMax(l.series[1].data,l.type))
+            l.xAxis.data.setAll(getAnnees(min,max))
         }
     } else {
         l.series[incr].data = data
@@ -67,7 +69,7 @@ function changeVar(type) {
     }
     l.type = type
 
-    min = Math.min(getMin(data1,type),getMin(data2,type))
-    max = Math.max(getMax(data1,type),getMax(data2,type))
+    min = Math.min(getMin(l.series[0].data,type),getMin(l.series[1].data,type))
+    max = Math.max(getMax(l.series[0].data,type),getMax(l.series[1].data,type))
     l.xAxis.data.setAll(getAnnees(min,max))
 }
