@@ -5,6 +5,8 @@
     <title>EcoTourism - Comparaison</title>
     <link rel="stylesheet" href="comparaison_v1/styles-bandeau.css">
 
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
     <!-- Base -->
@@ -19,11 +21,18 @@
 
     <script src="assets/js/ajax.js"></script>
     <script src="assets/js/map.js"></script>
-
+    
     <?php
         require("functions.php");
         $cur = getDB();
     ?>
+
+    <script>
+        function getSearchValue() {
+            var s = document.getElementById("txt")
+            return s.value
+        }
+    </script>
 
 </head>
 
@@ -51,55 +60,51 @@
             </div>
         </div>
 
-        <div class="main">
-            <div class="container-stats bg-52796F">
-                <h2 id="t1">Régions</h2>
-                <div class="container-catalogue">
-                    
-                    <?php
-                        foreach (array("WW"=>"Monde","EU"=>"Europe","NA"=>"Amérique du Nord","SA"=>"Amérique du Sud","AS"=>"Asie","AF"=>"Afrique","OC"=>"Océanie") as $key => $value) {
-                            echo <<<HTML
-                                <div class="container-mini bg-354F52">
-                                    <div class="mini-bandeau"> 
-                                        <img class="img-small" src='assets/img/$key.png' alt="Bandeau">
-                                        <h2 class="nom-region">$value</h2>
-                                        <div class="catalogue-buttons">
-                                            <button class=button-catalogue>Consulter</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            HTML;
-                        }
-                    ?>
-                </div>
+        <div class="main" id="catalogue" hx-swap-oob="true">
             
-                <h2 id="t1">Pays</h2>
-                <div class="container-catalogue">
-                    <?php
+            <div class="container-stats bg-52796F">
 
-                        $query = "SELECT * FROM pays ORDER BY id_continent, nom ASC";
-                        $result = $cur->query($query);
-
-                        while ($rs = $result->fetch(PDO::FETCH_ASSOC)) {
-                            echo <<<HTML
-                                <div class="container-mini bg-354F52">
-                                    <div class="mini-bandeau"> 
-                                        <div class="mini-score-box">A</div>
-                                        <img class="img-small" src='assets/img/$rs[id].jpg' alt="Bandeau">
-                                        <img class="flag-small" src='assets/twemoji/$rs[id].svg'>
-                                        <h2 class="nom-small">$rs[nom]</h2>
-                                        <div class="catalogue-buttons">
-                                            <button class=button-catalogue id=v-$rs[id]>Consulter</button>
-                                            <button class=button-catalogue id=c-$rs[id]>Comparer</button>
-                                        </div>
-                                        
-                                    </div>
-                                </div>
-                            HTML;
-                        }
-                    ?>
+                <div class="container-catalogue" >
+                    <input type="text" class="search-bar" placeholder="Cherchez un pays" id="txt" hx-get="search.php" hx-trigger="keyup[this.value.trim().length > 0] changed delay:0.5s" hx-vals='js:{search: getSearchValue()}' hx-target="#search" hx-swap="outerHTML">
                 </div>
+
+                <div id=search>
+                    
+                </div>
+
+                <?php
+
+                $queryCont = "SELECT * FROM continents";
+                $resultCont = $cur->query($queryCont);
+
+                while ($rsCont = $resultCont->fetch(PDO::FETCH_ASSOC)) {
+                    echo <<<HTML
+                        <h2 id="t1">$rsCont[nom]</h2>
+                        <div class="container-catalogue">
+                    HTML;
+
+                    echo addCardContinent($rsCont["code"],$rsCont["nom"]);
+
+                    $queryPays = "SELECT * FROM pays WHERE id_continent = ".$rsCont["id"]." ORDER BY score DESC LIMIT 7";
+                    $resultPays = $cur->query($queryPays);
+
+                    while ($rsPays = $resultPays->fetch(PDO::FETCH_ASSOC)) {
+                        $letter = getLetter($rsPays["score"]);
+                        echo addCardCountry($rsPays["id"],$rsPays["nom"],$letter);
+                    }
+
+                    echo <<<HTML
+                        <div class="container-mini bg-354F52" hx-get="more.php?continent=$rsCont[id]&more=1" hx-swap="outerHTML">
+                            <div class="mini-bandeau"> 
+                                <h2 class="nom-region">Voir plus</h2>
+                            </div>
+                        </div>
+                        </div>
+                    HTML;   
+                }
+                ?>
             </div>
+        </div>
     </div>
 
     <script>

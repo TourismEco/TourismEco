@@ -299,7 +299,6 @@ select {
 
 .mini-score-box {
   border-radius: 7px;
-  background-color: #446700;
   width: 70px;
   height: 50px;
   justify-content: center;
@@ -314,6 +313,22 @@ select {
   color:white;
   opacity:0;
   transition: all .5s;
+}
+
+.score-A {
+    background-color: #006700;
+}
+.score-B {
+    background-color: #446700;
+}
+.score-C {
+    background-color: #E49C15;
+}
+.score-D {
+    background-color: #BB5C00;
+}
+.score-E {
+    background-color: #AA0000;
 }
 
 .mini-bandeau:hover .mini-score-box {
@@ -353,6 +368,21 @@ select {
     cursor:pointer
 }
 
+.search-bar {
+    background-color: #354F52;
+    color:white;
+    border:none;
+    border-radius: 10px;
+    width: 250px;
+    height: 50px;
+    text-align: center;
+    font-size: 16px;
+    
+}
+
+::placeholder {
+    font-style: italic;
+}
 
 #carousel-wrapper {
   display: flex;
