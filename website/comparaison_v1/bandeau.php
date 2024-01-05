@@ -35,6 +35,8 @@
 
 <body>
     <?php
+        require("data.php");
+
         function getPays($arg, $default) {
             if (isset($_GET[$arg])) {
                 return $_GET[$arg];
@@ -43,8 +45,22 @@
             }
         }
 
+        $cur = getDB();
+
         $pays1 = getPays("pays0", "FR");
         $pays2 = getPays("pays1", "JP");
+        $noms = array();
+
+        foreach (array($pays1,$pays2) as $key => $id_pays) {
+            $query = "SELECT * FROM pays WHERE id = :id_pays";
+            $sth = $cur->prepare($query);
+            $sth->bindParam(":id_pays", $id_pays, PDO::PARAM_STR);
+            $sth->execute();
+
+            $ligne = $sth->fetch();
+            $noms[]=$ligne["nom"];
+        }
+
     ?>
 
     <div class="container-map">
@@ -130,45 +146,59 @@
                 <div class= "flex">
                     <div class=graph id="spider"></div>
 
-                    <table class=p50 style="text-align:center">
+                    <table>
                         <tr>
-                            <th>USA</th>
-                            <th>Indic</th>
-                            <th>Chine</th>
+                            <td id="cell_6_1">Indicateur</td>
+                            <td id="nom_0">Contenu de la cellule 6_0</td>
+                            <td id="nom_1">Contenu de la cellule 6_1</td>
                         </tr>
+
+                        <!-- Première ligne -->
                         <tr>
-                            <td>667</td>
-                            <td>Test</td>
-                            <td>667</td>
-                        </tr>
-                        <tr>
-                            <td>667</td>
-                            <td>Test</td>
-                            <td>667</td>
-                        </tr>
-                        <tr>
-                            <td>667</td>
-                            <td>Test</td>
-                            <td>667</td>
-                        </tr>
-                        <tr>
-                            <td>667</td>
-                            <td>Test</td>
-                            <td>667</td>
-                        </tr>
-                        <tr>
-                            <td>667</td>
-                            <td>Test</td>
-                            <td>667</td>
-                        </tr>
-                        <tr>
-                            <td>667</td>
-                            <td>Test</td>
-                            <td>667</td>
+                            <td id="td_pib">Contenu de la cellule 1_1</td>
+                            <td id="td_pib_0">Contenu de la cellule 1_0</td>
+                            <td id="td_pib_1">Contenu de la cellule 1_1</td>
                         </tr>
                         
+                        <!-- Deuxième ligne -->
+                        <tr>
+                            <td id="td_enr">Contenu de la cellule 2_1</td>
+                            <td id="td_Enr_0">Contenu de la cellule 2_0</td>
+                            <td id="td_Enr_1">Contenu de la cellule 2_1</td>
+                        </tr>
 
+                        <!-- Troisième ligne et ainsi de suite... -->
+                        <tr>
+                            <td id="td_co2">Contenu de la cellule 3_1</td>
+                            <td id="td_co2_0">Contenu de la cellule 3_0</td>
+                            <td id="td_co2_1">Contenu de la cellule 3_1</td>
+                        </tr>
+
+                        <tr>
+                            <td id="td_arrivees">Contenu de la cellule 4_1</td>
+                            <td id="td_arrivees_0">Contenu de la cellule 4_0</td>
+                            <td id="td_arrivees_1">Contenu de la cellule 4_1</td>
+                        </tr>
+
+                        <tr>
+                            <td id="td_departs">Contenu de la cellule 5_1</td>
+                            <td id="td_departs_0">Contenu de la cellule 5_0</td>
+                            <td id="td_departs_1">Contenu de la cellule 5_1</td>
+                        </tr>
+
+                        <tr>
+                            <td id="td_gpi">Contenu de la cellule 7_1</td>
+                            <td id="td_gpi_0">Contenu de la cellule 7_0</td>
+                            <td id="td_gpi_1">Contenu de la cellule 7_1</td>
+                        </tr>
+
+                        <tr>
+                            <td id="td_cpi">Contenu de la cellule 8_1</td>
+                            <td id="td_cpi_0">Contenu de la cellule 8_0</td>
+                            <td id="td_cpi_1">Contenu de la cellule 8_1</td>
+                        </tr>
                     </table>
+
                 </div>
             </div>
 
@@ -208,36 +238,7 @@
                     <p class=p50>Actuellement le [pays 1] est au dessus du [pays 2], montrant que [pays 1] pollue plus que [pays 2]. Au cours du temps on peut voir que le tourisme ipsum dolor sit amet, consectetur adipiscing elit. Curabitur a metus pellentesque massa lacinia scelerisque et nec purus. Proin mattis elementum euismod. Curabitur et felis felis. Donec vel nulla malesuada, tempor nisi in, faucibus nulla. Cras at ipsum tempor, rutrum sapien ut, auctor sapien.
                     Curabitur a metus pellentesque massa lacinia scelerisque et nec purus. Proin mattis elementum euismod. </p>
                     
-                    <script>
-                        data = [
-                            {
-                                "categ":"CPI",
-                                "Canada":2,
-                                "USA":2.23,
-                            },
-                            {
-                                "categ":"Arrivées",
-                                "Canada":-1,
-                                "USA":4,
-                            },
-                            {
-                                "categ":"PIB/Hab",
-                                "Canada":0.2,
-                                "USA":0.3,
-                            },
-                            {
-                                "categ":"CO2",
-                                "Canada":-0.5,
-                                "USA":-3,
-                            },
-                            {
-                                "categ":"GPI",
-                                "Canada":3.33,
-                                "USA":3.33,
-                            }
-                        ]
-                        
-                    </script>
+                    
                 </div>
             
 
@@ -279,7 +280,7 @@
         
         spider()
         createGraph()
-        graphBar(data,"Test1","Test2")
+        graphBar()
         createMapCompare(['<?=$pays1?>','<?=$pays2?>'])
 
     </script>

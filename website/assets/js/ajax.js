@@ -19,8 +19,18 @@ function compareAjax(incr, id_pays) {
                 }      
             }
             
+           
+            result["tab"] = JSON.parse(result["tab"])
+            for (var i=2008;i<2021;i++) {
+                for (var j=0;j<result["tab"][i].length;j++) {
+                    result["tab"][i][j]["value"] = parseFloat(result["tab"][i][j]["value"])
+                }      
+            }
+            
             // console.log(JSON.parse(result["spider"]))
-            spiderAjax(incr, result["spider"], result["nom"])
+            spiderAjax(incr, result["spider"], result["tab"], result["nom"])
+
+            $('#nom_'+ incr).html(result["nom"]);
 
             result["line"] = JSON.parse(result["line"])
             for (var i=0;i<result["line"].length;i++) {
@@ -33,6 +43,17 @@ function compareAjax(incr, id_pays) {
                 }
             }
             lineAjax(incr, result["line"], result["nom"])
+
+            result["bar"] = JSON.parse(result["bar"])
+            
+            for (var i=2008;i<2021;i++) {
+                
+                for (var j=0;j<result["bar"][i].length;j++) {
+                    result["bar"][i][j]["value"] = parseFloat(result["bar"][i][j]["value"])
+                }      
+            }
+            
+            BarAjax(incr, result["bar"], result["nom"])
         },
         error:function(mess){
             console.log(mess)

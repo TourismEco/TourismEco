@@ -57,8 +57,11 @@ function spider() {
     });
 
     function updateData(year) {
+        var i = 0
         for (var s of g.series) {
             s.serie.data.setAll(s.data[year]);
+            updateTable(i, s.comp[year]);
+            i++
         }
             
     }
@@ -68,17 +71,40 @@ function spider() {
 
 }
 
-var color = ["#52796F","#83A88B"]
-function spiderAjax(incr,data,name) {
-    console.log(data[year], year, name)
+var color = ["#52796F", "#83A88B"];
+function spiderAjax(incr, data, dataComp, name) {
+    console.log(data[year], year, name);
+
     if (g.series.length == incr) {
-        g.addSerie(data, name, color[incr], "var", "value")
+        g.addSerie(data, dataComp, name, color[incr], "var", "value");
         g.series[incr].serie.data.setAll(data[year]);
+        updateTable(incr,dataComp[year]);
     } else {
-        g.series[incr].data = data
+        g.series[incr].data = data;
+        g.series[incr].comp = dataComp;
         g.series[incr].serie.data.setAll(data[year]);
         g.series[incr].serie.setAll({
-            name:name
-        })
+            name: name,
+        });
+        updateTable(incr,dataComp[year]);
+    }
+}
+function updateTable(incr,data) {
+    if (data) {
+        $('#td_pib').html(data[0]["var"]);
+        $('#td_enr').html(data[1]["var"]);
+        $('#td_co2').html(data[2]["var"]);
+        $('#td_arrivees').html(data[3]["var"]);
+        $('#td_departs').html(data[4]["var"]);
+        $('#td_gpi').html(data[5]["var"]);
+        $('#td_cpi').html(data[6]["var"]);
+        
+        for (var i=0;i<data.length;i++) {
+            if (isNaN(data[i]["value"] )){
+                $("#td_"+data[i]["var"]+"_"+incr).html("Nan")
+            }else{
+                $("#td_"+data[i]["var"]+"_"+incr).html(data[i]["value"])
+            }
+        }
     }
 }

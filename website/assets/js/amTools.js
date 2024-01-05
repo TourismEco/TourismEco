@@ -73,16 +73,16 @@ class Graphique {
         if (this.legend != null) {
             this.legend.data.push(serie)
         }
+        var s = new Serie(data,serie) 
+        this.series.push(s)
 
-        this.series.push(new Serie(data,serie))
-
-        return serie
+        return s
     }
 
     addBullets(serie, color) {
         var base = this
 
-        serie.bullets.push(function() {
+        serie.serie.bullets.push(function() {
             return am5.Bullet.new(base.root, {
                 sprite: am5.Circle.new(base.root, {
                     radius: 4,
@@ -108,6 +108,10 @@ class Serie {
     constructor(data,serie) {
         this.data = data
         this.serie = serie
+        this.comp = null
+    }
+    addComp(data){
+        this.comp = data
     }
 }
 
@@ -128,8 +132,9 @@ class Spider extends Graphique {
         }));
     }
 
-    addSerie(data, name, color, xField, yField) {
+    addSerie(data, dataComp, name, color, xField, yField) {
         var serie = super.addSerie(data, name, color, xField, yField, am5radar.RadarLineSeries, "{name} : {valueY}")
+        serie.addComp(dataComp)
         super.addBullets(serie, color)
         return serie
     }
