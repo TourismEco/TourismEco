@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.navbar {
+  overflow: hidden;
+  background-color: #2F3E46;
+}
+
+.navbar a {
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.navbar a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.search-container {
+  float: center;
+  margin: 3px 10px;
+}
+
+.search-container input[type=text] {
+  padding: 6px;
+  margin-top: 8px;
+  font-size: 17px;
+  border-radius: 5px;
+}
+
+.search-container button {
+  float: right;
+  padding: 6px 30px;
+  margin-top: 8px;
+  margin-right: 16px;
+  background: #ddd;
+  font-size: 17px;
+  border: none;
+  cursor: pointer;
+}
+
+.search-container button:hover {
+  background: #ccc;
+}
+</style>
+</head>
+<body>
+
+<div class="navbar">
+  <a href="#home">ECOTOURISME</a>
+  <a href="#news">Accueil</a>
+  <a href="#contact">Comparateur</a>
+  <a href="#about">Statistiques</a>
+  <a href="#about">Calculateur</a>
+  <div class="search-container" style="float:right">
+    <form action="/action_page.php">
+      <input type="text" placeholder="Rechercher.." name="search">
+     
+    </form>
+  </div>
+  <a href="#about" style="float:right">S'inscrire</a>
+  <a href="#about" style="float:right">Se connecter</a>
+</div>
+
+</body>
+</html>
