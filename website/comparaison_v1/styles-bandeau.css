@@ -176,10 +176,14 @@ select {
 }
 
 .grille {
-    display:flex
+    display:flex;
 }
 
 .sidebar {
+	position: -webkit-sticky; /* for Safari */
+	position:sticky;
+	top:0;
+	align-self: flex-start;
     width:360px;
     padding:0 10px 0 50px;
 }
