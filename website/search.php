@@ -31,7 +31,7 @@ HTML;
 
 while ($rsPays = $resultPays->fetch(PDO::FETCH_ASSOC)) {
     $letter = getLetter($rsPays["score"]);
-    echo addCardCountry($rsPays["id"],$rsPays["nom"],$letter);
+    echo addCardCountry($rsPays["idp"],$rsPays["p"],$letter);
 }
 
 
