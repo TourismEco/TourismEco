@@ -67,9 +67,7 @@
         <div id="map"></div>
     </div>
 
-    <div id="bandeau">
-
-    </div>
+    
 
     <div class="grille">
     
@@ -130,6 +128,10 @@
         </div>
 
         <div class="main">
+
+        <div id="bandeau">
+
+    </div>
             <div class="container-stats bg-52796F">
                 <h2 id=t1>Scores EcoTourism</h1>
                 <div class=score> 
