@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="styles-bandeau.css">
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
 
     <!-- Base -->
     <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
@@ -72,66 +73,29 @@
     <div class="grille">
     
         <div class="sidebar">
-            <div class="container-mini bg-354F52" style="width: 300px;height:300px">
-                <div class="mini-bandeau"> 
-                    <img class="img-small" src='../assets/img/US.jpg' alt="Bandeau">
-                    <img class="flag-small" src='../assets/twemoji/US.svg'>
-                    <h2 class="nom-small">United States</h2>
-                </div>
+            <div id="mini0"></div>
 
-                <div class=mini-stats> 
+            <div id="mini1"></div>
 
-
-                </div>
-
-            </div>
-
-            <div class="container-mini bg-52796F" style="width: 300px;height:300px">
-                <div class="mini-bandeau"> 
-                    <img class="img-small" src='../assets/img/CA.jpg' alt="Bandeau">
-                    <img class="flag-small" src='../assets/twemoji/CA.svg'>
-                    <h2 class="nom-small">Canada</h2>
-                </div>
-
-                <div class=mini-stats> 
-
-
-                </div>
-
-            </div>
-
-            <div class="container-mini bg-52796F" style="width: 300px">
+            <div class="container-mini bg-52796F" style="width: 300px" hx-get="../catalogue.php" hx-select="#main" hx-trigger="click">
                 <div class="mini-bandeau"> 
                     <img id=plus class="flag-small" src='../assets/img/plus.svg'>
-                    <h2 class="nom-small">Ajouter un pays</h2>
-                </div>
-
-                <div class=mini-stats> 
-
-
-                </div>
-
-            </div>
-
-            <div class="container-mini bg-52796F" style="width: 300px">
-                <div class="mini-navig">
-                    <p>Scores EcoTourism</p>
-                    <p>Indicateurs clés</p>
-                    <p>Comparaison de chaque indicateur</p>
-                    <p>Croissance des indicateurs</p>
-                    <p>Savez-vous ?</p>
-
+                    <h2 class="nom-small">Afficher le catalogue</h2>
                 </div>
 
             </div>
 
         </div>
 
-        <div class="main">
+        <div class="main" id="main" hx-swap="afterbegin">
 
-        <div id="bandeau">
+            <div id="bandeau">
+                <div id="bandeau0"></div>
+                <div id="bandeau1"></div>
+            </div>
 
-    </div>
+            <button hx-get="ajax.php" hx-vals="js:{incr:0,id_pays:'FR'}" hx-trigger="click">KKLKLKLKL</button>
+
             <div class="container-stats bg-52796F">
                 <h2 id=t1>Scores EcoTourism</h1>
                 <div class=score> 
@@ -278,7 +242,7 @@
     
     </div>
 
-    <script>
+    <script id=scripting>
         
         spider()
         createGraph()

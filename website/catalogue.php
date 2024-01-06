@@ -60,7 +60,7 @@
             </div>
         </div>
 
-        <div class="main" id="catalogue" hx-swap-oob="true">
+        <div class="main" id="main" hx-swap-oob="afterbegin">
             
             <div class="container-stats bg-52796F">
 

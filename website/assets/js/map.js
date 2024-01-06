@@ -149,6 +149,7 @@ class EcoMap {
 
         serie.mapPolygons.template.on("active", function(active, target) {
             if (active) {
+                target.set("interactive",false)
                 if (base.incr == max) {
                     base.incr = 0
                 }
@@ -161,7 +162,7 @@ class EcoMap {
                 }
                 
                 $("#pays"+base.incr).val(target._dataItem.dataContext.id)
-                compareAjax(base.incr, target._dataItem.dataContext.id)
+                // compareAjax(base.incr, target._dataItem.dataContext.id)
 
                 base.incr++
             }

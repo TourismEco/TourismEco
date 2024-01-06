@@ -3,6 +3,7 @@ require("data.php");
 $cur = getDB();
 
 $id_pays = $_GET["id_pays"];
+$incr = $_GET["incr"];
 
 // Nom
 $query = "SELECT * FROM pays WHERE id = :id_pays";
@@ -23,25 +24,38 @@ $ligne = $sth->fetch();
 $capitale = $ligne["nom"];
 
 // Spider
-$dataSpider = dataSpider($id_pays);
+$dataSpider = json_encode(dataSpider($id_pays),JSON_NUMERIC_CHECK);
+$dataLine = json_encode(dataLine($id_pays),JSON_NUMERIC_CHECK);
+$dataBar = json_encode(dataBar($id_pays),JSON_NUMERIC_CHECK);
+$dataTab = json_encode(dataTab($id_pays),JSON_NUMERIC_CHECK);
 
-// Line
-$dataLine = dataLine($id_pays);
+echo <<<HTML
 
-// Bar
-$dataBar = dataBar($id_pays);
+<div class="bandeau-container" id="bandeau$incr" hx-swap-oob="outerHTML">     
+    <img class="img" src='../assets/img/$id_pays.jpg' alt="Bandeau">
+    <img class="flag" src='../assets/twemoji/$id_pays.svg'>
+    <h1 class="nom">$nom</h1>
+    <p class="capital">Capitale : $capitale</p>
+</div>
 
-$dataTab = dataTab($id_pays);
+<div class="container-mini bg-354F52" id="mini$incr" hx-swap-oob="outerHTML">
+    <div class="mini-bandeau"> 
+        <img class="img-small" src='../assets/img/$id_pays.jpg' alt="Bandeau">
+        <img class="flag-small" src='../assets/twemoji/$id_pays.svg'>
+        <h2 class="nom-small">$nom</h2>
+    </div>
+</div>
 
-$dataAjax = array("nom"=>$nom,
-"capitale"=>$capitale,
-"id_pays"=>$id_pays,
-"spider"=>json_encode($dataSpider),
-"line"=>json_encode($dataLine),
-"bar"=>json_encode($dataBar),
-"tab"=>json_encode($dataTab));
+<script id=scripting hx-swap-oob=outerHTML>
+    spiderAjax($incr, $dataSpider, $dataTab, "$nom")
+    lineAjax($incr, $dataLine, "$nom")
+    BarAjax($incr, $dataTab, "$nom")
+</script>
 
-header('Content-Type: application/json; charset=utf-8');
-echo json_encode($dataAjax);
+<table>
+    <tr><td id="nom_$incr" hx-swap-oob=outerHTML>$nom</td></tr>
+</table>
+
+HTML;
 
 ?>

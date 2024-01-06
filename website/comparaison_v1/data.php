@@ -23,7 +23,7 @@ function dataLine($pays) {
     while ($rs = $result->fetch(PDO::FETCH_ASSOC)) {
         foreach (array("pib","Enr","co2","arrivees","departs","gpi","cpi") as $key => $value) {
             if (!isset($rs[$value])){
-                $rs[$value]="null";
+                $rs[$value]=null;
             } 
         }
 
@@ -60,7 +60,7 @@ function dataSpider($pays) {
         $data[$rs["annee"]] = array();
         foreach (array("pib","Enr","co2","arrivees","departs","gpi","cpi") as $key => $value) {
             if (!isset($rs[$value])){
-                $rs[$value]="null";
+                $rs[$value]=null;
             } 
             $data[$rs["annee"]][] = array("var" => $value, "value" => $rs[$value]);
         }
@@ -95,7 +95,7 @@ function dataBar($pays) {
         $data[$rs["annee"]] = array();
         foreach (array("pib","co2","arrivees","gpi","cpi") as $key => $value) {
             if (!isset($rs[$value])){
-                $rs[$value]="null";
+                $rs[$value]=null;
             } 
             $data[$rs["annee"]][] = array("var" => $value, "value" => $rs[$value]);
         }
@@ -129,7 +129,7 @@ function dataTab($pays) {
         $data[$rs["annee"]] = array();
         foreach (array("pib","Enr","co2","arrivees","departs","gpi","cpi") as $key => $value) {
             if (!isset($rs[$value])){
-                $rs[$value]="null";
+                $rs[$value]=null;
             } 
             $data[$rs["annee"]][] = array("var" => $value, "value" => $rs[$value]);
         }
