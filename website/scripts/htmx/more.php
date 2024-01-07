@@ -15,14 +15,14 @@ $cur = getDB();
 
 $continent = $_GET["continent"];
 $more = $_GET["more"];
-$offset = 7*$more++; 
+$offset = 4*$more++; 
 
 $queryCount = "SELECT COUNT(*) AS Count FROM pays WHERE id_continent = ".$continent;
 $resultCount = $cur->query($queryCount);
 $rsCount = $resultCount->fetch(PDO::FETCH_ASSOC);
 $count = $rsCount["Count"];
 
-$queryPays = "SELECT * FROM pays WHERE id_continent = ".$continent." ORDER BY score DESC LIMIT $offset, 7";
+$queryPays = "SELECT * FROM pays WHERE id_continent = ".$continent." ORDER BY score DESC LIMIT $offset, 4";
 $resultPays = $cur->query($queryPays);
 
 while ($rsPays = $resultPays->fetch(PDO::FETCH_ASSOC)) {
@@ -30,7 +30,7 @@ while ($rsPays = $resultPays->fetch(PDO::FETCH_ASSOC)) {
     echo addSlimCountry($rsPays["id"],$rsPays["nom"],$letter);
 }
 
-if ($count >= $offset+7) {
+if ($count >= $offset+4) {
     echo <<<HTML
         <div class="container-slim bg-52796F cursor" hx-get="scripts/htmx/more.php?continent=$continent&more=$more" hx-swap="outerHTML">
             <div class="bandeau-slim"> 
