@@ -46,15 +46,19 @@ echo <<<HTML
     </div>
 </div>
 
+<table id="tabtemp">
+    <tr><td id="nom_$incr" hx-swap-oob=outerHTML>$nom</td></tr>
+</table>
+
 <script id=scripting hx-swap-oob=outerHTML>
     spiderAjax($incr, $dataSpider, $dataTab, "$nom")
     lineAjax($incr, $dataLine, "$nom")
-    BarAjax($incr, $dataTab, "$nom")
+    barAjax($incr, $dataBar, "$nom")
+    $("#tabtemp").remove()
+    $("#scripting").empty()
 </script>
 
-<table>
-    <tr><td id="nom_$incr" hx-swap-oob=outerHTML>$nom</td></tr>
-</table>
+
 
 HTML;
 

@@ -38,19 +38,19 @@
     <?php
         require("data.php");
 
-        function getPays($arg, $default) {
+        function getPays($arg) {
             if (isset($_GET[$arg])) {
                 return $_GET[$arg];
             } else {
-                return $default;
+                return "00";
             }
         }
 
         $cur = getDB();
 
-        $pays1 = getPays("pays0", "FR");
-        $pays2 = getPays("pays1", "JP");
-        $noms = array();
+        $pays1 = getPays("pays0");
+        $pays2 = getPays("pays1");
+        $pays = array();
 
         foreach (array($pays1,$pays2) as $key => $id_pays) {
             $query = "SELECT * FROM pays WHERE id = :id_pays";
@@ -59,16 +59,39 @@
             $sth->execute();
 
             $ligne = $sth->fetch();
-            $noms[]=$ligne["nom"];
+            if ($ligne) {
+                $pays[] = $id_pays;
+            }
         }
 
+        switch (count($pays)) {
+            case 2:
+                echo <<<HTML
+                    <div hx-get="ajax.php" hx-vals="js:{incr:0,id_pays:'$pays1'}" hx-trigger="load"></div>
+                    <div hx-get="ajax.php" hx-vals="js:{incr:1,id_pays:'$pays2'}" hx-trigger="load delay:.05s"></div>
+                HTML;
+                break;
+            
+            case 1:
+                echo <<<HTML
+                    <div hx-get="ajax.php" hx-vals="js:{incr:0,id_pays:'$pays[0]'}" hx-trigger="load"></div>
+                    <div hx-get="../catalogue.php" hx-trigger="load" hx-select="#main"></div>
+                HTML;
+                break;
+            
+            case 0:
+                echo <<<HTML
+                    <div hx-get="../catalogue.php" hx-trigger="load" hx-select="#main"></div>
+                HTML;
+                break;
+        }
+
+        $pays = json_encode($pays);
     ?>
 
     <div class="container-map">
         <div id="map"></div>
     </div>
-
-    
 
     <div class="grille">
     
@@ -94,8 +117,6 @@
                 <div id="bandeau1"></div>
             </div>
 
-            <button hx-get="ajax.php" hx-vals="js:{incr:0,id_pays:'FR'}" hx-trigger="click">KKLKLKLKL</button>
-
             <div class="container-stats bg-52796F">
                 <h2 id=t1>Scores EcoTourism</h1>
                 <div class=score> 
@@ -115,53 +136,43 @@
                     <table>
                         <tr>
                             <td id="cell_6_1">Indicateur</td>
-                            <td id="nom_0">Contenu de la cellule 6_0</td>
-                            <td id="nom_1">Contenu de la cellule 6_1</td>
+                            <td id="nom_0"></td>
+                            <td id="nom_1"></td>
                         </tr>
-
-                        <!-- Première ligne -->
                         <tr>
-                            <td id="td_pib">Contenu de la cellule 1_1</td>
-                            <td id="td_pib_0">Contenu de la cellule 1_0</td>
-                            <td id="td_pib_1">Contenu de la cellule 1_1</td>
+                            <td id="td_pib">PIB/Hab</td>
+                            <td id="td_pib_0"></td>
+                            <td id="td_pib_1"></td>
                         </tr>
-                        
-                        <!-- Deuxième ligne -->
                         <tr>
-                            <td id="td_enr">Contenu de la cellule 2_1</td>
-                            <td id="td_Enr_0">Contenu de la cellule 2_0</td>
-                            <td id="td_Enr_1">Contenu de la cellule 2_1</td>
+                            <td id="td_enr">% énergies renouvellables</td>
+                            <td id="td_Enr_0"></td>
+                            <td id="td_Enr_1"></td>
                         </tr>
-
-                        <!-- Troisième ligne et ainsi de suite... -->
                         <tr>
-                            <td id="td_co2">Contenu de la cellule 3_1</td>
-                            <td id="td_co2_0">Contenu de la cellule 3_0</td>
-                            <td id="td_co2_1">Contenu de la cellule 3_1</td>
+                            <td id="td_co2">Émissions de CO2</td>
+                            <td id="td_co2_0"></td>
+                            <td id="td_co2_1"></td>
                         </tr>
-
                         <tr>
-                            <td id="td_arrivees">Contenu de la cellule 4_1</td>
-                            <td id="td_arrivees_0">Contenu de la cellule 4_0</td>
-                            <td id="td_arrivees_1">Contenu de la cellule 4_1</td>
+                            <td id="td_arrivees">Arrivées toursitiques</td>
+                            <td id="td_arrivees_0"></td>
+                            <td id="td_arrivees_1"></td>
                         </tr>
-
                         <tr>
-                            <td id="td_departs">Contenu de la cellule 5_1</td>
-                            <td id="td_departs_0">Contenu de la cellule 5_0</td>
-                            <td id="td_departs_1">Contenu de la cellule 5_1</td>
+                            <td id="td_departs">Départs toursitiques</td>
+                            <td id="td_departs_0"></td>
+                            <td id="td_departs_1"></td>
                         </tr>
-
                         <tr>
-                            <td id="td_gpi">Contenu de la cellule 7_1</td>
-                            <td id="td_gpi_0">Contenu de la cellule 7_0</td>
-                            <td id="td_gpi_1">Contenu de la cellule 7_1</td>
+                            <td id="td_gpi">Indice de paix</td>
+                            <td id="td_gpi_0"></td>
+                            <td id="td_gpi_1"></td>
                         </tr>
-
                         <tr>
-                            <td id="td_cpi">Contenu de la cellule 8_1</td>
-                            <td id="td_cpi_0">Contenu de la cellule 8_0</td>
-                            <td id="td_cpi_1">Contenu de la cellule 8_1</td>
+                            <td id="td_cpi">CPI</td>
+                            <td id="td_cpi_0"></td>
+                            <td id="td_cpi_1"></td>
                         </tr>
                     </table>
 
@@ -247,7 +258,7 @@
         spider()
         createGraph()
         graphBar()
-        createMapCompare(['<?=$pays1?>','<?=$pays2?>'])
+        createMapCompare(<?=$pays?>)
 
     </script>
     

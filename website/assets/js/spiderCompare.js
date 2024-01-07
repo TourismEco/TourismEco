@@ -90,15 +90,7 @@ function spiderAjax(incr, data, dataComp, name) {
     }
 }
 function updateTable(incr,data) {
-    if (data) {
-        $('#td_pib').html(data[0]["var"]);
-        $('#td_enr').html(data[1]["var"]);
-        $('#td_co2').html(data[2]["var"]);
-        $('#td_arrivees').html(data[3]["var"]);
-        $('#td_departs').html(data[4]["var"]);
-        $('#td_gpi').html(data[5]["var"]);
-        $('#td_cpi').html(data[6]["var"]);
-        
+    if (data) {      
         for (var i=0;i<data.length;i++) {
             if (isNaN(data[i]["value"] )){
                 $("#td_"+data[i]["var"]+"_"+incr).html("Nan")

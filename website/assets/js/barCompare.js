@@ -69,7 +69,7 @@ function graphBar() {
 }
 
 var color = ["#52796F","#83A88B"]
-function BarAjax(incr,data,name) {
+function barAjax(incr,data,name) {
     if (b.series.length == incr) {
         b.addSerie(data, name, color[incr], "var", "value")
         b.series[incr].serie.data.setAll(data[year]);

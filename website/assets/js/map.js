@@ -140,6 +140,7 @@ class EcoMap {
 
         serie.mapPolygons.template.events.on("click", function (ev) {
             serie.zoomToDataItem(ev.target.dataItem);
+            // htmx.ajax("GET","ajax.php",{values:{incr:0,id_pays:ev.target.dataItem._settings.id},swap:"beforeend"})
         });
     }
 
@@ -160,11 +161,16 @@ class EcoMap {
                     base.poly[base.incr].set("interactive", true)
                     base.poly[base.incr] = target
                 }
-                
-                $("#pays"+base.incr).val(target._dataItem.dataContext.id)
-                // compareAjax(base.incr, target._dataItem.dataContext.id)
 
                 base.incr++
+            }
+        })
+
+        serie.mapPolygons.template.events.on("click", function (ev) {
+            if (base.incr == 2) {
+                htmx.ajax("GET","ajax.php",{values:{incr:0,id_pays:ev.target.dataItem._settings.id},swap:"beforeend"})
+            } else {
+                htmx.ajax("GET","ajax.php",{values:{incr:base.incr,id_pays:ev.target.dataItem._settings.id},swap:"beforeend"})
             }
         })
     }
@@ -197,11 +203,14 @@ class EcoMap {
         var base = this
 
         var zoom = this.map.set("zoomControl", am5map.ZoomControl.new(base.root, {}));
-        zoom.minusButton.setAll({fill:"#000000"})
+        zoom.homeButton.set("visible", true)
         zoom.minusButton.get("background").setAll({
             fill: am5.color("#CAD2C5")
         })
         zoom.plusButton.get("background").setAll({
+            fill: am5.color("#CAD2C5")
+        })
+        zoom.homeButton.get("background").setAll({
             fill: am5.color("#CAD2C5")
         })
     }
@@ -241,34 +250,6 @@ class EcoMap {
             } else {
                 base.switchToCountries()
             }
-        });
-    }
-
-    addHome() {
-        var base = this
-
-        var homeButton = this.map.children.push(am5.Button.new(base.root, {
-            paddingTop: 10,
-            paddingBottom: 10,
-            x: am5.percent(100),
-            centerX: am5.percent(100),
-            interactiveChildren: false,
-            icon: am5.Graphics.new(base.root, {
-            svgPath: "M16,8 L14,8 L14,16 L10,16 L10,10 L6,10 L6,16 L2,16 L2,8 L0,8 L8,0 L16,8 Z M16,8",
-            fill: am5.color(0x000000)
-            })
-        }));
-    
-        homeButton.get("background").setAll({
-            fill: am5.color("#CAD2C5")
-        })
-    
-        homeButton.get("background").states.create("hover", {}).setAll({
-            fill:am5.color("#84A98C"),
-        });
-        
-        homeButton.events.on("click", function() {
-            base.map.goHome();
         });
     }
 
@@ -351,7 +332,6 @@ function createMap(id_pays) {
     map = new EcoMap("map")
     map.addContinents()
     map.addCountries(false)
-    map.addHome()
     map.addSwitch()
     map.addZoom()    
 
@@ -366,7 +346,6 @@ function createMap(id_pays) {
 function createMapCompare(pays) {
     map = new EcoMap("map")
     map.addCountries(true)
-    map.addHome()
     map.addZoom()
 
     map.root.events.on("frameended",() => {
