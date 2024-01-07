@@ -99,9 +99,9 @@
 
             <div id="mini1"></div>
 
-            <div class="container-mini bg-52796F" style="width: 300px" hx-get="../catalogue.php" hx-select="#main" hx-trigger="click">
+            <div class="container-mini bg-52796F" style="width: 300px" hx-get="catalogue.php" hx-select="#main" hx-trigger="click">
                 <div class="mini-bandeau"> 
-                    <img id=plus class="flag-small" src='../assets/img/plus.svg'>
+                    <img id=plus class="flag-small" src='assets/img/plus.svg'>
                     <h2 class="nom-small">Afficher le catalogue</h2>
                 </div>
 

@@ -97,8 +97,23 @@ function addCardCountry($id,$nom,$letter) {
                 <img class="flag-small" src='assets/twemoji/$id.svg'>
                 <h2 class="nom-small">$nom</h2>
                 <div class="catalogue-buttons">
-                    <button class=button-catalogue id=v-$id>Consulter</button>
-                    <button class=button-catalogue id=c-$id>Comparer</button>
+                    <button class=button-catalogue id=v-$id>Visiter</button>
+                </div>
+            </div>
+        </div>
+    HTML;
+}
+
+function addSlimCountry($id,$nom,$letter) {
+    return <<<HTML
+        <div class="container-slim bg-354F52">
+            <div class="bandeau-slim"> 
+                <!-- <div class="mini-score-box score-$letter">$letter</div> -->
+                <img class="img-slim" src='assets/img/$id.jpg' alt="Bandeau">
+                <img class="flag-slim" src='assets/twemoji/$id.svg'>
+                <h2 class="nom-slim">$nom</h2>
+                <div class="buttons-slim">
+                    <button class=button-catalogue id=v-$id>Visiter</button>
                 </div>
             </div>
         </div>
@@ -107,9 +122,9 @@ function addCardCountry($id,$nom,$letter) {
 
 function addCardContinent($id,$nom) {
     return <<<HTML
-        <div class="container-mini bg-354F52">
-            <div class="mini-bandeau"> 
-                <img class="img-small" src='assets/img/$id.png' alt="Bandeau">
+        <div class="container-slim bg-52796F">
+            <div class="bandeau-slim"> 
+                <img class="img-slim" src='assets/img/$id.png' alt="Bandeau">
                 <h2 class="nom-region">$nom</h2>
                 <div class="catalogue-buttons">
                     <button class=button-catalogue id=v-$id>Consulter</button>

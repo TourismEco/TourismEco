@@ -27,13 +27,13 @@ $resultPays = $cur->query($queryPays);
 
 while ($rsPays = $resultPays->fetch(PDO::FETCH_ASSOC)) {
     $letter = getLetter($rsPays["score"]);
-    echo addCardCountry($rsPays["id"],$rsPays["nom"],$letter);
+    echo addSlimCountry($rsPays["id"],$rsPays["nom"],$letter);
 }
 
 if ($count >= $offset+7) {
     echo <<<HTML
-        <div class="container-mini bg-354F52" hx-get="scripts/htmx/more.php?continent=$continent&more=$more" hx-swap="outerHTML">
-            <div class="mini-bandeau"> 
+        <div class="container-slim bg-52796F cursor" hx-get="scripts/htmx/more.php?continent=$continent&more=$more" hx-swap="outerHTML">
+            <div class="bandeau-slim"> 
                 <h2 class="nom-region">Voir plus</h2>
             </div>
         </div>
