@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>EcoTourism - Comparaison</title>
-    <link rel="stylesheet" href="comparaison_v1/styles-bandeau.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
 
     <script src="https://unpkg.com/htmx.org@1.9.10"></script>
 
@@ -19,8 +19,7 @@
     <script src="https://cdn.amcharts.com/lib/5/geodata/worldLow.js"></script>
     <script src="https://cdn.amcharts.com/lib/5/geodata/lang/FR.js"></script>
 
-    <script src="assets/js/ajax.js"></script>
-    <script src="assets/js/map.js"></script>
+    <script src="scripts/map/map.js"></script>
     
     <?php
         require("functions.php");
@@ -65,8 +64,8 @@
             <div class="container-stats bg-52796F">
 
                 <h2 id="t1">Recherche</h2>
-                <div class="container-catalogue" >
-                    <input type="text" class="search-bar" placeholder="Cherchez un pays" id="txt" hx-get="search.php" hx-trigger="keyup[this.value.trim().length > 0] changed delay:0.5s" hx-vals='js:{search: getSearchValue()}' hx-target="#search" hx-swap="outerHTML">
+                <div class="container-catalogue">
+                    <input type="text" class="search-bar" placeholder="Cherchez un pays" id="txt" hx-get="scripts/htmx/search.php" hx-trigger="keyup[this.value.trim().length > 0] changed delay:0.5s" hx-vals='js:{search: getSearchValue()}' hx-target="#search" hx-swap="outerHTML">
                 </div>
 
                 <div id=search>
@@ -122,7 +121,7 @@
                     }
 
                     echo <<<HTML
-                        <div class="container-mini bg-354F52" hx-get="more.php?continent=$rsCont[id]&more=1" hx-swap="outerHTML">
+                        <div class="container-mini bg-354F52" hx-get="scripts/htmx/more.php?continent=$rsCont[id]&more=1" hx-swap="outerHTML">
                             <div class="mini-bandeau"> 
                                 <h2 class="nom-region">Voir plus</h2>
                             </div>

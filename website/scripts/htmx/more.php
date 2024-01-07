@@ -10,7 +10,7 @@ if (!isset($_GET["continent"]) || !isset($_GET["more"])) {
     exit;
 }
 
-require("functions.php");
+require("../../functions.php");
 $cur = getDB();
 
 $continent = $_GET["continent"];
@@ -32,7 +32,7 @@ while ($rsPays = $resultPays->fetch(PDO::FETCH_ASSOC)) {
 
 if ($count >= $offset+7) {
     echo <<<HTML
-        <div class="container-mini bg-354F52" hx-get="more.php?continent=$continent&more=$more" hx-swap="outerHTML">
+        <div class="container-mini bg-354F52" hx-get="scripts/htmx/more.php?continent=$continent&more=$more" hx-swap="outerHTML">
             <div class="mini-bandeau"> 
                 <h2 class="nom-region">Voir plus</h2>
             </div>

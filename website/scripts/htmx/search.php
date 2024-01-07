@@ -10,7 +10,7 @@ if (!isset($_GET["search"])) {
     exit;
 }
 
-require("functions.php");
+require("../../functions.php");
 $cur = getDB();
 
 $search = $_GET["search"];
@@ -33,7 +33,6 @@ while ($rsPays = $resultPays->fetch(PDO::FETCH_ASSOC)) {
     $letter = getLetter($rsPays["score"]);
     echo addCardCountry($rsPays["idp"],$rsPays["p"],$letter);
 }
-
 
 echo <<<HTML
     </div>

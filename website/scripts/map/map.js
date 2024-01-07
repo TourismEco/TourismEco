@@ -14,7 +14,7 @@ var html =
                 width: 240px;
                 height: 80px;
                 object-fit: cover;" 
-                src='../assets/img/{id}.jpg'>
+                src='assets/img/{id}.jpg'>
 
             <div style="grid-column: 2;
                 grid-row: 1;
@@ -27,7 +27,7 @@ var html =
                 grid-row: 1;
                 width: 100%;">
                 <img style="width: 70px;
-                    height: 70px;" src='../assets/twemoji/{id}.svg'>
+                    height: 70px;" src='assets/twemoji/{id}.svg'>
             </div>
         </div>
         `
@@ -168,9 +168,9 @@ class EcoMap {
 
         serie.mapPolygons.template.events.on("click", function (ev) {
             if (base.incr == 2) {
-                htmx.ajax("GET","ajax.php",{values:{incr:0,id_pays:ev.target.dataItem._settings.id},swap:"beforeend"})
+                htmx.ajax("GET","scripts/htmx/getCompare.php",{values:{incr:0,id_pays:ev.target.dataItem._settings.id},swap:"beforeend"})
             } else {
-                htmx.ajax("GET","ajax.php",{values:{incr:base.incr,id_pays:ev.target.dataItem._settings.id},swap:"beforeend"})
+                htmx.ajax("GET","scripts/htmx/getCompare.php",{values:{incr:base.incr,id_pays:ev.target.dataItem._settings.id},swap:"beforeend"})
             }
         })
     }
@@ -309,7 +309,7 @@ class EcoMap {
     getCities(id_pays) {
         var d
         $.ajax({
-            url:"../getCities.php",
+            url:"scripts/map/getCities.php",
             data:{id_pays:id_pays},
             method:"GET",
             async:false,

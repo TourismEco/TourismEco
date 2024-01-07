@@ -176,7 +176,7 @@ select {
 }
 
 .grille {
-    display:flex;
+    display:flex
 }
 
 .sidebar {
@@ -396,6 +396,42 @@ select {
     text-align: center;
     font-size: 16px;
     
+}
+
+
+.new-mini {
+  margin: 20px 0;
+  border-radius: 10px;
+  width: 100px;
+  height: 100px;
+}
+
+.new-bandeau {
+  display: grid;
+  width: 100px;
+  height: 100px;
+}
+
+.new-img {
+  grid-column: 1 / 3;
+  grid-row: 1;
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  filter: brightness(50%);
+  border-radius: 10px;
+}
+
+.new-flag {
+  width: 60px;
+  grid-row: 1;
+  grid-column: 1;
+  z-index: 5;
+  align-self: center;
+  margin: 0 20px;
+  color: white;
+  opacity: 100%;
+  transition: all .5s;
 }
 
 ::placeholder {
