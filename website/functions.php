@@ -1,7 +1,8 @@
 <?php
 
 // Connect to the database
-function getDB($hostname="localhost", $username="root", $password="", $database="ecotourisme") {
+
+function getDB($hostname="localhost", $username="root", $password="root", $database="ecotourisme") {
     try {
         $conn =  new PDO("mysql:host=$hostname;dbname=$database", $username, $password);
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
