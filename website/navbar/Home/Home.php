@@ -7,7 +7,7 @@
   <title> Home </title>
 
   <?php
-    require '../functions.php';
+ 
     $bdd = getDB();
   ?>
 
