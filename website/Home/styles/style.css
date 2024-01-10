@@ -159,35 +159,41 @@ background: #ccc;
 
 /* Section 1  */
 
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-}
-.section {
+.section, .section2 {
     padding: 20px;
     height: auto;
-}
-.section h2 {
+    overflow: hidden;
     color: white;
 }
-.section p {
-    color: white;
-}
+
 .dark-grey {
     background-color: #183A37;
 }
-.light-green {
+.grey {
     background-color: #2F3E46;
 }
-.grey {
+.light-green{
     background-color: #52796F;
 }
 img {
-    width: 50px;
-    height: 50px;
-    
+    width: 35%; /* Ajustez la largeur de l'image selon vos besoins */
 }
 
+.section img {
+    float: right; 
+    margin-left: 20px;
+}
+
+.section2 img {
+    float: left; 
+    margin-right: 20px;
+}
+
+.section.grey h2,
+.section.grey p {
+margin-right: 20px; 
+
+}
 #footer {
     background-color: var(--color1);
     height : 181px;
