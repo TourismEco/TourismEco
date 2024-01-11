@@ -390,6 +390,23 @@ select {
     cursor:pointer
 }
 
+#close-catalogue {
+	position: absolute;
+	top: 5px;
+	right: 10px;
+	align-self: flex-start;
+  	width: 20px;
+	height: 20px;
+    padding: 3px;
+    margin: 5px 10px;
+    border-radius: 7px;
+    border: none;
+    color: white;
+    background-color: #AA0000;
+    transition: all .5s;
+    cursor:pointer
+}
+
 .search-bar {
     background-color: #BFBFBF;
     color:354F52;
