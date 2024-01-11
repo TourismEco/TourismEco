@@ -1,4 +1,3 @@
-<?php require_once 'config.php'?>
 <!DOCTYPE html>
 <html lang= "fr">
 
@@ -14,7 +13,6 @@
 </head>
 
 <body>
-  
   <div class = "navbar"> 
   <?php require_once 'navbar.php'?>
   </div>
@@ -65,6 +63,7 @@
         <p>Accédez à des rapports d'analyse statistique complets basés sur nos données, vous permettant de découvrir des tendances, des corrélations et des informations essentielles pour des décisions de voyage éclairées.</p>
     </div>
     </main>
+    <?php require_once 'footer.html'?>
 </body>
 
 </html>
