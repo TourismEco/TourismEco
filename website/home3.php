@@ -5,65 +5,49 @@
   <link href="styles/style.css" rel="stylesheet" type="text/css" />
 
   <style>
-/* Style pour la première section */
+    /* Style de la première section */
 .section,
 .section2 {
     text-align: center;
-    padding: 80px;
-    margin-bottom: 40px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    padding: 50px;
+    margin-bottom: 20px;
 }
 
 .section img,
 .section2 img {
-    max-width: 200px;
-    height: auto;
-    margin-bottom: 30px;
-    border-radius: 10px;
-}
-
-/* Style pour la section grise */
-.grey {
-    background-color: #f8f8f8;
-    color: #333;
-}
-
-/* Style pour la section light-green */
-.light-green {
-    background-color: #a2d5c6;
-    color: #333;
-}
-
-/* Style pour la section dark-grey */
-.dark-grey {
-    background-color: #333;
-    color: #fff;
-}
-
-/* Ajoutez d'autres styles au besoin pour les différentes sections */
-
-/* Style pour les titres h2 */
-h2 {
-    color: #333;
-    font-size: 2em;
+    max-width: 100px;
     margin-bottom: 20px;
 }
 
-/* Style pour les paragraphes p */
-p {
-    line-height: 1.6;
-    color: #666;
-    font-size: 1.1em;
+/* Style de la section grise */
+.grey {
+    background-color: #2F3E46;
+    color: #333;
 }
 
-/* Ajoutez d'autres styles au besoin */
+/* Style de la section light-green */
+.light-green {
+    background-color:#52796F;
+    color: #333;
+}
 
-/* Ajoutez un style de survol pour les sections si nécessaire */
+/* Style de la section dark-grey */
+.dark-grey {
+    background-color: #183A37;
+    color: #fff;
+}
+
+/* Style pour les paragraphes p */
+h2, p {
+    line-height: 1.6;
+    color: white;
+
+}
+
 .section:hover,
-.section2:hover {
-    background-color: #e0e0e0;
+.section2:hover, p:hover {
+    background-color: #ddd;
+    color: gray;
 }
   </style>
   <title> Home </title>
@@ -71,10 +55,9 @@ p {
 
 <?php require_once '../navbar/navbar.html';?>
 
-
 <div class ="carrousel">
-    <?php require "./carrousel/carrousel.php" ?>
-    <script src="./carrousel/carrousel.js"></script>
+    <?php carousel($conn) ?>
+    <script src="scripts/js/carousel-home.js"></script>
   </div>
     
 

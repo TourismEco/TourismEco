@@ -4,6 +4,7 @@
   --color3 : #52796F;
   --color4 : #84A98C;
   --color5 : #183A37; 
+  --navbar-height: 60px;
 }
 
 html {
@@ -714,6 +715,7 @@ select {
 .navbar {
   overflow: hidden;
   background-color: #2F3E46;
+  height: var(--navbar-height);
 }
 
 .navbar a {
@@ -758,6 +760,42 @@ cursor: pointer;
 background: #ccc;
 }
 
+/* Style footer */
+.footer {
+  background-color: #52796F; /* dark teal */
+  color: lightgrey;
+  padding: 20px;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+}
+
+.footers{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer img {
+  height: 70px;
+  margin-right: 20px;
+}
+
+.footer a {
+  color: lightgrey;
+  margin-right: 10px;
+  text-decoration: none;
+}
+
+.footer p {
+  margin: 0;
+}
+
+#annee {
+  text-align: center;
+  margin: auto;
+}
 /* Carrousel */
 
 .custom-slider { display: none; }

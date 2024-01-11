@@ -1,17 +1,5 @@
 <?php
-
-// Connect to the database
-
-function getDB($hostname="localhost", $username="root", $password="root", $database="ecotourisme") {
-    try {
-        $conn =  new PDO("mysql:host=$hostname;dbname=$database", $username, $password);
-        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $conn->setAttribute(PDO::ATTR_TIMEOUT, 1800);
-        return $conn;
-    } catch(PDOException $e) {
-    echo "Connection failed: " . $e->getMessage();
-    }
-}
+require_once 'config.php';
 
 function getArrivals(string $id_pays, PDO $conn): int {
     $query = <<<SQL
@@ -260,4 +248,40 @@ function dataTab($pays, $conn) {
     }
 
     return $data;
+}
+
+function carousel($conn) {
+    $query = "SELECT id, nom FROM pays
+            ORDER BY RAND()
+            LIMIT 5";
+    $result = $conn->prepare($query);
+    $result->execute();
+    $images = $result->fetchAll(PDO::FETCH_ASSOC);
+
+    $conn = null;
+
+    // Affiche les diapositives (images et descriptions) dans une structure HTML
+    echo '<div class="slide-container">';
+        foreach ($images as $image):
+            echo <<<HTML
+            <div class="custom-slider">
+                <img class="slide-img" src="assets/img/$image[id].jpg" >
+                <div class="slide-text">
+                    <img class="slide-logo" src="assets/twemoji/$image[id].svg" alt="Logo SVG">
+                    <p>$image[nom]</p>
+                </div>
+                
+            </div>
+            HTML;
+        endforeach;
+
+    echo <<<HTML
+        <h1> Ecotourisme </h1>
+        <h2> Partez à la découverte du monde </h2>
+
+        <!-- Ajoute des boutons de navigation précédent et suivant -->
+        <a class="prev" onclick="plusSlides(-1)">❮</a>
+        <a class="next" onclick="plusSlides(1)">❯</a>
+    </div>
+    HTML;
 }

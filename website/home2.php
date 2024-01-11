@@ -70,8 +70,8 @@ p {
 
 
 <div class ="carrousel">
-    <?php require "./carrousel/carrousel.php" ?>
-    <script src="./carrousel/carrousel.js"></script>
+    <?php carousel($conn) ?>
+    <script src="scripts/js/carousel-home.js"></script>
   </div>
     
 
