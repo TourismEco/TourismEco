@@ -48,7 +48,7 @@ $dataTab = json_encode(dataTab($id_pays, $cur),JSON_NUMERIC_CHECK);
 
 echo <<<HTML
 
-<div class="bandeau-container" id="bandeau$incr" hx-swap-oob="outerHTML">     
+<div class="bandeau" id="bandeau$incr" hx-swap-oob="outerHTML">     
     <img class="img" src='assets/img/$id_pays.jpg' alt="Bandeau">
     <img class="flag" src='assets/twemoji/$id_pays.svg'>
     <h1 class="nom">$nom</h1>
@@ -56,8 +56,8 @@ echo <<<HTML
 </div>
 
 <div class="container-side bg-354F52" id="mini$incr" hx-swap-oob="outerHTML">
-    <div class="mini-bandeau"> 
-        <img class="img-side" src='assets/img/$id_pays.jpg' alt="Bandeau">
+    <div class="bandeau-side"> 
+        <img class="img img-side" src='assets/img/$id_pays.jpg' alt="Bandeau">
         <img class="flag-small" src='assets/twemoji/$id_pays.svg'>
         <h2 class="nom-small">$nom</h2>
         <div class="close-compare">

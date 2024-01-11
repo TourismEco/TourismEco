@@ -95,7 +95,7 @@
             <div id="mini1"></div>
 
             <div class="container-side bg-52796F" hx-get="catalogue.php" hx-select="#catalogue" hx-target="#catalogue" hx-trigger="click" hx-swap="show:top">
-                <div class="mini-bandeau"> 
+                <div class="bandeau-side"> 
                     <img id=plus class="flag-small" src='assets/img/plus.svg'>
                     <h2 class="nom-small">Choisir des pays</h2>
                 </div>
@@ -108,13 +108,13 @@
 
             <div id="catalogue"></div>
 
-            <div id="bandeau">
+            <div class="container-bandeaux">
                 <div id="bandeau0"></div>
                 <div id="bandeau1"></div>
             </div>
 
-            <div class="container-stats bg-52796F">
-                <h2 id=t1>Scores EcoTourism</h1>
+            <div class="container-simple bg-52796F">
+                <h2 class="title-section">Scores EcoTourism</h2>
                 <div class=score> 
                     <div class="score-box">A</div>
                     <div class="trait"></div>
@@ -124,9 +124,9 @@
             </div>
         
 
-            <div class="container-stats bg-354F52">
-                <h2 id=t1>Indicateurs clés</h1>
-                <div class= "flex">
+            <div class="container-simple bg-354F52">
+                <h2 class="title-section">Indicateurs clés</h2>
+                <div class="section">
                     <div class=graph id="spider"></div>
 
                     <table>
@@ -175,8 +175,8 @@
                 </div>
             </div>
 
-            <div class="container-stats bg-354F52">
-                <h2 id=t1>Comparaison de chaque indicateur</h2>
+            <div class="container-simple bg-354F52">
+                <h2 class="title-section">Comparaison de chaque indicateur</h2>
                 <div class=container-buttons>
                     <button onclick="changeVar('co2')" class=button-compare>Émissions de CO2</button>
                     <button onclick="changeVar('pib')" class=button-compare>PIB par habitant</button>
@@ -186,8 +186,8 @@
                     <button onclick="changeVar('cpi')" class=button-compare>Consumer Price Index</button>
                     <button onclick="changeVar('Enr')" class=button-compare>% énergies renouvellables</button>
                 </div>
-                <div class= "flex">
-                    <div class=p50>
+                <div class="section">
+                    <div class="text">
                         
                         <p>Actuellement le [pays 1] est au dessus du [pays 2], montrant que [pays 1] pollue plus que [pays 2]. Au cours du temps on peut voir que le tourisme ipsum dolor sit amet, consectetur adipiscing elit. Curabitur a metus pellentesque massa lacinia scelerisque et nec purus. Proin mattis elementum euismod. Curabitur et felis felis. Donec vel nulla malesuada, tempor nisi in, faucibus nulla. Cras at ipsum tempor, rutrum sapien ut, auctor sapien.
                         Curabitur a metus pellentesque massa lacinia scelerisque et nec purus. Proin mattis elementum euismod. </p>
@@ -202,13 +202,11 @@
 
             </div>
 
-            <!-- <div class="trait-hori"></div> -->
-
-            <div class="container-stats bg-354F52">
-                <h2 id=t1>Croissance des indicateurs</h2>
-                <div class= "flex">
+            <div class="container-simple bg-354F52">
+                <h2 class="title-section">Croissance des indicateurs</h2>
+                <div class="section">
                     <div class=graph id="bar"></div>
-                    <p class=p50>Actuellement le [pays 1] est au dessus du [pays 2], montrant que [pays 1] pollue plus que [pays 2]. Au cours du temps on peut voir que le tourisme ipsum dolor sit amet, consectetur adipiscing elit. Curabitur a metus pellentesque massa lacinia scelerisque et nec purus. Proin mattis elementum euismod. Curabitur et felis felis. Donec vel nulla malesuada, tempor nisi in, faucibus nulla. Cras at ipsum tempor, rutrum sapien ut, auctor sapien.
+                    <p class="text">Actuellement le [pays 1] est au dessus du [pays 2], montrant que [pays 1] pollue plus que [pays 2]. Au cours du temps on peut voir que le tourisme ipsum dolor sit amet, consectetur adipiscing elit. Curabitur a metus pellentesque massa lacinia scelerisque et nec purus. Proin mattis elementum euismod. Curabitur et felis felis. Donec vel nulla malesuada, tempor nisi in, faucibus nulla. Cras at ipsum tempor, rutrum sapien ut, auctor sapien.
                     Curabitur a metus pellentesque massa lacinia scelerisque et nec purus. Proin mattis elementum euismod. </p>
                     
                     
@@ -218,8 +216,8 @@
             </div>
             
             <div class='container-double'>
-                <div class="container-stats bg-52796F marg-r">
-                    <h2 id=t1>Savez-vous ?</h2>
+                <div class="container-simple bg-52796F marg-r">
+                    <h2 class="title-section">Savez-vous ?</h2>
                     <div id="carousel-wrapper">
                 
                         <div id="menu">
@@ -234,8 +232,8 @@
                     </div>
                 </div>    
 
-                <div class="container-stats bg-52796F marg-l">
-                    <h2 id=t1>Définitions</h2>
+                <div class="container-simple bg-52796F marg-l">
+                    <h2 class="title-section">Définitions</h2>
                     
                 </div>
                 </div>    
@@ -257,7 +255,10 @@
         createMapCompare(<?=$pays?>)
 
     </script>
-    
+
 </body>
+
+
+
 </html>
 

@@ -80,13 +80,13 @@ function getLetter($score) {
 
 function addCardCountry($id,$nom,$letter) {
     return <<<HTML
-        <div class="container-mini bg-354F52">
-            <div class="mini-bandeau hide-flag"> 
-                <div class="mini-score-box score-$letter">$letter</div>
-                <img class="img-small" src='assets/img/$id.jpg' alt="Bandeau">
+        <div class="container-small bg-354F52">
+            <div class="bandeau-small hide-flag"> 
+                <div class="score-box-small score-$letter">$letter</div>
+                <img class="img img-small" src='assets/img/$id.jpg' alt="Bandeau">
                 <img class="flag-small" src='assets/twemoji/$id.svg'>
                 <h2 class="nom-small">$nom</h2>
-                <div class="catalogue-buttons">
+                <div class="buttons-small">
                     <button class=button-catalogue id=v-$id hx-get="scripts/htmx/getCompare.php" hx-vals="js:{id_pays:'$id'}" hx-swap="beforeend show:top">Ajouter</button>
                 </div>
             </div>
@@ -99,7 +99,7 @@ function addSlimCountry($id,$nom,$letter) {
         <div class="container-slim bg-354F52">
             <div class="bandeau-slim"> 
                 <!-- <div class="mini-score-box score-$letter">$letter</div> -->
-                <img class="img-slim" src='assets/img/$id.jpg' alt="Bandeau">
+                <img class="img img-slim" src='assets/img/$id.jpg' alt="Bandeau">
                 <img class="flag-slim" src='assets/twemoji/$id.svg'>
                 <h2 class="nom-slim">$nom</h2>
                 <div class="buttons-slim">
@@ -114,9 +114,9 @@ function addCardContinent($id,$nom) {
     return <<<HTML
         <div class="container-slim bg-52796F">
             <div class="bandeau-slim"> 
-                <img class="img-slim" src='assets/img/$id.png' alt="Bandeau">
+                <img class="img img-slim" src='assets/img/$id.png' alt="Bandeau">
                 <h2 class="nom-region">$nom</h2>
-                <div class="catalogue-buttons">
+                <div class="buttons-small">
                     <button class=button-catalogue id=v-$id>Consulter</button>
                 </div>
             </div>

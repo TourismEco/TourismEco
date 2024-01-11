@@ -38,7 +38,7 @@
         <div class="sidebar">
 
             <div class="container-side bg-354F52">
-                <div class="mini-bandeau"> 
+                <div class="bandeau-side"> 
                     <h2 class="nom-region">Choisissez une région ou un pays pour commencer la découverte</h2>
                 </div>
 
@@ -47,7 +47,7 @@
 
         <div class="main" id="main">
             
-            <div class="container-stats bg-354F52" id="catalogue" hx-swap="outerHTML focus-scroll:true">
+            <div class="container-simple bg-354F52" id="catalogue" hx-swap="outerHTML focus-scroll:true">
 
                 <script>
                     function getSearchValue() {
@@ -57,7 +57,7 @@
                 </script>
 
                 <div class="title-catalogue">
-                    <h2 id="t1">Catalogue</h2>
+                    <h2 class="title-section">Catalogue</h2>
 
                     <?php
                         if (isset($_SERVER["HTTP_HX_REQUEST"])) {
@@ -79,7 +79,7 @@
                     
                 </div>
                 
-                <h3 id="t1">Recherche</h3>
+                <h3 class="title-section">Recherche</h3>
                 <div class="container-catalogue">
                     <input type="text" class="search-bar" placeholder="Cherchez un pays" id="txt" hx-get="scripts/htmx/search.php" hx-trigger="keyup[this.value.trim().length > 0] changed delay:0.5s" hx-vals='js:{search: getSearchValue()}' hx-target="#search" hx-swap="outerHTML">
                 </div>
@@ -88,12 +88,12 @@
                     
                 </div>
 
-                <h3 id="t1">Vos favoris</h3>
+                <h3 class="title-section">Vos favoris</h3>
                 <div class="container-catalogue">
                     
                 </div>
 
-                <h3 id="t1">10 meilleurs scores</h3>
+                <h3 class="title-section">10 meilleurs scores</h3>
                 <div class="container-catalogue">
                     <?php
                         $queryPays = "SELECT * FROM pays ORDER BY score DESC LIMIT 10";
@@ -106,7 +106,7 @@
                     ?>
                 </div>
                     
-                <h3 id="t1">Selection par continent</h3>
+                <h3 class="title-section">Selection par continent</h3>
                 
                 <div class='container-continents'>
                     <div class="sub-continents">
@@ -155,5 +155,9 @@
             </div>
         </div>
     </div>
+
+    <script>
+        createMap()
+    </script>
 </body>
 </html>
