@@ -1,10 +1,11 @@
 <!-- Barre de navigation -->
-    <nav class="navbar" hx-boost="true" hx-target="main">
+    <nav class="navbar" hx-boost="true" hx-target="main" hx-select="main">
         <div class="onglets">
-        <a href=<?= SOURCE."Home.php"?>>ECOTOURISME</a>
-        <a href="#news">Accueil</a>
-        <a href="#news">Comparateur</a>
-        <a href="#news">Statistiques</a>
+        <a href=<?= SOURCE?>>ECOTOURISME</a>
+        <a href=<?= SOURCE."Home.php"?>>Accueil</a>
+        <a href=<?= SOURCE."comparateur.php"?>>Comparateur</a>
+        <a href=<?= SOURCE."catalogue.php"?>>Catalogue</a>
+        <!-- <a href="#news">Statistiques</a> -->
     <!-- <a href="#news">Calculateur</a> -->
     <div class="search-container" style="float:right">
     <form action="/action_page.php">
