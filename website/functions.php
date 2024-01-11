@@ -1,5 +1,6 @@
 <?php
-require_once 'config.php';
+
+require('config.php');
 
 function getArrivals(string $id_pays, PDO $conn): int {
     $query = <<<SQL
@@ -80,13 +81,13 @@ function getLetter($score) {
 function addCardCountry($id,$nom,$letter) {
     return <<<HTML
         <div class="container-mini bg-354F52">
-            <div class="mini-bandeau"> 
+            <div class="mini-bandeau hide-flag"> 
                 <div class="mini-score-box score-$letter">$letter</div>
                 <img class="img-small" src='assets/img/$id.jpg' alt="Bandeau">
                 <img class="flag-small" src='assets/twemoji/$id.svg'>
                 <h2 class="nom-small">$nom</h2>
                 <div class="catalogue-buttons">
-                    <button class=button-catalogue id=v-$id>Visiter</button>
+                    <button class=button-catalogue id=v-$id hx-get="scripts/htmx/getCompare.php" hx-vals="js:{id_pays:'$id'}" hx-swap="beforeend show:top">Ajouter</button>
                 </div>
             </div>
         </div>
@@ -102,7 +103,7 @@ function addSlimCountry($id,$nom,$letter) {
                 <img class="flag-slim" src='assets/twemoji/$id.svg'>
                 <h2 class="nom-slim">$nom</h2>
                 <div class="buttons-slim">
-                    <button class=button-catalogue id=v-$id>Visiter</button>
+                    <button class=button-catalogue id=v-$id hx-get="scripts/htmx/getCompare.php" hx-vals="js:{id_pays:'$id'}" hx-swap="beforeend show:top">Ajouter</button>
                 </div>
             </div>
         </div>

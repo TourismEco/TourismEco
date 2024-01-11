@@ -167,11 +167,7 @@ class EcoMap {
         })
 
         serie.mapPolygons.template.events.on("click", function (ev) {
-            if (base.incr == 2) {
-                htmx.ajax("GET","scripts/htmx/getCompare.php",{values:{incr:0,id_pays:ev.target.dataItem._settings.id},swap:"beforeend"})
-            } else {
-                htmx.ajax("GET","scripts/htmx/getCompare.php",{values:{incr:base.incr,id_pays:ev.target.dataItem._settings.id},swap:"beforeend"})
-            }
+            htmx.ajax("GET","scripts/htmx/getCompare.php",{values:{map:true,id_pays:ev.target.dataItem._settings.id},swap:"beforeend"})
         })
     }
 

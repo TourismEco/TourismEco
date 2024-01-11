@@ -4,7 +4,23 @@ require("../../functions.php");
 $cur = getDB();
 
 $id_pays = $_GET["id_pays"];
-$incr = $_GET["incr"];
+
+if (isset($_GET["incr"])) {
+    $incr = $_GET["incr"];
+    $_SESSION["incr"] = $incr;
+} else {
+    $incr = $_SESSION["incr"];
+}
+
+if (!in_array($id_pays,$_SESSION["compare"])) {
+    $_SESSION["compare"][$incr] = $id_pays;
+}
+
+if (isset($_GET["map"])) {
+    $map = false;
+} else {
+    $map = true;
+}
 
 // Nom
 $query = "SELECT * FROM pays WHERE id = :id_pays";
@@ -39,11 +55,19 @@ echo <<<HTML
     <p class="capital">Capitale : $capitale</p>
 </div>
 
-<div class="container-mini bg-354F52" id="mini$incr" hx-swap-oob="outerHTML">
+<div class="container-side bg-354F52" id="mini$incr" hx-swap-oob="outerHTML">
     <div class="mini-bandeau"> 
-        <img class="img-small" src='assets/img/$id_pays.jpg' alt="Bandeau">
+        <img class="img-side" src='assets/img/$id_pays.jpg' alt="Bandeau">
         <img class="flag-small" src='assets/twemoji/$id_pays.svg'>
         <h2 class="nom-small">$nom</h2>
+        <div class="close-compare">
+        <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+            viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
+        <g>
+            <path d="M358.4,133.1v71.7h-256v46.1L0,169l102.4-87v51.2H358.4 M512,348.2l-102.4,81.9V384h-256v-71.7h256v-51.2L512,348.2"/>
+        </g>
+        </svg>                 
+        </div>
     </div>
 </div>
 
@@ -52,15 +76,17 @@ echo <<<HTML
 </table>
 
 <script id=scripting hx-swap-oob=outerHTML>
+    console.log($incr)
     spiderAjax($incr, $dataSpider, $dataTab, "$nom")
     lineAjax($incr, $dataLine, "$nom")
     barAjax($incr, $dataBar, "$nom")
+    if ($map) {
+        map.setActive("$id_pays")
+    }
     $("#tabtemp").remove()
     $("#scripting").empty()
 </script>
 
-
-
 HTML;
-
+$_SESSION["incr"] = ($_SESSION["incr"]+1)%2
 ?>

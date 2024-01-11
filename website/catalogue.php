@@ -26,13 +26,6 @@
         $cur = getDB();
     ?>
 
-    <script>
-        function getSearchValue() {
-            var s = document.getElementById("txt")
-            return s.value
-        }
-    </script>
-
 </head>
 
 <body>
@@ -44,7 +37,7 @@
 
         <div class="sidebar">
 
-            <div class="container-mini bg-354F52" style="width:300px">
+            <div class="container-side bg-354F52">
                 <div class="mini-bandeau"> 
                     <h2 class="nom-region">Choisissez une région ou un pays pour commencer la découverte</h2>
                 </div>
@@ -52,16 +45,40 @@
             </div>
         </div>
 
-        <div class="main" id="main" hx-swap-oob="afterbegin">
+        <div class="main" id="main">
             
-            <div class="container-stats bg-354F52">
+            <div class="container-stats bg-354F52" id="catalogue" hx-swap="outerHTML focus-scroll:true">
 
-                <div id="close-catalogue">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50">
-                    <path d="M 7.71875 6.28125 L 6.28125 7.71875 L 23.5625 25 L 6.28125 42.28125 L 7.71875 43.71875 L 25 26.4375 L 42.28125 43.71875 L 43.71875 42.28125 L 26.4375 25 L 43.71875 7.71875 L 42.28125 6.28125 L 25 23.5625 Z"></path>
-                    </svg>
+                <script>
+                    function getSearchValue() {
+                        var s = document.getElementById("txt")
+                        return s.value
+                    }
+                </script>
+
+                <div class="title-catalogue">
+                    <h2 id="t1">Catalogue</h2>
+
+                    <?php
+                        if (isset($_SERVER["HTTP_HX_REQUEST"])) {
+                            echo <<<HTML
+                                <div id="close-catalogue">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50">
+                                    <path d="M 7.71875 6.28125 L 6.28125 7.71875 L 23.5625 25 L 6.28125 42.28125 L 7.71875 43.71875 L 25 26.4375 L 42.28125 43.71875 L 43.71875 42.28125 L 26.4375 25 L 43.71875 7.71875 L 42.28125 6.28125 L 25 23.5625 Z"></path>
+                                    </svg>                        
+                                </div>
+                                <script>
+                                    $("#close-catalogue").on("click", function() {
+                                        $("#catalogue").empty()
+                                        $("#catalogue").removeClass()
+                                    })
+                                </script>
+                            HTML;
+                        }
+                    ?>
+                    
                 </div>
-                <h2 id="t1">Catalogue</h2>
+                
                 <h3 id="t1">Recherche</h3>
                 <div class="container-catalogue">
                     <input type="text" class="search-bar" placeholder="Cherchez un pays" id="txt" hx-get="scripts/htmx/search.php" hx-trigger="keyup[this.value.trim().length > 0] changed delay:0.5s" hx-vals='js:{search: getSearchValue()}' hx-target="#search" hx-swap="outerHTML">
@@ -138,23 +155,5 @@
             </div>
         </div>
     </div>
-
-    <script>
-        
-        createMap()
-
-        $(".button-catalogue").on("click", function() {
-            var id = this.id
-            var id_pays = id.substring(2,4)
-            if (id[0] == "v") {
-                window.location.href = "Pays_V1/pays.php?id_pays="+id_pays;
-            } else {
-
-            }
-        })
-
-    </script>
-    
 </body>
 </html>
-

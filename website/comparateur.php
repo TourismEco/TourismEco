@@ -36,38 +36,33 @@
 <body>
     <?php
         require("functions.php");
-
-        function getPays($arg) {
-            if (isset($_GET[$arg])) {
-                return $_GET[$arg];
-            } else {
-                return "00";
-            }
-        }
-
         $cur = getDB();
 
-        $pays1 = getPays("pays0");
-        $pays2 = getPays("pays1");
+        // unset($_SESSION["compare"]);
         $pays = array();
+        if (isset($_SESSION["compare"])) {
+            foreach ($_SESSION["compare"] as $key => $id_pays) {
+                // echo $_SESSION["incr"];
+                $query = "SELECT * FROM pays WHERE id = :id_pays";
+                $sth = $cur->prepare($query);
+                $sth->bindParam(":id_pays", $id_pays, PDO::PARAM_STR);
+                $sth->execute();
 
-        foreach (array($pays1,$pays2) as $key => $id_pays) {
-            $query = "SELECT * FROM pays WHERE id = :id_pays";
-            $sth = $cur->prepare($query);
-            $sth->bindParam(":id_pays", $id_pays, PDO::PARAM_STR);
-            $sth->execute();
-
-            $ligne = $sth->fetch();
-            if ($ligne) {
-                $pays[] = $id_pays;
+                $ligne = $sth->fetch();
+                if ($ligne) {
+                    $pays[] = $id_pays;
+                }
             }
+        } else {
+            $_SESSION["compare"] = array();
+            $_SESSION["incr"] = 0;
         }
 
         switch (count($pays)) {
             case 2:
                 echo <<<HTML
-                    <div hx-get="scripts/htmx/getCompare.php" hx-vals="js:{incr:0,id_pays:'$pays1'}" hx-trigger="load"></div>
-                    <div hx-get="scripts/htmx/getCompare.php" hx-vals="js:{incr:1,id_pays:'$pays2'}" hx-trigger="load delay:.05s"></div>
+                    <div hx-get="scripts/htmx/getCompare.php" hx-vals="js:{incr:0,id_pays:'$pays[0]'}" hx-trigger="load"></div>
+                    <div hx-get="scripts/htmx/getCompare.php" hx-vals="js:{incr:1,id_pays:'$pays[1]'}" hx-trigger="load delay:.05s"></div>
                 HTML;
                 break;
             
@@ -99,17 +94,19 @@
 
             <div id="mini1"></div>
 
-            <div class="container-mini bg-52796F" style="width: 300px" hx-get="catalogue.php" hx-select="#main" hx-trigger="click">
+            <div class="container-side bg-52796F" hx-get="catalogue.php" hx-select="#catalogue" hx-target="#catalogue" hx-trigger="click" hx-swap="show:top">
                 <div class="mini-bandeau"> 
                     <img id=plus class="flag-small" src='assets/img/plus.svg'>
-                    <h2 class="nom-small">Afficher le catalogue</h2>
+                    <h2 class="nom-small">Choisir des pays</h2>
                 </div>
 
             </div>
 
         </div>
 
-        <div class="main" id="main" hx-swap="afterbegin">
+        <div class="main" id="main">
+
+            <div id="catalogue"></div>
 
             <div id="bandeau">
                 <div id="bandeau0"></div>
