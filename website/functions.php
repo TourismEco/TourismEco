@@ -267,10 +267,12 @@ function carousel($conn) {
             echo <<<HTML
             <div class="custom-slider">
                 <img class="slide-img" src="assets/img/$image[id].jpg" >
-                <div class="slide-text">
-                    <img class="slide-logo" src="assets/twemoji/$image[id].svg" alt="Logo SVG">
-                    <p>$image[nom]</p>
-                </div>
+                <a href="../pays.php?pays_id=$image[id]">
+                    <div class="slide-text">
+                        <img class="slide-logo" src="assets/twemoji/$image[id].svg" alt="Logo SVG">
+                        <p>$image[nom]</p>
+                    </div>
+                </a>
                 
             </div>
             HTML;
