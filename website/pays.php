@@ -28,35 +28,7 @@
 
     <?php require_once 'navbar.php'?>
 
-    <?php
-        require("functions.php");
-        $cur = getDB();
-
-        $pays = "";
-        if (isset($_SESSION["pays"])) {
-            $query = "SELECT * FROM pays WHERE id = :id_pays";
-            $sth = $cur->prepare($query);
-            $sth->bindParam(":id_pays", $_SESSION["pays"], PDO::PARAM_STR);
-            $sth->execute();
-
-            $ligne = $sth->fetch();
-            if ($ligne) {
-                $pays = $_SESSION["pays"];
-            }
-        } else {
-            $_SESSION["pays"] = "";
-        }
-
-        if ($pays == "") {
-            echo <<<HTML
-                <div hx-get="catalogue.php" hx-trigger="load" hx-select="#catalogue" hx-target="#catalogue" hx-vals="js:{page:'Pays'}"></div>
-            HTML;
-        } else {
-            echo <<<HTML
-                <div hx-get="scripts/htmx/getPays.php" hx-vals="js:{id_pays:'$pays'}" hx-trigger="load"></div>
-            HTML;
-        }
-    ?>
+    
 
     <div class="container-map">
         <div id="map"></div>
@@ -65,7 +37,7 @@
     <div class="grille">
 
         <div class="sidebar">
-            <div id="mini"></div>
+            <div id="mini0"></div>
 
             <div class="container-side bg-52796F" hx-get="catalogue.php" hx-select="#catalogue" hx-target="#catalogue" hx-trigger="click" hx-swap="show:top" hx-vals="js:{page:'Pays'}">
                 <div class="bandeau-small"> 
@@ -78,32 +50,45 @@
 
         <div class="main" id="main">
 
+            <?php
+                require("functions.php");
+                $cur = getDB();
+
+                $pays = "";
+                if (isset($_SESSION["pays"])) {
+                    $query = "SELECT * FROM pays WHERE id = :id_pays";
+                    $sth = $cur->prepare($query);
+                    $sth->bindParam(":id_pays", $_SESSION["pays"], PDO::PARAM_STR);
+                    $sth->execute();
+
+                    $ligne = $sth->fetch();
+                    if ($ligne) {
+                        $pays = $_SESSION["pays"];
+                    }
+                } else {
+                    $_SESSION["pays"] = "";
+                }
+
+                if ($pays == "") {
+                    echo <<<HTML
+                        <div hx-get="catalogue.php" hx-trigger="load" hx-select="#catalogue" hx-target="#catalogue" hx-vals="js:{page:'Pays'}"></div>
+                    HTML;
+                } else {
+                    echo <<<HTML
+                        <div hx-get="scripts/htmx/getPays.php" hx-vals="js:{id_pays:'$pays'}" hx-trigger="load"></div>
+                    HTML;
+                }
+            ?>
+
             <div id="catalogue"></div>
 
             <div class="container-bandeaux">
-                <div id="bandeau"></div>
+                <div id="bandeau0"></div>
             </div>
 
             <div class="container-simple bg-52796F">
                 <h2 class="title-section">Indicateurs clés</h2>
-                <div class="container-even" id="indicateurs">
-                    <div class="container-indic">
-                        <h3>CO2</h3>
-                        <p>2525</p>
-                    </div>
-                    <div class="container-indic">
-                        <h3>CO2</h3>
-                        <p>2525</p>
-                    </div>
-                    <div class="container-indic">
-                        <h3>CO2</h3>
-                        <p>2525</p>
-                    </div>
-                    <div class="container-indic">
-                        <h3>CO2</h3>
-                        <p>2525</p>
-                    </div>
-                </div>
+                <div class="container-even" id="indicateurs"></div>
                 
             </div>
 

@@ -70,14 +70,17 @@ $gpi = $ligne["gpi"];
 
 echo <<<HTML
 
-<div class="bandeau" id="bandeau" hx-swap-oob="outerHTML">     
+<div class="bandeau" id="bandeau0" hx-swap-oob="outerHTML">     
     <img class="img" src='assets/img/$id_pays.jpg' alt="Bandeau">
     <img class="flag" src='assets/twemoji/$id_pays.svg'>
     <h1 class="nom">$nom</h1>
     <p class="capital">Capitale : $capitale</p>
+    <img id="favorite" src="assets/img/heart.png">
+    <!-- <img id="favorite" src="assets/img/heart_full.png"> -->
+
 </div>
 
-<div class="container-side bg-354F52" id="mini" hx-swap-oob="outerHTML">
+<div class="container-side bg-354F52" id="mini0" hx-swap-oob="outerHTML">
     <div class="bandeau-side"> 
         <img class="img img-side" src='assets/img/$id_pays.jpg' alt="Bandeau">
         <img class="flag-small" src='assets/twemoji/$id_pays.svg'>

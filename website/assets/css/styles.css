@@ -483,6 +483,15 @@ body {
   align-self: center;
 }
 
+#favorite {
+    width: 40px;
+    color: white;
+    grid-column: 4;
+    grid-row: 1;
+    justify-self: end;
+    margin: 5px;
+}
+
 .title-catalogue {
     display: flex;
     justify-content: space-between;
@@ -747,10 +756,6 @@ footer p {
 
 .dark-green{
   background-color: var(--color5);
-}
-
-img {
-  width: 35%; /* Ajustez la largeur de l'image selon vos besoins */
 }
 
 .sectionHome img {

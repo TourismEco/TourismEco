@@ -36,55 +36,6 @@
 <body>
     <?php require_once 'navbar.php'?>
 
-    <?php
-        require("functions.php");
-        $cur = getDB();
-
-        // unset($_SESSION["compare"]);
-        $pays = array();
-        if (isset($_SESSION["compare"])) {
-            foreach ($_SESSION["compare"] as $key => $id_pays) {
-                // echo $_SESSION["incr"];
-                $query = "SELECT * FROM pays WHERE id = :id_pays";
-                $sth = $cur->prepare($query);
-                $sth->bindParam(":id_pays", $id_pays, PDO::PARAM_STR);
-                $sth->execute();
-
-                $ligne = $sth->fetch();
-                if ($ligne) {
-                    $pays[] = $id_pays;
-                }
-            }
-        } else {
-            $_SESSION["compare"] = array();
-            $_SESSION["incr"] = 0;
-        }
-
-        switch (count($pays)) {
-            case 2:
-                echo <<<HTML
-                    <div hx-get="scripts/htmx/getCompare.php" hx-vals="js:{incr:0,id_pays:'$pays[0]'}" hx-trigger="load"></div>
-                    <div hx-get="scripts/htmx/getCompare.php" hx-vals="js:{incr:1,id_pays:'$pays[1]'}" hx-trigger="load delay:.05s"></div>
-                HTML;
-                break;
-            
-            case 1:
-                echo <<<HTML
-                    <div hx-get="scripts/htmx/getCompare.php" hx-vals="js:{incr:0,id_pays:'$pays[0]'}" hx-trigger="load"></div>
-                    <div hx-get="catalogue.php" hx-trigger="load" hx-select="#main"></div>
-                HTML;
-                break;
-            
-            case 0:
-                echo <<<HTML
-                    <div hx-get="catalogue.php" hx-trigger="load" hx-select="#catalogue" hx-target="#catalogue" hx-vals="js:{page:'Compare'}"></div>
-                HTML;
-                break;
-        }
-
-        $pays = json_encode($pays);
-    ?>
-
     <div class="container-map">
         <div id="map"></div>
     </div>
@@ -107,6 +58,55 @@
         </div>
 
         <div class="main" id="main">
+
+            <?php
+                require("functions.php");
+                $cur = getDB();
+
+                // unset($_SESSION["compare"]);
+                $pays = array();
+                if (isset($_SESSION["compare"])) {
+                    foreach ($_SESSION["compare"] as $key => $id_pays) {
+                        // echo $_SESSION["incr"];
+                        $query = "SELECT * FROM pays WHERE id = :id_pays";
+                        $sth = $cur->prepare($query);
+                        $sth->bindParam(":id_pays", $id_pays, PDO::PARAM_STR);
+                        $sth->execute();
+
+                        $ligne = $sth->fetch();
+                        if ($ligne) {
+                            $pays[] = $id_pays;
+                        }
+                    }
+                } else {
+                    $_SESSION["compare"] = array();
+                    $_SESSION["incr"] = 0;
+                }
+
+                switch (count($pays)) {
+                    case 2:
+                        echo <<<HTML
+                            <div hx-get="scripts/htmx/getCompare.php" hx-vals="js:{incr:0,id_pays:'$pays[0]'}" hx-trigger="load"></div>
+                            <div hx-get="scripts/htmx/getCompare.php" hx-vals="js:{incr:1,id_pays:'$pays[1]'}" hx-trigger="load delay:.05s"></div>
+                        HTML;
+                        break;
+                    
+                    case 1:
+                        echo <<<HTML
+                            <div hx-get="scripts/htmx/getCompare.php" hx-vals="js:{incr:0,id_pays:'$pays[0]'}" hx-trigger="load"></div>
+                            <div hx-get="catalogue.php" hx-trigger="load" hx-select="#main"></div>
+                        HTML;
+                        break;
+                    
+                    case 0:
+                        echo <<<HTML
+                            <div hx-get="catalogue.php" hx-trigger="load" hx-select="#catalogue" hx-target="#catalogue" hx-vals="js:{page:'Compare'}"></div>
+                        HTML;
+                        break;
+                }
+
+                $pays = json_encode($pays);
+            ?>
 
             <div id="catalogue"></div>
 
