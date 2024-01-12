@@ -14,6 +14,7 @@ require("../../functions.php");
 $cur = getDB();
 
 $search = $_GET["search"];
+$page = $_GET["page"];
 
 if (strlen($search) == 0) {
     echo <<<HTML
@@ -31,7 +32,7 @@ HTML;
 
 while ($rsPays = $resultPays->fetch(PDO::FETCH_ASSOC)) {
     $letter = getLetter($rsPays["score"]);
-    echo addCardCountry($rsPays["idp"],$rsPays["p"],$letter);
+    echo addCardCountry($rsPays["idp"],$rsPays["p"],$letter,$page);
 }
 
 echo <<<HTML

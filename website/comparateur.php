@@ -34,6 +34,8 @@
 </head>
 
 <body>
+    <?php require_once 'navbar.php'?>
+
     <?php
         require("functions.php");
         $cur = getDB();
@@ -75,7 +77,7 @@
             
             case 0:
                 echo <<<HTML
-                    <div hx-get="catalogue.php" hx-trigger="load" hx-select="#main"></div>
+                    <div hx-get="catalogue.php" hx-trigger="load" hx-select="#catalogue" hx-target="#catalogue" hx-vals="js:{page:'Compare'}"></div>
                 HTML;
                 break;
         }
@@ -94,7 +96,7 @@
 
             <div id="mini1"></div>
 
-            <div class="container-side bg-52796F" hx-get="catalogue.php" hx-select="#catalogue" hx-target="#catalogue" hx-trigger="click" hx-swap="show:top">
+            <div class="container-side bg-52796F" hx-get="catalogue.php" hx-select="#catalogue" hx-target="#catalogue" hx-trigger="click" hx-swap="show:top" hx-vals="js:{page:'Compare'}">
                 <div class="bandeau-side"> 
                     <img id=plus class="flag-small" src='assets/img/plus.svg'>
                     <h2 class="nom-small">Choisir des pays</h2>
@@ -236,25 +238,31 @@
                     <h2 class="title-section">Définitions</h2>
                     
                 </div>
-                </div>    
+            </div>    
 
-            </div>
+            <script id=scripting>
+        
+                spider()
+                createGraph()
+                graphBar()
+                createMapCompare(<?=$pays?>)
+
+            </script>
+
+        </div>
              
             
 
             <script src="scripts/js/carousel.js"></script>
+
+            
         </div>
     
     </div>
 
-    <script id=scripting>
-        
-        spider()
-        createGraph()
-        graphBar()
-        createMapCompare(<?=$pays?>)
+    <?php require_once 'footer.html'?>
 
-    </script>
+    
 
 </body>
 

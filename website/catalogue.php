@@ -61,6 +61,7 @@
 
                     <?php
                         if (isset($_SERVER["HTTP_HX_REQUEST"])) {
+                            $page = $_GET["page"];
                             echo <<<HTML
                                 <div id="close-catalogue">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50">
@@ -81,7 +82,7 @@
                 
                 <h3 class="title-section">Recherche</h3>
                 <div class="container-catalogue">
-                    <input type="text" class="search-bar" placeholder="Cherchez un pays" id="txt" hx-get="scripts/htmx/search.php" hx-trigger="keyup[this.value.trim().length > 0] changed delay:0.5s" hx-vals='js:{search: getSearchValue()}' hx-target="#search" hx-swap="outerHTML">
+                    <input type="text" class="search-bar" placeholder="Cherchez un pays" id="txt" hx-get="scripts/htmx/search.php" hx-trigger="keyup[this.value.trim().length > 0] changed delay:0.5s" hx-vals='js:{search: getSearchValue(), page:"<?=$page?>"}' hx-target="#search" hx-swap="outerHTML">
                 </div>
 
                 <div id=search>
@@ -101,7 +102,7 @@
 
                         while ($rsPays = $resultPays->fetch(PDO::FETCH_ASSOC)) {
                             $letter = getLetter($rsPays["score"]);
-                            echo addCardCountry($rsPays["id"],$rsPays["nom"],$letter);
+                            echo addCardCountry($rsPays["id"],$rsPays["nom"],$letter,$page);
                         }
                     ?>
                 </div>
@@ -129,7 +130,7 @@
 
                             while ($rsPays = $resultPays->fetch(PDO::FETCH_ASSOC)) {
                                 $letter = getLetter($rsPays["score"]);
-                                echo addSlimCountry($rsPays["id"],$rsPays["nom"],$letter);
+                                echo addSlimCountry($rsPays["id"],$rsPays["nom"],$letter,$page);
                             }
 
                             echo <<<HTML

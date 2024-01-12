@@ -1,6 +1,6 @@
 <?php
 
-require('config.php');
+require_once('config.php');
 
 function getArrivals(string $id_pays, PDO $conn): int {
     $query = <<<SQL
@@ -78,7 +78,7 @@ function getLetter($score) {
     }
 }
 
-function addCardCountry($id,$nom,$letter) {
+function addCardCountry($id,$nom,$letter,$page) {
     return <<<HTML
         <div class="container-small bg-354F52">
             <div class="bandeau-small hide-flag"> 
@@ -87,14 +87,14 @@ function addCardCountry($id,$nom,$letter) {
                 <img class="flag-small" src='assets/twemoji/$id.svg'>
                 <h2 class="nom-small">$nom</h2>
                 <div class="buttons-small">
-                    <button class=button-catalogue id=v-$id hx-get="scripts/htmx/getCompare.php" hx-vals="js:{id_pays:'$id'}" hx-swap="beforeend show:top">Ajouter</button>
+                    <button class=button-catalogue id=v-$id hx-get="scripts/htmx/get$page.php" hx-vals="js:{id_pays:'$id'}" hx-swap="beforeend show:top">Consulter</button>
                 </div>
             </div>
         </div>
     HTML;
 }
 
-function addSlimCountry($id,$nom,$letter) {
+function addSlimCountry($id,$nom,$letter,$page) {
     return <<<HTML
         <div class="container-slim bg-354F52">
             <div class="bandeau-slim"> 
@@ -103,7 +103,7 @@ function addSlimCountry($id,$nom,$letter) {
                 <img class="flag-slim" src='assets/twemoji/$id.svg'>
                 <h2 class="nom-slim">$nom</h2>
                 <div class="buttons-slim">
-                    <button class=button-catalogue id=v-$id hx-get="scripts/htmx/getCompare.php" hx-vals="js:{id_pays:'$id'}" hx-swap="beforeend show:top">Ajouter</button>
+                    <button class=button-catalogue id=v-$id hx-get="scripts/htmx/get$page.php" hx-vals="js:{id_pays:'$id'}" hx-swap="beforeend show:top">Consulter</button>
                 </div>
             </div>
         </div>
@@ -267,12 +267,10 @@ function carousel($conn) {
             echo <<<HTML
             <div class="custom-slider">
                 <img class="slide-img" src="assets/img/$image[id].jpg" >
-                <a href="../pays.php?pays_id=$image[id]">
-                    <div class="slide-text">
-                        <img class="slide-logo" src="assets/twemoji/$image[id].svg" alt="Logo SVG">
-                        <p>$image[nom]</p>
-                    </div>
-                </a>
+                <div class="slide-text">
+                    <img class="slide-logo" src="assets/twemoji/$image[id].svg" alt="Logo SVG">
+                    <p>$image[nom]</p>
+                </div>
                 
             </div>
             HTML;

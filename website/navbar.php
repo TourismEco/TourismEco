@@ -1,10 +1,17 @@
+<?php
+require_once "config.php"
+?>
+
+
 <!-- Barre de navigation -->
-    <nav class="navbar" hx-boost="true" hx-target="main" hx-select="main">
+    <nav class="navbar" hx-boost="true" hx-target="#main" hx-select="#main" hx-swap="outerHTML">
         <div class="onglets">
-        <a href=<?= SOURCE?>>ECOTOURISME</a>
-        <a href=<?= SOURCE."Home.php"?>>Accueil</a>
-        <a href=<?= SOURCE."comparateur.php"?>>Comparateur</a>
-        <a href=<?= SOURCE."catalogue.php"?>>Catalogue</a>
+        <a href="index.php">ECOTOURISME</a>
+        <a href="index.php">Accueil</a>
+        <a href="monde.php">Monde</a>
+        <a href="pays.php">Pays</a>
+        <a href="continent.php">Continent</a>
+        <a href="comparateur.php">Comparateur</a>
         <!-- <a href="#news">Statistiques</a> -->
     <!-- <a href="#news">Calculateur</a> -->
     <div class="search-container" style="float:right">
