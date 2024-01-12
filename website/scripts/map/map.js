@@ -26,8 +26,8 @@ var html =
             <div style="grid-column: 1;
                 grid-row: 1;
                 width: 100%;">
-                <img style="width: 70px;
-                    height: 70px;" src='assets/twemoji/{id}.svg'>
+                <img style="width: 50px;
+                    height: 50px;" src='assets/twemoji/{id}.svg'>
             </div>
         </div>
         `
@@ -140,7 +140,7 @@ class EcoMap {
 
         serie.mapPolygons.template.events.on("click", function (ev) {
             serie.zoomToDataItem(ev.target.dataItem);
-            // htmx.ajax("GET","ajax.php",{values:{incr:0,id_pays:ev.target.dataItem._settings.id},swap:"beforeend"})
+            htmx.ajax("GET","scripts/htmx/getPays.php",{values:{map:true,id_pays:ev.target.dataItem._settings.id},swap:"beforeend"})
         });
     }
 
