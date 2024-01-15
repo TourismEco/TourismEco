@@ -289,6 +289,24 @@ def setVilles():
     cnx.commit()
 
     
+def addDescip(tables):
+
+    cnx, cur = connectSQL(db)
+
+    for z in range(len(tables)):
+
+        df = pd.read_excel("data/xlsx/descip.xlsx",tables[z],header=0)
+        
+        for i in range(len(df)):
+            if not pd.isna(df['Anecdote 1'][i]) and not pd.isna(df['Anecdote 2'][i]) and not pd.isna(df['Anecdote 3'][i]):
+
+                print((df['Description'][i],df['Anecdote 1'][i],df['Anecdote 2'][i],df['Anecdote 3'][i]))
+                cur.execval(f"UPDATE pays SET description = %s, sv1 = %s, sv2 = %s, sv3 = %s WHERE id = '{df['id'][i]}'",(df['Description'][i],df['Anecdote 1'][i],df['Anecdote 2'][i],df['Anecdote 3'][i]))
+
+    cnx.commit()
+
+
+
 
 # addEmojisFile()
 
@@ -307,4 +325,6 @@ def setVilles():
 # addGrowth("surete",["gpi"])
 # addGrowth("ecologie",["co2","ges","elecRenew"])
     
-setVilles()
+# setVilles()
+    
+addDescip(["Aya","Cassandra","Line","Rémy","Lucas"])

@@ -52,3 +52,7 @@ class CustomCursor(mysql.connector.cursor_cext.CMySQLCursorBuffered):
     def execute(self,operation) -> MySQLResponse:
         super().execute(operation)
         return MySQLResponse(self)
+    
+    def execval(self,operation,val) -> MySQLResponse:
+        super().execute(operation,val)
+        return MySQLResponse(self)
