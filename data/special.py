@@ -280,6 +280,14 @@ def addGrowth(table,cols):
             
     cnx.commit()
 
+def setVilles():
+    cnx, cur = connectSQL(db)
+    for i in cur.execute("SELECT * FROM airports").fetchall():
+        a = cur.execute(f"SELECT * FROM villes WHERE nom = '{i['city']}' AND id_pays = '{i['id_pays']}'").fetchone()
+        if a != None:
+            cur.execute(f"UPDATE airports SET city = '{a['id']}' WHERE apid = {i['apid']}")
+    cnx.commit()
+
     
 
 # addEmojisFile()
@@ -295,6 +303,8 @@ def addGrowth(table,cols):
 # addPop()
     
 # addGrowth("economie",["pib","pibParHab","cpi"])
-addGrowth("tourisme",["arriveesTotal","arriveesAF","arriveesAM","arriveesEA","arriveesEU","arriveesME","arriveesSA","arriveesAutre","arriveesPerso","arriveesPro","arriveesAvion","arriveesEau","arriveesTerre","departs","depenses","recettes","emplois"])
-addGrowth("surete",["gpi"])
-addGrowth("ecologie",["co2","ges","elecRenew"])
+# addGrowth("tourisme",["arriveesTotal","arriveesAF","arriveesAM","arriveesEA","arriveesEU","arriveesME","arriveesSA","arriveesAutre","arriveesPerso","arriveesPro","arriveesAvion","arriveesEau","arriveesTerre","departs","depenses","recettes","emplois"])
+# addGrowth("surete",["gpi"])
+# addGrowth("ecologie",["co2","ges","elecRenew"])
+    
+setVilles()

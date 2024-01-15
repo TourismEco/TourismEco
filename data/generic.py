@@ -122,7 +122,7 @@ def nameToCode(table):
     cnx, cur = connectSQL(db)
 
     for i in codes:
-        cur.execute(f"UPDATE {table} SET id_pays = '{i['country']}' WHERE id_pays = '{i['name'].upper()}'")
+        cur.execute(f"UPDATE {table} SET id_pays = '{i['country']}' WHERE id_pays = '{i['name']}'")
 
     cur.execute(f"UPDATE {table} SET id_pays = 'BO' WHERE id_pays = 'BOLIVIA, PLURINATIONAL STATE OF'")
     cur.execute(f"UPDATE {table} SET id_pays = 'BN' WHERE id_pays = 'BRUNEI DARUSSALAM'")
@@ -240,8 +240,9 @@ if __name__ == "__main__":
     # merge("arrivees",["departs","argent","emploi"],"tourisme")
     # merge("pib",["cpi"],"economie")
     # clearTables(["AI","CK","GF","GP","KN","MQ","MS","NU","PS","RE","TW"])
-    clearTables(["ST","MR"])
-    checking()
+    # clearTables(["ST","MR"])
+    # checking()
+    nameToCode("airports")
     pass
 
 # baseCsv("allData"," Inbound Tourism-Arrivals","test",1341,6,2,5,1995,2021,"Basic data and indicators")
