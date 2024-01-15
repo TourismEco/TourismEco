@@ -13,7 +13,10 @@ if (isset($_GET["incr"])) {
 }
 
 if (!in_array($id_pays,$_SESSION["compare"])) {
+    $old = $_SESSION["compare"][$incr];
     $_SESSION["compare"][$incr] = $id_pays;
+} else {
+    $old = "00";
 }
 
 if (isset($_GET["map"])) {
@@ -29,6 +32,9 @@ $sth->bindParam(":id_pays", $id_pays, PDO::PARAM_STR);
 $sth->execute();
 $ligne = $sth->fetch();
 $nom = $ligne["nom"];
+$sv1 = explode(" : ",$ligne["sv1"]);
+$sv2 = explode(" : ",$ligne["sv2"]);
+$sv3 = explode(" : ",$ligne["sv3"]);
 
 // Capitale
 $query = "SELECT * FROM villes WHERE id_pays = :id_pays and capitale = :is_capitale";
@@ -80,13 +86,22 @@ echo <<<HTML
     spiderAjax($incr, $dataSpider, $dataTab, "$nom")
     lineAjax($incr, $dataLine, "$nom")
     barAjax($incr, $dataBar, "$nom")
+
     if ($map) {
         map.setActive("$id_pays")
     }
+
+    addListe("$sv1[0]","$sv1[1]","test","$id_pays")
+    addListe("$sv2[0]","$sv2[1]","test","$id_pays")
+    addListe("$sv3[0]","$sv3[1]","test","$id_pays")
+    delListe("$old")
+
     $("#tabtemp").remove()
     $("#scripting").empty()
 </script>
 
 HTML;
+
 $_SESSION["incr"] = ($_SESSION["incr"]+1)%2
+
 ?>

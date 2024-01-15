@@ -19,6 +19,7 @@ $sth->bindParam(":id_pays", $id_pays, PDO::PARAM_STR);
 $sth->execute();
 $ligne = $sth->fetch();
 $nom = $ligne["nom"];
+$description = $ligne["description"];
 
 // Capitale
 $query = "SELECT * FROM villes WHERE id_pays = :id_pays and capitale = :is_capitale";
@@ -113,6 +114,10 @@ echo <<<HTML
         <h3>Arrivées</h3>
         <p>$arrivees</p>
     </div>
+</div>
+
+<div id="descip" hx-swap-oob="outerHTML">
+    <p class="text-full">$description</p>
 </div>
 
 <div id="catalogue" hx-swap-oob="outerHTML"></div>

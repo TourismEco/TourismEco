@@ -87,9 +87,13 @@
             </div>
 
             <div class="container-simple bg-52796F">
+                <h2 class="title-section">Description</h2>
+                <div id="descip"></div>
+            </div>
+
+            <div class="container-simple bg-52796F">
                 <h2 class="title-section">Indicateurs clés</h2>
                 <div class="container-even" id="indicateurs"></div>
-                
             </div>
 
             <div class="container-simple bg-52796F">
