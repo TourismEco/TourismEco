@@ -624,48 +624,42 @@ footer p {
 }
 /* Carrousel */
 
-.custom-slider { display: none; }
+.custom-slider { 
+  display: none; 
+  grid-row: 1 / 4;
+  grid-column: 1 / 4;
+}
+
 .slide-container {
-  max-width: 100%;
-  position: relative;
-  margin: auto;
+  margin: 40px;
+  display: grid;
+  grid-template-columns: 10% 80% 10%;
+  grid-template-rows: 1fr 1fr 1fr;
 }
 
 .slide-container h1 {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   color:  #FFF;
   text-align: center;
-  font-family: Inter;
   font-size: 70px;
   font-style: normal;
-  font-weight: 800;
   line-height: normal;
   letter-spacing: -1.28px;
+  margin:20px
 }
 
 .slide-container h2 {
-  position: absolute;
-  top: 55%;
-  left: 50%;
-  transform: translate(-50%, 10%); 
   color: #FFF;
   text-align: center;
-  font-family: Inter;
   font-size: 40px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
   letter-spacing: -0.64px;
+  margin:20px
 }
 
 .prev, .next {
   cursor: pointer;
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
   width: 60px;
   height: 60px;
   display: flex;
@@ -676,31 +670,35 @@ footer p {
   font-size: 30px;
   background-color: rgba(0,0,0,0);
   transition: background-color 0.6s ease;
+  grid-row: 2;
+  align-self: center;
+  z-index: 20;
 }
-.prev{ left: 15px; }
-.next { right: 15px; }
+.prev{ 
+  grid-column: 1;
+}
+.next { 
+  grid-column: 3;
+  justify-self: end;
+}
 .prev:hover, .next:hover {
   background-color: rgba(0,0,0,0.5);
 }
 .slide-text {
   display: flex;
-  position: absolute;
   color: #ffffff;
   font-size: 15px;
-  padding-left: 8px;
-  padding-top: 5px;
-  bottom: 15px;
   width: 200px;
-  height: 60px;
-  bottom: 45px;
-  right: 27px ;
+  height: 50px;
   background: #354F52;
-  border-radius: 15px;
+  border-radius: 10px;
+  padding: 10px;
+  grid-column: 3;
 }
 
 .slide-text p {
-  padding-left : 10px;
-  padding-top: 15px;
+  align-self: center;
+  padding-left: 10px;
 }
 
 .slide-index {
@@ -715,6 +713,25 @@ footer p {
   height: 400px;
   object-fit: cover;
   object-position: center;
+  border-radius: 10px;
+  filter:brightness(70%);
+  grid-column: 1 / 4;
+  grid-row: 1 / 4;
+}
+
+.text-center {
+  grid-column: 2;
+  grid-row: 1 /4;
+  z-index: 50;
+  align-self: center;
+}
+
+.slide-link {
+  grid-row: 3;
+  grid-column: 3;
+  z-index: 50;
+  justify-self: end;
+  padding: 10px;
 }
 
 

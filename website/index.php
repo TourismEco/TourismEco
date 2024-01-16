@@ -7,9 +7,9 @@
   <title>Home</title>
   <?php
     require_once "functions.php";
-    $bdd = getDB();
+    $conn = getDB();
   ?>
-    <script src="./assets/js/map.js"></script>
+    <script src="scripts/map/map.js"></script>
 </head>
 
 <body>

@@ -38,7 +38,7 @@ function showSlides(n) {
             sliderPrev[i].addEventListener('click', clickSlider);
         }
     }
-    slides[slideIndex-1].style.display = "block";
+    slides[slideIndex-1].style.display = "grid";
 }
 
 // Fonction pour avancer automatiquement les diapositives à intervalles réguliers
