@@ -261,28 +261,37 @@ function carousel($conn) {
 
     $conn = null;
 
-    // Affiche les diapositives (images et descriptions) dans une structure HTML
-    echo '<div class="slide-container">';
-        foreach ($images as $image):
-            echo <<<HTML
-            <div class="custom-slider">
-                <img class="slide-img" src="assets/img/$image[id].jpg" >
+    echo <<<HTML
+        <div class="slide-container">
+
+        <a class="prev" onclick="plusSlides(-1)">❮</a>
+
+        <div class="text-center">
+            <h1>Ecotourisme</h1>
+            <h2>Partez à la découverte du monde</h2>
+        </div>
+        
+        <a class="next" onclick="plusSlides(1)">❯</a>
+
+        
+    HTML;
+
+    foreach ($images as $image):
+        echo <<<HTML
+        <div class="custom-slider">
+            <img class="slide-img" src="assets/img/$image[id].jpg" >
+            <a class="slide-link" href="pays.php?id_pays=$image[id]">
                 <div class="slide-text">
                     <img class="slide-logo" src="assets/twemoji/$image[id].svg" alt="Logo SVG">
                     <p>$image[nom]</p>
                 </div>
-                
-            </div>
-            HTML;
-        endforeach;
+            </a>
+            
+        </div>
+        HTML;
+    endforeach;
 
     echo <<<HTML
-        <h1> Ecotourisme </h1>
-        <h2> Partez à la découverte du monde </h2>
-
-        <!-- Ajoute des boutons de navigation précédent et suivant -->
-        <a class="prev" onclick="plusSlides(-1)">❮</a>
-        <a class="next" onclick="plusSlides(1)">❯</a>
-    </div>
+        </div>
     HTML;
 }
