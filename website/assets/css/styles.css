@@ -199,11 +199,11 @@ body {
     justify-items: center;
     transition: all .5s;
 }
-.bandeau:active{
+.half:active{
     height: 500px;
     transition: all .5s;
 }
-.bandeau:active .img {
+.half:active .img {
     height: 500px;
     transition: all .5s;
 }
@@ -484,12 +484,19 @@ body {
 }
 
 #favorite {
-    width: 40px;
+    width: 30px;
     color: white;
     grid-column: 4;
     grid-row: 1;
     justify-self: end;
-    margin: 5px;
+    margin: 10px;
+    transition: all .3s;
+}
+
+#favorite:hover {
+    width: 40px;
+    transition: all .3s;
+    margin:5px
 }
 
 .title-catalogue {
@@ -860,10 +867,6 @@ footer p {
       animation: next-text 0.65s 0.085s;
     }
 
-    #previous-option {
-      animation: next-top-arrow 0.65s 0.085s;
-    }
-
     #next-option {
       animation: next-bottom-arrow 0.65s 0.085s;
     }
@@ -887,10 +890,6 @@ footer p {
     #previous-option {
       animation: previous-top-arrow 0.65s 0.085s;
     }
-
-    #next-option {
-      animation: previous-bottom-arrow 0.65s 0.085s;
-    }
     
     #image {
       animation: previous-image 0.65s 0.085s;
@@ -910,13 +909,7 @@ footer p {
 
 @keyframes previous-top-arrow {
   50% {
-    transform: translate(0, 53px);
-  }
-}
-
-@keyframes previous-bottom-arrow {
-  50% {
-    transform: translate(0, -47px) rotate(180deg);
+    transform: translate(0, 25px);
   }
 }
 
@@ -945,15 +938,9 @@ footer p {
   }
 }
 
-@keyframes next-top-arrow {
-  50% {
-    transform: translate(0, 47px);
-  }
-}
-
 @keyframes next-bottom-arrow {
   50% {
-    transform: translate(0, -53px) rotate(180deg);
+    transform: translate(0, -25px) rotate(180deg);
   }
 }
 

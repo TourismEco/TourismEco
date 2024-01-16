@@ -1,46 +1,12 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>EcoTourism - Comparaison</title>
-    <link rel="stylesheet" href="assets/css/styles.css">
-
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
-
-    <!-- Base -->
-    <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
-    <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
-
-    <!-- Map -->
-    <script src="https://cdn.amcharts.com/lib/5/map.js"></script>
-    <script src="https://cdn.amcharts.com/lib/5/geodata/continentsLow.js"></script>
-    <script src="https://cdn.amcharts.com/lib/5/geodata/worldLow.js"></script>
-    <script src="https://cdn.amcharts.com/lib/5/geodata/lang/FR.js"></script>
-    
-
-    <!-- Graph -->
-    <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
-    <script src="scripts/graph/lineCompare.js"></script>
-
-    <script src="https://cdn.amcharts.com/lib/5/radar.js"></script>
-    <script src="scripts/graph/spiderCompare.js"></script>
-
-    <script src="scripts/graph/barCompare.js"></script>
-
-    <script src="scripts/graph/amTools.js"></script>
-    <script src="scripts/map/map.js"></script>
-
-</head>
+<?php require_once 'head.php'?>
 
 <body>
-    <?php require_once 'navbar.php'?>
-
+    
     <div class="container-map">
         <div id="map"></div>
     </div>
 
-    <div class="grille">
+    <div class="grille" id="grille">
     
         <div class="sidebar">
             <div id="mini0"></div>
@@ -60,13 +26,12 @@
         <div class="main" id="main">
 
             <?php
-                require("functions.php");
                 $cur = getDB();
 
-                // unset($_SESSION["compare"]);
+                // unset($_SESSION["pays"]);
                 $pays = array();
-                if (isset($_SESSION["compare"])) {
-                    foreach ($_SESSION["compare"] as $key => $id_pays) {
+                if (isset($_SESSION["pays"])) {
+                    foreach ($_SESSION["pays"] as $key => $id_pays) {
                         // echo $_SESSION["incr"];
                         $query = "SELECT * FROM pays WHERE id = :id_pays";
                         $sth = $cur->prepare($query);
@@ -79,21 +44,21 @@
                         }
                     }
                 } else {
-                    $_SESSION["compare"] = array();
+                    $_SESSION["pays"] = array();
                     $_SESSION["incr"] = 0;
                 }
 
                 switch (count($pays)) {
                     case 2:
                         echo <<<HTML
-                            <div hx-get="scripts/htmx/getCompare.php" hx-vals="js:{incr:0,id_pays:'$pays[0]'}" hx-trigger="load"></div>
-                            <div hx-get="scripts/htmx/getCompare.php" hx-vals="js:{incr:1,id_pays:'$pays[1]'}" hx-trigger="load delay:.05s"></div>
+                            <div hx-get="scripts/htmx/getCompare.php" hx-vals="js:{incr:0,id_pays:'$pays[0]'}" hx-trigger="load delay:1s"></div>
+                            <div hx-get="scripts/htmx/getCompare.php" hx-vals="js:{incr:1,id_pays:'$pays[1]'}" hx-trigger="load delay:1.05s"></div>
                         HTML;
                         break;
                     
                     case 1:
                         echo <<<HTML
-                            <div hx-get="scripts/htmx/getCompare.php" hx-vals="js:{incr:0,id_pays:'$pays[0]'}" hx-trigger="load"></div>
+                            <div hx-get="scripts/htmx/getCompare.php" hx-vals="js:{incr:0,id_pays:'$pays[0]'}" hx-trigger="load delay:1s"></div>
                             <div hx-get="catalogue.php" hx-trigger="load" hx-select="#main"></div>
                         HTML;
                         break;
@@ -241,6 +206,7 @@
                 </div>
             </div>    
 
+            <script src="scripts/js/carousel-savezvous.js"></script>
             <script id=scripting>
         
                 spider()
@@ -251,23 +217,9 @@
             </script>
 
         </div>
-             
-            
-
-            <script src="scripts/js/carouselCompare.js"></script>
-
-            
-        </div>
-    
     </div>
 
     <?php require_once 'footer.html'?>
 
     
-
 </body>
-
-
-
-</html>
-

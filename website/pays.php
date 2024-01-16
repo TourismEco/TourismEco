@@ -1,40 +1,11 @@
-<html lang="fr">
+<?php require_once 'head.php'?>
 
-<head>
-    <meta charset="utf-8">
-    <title>EcoTourism - Pays</title>
-    <link rel="stylesheet" href="assets/css/styles.css" type="text/css" media="screen" />
-
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
-
-    <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
-    <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
-    <script src="https://cdn.amcharts.com/lib/5/map.js"></script>
-    <script src="https://cdn.amcharts.com/lib/5/geodata/continentsLow.js"></script>
-    <script src="https://cdn.amcharts.com/lib/5/geodata/worldLow.js"></script>
-    <script src="https://cdn.amcharts.com/lib/5/geodata/lang/FR.js"></script>
-
-    <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
-    <script src="https://cdn.amcharts.com/lib/5/radar.js"></script>
-
-    <script src="scripts/graph/amTools.js"></script>
-    <script src="scripts/map/map.js"></script>
-    <script src="scripts/graph/barre.js"></script>
-    <script src="scripts/graph/double_courbe.js"></script>
-
-</head>
 <body>
-
-    <?php require_once 'navbar.php'?>
-
-    
-
     <div class="container-map">
         <div id="map"></div>
     </div>
 
-    <div class="grille">
+    <div class="grille" id="grille">
 
         <div class="sidebar">
             <div id="mini0"></div>
@@ -51,22 +22,21 @@
         <div class="main" id="main">
 
             <?php
-                require("functions.php");
                 $cur = getDB();
 
                 $pays = "";
-                if (isset($_SESSION["pays"])) {
+                if (isset($_SESSION["pays"]) && count($_SESSION["pays"]) != 0) {
                     $query = "SELECT * FROM pays WHERE id = :id_pays";
                     $sth = $cur->prepare($query);
-                    $sth->bindParam(":id_pays", $_SESSION["pays"], PDO::PARAM_STR);
+                    $sth->bindParam(":id_pays", $_SESSION["pays"][0], PDO::PARAM_STR);
                     $sth->execute();
 
                     $ligne = $sth->fetch();
                     if ($ligne) {
-                        $pays = $_SESSION["pays"];
+                        $pays = $_SESSION["pays"][0];
                     }
                 } else {
-                    $_SESSION["pays"] = "";
+                    $_SESSION["pays"] = array();
                 }
 
                 if ($pays == "") {
@@ -75,7 +45,7 @@
                     HTML;
                 } else {
                     echo <<<HTML
-                        <div hx-get="scripts/htmx/getPays.php" hx-vals="js:{id_pays:'$pays'}" hx-trigger="load"></div>
+                        <div hx-get="scripts/htmx/getPays.php" hx-vals="js:{id_pays:'$pays'}" hx-trigger="load delay:1s"></div>
                     HTML;
                 }
             ?>
@@ -154,60 +124,60 @@
 
             </div>
 
+            <?php
+                require_once "functions.php";
+                $conn = getDB();
+                $query = "
+                    SELECT pays.nom, ROUND(SUM(co2)) as total
+                    FROM ecologie, pays
+                    WHERE pays.id = ecologie.id_pays
+                    GROUP BY id_pays
+                    ORDER BY `total` DESC
+                    LIMIT 10;
+                ";
+                $result = $conn->query($query);
+
+                $data_bar = array();
+                while ($rs = $result->fetch()) {
+                    $data_bar[] = '
+                    {country:' . '"' . $rs['nom'] . '"' . ',
+                    ' . 'value:' . $rs['total'] . '}';
+                }
+
+                // Concaténer les données
+                $data_bar = implode(",", $data_bar);
+
+                $query = "
+                SELECT eco.annee, eco.co2 as eco
+                FROM ecologie as eco
+                WHERE eco.id_pays = 'FR'
+                ";
+
+                $result = $conn->query($query);
+
+                $data_courbe = array();
+                while ($rs = $result->fetch()) {
+                    $data_courbe[] = array(
+                        "year" => $rs['annee'],
+                        "value" => $rs['eco'],
+                    );
+                }
+
+                // Fermez la connexion à la base de données
+                $conn= null;
+                $data_courbe = json_encode($data_courbe);
+            ?>
+
+            <script id=scripting>
+                createMap()
+                double_courbe(<?=$data_courbe?>)
+                barre(<?= $data_bar;?>)
+            </script>
+
         </div>
     </div>
 
-    <?php
-        require_once "functions.php";
-        $conn = getDB();
-        $query = "
-            SELECT pays.nom, ROUND(SUM(co2)) as total
-            FROM ecologie, pays
-            WHERE pays.id = ecologie.id_pays
-            GROUP BY id_pays
-            ORDER BY `total` DESC
-            LIMIT 10;
-        ";
-        $result = $conn->query($query);
-
-        $data_bar = array();
-        while ($rs = $result->fetch()) {
-            $data_bar[] = '
-            {country:' . '"' . $rs['nom'] . '"' . ',
-            ' . 'value:' . $rs['total'] . '}';
-        }
-
-        // Concaténer les données
-        $data_bar = implode(",", $data_bar);
-
-        $query = "
-        SELECT eco.annee, eco.co2 as eco
-        FROM ecologie as eco
-        WHERE eco.id_pays = 'FR'
-        ";
-
-        $result = $conn->query($query);
-
-        $data_courbe = array();
-        while ($rs = $result->fetch()) {
-            $data_courbe[] = array(
-                "year" => $rs['annee'],
-                "value" => $rs['eco'],
-            );
-        }
-
-        // Fermez la connexion à la base de données
-        $conn= null;
-        $data_courbe = json_encode($data_courbe);
-    ?>
-
-
-        <script id=scripting>
-            createMap()
-            double_courbe(<?=$data_courbe?>)
-            barre(<?= $data_bar;?>)
-        </script>
+    
             
     <?php require_once 'footer.html'?>
-    </body>
-</html>
+</body>

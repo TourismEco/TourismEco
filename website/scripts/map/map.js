@@ -33,7 +33,7 @@ var html =
         `
 
 class EcoMap {
-    constructor (id) {
+    constructor (id,compare) {
         this.root = am5.Root.new(id);
         this.countries = null
         this.continents = null
@@ -41,6 +41,7 @@ class EcoMap {
         this.incr = 0
         this.cities = null
         this.capitals = null
+        this.compare = compare
 
         this.root.setThemes([
             am5themes_Animated.new(this.root)
@@ -54,21 +55,26 @@ class EcoMap {
         }));
     }
 
-    toggleActive(serie, compare) {
-        if (compare) {
-            this.activeCompare(serie)
-        } else {
-            this.incr = 1
-            for (var i=1; i<this.poly.length; i++) {
-                this.poly[i].set("active",false)
-                this.poly[i].set("interactive",true)
-            }
-            this.poly = [this.poly[0]]
-            this.activePays(serie)
-        }
+    setCompare(compare) {
+        this.compare = compare
     }
 
-    addCountries(compare) {
+    togglePays() {
+        this.incr = 1
+        for (var i=1; i<this.poly.length; i++) {
+            this.poly[i].set("active",false)
+            this.poly[i].set("interactive",true)
+        }
+        this.poly = [this.poly[0]]
+    }
+
+    toggleCompare() {
+        this.cities.data.clear()
+        this.capitals.data.clear()
+        this.map.goHome();
+    }
+
+    addCountries() {
         var base = this
 
         this.countries = this.map.series.push(am5map.MapPolygonSeries.new(base.root, {
@@ -78,12 +84,7 @@ class EcoMap {
             fill:am5.color("#84A98C")
         }));    
         this.behaviorSerie(this.countries)
-        if (compare) {
-            this.activeCompare(this.countries)
-        } else {
-            this.activePays(this.countries)
-        }
-        
+        this.activePays(this.countries)
     }
 
     addContinents() {
@@ -123,52 +124,42 @@ class EcoMap {
 
     activePays(serie) {
         var base = this
-
-        serie.mapPolygons.template.on("active", function(active, target) {
-            if (active) {
-                target.set("interactive",false)
-                if (base.poly.length != 0 && base.poly[0] != target) {
-                    base.poly[0].set("active", false);  
-                    base.poly[0].set("interactive",true)
-                }
-                base.poly[0] = target;
-                var result = base.getCities(target.dataItem._settings.id)
-                base.addCapitals(result["capitals"])
-                base.addCities(result["cities"])
-            }
-        })
-
-        serie.mapPolygons.template.events.on("click", function (ev) {
-            serie.zoomToDataItem(ev.target.dataItem);
-            htmx.ajax("GET","scripts/htmx/getPays.php",{values:{map:true,id_pays:ev.target.dataItem._settings.id},swap:"beforeend"})
-        });
-    }
-
-    activeCompare(serie) {
-        var base = this
         var max = 2
 
         serie.mapPolygons.template.on("active", function(active, target) {
             if (active) {
-                target.set("interactive",false)
-                if (base.incr == max) {
-                    base.incr = 0
-                }
-                if (base.poly.length < max) {
-                    base.poly.push(target)
+                if (base.compare) {
+                    target.set("interactive",false)
+                    if (base.incr == max) {
+                        base.incr = 0
+                    }
+                    if (base.poly.length < max) {
+                        base.poly.push(target)
+                    } else {
+                        base.poly[base.incr].set("active", false)
+                        base.poly[base.incr].set("interactive", true)
+                        base.poly[base.incr] = target
+                    }
+                    base.incr++
                 } else {
-                    base.poly[base.incr].set("active", false)
-                    base.poly[base.incr].set("interactive", true)
-                    base.poly[base.incr] = target
+                    target.set("interactive",false)
+                    if (base.poly.length != 0 && base.poly[0] != target) {
+                        base.poly[0].set("active", false);  
+                        base.poly[0].set("interactive",true)
+                    }
+                    base.poly[0] = target;
                 }
-
-                base.incr++
             }
         })
 
         serie.mapPolygons.template.events.on("click", function (ev) {
-            htmx.ajax("GET","scripts/htmx/getCompare.php",{values:{map:true,id_pays:ev.target.dataItem._settings.id},swap:"beforeend"})
-        })
+            if (base.compare) {
+                htmx.ajax("GET","scripts/htmx/getCompare.php",{values:{map:true,id_pays:ev.target.dataItem._settings.id},swap:"beforeend"})
+            } else {
+                serie.zoomToDataItem(ev.target.dataItem);
+                htmx.ajax("GET","scripts/htmx/getPays.php",{values:{map:true,id_pays:ev.target.dataItem._settings.id},swap:"beforeend"})
+            }
+        });
     }
 
     switchToCountries() {
@@ -301,36 +292,22 @@ class EcoMap {
         elem._settings.mapPolygon.set("active",true)
         return elem
     }
-
-    getCities(id_pays) {
-        var d
-        $.ajax({
-            url:"scripts/map/getCities.php",
-            data:{id_pays:id_pays},
-            method:"GET",
-            async:false,
-            success:function(response) {
-                response["cities"] = JSON.parse(response["cities"])
-                response["capitals"] = JSON.parse(response["capitals"])
-                d = response
-            },
-            error:function(mess){
-                console.log(mess.responseText)
-            }
-        })
-        return d
-    }
-
 }
 
-
+var map = undefined
 function createMap(id_pays) {
-    map = new EcoMap("map")
-    map.addContinents()
-    map.addCountries(false)
-    map.addSwitch()
-    map.addZoom()    
-
+    if (map == undefined) {
+        map = new EcoMap("map",false)
+        map.addContinents()
+        map.addCountries()
+        map.addSwitch()
+        map.addZoom()    
+    } else {
+        console.log("yep cock")
+        map.setCompare(false)
+        map.togglePays()
+    }
+    
     if (id_pays != undefined) {
         map.root.events.on("frameended",() => {
             map.zoomTo(id_pays)
@@ -340,10 +317,15 @@ function createMap(id_pays) {
 }
 
 function createMapCompare(pays) {
-    map = new EcoMap("map")
-    map.addCountries(true)
-    map.addZoom()
-
+    if (map == undefined) {
+        map = new EcoMap("map",true)
+        map.addCountries()
+        map.addZoom()
+    } else {
+        map.setCompare(true)
+        map.toggleCompare()
+    }
+    
     map.root.events.on("frameended",() => {
         for (var i of pays) {
             map.setActive(i)

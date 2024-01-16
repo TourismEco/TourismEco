@@ -4,7 +4,7 @@ require("../../functions.php");
 $cur = getDB();
 
 $id_pays = $_GET["id_pays"];
-$_SESSION["pays"] = $id_pays;
+$_SESSION["pays"][0] = $id_pays;
 
 if (isset($_GET["map"])) {
     $map = false;
@@ -68,6 +68,39 @@ $sth->execute();
 $ligne = $sth->fetch();
 $gpi = $ligne["gpi"];
 
+$query = "SELECT * FROM villes WHERE id_pays = :id_pays";
+$id_pays = $_GET["id_pays"];
+$sth = $cur -> prepare($query);
+$sth -> bindParam(":id_pays", $id_pays, PDO::PARAM_STR);
+$sth -> execute();
+
+$cities = array();
+$capitals = array();
+while ($rs = $sth->fetch()) {
+    if (!$rs["capitale"]) {
+        $cities[] = array(
+            "id"=>$rs["id"], 
+            "title"=>$rs["nom"], 
+            "geometry"=>array(
+                "type"=>"Point",
+                "coordinates"=>array($rs["lon"],$rs["lat"])
+            )
+        );
+    } else {
+        $capitals[] = array(
+            "id"=>$rs["id"], 
+            "title"=>$rs["nom"], 
+            "geometry"=>array(
+                "type"=>"Point",
+                "coordinates"=>array($rs["lon"],$rs["lat"])
+            )
+        );
+    }
+}
+
+$cities = json_encode($cities);
+$capitals = json_encode($capitals);
+
 
 echo <<<HTML
 
@@ -76,7 +109,7 @@ echo <<<HTML
     <img class="flag" src='assets/twemoji/$id_pays.svg'>
     <h1 class="nom">$nom</h1>
     <p class="capital">Capitale : $capitale</p>
-    <img id="favorite" src="assets/img/heart.png">
+    <img id="favorite" src="assets/img/heart.png" hx-get="scripts/htmx/getFavorite.php" hx-trigger="click" hx-swap="outerHTML">
     <!-- <img id="favorite" src="assets/img/heart_full.png"> -->
 
 </div>
@@ -122,13 +155,23 @@ echo <<<HTML
 
 <div id="catalogue" hx-swap-oob="outerHTML"></div>
 
-<script id=scripting hx-swap-oob=outerHTML>
-    if ($map) {
-        map.zoomTo("$id_pays")
-    }
-</script>
-
-
 HTML;
+
+if ($map) {
+    echo <<<HTML
+        <script id=scripting hx-swap-oob=outerHTML>
+            map.zoomTo("$id_pays")
+            map.addCapitals($capitals)
+            map.addCities($cities)
+        </script>
+    HTML;
+} else {
+    echo <<<HTML
+        <script id=scripting hx-swap-oob=outerHTML>
+            map.addCapitals($capitals)
+            map.addCities($cities)
+        </script>
+    HTML;
+}
 
 ?>

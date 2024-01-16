@@ -134,7 +134,7 @@
                             }
 
                             echo <<<HTML
-                                <div class="container-slim bg-52796F cursor" hx-get="scripts/htmx/more.php?continent=$rsCont[id]&more=1" hx-swap="outerHTML">
+                                <div class="container-slim bg-52796F cursor" hx-get="scripts/htmx/more.php" hx-vals="js:{continent:'$rsCont[id]',more:1,page:'$page'}" hx-swap="outerHTML">
                                     <div class="bandeau-slim"> 
                                         <h2 class="nom-region">Voir plus</h2>
                                     </div>

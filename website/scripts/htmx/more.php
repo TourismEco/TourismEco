@@ -15,6 +15,7 @@ $cur = getDB();
 
 $continent = $_GET["continent"];
 $more = $_GET["more"];
+$page = $_GET["page"];
 $offset = 4*$more++; 
 
 $queryCount = "SELECT COUNT(*) AS Count FROM pays WHERE id_continent = ".$continent;
@@ -27,12 +28,12 @@ $resultPays = $cur->query($queryPays);
 
 while ($rsPays = $resultPays->fetch(PDO::FETCH_ASSOC)) {
     $letter = getLetter($rsPays["score"]);
-    echo addSlimCountry($rsPays["id"],$rsPays["nom"],$letter);
+    echo addSlimCountry($rsPays["id"],$rsPays["nom"],$letter,$page);
 }
 
 if ($count > $offset+4) {
     echo <<<HTML
-        <div class="container-slim bg-52796F cursor" hx-get="scripts/htmx/more.php?continent=$continent&more=$more" hx-swap="outerHTML">
+        <div class="container-slim bg-52796F cursor" hx-get="scripts/htmx/more.php" hx-vals="js:{continent:'$continent', more:$more, page:'$page'}"hx-swap="outerHTML">
             <div class="bandeau-slim"> 
                 <h2 class="nom-region">Voir plus</h2>
             </div>

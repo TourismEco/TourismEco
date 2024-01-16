@@ -12,11 +12,12 @@ if (isset($_GET["incr"])) {
     $incr = $_SESSION["incr"];
 }
 
-if (!in_array($id_pays,$_SESSION["compare"])) {
-    $old = $_SESSION["compare"][$incr];
-    $_SESSION["compare"][$incr] = $id_pays;
-} else {
-    $old = "00";
+$old = "00";
+if (!in_array($id_pays,$_SESSION["pays"])) {
+    if (count($_SESSION["pays"]) != $incr) {
+        $old = $_SESSION["pays"][$incr];
+    }
+    $_SESSION["pays"][$incr] = $id_pays;
 }
 
 if (isset($_GET["map"])) {
@@ -32,9 +33,9 @@ $sth->bindParam(":id_pays", $id_pays, PDO::PARAM_STR);
 $sth->execute();
 $ligne = $sth->fetch();
 $nom = $ligne["nom"];
-$sv1 = explode(" : ",$ligne["sv1"]);
-$sv2 = explode(" : ",$ligne["sv2"]);
-$sv3 = explode(" : ",$ligne["sv3"]);
+$sv1 = explode(" : ",htmlspecialchars($ligne["sv1"]));
+$sv2 = explode(" : ",htmlspecialchars($ligne["sv2"]));
+$sv3 = explode(" : ",htmlspecialchars($ligne["sv3"]));
 
 // Capitale
 $query = "SELECT * FROM villes WHERE id_pays = :id_pays and capitale = :is_capitale";
@@ -97,7 +98,7 @@ echo <<<HTML
     delListe("$old")
 
     $("#tabtemp").remove()
-    $("#scripting").empty()
+    // $("#scripting").empty()
 </script>
 
 HTML;
