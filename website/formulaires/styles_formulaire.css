@@ -6,15 +6,29 @@ body {
     flex-direction: column;
 }
 
-h1 {
+.inscription{
     margin-top: 5%;
     margin-bottom: 20px;
     font-size: 45px;
     margin-left: 25%;
 }
 
+.connexion{
+    margin-top: 5%;
+    margin-bottom: 20px;
+    font-size: 45px;
+    text-align: center;
+}
+
 h2 {
     font-size: 35px;
+}
+
+.connexion-container{
+    text-align: center;
+    margin-left: 20%;
+    display: flex;
+    align-items: center;
 }
 
 .content-container {
@@ -26,7 +40,9 @@ h2 {
 
 form {
     max-width: 600px;
-    padding: 50px;
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
 }
 
 .right-section {
@@ -53,19 +69,34 @@ input {
     border-radius: 8px;
     background-color: #b2c9cd;
     border: 1px solid #b2c9cd;
+    margin-left: 20%;
 }
 
 .logo{
     max-width: 40%;
 }
 
+.logoProfil{
+    max-width: 40%;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+#loginForm{
+    align-items: center;
+    text-align: center;
+}
+
 #countryOptions {
     max-height: 100px;
+    max-width: 360px;
     overflow-y: auto;
     background-color: #426165;
     border: 1px solid #426165;
     border-radius: 4px;
     font-size: 18px;
+    margin-left: 25%;
 }
 
 #countryOptions option:hover {
@@ -74,11 +105,13 @@ input {
 
 #cityOptions {
     max-height: 100px;
+    max-width: 360px;
     overflow-y: auto;
     background-color: #426165;
     border: 1px solid #426165;
     border-radius: 4px;
     font-size: 18px;
+    margin-left: 25%;
 }
 
 #cityOptions option:hover {
@@ -96,5 +129,4 @@ input {
     margin-top: 10px;
     font-size: 16px;
 }
-
 
