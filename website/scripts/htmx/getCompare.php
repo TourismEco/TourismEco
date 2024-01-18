@@ -36,6 +36,7 @@ $nom = $ligne["nom"];
 $sv1 = explode(" : ",htmlspecialchars($ligne["sv1"]));
 $sv2 = explode(" : ",htmlspecialchars($ligne["sv2"]));
 $sv3 = explode(" : ",htmlspecialchars($ligne["sv3"]));
+$letter = getLetter($ligne["score"]);
 
 // Capitale
 $query = "SELECT * FROM villes WHERE id_pays = :id_pays and capitale = :is_capitale";
@@ -61,6 +62,8 @@ echo <<<HTML
     <h1 class="nom">$nom</h1>
     <p class="capital">Capitale : $capitale</p>
 </div>
+
+<div class="score-box score-$letter" id="score$incr" hx-swap-oob="outerHTML">$letter</div>
 
 <div class="container-side bg-354F52" id="mini$incr" hx-swap-oob="outerHTML">
     <div class="bandeau-side"> 

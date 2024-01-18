@@ -1,7 +1,3 @@
-var serieLine1;
-var serieLine2;
-
-
 function createGraph() {
     l = new Line("chartdiv")
 

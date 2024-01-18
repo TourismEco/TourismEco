@@ -69,8 +69,7 @@
             <div class="container-simple bg-52796F">
                 <h2 class="title-section">Score EcoTourism</h2>
                 <div class=score> 
-                    <div class="score-box">A</div>      
-                                  
+                    <div id="score"></div>                 
                 </div>
             </div>
 

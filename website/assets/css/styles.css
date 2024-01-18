@@ -640,22 +640,22 @@ footer p {
 .slide-container h1 {
   color:  #FFF;
   text-align: center;
-  font-size: 70px;
+  font-size: 50px;
   font-style: normal;
   line-height: normal;
   letter-spacing: -1.28px;
-  margin:20px
+  margin:0
 }
 
 .slide-container h2 {
   color: #FFF;
   text-align: center;
-  font-size: 40px;
+  font-size: 25px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
   letter-spacing: -0.64px;
-  margin:20px
+  margin:0
 }
 
 .prev, .next {
@@ -673,6 +673,7 @@ footer p {
   grid-row: 2;
   align-self: center;
   z-index: 20;
+  margin:10px
 }
 .prev{ 
   grid-column: 1;
@@ -724,8 +725,14 @@ footer p {
   grid-row: 1 /4;
   z-index: 50;
   align-self: center;
+  display: flex;
+  flex-direction: column;
 }
 
+#logo-carousel {
+  margin: auto;
+  width: 150px;
+}
 .slide-link {
   grid-row: 3;
   grid-column: 3;

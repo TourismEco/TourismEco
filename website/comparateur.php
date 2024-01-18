@@ -82,11 +82,10 @@
 
             <div class="container-simple bg-52796F">
                 <h2 class="title-section">Scores EcoTourism</h2>
-                <div class=score> 
-                    <div class="score-box">A</div>
+                <div class="score"> 
+                    <div id="score0"></div>
                     <div class="trait"></div>
-                    <div class="score-box" style="background-color:#BB5C00">D</div>
-                    
+                    <div id="score1"></div>
                 </div>
             </div>
         
@@ -96,7 +95,7 @@
                 <div class="section">
                     <div class=graph id="spider"></div>
 
-                    <table>
+                    <table class="text">
                         <tr>
                             <td id="cell_6_1">Indicateur</td>
                             <td id="nom_0"></td>

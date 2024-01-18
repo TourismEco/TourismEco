@@ -267,6 +267,7 @@ function carousel($conn) {
         <a class="prev" onclick="plusSlides(-1)">❮</a>
 
         <div class="text-center">
+            <img id="logo-carousel" src="assets/img/eco.png">
             <h1>Ecotourisme</h1>
             <h2>Partez à la découverte du monde</h2>
         </div>

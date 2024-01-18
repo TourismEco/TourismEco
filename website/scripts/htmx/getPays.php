@@ -20,6 +20,7 @@ $sth->execute();
 $ligne = $sth->fetch();
 $nom = $ligne["nom"];
 $description = $ligne["description"];
+$letter = getLetter($ligne["score"]);
 
 // Capitale
 $query = "SELECT * FROM villes WHERE id_pays = :id_pays and capitale = :is_capitale";
@@ -129,6 +130,8 @@ echo <<<HTML
         </div>
     </div>
 </div>
+
+<div id="score" class="score-box score-$letter" hx-swap-oob="outerHTML">$letter</div>
 
 <div class="container-even" id="indicateurs" hx-swap-oob="outerHTML">
     <div class="container-indic">
