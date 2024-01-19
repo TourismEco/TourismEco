@@ -19,50 +19,53 @@
     <title>Inscription</title>
 
 </head>
+
+
     <body>
-        <h1 class="inscription"> Inscription</h1>
         <div class="content-container">
-
-            <form action="ajouter.php" method="post" onsubmit="return validateForm()">
-                <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
-                <label for="username">Nom d'utilisateur :</label>
-                <input type="text" id="username" name="username" placeholder="Saisissez votre nom d'utilisateur" required autocomplete="off">
-                <div id="errorUsername" class="error"></div>
-                <span class="validation-message"></span>
-
-
-                <label for="password">Mot de passe :</label>
-                <input type="password" id="password" name="password" placeholder="Saisissez votre mot de passe" required autocomplete="off">
-                <div id="errorPassword" class="error"></div>
-                <span class="validation-message"></span>
+            <div class="left-section">
+                <h1 class="titre">Inscription</h1>
+                <form action="ajouter.php" method="post" onsubmit="return validateForm()">
+                    <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
+                    <label for="username">Nom d'utilisateur</label>
+                    <input type="text" id="username" name="username" placeholder="Saisissez votre nom d'utilisateur" required autocomplete="off">
+                    <div id="errorUsername" class="error"></div>
+                    <span class="validation-message"></span>
 
 
-                <label for="confirmPassword">Confirmer le mot de passe :</label>
-                <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Saisissez à nouveau votre mot de passe" required autocomplete="off">
-                <div id="errorConfirmPassword" class="error"></div>
-                <span class="validation-message"></span>
+                    <label for="password">Mot de passe</label>
+                    <input type="password" id="password" name="password" placeholder="Saisissez votre mot de passe" required autocomplete="off">
+                    <div id="errorPassword" class="error"></div>
+                    <span class="validation-message"></span>
 
 
-                <label for="country">Pays actuel :</label>
-                <input type="text" id="country" name="country" placeholder="Saisissez votre pays actuel" required autocomplete="off">
-                <div id="countryOptions" class="country-options"></div>
-                <div id="errorCountry" class="error"></div>
-                <span class="validation-message"></span>
+                    <label for="confirmPassword">Confirmer le mot de passe</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Saisissez à nouveau votre mot de passe" required autocomplete="off">
+                    <div id="errorConfirmPassword" class="error"></div>
+                    <span class="validation-message"></span>
 
 
-                <label for="city">Ville actuelle :</label>
-                <input type="text" id="cityInput" name="cityInput" placeholder="Saisissez votre ville actuelle" required autocomplete="off">
-                <div id="cityOptions" class="options-container"></div>
-                <div id="errorCity" class="error"></div>
-                <!-- Ajoutez un champ caché pour stocker la ville sélectionnée -->
-                <input type="hidden" id="selectedCity" name="selectedCity">
-                <span class="validation-message"></span>
+                    <label for="country">Votre pays</label>
+                    <input type="text" id="country" name="country" placeholder="Saisissez votre pays actuel" required autocomplete="off">
+                    <div id="countryOptions" class="option-container"></div>
+                    <div id="errorCountry" class="error"></div>
+                    <span class="validation-message"></span>
 
 
-                <input type="submit" value="S'inscrire" style="background-color: #52796F; color: white; border: 1px solid #52796F; border-radius: 8px; font-size: 16px; width:150px; margin-left:20%">
-                <div id="errorMessages" class="error"></div>
+                    <label for="city">Votre ville</label>
+                    <input type="text" id="cityInput" name="cityInput" placeholder="Saisissez votre ville actuelle" required autocomplete="off">
+                    <div id="cityOptions" class="option-container"></div>
+                    <div id="errorCity" class="error"></div>
+                    <!-- Ajoutez un champ caché pour stocker la ville sélectionnée -->
+                    <input type="hidden" id="selectedCity" name="selectedCity">
+                    <span class="validation-message"></span>
 
-            </form>
+
+                    <input type="submit" value="S'inscrire" class="submit">
+                    <div id="errorMessages" class="error"></div>
+
+                </form>
+            </div>
             <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
             <script>
                 $(document).ready(function () {
@@ -264,34 +267,34 @@
                     });
 
                     ///Ajoute ville en liste dynamique
-            $("#cityInput").on("input", function () {
-                var selectedCountry = $("#country").val();
-                var selectedCity = $(this).val();
+                    $("#cityInput").on("input", function () {
+                        var selectedCountry = $("#country").val();
+                        var selectedCity = $(this).val();
 
-                // Charger les options de la ville en fonction du pays sélectionné et de l'input actuelle
-                $.ajax({
-                    type: "POST",
-                    url: "get_cities.php",
-                    data: { selectedCountry: selectedCountry, inputText: selectedCity },
-                    success: function (response) {
-                        $("#cityOptions").html(response);
-                        $("#citySelect").show();
-                        $("#city").hide();
-                    },
-                    error: function (xhr, status, error) {
-                        console.error(xhr.responseText);
-                    }
-                });
-            });
+                        // Charger les options de la ville en fonction du pays sélectionné et de l'input actuelle
+                        $.ajax({
+                            type: "POST",
+                            url: "get_cities.php",
+                            data: { selectedCountry: selectedCountry, inputText: selectedCity },
+                            success: function (response) {
+                                $("#cityOptions").html(response);
+                                $("#citySelect").show();
+                                $("#city").hide();
+                            },
+                            error: function (xhr, status, error) {
+                                console.error(xhr.responseText);
+                            }
+                        });
+                    });
 
                    // Gestionnaire de clic sur les options de la liste des villes
-            $("#cityOptions").on("click", "option", function () {
-                var selectedCity = $(this).text();
-                $("#cityInput").val(selectedCity);
-                $("#selectedCity").val(selectedCity); // Stockez la ville sélectionnée dans le champ caché
-                $("#cityOptions").html(""); // Masquer les options après la sélection
-                
-            });
+                    $("#cityOptions").on("click", "option", function () {
+                        var selectedCity = $(this).text();
+                        $("#cityInput").val(selectedCity);
+                        $("#selectedCity").val(selectedCity); // Stockez la ville sélectionnée dans le champ caché
+                        $("#cityOptions").html(""); // Masquer les options après la sélection
+                        
+                    });
 
                     // Gestionnaire d'entrée pour le champ d'entrée de la ville
                     $("#cityInput").on("input", function () {
@@ -337,6 +340,8 @@
                     });
                 });
             </script>
+
+            <div class="big-trait"></div>
 
             <div class="right-section">
             <img class="logo" src="img/avion.png" alt="LogoAvion">

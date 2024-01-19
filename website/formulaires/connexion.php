@@ -19,16 +19,16 @@ if (!isset($_SESSION['csrf_token'])) {
     <title>Connexion</title>
 </head>
 <body>
-    <h1 class="connexion">Connexion</h1>
-    <img class="logoProfil" src="img/profil.png" alt="LogoProfil" style="align-items:center; ">
+    <h1 class="titre">Connexion</h1>
+    <img class="logo" src="img/profil.png" alt="LogoProfil" style="align-items:center; ">
 
     <div class="connexion-container">
         <form id="loginForm" onsubmit="return validateForm()">
-            <label for="username">Nom d'utilisateur :</label>
+            <label for="username">Nom d'utilisateur</label>
             <input type="text" id="username" name="username" placeholder="Saisissez votre nom d'utilisateur" required autocomplete="off">
             <div id="errorUsername" class="error"></div>
 
-            <label for="password">Mot de passe :</label>
+            <label for="password">Mot de passe</label>
             <input type="password" id="password" name="password" placeholder="Saisissez votre mot de passe" required autocomplete="off">
             <div id="errorPassword" class="error"></div>
 

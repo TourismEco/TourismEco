@@ -79,7 +79,7 @@ if (isset($_POST['username']) &&
         $country = htmlspecialchars($_POST['country']);
         $city = htmlspecialchars($_POST['cityInput']);
 
-        if (empty($username) || empty($password) || empty($country) || empty($city) || empty($email) || empty($confirmPassword) || $password != $confirmPassword) {
+        if (empty($username) || empty($password) || empty($country) || empty($city) || empty($confirmPassword) || $password != $confirmPassword) {
             // Retourne une réponse JSON indiquant une erreur de validation
             echo json_encode(['success' => false, 'message' => 'Veuillez remplir correctement tous les champs.']);
         } else {
