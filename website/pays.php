@@ -71,6 +71,7 @@
                 <div class=score> 
                     <div id="score"></div>                 
                 </div>
+                <div class="graph" id="jauge"></div>
             </div>
 
             <div class="container-simple bg-354F52">
@@ -168,9 +169,10 @@
             ?>
 
             <script id=scripting>
-                createMap()
+                addJauge()
                 double_courbe(<?=$data_courbe?>)
                 barre(<?= $data_bar;?>)
+                createMap()
             </script>
 
         </div>
