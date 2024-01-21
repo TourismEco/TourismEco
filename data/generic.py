@@ -211,8 +211,6 @@ def clearTables(liste):
 def merge(main,liste,rename,remove=False):
     global db
     cnx, cur = connectSQL(db)
-
-    dictTypes = {int:"INT",float:"DOUBLE",str:"VARCHAR(45)"}
     
     for tab in liste:
         cols = cur.execute(f"SHOW COLUMNS FROM {tab}").fetchall()
@@ -232,17 +230,15 @@ def merge(main,liste,rename,remove=False):
 
     cnx.commit()
 
-def checkNULL(table):
-    cnx, cur = connectSQL(db)
-    liste = cur.execute(f"SELECT * FROM ")
-
 if __name__ == "__main__":
     # merge("arrivees",["departs","argent","emploi"],"tourisme")
     # merge("pib",["cpi"],"economie")
     # clearTables(["AI","CK","GF","GP","KN","MQ","MS","NU","PS","RE","TW"])
     # clearTables(["ST","MR"])
     # checking()
-    nameToCode("airports")
+    # nameToCode("airports")
+    baseCsv("GPI-2023-overall-scores-and-domains-2008-2023","Safety and Security","safety",163,1,0,3,2008,2023,"Country")
+    toCSV(agglomerate(["safety"],2008,2023,163),"safetyClean")
     pass
 
 # baseCsv("allData"," Inbound Tourism-Arrivals","test",1341,6,2,5,1995,2021,"Basic data and indicators")

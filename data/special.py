@@ -290,7 +290,6 @@ def setVilles():
 
     
 def addDescip(tables):
-
     cnx, cur = connectSQL(db)
 
     for z in range(len(tables)):
@@ -305,7 +304,16 @@ def addDescip(tables):
 
     cnx.commit()
 
-
+def addSafety():
+    cnx, cur = connectSQL(db)
+    csv = readCSV("safetyClean")
+    isos = readCSV("paysEN")
+    to2 = {i["name"]:i["country"] for i in isos}
+    
+    for i in csv:
+        cur.execute(f"UPDATE surete SET safety={i['Safety']} WHERE id_pays='{to2[i['Pays']]}' AND annee={i['Annee']}")
+    
+    cnx.commit()
 
 
 # addEmojisFile()
@@ -327,4 +335,5 @@ def addDescip(tables):
     
 # setVilles()
     
-addDescip(["Aya","Cassandra","Line","Rémy","Lucas"])
+# addDescip(["Aya","Cassandra","Line","Rémy","Lucas"])    
+addSafety()
