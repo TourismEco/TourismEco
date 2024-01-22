@@ -102,6 +102,12 @@ while ($rs = $sth->fetch()) {
 $cities = json_encode($cities);
 $capitals = json_encode($capitals);
 
+// Spider
+$dataSpider = json_encode(dataSpider($id_pays, $cur),JSON_NUMERIC_CHECK);
+$dataLine = json_encode(dataLine($id_pays, $cur),JSON_NUMERIC_CHECK);
+$dataBar = json_encode(dataBar($id_pays, $cur),JSON_NUMERIC_CHECK);
+$dataTab = json_encode(dataTab($id_pays, $cur),JSON_NUMERIC_CHECK);
+
 
 echo <<<HTML
 
@@ -166,6 +172,10 @@ if ($map) {
             map.zoomTo("$id_pays")
             map.addCapitals($capitals)
             map.addCities($cities)
+            spiderAjax(0, $dataSpider, $dataTab, "$nom")
+    lineAjax(0, $dataLine, "$nom")
+    barAjax(0, $dataBar, "$nom")
+
         </script>
     HTML;
 } else {
@@ -173,6 +183,10 @@ if ($map) {
         <script id=scripting hx-swap-oob=outerHTML>
             map.addCapitals($capitals)
             map.addCities($cities)
+            spiderAjax(0, $dataSpider, $dataTab, "$nom")
+    lineAjax(0, $dataLine, "$nom")
+    barAjax(0, $dataBar, "$nom")
+
         </script>
     HTML;
 }

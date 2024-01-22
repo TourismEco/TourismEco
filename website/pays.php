@@ -72,18 +72,32 @@
                     <div id="score"></div>                 
                 </div>
                 <div class="graph" id="jauge"></div>
+                
             </div>
+
+
+            <div class="container-simple bg-52796F">
+                <h2 class="title-section">Score EcoTourism</h2>
+                <div class=score> 
+                    <div id="score"></div>                 
+                </div>
+                <div class="graph" id="jauge2"></div>
+            </div>
+
 
             <div class="container-simple bg-354F52">
                 <h2 class="title-section">Evolution du PIB de la France dans le temps</h2>
                 <div class="section">
+               
+                
                     <div class="text">
                         <p>Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500, quand un imprimeur anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte. Il n'a pas fait que survivre cinq siècles, mais s'est aussi adapté à la bureautique informatique, sans que son contenu n'en soit modifié. Il a été popularisé dans les années 1960 grâce à la vente de feuilles Letraset contenant des passages du Lorem Ipsum, et, plus récemment, par son inclusion dans des applications de mise en page de texte, comme Aldus PageMaker.
                             Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500, quand un imprimeur anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte. Il n'a pas fait que survivre cinq siècles, mais s'est aussi adapté à la bureautique informatique, sans que son contenu n'en soit modifié. Il a été popularisé dans les années 1960 grâce à la vente de feuilles Letraset contenant des passages du Lorem Ipsum, et, plus récemment, par son inclusion dans des applications de mise en page de texte, comme Aldus PageMaker.                
                         </p>
+                        
                     </div>
                     
-                    <div class="graph"></div>
+                    <div class="graph" id="spider"></div>
 
                 </div>
             </div>
@@ -166,12 +180,20 @@
                 // Fermez la connexion à la base de données
                 $conn= null;
                 $data_courbe = json_encode($data_courbe);
+
             ?>
 
             <script id=scripting>
-                addJauge()
+                spider()
+
+                addJauge("jauge")
+                addJauge("jauge2")
+
                 double_courbe(<?=$data_courbe?>)
                 barre(<?= $data_bar;?>)
+
+               
+
                 createMap()
             </script>
 
