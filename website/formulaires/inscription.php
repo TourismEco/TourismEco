@@ -1,6 +1,6 @@
 <?php
     // Inscription.php
-   
+    require('../functions.php');
 
     // Générer un nouveau token CSRF si la variable de session n'existe pas
     if (!isset($_SESSION['csrf_token'])) {
