@@ -58,6 +58,10 @@ label {
     font-size: 18px;
 }
 
+.text {
+    font-size: 18px;
+}
+
 input {
     width: 70%;
     padding: 15px;
@@ -96,6 +100,7 @@ input {
     margin-top: -15px;
     z-index: 0;
     margin-bottom: 15px;
+    text-align: start;
 }
 
 .option-container option {
@@ -127,4 +132,53 @@ input {
 
 ::placeholder {
     font-style: italic;
+}
+
+.input-hidden {
+    opacity: 0;
+}
+
+input[type=radio]:checked + label>img {
+    background-color: lightsteelblue;
+    border-radius: 20px;
+}
+
+/* Stuff after this is only to make things more pretty */
+input[type=radio] + label>img {
+    width: 40px;
+    height: 40px;
+    transition: .5s all;
+    border-radius: 50%;
+    background-color: gold;
+    padding: 10px;
+}
+
+input[type=radio]:disabled + label>img{
+    background-color: grey;
+}
+
+.liste-mode {
+    display: flex;
+}
+
+.dual-input {
+    display: flex;
+    gap: 50px;
+    width: 70%;
+}
+
+.container-input {
+    align-items: center;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.container-input input {
+    width: 100%;
+}
+
+.container-input .option-container {
+    width: 100%;
 }
