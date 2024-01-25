@@ -56,4 +56,6 @@ INSERT INTO planes VALUES (251,"Douglas MD-80","M80","MD80",NULL);
 INSERT INTO planes VALUES (252,"Xi'an MA60","MA6","MA6",NULL);
 INSERT INTO planes VALUES (253,"Fairchild SA26","SWM","SWM",NULL);
 
-CREATE TABLE planes_conso (id INT PRIMARY KEY AUTO_INCREMENT, id_plane INT, distance DOUBLE, fuel_burn DOUBLE, fuel_eff DOUBLE);
+DROP TABLE planes_conso;
+CREATE TABLE planes_conso (id INT PRIMARY KEY AUTO_INCREMENT, id_plane VARCHAR(3), annee INT, places INT, distance_max DOUBLE, fuel_burn DOUBLE, fuel_eff DOUBLE);
+SELECT * FROM planes_conso;
