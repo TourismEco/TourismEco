@@ -4,8 +4,9 @@
 define("DB_HOSTNAME", "localhost");
 define("DB_USERNAME", "root");
 define("DB_PASSWORD", "root");
-define("DB_DATABASE", "ecotourisme");
+define("DB_DATABASE", "projet");
 define("SOURCE", "/projet_L3/website/");
+define("SITE_URL", "http://localhost/projet_L3/website/");
 
 // Handling PHP errors
 // TODO: Set to 0 in production
@@ -32,7 +33,6 @@ function getDB($hostname=DB_HOSTNAME, $username=DB_USERNAME, $password=DB_PASSWO
     echo "Connection failed: " . $e->getMessage();
     }
 }
-$conn = getDB();
 
 // Defining function to allow the use of variables in heredoc
 $_ = function ($val){return $val;};

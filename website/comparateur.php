@@ -14,7 +14,7 @@
             <div id="mini1"></div>
 
             <div class="container-side bg-52796F" hx-get="catalogue.php" hx-select="#catalogue" hx-target="#catalogue" hx-trigger="click" hx-swap="show:top" hx-vals="js:{page:'Compare'}">
-                <div class="bandeau-side"> 
+                <div class="bandeau-side cursor"> 
                     <img id=plus class="flag-small" src='assets/img/plus.svg'>
                     <h2 class="nom-small">Choisir des pays</h2>
                 </div>

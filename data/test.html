@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/jquery.min.js"></script>
+
+    <script>
+        $.ajax({
+            url:"https://www.flightsfrom.com/api/routepop/YZF/YYC?preview=1",
+            method:"GET",
+            success:function (result) {
+                console.log(result)
+            }
+        })
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
