@@ -60,9 +60,11 @@ label {
 
 .text {
     font-size: 18px;
+    margin-top: 0;
+    margin-bottom: 10px;
 }
 
-input {
+input, summary {
     width: 70%;
     padding: 15px;
     margin-bottom: 15px;
@@ -70,7 +72,7 @@ input {
     border-radius: 10px;
     background-color: #b2c9cd;
     border: none;
-    z-index: 2;
+    z-index: 3;
 }
 
 .submit {
@@ -98,17 +100,22 @@ input {
     width: 70%;
     padding: 5px;
     margin-top: -15px;
-    z-index: 0;
+    z-index: 2;
     margin-bottom: 15px;
     text-align: start;
+    display: flex;
+    flex-direction: column;
+    position: relative;
 }
 
-.option-container option {
+.option-container option, .option-container label {
     padding: 5px;
     border-radius: 10px;
+    cursor:pointer;
+    margin-bottom: 0;
 }
 
-.option-container option:hover {
+.option-container option:hover, .option-container label:hover{
     background-color: #2f474a;
 }
 
@@ -134,17 +141,17 @@ input {
     font-style: italic;
 }
 
-.input-hidden {
+.radio-mode {
     opacity: 0;
 }
 
-input[type=radio]:checked + label>img {
+.radio-mode:checked + label>img {
     background-color: lightsteelblue;
     border-radius: 20px;
 }
 
 /* Stuff after this is only to make things more pretty */
-input[type=radio] + label>img {
+.radio-mode + label>img {
     width: 40px;
     height: 40px;
     transition: .5s all;
@@ -153,7 +160,7 @@ input[type=radio] + label>img {
     padding: 10px;
 }
 
-input[type=radio]:disabled + label>img{
+.radio-mode:disabled + label>img{
     background-color: grey;
 }
 
@@ -175,10 +182,52 @@ input[type=radio]:disabled + label>img{
     width: 100%;
 }
 
-.container-input input {
+.container-input input, summary, .container-input .option-container {
     width: 100%;
 }
 
-.container-input .option-container {
-    width: 100%;
+summary.radios {
+	counter-reset: radios;
+}
+
+summary.radios:before {
+	content: var(--selection);
+}
+
+.radio-villes {
+	counter-increment: radios;
+	appearance: none;
+	display: none;
+    color: black;
+}
+
+.radio-villes:checked {
+	display: inline;
+	--display: block;
+}
+
+.radio-villes:after {
+	content: attr(title);
+	display: inline;
+	font-size: 1rem;
+}
+
+details {
+    display: contents;
+}
+
+.radio-villes:checked details[open] {
+    content: '';
+}
+
+details[open] summary:before {
+	content: '';
+	display: block;
+	width: 100vw;
+	height: 100vh;
+	background: transparent;
+	position: fixed;
+	top: 0;
+	left: 0;
+    z-index: 1;
 }

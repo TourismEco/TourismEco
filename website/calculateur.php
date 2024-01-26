@@ -46,29 +46,42 @@
                     </div>
 
                     <div class="container-input">
-                        <label for="password">Ville de départ</label>
-                        <input type="password" id="password" name="password" placeholder="Sélectionnez une ville" required disabled autocomplete="off">
-                        <div id="cityOptions" class="option-container"></div>
-                        <div id="errorCity" class="error"></div>
-                        <!-- Ajoutez un champ caché pour stocker la ville sélectionnée -->
-                        <input type="hidden" id="selectedCity" name="selectedCity">
-                        <span class="validation-message"></span>
+                        <p class="text">Moyen de transport</p>
+                        <details open>
+                            
+                            <summary class="radios">
+                                <input class="radio-villes" type="radio" name="item" id="default" title="Auswählen..." checked>
+                                <input class="radio-villes" type="radio" name="item" id="item1" title="Item 1">
+                                <input class="radio-villes" type="radio" name="item" id="item2" title="Item 2">
+                                <input class="radio-villes" type="radio" name="item" id="item3" title="Item 3">
+                                <input class="radio-villes" type="radio" name="item" id="item4" title="Item 4">
+                                <input class="radio-villes" type="radio" name="item" id="item5" title="Item 5">
+                            </summary>
+                            <div class="option-container">
+                                    <label for="item1">
+                                        sdqss
+                                    </label>
+                                    <label for="item2">Item 2</label>
+                                    <label for="item3">Item 3</label>
+                                    <label for="item5">Item 5</label>
+                            </div>
+                        </details>
                     </div>
                 </div>
 
                 <p class="text">Moyen de transport</p>
                 <div class="liste-mode">
-                    <input type="radio" name="mode" id="plane" class="input-hidden" disabled>
+                    <input type="radio" name="mode" id="plane" class="radio-mode" disabled>
                     <label for="plane">
                         <img src="assets/img/plane.svg">
                     </label>
 
-                    <input type="radio" name="mode" id="train" class="input-hidden">
+                    <input type="radio" name="mode" id="train" class="radio-mode">
                     <label for="train">
                         <img src="assets/img/train.svg">
                     </label>
 
-                    <input type="radio" name="mode" id="car" class="input-hidden">
+                    <input type="radio" name="mode" id="car" class="radio-mode">
                     <label for="car">
                         <img src="assets/img/car.svg">
                     </label>
