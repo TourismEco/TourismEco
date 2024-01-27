@@ -64,7 +64,7 @@ label {
     margin-bottom: 10px;
 }
 
-input, summary {
+input {
     width: 70%;
     padding: 15px;
     margin-bottom: 15px;
@@ -148,6 +148,7 @@ input, summary {
 .radio-mode:checked + label>img {
     background-color: lightsteelblue;
     border-radius: 20px;
+    cursor:auto;
 }
 
 /* Stuff after this is only to make things more pretty */
@@ -158,10 +159,12 @@ input, summary {
     border-radius: 50%;
     background-color: gold;
     padding: 10px;
+    cursor: pointer;
 }
 
 .radio-mode:disabled + label>img{
     background-color: grey;
+    cursor:auto;
 }
 
 .liste-mode {
@@ -182,52 +185,6 @@ input, summary {
     width: 100%;
 }
 
-.container-input input, summary, .container-input .option-container {
+.container-input input, .container-input .option-container {
     width: 100%;
-}
-
-summary.radios {
-	counter-reset: radios;
-}
-
-summary.radios:before {
-	content: var(--selection);
-}
-
-.radio-villes {
-	counter-increment: radios;
-	appearance: none;
-	display: none;
-    color: black;
-}
-
-.radio-villes:checked {
-	display: inline;
-	--display: block;
-}
-
-.radio-villes:after {
-	content: attr(title);
-	display: inline;
-	font-size: 1rem;
-}
-
-details {
-    display: contents;
-}
-
-.radio-villes:checked details[open] {
-    content: '';
-}
-
-details[open] summary:before {
-	content: '';
-	display: block;
-	width: 100vw;
-	height: 100vh;
-	background: transparent;
-	position: fixed;
-	top: 0;
-	left: 0;
-    z-index: 1;
 }

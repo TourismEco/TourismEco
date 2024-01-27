@@ -20,8 +20,8 @@
     <script src="https://unpkg.com/htmx.org"></script>
 
     <script>
-        function getSearchValue() {
-            var s = document.getElementById("country_src")
+        function getSearchValue(id) {
+            var s = document.getElementById(id)
             return s.value
         }
     </script>
@@ -39,33 +39,30 @@
                     <div class="container-input">
                         <label for="country_src">Pays de départ</label>
                         <input type="text" id="country_src" name="country_src" placeholder="Saisissez un pays" required autocomplete="off"
-                        hx-get="scripts/htmx/listPays.php" hx-trigger="keyup[this.value.trim().length > 0] changed delay:0.5s" hx-vals='js:{search: getSearchValue()}'>
+                        hx-get="scripts/htmx/listPays.php" hx-trigger="keyup[this.value.trim().length > 0] changed delay:0.5s" hx-vals='js:{search: getSearchValue("country_src")}'>
                         <div id="countryOptions" class="option-container"></div>
-                        <div id="errorCountry" class="error"></div>
-                        <span class="validation-message"></span>
                     </div>
 
                     <div class="container-input">
-                        <p class="text">Moyen de transport</p>
-                        <details open>
-                            
-                            <summary class="radios">
-                                <input class="radio-villes" type="radio" name="item" id="default" title="Auswählen..." checked>
-                                <input class="radio-villes" type="radio" name="item" id="item1" title="Item 1">
-                                <input class="radio-villes" type="radio" name="item" id="item2" title="Item 2">
-                                <input class="radio-villes" type="radio" name="item" id="item3" title="Item 3">
-                                <input class="radio-villes" type="radio" name="item" id="item4" title="Item 4">
-                                <input class="radio-villes" type="radio" name="item" id="item5" title="Item 5">
-                            </summary>
-                            <div class="option-container">
-                                    <label for="item1">
-                                        sdqss
-                                    </label>
-                                    <label for="item2">Item 2</label>
-                                    <label for="item3">Item 3</label>
-                                    <label for="item5">Item 5</label>
-                            </div>
-                        </details>
+                        <label for="country_src">Ville de départ</label>
+                        <input type="text" id="city_src" name="city_src" placeholder="Saisissez une ville" required autocomplete="off"
+                        hx-get="scripts/htmx/listVilles.php" hx-trigger="keyup[this.value.trim().length > 0] changed delay:0.5s" hx-vals='js:{search: getSearchValue("city_src")}'>
+                        <div id="cityOptions" class="option-container"></div>
+                    </div>
+                </div>
+
+                <div class="dual-input">
+                    <div class="container-input">
+                        <label for="country_src">Pays d'arrivée</label>
+                        <input type="text" id="country_dst" name="country_dst" placeholder="Saisissez un pays" required autocomplete="off"
+                        hx-get="scripts/htmx/listPays.php" hx-trigger="keyup[this.value.trim().length > 0] changed delay:0.5s" hx-vals='js:{search: getSearchValue("country_dst")}'>
+                        <div id="countryOptions" class="option-container"></div>
+                    </div>
+
+                    <div class="container-input">
+                        <label for="country_src">Ville d'arrivée</label>
+                        <input type="text" id="city_dst" name="city_dst" placeholder="Saisissez une ville" required autocomplete="off" disabled>
+                        <div id="cityOptions" class="option-container"></div>
                     </div>
                 </div>
 
