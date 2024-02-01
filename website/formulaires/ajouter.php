@@ -74,11 +74,13 @@ function ajouter($username, $password, $country, $city)
 
         if ($stmt->execute()) {
             // Stocker les informations de l'utilisateur dans la session
-            $_SESSION['username'] = $username;
-            $_SESSION['country'] = $country;
-            $_SESSION['city'] = $city;
+            $_SESSION['client']['username'] = $username;
+            $_SESSION['client']['country'] = $country;
+            $_SESSION['client']['city'] = $city;
 
-            return json_encode(['success' => true, 'message' => 'Inscription réussie !']);
+            
+            header('Location: ../Profil/profil.php');
+            exit;
         } else {
             return json_encode(['success' => false, 'message' => 'Erreur lors de l\'inscription : ' . $stmt->errorInfo()[2]]);
         }

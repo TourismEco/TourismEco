@@ -24,10 +24,13 @@ try {
 
     // Vérifier le mot de passe
     if ($user && password_verify($password, $user['mdp'])) {
-        $_SESSION['client'] = $user;
+        $_SESSION['client']['username'] = $user['nom'];
+        $_SESSION['client']['country'] = $user['pays'];
+        $_SESSION['client']['city'] = $user['ville'];
         echo json_encode(['success' => true, 'message' => 'Connexion réussie']);
         exit;
     } else {
+        
         echo json_encode(['success' => false, 'message' => 'Identifiants incorrects']);
     }
     } catch (Exception $e) {
