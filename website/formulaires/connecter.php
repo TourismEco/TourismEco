@@ -1,10 +1,10 @@
 <?php
-session_start();
+
 require('../functions.php');
 
 try {
     // Vérifier le token CSRF
-    if ($_POST['csrf_token'] !== $_SESSION['csrf_token']) {
+    if (!isset($_SESSION['csrf_token'], $_POST['csrf_token'])) {
         echo "Token CSRF invalide.";
         exit;
     }
@@ -22,20 +22,18 @@ try {
     $stmt->execute();
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if (!$user) {
-        echo "Nom d'utilisateur incorrect.";
-        exit;
-    }
-
     // Vérifier le mot de passe
     if ($user && password_verify($password, $user['mdp'])) {
         $_SESSION['client'] = $user;
-        header("Location: ../profil/profil.php");
+        echo json_encode(['success' => true, 'message' => 'Connexion réussie']);
         exit;
     } else {
-        echo "Mot de passe incorrect.";
+        echo json_encode(['success' => false, 'message' => 'Identifiants incorrects']);
     }
-} catch (Exception $e) {
-    echo "Une erreur inattendue s'est produite : " . $e->getMessage();
-}
+    } catch (Exception $e) {
+        echo json_encode(['success' => false, 'message' => 'Données du formulaire manquantes.']);
+        exit();
+
+    }
+
 ?>

@@ -87,10 +87,9 @@ echo <<<HTML
 </table>
 
 <script id=scripting hx-swap-oob=outerHTML>
-    console.log($incr)
-    spiderAjax($incr, $dataSpider, $dataTab, "$nom")
-    lineAjax($incr, $dataLine, "$nom")
-    barAjax($incr, $dataBar, "$nom")
+    spiderHTMX($incr, $dataSpider, $dataTab, "$nom")
+    lineHTMX($incr, $dataLine, "$nom")
+    barHTMX($incr, $dataBar, "$nom")
 
     if ($map) {
         map.setActive("$id_pays")

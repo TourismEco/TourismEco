@@ -1,6 +1,6 @@
 <?php
     // Inscription.php
-    session_start();
+    require('../functions.php');
 
     // Générer un nouveau token CSRF si la variable de session n'existe pas
     if (!isset($_SESSION['csrf_token'])) {
@@ -23,7 +23,8 @@
 
     <body>
         <div class="content-container">
-            <div class="left-section">
+
+        <div class="left-section">
                 <h1 class="titre">Inscription</h1>
                 <form action="ajouter.php" method="post" onsubmit="return validateForm()">
                     <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
@@ -51,7 +52,6 @@
                     <div id="errorCountry" class="error"></div>
                     <span class="validation-message"></span>
 
-
                     <label for="city">Votre ville</label>
                     <input type="text" id="cityInput" name="cityInput" placeholder="Saisissez votre ville actuelle" required autocomplete="off">
                     <div id="cityOptions" class="option-container"></div>
@@ -66,160 +66,112 @@
 
                 </form>
             </div>
-            <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
             <script>
                 $(document).ready(function () {
 
-                    // Fonction pour mettre à jour le style du champ en fonction de sa validité
-                    function updateFieldStatus(field, isValid, message) {
-                        var $field = $(field);
-                        if (isValid) {
-                            $field.css({
-                                'border': '2px solid green',
-                                'background-color': '#c8e6c9' // Fond vert clair
-                            });
-                            $field.next('.error-message').text('');
-                        } else {
-                            $field.css({
-                                'border': '2px solid red',
-                                'background-color': '#ffcdd2' // Fond rouge clair
-                            });
-                            $field.next('.error-message').text(message);
-                        }
+                    // Fonction pour afficher une alerte et mettre en surbrillance le champ en erreur
+                    function showErrorAlert(message, field) {
+                        alert(message);
+                        field.addClass('error-field');
                     }
 
                     // Fonction pour valider le nom et prénom (lettres, accents et chiffres)
-                    function isValidName(name) {
+                    function isValidName(name, field) {
                         var nameRegex = /^[a-zA-ZÀ-ÖØ-öø-ÿ0-9\s']+$/;
                         var validName = nameRegex.test(name);
-                        if (validName){
+                        if (validName) {
                             $.ajax({
-                                url:'http://http://localhost/projetL3/website/formulaires/check_username.php',
-                                method : 'POST',
-                                data: {username : username},
+                                url: 'http://localhost/projetL3/website/formulaires/check_username.php',
+                                method: 'POST',
+                                data: { username: name },
                                 dataType: 'json',
-                                success:function(data){
+                                success: function (data) {
                                     var exists = data.exists;
-                                    var msg = exists ? 'Nom d\' utilisateur déjà utilisé':'';
-                                    updateFieldStatus($('input[name="username"]'), !exists, msg)
+                                    var msg = exists ? 'Nom d\'utilisateur déjà utilisé' : '';
+                                    updateFieldStatus(field, !exists, msg);
                                 },
-                                error:function(){
-                                    console.error("Erreur lors de la vérification de l'unicité du non d'utilisateur");
+                                error: function () {
+                                    console.error("Erreur lors de la vérification de l'unicité du nom d'utilisateur");
                                     reject();
                                 }
                             });
-                        }
-                        else{
-                            updateFieldStatus($('input[name="username"]'),false,"Nom d'utilisateur non valide")
-                        }
-                    }
-
-
-                    function isValidPassword(password) {
-                        var passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-                        return passwordRegex.test(password);
-                    }
-
-                    function isValidCountry(country){
-                        var countryRegex = /^[a-zA-ZÀ-ÖØ-öø-ÿ\s']+$/ ;
-                        return countryRegex.test(country);
-                    }
-
-                    function isValidCity(city){
-                        var cityRegex = /^[a-zA-ZÀ-ÖØ-öø-ÿ\s']+$/ ;
-                        var cityInput = $("#city");
-                        var selectedCity = cityInput.val();
-                        var selectedCitySelect = $("#citySelect").val();
-
-                        if (selectedCity === "" && selectedCitySelect === null) {
-                            $("#errorCity").html("Veuillez sélectionner ou saisir une ville.");
-                            return false;
                         } else {
-                            $("#errorCity").html("");
+                            // Afficher une alerte et mettre en surbrillance le champ en erreur
+                            showErrorAlert("Nom d'utilisateur non valide", field);
                         }
-                        return cityRegex.test(city);
                     }
 
-                    // Fonction pour vérifier tous les champs avant de soumettre le formulaire
-                    function validateForm2() {
-                        var isValid = true;
-
-                        function validateField(field, validationFunction, errorMessage) {
-                            var $field = $(field);
-                            var value = $field.val();
-                            var fieldIsValid = validationFunction(value);
-
-                            if (fieldIsValid) {
-                                updateFieldStatus($field, true, '');
-                            } else {
-                                updateFieldStatus($field, false, errorMessage);
-                                isValid = false;
-                            }
-
-                            return fieldIsValid;
+                    // Fonction pour mettre à jour le statut du champ (valide/invalide)
+                    function updateFieldStatus(field, isValid, errorMessage) {
+                        if (isValid) {
+                            field.removeClass('error-field');
+                        } else {
+                            showErrorAlert(errorMessage, field);
                         }
-
-                        var nomIsValid = validateField('input[name="username"]', isValidName, 'Le nom d\'utilisateur doit contenir que des lettres ou des chiffres, ou existe déjà');
-                        var passwordIsValid = validateField('input[name="password"]', isValidPassword, 'Le mot de passe doit contenir au moins 8 caractères, une lettre, un chiffre et un caractère spécial.');
-                        var confirmPasswordIsValid = validateField('input[name="confirmPassword"]', function(value) {
-                            // Ajoutez la logique de validation supplémentaire pour le champ de confirmation du mot de passe
-                            return value === $('input[name="password"]').val();
-                        }, 'Les mots de passe ne correspondent pas.');
-                        var countryIsValid = validateField('input[name="country"]', isValidCountry, 'Le pays n\'est pas valide, ou n\'existe pas.');
-                        var cityIsValid = validateField('input[name="city"]', isValidCity, 'La ville n\'est pas valide, ou n\'existe pas.');
-                        return isValid;
                     }
 
-                    $('input[name="username"], input[name="password"], input[name="confirmPassword"], input[name="country"], input[name="city"]').on('input', function() {
-                        validateForm();
-                    });
-
-
-
-                    // Fonction de validation du formulaire
+                    // Fonction pour valider le formulaire
                     function validateForm() {
-                        var username = $("#username").val();
-                        var password = $("#password").val();
-                        var confirmPassword = $("#confirmPassword").val();
-                        var countryInput = $("#country");
+                        var usernameField = $('input[name="username"]');
+                        var passwordField = $('input[name="password"]');
+                        var confirmPasswordField = $('input[name="confirmPassword"]');
+                        var countryField = $('input[name="country"]');
+                        var cityInputField = $('input[name="cityInput"]');
 
-                        // Vérifier que le nom d'utilisateur n'est pas vide
+                        // Validation du nom d'utilisateur
+                        var username = usernameField.val();
                         if (username.trim() === "") {
-                            $("#errorUsername").html("Le nom d'utilisateur ne peut pas être vide.");
-                            return false;
+                            showErrorAlert("Le nom d'utilisateur ne peut pas être vide.", usernameField);
                         } else {
-                            $("#errorUsername").html("");
+                            isValidName(username, usernameField);
                         }
 
-                        // Vérifier que le mot de passe contient au moins une lettre, un chiffre et un caractère spécial
-                        if (!/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/.test(password)) {
-                            $("#errorPassword").html("Le mot de passe doit contenir au moins une lettre, un chiffre et un caractère spécial.");
-                            return false;
+                        // Validation du mot de passe
+                        var password = passwordField.val();
+                        if (password.trim() === "") {
+                            // Si le champ du mot de passe est vide, réinitialiser le champ de confirmation du mot de passe
+                            confirmPasswordField.val("");
                         } else {
-                            $("#errorPassword").html("");
+                            // Validation du mot de passe non vide
+                            if (!/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/.test(password)) {
+                                showErrorAlert("Le mot de passe doit contenir au moins une lettre, un chiffre et un caractère spécial.", passwordField);
+                            } else {
+                                passwordField.removeClass('error-field');
+                            }
                         }
 
-                        // Vérifier que le pays est sélectionné
-                        if (countryInput.val() === "") {
-                            $("#errorCountry").html("Veuillez sélectionner ou saisir un pays.");
-                            return false;
+                        // Validation de la confirmation du mot de passe
+                        var confirmPassword = confirmPasswordField.val();
+                        if (confirmPassword !== password) {
+                            showErrorAlert("Les mots de passe ne correspondent pas.", confirmPasswordField);
                         } else {
-                            $("#errorCountry").html("");
+                            confirmPasswordField.removeClass('error-field');
                         }
 
-                        // Vérifier que la ville est sélectionnée ou renseignée
-                        var cityInput = $("#city");
-                        var selectedCity = cityInput.val();
-                        var selectedCitySelect = $("#citySelect").val();
-
-                        if (selectedCity === "" && selectedCitySelect === null) {
-                            $("#errorCity").html("Veuillez sélectionner ou saisir une ville.");
-                            return false;
+                        // Validation du pays
+                        var country = countryField.val();
+                        if (country.trim() === "") {
+                            showErrorAlert("Veuillez sélectionner ou saisir un pays.", countryField);
                         } else {
-                            $("#errorCity").html("");
+                            countryField.removeClass('error-field');
                         }
 
-                        // Si toutes les validations passent, retourner true
+                        // Validation de la ville
+                        var cityInput = cityInputField.val();
+                        var selectedCity = $("#selectedCity").val();
+                        if (cityInput.trim() === "" && selectedCity === "") {
+                            showErrorAlert("Veuillez sélectionner ou saisir une ville.", cityInputField);
+                        } else {
+                            cityInputField.removeClass('error-field');
+                        }
+
+                        // Si au moins un champ a une erreur, empêcher la soumission du formulaire
+                        if ($('.error-field').length > 0) {
+                            alert("Veuillez corriger les erreurs avant de soumettre le formulaire.");
+                            return false;
+                        }
+
                         return true;
                     }
 
@@ -270,7 +222,6 @@
                     $("#cityInput").on("input", function () {
                         var selectedCountry = $("#country").val();
                         var selectedCity = $(this).val();
-
                         // Charger les options de la ville en fonction du pays sélectionné et de l'input actuelle
                         $.ajax({
                             type: "POST",
@@ -287,7 +238,7 @@
                         });
                     });
 
-                   // Gestionnaire de clic sur les options de la liste des villes
+                        // Gestionnaire de clic sur les options de la liste des villes
                     $("#cityOptions").on("click", "option", function () {
                         var selectedCity = $(this).text();
                         $("#cityInput").val(selectedCity);

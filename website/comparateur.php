@@ -14,7 +14,7 @@
             <div id="mini1"></div>
 
             <div class="container-side bg-52796F" hx-get="catalogue.php" hx-select="#catalogue" hx-target="#catalogue" hx-trigger="click" hx-swap="show:top" hx-vals="js:{page:'Compare'}">
-                <div class="bandeau-side"> 
+                <div class="bandeau-side cursor"> 
                     <img id=plus class="flag-small" src='assets/img/plus.svg'>
                     <h2 class="nom-small">Choisir des pays</h2>
                 </div>
@@ -59,7 +59,7 @@
                     case 1:
                         echo <<<HTML
                             <div hx-get="scripts/htmx/getCompare.php" hx-vals="js:{incr:0,id_pays:'$pays[0]'}" hx-trigger="load delay:1s"></div>
-                            <div hx-get="catalogue.php" hx-trigger="load" hx-select="#main"></div>
+                            <div hx-get="catalogue.php" hx-trigger="load" hx-select="#catalogue" hx-target="#catalogue" hx-vals="js:{page:'Compare'}"></div>
                         HTML;
                         break;
                     
@@ -163,7 +163,7 @@
                     </div>
                     
                     
-                    <div class=graph id="chartdiv"></div>
+                    <div class=graph id="line"></div>
 
                     
                 </div>
@@ -210,9 +210,9 @@
             <script src="scripts/js/carousel-savezvous.js"></script>
             <script id=scripting>
         
-                spider()
-                createGraph()
-                graphBar()
+                spiderCompare("spider")
+                lineCompare("line")
+                barCompare("bar")
                 createMapCompare(<?=$pays?>)
 
             </script>

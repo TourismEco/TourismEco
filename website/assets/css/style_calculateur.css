@@ -1,0 +1,190 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #354F52;
+    color: white;
+    display: flex;
+    flex-direction: column;
+}
+
+.titre {
+    font-size: 45px;
+    text-align: center;
+}
+
+h2 {
+    font-size: 33px;
+}
+
+.connexion-container {
+    width: 600px;
+    margin: auto;
+}
+
+.content-container {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 20px;
+}
+
+form {
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.right-section {
+    text-align: center;
+    font-size: 18px;
+    width: 50%;
+    margin: auto 100px auto 50px;
+    line-height: 1.25;
+}
+
+.right-section p, .right-section ul {
+    text-align: justify;
+
+}
+.left-section {
+    width: 50%;
+    margin: 40px 50px 40px 100px;
+}
+
+label {
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+.text {
+    font-size: 18px;
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+input {
+    width: 70%;
+    padding: 15px;
+    margin-bottom: 15px;
+    font-size: 16px;
+    border-radius: 10px;
+    background-color: #b2c9cd;
+    border: none;
+    z-index: 3;
+}
+
+.submit {
+    background-color: #52796F;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    width: 150px;
+    cursor: pointer;
+}
+
+.logo {
+    max-width: 40%;
+    margin: auto;
+}
+
+.option-container {
+    max-height: 120px;
+    overflow-y: auto;
+    background-color: #426165;
+    border: none;
+    border-radius: 0 0 10px 10px;
+    font-size: 18px;
+    width: 70%;
+    padding: 5px;
+    margin-top: -15px;
+    z-index: 2;
+    margin-bottom: 15px;
+    text-align: start;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.option-container option, .option-container label {
+    padding: 5px;
+    border-radius: 10px;
+    cursor:pointer;
+    margin-bottom: 0;
+}
+
+.option-container option:hover, .option-container label:hover{
+    background-color: #2f474a;
+}
+
+.error {
+    color: red;
+    margin-top: 5px;
+    font-size: 14px;
+}
+
+#errorMessages {
+    color: red;
+    margin-top: 10px;
+    font-size: 16px;
+}
+
+.big-trait {
+    border: solid 1px;
+    height: 450px;
+    margin:auto 0
+}
+
+::placeholder {
+    font-style: italic;
+}
+
+.radio-mode {
+    opacity: 0;
+}
+
+.radio-mode:checked + label>img {
+    background-color: lightsteelblue;
+    border-radius: 20px;
+    cursor:auto;
+}
+
+/* Stuff after this is only to make things more pretty */
+.radio-mode + label>img {
+    width: 40px;
+    height: 40px;
+    transition: .5s all;
+    border-radius: 50%;
+    background-color: gold;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.radio-mode:disabled + label>img{
+    background-color: grey;
+    cursor:auto;
+}
+
+.liste-mode {
+    display: flex;
+}
+
+.dual-input {
+    display: flex;
+    gap: 50px;
+    width: 70%;
+}
+
+.container-input {
+    align-items: center;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.container-input input, .container-input .option-container {
+    width: 100%;
+}

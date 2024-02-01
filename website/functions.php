@@ -296,3 +296,44 @@ function carousel($conn) {
         </div>
     HTML;
 }
+
+function setListePays($options) {
+    echo <<<HTML
+        <input type="text" id="city_src" name="city_src" placeholder="Sélectionnez une ville" required autocomplete="off" hx-swap-oob="outerHTML" hx-get="scripts/htmx/listVilles.php" hx-trigger="keyup[this.value.trim().length > 0] changed delay:0.5s" hx-vals='js:{search: getSearchValue("city_src")}'>
+        <div id="cityOptions" class="option-container" hx-swap-oob="outerHTML"></div>
+        <div id="countryOptions" class="option-container" hx-swap-oob="outerHTML">
+    HTML;
+
+    if (!empty($options)) {
+        foreach ($options as $option) {
+            echo <<<HTML
+                <option value=$option[id] hx-get="scripts/htmx/selectPays.php" hx-trigger="click" hx-vals="js:{id_pays:'$option[id]',nom:'$option[nom]'}">$option[nom]</option>
+            HTML;
+        }
+    }
+
+    echo <<<HTML
+        </div>
+    HTML; 
+}
+
+function setListeVilles($options,$nom) {
+    echo <<<HTML
+        <input type="text" id="country_src" name="country_src" placeholder="Saisissez un pays" required value="$nom"
+            hx-get="scripts/htmx/listPays.php" hx-trigger="keyup[this.value.trim().length > 0] changed delay:0.5s" hx-vals='js:{search: getSearchValue("country_src")}' hx-swap-oob="outerHTML">
+        <div id="countryOptions" class="option-container" hx-swap-oob="outerHTML"></div>
+        <div id="cityOptions" class="option-container" hx-swap-oob="outerHTML">
+    HTML;
+
+    if (!empty($options)) {
+        foreach ($options as $option) {
+            echo <<<HTML
+                <option value=$option[id]>$option[nom]</option>
+            HTML;
+        }
+    }
+
+    echo <<<HTML
+        </div>
+    HTML; 
+}

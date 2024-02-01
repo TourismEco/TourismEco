@@ -236,9 +236,9 @@ if __name__ == "__main__":
     # clearTables(["AI","CK","GF","GP","KN","MQ","MS","NU","PS","RE","TW"])
     # clearTables(["ST","MR"])
     # checking()
-    # nameToCode("airports")
-    baseCsv("GPI-2023-overall-scores-and-domains-2008-2023","Safety and Security","safety",163,1,0,3,2008,2023,"Country")
-    toCSV(agglomerate(["safety"],2008,2023,163),"safetyClean")
+    nameToCode("airports")
+    # baseCsv("GPI-2023-overall-scores-and-domains-2008-2023","Safety and Security","safety",163,1,0,3,2008,2023,"Country")
+    # toCSV(agglomerate(["safety"],2008,2023,163),"safetyClean")
     pass
 
 # baseCsv("allData"," Inbound Tourism-Arrivals","test",1341,6,2,5,1995,2021,"Basic data and indicators")

@@ -314,26 +314,3 @@ def addSafety():
         cur.execute(f"UPDATE surete SET safety={i['Safety']} WHERE id_pays='{to2[i['Pays']]}' AND annee={i['Annee']}")
     
     cnx.commit()
-
-
-# addEmojisFile()
-
-#updateRenew()
-# addPibCapita()
-#addTwemoji()
-
-# addContinent()
-
-# renameEmojis()
-
-# addPop()
-    
-# addGrowth("economie",["pib","pibParHab","cpi"])
-# addGrowth("tourisme",["arriveesTotal","arriveesAF","arriveesAM","arriveesEA","arriveesEU","arriveesME","arriveesSA","arriveesAutre","arriveesPerso","arriveesPro","arriveesAvion","arriveesEau","arriveesTerre","departs","depenses","recettes","emplois"])
-# addGrowth("surete",["gpi"])
-# addGrowth("ecologie",["co2","ges","elecRenew"])
-    
-# setVilles()
-    
-# addDescip(["Aya","Cassandra","Line","Rémy","Lucas"])    
-addSafety()

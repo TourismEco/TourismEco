@@ -210,6 +210,7 @@ Les arguments *en italique* sont ceux qui doivent être affectés dans les class
 - `xAxis` : objet AMC qui gère l'axe X
 - `yAxis` : objet AMC qui gère l'axe Y
 - `legend` : objet AMC qui gère la légende
+- `year` : si un Slider est ajouté, stockage de l'année courante
 - `series` : liste de séries de données
 
 ### Le constructeur
@@ -221,6 +222,7 @@ constructor(id, figObj, cursorObj) {
     this.xAxis = null
     this.yAxis = null
     this.legend = null
+    this.year = null
     this.series = []
 
     var cursor = this.graph.set("cursor", cursorObj.new(this.root, {}));
@@ -286,14 +288,13 @@ Retour :
 ### initXAxis
 
 ```js
-initXAxis(rendererObj, field, data) {
+initXAxis(rendererObj, field) {
     var base = this
     this.xAxis = this.graph.xAxes.push(am5xy.CategoryAxis.new(base.root, {
         categoryField: field,
         renderer: base.newXRenderer(rendererObj),
         tooltip: am5.Tooltip.new(base.root, {})
     }));
-    this.xAxis.data.setAll(data)
 }
 ```
 
@@ -302,7 +303,6 @@ Initialise un axe X, de type `CategoryAxis`. Cette méthode va appeler `newXRend
 Arguments :
 - *`rendererObj`* : l'objet AMC utilisé pour générer le `Renderer` dans la méthode `newXRenderer(obj)`. 
 - `field` : nom de la variable qui sera utilisée pour déterminer les valeurs de l'axe
-- `data` : données qui affectent l'axe
 
 Retour :
 - aucun, mais l'axe est stocké dans l'attribut `xAxis`
@@ -332,39 +332,57 @@ Retour :
 
 ### addSerie
 ```js
-addSerie(data, name, color, xField, yField, obj, labelText) {
+addSerie(index, data, name, color, xField, yField, obj, labelText) {
     var base = this
 
-    var serie = this.graph.series.push(obj.new(base.root, {
-        name: name,
-        xAxis: base.xAxis,
-        yAxis: base.yAxis,
-        valueYField: yField,
-        categoryXField: xField,
-        tooltip: am5.Tooltip.new(base.root, {
-            labelText: labelText
-        }),
-        stroke:color,
-        fill:color,
-    }));        
-    
-    serie.data.setAll(data)
+    if (this.series.length == index) {
+        var serie = this.graph.series.push(obj.new(base.root, {
+            name: name,  
+            xAxis: base.xAxis,
+            yAxis: base.yAxis,
+            categoryXField: xField, 
+            valueYField: yField, 
+            tooltip: am5.Tooltip.new(base.root, { 
+                labelText: labelText
+            }),
+            stroke:color,
+            fill:color,
+        }));
 
-    if (this.legend != null) {
-        this.legend.data.push(serie)
+        serie.data.setAll(data)     
+
+        if (color == null) { 
+            serie.columns.template.adapters.add("fill", function (fill, target) {
+                return base.graph.get("colors").getIndex(serie.columns.indexOf(target));
+            });
+            serie.columns.template.adapters.add("stroke", function (stroke, target) {
+                return base.graph.get("colors").getIndex(serie.columns.indexOf(target));
+            });
+        }
+        
+        if (this.legend != null) {
+            this.legend.data.push(serie)
+        }
+        var s = new Serie(data,serie) 
+        this.series.push(s)
+        return s
+    } else {
+        this.series[index].setData(data) 
+        this.series[index].setDataSerie(data)
+        this.series[index].setName(name)
+        return this.series[index]
     }
-
-    this.series.push(serie)
-
-    return serie
 }
 ```
-Crée une nouvelle série de données et l'ajoute au graphique.
+Cette méthode est centrale : elle assure l'ajout et la mise à jour des données. On lui donne tout d'abord un `index`, qui correspond à la position de notre série de données sur le graphique. Dans un cas concret, dans la page Comparateur il y a un pays 0 et un pays 1. Quand on change le pays 0, toutes les données d'index 0 sont modifiées.
+
+Si l'index n'existe pas dans notre liste, on crée une nouvelle série. Sinon on écrase les données de la précédente.
 
 Arguments :
+- `index` : l'index de la série de données
 - `data` : les données à appliquer
 - `name` : le nom de la série, utilisé ensuite dans la légende
-- `color` : la couleur de la série sur notre figure
+- `color` : la couleur de la série sur notre figure. Si sa valeur est `null`, alors les couleurs par défaut d'AM Charts seront appliquées.
 - `xField` : le nom de la variable qui prend l'axe X pour cette série
 - `yField` : le nom de la variable qui prend l'axe Y pour cette série
 - *`obj`* : objet AMC utilisé pour générer la série, change en fonction du type de graphique voulu
@@ -418,6 +436,53 @@ Aucun argument et retour, la légende est stockée dans l'attribut `legend`.
 
 ***REMARQUE* : la légende doit donc être initialisée AVANT les séries de données pour fonctionner !**
 
+### addSlider
+```js
+addSlider(fun, width, padT, padR, padL, rotation, first, last) {
+    ...
+}
+```
+Ajout un slider pour faire changer l'année des données d'un graphique. On doit lui préciser sa position, ses bornes et surtout son comportement quand l'année change.
+
+Arguments :
+- `fun` : la fonction à exécuter lors du changement d'années
+- `width` : largeur de la barre du slider
+- `padT`, `padR`, `padL` : padding Top, Right et Left pour ajuster la position du slider (dur à maîtriser)
+- `rotation` : rotation du slider, pour le mettre sur le côté par exemple ( == 90 alors)
+- `first` et `last` : respectivement la première et dernière année possible pour le slider
+
+Retour :
+- aucun.
+
+### setDataXAxis
+```js
+setDataXAxis(data) {
+    this.xAxis.data.setAll(data)
+}
+```
+S'occupe de mettre à jour les données affichées sur l'axe des abscisses.
+
+Argument :
+- `data` : les données à mettre sur l'axe
+
+Retour :
+- aucun.
+
+### setNumberFormat
+```js
+setNumberFormat(format) {
+    this.root.numberFormatter.set("numberFormat", format);
+}
+```
+Permet de changer le format d'affichage des nombres sur le graphique. Utile si on veut afficher des pourcentages par exemple.
+Plus d'informations : https://www.amcharts.com/docs/v5/concepts/formatters/formatting-numbers/
+
+Argument :
+- `format` : la syntaxe du format voulu, voir lien au dessus
+
+Retour :
+- aucun.
+
 ## Une vraie classe : `Spider`
 
 Maintenant que notre interface a été introduite, on va rentrer dans le vif avec la création d'une vraie classe pour afficher un Spider Plot.
@@ -463,11 +528,13 @@ L'appel de la méthode `addBullets()` se fait dans `addSerie()`, car nous voulon
 
 ```js
 g = new Spider("spider")
-g.initXAxis("var", data)
+g.initXAxis("var")
 g.initYAxis()
 g.addLegend()
-g.addSerie(data, "Série 1", "#52796F", "var", "value")
-g.addSerie(data, "Série 2", "#52796F", "var", "value2")
+g.setDataXAxis([{"var":"pib"},{"var":"Enr"},{"var":"co2"},{"var":"arrivees"},{"var":"departs"},{"var":"gpi"},{"var":"cpi"}])
+g.addSlider(updateSpider,400,50,50,50,90,2008,2020)
+g.addSerie(0, data, "Série 1", "#52796F", "var", "value")
+g.addSerie(1, data, "Série 2", "#52796F", "var", "value2")
 ```
 
 Et notre graphique fonctionne !
