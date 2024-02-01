@@ -1,6 +1,6 @@
 <?php
 
-require('../functions.php');
+require('../../functions.php');
 
 try {
     // Vérifier le token CSRF

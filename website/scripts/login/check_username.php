@@ -1,5 +1,5 @@
 <?php
-require('../functions.php');
+require('../../functions.php');
 
 if (isset($_POST['username'])) {
     $username = $_POST['username'];
@@ -8,14 +8,16 @@ if (isset($_POST['username'])) {
     $connexion = getDB();
 
     // Vérifier si le nom d'utilisateur existe déjà dans la base de données
-    $stmtCheckUsername = $connexion->prepare("SELECT COUNT(*) FROM client WHERE nom = ?");
+    $stmtCheckUsername = $connexion->prepare("SELECT * FROM client WHERE nom = ?");
     $stmtCheckUsername->bindParam(1, $username);
     $stmtCheckUsername->execute();
-    $result = $stmtCheckUsername->fetchColumn();
+    $result = $stmtCheckUsername->fetch();
 
     // Si le nom est déjà utilisé:
-    if ($count > 0) {
-        return json_encode(['exists' => $result['count'] > 0]);
+    if ($result) {
+        echo json_encode(['exists' => true]);
+    } else {
+        echo json_encode(['exists' => false]);
     }
 }
 

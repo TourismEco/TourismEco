@@ -1,20 +1,20 @@
 <?php
 
-require('../functions.php');
+require('../../functions.php');
 
 // Récupérer les données du formulaire
 if (
     isset($_POST['username']) &&
     isset($_POST['password']) &&
     isset($_POST['confirmPassword']) &&
-    isset($_POST['country']) &&
-    isset($_POST['cityInput'])
+    isset($_POST['country_register']) &&
+    isset($_POST['city_register'])
 ) {
     $username = htmlspecialchars($_POST['username']);
     $password = $_POST['password'];
     $confirmPassword = $_POST['confirmPassword'];
-    $country = htmlspecialchars($_POST['country']);
-    $city = htmlspecialchars($_POST['cityInput']);
+    $country = htmlspecialchars($_POST['country_register']);
+    $city = htmlspecialchars($_POST['city_register']);
 
     if (empty($username) || empty($password) || empty($country) || empty($city) || empty($confirmPassword) || $password != $confirmPassword) {
         // Retourne une réponse JSON indiquant une erreur de validation
@@ -79,7 +79,7 @@ function ajouter($username, $password, $country, $city)
             $_SESSION['client']['city'] = $city;
 
             
-            header('Location: ../Profil/profil.php');
+            header('Location: ../../Profil/profil.php');
             exit;
         } else {
             return json_encode(['success' => false, 'message' => 'Erreur lors de l\'inscription : ' . $stmt->errorInfo()[2]]);
