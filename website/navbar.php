@@ -18,19 +18,20 @@ require_once "config.php"
     <!-- <form action="/action_page.php"> -->
     <!-- <input type="text" placeholder="Rechercher.." name="search"></form> -->
 
-        <?php
-        if (isset($_SESSION['client'])) {
-            echo <<<HTML
-                <a href="#news">Calculateur</a>
-                <div id="client"><p>Bonjour $_SESSION[client][prenom] $_SESSION[client][nom]</p></div>
-            HTML;
-        } else {
-            echo <<<HTML
-                <a href="#news" style="float:right">Sinscrire</a>
-                <a href="#news" style="float:right">Se connecter</a>
-            HTML;
-        }
-        ?>
+    <?php
+    if (isset($_SESSION['client'])) {
+        echo <<<HTML
+            <a href="#news">Calculateur</a>
+            <a href="profil.php">Bonjour {$_SESSION['client']['username']}</a>
+        HTML;
+    } else {
+        echo <<<HTML
+            <a href="#news" style="float:right">S'inscrire</a>
+            <a href="#news" style="float:right">Se connecter</a>
+        HTML;
+}
+?>
+
 
     </div>
 </nav>

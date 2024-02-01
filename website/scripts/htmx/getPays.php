@@ -6,6 +6,20 @@ $cur = getDB();
 $id_pays = $_GET["id_pays"];
 $_SESSION["pays"][0] = $id_pays;
 
+
+if (!isset($_SESSION["historique"]) || !is_array($_SESSION["historique"])) {
+    $_SESSION["historique"] = array();
+}
+if (!in_array($id_pays, $_SESSION["historique"])) {
+    // Ajoutez le nouvel élément à l'historique
+    $_SESSION["historique"][] = $id_pays;
+  
+    $maxHistoriqueSize = 3;  // Définir la taille maximale de l'historique
+    while (count($_SESSION["historique"]) > $maxHistoriqueSize) {
+        array_shift($_SESSION["historique"]);
+    }
+}
+
 if (isset($_GET["map"])) {
     $map = false;
 } else {
@@ -116,7 +130,7 @@ echo <<<HTML
     <img class="flag" src='assets/twemoji/$id_pays.svg'>
     <h1 class="nom">$nom</h1>
     <p class="capital">Capitale : $capitale</p>
-    <img id="favorite" src="assets/img/heart.png" hx-get="scripts/htmx/getFavorite.php" hx-trigger="click" hx-swap="outerHTML">
+    <img id="favorite" src="assets/img/heart.png" hx-get="scripts/htmx/getFavorite.php" hx-trigger="click" hx-swap="outerHTML" hx-vals="js:{id_pays:'{$ligne['id_pays']}'}">
     <!-- <img id="favorite" src="assets/img/heart_full.png"> -->
 
 </div>
