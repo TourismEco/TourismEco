@@ -4,13 +4,12 @@ require('../../functions.php');
 
 if (isset($_GET["search"])) {
     $search = $_GET["search"];
+    $sens = $_GET["sens"];
     $connexion = getDB();
 
-    if ($search === 'All') {
-        $stmt = $connexion->prepare("SELECT nom, id, id_pays FROM villes ORDER BY population");
-    } else {
-        $stmt = $connexion->prepare("SELECT nom, id, id_pays FROM villes WHERE nom LIKE ? ORDER BY population");
-        $stmt->execute(["$search%"]);
+    if (isset($_GET["id_pays"])) {
+        $stmt = $connexion->prepare("SELECT nom, id, id_pays FROM villes WHERE nom LIKE ?  AND id_pays = ? ORDER BY population");
+        $stmt->execute(["$search%",$_GET["id_pays"]]);
     }
 
     $options = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -20,9 +19,11 @@ if (isset($_GET["search"])) {
         $stmtV = $connexion->prepare("SELECT * FROM pays WHERE id = ?");
         $stmtV->execute(["$id"]);
         $optionsV = $stmtV->fetchAll(PDO::FETCH_ASSOC);
-        setListeVilles([], $optionsV[0]["nom"]);
+        
+        inputVilles($id, $options[0]["nom"], $sens);
+        emptyOptions("city_options_$sens");
     } else {
-        setListeVilles($options, "");
+        iterOptions($options,"city_options_$sens", $sens, "city");
     }
 }
 

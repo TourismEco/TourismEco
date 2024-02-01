@@ -4,6 +4,7 @@ require('../../functions.php');
 
 if (isset($_GET["search"])) {
     $search = $_GET["search"];
+    $sens = $_GET["sens"];
     $connexion = getDB();
 
     if ($search === 'All') {
@@ -20,9 +21,15 @@ if (isset($_GET["search"])) {
         $stmtV = $connexion->prepare("SELECT * FROM villes WHERE id_pays = ? ORDER BY population DESC");
         $stmtV->execute(["$id"]);
         $optionsV = $stmtV->fetchAll(PDO::FETCH_ASSOC);
-        setListeVilles($optionsV, $options[0]["nom"]);
+        
+        inputPays($options[0]["nom"], $sens);
+        emptyOptions("country_options_$sens");
+        inputVilles($id, "", $sens);
+        iterOptions($optionsV, "city_options_$sens", $sens, "city");
     } else {
-        setListePays($options);
+        inputVilles("", "", $sens);
+        emptyOptions("city_options_$sens");
+        iterOptions($options, "country_options_$sens", $sens, "country");
     }
 }
 
