@@ -71,6 +71,8 @@
                 }
 
                 $pays = json_encode($pays);
+
+                $dataSpider = dataSpider($pays, $conn)
             ?>
 
             <div id="catalogue"></div>

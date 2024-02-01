@@ -61,26 +61,7 @@ echo <<<HTML
     <img class="flag" src='assets/twemoji/$id_pays.svg'>
     <h1 class="nom">$nom</h1>
     <p class="capital">Capitale : $capitale</p>
-    <div class="container-warnings">
-        <div class="container-unsafe tooltip">
-            <img src="assets/img/warning.svg">
-            <div class="top">
-                <h3>Ce pays n'est pas sûr</h3>
-                <p>Ce pays a obtenu un score de sûreté et de sécurité très élevé pour l'année 2023.<br>Faites attention si vous vous y rendez.</p>
-                <p>Obtenez plus d'informations auprès de <a class="lien" href="https://www.diplomatie.gouv.fr/fr/conseils-aux-voyageurs/">France Diplomacie</a> pour voyager en sécurité.</p>
-                <i></i>
-            </div>
-        </div>
-        <div class="container-war tooltip">
-            <img src="assets/img/warning.svg">
-            <div class="top">
-                <h3>Ce pays est en guerre</h3>
-                <p>Ce pays est actuellement engagé dans un conflit armé, et n'est donc pas sûr.<br>Le type de conflit est : <strong>Guerre Civile</strong></p>
-                <p>Obtenez plus d'informations auprès de <a class="lien" href="https://www.diplomatie.gouv.fr/fr/conseils-aux-voyageurs/">France Diplomacie</a> pour voyager en sécurité.</p>
-                <i></i>
-            </div>
-        </div>
-    </div>
+   
 </div>
 
 <div class="score-box score-$letter" id="score$incr" hx-swap-oob="outerHTML">$letter</div>
