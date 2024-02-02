@@ -19,7 +19,9 @@ body {
 
 
 .grille {
-    display:flex
+    display:flex;
+    opacity:100%;
+    transition: opacity 1s ease-out;
 }
 
 .main {
@@ -1244,4 +1246,9 @@ input {
 
 .container-input input, .container-input .option-container {
     width: 100%;
+}
+
+#grille.htmx-settling {
+  opacity: 0%;
+  transition: opacity 2s ease-out;
 }

@@ -6,7 +6,7 @@
         <div id="map"></div>
     </div>
 
-    <div class="grille" id="grille">
+    <div class="grille" id="grille" hx-swap="outerHTML swap:2s">
     
         <div class="sidebar">
             <div id="mini0"></div>
@@ -72,7 +72,6 @@
 
                 $pays = json_encode($pays);
 
-                $dataSpider = dataSpider($pays, $conn)
             ?>
 
             <div id="catalogue"></div>

@@ -5,7 +5,7 @@
         <div id="map"></div>
     </div>
 
-    <div class="grille" id="grille">
+    <div class="grille" id="grille" hx-swap="outerHTML swap:2s">
 
         <div class="sidebar">
             <div id="mini0"></div>
@@ -183,6 +183,7 @@
             ?>
 
             <script id=scripting>
+                createMap()
                 spider()
 
                 addJauge("jauge")
@@ -191,9 +192,7 @@
                 double_courbe(<?=$data_courbe?>)
                 barre(<?= $data_bar;?>)
 
-               
-
-                createMap()
+                
             </script>
 
         </div>
