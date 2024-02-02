@@ -33,7 +33,7 @@ var html =
         `
 
 class EcoMap {
-    constructor (id,compare) {
+    constructor (id, option) {
         this.root = am5.Root.new(id);
         this.countries = null
         this.continents = null
@@ -41,7 +41,8 @@ class EcoMap {
         this.incr = 0
         this.cities = null
         this.capitals = null
-        this.compare = compare
+        this.option = option
+        this.max = {"pays":1, "compare":2, "continent":1}
 
         this.root.setThemes([
             am5themes_Animated.new(this.root)
@@ -55,23 +56,43 @@ class EcoMap {
         }));
     }
 
-    setCompare(compare) {
-        this.compare = compare
-    }
-
     togglePays() {
+        this.option = "pays"
         this.incr = 1
         for (var i=1; i<this.poly.length; i++) {
             this.poly[i].set("active",false)
             this.poly[i].set("interactive",true)
         }
         this.poly = [this.poly[0]]
+
+        this.showCountries()
     }
 
     toggleCompare() {
+        this.option = "compare"
         this.cities.data.clear()
         this.capitals.data.clear()
         this.map.goHome();
+
+        this.showCountries()
+    }
+
+    toggleContinent() {
+        this.option = "continent"
+        this.cities.data.clear()
+        this.capitals.data.clear()
+        this.map.goHome();
+
+        this.showContinents()
+    }
+
+    showCountries() {
+        this.continents.hide();
+        this.countries.show();
+    }
+    showContinents() {
+        this.countries.hide();
+        this.continents.show();
     }
 
     addCountries() {
@@ -124,66 +145,36 @@ class EcoMap {
 
     activePays(serie) {
         var base = this
-        var max = 2
 
         serie.mapPolygons.template.on("active", function(active, target) {
             if (active) {
-                if (base.compare) {
-                    target.set("interactive",false)
-                    if (base.incr == max) {
-                        base.incr = 0
-                    }
-                    if (base.poly.length < max) {
-                        base.poly.push(target)
-                    } else {
-                        base.poly[base.incr].set("active", false)
-                        base.poly[base.incr].set("interactive", true)
-                        base.poly[base.incr] = target
-                    }
-                    base.incr++
-                } else {
-                    target.set("interactive",false)
-                    if (base.poly.length != 0 && base.poly[0] != target) {
-                        base.poly[0].set("active", false);  
-                        base.poly[0].set("interactive",true)
-                    }
-                    base.poly[0] = target;
+                var max = base.max[base.option]
+                target.set("interactive",false)
+                if (base.incr == max) {
+                    base.incr = 0
                 }
+                if (base.poly.length < max) {
+                    base.poly.push(target)
+                } else {
+                    base.poly[base.incr].set("active", false)
+                    base.poly[base.incr].set("interactive", true)
+                    base.poly[base.incr] = target
+                }
+                base.incr++
             }
         })
 
         serie.mapPolygons.template.events.on("click", function (ev) {
-            if (base.compare) {
+            if (base.option == "compare") {
                 htmx.ajax("GET","scripts/htmx/getCompare.php",{values:{map:true,id_pays:ev.target.dataItem._settings.id},swap:"beforeend"})
-            } else {
+            } else if (base.option == "pays") {
                 serie.zoomToDataItem(ev.target.dataItem);
                 htmx.ajax("GET","scripts/htmx/getPays.php",{values:{map:true,id_pays:ev.target.dataItem._settings.id},swap:"beforeend"})
+            } else {
+                serie.zoomToDataItem(ev.target.dataItem);
+                htmx.ajax("GET","scripts/htmx/getContinent.php",{values:{map:true,id_pays:ev.target.dataItem._settings.id},swap:"beforeend"})
             }
         });
-    }
-
-    switchToCountries() {
-        if (this.countries != null && this.continents != null) {
-            this.continents.hide();
-            this.countries.show();
-            this.map.goHome();
-        }
-        if (this.cities != null) {
-            this.cities.show()
-            this.capitals.show()
-        }
-    }
-    
-    switchToContinent() {
-        if (this.countries != null && this.continents != null) {
-            this.countries.hide();
-            this.continents.show();
-            this.map.goHome();
-        }
-        if (this.cities != null) {
-            this.cities.hide()
-            this.capitals.hide()
-        }
     }
     
     addZoom() {
@@ -200,44 +191,6 @@ class EcoMap {
         zoom.homeButton.get("background").setAll({
             fill: am5.color("#CAD2C5")
         })
-    }
-
-    addSwitch() {
-        var base = this
-
-        var cont = this.map.children.push(
-            am5.Container.new(base.root, {
-                layout: base.root.horizontalLayout,
-                x: 20,
-                y: 40,
-            })
-        );
-          
-        cont.children.push(
-            am5.Label.new(base.root, {
-                centerY: am5.p50,
-                text: "Vue continents",
-                fill:"#FFFFFF"
-                })
-        );
-          
-        var switchButton = cont.children.push(
-            am5.Button.new(base.root, {
-                themeTags: ["switch"],
-                centerY: am5.p50,
-                icon: am5.Circle.new(base.root, {
-                    themeTags: ["icon"]
-                })
-            })
-        );
-          
-        switchButton.on("active", function () {
-            if (switchButton.get("active")) {
-                base.switchToContinent()
-            } else {
-                base.switchToCountries()
-            }
-        });
     }
 
     addBullets(radius,color,data) {
@@ -295,41 +248,36 @@ class EcoMap {
 }
 
 var map = undefined
-function createMap(id_pays) {
+function createMap() {
     if (map == undefined) {
-        map = new EcoMap("map",false)
+        map = new EcoMap("map","pays")
         map.addContinents()
         map.addCountries()
-        map.addSwitch()
         map.addZoom()    
     } else {
-        console.log("yep cock")
-        map.setCompare(false)
         map.togglePays()
-    }
-    
-    if (id_pays != undefined) {
-        map.root.events.on("frameended",() => {
-            map.zoomTo(id_pays)
-            map.root.events.off("frameended")
-        })
     }
 }
 
-function createMapCompare(pays) {
+function createMapCompare() {
     if (map == undefined) {
-        map = new EcoMap("map",true)
+        map = new EcoMap("map","compare")
+        map.addContinents()
         map.addCountries()
         map.addZoom()
     } else {
-        map.setCompare(true)
         map.toggleCompare()
     }
-    
-    map.root.events.on("frameended",() => {
-        for (var i of pays) {
-            map.setActive(i)
-            map.root.events.off("frameended")
-        }
-    })
+}
+
+function createMapContinent() {
+    if (map == undefined) {
+        map = new EcoMap("map","continent")
+        map.addContinents()
+        map.addCountries()
+        map.addZoom()    
+        map.showContinents()
+    } else {
+        map.toggleContinent()
+    }
 }

@@ -212,7 +212,7 @@
                 spiderCompare("spider")
                 lineCompare("line")
                 barCompare("bar")
-                createMapCompare(<?=$pays?>)
+                createMapCompare()
 
             </script>
 

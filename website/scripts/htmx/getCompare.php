@@ -21,9 +21,9 @@ if (!in_array($id_pays,$_SESSION["pays"])) {
 }
 
 if (isset($_GET["map"])) {
-    $map = "true";
-} else {
     $map = "false";
+} else {
+    $map = "true";
 }
 
 // Nom
@@ -91,7 +91,7 @@ echo <<<HTML
     lineHTMX($incr, $dataLine, "$nom")
     barHTMX($incr, $dataBar, "$nom")
 
-    if ($map == "true") {
+    if ($map) {
         map.setActive("$id_pays")
     }
 
