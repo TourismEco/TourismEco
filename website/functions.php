@@ -362,3 +362,53 @@ function carousel($conn) {
         </div>
     HTML;
 }
+
+function inputPays($value, $sens) {
+    echo <<<HTML
+        <input type="text" id="country_$sens" name="country_$sens" placeholder="Saisissez un pays" required value="$value"
+        hx-get="scripts/htmx/listPays.php" hx-trigger="keyup[this.value.trim().length > 0] changed delay:0.5s" hx-vals='js:{search: getSearchValue("country_$sens"), sens:"$sens"}' hx-swap-oob="outerHTML">
+    HTML;
+}
+
+function inputVilles($id_pays, $value, $sens) {
+    if ($id_pays != "") {
+        echo <<<HTML
+        <input type="text" id="city_$sens" name="city_$sens" placeholder="Sélectionnez une ville" required autocomplete="off" value="$value"
+            hx-swap-oob="outerHTML" hx-get="scripts/htmx/listVilles.php" hx-trigger="keyup[this.value.trim().length > 0] changed delay:0.5s" hx-vals='js:{search: getSearchValue("city_$sens"), id_pays:"$id_pays", sens:"$sens"}'>
+        HTML;
+    } else {
+        echo <<<HTML
+        <input type="text" id="city_$sens" name="city_$sens" placeholder="Sélectionnez une ville" hx-swap-oob="outerHTML" required disabled>
+        HTML;
+    }
+}
+
+function emptyOptions($id) {
+    echo <<<HTML
+        <div id="$id" class="option-container" hx-swap-oob="outerHTML"></div>
+    HTML;
+}
+
+function iterOptions($options, $id, $sens, $type) {
+    echo <<<HTML
+        <div id="$id" class="option-container" hx-swap-oob="outerHTML">
+    HTML;
+
+    if (!empty($options)) {
+        foreach ($options as $option) {
+            if ($type == "country") {
+                echo <<<HTML
+                    <option value=$option[id] hx-get="scripts/htmx/selectPays.php" hx-trigger="click" hx-vals="js:{id:'$option[id]',nom:'$option[nom]',sens:'$sens'}">$option[nom]</option>
+                HTML;
+            } else {
+                echo <<<HTML
+                    <option value=$option[id] hx-get="scripts/htmx/selectVille.php" hx-trigger="click" hx-vals="js:{id:'$option[id]', id_pays:'$option[id_pays]', nom:'$option[nom]',sens:'$sens'}">$option[nom]</option>
+                HTML;
+            }
+        }
+    }
+
+    echo <<<HTML
+        </div>
+    HTML;
+}
