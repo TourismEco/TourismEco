@@ -18,7 +18,7 @@
         <div id="map"></div>
     </div>
 
-    <div class="grille" id="grille" hx-swap="outerHTML swap:2s">
+    <div class="grille" id="grille">
 
         <div class="sidebar">
             <div id="mini0"></div>

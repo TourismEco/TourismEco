@@ -19,7 +19,7 @@ function barreLineAjax(incr,data,name) {
         b.addSerie(incr + 1, name, color[incr], "var", "value");
     } else {
         b.addSerie(incr + 1, data, name, color[incr], "var", "line");
-        
+ 
         b.series[incr].data = data
         b.series[incr].serie.data.setAll(data);
         b.series[incr].serie.setAll({

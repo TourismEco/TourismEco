@@ -5,7 +5,7 @@ function spider() {
     g = new Spider("spider")
     g.initXAxis("var", [{"var":"pib"},{"var":"Enr"},{"var":"co2"},{"var":"arrivees"},{"var":"departs"},{"var":"gpi"},{"var":"cpi"}])
     g.initYAxis()
-    g.addLegend(0)
+    g.addLegend()
 
     // Create controls
     var container = g.graph.children.push(am5.Container.new(g.root, {
@@ -76,8 +76,9 @@ function spiderAjax(incr, data, dataComp, name) {
     console.log(data[year], year, name);
 
     if (g.series.length == incr) {
+
         g.addSerie(incr, data, dataComp, name, color[incr], "var", "value");
-        g.series[incr].serie.data.setAll(data[year]);
+   g.series[incr].serie.data.setAll(data[year]);
         updateTable(incr,dataComp[year]);
     } else {
         g.series[incr].data = data;
