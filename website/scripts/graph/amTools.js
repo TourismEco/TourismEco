@@ -300,6 +300,22 @@ class Bar extends Graphique {
     }
 }
 
+class BarLine extends Graphique {
+    constructor(id) {
+        super(id, am5xy.XYChart, am5xy.XYCursor)
+    }
+    initXAxis(field) {
+        super.initXAxis(am5xy.AxisRendererX, field)
+    }
+    initYAxis() {
+        super.initYAxis(am5xy.AxisRendererY)
+    }
+    addSerie(index, data, name, color, xField, yField) {
+        return super.addSerie(index, data, name, color, xField, yField, am5xy.ColumnSeries, "{name} : {valueY}%")
+    }
+}
+
+
 class Jauge {
     // La Jauge n'est pas enfant de Graphique, car trop différent dans le code.
     constructor(id) {

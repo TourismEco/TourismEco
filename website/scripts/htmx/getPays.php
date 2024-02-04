@@ -122,6 +122,8 @@ $dataLine = json_encode(dataLine($id_pays, $cur),JSON_NUMERIC_CHECK);
 $dataBar = json_encode(dataBar($id_pays, $cur),JSON_NUMERIC_CHECK);
 $dataTab = json_encode(dataTab($id_pays, $cur),JSON_NUMERIC_CHECK);
 
+$dataBarreLine= json_encode(dataBarreLine($id_pays, $cur),JSON_NUMERIC_CHECK);
+//$dataBarPays = json_encode(dataBarPays($id_pays, $cur),JSON_NUMERIC_CHECK);
 
 echo <<<HTML
 
@@ -187,8 +189,11 @@ if ($map) {
             map.addCapitals($capitals)
             map.addCities($cities)
             spiderAjax(0, $dataSpider, $dataTab, "$nom")
-    lineAjax(0, $dataLine, "$nom")
-    barAjax(0, $dataBar, "$nom")
+            //lineAjax(0, $dataLine, "$nom")
+            //barAjax(0, $dataBar, "$nom")
+            barreLineAjax(0, $dataBarreLine, "$nom")
+            //barPaysAjax(0, $dataBarPays, "$nom")
+
 
         </script>
     HTML;
@@ -198,8 +203,11 @@ if ($map) {
             map.addCapitals($capitals)
             map.addCities($cities)
             spiderAjax(0, $dataSpider, $dataTab, "$nom")
-    lineAjax(0, $dataLine, "$nom")
-    barAjax(0, $dataBar, "$nom")
+            //lineAjax(0, $dataLine, "$nom")
+            //barAjax(0, $dataBar, "$nom")
+            barreLineAjax(0, $dataBarreLine, "$nom")
+            //barPaysAjax(0, $dataBarPays, "$nom")
+            
 
         </script>
     HTML;
