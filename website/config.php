@@ -7,6 +7,7 @@ define("DB_PASSWORD", "root");
 define("DB_DATABASE", "ecotourisme");
 define("SOURCE", "/projet_L3/website/");
 define("SITE_URL", "http://localhost/projet_L3/website/");
+define("MAPS_API_KEY", "AIzaSyBxhDyE21v8EJO7dxEet9uEB0KHsV5bLg4");
 
 // Handling PHP errors
 // TODO: Set to 0 in production
