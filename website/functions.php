@@ -186,6 +186,7 @@ function dataSpider($pays, $conn) {
     return $data;
 }
 
+
 function dataBar($pays, $conn) {
     $query = "SELECT ecologie.annee as annee,
     pibParHab AS pib, co2, arriveesTotal AS arrivees, gpi, cpi
@@ -218,6 +219,71 @@ function dataBar($pays, $conn) {
 
     return $data;
 }
+
+function dataBarreLine($pays, $conn) {
+    $query = "SELECT pays.id, pays.nom as var, ecologie.annee as annee, pibParHab AS pib, co2, arriveesTotal AS arrivees, gpi, cpi
+
+    FROM ecologie_grow AS ecologie, economie AS economie, tourisme AS tourisme, surete_grow AS surete, pays
+    WHERE ecologie.id_pays = economie.id_pays
+    AND economie.id_pays = tourisme.id_pays
+    AND tourisme.id_pays = surete.id_pays
+    AND surete.id_pays = pays.id
+    AND pays.id = '$pays'
+   
+    AND ecologie.annee = economie.annee
+    AND economie.annee = tourisme.annee
+    AND tourisme.annee = surete.annee 
+
+    ORDER BY `ecologie`.`annee` ASC LIMIT 8;
+    ";
+
+$result = $conn->query($query);
+
+$data = array();
+while ($rs = $result->fetch(PDO::FETCH_ASSOC)) {
+    $data[] = array(
+        "var" => $rs['annee'],
+        "value" => $rs['pib'],
+        "line" => $rs['arrivees']
+    );
+}
+
+return $data;
+
+}
+
+function dataTop($pays, $conn) {
+    $query = "SELECT pays.id, pays.nom as var, ecologie.annee as annee, pibParHab AS pib, co2, arriveesTotal AS arrivees, gpi, cpi
+
+    FROM ecologie_grow AS ecologie, economie AS economie, tourisme AS tourisme, surete_grow AS surete, pays
+    WHERE ecologie.id_pays = economie.id_pays
+    AND economie.id_pays = tourisme.id_pays
+    AND tourisme.id_pays = surete.id_pays
+    AND surete.id_pays = pays.id
+   
+    AND ecologie.annee = economie.annee
+    AND economie.annee = tourisme.annee
+    AND tourisme.annee = surete.annee 
+    AND surete.annee  = 2018  
+ORDER BY `arrivees` DESC
+LIMIT 8;
+    
+    ";
+
+$result = $conn->query($query);
+
+$data = array();
+while ($rs = $result->fetch(PDO::FETCH_ASSOC)) {
+    $data[] = array(
+        "var" => $rs['var'],
+        "value" => $rs['arrivees']
+    );
+}
+
+return $data;
+
+}
+
 
 function dataTab($pays, $conn) {
     $query = "SELECT ecologie.annee as annee,
@@ -293,8 +359,8 @@ function carousel($conn) {
     endforeach;
 
     echo <<<HTML
-        </div>
-    HTML;
+    </div>
+HTML;
 }
 
 function inputPays($value, $sens) {

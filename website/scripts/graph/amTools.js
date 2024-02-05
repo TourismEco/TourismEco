@@ -300,6 +300,49 @@ class Bar extends Graphique {
     }
 }
 
+class Top extends Graphique {
+    constructor(id) {
+        super(id, am5xy.XYChart, am5xy.XYCursor)
+    }
+    initXAxis(field, data) {
+        super.initXAxis(am5xy.AxisRendererX, field, data);
+        this.graph.xAxes.getIndex(0).min = 0;
+    }
+
+    initYAxis() {
+        var base = this;
+        
+        // Initialiser l'axe Y (commence à 0)
+        this.yAxis = this.graph.yAxes.push(am5xy.ValueAxis.new(base.root, {
+            renderer: base.newYRenderer(am5xy.AxisRendererY),
+            min: 0, 
+        }));
+    }
+
+    addSerie(index, data, name, color, xField, yField) {
+        return super.addSerie(index, data, name, color, xField, yField, am5xy.ColumnSeries, "{name} : {valueY}%")
+    }
+}
+
+
+
+
+class BarLine extends Graphique {
+    constructor(id) {
+        super(id, am5xy.XYChart, am5xy.XYCursor)
+    }
+    initXAxis(field) {
+        super.initXAxis(am5xy.AxisRendererX, field)
+    }
+    initYAxis() {
+        super.initYAxis(am5xy.AxisRendererY)
+    }
+    addSerie(index, data, name, color, xField, yField) {
+        return super.addSerie(index, data, name, color, xField, yField, am5xy.ColumnSeries, "{name} : {valueY}%")
+    }
+}
+
+
 class Jauge {
     // La Jauge n'est pas enfant de Graphique, car trop différent dans le code.
     constructor(id) {

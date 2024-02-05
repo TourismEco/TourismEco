@@ -32,7 +32,9 @@ require_once "functions.php";
 
 	<script src="scripts/graph/lineCompare.js"></script>
 	<script src="scripts/graph/spiderCompare.js"></script>
+	
 	<script src="scripts/graph/barCompare.js"></script>
+	<script src="scripts/graph/barreLine.js"></script>
 	<script src="scripts/graph/jauge.js"></script>
 
 	<script src="scripts/graph/barre.js"></script>

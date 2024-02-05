@@ -10,8 +10,20 @@ function barCompare(id) {
     b.setNumberFormat("# '%'")
 }
 
+function barCompare2(id) {
+    b = new Top(id)
+    b.initXAxis("var")
+    b.initYAxis()
+    b.addLegend()
+    b.setDataXAxis([{"var":"pib"},{"var":"co2"},{"var":"arrivees"},{"var":"gpi"},{"var":"cpi"}])
+   
+}
+
+
+
 var color = ["#52796F","#83A88B"]
 function barHTMX(index,data,name) {
+    console.log(data)
     b.addSerie(index, data, name, color[index], "var", "value")
     b.setDataSerie(index, data[b.getYear()])
 }

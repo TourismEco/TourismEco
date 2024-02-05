@@ -122,7 +122,6 @@ $dataLine = json_encode(dataLine($id_pays, $cur),JSON_NUMERIC_CHECK);
 $dataBar = json_encode(dataBar($id_pays, $cur),JSON_NUMERIC_CHECK);
 $dataTab = json_encode(dataTab($id_pays, $cur),JSON_NUMERIC_CHECK);
 
-
 echo <<<HTML
 
 <div class="bandeau" id="bandeau0" hx-swap-oob="outerHTML">     
@@ -186,9 +185,10 @@ if ($map) {
             map.zoomTo("$id_pays")
             map.addCapitals($capitals)
             map.addCities($cities)
-            spiderAjax(0, $dataSpider, $dataTab, "$nom")
-    lineAjax(0, $dataLine, "$nom")
-    barAjax(0, $dataBar, "$nom")
+            spiderHTMX(0, $dataSpider, $dataTab, "$nom")
+            barHTMX(0, $dataBar, "$nom")
+            
+
 
         </script>
     HTML;
@@ -197,10 +197,9 @@ if ($map) {
         <script id=scripting hx-swap-oob=outerHTML>
             map.addCapitals($capitals)
             map.addCities($cities)
-            spiderAjax(0, $dataSpider, $dataTab, "$nom")
-    lineAjax(0, $dataLine, "$nom")
-    barAjax(0, $dataBar, "$nom")
-
+            spiderHTMX(0, $dataSpider, $dataTab, "$nom")
+            barHTMX(0, $dataBar, "$nom")
+            
         </script>
     HTML;
 }

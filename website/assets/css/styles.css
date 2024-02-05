@@ -1252,3 +1252,67 @@ input {
   opacity: 0%;
   transition: opacity 2s ease-out;
 }
+#jauge {
+  width: 50%;
+  float: left;
+  height: 300px;
+  width: 100%;
+  background-color: #52796F;
+}
+#jauge2 {
+  width: 50%;
+  float: right;
+  height: 300px;
+  width: 100%;
+  background-color: #52796F;
+
+}
+
+.score-jauge-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.score-container {
+    flex: 1;
+    margin-right: 10px;
+}
+
+.jauge-container {
+    flex: 1;
+    margin-left: 10px;
+}
+
+.container-simple {
+  padding: 20px;
+  margin: 20px;
+  border-radius: 10px;
+}
+.container-simple h22 {
+  color: white;
+  font-size: 2em;
+  margin-bottom: 20px;
+  text-align: center;
+}
+.container-simple .section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.container-simple .text {
+  width: 45%;
+  color: white;
+  font-size: 1.2em;
+  text-align: justify;
+}
+.container-simple .graph {
+  width: 45%;
+  height: 400px;
+}
+
+.jauge-container p{color: white; 
+font-weight: bold; 
+text-align: center;}
+
+.score-jauge-container {text-align: justify;}
