@@ -178,14 +178,16 @@
             ?>
 
             <script id=scripting>
-                spiderCompare("spider")
+                spider("spider")
 
                 addJauge("jauge")
                 addJauge("jauge2")
 
                 double_courbe(<?=$data_courbe?>)
 
-                //barre()
+               
+
+                barre()
                 barreLine()
 
                 createMap()

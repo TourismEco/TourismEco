@@ -21,9 +21,9 @@ if (!in_array($id_pays, $_SESSION["historique"])) {
 }
 
 if (isset($_GET["map"])) {
-    $map = false;
+    $map = "false";
 } else {
-    $map = true;
+    $map = "true";
 }
 
 // Nom
@@ -185,16 +185,17 @@ HTML;
 if ($map) {
     echo <<<HTML
         <script id=scripting hx-swap-oob=outerHTML>
+            spiderHTMX( $dataSpider, $dataTab, "$nom")
+
             map.zoomTo("$id_pays")
             map.addCapitals($capitals)
             map.addCities($cities)
-            spiderAjax(0, $dataSpider, $dataTab, "$nom")
+
             //lineAjax(0, $dataLine, "$nom")
             //barAjax(0, $dataBar, "$nom")
             barreLineAjax(0, $dataBarreLine, "$nom")
             //barPaysAjax(0, $dataBarPays, "$nom")
-
-
+            
         </script>
     HTML;
 } else {
@@ -202,7 +203,6 @@ if ($map) {
         <script id=scripting hx-swap-oob=outerHTML>
             map.addCapitals($capitals)
             map.addCities($cities)
-            spiderAjax(0, $dataSpider, $dataTab, "$nom")
             //lineAjax(0, $dataLine, "$nom")
             //barAjax(0, $dataBar, "$nom")
             barreLineAjax(0, $dataBarreLine, "$nom")
