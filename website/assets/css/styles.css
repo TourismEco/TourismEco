@@ -1252,3 +1252,35 @@ input {
   opacity: 0%;
   transition: opacity 2s ease-out;
 }
+#jauge {
+  width: 50%;
+  float: left;
+  height: 300px;
+  width: 100%;
+  background-color: #52796F;
+}
+#jauge2 {
+  width: 50%;
+  float: right;
+  height: 300px;
+  width: 100%;
+  background-color: #52796F;
+
+}
+
+.score-jauge-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.score-container {
+    flex: 1;
+    margin-right: 10px;
+}
+
+.jauge-container {
+    flex: 1;
+    margin-left: 10px;
+}
+
