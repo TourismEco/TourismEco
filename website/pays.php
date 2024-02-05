@@ -1,24 +1,12 @@
 <?php require_once 'head.php'?>
 
-<style>
-#jauge {
-    width: 50%;
-    float: left;
-}
-#jauge2 {
-    width: 50%;
-    float: right;
-
-}
-
-</style>
 
 <body>
     <div class="container-map">
         <div id="map"></div>
     </div>
 
-    <div class="grille" id="grille">
+    <div class="grille" id="grille" hx-swap="outerHTML swap:2s">
 
         <div class="sidebar">
             <div id="mini0"></div>
@@ -196,8 +184,6 @@
                 addJauge("jauge2")
 
                 double_courbe(<?=$data_courbe?>)
-
-               
 
                 //barre()
                 barreLine()
