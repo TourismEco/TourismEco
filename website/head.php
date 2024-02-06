@@ -32,6 +32,8 @@ require_once "functions.php";
 
 	<script src="scripts/graph/lineCompare.js"></script>
 	<script src="scripts/graph/spiderCompare.js"></script>
+
+	<script src="scripts/graph/spider.js"></script>
 	
 	<script src="scripts/graph/barCompare.js"></script>
 	<script src="scripts/graph/barreLine.js"></script>

@@ -21,9 +21,9 @@ if (!in_array($id_pays, $_SESSION["historique"])) {
 }
 
 if (isset($_GET["map"])) {
-    $map = false;
+    $map = "false";
 } else {
-    $map = true;
+    $map = "true";
 }
 
 // Nom
@@ -122,6 +122,9 @@ $dataLine = json_encode(dataLine($id_pays, $cur),JSON_NUMERIC_CHECK);
 $dataBar = json_encode(dataBar($id_pays, $cur),JSON_NUMERIC_CHECK);
 $dataTab = json_encode(dataTab($id_pays, $cur),JSON_NUMERIC_CHECK);
 
+$dataBarreLine= json_encode(dataBarreLine($id_pays, $cur),JSON_NUMERIC_CHECK);
+//$dataBarPays = json_encode(dataBarPays($id_pays, $cur),JSON_NUMERIC_CHECK);
+
 echo <<<HTML
 
 <div class="bandeau" id="bandeau0" hx-swap-oob="outerHTML">     
@@ -182,6 +185,10 @@ HTML;
 if ($map) {
     echo <<<HTML
         <script id=scripting hx-swap-oob=outerHTML>
+            spiderHTMX( $dataSpider, $dataTab, "$nom")
+            barreLineHTMX($dataBarreLine, "$nom")
+           
+           
             map.zoomTo("$id_pays")
             map.addCapitals($capitals)
             map.addCities($cities)
@@ -189,16 +196,23 @@ if ($map) {
             barHTMX(0, $dataBar, "$nom")
             
 
+            //lineAjax(0, $dataLine, "$nom")
+            //barAjax(0, $dataBar, "$nom")
 
+            
         </script>
     HTML;
 } else {
     echo <<<HTML
         <script id=scripting hx-swap-oob=outerHTML>
+            spiderHTMX( $dataSpider, $dataTab, "$nom")
             map.addCapitals($capitals)
             map.addCities($cities)
+            
             spiderHTMX(0, $dataSpider, $dataTab, "$nom")
             barHTMX(0, $dataBar, "$nom")
+
+            barreLineHTMX($dataBarreLine, "$nom")
             
         </script>
     HTML;

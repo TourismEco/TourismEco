@@ -68,6 +68,7 @@
             </div>
 
             <div class="container-simple bg-52796F">
+
                 <div class="score-jauge-container">
                     <div class="score-container">
                         <div id="score"></div>
@@ -178,6 +179,7 @@
             ?>
 
             <script id=scripting>
+
                 spiderCompare("spider")
 
                 addJauge("jauge")
@@ -188,6 +190,7 @@
                 barreLine()
 
                 barCompare2("top")
+
                 createMap()
                     
             </script>

@@ -8,6 +8,7 @@ class Graphique {
         this.graph = this.root.container.children.push(figObj.new(this.root, {}))
         this.xAxis = null
         this.yAxis = null
+        this.yAxisLeft = null
         this.legend = null
         this.year = null
         this.series = []
@@ -18,7 +19,6 @@ class Graphique {
         this.root.setThemes([
             am5themes_Animated.new(this.root)
         ]);
-
     }
 
     newXRenderer(obj) {
@@ -33,11 +33,13 @@ class Graphique {
         return xRenderer
     }
 
-    newYRenderer(obj) {
+    newYRenderer(obj, opposite = false) {
         // Rendu de l'axe Y : rend le texte blanc
-        var yRenderer = obj.new(this.root, {});
+        var yRenderer = obj.new(this.root, {
+            opposite:opposite
+        });
         yRenderer.labels.template.setAll({
-            fill:"#FFFFFF"
+            fill:"#FFFFFF",
         });
         return yRenderer
     }
@@ -60,7 +62,15 @@ class Graphique {
         }));
     }
 
-    addSerie(index, data, name, color, xField, yField, obj, labelText) {
+    initYAxisLeft(rendererObj) {
+        // Instancie un axe opposé
+        var base = this
+        this.yAxisLeft = this.graph.yAxes.push(am5xy.ValueAxis.new(base.root, {
+            renderer: base.newYRenderer(rendererObj, true)
+        }));
+    }
+
+    addSerie(index, data, name, color, xField, yField, obj, labelText, opposite = false) {
         // Ajoute une série de données. Si à l'index donné une série est déjà présente, écrase les données précédentes.
         var base = this
 
@@ -68,7 +78,7 @@ class Graphique {
             var serie = this.graph.series.push(obj.new(base.root, {     // Toutes les options principales. Rien n'est fixe, tout est déterminable par passage en arguments
                 name: name,             // Nom de la série (des pays)
                 xAxis: base.xAxis,      // Axes AMCharts
-                yAxis: base.yAxis,
+                yAxis: opposite ? base.yAxisLeft : base.yAxis,
                 categoryXField: xField, // Nom de la colonne dans les données pour les valeurs en X
                 valueYField: yField,    // Nom de la colonne dans les données pour les valeurs en Y
                 tooltip: am5.Tooltip.new(base.root, {       // Le Tooltip est ce qui est affiché au survol des données
@@ -295,8 +305,16 @@ class Bar extends Graphique {
     initYAxis() {
         super.initYAxis(am5xy.AxisRendererY)
     }
+    initYAxisLeft() {
+        super.initYAxisLeft(am5xy.AxisRendererY)
+    }
     addSerie(index, data, name, color, xField, yField) {
-        return super.addSerie(index, data, name, color, xField, yField, am5xy.ColumnSeries, "{name} : {valueY}%")
+        return super.addSerie(index, data, name, color, xField, yField, am5xy.ColumnSeries, "{name} : {valueY}")
+    }
+    addLine(index, data, name, color, xField, yField) {
+        var serie = super.addSerie(index, data, name, color, xField, yField, am5xy.LineSeries, "{name} : {valueY}", true)
+        super.addBullets(serie, color)
+        return serie
     }
 }
 

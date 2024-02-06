@@ -200,3 +200,5 @@ Ensuite, on effectue des actions annexes, mais nécessaires, et souvent spécifi
 
 ## Conclusion
 C'est à peu près tout ce qu'il faut savoir pour créer efficacement la page et les graphiques. Tout dépend énormément de votre compréhension du code et des graphiques. De manière évidente, ce que vous voudrez afficher n'est pas forcément déjà codé, alors il faut adapter ce qui existe !
+
+![Alt text](Schema.png)

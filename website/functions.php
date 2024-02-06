@@ -244,7 +244,7 @@ while ($rs = $result->fetch(PDO::FETCH_ASSOC)) {
     $data[] = array(
         "var" => $rs['annee'],
         "value" => $rs['pib'],
-        "line" => $rs['arrivees']
+        "valueLeft" => $rs['arrivees']
     );
 }
 
@@ -253,6 +253,7 @@ return $data;
 }
 
 function dataTop($pays, $conn) {
+
     $query = "SELECT pays.id, pays.nom as var, ecologie.annee as annee, pibParHab AS pib, co2, arriveesTotal AS arrivees, gpi, cpi
 
     FROM ecologie_grow AS ecologie, economie AS economie, tourisme AS tourisme, surete_grow AS surete, pays
