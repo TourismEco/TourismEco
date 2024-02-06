@@ -1,31 +1,51 @@
-function barreLine(){
+function barreLine(id){
    
-    b = new BarLine("barreLine")
-    b.initXAxis("var",  [{"var":"2008"},{"var":"2009"},{"var":"2010"},{"var":"2011"},{"var":"2012"},{"var":"2013"}])
+    b = new Bar("barreLine")
+    b.initXAxis("var")
     b.initYAxis()
     b.addLegend()
     b.graph.appear(1000, 100);
-    
+    b.initYAxisLeft()
+   
     
 }
 
 var color = ["#52796F","#83A88B"]
 
-function barreLineAjax(incr,data,name) {
-    console.log(data, year, name);
-
-    if (b.series.length == incr) {
-        b.addSerie(incr, data, name, color[incr], "var", "value");
-        b.addSerie(incr + 1, name, color[incr], "var", "value");
-    } else {
-        b.addSerie(incr + 1, data, name, color[incr], "var", "line");
- 
-        b.series[incr].data = data
-        b.series[incr].serie.data.setAll(data);
-        b.series[incr].serie.setAll({
-            name:name
-        })
-        
-    }
+function barreLineHTMX(data,name) {
+    b.addSerie(0, data, name, color[0], "var", "value");
+    b.addLine(1, data, name, color[1], "var", "valueLeft");
+    b.setDataXAxis(getAnnees(getMin(data,"var"), getMax(data,"var")))
 }
+
+function getAnnees(min,max) {
+    annees = []
+    for (var i = min;i<max+1;i++) {
+        annees.push({"var":i.toString()})
+    }
+    return annees
+}
+
+function getMin(data,type) {
+    min = 0
+    while (min < data.length && data[min][type] == null) {
+        min++
+    }
+    if (min == data.length) {
+        return 2077
+    }   
+    return data[min][type]
+}
+
+function getMax(data, type) {
+    max = data.length - 1
+    while (max > 0 && data[max][type] == null) {
+        max--
+    }
+    if (max <= 0) {
+        return 1984
+    } 
+    return data[max][type]
+}
+
 

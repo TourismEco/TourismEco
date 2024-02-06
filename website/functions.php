@@ -244,7 +244,7 @@ while ($rs = $result->fetch(PDO::FETCH_ASSOC)) {
     $data[] = array(
         "var" => $rs['annee'],
         "value" => $rs['pib'],
-        "line" => $rs['arrivees']
+        "valueLeft" => $rs['arrivees']
     );
 }
 
