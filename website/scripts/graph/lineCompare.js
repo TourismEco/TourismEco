@@ -27,14 +27,16 @@ function resetAnnees() {
         max = Math.max(getMax(l.series[0].getData(),l.getType()), getMax(l.series[1].getData(),l.getType()))
         l.setDataXAxis(getAnnees(min,max))
     } else {
+        console.log("ollk")
         l.setDataXAxis(getAnnees(getMin(l.series[0].getData(),l.getType()),getMax(l.series[0].getData(),l.getType())))
+        
     }
 }
 
 function getAnnees(min,max) {
     annees = []
     for (var i = min;i<max+1;i++) {
-        annees.push({"year":i.toString()})
+        annees.push({"year":i})
     }
     return annees
 }

@@ -221,7 +221,7 @@ function dataBar($pays, $conn) {
 }
 
 function dataBarreLine($pays, $conn) {
-    $query = "SELECT pays.id, pays.nom as var, ecologie.annee as annee, pibParHab AS pib, co2, arriveesTotal AS arrivees, gpi, cpi
+    $query = "SELECT pays.id, pays.nom as var, ecologie.annee as annee, pibParHab AS pib, co2, arriveesTotal*1000 AS arrivees, gpi, cpi
 
     FROM ecologie_grow AS ecologie, economie AS economie, tourisme AS tourisme, surete_grow AS surete, pays
     WHERE ecologie.id_pays = economie.id_pays
@@ -242,7 +242,7 @@ $result = $conn->query($query);
 $data = array();
 while ($rs = $result->fetch(PDO::FETCH_ASSOC)) {
     $data[] = array(
-        "var" => $rs['annee'],
+        "year" => $rs['annee'],
         "value" => $rs['pib'],
         "valueLeft" => $rs['arrivees']
     );

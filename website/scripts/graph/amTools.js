@@ -1,4 +1,4 @@
-// AM Tools Version 1.4
+// AM Tools Version 1.5
 // Réencapsulation des graphiques AMCharts pour faciliter la manipulation des graphiques
 
 class Graphique {
@@ -19,6 +19,15 @@ class Graphique {
         this.root.setThemes([
             am5themes_Animated.new(this.root)
         ]);
+
+        this.root.numberFormatter.setAll({
+            numberFormat:"#.###a",
+            bigNumberPrefixes: [
+                { "number": 1e+6, "suffix": "M" },
+                { "number": 1e+9, "suffix": "B" }
+            ],
+            smallNumberPrefixes: []
+        })
     }
 
     newXRenderer(obj) {
