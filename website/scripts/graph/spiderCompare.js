@@ -4,7 +4,7 @@ function spiderCompare(id) {
     g.initYAxis()
     g.addLegend()
     g.setDataXAxis([{"var":"pib"},{"var":"Enr"},{"var":"co2"},{"var":"arrivees"},{"var":"departs"},{"var":"gpi"},{"var":"cpi"}])
-    g.addSlider(updateCSpider,400,50,50,50,90,2008,2020)
+    g.addSlider(updateCSpider,400,-20,50,50,90,2008,2020)
 }
 
 var color = ["#52796F", "#83A88B"];

@@ -133,66 +133,16 @@
 
             </div>
 
-            <?php
-                require_once "functions.php";
-                $conn = getDB();
-                $query = "
-                    SELECT pays.nom, ROUND(SUM(co2)) as total
-                    FROM ecologie, pays
-                    WHERE pays.id = ecologie.id_pays
-                    GROUP BY id_pays
-                    ORDER BY `total` DESC
-                    LIMIT 10;
-                ";
-                $result = $conn->query($query);
-
-                $data_bar = array();
-                while ($rs = $result->fetch()) {
-                    $data_bar[] = '
-                    {country:' . '"' . $rs['nom'] . '"' . ',
-                    ' . 'value:' . $rs['total'] . '}';
-                }
-
-                // Concaténer les données
-                $data_bar = implode(",", $data_bar);
-
-                $query = "
-                SELECT eco.annee, eco.co2 as eco
-                FROM ecologie as eco
-                WHERE eco.id_pays = '$pays'
-                ";
-
-                $result = $conn->query($query);
-
-                $data_courbe = array();
-                while ($rs = $result->fetch()) {
-                    $data_courbe[] = array(
-                        "year" => $rs['annee'],
-                        "value" => $rs['eco'],
-                    );
-                }
-                // Fermez la connexion à la base de données
-                $conn= null;
-                
-                $data_courbe = json_encode($data_courbe);
-
-            ?>
-
             <script id=scripting>
-
-                spiderCompare("spider")
+                
+                barreLine("barreLine")
+                spider("spider")
+                createLine("chartdiv2")
+                createMap()
 
                 addJauge("jauge")
                 addJauge("jauge2")
 
-                double_courbe(<?=$data_courbe?>)
-
-                barreLine()
-
-                barCompare2("top")
-
-                createMap()
-                    
             </script>
 
         </div>

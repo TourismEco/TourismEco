@@ -119,6 +119,7 @@ $capitals = json_encode($capitals);
 // Spider
 $dataSpider = json_encode(dataSpider($id_pays, $cur),JSON_NUMERIC_CHECK);
 $dataLine = json_encode(dataLine($id_pays, $cur),JSON_NUMERIC_CHECK);
+$dataLineMean = json_encode(dataMean($cur),JSON_NUMERIC_CHECK);
 $dataBar = json_encode(dataBar($id_pays, $cur),JSON_NUMERIC_CHECK);
 $dataTab = json_encode(dataTab($id_pays, $cur),JSON_NUMERIC_CHECK);
 
@@ -187,33 +188,22 @@ if ($map) {
         <script id=scripting hx-swap-oob=outerHTML>
             spiderHTMX( $dataSpider, $dataTab, "$nom")
             barreLineHTMX($dataBarreLine, "$nom")
-           
+            linePaysHTMX($dataLine, $dataLineMean, "$nom")
            
             map.zoomTo("$id_pays")
             map.addCapitals($capitals)
-            map.addCities($cities)
-            spiderHTMX(0, $dataSpider, $dataTab, "$nom")
-            barHTMX(0, $dataBar, "$nom")
-            
-
-            //lineAjax(0, $dataLine, "$nom")
-            //barAjax(0, $dataBar, "$nom")
-
-            
+            map.addCities($cities)        
         </script>
     HTML;
 } else {
     echo <<<HTML
         <script id=scripting hx-swap-oob=outerHTML>
             spiderHTMX( $dataSpider, $dataTab, "$nom")
-            map.addCapitals($capitals)
-            map.addCities($cities)
-            
-            spiderHTMX(0, $dataSpider, $dataTab, "$nom")
-            barHTMX(0, $dataBar, "$nom")
-
             barreLineHTMX($dataBarreLine, "$nom")
-            
+            linePaysHTMX($dataLine, $dataLineMean, "$nom")
+
+            map.addCapitals($capitals)
+            map.addCities($cities)               
         </script>
     HTML;
 }

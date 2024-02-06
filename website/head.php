@@ -40,7 +40,7 @@ require_once "functions.php";
 	<script src="scripts/graph/jauge.js"></script>
 
 	<script src="scripts/graph/barre.js"></script>
-	<script src="scripts/graph/double_courbe.js"></script>
+	<script src="scripts/graph/linePays.js"></script>
 
 
 </head>

@@ -154,6 +154,25 @@ function dataLine($pays, $conn) {
     return $data;
 }
 
+function dataMean($conn) {
+    $query = "SELECT annee AS year, AVG(co2) AS co2 FROM ecologie GROUP BY annee;";
+
+    $result = $conn->query($query);
+
+    $data = array();
+    while ($rs = $result->fetch(PDO::FETCH_ASSOC)) {
+        foreach (array("pib","Enr","co2","arrivees","departs","gpi","cpi") as $key => $value) {
+            if (!isset($rs[$value])){
+                $rs[$value]=null;
+            } 
+        }
+
+        $data[] = $rs;
+    }
+
+    return $data;
+}
+
 function dataSpider($pays, $conn) {
     $query = "SELECT ecologie.annee as annee,
     pibParHab AS pib, elecRenew AS Enr, co2, arriveesTotal AS arrivees, departs, gpi, cpi
