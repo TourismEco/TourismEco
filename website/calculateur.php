@@ -62,8 +62,17 @@
                 </label>
             </div>
 
-            <label for="country">Durée du séjour (en jours)</label>
-            <input type="number" id="country" name="country" placeholder="Saisissez un nombre" required autocomplete="off" value=7 min=1 max=30>
+            <div class="dual-input">
+                <div class="container-input">
+                    <label for="country">Durée du séjour (en jours)</label>
+                    <input type="number" id="country" name="country" placeholder="Saisissez un nombre" required autocomplete="off" value=7 min=1 max=30>
+                </div>
+
+                <div class="container-input">
+                    <label for="country">Nombre de voyageurs</label>
+                    <input type="number" id="passengers" name="passengers" placeholder="Saisissez un nombre" required autocomplete="off" value=2 min=1 max=69>
+                </div>
+            </div>
 
             <input type="submit" value="Calculer" class="submit">
 

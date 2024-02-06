@@ -87,7 +87,7 @@ echo <<<HTML
 </table>
 
 <script id=scripting hx-swap-oob=outerHTML>
-    spiderHTMX($incr, $dataSpider, $dataTab, "$nom")
+    spiderCHTMX($incr, $dataSpider, $dataTab, "$nom")
     lineHTMX($incr, $dataLine, "$nom")
     barHTMX($incr, $dataBar, "$nom")
 

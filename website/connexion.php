@@ -1,5 +1,5 @@
 <?php
-require('../functions.php');
+require('functions.php');
 // Set up a new CSRF token if it doesn't exist
 if (!isset($_SESSION['csrf_token'])) {
     $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
@@ -10,7 +10,7 @@ if (!isset($_SESSION['csrf_token'])) {
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="styles_formulaire.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="assets/css/styles.css" type="text/css" media="screen" />
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Connexion</title>
@@ -23,7 +23,7 @@ if (!isset($_SESSION['csrf_token'])) {
 </head>
 <body>
     <h1 class="titre">Connexion</h1>
-    <img class="logo" src="img/profil.png" alt="LogoProfil">
+    <img class="logo" src="assets/img/profil.png" alt="LogoProfil">
 
     <div class="connexion-container">
         <form id="loginForm" onsubmit="return validateForm()">
