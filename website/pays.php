@@ -2,11 +2,11 @@
 
 
 <body>
-    <div class="container-map">
+    <div class="container-map" id="container-map">
         <div id="map"></div>
     </div>
 
-    <div class="grille" id="grille" hx-swap="outerHTML swap:2s">
+    <div class="grille" id="grille" hx-swap="outerHTML">
 
         <div class="sidebar">
             <div id="mini0"></div>

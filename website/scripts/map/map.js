@@ -249,6 +249,7 @@ class EcoMap {
 
 var map = undefined
 function createMap() {
+    $("#container-map").removeClass("hide")
     if (map == undefined) {
         map = new EcoMap("map","pays")
         map.addContinents()
@@ -256,10 +257,12 @@ function createMap() {
         map.addZoom()    
     } else {
         map.togglePays()
+        map.map.show()
     }
 }
 
 function createMapCompare() {
+    $("#container-map").removeClass("hide")
     if (map == undefined) {
         map = new EcoMap("map","compare")
         map.addContinents()
@@ -267,10 +270,12 @@ function createMapCompare() {
         map.addZoom()
     } else {
         map.toggleCompare()
+        map.map.show()
     }
 }
 
 function createMapContinent() {
+    $("#container-map").removeClass("hide")
     if (map == undefined) {
         map = new EcoMap("map","continent")
         map.addContinents()
@@ -279,5 +284,13 @@ function createMapContinent() {
         map.showContinents()
     } else {
         map.toggleContinent()
+        map.map.show()
+    }
+}
+
+function hideMap() {
+    $("#container-map").addClass("hide")
+    if (map != undefined) {
+        map.map.hide()
     }
 }

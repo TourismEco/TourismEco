@@ -1,12 +1,19 @@
 <?php require_once 'head.php'?>
 
 <body>
-    
-    <div class="container-map">
+
+    <?php 
+        // if (isset($_SERVER["HTTP_HX_BOOSTED"])) {
+        //     $url = $_SERVER["HTTP_HX_CURRENT_URL"];
+        //     $page = explode("/",$url)[5];
+        //     if (in_array($page, ["pays.php","continent.php","comparateur.php"])) {}
+        // }
+    ?>
+    <div class="container-map" id="container-map">
         <div id="map"></div>
     </div>
 
-    <div class="grille" id="grille" hx-swap="outerHTML swap:2s">
+    <div class="grille" id="grille" hx-swap="outerHTML">
     
         <div class="sidebar">
             <div id="mini0"></div>

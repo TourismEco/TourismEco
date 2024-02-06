@@ -42,6 +42,7 @@ require_once "functions.php";
 	<script src="scripts/graph/barre.js"></script>
 	<script src="scripts/graph/linePays.js"></script>
 
+	<script src="scripts/js/functions.js"></script>
 
 </head>
 <body>

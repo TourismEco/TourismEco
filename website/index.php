@@ -1,34 +1,19 @@
-<!DOCTYPE html>
-<html lang= "fr">
-
-<head>
-  <meta charset="UTF-8">
-  <link href="assets/css/styles.css" rel="stylesheet" type="text/css">
-  <title>Home</title>
-  <?php
-    require_once "functions.php";
-    $conn = getDB();
-  ?>
-    <script src="scripts/map/map.js"></script>
-</head>
+<?php require_once 'head.php'?>
 
 <body>
-  <div class = "navbar"> 
-  <?php require_once 'navbar.php'?>
-  </div>
-    
-  <main>
+    <div class="container-map" id="container-map">
+        <div id="map"></div>
+    </div>
+
+    <div class="grille" id="grille" hx-swap="outerHTML">
+  <main style="width:100%">
   <div class ="carrousel">
-    <?php carousel($conn) ?>
+    <?php 
+      $conn = getDB();
+      carousel($conn) 
+    ?>
     <script src="scripts/js/carousel-home.js"></script>
   </div>
-
-  <div id = "map"> </div>
-
-<!-- 
-  <script>
-      createMap()
-  </script> -->
 
   <div class="sectionHome grey">
     <div class="content">
@@ -70,9 +55,12 @@
     <img src="assets/img/analyse.png" alt="Logo 4">
   </div>
 
+    <script id=scripting>
+        hideMap()
+    </script>
+
   </main>
+</div>
   
     <?php require_once 'footer.html'?>
 </body>
-
-</html>

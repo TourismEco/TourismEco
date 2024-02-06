@@ -21,7 +21,7 @@ body {
 .grille {
     display:flex;
     opacity:100%;
-    transition: opacity 1s ease-out;
+    transition: opacity .5s ease-out;
 }
 
 .main {
@@ -1248,9 +1248,9 @@ input {
     width: 100%;
 }
 
-#grille.htmx-settling {
+.htmx-swapping {
   opacity: 0%;
-  transition: opacity 2s ease-out;
+  transition: opacity .5s ease-out;
 }
 #jauge {
   width: 50%;
@@ -1316,3 +1316,7 @@ font-weight: bold;
 text-align: center;}
 
 .score-jauge-container {text-align: justify;}
+
+.hide {
+  display: none;
+}
