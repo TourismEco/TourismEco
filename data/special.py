@@ -314,3 +314,5 @@ def addSafety():
         cur.execute(f"UPDATE surete SET safety={i['Safety']} WHERE id_pays='{to2[i['Pays']]}' AND annee={i['Annee']}")
     
     cnx.commit()
+
+addDescip(["Aya","Cassandra","Hugo","Line","Lucas","Rémy"])
