@@ -1320,3 +1320,17 @@ text-align: center;}
 .hide {
   display: none;
 }
+
+#barContinent{
+  margin-left: 150px;
+  margin-top: 30px;
+  width: 80%;
+  height: 400px;
+}
+
+#lineContinent{
+  margin-left: 150px;
+  margin-top: 30px;
+  width: 80%;
+  height: 400px;
+}

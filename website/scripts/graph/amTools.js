@@ -304,6 +304,17 @@ class Line extends Graphique {
     }
 }
 
+class scatter extends Graphique{
+    constructor(id) {
+        super(id, am5xy.XYChart, am5xy.XYCursor)
+    }
+    initXAxis(field) {
+        super.initXAxis(am5xy.AxisRendererX, field)
+    }
+    initYAxis() {
+        super.initYAxis(am5xy.AxisRendererY)
+    }
+}
 class Bar extends Graphique {
     constructor(id) {
         super(id, am5xy.XYChart, am5xy.XYCursor)
