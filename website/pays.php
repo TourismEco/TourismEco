@@ -129,20 +129,20 @@
                     Voici quelques pays pertinents que vous pouvez comparer avec la France
                 </p>
 
-               <div class="graph" id="top"></div>
 
             </div>
 
             <script id=scripting>
-                
+
                 barreLine("barreLine")
                 spider("spider")
                 createLine("chartdiv2")
                 createMap()
-
+                
                 addJauge("jauge")
                 addJauge("jauge2")
 
+                barre("top")
             </script>
 
         </div>

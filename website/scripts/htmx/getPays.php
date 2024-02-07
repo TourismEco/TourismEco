@@ -189,6 +189,7 @@ if ($map) {
             spiderHTMX( $dataSpider, $dataTab, "$nom")
             barreLineHTMX($dataBarreLine, "$nom")
             linePaysHTMX($dataLine, $dataLineMean, "$nom")
+            topHTMX($dataBar, "$nom")
            
             map.zoomTo("$id_pays")
             map.addCapitals($capitals)
@@ -201,6 +202,7 @@ if ($map) {
             spiderHTMX( $dataSpider, $dataTab, "$nom")
             barreLineHTMX($dataBarreLine, "$nom")
             linePaysHTMX($dataLine, $dataLineMean, "$nom")
+            topHTMX($dataBar, "$nom")
 
             map.addCapitals($capitals)
             map.addCities($cities)               
