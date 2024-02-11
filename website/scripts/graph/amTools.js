@@ -5,12 +5,13 @@ class Graphique {
     // Graphique est une classe Interface qui définit tous les comportements par défaut des graphiques. Sont laissés vide à chaque fois les objets AM Charts qui doivent être ajustés en fonction du graphiques voulu
     constructor(id, figObj, cursorObj) {
         this.root = am5.Root.new(id)
-        this.graph = this.root.container.children.push(figObj.new(this.root, {}))
+        this.graph = this.root.container.children.push(figObj.new(this.root, {layout: this.root.verticalLayout}))
         this.xAxis = null
         this.yAxis = null
         this.yAxisLeft = null
         this.legend = null
         this.year = null
+        this.type = null
         this.series = []
 
         var cursor = this.graph.set("cursor", cursorObj.new(this.root, {}));
@@ -37,7 +38,7 @@ class Graphique {
             cellEndLocation: 0.9
         });
         xRenderer.labels.template.setAll({
-            fill:"#FFFFFF",
+            fill:"#222",
         });
         return xRenderer
     }
@@ -48,7 +49,7 @@ class Graphique {
             opposite:opposite
         });
         yRenderer.labels.template.setAll({
-            fill:"#FFFFFF",
+            fill:"#222",
         });
         return yRenderer
     }
@@ -79,9 +80,11 @@ class Graphique {
         }));
     }
 
-    addSerie(index, data, name, color, xField, yField, obj, labelText, opposite = false) {
+    addSerie(index, data, name, color, xField, yField, obj, labelText, opposite = false, noline = false) {
         // Ajoute une série de données. Si à l'index donné une série est déjà présente, écrase les données précédentes.
         var base = this
+
+        console.log(this.xAxis, this.yAxis)
 
         if (this.series.length == index) {
             var serie = this.graph.series.push(obj.new(base.root, {     // Toutes les options principales. Rien n'est fixe, tout est déterminable par passage en arguments
@@ -89,11 +92,12 @@ class Graphique {
                 xAxis: base.xAxis,      // Axes AMCharts
                 yAxis: opposite ? base.yAxisLeft : base.yAxis,
                 categoryXField: xField, // Nom de la colonne dans les données pour les valeurs en X
+                valueXField: xField, // Nom de la colonne dans les données pour les valeurs en X
                 valueYField: yField,    // Nom de la colonne dans les données pour les valeurs en Y
                 tooltip: am5.Tooltip.new(base.root, {       // Le Tooltip est ce qui est affiché au survol des données
                     labelText: labelText
                 }),
-                stroke:color,           // Couleur de la série
+                stroke:noline ? null : color,           // Couleur de la série
                 fill:color,
             }));
 
@@ -142,9 +146,10 @@ class Graphique {
         // Ajoute la légende
         this.legend = this.graph.children.push(
             am5.Legend.new(this.root, {
-                centerX: am5.p50,
-                x: am5.p50,
-                fill:"#FFFFFF"
+                fill:"#222",
+                x: am5.percent(50),
+                centerX: am5.percent(50),
+                useDefaultMarker: true
             })
         );
     }
@@ -209,6 +214,9 @@ class Graphique {
     setDataSerie(index, data) {
         this.series[index].setDataSerie(data)
     }
+    setType(type) {
+        this.type = type
+    }
 
     getSeriesLength() {
         return this.series.length
@@ -218,6 +226,9 @@ class Graphique {
     }
     getSeries() {
         return this.series
+    }
+    getType() {
+        return this.type
     }
 }
 
@@ -282,7 +293,6 @@ class Line extends Graphique {
     // Réimplémentation des Line Chart
     constructor(id) {
         super(id, am5xy.XYChart, am5xy.XYCursor)
-        this.type = null        // Gestion des boutons pour Compare, susceptible de bouger dans Graphique
     }
     initXAxis(field) {
         super.initXAxis(am5xy.AxisRendererX, field)
@@ -296,25 +306,30 @@ class Line extends Graphique {
         super.addBullets(serie, color)
         return serie
     }
-    getType() {
-        return this.type
-    }
-    setType(type) {
-        this.type = type
-    }
 }
 
-class scatter extends Graphique{
+class Scatter extends Graphique {
     constructor(id) {
         super(id, am5xy.XYChart, am5xy.XYCursor)
     }
-    initXAxis(field) {
-        super.initXAxis(am5xy.AxisRendererX, field)
+    initXAxis() {
+        // Instancie l'axe Y, rien de particulier par défaut
+        var base = this
+        this.xAxis = this.graph.xAxes.push(am5xy.ValueAxis.new(base.root, {
+            renderer: base.newYRenderer(am5xy.AxisRendererX)
+        }));
     }
     initYAxis() {
         super.initYAxis(am5xy.AxisRendererY)
     }
+    addSerie(index, data, name, color, xField, yField) {
+        // Spécificité : ajout des points
+        var serie = super.addSerie(index, data, name, color, xField, yField, am5xy.LineSeries, "{name} : {valueX} {valueY}", false, true)
+        super.addBullets(serie, color)
+        return serie
+    }
 }
+
 class Bar extends Graphique {
     constructor(id) {
         super(id, am5xy.XYChart, am5xy.XYCursor)
@@ -361,25 +376,6 @@ class Top extends Graphique {
         return super.addSerie(index, data, name, color, xField, yField, am5xy.ColumnSeries, "{name} : {valueY}%")
     }
 }
-
-
-
-
-class BarLine extends Graphique {
-    constructor(id) {
-        super(id, am5xy.XYChart, am5xy.XYCursor)
-    }
-    initXAxis(field) {
-        super.initXAxis(am5xy.AxisRendererX, field)
-    }
-    initYAxis() {
-        super.initYAxis(am5xy.AxisRendererY)
-    }
-    addSerie(index, data, name, color, xField, yField) {
-        return super.addSerie(index, data, name, color, xField, yField, am5xy.ColumnSeries, "{name} : {valueY}%")
-    }
-}
-
 
 class Jauge {
     // La Jauge n'est pas enfant de Graphique, car trop différent dans le code.

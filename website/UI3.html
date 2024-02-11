@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- <link rel="stylesheet" href="assets/css/styles2.css"> -->
+    <link rel="stylesheet" href="assets/css/UI3.css">
+
+    <script src="https://unpkg.com/htmx.org"></script>
+	<script src="https://unpkg.com/jquery.min.js"></script>
+
+    <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+	<script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+	<script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/radar.js"></script>
+
+	<script src="scripts/graph/amTools.js"></script>
+
+    <script src="scripts/graph/lineCompare.js"></script>
+	<script src="scripts/graph/spiderCompare.js"></script>
+	<script src="scripts/graph/barCompare.js"></script>
+
+	<script src="scripts/js/functions.js"></script>
+</head>
+
+<body>
+    <div class="flex">
+        <div class="title">
+            <h1>Comparateur</h1>
+        </div>
+        <div class="grid">
+            <div class="container-side bg-354F52 g1-1" id="mini$incr" hx-swap-oob="outerHTML">
+                <div class="bandeau-side"> 
+                    <img class="img img-side" src='assets/img/FR.jpg' alt="Bandeau">
+                    <img class="flag-small" src='assets/twemoji/FR.svg'>
+                    <h2 class="nom-small">France</h2>
+                </div>
+            </div>
+
+            <div class="container-side bg-354F52 g2-1" id="mini$incr" hx-swap-oob="outerHTML">
+                <div class="bandeau-side"> 
+                    <img class="img img-side" src='assets/img/HR.jpg' alt="Bandeau">
+                    <img class="flag-small" src='assets/twemoji/HR.svg'>
+                    <h2 class="nom-small">Croatie</h2>
+                </div>
+            </div>
+
+            <div class="container-side bg-354F52 g4-1 active" id="mini$incr" hx-swap-oob="outerHTML">
+                <div class="bandeau-side"> 
+                    <img class="flag-small" src='assets/icons/stats.svg'>
+                    <h2 class="nom-small">Statistiques</h2>
+                </div>
+            </div>
+
+            <div class="container-side bg-354F52 g5-1" id="mini$incr" hx-swap-oob="outerHTML">
+                <div class="bandeau-side"> 
+                    <img class="flag-small" src='assets/icons/map.svg'>
+                    <h2 class="nom-small">Carte</h2>
+                </div>
+            </div>
+
+            <div class="container-side bg-354F52 g6-1" id="mini$incr" hx-swap-oob="outerHTML">
+                <div class="bandeau-side"> 
+                    <img class="flag-small" src='assets/icons/catalogue.svg'>
+                    <h2 class="nom-small">Catalogue</h2>
+                </div>
+            </div>
+
+            <div class="zone">
+                <div class=container-buttons>
+                    <button onclick="changeVar('co2')" class=button-compare>Émissions de CO2</button>
+                    <button onclick="changeVar('pib')" class=button-compare>PIB par habitant</button>
+                    <button onclick="changeVar('gpi')" class=button-compare>Indice de paix</button>
+                    <button onclick="changeVar('arrivees')" class=button-compare>Arrivées</button>
+                    <button onclick="changeVar('departs')" class=button-compare>Départs</button>
+                    <button onclick="changeVar('cpi')" class=button-compare>Consumer Price Index</button>
+                    <button onclick="changeVar('Enr')" class=button-compare>% énergies renouvellables</button>
+                </div>
+
+                <div class=graph id="line"></div>
+                <p class="text">Actuellement le [pays 1] est au dessus du [pays 2], montrant que [pays 1] pollue plus que [pays 2]. Au cours du temps on peut voir que le tourisme ipsum dolor sit amet, consectetur adipiscing elit. Curabitur a metus pellentesque massa lacinia scelerisque et nec purus. Proin mattis elementum euismod. Curabitur et felis felis. Donec vel nulla malesuada, tempor nisi in, faucibus nulla. Cras at ipsum tempor, rutrum sapien ut, auctor sapien.
+                Curabitur a metus pellentesque massa lacinia scelerisque et nec purus. Proin mattis elementum euismod. </p>
+
+
+            </div>
+
+            <div class="container-bottom bg-354F52 g10-2" id="mini$incr" hx-swap-oob="outerHTML">
+                <div class="bandeau-side"> 
+                    <img class="flag-small" src='assets/icons/info.svg'>
+                    <h2 class="nom-small">Présentation</h2>
+                </div>
+            </div>
+
+            <div class="container-bottom bg-354F52 g10-3" id="mini$incr" hx-swap-oob="outerHTML">
+                <div class="bandeau-side"> 
+                    <img class="flag-small" src='assets/icons/lamp.svg'>
+                    <h2 class="nom-small">Indicateurs clés</h2>
+                </div>
+            </div>
+
+            <div class="container-bottom bg-354F52 g10-4 active" id="mini$incr" hx-swap-oob="outerHTML">
+                <div class="bandeau-side"> 
+                    <img class="flag-small" src='assets/icons/sort.svg'>
+                    <h2 class="nom-small">Courbe de comparaison</h2>
+                </div>
+            </div>
+
+            <div class="container-bottom bg-354F52 g10-5" id="mini$incr" hx-swap-oob="outerHTML">
+                <div class="bandeau-side"> 
+                    <img class="flag-small" src='assets/icons/stats.svg'>
+                    <h2 class="nom-small">Croissances</h2>
+                </div>
+            </div>
+
+            <div class="container-bottom bg-354F52 g10-6" id="mini$incr" hx-swap-oob="outerHTML">
+                <div class="bandeau-side"> 
+                    <img class="flag-small" src='assets/icons/plus.svg'>
+                    <h2 class="nom-small">Informations complémentaires</h2>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script id="scripting">
+        lineCompare("line")
+    </script>
+
+    <div hx-get="scripts/htmx/getCompare.php" hx-vals="js:{incr:0,id_pays:'FR'}" hx-trigger="load delay:5s"></div>
+    <div hx-get="scripts/htmx/getCompare.php" hx-vals="js:{incr:1,id_pays:'HR'}" hx-trigger="load delay:6s"></div>
+    
+    
+</body>
+</html>
