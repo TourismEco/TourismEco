@@ -111,10 +111,7 @@ class Graphique {
                     return base.graph.get("colors").getIndex(serie.columns.indexOf(target));
                 });
             }
-            
-            if (this.legend != null) {              // Ajoute à la légende si elle existe. Par conséquent, il faut absolument que la légende soit ajoutée AVANT les données
-                this.legend.data.push(serie)
-            }
+        
             var s = new Serie(data,serie)           // La série de données AMCharts est encapsulée dans une classe personnalisée
             this.series.push(s)                     // On la stocke de notre côté afin de pouvoir s'en resservir
 
