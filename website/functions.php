@@ -341,7 +341,7 @@ HTML;
 
 function inputPays($value, $sens) {
     echo <<<HTML
-        <input type="text" id="country_$sens" name="country_$sens" placeholder="Saisissez un pays" required value="$value"
+        <input type="text" id="country_$sens" name="country_$sens" placeholder="Saisissez un pays" required value="$value" hx-swap="none"
         hx-get="scripts/htmx/listPays.php" hx-trigger="keyup[this.value.trim().length > 0] changed delay:0.5s" hx-vals='js:{search: getSearchValue("country_$sens"), sens:"$sens"}' hx-swap-oob="outerHTML">
     HTML;
 }
@@ -387,4 +387,50 @@ function iterOptions($options, $id, $sens, $type) {
     echo <<<HTML
         </div>
     HTML;
+}
+
+// get the id of a country from its name
+function getCountryId($country): string {
+    $conn = getDB();
+    $sql = "SELECT id FROM pays WHERE nom = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute([$country]);
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $result["id"];
+}
+
+// get the coordinates (latitude and longitude) of a city
+function getCityCoordinates($countryName, $cityName): array{
+    $countryID = getCountryId($countryName);
+    $conn = getDB();
+    // TO-DO: change to lat and lon when the database is updated
+    $sql = "SELECT lat, lon FROM villes WHERE id_pays = ? AND nom = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute([$countryID, $cityName]);
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $result;
+}
+
+
+function getAirportCoordinates($airport) {
+    // $airport is the id of the airport
+    $conn = getDB();
+    $sql = "SELECT name, lat, lon FROM airports WHERE id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute([$airport]);
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $result;
+}
+
+function getCoordinates($mode, $country=null, $city=null, $airport=null) {
+    
+    if ($mode == "PLANE") {
+        return getAirportCoordinates($airport);
+    } else {
+        return getCityCoordinates($country, $city);
+    }
+}
+
+function degrees_to_radians($degrees) {
+    return $degrees * (pi()/180);
 }
