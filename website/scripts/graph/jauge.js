@@ -1,6 +1,6 @@
 function addJauge(id) {
-    j = new Jauge(id)
-    j.initXAxis()
+    j = new Jauge20(id)
+    j.createXAxis()
     j.addClock()
     j.changeValue(70)
 }

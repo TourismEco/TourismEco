@@ -87,7 +87,7 @@ function addCardCountry($id,$nom,$letter,$page) {
                 <img class="flag-small" src='assets/twemoji/$id.svg'>
                 <h2 class="nom-small">$nom</h2>
                 <div class="buttons-small">
-                    <button class=button-catalogue id=v-$id hx-get="scripts/htmx/get$page.php" hx-vals="js:{id_pays:'$id'}" hx-swap="beforeend show:top">Consulter</button>
+                    <button class=button-catalogue id=v-$id hx-get="scripts/htmx/get$page.php" hx-vals="js:{id_pays:'$id'}" hx-swap="beforeend show:top swap:0.5s">Consulter</button>
                 </div>
             </div>
         </div>
@@ -208,23 +208,35 @@ function dataSpider($pays, $conn) {
 
 function dataBar($pays, $conn) {
    
-    $query = "SELECT id_pays as pays , arriveesTotal as valeur
-    FROM tourisme  
-    WHERE annee = '2021'
-    ORDER BY `tourisme`.`arriveesTotal` DESC
-    LIMIT 10;";
+    $query = "SELECT ecologie.annee as annee,
+    pibParHab AS pib, co2, arriveesTotal AS arrivees, gpi, cpi
 
-$result = $conn->query($query);
+    FROM ecologie_grow AS ecologie, economie_grow AS economie, tourisme_grow AS tourisme, surete_grow AS surete
+    WHERE ecologie.id_pays = economie.id_pays
+    AND economie.id_pays = tourisme.id_pays
+    AND tourisme.id_pays = surete.id_pays
+    AND surete.id_pays = '$pays'
 
-$data = array();
-while ($rs = $result->fetch(PDO::FETCH_ASSOC)) {
-    $data[] = array(
-        "name" => $rs['pays'],
-        "value" => $rs['valeur']
-    );
-}
+    AND ecologie.annee = economie.annee
+    AND economie.annee = tourisme.annee
+    AND tourisme.annee = surete.annee  
+    ORDER BY `ecologie`.`annee` DESC;
+    ";
 
-return $data;
+    $result = $conn->query($query);
+
+    $data = array();
+    while ($rs = $result->fetch(PDO::FETCH_ASSOC)) {
+        $data[$rs["annee"]] = array();
+        foreach (array("pib","co2","arrivees","gpi","cpi") as $key => $value) {
+            if (!isset($rs[$value])){
+                $rs[$value]=null;
+            } 
+            $data[$rs["annee"]][] = array("var" => $value, "value" => $rs[$value]);
+        }
+    }
+
+    return $data;
 }
 
 function dataBarreLine($pays, $conn) {
@@ -350,7 +362,7 @@ function inputVilles($id_pays, $value, $sens) {
     if ($id_pays != "") {
         echo <<<HTML
         <input type="text" id="city_$sens" name="city_$sens" placeholder="Sélectionnez une ville" required autocomplete="off" value="$value"
-            hx-swap-oob="outerHTML" hx-get="scripts/htmx/listVilles.php" hx-trigger="keyup[this.value.trim().length > 0] changed delay:0.5s" hx-vals='js:{search: getSearchValue("city_$sens"), id_pays:"$id_pays", sens:"$sens"}'>
+            hx-swap-oob="outerHTML" hx-get="scripts/htmx/listVilles.php" hx-trigger="keyup[this.value.trim().length > 0] changed delay:0.5s" hx-vals='js:{search: getSearchValue("city_$sens"), id_pays:"$id_pays", sens:"$sens"}' hx-swap="none">
         HTML;
     } else {
         echo <<<HTML
