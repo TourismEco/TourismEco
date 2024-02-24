@@ -29,10 +29,28 @@
 </head>
 
 <body>
-    <div class="flex">
-        <div class="title">
-            <h1>Comparateur</h1>
+    <nav class="navbar" hx-boost="true" hx-target="#grille" hx-select="#grille" hx-swap="outerHTML show:body:top swap:0.5s">
+    
+        <div class="right-nav">
+            <a href="monde.php">Monde</a>
+            <a href="pays.php">Pays</a>
+            <a href="continent.php">Continent</a>
+            <a href="comparateur.php">Comparateur</a>
         </div>
+    
+        <div class="img-nav">
+            <a href="index.php"><img src="assets/img/eco.png"></a>
+        </div>
+    
+        <div class="left-nav">
+            <a href="calculateur.php">Calculateur</a>
+            <a href="inscription.php" >S'inscrire</a>
+            <a href="connexion.php">Se connecter</a>
+        </div>
+    
+    </nav>
+
+    <div class="flex">
         <div class="grid">
             <div class="container-side bg-354F52 g1-1" id="mini$incr" hx-swap-oob="outerHTML">
                 <img class="img img-side" src='assets/img/FR.jpg' alt="Bandeau">

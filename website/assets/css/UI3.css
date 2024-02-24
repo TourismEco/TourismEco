@@ -5,12 +5,16 @@ html {
     background-image: linear-gradient(to left,#2F3E46,#354F52);
 }
 
+body {
+    margin: 0;
+}
+
 .grid {
     display: grid;
-    grid-template-columns: repeat(6, clamp(75px, 16.6%,300px));
-    grid-template-rows: repeat(10, clamp(60px, 10%, 80px));
-    margin: 0 clamp(20px, 2%, 60px);
-    height: calc(97vh - 52px);
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(10, 1fr);
+    margin: 0 clamp(30px, 2%, 70px);
+    height: calc(97vh - 82px);
 }
 
 .flex {
@@ -28,7 +32,8 @@ html {
     transition: .5s all;
     cursor: pointer;
     display:grid;
-    height: 100%;
+    height: 70px;
+    align-self: center;
 }
 
 .container-bottom {
@@ -40,7 +45,7 @@ html {
     transition: .5s all;
     cursor: pointer;
     display:grid;
-    height: 100%;
+    height: 70px;
 }
 
 .container-presentation {
@@ -75,8 +80,8 @@ html {
 }
 
 .img-side {
-    grid-column: 1 / 3;
-    grid-row: 1 / 3;
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
     width: 100%;
     height: 100%;
     z-index:1;
@@ -167,6 +172,7 @@ html {
     grid-template-columns: 3fr 2fr;
     gap: 20px;
     padding: 20px 35px;
+    overflow-y: auto;
 }
 
 .zone-presentation {
@@ -329,3 +335,68 @@ h1 {
     background-color: #83A88B;
 }
 
+
+
+
+
+
+
+
+
+.navbar {
+    overflow: hidden;
+    display: grid;
+    margin: auto;
+    border-radius: 0 0 10px 10px;
+    grid-template-columns: 1fr 80px 1fr;
+    border-top: none;
+    filter: drop-shadow(10px 20px 10px #222);
+    margin-bottom: 10px;
+  }
+  
+  .navbar a {
+    float: left;
+    display: block;
+    color: #222;
+    text-align: center;
+    padding: 20px 16px;
+    text-decoration: none;
+    align-self: center;
+  }
+  
+  .navbar div {
+    background-color: #EED;
+    grid-row: 1;
+    height: fit-content;
+  }
+  
+  .right-nav {
+    justify-self: end;
+    border-radius: 0 0 0 10px;
+  }
+  
+  .left-nav {
+    width: fit-content;
+    border-radius: 0 0 10px 0;
+  }
+  
+  .navbar a:hover {
+    background-color: #ddd;
+    color: black;
+    border-radius: inherit;
+  }
+  
+  .img-nav {
+    justify-self: center;
+    height: 80px;
+    background-color: #EED;
+    border-radius: 0 0 10px 10px;
+  }
+  
+  .img-nav img {
+    width: 80px;
+  }
+  
+  .img-nav a {
+    padding: 0;
+  }
