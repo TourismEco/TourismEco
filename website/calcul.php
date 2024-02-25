@@ -21,24 +21,27 @@ $duration = isset($_GET["duration"]) ? $_GET["duration"] : null;
 $passengers = isset($_GET["passengers"]) ? $_GET["passengers"] : null;
 
 // main
-$origin = getCoordinates($mode, $country_src, $city_src, $airport_src);
-$destination = getCoordinates($mode, $country_dst, $city_dst, $airport_dst);
-$transport;
-// TO-DO: SQL query to fetch the transport data from the DB
-// TO-DO: change the parameters of the constructors to match the database
-
 // default VALUES but need to implement the possibility to choose a certain car
 switch ($mode) {
     case "PLANE":
+        // TO-DO: implement a function to check if there is a direct route from the origin to the destination
         $transport = new Plane("A81", "KEROSENE", 4.23, 3);
         break;
     case "TRAIN":
         $transport = new Train();
         break;
     case "DRIVING":
-        $transport = new Car("BERLINE", "GAZOLE", 6, 3);
+        $transport = new Car("BERLINE", "GAZOLE", 6, $passengers);
         break;
 }
+
+$origin = getCoordinates($mode, $country_src, $city_src, $airport_src);
+$destination = getCoordinates($mode, $country_dst, $city_dst, $airport_dst);
+$transport;
+// TO-DO: SQL query to fetch the transport data from the DB
+// TO-DO: change the parameters of the constructors to match the database
+
+
 $travel = $transport->getTravel($origin, $destination);
 ?>
 
@@ -68,11 +71,11 @@ $travel = $transport->getTravel($origin, $destination);
             <div class="result-content-left">
                 <div class="result-content-left-item">
                     <h3 class="result-content-left-item-title">Distance</h3>
-                    <p class="result-content-left-item-value"><?=$travel["distance"]?> m</p>
+                    <p class="result-content-left-item-value"><?=$travel["distance"]/1000?> km</p>
                 </div>
                 <div class="result-content-left-item">
                     <h3 class="result-content-left-item-title">Durée</h3>
-                    <p class="result-content-left-item-value"><?=$travel["duration"]?> secondes</p>
+                    <p class="result-content-left-item-value"><?=formatTime($travel["duration"])?></p>
                 </div>
                 <div class="result-content-left-item">
                     <h3 class="result-content-left-item-title">Coût du trajet par passager</h3>

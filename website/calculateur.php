@@ -9,14 +9,14 @@
 
         <div class="left-section">
             <h1 class="titre">Prévoyez vos prochaines vacances</h1>
-            <form hx-get="calcul.php" hx-target="#calculateur-right-section"> 
+            <form name="Calculateur" hx-get="calcul.php" hx-target="#calculateur-right-section">
                 <!-- <form action="test/calcul_test.php" method="get"> -->
 
                 <div class="dual-input">
                     <div class="container-input">
                         <label for="country_src">Pays de départ</label>
                         <input type="text" id="country_src" name="country_src" placeholder="Saisissez un pays" required autocomplete="off"
-                        hx-get="scripts/htmx/listPays.php" hx-swap="none" hx-trigger="keyup[this.value.trim().length > 0] changed delay:0.5s" hx-vals='js:{search: getSearchValue("country_src"), sens:"src"}'>
+                        hx-get="scripts/htmx/listPays.php" hx-trigger="keyup[this.value.trim().length > 0] changed delay:0.5s" hx-vals='js:{search: getSearchValue("country_src"), sens:"src"}'>
                         <div id="country_options_src" class="option-container"></div>
                     </div>
 
@@ -43,7 +43,8 @@
                 </div>
 
                 <p class="fake-label">Moyen de transport</p>
-                <div class="liste-mode">
+                <!-- <div class="liste-mode" hx-get="scripts/htmx/getTravelOptions.php" hx-target="#travel-options" hx-vals='js:{mode: document.forms["Calculateur"]["mode"].value}'> -->
+                    <div class="liste-mode">
                     <input type="radio" name="mode" id="plane" class="radio-mode" value="PLANE">
                     <label for="plane">
                         <img src="assets/img/plane.svg" title="Avion">
@@ -59,6 +60,9 @@
                         <img src="assets/img/car.svg" title="Voiture">
                     </label>
                 </div>
+
+                <!-- Travel options (Airports if plane, train stations...) -->
+                <div class="dual-input" id="travel-options"></div>
 
                 <div class="dual-input">
                 <!--     <div class="container-input">

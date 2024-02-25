@@ -7,7 +7,7 @@ function alreadyInDB($origin, $destination){
 }
 
 // make a request to the google maps API to get the distance between two points
-function distanceMatrixRequestBuilder($destinations, $origins, $mode, $transit_mode=null){
+function distanceMatrixRequestBuilder($origins, $destinations, $mode, $transit_mode=null){
     $url = "https://maps.googleapis.com/maps/api/distancematrix/json?".
     "origins=".urlencode($origins["lat"].",".$origins["lon"]).
     "&destinations=".urlencode($destinations["lat"].",".$destinations["lon"]).
@@ -92,6 +92,9 @@ abstract class Transport {
             case "GAZ NAT.VEH":
                 $val = 1.94;
                 break;
+            case "LOCOMOTIVE DIESEL FUEL":
+                $val = 2.68;
+                break;
             default: // average of gasoline and essence
                 $val = 2.6;
         }
@@ -107,12 +110,12 @@ class Car extends Transport {
     function __construct($body, $fuel, $fuelConsumption, $passengers) {
         $this->body = $body;
         $this->fuel = $fuel;
-        $this->fuelConsumption = $fuelConsumption;
+        $this->fuelConsumption = $fuelConsumption; // in L/100km
         $this->passengers = $passengers;
     }
 
     function fetchDistance($origin, $destination) {
-        $url = distanceMatrixRequestBuilder($destination, $origin, "DRIVING");
+        $url = distanceMatrixRequestBuilder($origin, $destination, "driving");
         $response = file_get_contents($url);
         return json_decode($response, true);
     }
@@ -121,7 +124,7 @@ class Car extends Transport {
         $travel = array( "distance" => null,        // in m
                         "duration" => null,         // in seconds
                         "fuelConsumption" => null,  // in L
-                        "carbonFootprint" => null,  // in kg CO2e / passenger
+                        "carbonFootprint" => null,  // in kg CO2e
                         "carbonFootprintPassenger" => null,  // in kg CO2e / passenger
                         "travelCost" => null        // in €
                     );
@@ -133,7 +136,8 @@ class Car extends Transport {
             } else {
             $travel["distance"] = $jsonAPI["rows"][0]["elements"][0]["distance"]["value"];
             $travel["duration"] = $jsonAPI["rows"][0]["elements"][0]["duration"]["value"];
-            $travel["fuelConsumption"] = $travel["distance"]/1000 * $this->fuelConsumption; 
+            $travel["fuelConsumption"] = $travel["distance"]/1000 * ($this->fuelConsumption/100); 
+            // getFuelEmission() returns the CO2 emission factor of the fuel in kg CO2e/L
             $travel["carbonFootprint"] = $travel["fuelConsumption"] * $this->getFuelEmission();
             $travel["carbonFootprintPassenger"] = $travel["carbonFootprint"] / $this->passengers;
             $travel["travelCost"] = $travel["fuelConsumption"] * $this->getFuelPrice();
@@ -151,34 +155,46 @@ class Car extends Transport {
 class Train extends Transport {
      // TGV
 
-    public $fuel = "ELECTRIC"; // TO-DO: wait for the form to be up to date to implement a function to fetch the fuel from the DB 
+     // TO-DO: change to real values those are fake
+    public $fuel = "GAZOLE"; // TO-DO: wait for the form to be up to date to implement a function to fetch the fuel from the DB 
+    public $fuelConsumption = 6.2; // in L/100km
+    public $passengers = 200; // number of passengers in the vehicle
 
     function fetchDistance($origin, $destination) {
-        $url = distanceMatrixRequestBuilder($origin, $destination, "TRANSIT", "TRAIN");
+        $url = distanceMatrixRequestBuilder($origin, $destination, "transit", "rail");
         $response = file_get_contents($url);
         return json_decode($response, true);
     }
 
 
-    public function getTravel($origin, $destination){
+    function getTravel($origin, $destination) {
         $travel = array( "distance" => null,        // in m
                         "duration" => null,         // in seconds
                         "fuelConsumption" => null,  // in L
-                        "carbonFootprint" => null,  // in kg CO2e / passenger
+                        "carbonFootprint" => null,  // in kg CO2e
                         "carbonFootprintPassenger" => null,  // in kg CO2e / passenger
                         "travelCost" => null        // in €
                     );
         if (!alreadyInDB($origin, $destination)){
             $jsonAPI = $this->fetchDistance($origin, $destination);
+            if ($jsonAPI["rows"][0]["elements"][0]["status"] == "NOT_FOUND") {
+                // itineraries not found
+                $travel = null;
+            } else {
             $travel["distance"] = $jsonAPI["rows"][0]["elements"][0]["distance"]["value"];
             $travel["duration"] = $jsonAPI["rows"][0]["elements"][0]["duration"]["value"];
-            $travel["carbonFootprint"] = $travel["distance"]/1000 * $this->getFuelEmission();
+            $travel["fuelConsumption"] = $travel["distance"]/1000 * ($this->fuelConsumption/100); 
+            // getFuelEmission() returns the CO2 emission factor of the fuel in kg CO2e/L
+            $travel["carbonFootprint"] = $travel["fuelConsumption"] * $this->getFuelEmission();
             $travel["carbonFootprintPassenger"] = $travel["carbonFootprint"] / $this->passengers;
-            $travel["travelCost"] = 0; // TO-DO: implement a function to fetch the price of the ticket
+            $travel["travelCost"] = $travel["fuelConsumption"] * $this->getFuelPrice();
+            }
         }
         else {
             // TO-DO: fetch the data from the DB
         }
+        return $travel;
+        //TO-DO: update the database with the data fetched
     }
 }
 
@@ -207,21 +223,20 @@ class Plane extends Transport {
                     );
     }
 
-    function haversineDistance($origin, $destination) {
-        $lat1 = $origin["lat"];
-        $lon1 = $origin["lng"];
-        $lat2 = $destination["lat"];
-        $lon2 = $destination["lng"];
-        $R = 6371; // Radius of the earth in km
-        $dLat = degrees_to_radians($lat2-$lat1);
-        $dLon = degrees_to_radians($lon2-$lon1); 
-        $a = 
-          sin($dLat/2) * sin($dLat/2) +
-          cos(degrees_to_radians($lat1)) * cos(degrees_to_radians($lat2)) * 
-          sin($dLon/2) * sin($dLon/2)
-          ; 
-        $c = 2 * atan2(sqrt($a), sqrt(1-$a)); 
-        $d = $R * $c; // Distance in km
-        return $d;
-    }
+        function orthodromeDistance($origin, $destination) {
+            $lat1 = deg2rad($origin['lat']);
+            $lon1 = deg2rad($origin['lon']);
+            $lat2 = deg2rad($destination['lat']);
+            $lon2 = deg2rad($destination['lon']);
+            
+            $delta_lon = $lon2 - $lon1;
+            $central_angle = acos(sin($lat1) * sin($lat2) + cos($lat1) * cos($lat2) * cos($delta_lon));
+            // Earth's radius in kilometers
+            $earth_radius = 6371.0;
+
+            return $central_angle * $earth_radius;
+        }
+
+        
+
 }

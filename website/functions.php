@@ -443,6 +443,50 @@ function getCoordinates($mode, $country=null, $city=null, $airport=null) {
     }
 }
 
-function degrees_to_radians($degrees) {
-    return $degrees * (pi()/180);
+function formatTime($seconds) {
+    $hours = floor($seconds / 3600) > 0 ? intval(floor($seconds / 3600)) . "h" : "";
+    $minutes = intval(floor(($seconds / 60)) % 60) > 0 ? intval(floor(($seconds / 60)) % 60) . "min" : "";
+    return $hours . $minutes;
+}
+
+// function to get all the airports of the city
+function getAirports($idCity, $idCountry){
+    $query = "SELECT * FROM airports WHERE city = ? AND country = ?";
+    $conn = getDB();
+    $stmt = $conn->prepare($query);
+    $stmt->execute([$idCity, $idCountry]);
+    $airports = $stmt->fetchAll();
+    $conn = null;
+    return $airports;
+}
+
+// function to get the direct routes between two cities
+function directRoutesCity($idCitySrc, $idCityDst){
+    // TO-DO: check in database what having 2 equipments mean
+    $query = "SELECT * FROM routes WHERE src_apid IN (SELECT id FROM airports WHERE id_ville = ?) AND dst_apid IN (SELECT id FROM airports WHERE id_ville = ?) AND CHAR_LENGTH(equipment)<4";
+    $conn = getDB();
+    $stmt = $conn->prepare($query);
+    $stmt->execute([$idCitySrc, $idCityDst]);
+    $route = $stmt->fetch();
+    $conn = null;
+    return $route;
+}
+
+function getBestEquipment($routes){
+
+}
+
+// get the model of the Airplane
+function getAirplaneModel($idRoute){
+    $query = "SELECT equipment FROM routes WHERE id = ?";
+    $conn = getDB();
+    $stmt = $conn->prepare($query);
+    $stmt->execute([$idRoute]);
+    try {
+        $airplane = $stmt->fetch()["equipment"];
+    } catch (Exception $e) {
+        $airplane = null;
+    }
+    $conn = null;
+    return $airplane;
 }
