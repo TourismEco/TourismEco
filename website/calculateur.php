@@ -10,7 +10,7 @@
         <div class="left-section">
             <h1 class="titre">Prévoyez vos prochaines vacances</h1>
             <form name="Calculateur" hx-get="calcul.php" hx-target="#calculateur-right-section">
-                <!-- <form action="test/calcul_test.php" method="get"> -->
+                <!-- <form action="test/calcul_test.php" method="get">git  -->
 
                 <div class="dual-input">
                     <div class="container-input">

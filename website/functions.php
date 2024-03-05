@@ -2,6 +2,19 @@
 
 require_once('config.php');
 
+// Connect to the database
+function getDB($hostname=DB_HOSTNAME, $username=DB_USERNAME, $password=DB_PASSWORD, $database=DB_DATABASE) {
+    try {
+        $conn =  new PDO("mysql:host=$hostname;dbname=$database", $username, $password);
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $conn->setAttribute(PDO::ATTR_TIMEOUT, 1800);
+        $conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+        return $conn;
+    } catch(PDOException $e) {
+    echo "Connection failed: " . $e->getMessage();
+    }
+}
+
 function getArrivals(string $id_pays, PDO $conn): int {
     $query = <<<SQL
     SELECT arriveesTotal

@@ -4,4 +4,4 @@ ignore/
 *.DS_Store
 .vscode/
 plotly/
-*/config.php
+*/private.php

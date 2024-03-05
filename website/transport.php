@@ -237,6 +237,13 @@ class Plane extends Transport {
             return $central_angle * $earth_radius;
         }
 
-        
+        function getCarboonFootprint($distance) {
+            if ($distance < $DISTANCE_CEIL){
+                return $distance;
+            }
+            else {
+                return $distance;
+            }
+        }
 
 }

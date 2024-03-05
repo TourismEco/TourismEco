@@ -74,6 +74,7 @@ echo "<br>class Plane<br>";
 $src_airports = getAirports($city_src, $country_src);
 $dst_airports = getAirports($city_dst, $country_dst);
 
+
 $plane = new Plane("A320", "KEROSENE", 4.23, 3);
 var_dump($plane);
 echo "<br>getTravel<br>";
