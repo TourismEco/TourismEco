@@ -154,17 +154,55 @@ function dataLine($pays, $conn) {
     $result = $conn->query($query);
 
     $data = array();
+    $covid = array();
     while ($rs = $result->fetch(PDO::FETCH_ASSOC)) {
         foreach (array("pib","Enr","co2","arrivees","departs","gpi","cpi") as $key => $value) {
             if (!isset($rs[$value])){
                 $rs[$value]=null;
+                if ($rs["year"] == 2020) {
+                    $covid[$value] = "N/A";
+                }
             } 
+            else if ($rs["year"] == 2020 && count($data) != 0) {
+                $covid[$value] = 100*($rs[$value] - $data[count($data)-1][$value]) / $data[count($data)-1][$value];
+            }
         }
 
         $data[] = $rs;
     }
 
-    return $data;
+    $evol = array();
+    $rank = array();
+
+    $tables = array("economie","ecologie","ecologie","tourisme","tourisme","surete","economie");
+    $cols = array("pibParHab","elecRenew","co2","arriveesTotal","departs","gpi","cpi");
+    foreach (array("pib","Enr","co2","arrivees","departs","gpi","cpi") as $key => $value) {
+        $start = 0;
+        while ($start < count($data) && $data[$start][$value] == null) {
+            $start++;
+        }
+
+        $end = count($data)-1;
+        while ($end > 0 && $data[$end][$value] == null) {
+            $end--;
+        }
+
+        if ($start == count($data) || $end == 0) {
+            $evol[$value] = "N/A";
+            $rank[$value] = "N/A";
+        } else {
+            $year = $data[$end]['year'];
+            $evol[$value] = 100*($data[$end][$value] - $data[$start][$value]) / $data[$start][$value];
+
+            $query = "SELECT * FROM (SELECT id_pays, $cols[$key], RANK() OVER (ORDER BY $cols[$key] DESC) AS 'rank' FROM $tables[$key] WHERE annee =  $year) AS t WHERE id_pays = '$pays';";
+            $result = $conn->query($query);
+            $rs = $result->fetch(PDO::FETCH_ASSOC);
+            $rank[$value] = array("rank"=>$rs["rank"],"year"=>$year);
+        }
+        
+    }
+
+    return array("data"=>$data, "covid"=>$covid, "evol"=> $evol, "rank"=>$rank);
 }
 
 function dataMean($conn) {
@@ -253,7 +291,7 @@ function dataBar($pays, $conn) {
 }
 
 function dataBarreLine($pays, $conn) {
-    $query = "SELECT pays.id, pays.nom as var, ecologie.annee as annee, pibParHab AS pib, co2, arriveesTotal*1000 AS arrivees, gpi, cpi
+    $query = "SELECT pays.id, pays.nom as var, ecologie.annee as annee, pib, co2, arriveesTotal*1000 AS arrivees, gpi, cpi
 
     FROM ecologie_grow AS ecologie, economie AS economie, tourisme AS tourisme, surete_grow AS surete, pays
     WHERE ecologie.id_pays = economie.id_pays
