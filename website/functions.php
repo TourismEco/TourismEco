@@ -155,6 +155,8 @@ function dataLine($pays, $conn) {
 
     $data = array();
     $covid = array();
+    $minAnnee = array();
+    $maxAnnee = array();
     while ($rs = $result->fetch(PDO::FETCH_ASSOC)) {
         foreach (array("pib","Enr","co2","arrivees","departs","gpi","cpi") as $key => $value) {
             if (!isset($rs[$value])){
@@ -162,9 +164,16 @@ function dataLine($pays, $conn) {
                 if ($rs["year"] == 2020) {
                     $covid[$value] = "N/A";
                 }
-            } 
-            else if ($rs["year"] == 2020 && count($data) != 0) {
-                $covid[$value] = 100*($rs[$value] - $data[count($data)-1][$value]) / $data[count($data)-1][$value];
+            } else {
+                if ($rs["year"] == 2020 && count($data) != 0) {
+                    $covid[$value] = 100*($rs[$value] - $data[count($data)-1][$value]) / $data[count($data)-1][$value];
+                }
+                if (!isset($minAnnee[$value]) || $rs[$value] < $minAnnee[$value]["val"]) {
+                    $minAnnee[$value] = array("val"=>$rs[$value], "year"=> $rs["year"]);
+                }
+                if (!isset($maxAnnee[$value]) || $rs[$value] > $maxAnnee[$value]["val"]) {
+                    $maxAnnee[$value] = array("val"=>$rs[$value], "year"=> $rs["year"]);
+                }
             }
         }
 
@@ -202,8 +211,9 @@ function dataLine($pays, $conn) {
         
     }
 
-    return array("data"=>$data, "covid"=>$covid, "evol"=> $evol, "rank"=>$rank);
+    return array("data"=>$data, "covid"=>$covid, "evol"=> $evol, "rank"=>$rank, 'min'=>$minAnnee, 'max'=>$maxAnnee);
 }
+
 
 function dataMean($conn) {
     $query = "SELECT annee AS year, AVG(co2) AS co2 FROM ecologie GROUP BY annee;";
@@ -223,6 +233,35 @@ function dataMean($conn) {
 
     return $data;
 }
+
+function dataCompareMeanLine($pays, $conn) {
+    $dataLine = dataLine($pays, $conn)['data'][0];
+    $dataMean = dataMean($conn)[0];
+    $comparaison = array();
+    foreach (array("pib","Enr","co2","arrivees","departs","gpi","cpi") as $value) {
+        if ($dataLine[$value] > $dataMean[$value]) {
+            $comparaison[$value] = "supérieure";
+        } elseif ($dataLine[$value] < $dataMean[$value]) {
+            $comparaison[$value] = "inférieure";
+        } else {
+            $comparaison[$value] = "égale";
+        }
+    }
+    $counts = array_count_values($comparaison);
+    $results = array();
+    foreach ($counts as $comparaison => $count) {
+        if ($comparaison == "supérieure" || $comparaison == "inférieure") {
+            $results[] = array(
+                "val" => $count,
+                "type" => $comparaison
+            );
+        }
+    }
+    return array("val"=>$count, "type"=>$comparaison);
+}
+
+
+
 
 function dataSpider($pays, $conn) {
     $query = "SELECT ecologie.annee as annee,
@@ -291,7 +330,8 @@ function dataBar($pays, $conn) {
 }
 
 function dataBarreLine($pays, $conn) {
-    $query = "SELECT pays.id, pays.nom as var, ecologie.annee as annee, pib, co2, arriveesTotal*1000 AS arrivees, gpi, cpi
+    $query = "SELECT ecologie.annee as annee,
+    pibParHab AS pib, co2, arriveesTotal AS arrivees, gpi, cpi
 
     FROM ecologie_grow AS ecologie, economie AS economie, tourisme AS tourisme, surete_grow AS surete, pays
     WHERE ecologie.id_pays = economie.id_pays
@@ -304,23 +344,62 @@ function dataBarreLine($pays, $conn) {
     AND economie.annee = tourisme.annee
     AND tourisme.annee = surete.annee 
 
-    ORDER BY `ecologie`.`annee` ASC LIMIT 8;
+    ORDER BY `ecologie`.`annee` ASC;
     ";
 
-$result = $conn->query($query);
+    $result = $conn->query($query);
 
-$data = array();
-while ($rs = $result->fetch(PDO::FETCH_ASSOC)) {
-    $data[] = array(
-        "year" => $rs['annee'],
-        "value" => $rs['pib'],
-        "valueLeft" => $rs['arrivees']
+    $data = array();
+    $minPib = null;
+    $maxPib = null;
+    $minTourisme = null;
+    $maxTourisme = null;
+    $covidImpactPib = 0;
+    $covidImpactTourisme = 0;
+
+    while ($rs = $result->fetch(PDO::FETCH_ASSOC)) {
+        $data[] = array(
+            "year" => $rs['annee'],
+            "value" => $rs['pib'],
+            "valueLeft" => $rs['arrivees']
+        );
+
+        // Min et Max pour les indicateurs
+        if ($minPib === null || $rs['pib'] < $minPib['value']) {
+            $minPib = array("year" => $rs["annee"], "value" => $rs['pib']);
+        }
+        if ($maxPib === null || $rs['pib'] > $maxPib['value']) {
+            $maxPib = array("year" => $rs["annee"], "value" => $rs['pib']);
+        }
+        if ($minTourisme === null || $rs['arrivees'] < $minTourisme['value']) {
+            $minTourisme = array("year" => $rs["annee"], "value" => $rs['arrivees']);
+        }
+        if ($maxTourisme === null || $rs['arrivees'] > $maxTourisme['value']) {
+            $maxTourisme = array("year" => $rs["annee"], "value" => $rs['arrivees']);
+        }
+
+        // Impact du covid
+        if ($rs['annee'] == 2020) {
+            $covidImpactPib = ($rs['pib'] - $data[count($data) - 2]['value']) / $data[count($data) - 2]['value'] * 100;
+        }
+        if ($rs['annee'] == 2020) {
+            $covidImpactTourisme = ($rs['arrivees'] - $data[count($data) - 2]['valueLeft']) / $data[count($data) - 2]['valueLeft'] * 100;
+        }
+    }
+
+    return array(
+        "data" => $data,
+        "minPib" => $minPib,
+        "maxPib" => $maxPib,
+        "minTourisme" => $minTourisme,
+        "maxTourisme" => $maxTourisme,
+        "covidImpactPib" => $covidImpactPib,
+        "covidImpactTourisme" => $covidImpactTourisme
     );
 }
 
-return $data;
 
-}
+    
 
 
 

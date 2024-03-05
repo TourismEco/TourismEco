@@ -116,14 +116,44 @@ while ($rs = $sth->fetch()) {
 $cities = json_encode($cities);
 $capitals = json_encode($capitals);
 
-// Spider
 $dataSpider = json_encode(dataSpider($id_pays, $cur),JSON_NUMERIC_CHECK);
-$dataLine = json_encode(dataLine($id_pays, $cur),JSON_NUMERIC_CHECK);
+$dataLine = json_encode(dataLine($id_pays, $cur)['data'],JSON_NUMERIC_CHECK);
 $dataLineMean = json_encode(dataMean($cur),JSON_NUMERIC_CHECK);
 $dataBar = json_encode(dataBar($id_pays, $cur),JSON_NUMERIC_CHECK);
 $dataTab = json_encode(dataTab($id_pays, $cur),JSON_NUMERIC_CHECK);
 
-$dataBarreLine= json_encode(dataBarreLine($id_pays, $cur),JSON_NUMERIC_CHECK);
+//Graphique Line
+$covidLine = json_encode(dataLine($id_pays,$cur)['covid']['co2'],JSON_NUMERIC_CHECK);
+$rankLine = json_encode(dataLine($id_pays,$cur)['rank']['co2']['rank'],JSON_NUMERIC_CHECK);
+$rankLineYear = json_encode(dataLine($id_pays,$cur)['rank']['co2']['year'],JSON_NUMERIC_CHECK);
+
+$minYearLine = json_encode(dataLine($id_pays,$cur)['min']['co2']['year'],JSON_NUMERIC_CHECK);
+$minValueLine = json_encode(dataLine($id_pays,$cur)['min']['co2']['val'],JSON_NUMERIC_CHECK);
+
+$maxYearLine = json_encode(dataLine($id_pays,$cur)['max']['co2']['year'],JSON_NUMERIC_CHECK);
+$maxValueLine = json_encode(dataLine($id_pays,$cur)['max']['co2']['val'],JSON_NUMERIC_CHECK);
+
+$compareMeanLineVal = json_encode(dataCompareMeanLine($id_pays,$cur)['val'], JSON_NUMERIC_CHECK);
+$compareMeanLineType = json_encode(dataCompareMeanLine($id_pays,$cur)['type'], JSON_NUMERIC_CHECK);
+
+//Graphique Barre Line
+$dataBarreLine= json_encode(dataBarreLine($id_pays, $cur)['data'],JSON_NUMERIC_CHECK);
+$dataBLMinYearPIB= json_encode(dataBarreLine($id_pays, $cur)['minPib']['year'],JSON_NUMERIC_CHECK);
+$dataBLMinValPIB= json_encode(dataBarreLine($id_pays, $cur)['minPib']['value'],JSON_NUMERIC_CHECK);
+$dataBLMaxYearPIB= json_encode(dataBarreLine($id_pays, $cur)['maxPib']['year'],JSON_NUMERIC_CHECK);
+$dataBLMaxValPIB= json_encode(dataBarreLine($id_pays, $cur)['maxPib']['value'],JSON_NUMERIC_CHECK);
+
+$dataBLMinValTourism= json_encode(dataBarreLine($id_pays, $cur)['minTourisme']['value'],JSON_NUMERIC_CHECK);
+$dataBLMinYearTourism= json_encode(dataBarreLine($id_pays, $cur)['minTourisme']['year'],JSON_NUMERIC_CHECK);
+$dataBLMaxValTourism= json_encode(dataBarreLine($id_pays, $cur)['maxTourisme']['value'],JSON_NUMERIC_CHECK);
+$dataBLMaxYearTourism= json_encode(dataBarreLine($id_pays, $cur)['maxTourisme']['year'],JSON_NUMERIC_CHECK);
+
+$dataBLcovidImpactPib= json_encode(dataBarreLine($id_pays, $cur)['covidImpactPib'],JSON_NUMERIC_CHECK);
+$dataBLcovidImpactTourisme= json_encode(dataBarreLine($id_pays, $cur)['covidImpactTourisme'],JSON_NUMERIC_CHECK);
+
+
+
+
 //$dataBarPays = json_encode(dataBarPays($id_pays, $cur),JSON_NUMERIC_CHECK);
 
 echo <<<HTML
@@ -180,6 +210,76 @@ echo <<<HTML
 </div>
 
 <div id="catalogue" hx-swap-oob="outerHTML"></div>
+
+<div class="container-even" id="graphLine" hx-swap-oob="outerHTML">
+    <div class="container-indic">
+        <h3>Impact du covid sur le pays</h3>
+        <p>$covidLine</p>
+        <h3>Rang du pays en $rankLineYear </h3> 
+        <p>$rankLine</p>
+        <h3>Minimum atteint en $minYearLine</h3>
+        <p> $minValueLine</p>
+        <h3>Maximum atteint en $maxYearLine</h3>
+        <p> $maxValueLine</p>
+        <h3>Le pays pour la dernière années est $compareMeanLineVal fois $compareMeanLineType à la moyenne </h3>
+
+    </div>
+</div>
+
+<div class="container-even" id="graphBarLine" hx-swap-oob="outerHTML">
+    <div class="container-indic">
+        <h3> Impact du covid sur le tourisme :</h3>
+        <p> $dataBLcovidImpactTourisme </p>
+
+        <h3> Impact du covid sur le PIB :</h3>
+        <p> $dataBLcovidImpactPib </p>
+
+        <h3>Valeurs minimales et maximales</h2>
+        <table>
+            <tr>
+                <th>Indicateur</th>
+                <th>Type</th>
+                <th>Année</th>
+                <th>Valeur</th>
+            </tr>
+            <tr>
+                <td colspan="4"><hr></td>
+            </tr>
+            <tr>
+                <td><strong>PIB</strong></td>
+                <td>Minimum</td>
+                <td>$dataBLMinYearPIB</td>
+                <td>$dataBLMinValPIB</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>Maximum</td>
+                <td>$dataBLMaxYearPIB</td>
+                <td>$dataBLMaxValPIB</td>
+            </tr>
+            <tr>
+                <td colspan="4"><hr></td>
+            </tr>
+            <tr>
+                <td><strong>Tourisme</strong></td>
+                <td>Minimum</td>
+                <td>$dataBLMinYearTourism</td>
+                <td>$dataBLMinValTourism</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>Maximum</td>
+                <td>$dataBLMaxYearTourism</td>
+                <td>$dataBLMaxValTourism</td>
+            </tr>
+        </table>
+    </div>
+    <br><br>
+</div>
+
+
+
+
 
 HTML;
 
