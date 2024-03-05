@@ -1,31 +1,18 @@
 var year;
 
 function barCompare(id) {
-    b = new Bar(id)
-    b.initXAxis("var")
-    b.initYAxis()
-    b.addLegend()
+    b = new Graphique(id, "bar")
+    b.createXAxis("var")
+    b.createYAxis()
     b.setDataXAxis([{"var":"pib"},{"var":"co2"},{"var":"arrivees"},{"var":"gpi"},{"var":"cpi"}])
     b.addSlider(updateBar,700,10,50,50,0,2008,2020)
     b.setNumberFormat("# '%'")
+    b.addSerie("bar", "var", "value", null, "{name} : {valueY}", "#52796F")
+    b.addSerie("bar", "var", "value", null, "{name} : {valueY}", "#83A88B")
 }
 
-function barCompare2(id) {
-    b = new Top(id)
-    b.initXAxis("var")
-    b.initYAxis()
-    b.addLegend()
-    b.setDataXAxis([{"var":"pib"},{"var":"co2"},{"var":"arrivees"},{"var":"gpi"},{"var":"cpi"}])
-   
-}
-
-
-
-var color = ["#52796F","#83A88B"]
 function barHTMX(index,data,name) {
-    console.log(data)
-    b.addSerie(index, data, name, color[index], "var", "value")
-    b.setDataSerie(index, data[b.getYear()])
+    b.updateSerie(index, data, name)
 }
 
 function updateBar(year) {

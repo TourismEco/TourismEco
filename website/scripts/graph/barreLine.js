@@ -1,16 +1,18 @@
 function barreLine(id) {
-    b = new Bar("barreLine")
-    b.initXAxis("year")
-    b.initYAxis()
-    b.addLegend()
-    b.initYAxisLeft()
+    b =  new Graphique(id, "bar")
+    b.createXAxis("year")
+    b.createYAxis()
+    b.createYAxis(null, {}, true)
+    b.addSerie("bar","year", "value", null,"{year} : {valueY}","#83A88B" );
+    b.addSerie("line","year", "valueLeft", null,"{year} : {valueY}","#52796F",{},true );
 }
 
 var color = ["#52796F","#83A88B"]
 
 
 function barreLineHTMX(data,name) {
-    b.addSerie(0, data, "PIB/Hab", color[0], "year", "value");
-    b.addLine(1, data, "Arrivées touristique", color[1], "year", "valueLeft");
+    console.log(data);
+    b.updateSerie(0, data, name);
+    b.updateSerie(1, data, name);
     b.setDataXAxis(data)
 }

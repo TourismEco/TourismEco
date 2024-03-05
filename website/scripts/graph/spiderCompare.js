@@ -1,25 +1,23 @@
 function spiderCompare(id) {
-    g = new Spider(id)
-    g.initXAxis("var")
-    g.initYAxis()
-    g.addLegend()
+    g = new Graphique(id, "radar")
+    g.createXAxis("var")
+    g.createYAxis(null, {min:0, max:100})
     g.setDataXAxis([{"var":"pib"},{"var":"Enr"},{"var":"co2"},{"var":"arrivees"},{"var":"departs"},{"var":"gpi"},{"var":"cpi"}])
     g.addSlider(updateCSpider,400,-20,50,50,90,2008,2020)
+    g.addSerie("radar", "var", "value", null, "{name} : {valueY}", "#52796F")
+    g.addSerie("radar", "var", "value", null, "{name} : {valueY}", "#83A88B")
 }
 
 var color = ["#52796F", "#83A88B"];
 function spiderCHTMX(index, data, dataComp, name) {
-    g.addSerie(index, data, dataComp, name, color[index], "var", "value");
-    g.setDataSerie(index, data[g.getYear()])
+    g.updateSerie(index, data, name, dataComp)
     updateCTable(index, dataComp[g.getYear()]);
 }
 
 function updateCSpider(year) {
-    var i = 0
     for (var s of g.getSeries()) {
         s.setDataSerie(s.data[year]);
-        updateCTable(i, s.comp[year]);
-        i++
+        updateCTable(s.getIndex(), s.comp[year]);
     }
 }
 

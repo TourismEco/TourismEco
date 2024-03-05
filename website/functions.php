@@ -2,6 +2,19 @@
 
 require_once('config.php');
 
+// Connect to the database
+function getDB($hostname=DB_HOSTNAME, $username=DB_USERNAME, $password=DB_PASSWORD, $database=DB_DATABASE) {
+    try {
+        $conn =  new PDO("mysql:host=$hostname;dbname=$database", $username, $password);
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $conn->setAttribute(PDO::ATTR_TIMEOUT, 1800);
+        $conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+        return $conn;
+    } catch(PDOException $e) {
+    echo "Connection failed: " . $e->getMessage();
+    }
+}
+
 function getArrivals(string $id_pays, PDO $conn): int {
     $query = <<<SQL
     SELECT arriveesTotal
@@ -87,7 +100,7 @@ function addCardCountry($id,$nom,$letter,$page) {
                 <img class="flag-small" src='assets/twemoji/$id.svg'>
                 <h2 class="nom-small">$nom</h2>
                 <div class="buttons-small">
-                    <button class=button-catalogue id=v-$id hx-get="scripts/htmx/get$page.php" hx-vals="js:{id_pays:'$id'}" hx-swap="beforeend show:top">Consulter</button>
+                    <button class=button-catalogue id=v-$id hx-get="scripts/htmx/get$page.php" hx-vals="js:{id_pays:'$id'}" hx-swap="beforeend show:top swap:0.5s">Consulter</button>
                 </div>
             </div>
         </div>
@@ -141,18 +154,66 @@ function dataLine($pays, $conn) {
     $result = $conn->query($query);
 
     $data = array();
+    $covid = array();
+    $minAnnee = array();
+    $maxAnnee = array();
     while ($rs = $result->fetch(PDO::FETCH_ASSOC)) {
         foreach (array("pib","Enr","co2","arrivees","departs","gpi","cpi") as $key => $value) {
             if (!isset($rs[$value])){
                 $rs[$value]=null;
-            } 
+                if ($rs["year"] == 2020) {
+                    $covid[$value] = "N/A";
+                }
+            } else {
+                if ($rs["year"] == 2020 && count($data) != 0) {
+                    $covid[$value] = 100*($rs[$value] - $data[count($data)-1][$value]) / $data[count($data)-1][$value];
+                }
+                if (!isset($minAnnee[$value]) || $rs[$value] < $minAnnee[$value]["val"]) {
+                    $minAnnee[$value] = array("val"=>$rs[$value], "year"=> $rs["year"]);
+                }
+                if (!isset($maxAnnee[$value]) || $rs[$value] > $maxAnnee[$value]["val"]) {
+                    $maxAnnee[$value] = array("val"=>$rs[$value], "year"=> $rs["year"]);
+                }
+            }
         }
 
         $data[] = $rs;
     }
 
-    return $data;
+    $evol = array();
+    $rank = array();
+
+    $tables = array("economie","ecologie","ecologie","tourisme","tourisme","surete","economie");
+    $cols = array("pibParHab","elecRenew","co2","arriveesTotal","departs","gpi","cpi");
+    foreach (array("pib","Enr","co2","arrivees","departs","gpi","cpi") as $key => $value) {
+        $start = 0;
+        while ($start < count($data) && $data[$start][$value] == null) {
+            $start++;
+        }
+
+        $end = count($data)-1;
+        while ($end > 0 && $data[$end][$value] == null) {
+            $end--;
+        }
+
+        if ($start == count($data) || $end == 0) {
+            $evol[$value] = "N/A";
+            $rank[$value] = "N/A";
+        } else {
+            $year = $data[$end]['year'];
+            $evol[$value] = 100*($data[$end][$value] - $data[$start][$value]) / $data[$start][$value];
+
+            $query = "SELECT * FROM (SELECT id_pays, $cols[$key], RANK() OVER (ORDER BY $cols[$key] DESC) AS 'rank' FROM $tables[$key] WHERE annee =  $year) AS t WHERE id_pays = '$pays';";
+            $result = $conn->query($query);
+            $rs = $result->fetch(PDO::FETCH_ASSOC);
+            $rank[$value] = array("rank"=>$rs["rank"],"year"=>$year);
+        }
+        
+    }
+
+    return array("data"=>$data, "covid"=>$covid, "evol"=> $evol, "rank"=>$rank, 'min'=>$minAnnee, 'max'=>$maxAnnee);
 }
+
 
 function dataMean($conn) {
     $query = "SELECT annee AS year, AVG(co2) AS co2 FROM ecologie GROUP BY annee;";
@@ -172,6 +233,35 @@ function dataMean($conn) {
 
     return $data;
 }
+
+function dataCompareMeanLine($pays, $conn) {
+    $dataLine = dataLine($pays, $conn)['data'][0];
+    $dataMean = dataMean($conn)[0];
+    $comparaison = array();
+    foreach (array("pib","Enr","co2","arrivees","departs","gpi","cpi") as $value) {
+        if ($dataLine[$value] > $dataMean[$value]) {
+            $comparaison[$value] = "supérieure";
+        } elseif ($dataLine[$value] < $dataMean[$value]) {
+            $comparaison[$value] = "inférieure";
+        } else {
+            $comparaison[$value] = "égale";
+        }
+    }
+    $counts = array_count_values($comparaison);
+    $results = array();
+    foreach ($counts as $comparaison => $count) {
+        if ($comparaison == "supérieure" || $comparaison == "inférieure") {
+            $results[] = array(
+                "val" => $count,
+                "type" => $comparaison
+            );
+        }
+    }
+    return array("val"=>$count, "type"=>$comparaison);
+}
+
+
+
 
 function dataSpider($pays, $conn) {
     $query = "SELECT ecologie.annee as annee,
@@ -208,27 +298,40 @@ function dataSpider($pays, $conn) {
 
 function dataBar($pays, $conn) {
    
-    $query = "SELECT id_pays as pays , arriveesTotal as valeur
-    FROM tourisme  
-    WHERE annee = '2021'
-    ORDER BY `tourisme`.`arriveesTotal` DESC
-    LIMIT 10;";
+    $query = "SELECT ecologie.annee as annee,
+    pibParHab AS pib, co2, arriveesTotal AS arrivees, gpi, cpi
 
-$result = $conn->query($query);
+    FROM ecologie_grow AS ecologie, economie_grow AS economie, tourisme_grow AS tourisme, surete_grow AS surete
+    WHERE ecologie.id_pays = economie.id_pays
+    AND economie.id_pays = tourisme.id_pays
+    AND tourisme.id_pays = surete.id_pays
+    AND surete.id_pays = '$pays'
 
-$data = array();
-while ($rs = $result->fetch(PDO::FETCH_ASSOC)) {
-    $data[] = array(
-        "name" => $rs['pays'],
-        "value" => $rs['valeur']
-    );
-}
+    AND ecologie.annee = economie.annee
+    AND economie.annee = tourisme.annee
+    AND tourisme.annee = surete.annee  
+    ORDER BY `ecologie`.`annee` DESC;
+    ";
 
-return $data;
+    $result = $conn->query($query);
+
+    $data = array();
+    while ($rs = $result->fetch(PDO::FETCH_ASSOC)) {
+        $data[$rs["annee"]] = array();
+        foreach (array("pib","co2","arrivees","gpi","cpi") as $key => $value) {
+            if (!isset($rs[$value])){
+                $rs[$value]=null;
+            } 
+            $data[$rs["annee"]][] = array("var" => $value, "value" => $rs[$value]);
+        }
+    }
+
+    return $data;
 }
 
 function dataBarreLine($pays, $conn) {
-    $query = "SELECT pays.id, pays.nom as var, ecologie.annee as annee, pibParHab AS pib, co2, arriveesTotal*1000 AS arrivees, gpi, cpi
+    $query = "SELECT ecologie.annee as annee,
+    pibParHab AS pib, co2, arriveesTotal AS arrivees, gpi, cpi
 
     FROM ecologie_grow AS ecologie, economie AS economie, tourisme AS tourisme, surete_grow AS surete, pays
     WHERE ecologie.id_pays = economie.id_pays
@@ -241,23 +344,62 @@ function dataBarreLine($pays, $conn) {
     AND economie.annee = tourisme.annee
     AND tourisme.annee = surete.annee 
 
-    ORDER BY `ecologie`.`annee` ASC LIMIT 8;
+    ORDER BY `ecologie`.`annee` ASC;
     ";
 
-$result = $conn->query($query);
+    $result = $conn->query($query);
 
-$data = array();
-while ($rs = $result->fetch(PDO::FETCH_ASSOC)) {
-    $data[] = array(
-        "year" => $rs['annee'],
-        "value" => $rs['pib'],
-        "valueLeft" => $rs['arrivees']
+    $data = array();
+    $minPib = null;
+    $maxPib = null;
+    $minTourisme = null;
+    $maxTourisme = null;
+    $covidImpactPib = 0;
+    $covidImpactTourisme = 0;
+
+    while ($rs = $result->fetch(PDO::FETCH_ASSOC)) {
+        $data[] = array(
+            "year" => $rs['annee'],
+            "value" => $rs['pib'],
+            "valueLeft" => $rs['arrivees']
+        );
+
+        // Min et Max pour les indicateurs
+        if ($minPib === null || $rs['pib'] < $minPib['value']) {
+            $minPib = array("year" => $rs["annee"], "value" => $rs['pib']);
+        }
+        if ($maxPib === null || $rs['pib'] > $maxPib['value']) {
+            $maxPib = array("year" => $rs["annee"], "value" => $rs['pib']);
+        }
+        if ($minTourisme === null || $rs['arrivees'] < $minTourisme['value']) {
+            $minTourisme = array("year" => $rs["annee"], "value" => $rs['arrivees']);
+        }
+        if ($maxTourisme === null || $rs['arrivees'] > $maxTourisme['value']) {
+            $maxTourisme = array("year" => $rs["annee"], "value" => $rs['arrivees']);
+        }
+
+        // Impact du covid
+        if ($rs['annee'] == 2020) {
+            $covidImpactPib = ($rs['pib'] - $data[count($data) - 2]['value']) / $data[count($data) - 2]['value'] * 100;
+        }
+        if ($rs['annee'] == 2020) {
+            $covidImpactTourisme = ($rs['arrivees'] - $data[count($data) - 2]['valueLeft']) / $data[count($data) - 2]['valueLeft'] * 100;
+        }
+    }
+
+    return array(
+        "data" => $data,
+        "minPib" => $minPib,
+        "maxPib" => $maxPib,
+        "minTourisme" => $minTourisme,
+        "maxTourisme" => $maxTourisme,
+        "covidImpactPib" => $covidImpactPib,
+        "covidImpactTourisme" => $covidImpactTourisme
     );
 }
 
-return $data;
 
-}
+    
 
 
 
@@ -341,7 +483,7 @@ HTML;
 
 function inputPays($value, $sens) {
     echo <<<HTML
-        <input type="text" id="country_$sens" name="country_$sens" placeholder="Saisissez un pays" required value="$value"
+        <input type="text" id="country_$sens" name="country_$sens" placeholder="Saisissez un pays" required value="$value" hx-swap="none"
         hx-get="scripts/htmx/listPays.php" hx-trigger="keyup[this.value.trim().length > 0] changed delay:0.5s" hx-vals='js:{search: getSearchValue("country_$sens"), sens:"$sens"}' hx-swap-oob="outerHTML">
     HTML;
 }
@@ -350,7 +492,7 @@ function inputVilles($id_pays, $value, $sens) {
     if ($id_pays != "") {
         echo <<<HTML
         <input type="text" id="city_$sens" name="city_$sens" placeholder="Sélectionnez une ville" required autocomplete="off" value="$value"
-            hx-swap-oob="outerHTML" hx-get="scripts/htmx/listVilles.php" hx-trigger="keyup[this.value.trim().length > 0] changed delay:0.5s" hx-vals='js:{search: getSearchValue("city_$sens"), id_pays:"$id_pays", sens:"$sens"}'>
+            hx-swap-oob="outerHTML" hx-get="scripts/htmx/listVilles.php" hx-trigger="keyup[this.value.trim().length > 0] changed delay:0.5s" hx-vals='js:{search: getSearchValue("city_$sens"), id_pays:"$id_pays", sens:"$sens"}' hx-swap="none">
         HTML;
     } else {
         echo <<<HTML
@@ -387,4 +529,94 @@ function iterOptions($options, $id, $sens, $type) {
     echo <<<HTML
         </div>
     HTML;
+}
+
+// get the id of a country from its name
+function getCountryId($country): string {
+    $conn = getDB();
+    $sql = "SELECT id FROM pays WHERE nom = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute([$country]);
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $result["id"];
+}
+
+// get the coordinates (latitude and longitude) of a city
+function getCityCoordinates($countryName, $cityName): array{
+    $countryID = getCountryId($countryName);
+    $conn = getDB();
+    // TO-DO: change to lat and lon when the database is updated
+    $sql = "SELECT lat, lon FROM villes WHERE id_pays = ? AND nom = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute([$countryID, $cityName]);
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $result;
+}
+
+
+function getAirportCoordinates($airport) {
+    // $airport is the id of the airport
+    $conn = getDB();
+    $sql = "SELECT name, lat, lon FROM airports WHERE id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute([$airport]);
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $result;
+}
+
+function getCoordinates($mode, $country=null, $city=null, $airport=null) {
+    
+    if ($mode == "PLANE") {
+        return getAirportCoordinates($airport);
+    } else {
+        return getCityCoordinates($country, $city);
+    }
+}
+
+function formatTime($seconds) {
+    $hours = floor($seconds / 3600) > 0 ? intval(floor($seconds / 3600)) . "h" : "";
+    $minutes = intval(floor(($seconds / 60)) % 60) > 0 ? intval(floor(($seconds / 60)) % 60) . "min" : "";
+    return $hours . $minutes;
+}
+
+// function to get all the airports of the city
+function getAirports($idCity, $idCountry){
+    $query = "SELECT * FROM airports WHERE city = ? AND country = ?";
+    $conn = getDB();
+    $stmt = $conn->prepare($query);
+    $stmt->execute([$idCity, $idCountry]);
+    $airports = $stmt->fetchAll();
+    $conn = null;
+    return $airports;
+}
+
+// function to get the direct routes between two cities
+function directRoutesCity($idCitySrc, $idCityDst){
+    // TO-DO: check in database what having 2 equipments mean
+    $query = "SELECT * FROM routes WHERE src_apid IN (SELECT id FROM airports WHERE id_ville = ?) AND dst_apid IN (SELECT id FROM airports WHERE id_ville = ?) AND CHAR_LENGTH(equipment)<4";
+    $conn = getDB();
+    $stmt = $conn->prepare($query);
+    $stmt->execute([$idCitySrc, $idCityDst]);
+    $route = $stmt->fetch();
+    $conn = null;
+    return $route;
+}
+
+function getBestEquipment($routes){
+
+}
+
+// get the model of the Airplane
+function getAirplaneModel($idRoute){
+    $query = "SELECT equipment FROM routes WHERE id = ?";
+    $conn = getDB();
+    $stmt = $conn->prepare($query);
+    $stmt->execute([$idRoute]);
+    try {
+        $airplane = $stmt->fetch()["equipment"];
+    } catch (Exception $e) {
+        $airplane = null;
+    }
+    $conn = null;
+    return $airplane;
 }

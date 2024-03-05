@@ -1,15 +1,17 @@
 function spider(id) {
-    g = new Spider(id)
-    g.initXAxis("var")
-    g.initYAxis()
-    g.addLegend()
+    g = new Graphique(id, "radar")
+    g.createXAxis("var")
+    g.createYAxis()
     g.setDataXAxis([{"var":"pib"},{"var":"Enr"},{"var":"co2"},{"var":"arrivees"},{"var":"departs"},{"var":"gpi"},{"var":"cpi"}])
     g.addSlider(updateSpider,400,-20,50,50,90,2008,2020)
+
+    g.addSerie("radar", "var", "value", null, "{name} : {valueY}", "#52796F")
+    g.addSerie("radar", "var", "value", null, "{name} : {valueY}", "#83A88B")
 }
 
 var color = ["#52796F", "#83A88B"];
 function spiderHTMX(data, dataComp, name) {
-    g.addSerie(0, data, dataComp, name, color[0], "var", "value");
+    g.updateSerie(0, data, name, dataComp );
     g.setDataSerie(0, data[g.getYear()])
     // updateTable(0, dataComp[g.getYear()]);
 }

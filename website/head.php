@@ -26,8 +26,10 @@ require_once "functions.php";
 
 	<script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
     <script src="https://cdn.amcharts.com/lib/5/radar.js"></script>
+	<script src="https://cdn.amcharts.com/lib/5/percent.js"></script>
 
 	<script src="scripts/graph/amTools.js"></script>
+
     <script src="scripts/map/map.js"></script>
 
 	<script src="scripts/graph/lineCompare.js"></script>
