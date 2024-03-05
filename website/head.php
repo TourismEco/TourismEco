@@ -29,7 +29,7 @@ require_once "functions.php";
 	<script src="https://cdn.amcharts.com/lib/5/percent.js"></script>
 
 	<script src="scripts/graph/amTools.js"></script>
-	<script src="scripts/graph/amTools20.js"></script>
+
     <script src="scripts/map/map.js"></script>
 
 	<script src="scripts/graph/lineCompare.js"></script>

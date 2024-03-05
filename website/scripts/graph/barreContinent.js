@@ -1,10 +1,11 @@
 function barreContinent(id){
-    bc = new Bar(id)
-    bc.initXAxis("name")
-    bc.initYAxis()
+    bc = new Graphique(id, "bar")
+    bc.createXAxis("name")
+    bc.createYAxis()
+    bc.addSerie("bar","name", "value", null,"{name} : {valueY}",null );
 }
 
 function barreContinentHTMX(data, name){
-    bc.addSerie(0, data, name, null, "name", "value")
+    bc.updateSerie(0, data, name)
     bc.setDataXAxis(data)
 }

@@ -1,16 +1,18 @@
 function line(id) {
-    l = new Line(id)
-    l.initXAxis("year")
-    l.initYAxis("value")
-    l.addLegend()
+    l = new Graphique(id, "line")
+    l.createXAxis("year")
+    l.createYAxis()
     l.setType("value")
+    l.addSerie("line","year", "value", null,"Moyenne : {valueY}",color[0] );
+    l.addSerie("line","year", "value", "nom","Maximum : {valueY}",color[1] );
+    l.addSerie("line","year", "value", "nom","Minimum : {valueY}",color[2] );
 }
 
 var color = ["#52796F","#eb984e","#7fb3d5"]
 function lineHTMX(data0, data1, data2) {
-    l.addSerie(0, data0, "Moyenne", color[0], "year", l.getType())
-    l.addSerie(1, data1, "Maximum", color[1], "year", l.getType())
-    l.addSerie(2, data2, "Minimum", color[2], "year", l.getType())
+    l.updateSerie(0, data0, "Moyenne")
+    l.updateSerie(1, data1, "Maximum")
+    l.updateSerie(2, data2, "Minimum")
     resetAnneesL()
 }
 

@@ -1,5 +1,5 @@
 function addJauge(id) {
-    j = new Jauge20(id)
+    j = new Jauge(id)
     j.createXAxis()
     j.addClock()
     j.changeValue(70)

@@ -1,7 +1,7 @@
 var year;
 
 function barCompare(id) {
-    b = new Graphique20(id, "bar")
+    b = new Graphique(id, "bar")
     b.createXAxis("var")
     b.createYAxis()
     b.setDataXAxis([{"var":"pib"},{"var":"co2"},{"var":"arrivees"},{"var":"gpi"},{"var":"cpi"}])

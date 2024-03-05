@@ -1,5 +1,5 @@
 function spiderCompare(id) {
-    g = new Graphique20(id, "radar")
+    g = new Graphique(id, "radar")
     g.createXAxis("var")
     g.createYAxis(null, {min:0, max:100})
     g.setDataXAxis([{"var":"pib"},{"var":"Enr"},{"var":"co2"},{"var":"arrivees"},{"var":"departs"},{"var":"gpi"},{"var":"cpi"}])

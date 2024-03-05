@@ -1,20 +1,36 @@
-// AM Tools Version 1.5
+// AM Tools Version 2.0
 // Réencapsulation des graphiques AMCharts pour faciliter la manipulation des graphiques
 
 class Graphique {
     // Graphique est une classe Interface qui définit tous les comportements par défaut des graphiques. Sont laissés vide à chaque fois les objets AM Charts qui doivent être ajustés en fonction du graphiques voulu
-    constructor(id, figObj, cursorObj) {
+    constructor(id, option, dict = {}) {
+        // id : ID HTML du graphique, option : type de graphique ('radar', 'pie', 'bar', 'line'), dictSup : donner des arguments supplémentaires au graphique 
         this.root = am5.Root.new(id)
-        this.graph = this.root.container.children.push(figObj.new(this.root, {}))
+        
+        this.option = option
+        if (option == "radar" || option == "jauge") {
+            this.graph = this.root.container.children.push(am5radar.RadarChart.new(this.root, dict))
+            var cursor = this.graph.set("cursor", am5radar.RadarCursor.new(this.root, {}));
+            cursor.lineY.set("visible", false);
+        } else if (option == "pie") {
+            this.graph = this.root.container.children.push(am5percent.PieChart.new(this.root, dict));
+        } else if (option == "bar" || option == "line" || option == "xy") {
+            this.graph = this.root.container.children.push(am5xy.XYChart.new(this.root, dict))
+            var cursor = this.graph.set("cursor", am5xy.XYCursor.new(this.root, {}));
+            cursor.lineY.set("visible", false);
+        } else {
+            console.error(`Type de graphique non reconnu. \nType donné : ${option} \nTypes acceptés : radar, pie, bar, line, xy`)
+        }
+
         this.xAxis = null
         this.yAxis = null
         this.yAxisLeft = null
-        this.legend = null
-        this.year = null
+        this.axisType = {x:null, y:null, yLeft:null}
+
         this.series = []
 
-        var cursor = this.graph.set("cursor", cursorObj.new(this.root, {}));
-        cursor.lineY.set("visible", false);
+        this.year = null
+        this.type = null
 
         this.root.setThemes([
             am5themes_Animated.new(this.root)
@@ -30,76 +46,125 @@ class Graphique {
         })
     }
 
-    newXRenderer(obj) {
-        // Rendu de l'axe X : rend le texte blanc
-        var xRenderer = obj.new(this.root, {
+    createXAxis(field = null, dictSup = {}) {
+        // field : nom de champ dans les données. Si null, valeurs numériques automatique. dictSup : arguments supplémentaires pour la construction de l'axe
+        var base = this
+
+        var rendererObj = am5xy.AxisRendererX
+        if (this.option == "radar" || this.option == "jauge") {
+            rendererObj = am5radar.AxisRendererCircular
+        }
+
+        var xRenderer = rendererObj.new(this.root, {
             cellStartLocation: 0.1,
-            cellEndLocation: 0.9
+            cellEndLocation: 0.9,
+            innerRadius: this.option == "jauge" ? -25 : 0 
         });
         xRenderer.labels.template.setAll({
             fill:"#FFFFFF",
         });
-        return xRenderer
+
+        var xAx
+        if (field == null) {
+            xAx = am5xy.ValueAxis.new(base.root, {
+                renderer: xRenderer,
+                ...dictSup
+            })
+            this.axisType["x"] = "value"
+        } else {
+            xAx = am5xy.CategoryAxis.new(base.root, {
+                categoryField: field,
+                renderer: xRenderer,
+                ...dictSup
+            })
+            this.axisType["x"] = "category"
+        }
+
+        this.xAxis = this.graph.xAxes.push(xAx);
     }
 
-    newYRenderer(obj, opposite = false) {
-        // Rendu de l'axe Y : rend le texte blanc
-        var yRenderer = obj.new(this.root, {
-            opposite:opposite
+    createYAxis(field = null, dictSup = {}, opposite = false) {
+        // field : nom de champ dans les données. Si null, valeurs numériques automatique. dictSup : arguments supplémentaires pour la construction de l'axe. opposite : si l'axe doit être opposé
+        var base = this
+
+        var rendererObj = am5xy.AxisRendererY
+        if (this.option == "radar" || this.option == "jauge") {
+            rendererObj = am5radar.AxisRendererRadial
+        }
+
+        var yRenderer = rendererObj.new(this.root, {
+            opposite:opposite,
         });
         yRenderer.labels.template.setAll({
             fill:"#FFFFFF",
         });
-        return yRenderer
+
+        var yAx
+        var type
+        if (field == null) {
+            yAx = am5xy.ValueAxis.new(base.root, {
+                renderer: yRenderer,
+                ...dictSup
+            })
+            type = "value"
+        } else {
+            yAx = am5xy.CategoryAxis.new(base.root, {
+                categoryField: field,
+                renderer: yRenderer,
+                ...dictSup
+            })
+            type = "category"
+        }
+
+        if (opposite) {
+            this.yAxisLeft = this.graph.yAxes.push(yAx);
+            this.axisType["yLeft"] = type
+        } else {
+            this.yAxis = this.graph.yAxes.push(yAx);
+            this.axisType["y"] = type
+        }
     }
 
-    initXAxis(rendererObj, field) {
-        // Instancie l'axe X
-        var base = this
-        this.xAxis = this.graph.xAxes.push(am5xy.CategoryAxis.new(base.root, {
-            categoryField: field,   // Le plus important : le nom de la colonne dans les données qui sera utilisé pour les abscisses
-            renderer: base.newXRenderer(rendererObj),
-            tooltip: am5.Tooltip.new(base.root, {})
-        }));
-    }
-
-    initYAxis(rendererObj) {
-        // Instancie l'axe Y, rien de particulier par défaut
-        var base = this
-        this.yAxis = this.graph.yAxes.push(am5xy.ValueAxis.new(base.root, {
-            renderer: base.newYRenderer(rendererObj)
-        }));
-    }
-
-    initYAxisLeft(rendererObj) {
-        // Instancie un axe opposé
-        var base = this
-        this.yAxisLeft = this.graph.yAxes.push(am5xy.ValueAxis.new(base.root, {
-            renderer: base.newYRenderer(rendererObj, true)
-        }));
-    }
-
-    addSerie(index, data, name, color, xField, yField, obj, labelText, opposite = false) {
-        // Ajoute une série de données. Si à l'index donné une série est déjà présente, écrase les données précédentes.
+    addSerie(option, xField, yField, valField, labelText, color, dictSup = {}, opposite = false) {
+        // option : type de série (dot, bar, radar, any)
         var base = this
 
-        if (this.series.length == index) {
-            var serie = this.graph.series.push(obj.new(base.root, {     // Toutes les options principales. Rien n'est fixe, tout est déterminable par passage en arguments
-                name: name,             // Nom de la série (des pays)
-                xAxis: base.xAxis,      // Axes AMCharts
-                yAxis: opposite ? base.yAxisLeft : base.yAxis,
-                categoryXField: xField, // Nom de la colonne dans les données pour les valeurs en X
-                valueYField: yField,    // Nom de la colonne dans les données pour les valeurs en Y
-                tooltip: am5.Tooltip.new(base.root, {       // Le Tooltip est ce qui est affiché au survol des données
-                    labelText: labelText
-                }),
-                stroke:color,           // Couleur de la série
-                fill:color,
-            }));
+        var dict = {
+            xAxis:this.xAxis,
+            tooltip: am5.Tooltip.new(base.root, {      
+                labelText: labelText,
+                pointerOrientation: this.axisType["x"] == "value" && this.axisType["y"] == "category" ? "horizontal" : "vertical" 
+            }),
+            fill:color,
+            ...dictSup
+        }
 
-            serie.data.setAll(data)     
+        if (this.xAxis == null) {
+            dict["valueField"] = xField
+            dict["categoryField"] = yField
+        } else {
+            dict["value"] = valField
+            dict[this.axisType["x"]+"XField"] = xField
+            if (opposite) {
+                if (this.yAxisLeft == null) {
+                    console.error("Pour assigner une série à un axe opposé, vous devez d'abord créer l'axe en question.")
+                    return null
+                }
+                dict[this.axisType["yLeft"]+"YField"] = yField
+                dict["yAxis"] = this.yAxisLeft
+            } else {
+                dict[this.axisType["y"]+"YField"] = yField
+                dict["yAxis"] = this.yAxis
+            }
+        }
+        
+        if (option != "dot") {
+            dict["stroke"] = color
+        } 
 
-            if (color == null) {                    // !! Si color vaut null, alors les couleurs par défaut d'AMCharts sont utilisées.
+        if (option == "bar") {
+            var serie = this.graph.series.push(am5xy.ColumnSeries.new(base.root, dict));
+            if (color == null) {
                 serie.columns.template.adapters.add("fill", function (fill, target) {
                     return base.graph.get("colors").getIndex(serie.columns.indexOf(target));
                 });
@@ -107,19 +172,49 @@ class Graphique {
                     return base.graph.get("colors").getIndex(serie.columns.indexOf(target));
                 });
             }
-            
-            if (this.legend != null) {              // Ajoute à la légende si elle existe. Par conséquent, il faut absolument que la légende soit ajoutée AVANT les données
-                this.legend.data.push(serie)
-            }
-            var s = new Serie(data,serie)           // La série de données AMCharts est encapsulée dans une classe personnalisée
-            this.series.push(s)                     // On la stocke de notre côté afin de pouvoir s'en resservir
-
-            return s
+            serie.columns.template.setAll({
+                cornerRadiusTL: 10,
+                cornerRadiusTR: 10
+            });
+        } else if (option == "radar") {
+            var serie = this.graph.series.push(am5radar.RadarLineSeries.new(base.root, dict));
+            this.addBullets(serie, color)
+        } else if (option == "line" || option == "dot"){
+            var serie = this.graph.series.push(am5xy.LineSeries.new(base.root, dict));
+            this.addBullets(serie, color)
+        } else if (option == "pie") {
+            var serie = this.graph.series.push(am5percent.PieSeries.new(base.root, dict));
+            serie.slices.template.setAll({
+                cornerRadius: 5
+            });
+            serie.ticks.template.setAll({
+                forceHidden: true
+            });
         } else {
-            this.series[index].setData(data)        // On change les données et le nom de la série
+            console.error(`Type de données non reconnu. \nType donné : ${option} \ntypes acceptés : radar, pie, bar, line, dot`)
+            return false
+        }
+
+        var s = new Serie(serie, this.getSeriesLength())
+        this.series.push(s)
+        return s
+    }
+
+    updateSerie(index, data, name, dataComp = null) {
+        if (index > this.getSeriesLength()) {
+            console.error(`Index de données invalide. La série n'a pas été ajoutée. Index donné : ${index}, index max : ${this.getSeriesLength()-1}`)
+        }
+
+        if (this.year != null) {
+            this.series[index].setDataSerie(data[this.year])
+        } else {
             this.series[index].setDataSerie(data)
-            this.series[index].setName(name)
-            return this.series[index]
+        }
+        this.series[index].setData(data)
+        this.series[index].setName(name)
+
+        if (dataComp != null) {
+            this.series[index].setComp(dataComp)
         }
     }
 
@@ -127,7 +222,7 @@ class Graphique {
         // Ajoute des points sur la série de données voulue
         var base = this
 
-        serie.serie.bullets.push(function() {
+        serie.bullets.push(function() {
             return am5.Bullet.new(base.root, {
                 sprite: am5.Circle.new(base.root, {
                     radius: 4,
@@ -136,17 +231,6 @@ class Graphique {
                 })
             });
         });
-    }
-
-    addLegend() {
-        // Ajoute la légende
-        this.legend = this.graph.children.push(
-            am5.Legend.new(this.root, {
-                centerX: am5.p50,
-                x: am5.p50,
-                fill:"#FFFFFF"
-            })
-        );
     }
 
     addSlider(fun, width, padT, padR, padL, rotation, first, last) {
@@ -198,9 +282,20 @@ class Graphique {
         });
     }
 
+    changeColor(colors) {
+        var c = []
+        for (i in colors) {
+            c.push(am5.color(parseInt(i,16)))
+        }
+        this.graph.get("colors").set("colors", c)
+    }
+
     // Ensemble de setter et de getter
     setDataXAxis(data) {
         this.xAxis.data.setAll(data)
+    }
+    setDataYAxis(data) {
+        this.yAxis.data.setAll(data)
     }
     setNumberFormat(format) {
         // Si il y a besoin de changer l'affichage des nombres (en % ou retirer des décimales par exemple) https://www.amcharts.com/docs/v5/concepts/formatters/formatting-numbers/
@@ -208,6 +303,9 @@ class Graphique {
     }
     setDataSerie(index, data) {
         this.series[index].setDataSerie(data)
+    }
+    setType(type) {
+        this.type = type
     }
 
     getSeriesLength() {
@@ -219,14 +317,18 @@ class Graphique {
     getSeries() {
         return this.series
     }
+    getType() {
+        return this.type
+    }
 }
 
 class Serie {
     // Cette classe permet de stocker des informations supplémentaires vis à vis des données passées au graphique, et de les réutiliser
-    constructor(data,serie) {
-        this.data = data        // Données
-        this.serie = serie      // Objet AMCharts de base
-        this.comp = null        // Données complémentaires, si besoin. (utilisé dans spiderCompare, pour gérer le tableau de stats)
+    constructor(serie, index) {
+        this.serie = serie 
+        this.index = index
+        this.data = null
+        this.comp = null
     }
 
     setData(data) {
@@ -247,176 +349,22 @@ class Serie {
     getData() {
         return this.data
     }
-}
-
-class Spider extends Graphique {
-    // Réimplémentation des Spider Plot
-    constructor(id) {
-        super(id, am5radar.RadarChart, am5radar.RadarCursor)
-    }
-    initXAxis(field) {
-        super.initXAxis(am5radar.AxisRendererCircular, field)
-    }
-
-    initYAxis() {
-        // Spécificité : on doit préciser le minimum et le maximum
-        var base = this
-        this.yAxis = this.graph.yAxes.push(am5xy.ValueAxis.new(base.root, {
-            min:0,
-            max:100,
-            renderer: base.newYRenderer(am5radar.AxisRendererRadial)
-        }));
-    }
-
-    addSerie(index, data, dataComp, name, color, xField, yField) {
-        // Spécificité : on ajoute les données complémentaires et les points
-        var serie = super.addSerie(index, data, name, color, xField, yField, am5radar.RadarLineSeries, "{name} : {valueY}")
-        serie.setComp(dataComp)
-        super.addBullets(serie, color)
-        return serie
-    }
-
-}
-
-class Line extends Graphique {
-    // Réimplémentation des Line Chart
-    constructor(id) {
-        super(id, am5xy.XYChart, am5xy.XYCursor)
-        this.type = null        // Gestion des boutons pour Compare, susceptible de bouger dans Graphique
-    }
-    initXAxis(field) {
-        super.initXAxis(am5xy.AxisRendererX, field)
-    }
-    initYAxis() {
-        super.initYAxis(am5xy.AxisRendererY)
-    }
-    addSerie(index, data, name, color, xField, yField) {
-        // Spécificité : ajout des points
-        var serie = super.addSerie(index, data, name, color, xField, yField, am5xy.LineSeries, "{name} : {valueY}")
-        super.addBullets(serie, color)
-        return serie
-    }
-    getType() {
-        return this.type
-    }
-    setType(type) {
-        this.type = type
+    getIndex() {
+        return this.index
     }
 }
 
-class scatter extends Graphique{
-    constructor(id) {
-        super(id, am5xy.XYChart, am5xy.XYCursor)
-    }
-    initXAxis(field) {
-        super.initXAxis(am5xy.AxisRendererX, field)
-    }
-    initYAxis() {
-        super.initYAxis(am5xy.AxisRendererY)
-    }
-}
-class Bar extends Graphique {
-    constructor(id) {
-        super(id, am5xy.XYChart, am5xy.XYCursor)
-    }
-    initXAxis(field) {
-        super.initXAxis(am5xy.AxisRendererX, field)
-    }
-    initYAxis() {
-        super.initYAxis(am5xy.AxisRendererY)
-    }
-    initYAxisLeft() {
-        super.initYAxisLeft(am5xy.AxisRendererY)
-    }
-    addSerie(index, data, name, color, xField, yField) {
-        return super.addSerie(index, data, name, color, xField, yField, am5xy.ColumnSeries, "{name} : {valueY}")
-    }
-    addLine(index, data, name, color, xField, yField) {
-        var serie = super.addSerie(index, data, name, color, xField, yField, am5xy.LineSeries, "{name} : {valueY}", true)
-        super.addBullets(serie, color)
-        return serie
-    }
-}
-
-class Top extends Graphique {
-    constructor(id) {
-        super(id, am5xy.XYChart, am5xy.XYCursor)
-    }
-    initXAxis(field, data) {
-        super.initXAxis(am5xy.AxisRendererX, field, data);
-        this.graph.xAxes.getIndex(0).min = 0;
-    }
-
-    initYAxis() {
-        var base = this;
-        
-        // Initialiser l'axe Y (commence à 0)
-        this.yAxis = this.graph.yAxes.push(am5xy.ValueAxis.new(base.root, {
-            renderer: base.newYRenderer(am5xy.AxisRendererY),
-            min: 0, 
-        }));
-    }
-
-    addSerie(index, data, name, color, xField, yField) {
-        return super.addSerie(index, data, name, color, xField, yField, am5xy.ColumnSeries, "{name} : {valueY}%")
-    }
-}
-
-
-
-
-class BarLine extends Graphique {
-    constructor(id) {
-        super(id, am5xy.XYChart, am5xy.XYCursor)
-    }
-    initXAxis(field) {
-        super.initXAxis(am5xy.AxisRendererX, field)
-    }
-    initYAxis() {
-        super.initYAxis(am5xy.AxisRendererY)
-    }
-    addSerie(index, data, name, color, xField, yField) {
-        return super.addSerie(index, data, name, color, xField, yField, am5xy.ColumnSeries, "{name} : {valueY}%")
-    }
-}
-
-
-class Jauge {
+class Jauge extends Graphique {
     // La Jauge n'est pas enfant de Graphique, car trop différent dans le code.
     constructor(id) {
-        this.root = am5.Root.new(id)
-        this.graph = this.root.container.children.push(am5radar.RadarChart.new(this.root, {
-            startAngle: 160,
-            endAngle: 380
-        }))
-        
-        this.xAxis = null
-        this.data = null
+        super(id, "jauge", {startAngle: 160, endAngle: 380})
+
         this.clock = null
         this.label = null
-
-        this.root.setThemes([
-            am5themes_Animated.new(this.root)
-        ]);
     }
 
-    newXRenderer() {
-        var xRenderer = am5radar.AxisRendererCircular.new(this.root, {
-            innerRadius: -25 // épaisseur jauge
-        });
-        xRenderer.labels.template.setAll({
-            fill:"#FFFFFF",
-        });
-        return xRenderer
-    }
-
-    initXAxis() {
-        var base = this
-        this.xAxis = this.graph.xAxes.push(am5xy.ValueAxis.new(base.root, {
-            min: 0,
-            max: 100,
-            renderer: base.newXRenderer()
-        }));
+    createXAxis() {
+        super.createXAxis(null, {min:0, max:100})
     }
 
     addClock() {

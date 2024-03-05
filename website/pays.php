@@ -123,6 +123,7 @@
                 <p>
                     Voici quelques pays pertinents que vous pouvez comparer avec la France
                 </p>
+                <div id=top class=graph></div>
 
 
             </div>

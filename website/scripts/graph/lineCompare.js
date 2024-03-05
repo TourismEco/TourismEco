@@ -1,5 +1,5 @@
 function lineCompare(id) {
-    l = new Graphique20(id, "line")
+    l = new Graphique(id, "line")
     l.createXAxis("year")
     l.createYAxis()
     l.setType("co2")

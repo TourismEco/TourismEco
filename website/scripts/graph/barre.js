@@ -1,15 +1,14 @@
 function barre(id) {
     //console.log("jkdjkkqdjs");
-    f = new Bar(id)
-    f.initXAxis("name")
-    f.initYAxis()
+    f = new Graphique(id, "bar")
+    f.createXAxis("var")
+    f.createYAxis()
+    f.addSerie("bar","var", "value", null,"{name} : {valueY}","#83A88B" );
     
 }
 
-var color = ["#52796F","#83A88B"]
-
 
 function topHTMX(data,name) {
-    f.addSerie(0, data, name, null, "name", "value");
+    f.updateSerie(0, data, name);
     f.setDataXAxis(data)
 }
