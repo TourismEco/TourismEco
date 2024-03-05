@@ -91,12 +91,22 @@
                     <img class="icon icon-active" src="assets/icons/cloud.svg" onclick="changeVar('co2')">
                     <img class="icon" src="assets/icons/dollar.svg" onclick="changeVar('pib')">
                     <img class="icon" src="assets/icons/shield.svg" onclick="changeVar('gpi')">
-                    <img class="icon" src="assets/icons/up.svg" onclick="changeVar('arrivees')">
-                    <img class="icon" src="assets/icons/down.svg" onclick="changeVar('departs')">
+                    <img class="icon" src="assets/icons/down.svg" onclick="changeVar('arrivees')">
+                    <img class="icon" src="assets/icons/up.svg" onclick="changeVar('departs')">
                     <img class="icon" src="assets/icons/transfer.svg" onclick="changeVar('cpi')">
                     <img class="icon" src="assets/icons/leaf.svg" onclick="changeVar('Enr')">
                 </div>
 
+                </div>
+
+                <div class="table">
+                    <div class="container-info stretch"></div>
+                    <div class="container-info"><p id="rank0"></p></div>
+                    <div class="container-info"><p id="rank1"></p></div>
+                    <div class="container-info"><p id="evol0"></p></div>
+                    <div class="container-info"><p id="evol1"></p></div>
+                    <div class="container-info"><p id="covid0"></p></div>
+                    <div class="container-info"><p id="covid1"></p></div>
                 </div>
 
             </div>

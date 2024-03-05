@@ -48,9 +48,12 @@ $sth->execute();
 $ligne = $sth->fetch();
 $capitale = $ligne["nom"];
 
-// Spider
+// Line
+$dictLine = dataLine($id_pays, $cur);
+$dataLine = json_encode($dictLine,JSON_NUMERIC_CHECK);
+
 $dataSpider = json_encode(dataSpider($id_pays, $cur),JSON_NUMERIC_CHECK);
-$dataLine = json_encode(dataLine($id_pays, $cur),JSON_NUMERIC_CHECK);
+
 $dataBar = json_encode(dataBar($id_pays, $cur),JSON_NUMERIC_CHECK);
 $dataTab = json_encode(dataTab($id_pays, $cur),JSON_NUMERIC_CHECK);
 
@@ -77,6 +80,7 @@ echo <<<HTML
 <table id="tabtemp">
     <tr><td id="nom_$incr" hx-swap-oob=outerHTML>$nom</td></tr>
 </table>
+
 
 <script id=scripting hx-swap-oob=outerHTML>
     // spiderCHTMX($incr, $dataSpider, $dataTab, "$nom")
