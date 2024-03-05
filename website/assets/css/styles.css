@@ -1169,6 +1169,7 @@ input {
 .logo {
     max-width: 40%;
     margin: auto;
+    display: flex;
 }
 
 .option-container {
@@ -1252,6 +1253,7 @@ input {
   opacity: 0%;
   transition: opacity .5s ease-out;
 }
+
 #jauge {
   width: 50%;
   float: left;
@@ -1282,33 +1284,6 @@ input {
 .jauge-container {
     flex: 1;
     margin-left: 10px;
-}
-
-.container-simple {
-  padding: 20px;
-  margin: 20px;
-  border-radius: 10px;
-}
-.container-simple h22 {
-  color: white;
-  font-size: 2em;
-  margin-bottom: 20px;
-  text-align: center;
-}
-.container-simple .section {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.container-simple .text {
-  width: 45%;
-  color: white;
-  font-size: 1.2em;
-  text-align: justify;
-}
-.container-simple .graph {
-  width: 45%;
-  height: 400px;
 }
 
 .jauge-container p{color: white; 
