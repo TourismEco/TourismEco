@@ -169,7 +169,7 @@
                     </div>
                     
                     
-                    <div class="graph-l graph marg-l" id="line"></div>
+                    <div class=graph id="line"></div>
 
                     
                 </div>

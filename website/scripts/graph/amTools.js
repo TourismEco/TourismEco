@@ -61,7 +61,7 @@ class Graphique {
             innerRadius: this.option == "jauge" ? -25 : 0 
         });
         xRenderer.labels.template.setAll({
-            fill:"#222",
+            fill:"#FFFFFF",
         });
 
         var xAx
@@ -96,7 +96,7 @@ class Graphique {
             opposite:opposite,
         });
         yRenderer.labels.template.setAll({
-            fill:"#222",
+            fill:"#FFFFFF",
         });
 
         var yAx
@@ -165,7 +165,6 @@ class Graphique {
         if (option == "bar") {
             var serie = this.graph.series.push(am5xy.ColumnSeries.new(base.root, dict));
             if (color == null) {
-
                 serie.columns.template.adapters.add("fill", function (fill, target) {
                     return base.graph.get("colors").getIndex(serie.columns.indexOf(target));
                 });

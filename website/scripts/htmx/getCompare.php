@@ -54,8 +54,6 @@ $dataLine = json_encode(dataLine($id_pays, $cur),JSON_NUMERIC_CHECK);
 $dataBar = json_encode(dataBar($id_pays, $cur),JSON_NUMERIC_CHECK);
 $dataTab = json_encode(dataTab($id_pays, $cur),JSON_NUMERIC_CHECK);
 
-$incrP = $incr+1;
-
 echo <<<HTML
 
 <div class="bandeau half" id="bandeau$incr" hx-swap-oob="outerHTML">     
@@ -68,10 +66,20 @@ echo <<<HTML
 
 <div class="score-box score-$letter" id="score$incr" hx-swap-oob="outerHTML">$letter</div>
 
-<div class="container-side g$incrP-1" id="mini$incr" hx-swap-oob="outerHTML">
-    <img class="img img-side" src='assets/img/$id_pays.jpg' alt="Bandeau">
-    <img class="flag-small" src='assets/twemoji/$id_pays.svg'>
-    <h2 class="nom-small">$nom</h2>
+<div class="container-side bg-354F52" id="mini$incr" hx-swap-oob="outerHTML">
+    <div class="bandeau-side"> 
+        <img class="img img-side" src='assets/img/$id_pays.jpg' alt="Bandeau">
+        <img class="flag-small" src='assets/twemoji/$id_pays.svg'>
+        <h2 class="nom-small">$nom</h2>
+        <div class="close-compare">
+        <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+            viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
+        <g>
+            <path d="M358.4,133.1v71.7h-256v46.1L0,169l102.4-87v51.2H358.4 M512,348.2l-102.4,81.9V384h-256v-71.7h256v-51.2L512,348.2"/>
+        </g>
+        </svg>                 
+        </div>
+    </div>
 </div>
 
 <table id="tabtemp">
@@ -79,9 +87,9 @@ echo <<<HTML
 </table>
 
 <script id=scripting hx-swap-oob=outerHTML>
-    // spiderCHTMX($incr, $dataSpider, $dataTab, "$nom")
+    spiderCHTMX($incr, $dataSpider, $dataTab, "$nom")
     lineHTMX($incr, $dataLine, "$nom")
-    // barHTMX($incr, $dataBar, "$nom")
+    barHTMX($incr, $dataBar, "$nom")
 
     if ($map) {
         map.setActive("$id_pays")
