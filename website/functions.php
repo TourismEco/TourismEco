@@ -350,10 +350,10 @@ function dataBarreLine($pays, $conn) {
     $result = $conn->query($query);
 
     $data = array();
-    $minPib = null;
-    $maxPib = null;
-    $minTourisme = null;
-    $maxTourisme = null;
+    $minPib = array();
+    $maxPib = array();
+    $minTourisme = array();
+    $maxTourisme = array();
     $covidImpactPib = 0;
     $covidImpactTourisme = 0;
 
@@ -364,17 +364,17 @@ function dataBarreLine($pays, $conn) {
             "valueLeft" => $rs['arrivees']
         );
 
-        // Min et Max pour les indicateurs
-        if ($minPib === null || $rs['pib'] < $minPib['value']) {
+        // Min et Max pour les indicateurs PIB et Tourisme
+        if (count($minPib) == 0  || $rs['pib'] < $minPib['value']) {
             $minPib = array("year" => $rs["annee"], "value" => $rs['pib']);
         }
-        if ($maxPib === null || $rs['pib'] > $maxPib['value']) {
+        if (count($maxPib) == 0 || $rs['pib'] > $maxPib['value']) {
             $maxPib = array("year" => $rs["annee"], "value" => $rs['pib']);
         }
-        if ($minTourisme === null || $rs['arrivees'] < $minTourisme['value']) {
+        if (count($minTourisme) == 0 || $rs['arrivees'] < $minTourisme['value']) {
             $minTourisme = array("year" => $rs["annee"], "value" => $rs['arrivees']);
         }
-        if ($maxTourisme === null || $rs['arrivees'] > $maxTourisme['value']) {
+        if (count($maxTourisme) == 0  || $rs['arrivees'] > $maxTourisme['value']) {
             $maxTourisme = array("year" => $rs["annee"], "value" => $rs['arrivees']);
         }
 
@@ -399,20 +399,13 @@ function dataBarreLine($pays, $conn) {
 }
 
 
-    
-
-
-
 function dataTab($pays, $conn) {
-    $query = "SELECT ecologie.annee as annee,
-    pibParHab AS pib, elecRenew AS Enr, co2, arriveesTotal AS arrivees, departs, gpi, cpi
-
+    $query = "SELECT ecologie.annee as annee, pibParHab AS pib, elecRenew AS Enr, co2, arriveesTotal AS arrivees, departs, gpi, cpi
     FROM ecologie, economie, tourisme, surete 
     WHERE ecologie.id_pays = economie.id_pays
     AND economie.id_pays = tourisme.id_pays
     AND tourisme.id_pays = surete.id_pays
     AND surete.id_pays = '$pays'
-
     AND ecologie.annee = economie.annee
     AND economie.annee = tourisme.annee
     AND tourisme.annee = surete.annee  

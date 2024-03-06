@@ -6,32 +6,28 @@ function spider(id) {
     g.addSlider(updateSpider,400,-20,50,50,90,2008,2020)
 
     g.addSerie("radar", "var", "value", null, "{name} : {valueY}", "#52796F")
-    g.addSerie("radar", "var", "value", null, "{name} : {valueY}", "#83A88B")
 }
 
 var color = ["#52796F", "#83A88B"];
 function spiderHTMX(data, dataComp, name) {
     g.updateSerie(0, data, name, dataComp );
-    g.setDataSerie(0, data[g.getYear()])
-    // updateTable(0, dataComp[g.getYear()]);
+    updateTable(dataComp[g.getYear()]);
 }
 
 function updateSpider(year) {
-    var i = 0
     for (var s of g.getSeries()) {
         s.setDataSerie(s.data[year]);
-        // updateTable(i, s.comp[year]);
-        i++
-    }  
+        updateTable(s.comp[year]);
+    }
 }
 
 function updateTable(data) {
-    if (data) {      
+    if (data) {
         for (var i=0;i<data.length;i++) {
             if (isNaN(data[i]["value"] )) {
-                $("#td_"+data[i]["var"]+"_").html("Nan")
+                $("#td_"+data[i]["var"]+"_0").html("Nan")
             } else{
-                $("#td_"+data[i]["var"]+"_").html(data[i]["value"])
+                $("#td_"+data[i]["var"]+"_0").html(data[i]["value"])
             }
         }
     }

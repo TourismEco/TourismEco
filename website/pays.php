@@ -114,6 +114,36 @@
                 <h2 class="title-section">Evolution du PIB de la France dans le temps</h2>
                 <div class="section">
                     <div class="graph" id="spider"></div>
+                    <table class="text">
+                        <tr>
+                            <td id="td_pib">PIB/Hab</td>
+                            <td id="td_pib_0"></td>
+                        </tr>
+                        <tr>
+                            <td id="td_enr">% énergies renouvellables</td>
+                            <td id="td_Enr_0"></td>
+                        </tr>
+                        <tr>
+                            <td id="td_co2">Émissions de CO2</td>
+                            <td id="td_co2_0"></td>
+                        </tr>
+                        <tr>
+                            <td id="td_arrivees">Arrivées toursitiques</td>
+                            <td id="td_arrivees_0"></td>
+                        </tr>
+                        <tr>
+                            <td id="td_departs">Départs toursitiques</td>
+                            <td id="td_departs_0"></td>
+                        </tr>
+                        <tr>
+                            <td id="td_gpi">Indice de paix</td>
+                            <td id="td_gpi_0"></td>
+                        </tr>
+                        <tr>
+                            <td id="td_cpi">CPI</td>
+                            <td id="td_cpi_0"></td>
+                        </tr>
+                    </table>
                 </div>
             </div>
 
