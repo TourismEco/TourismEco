@@ -166,7 +166,7 @@ function dataLine($pays, $conn) {
                 }
             } else {
                 if ($rs["year"] == 2020 && count($data) != 0) {
-                    $covid[$value] = 100*($rs[$value] - $data[count($data)-1][$value]) / $data[count($data)-1][$value];
+                    $covid[$value] = round(100*($rs[$value] - $data[count($data)-1][$value]) / $data[count($data)-1][$value],2);
                 }
                 if (!isset($minAnnee[$value]) || $rs[$value] < $minAnnee[$value]["val"]) {
                     $minAnnee[$value] = array("val"=>$rs[$value], "year"=> $rs["year"]);
@@ -201,7 +201,7 @@ function dataLine($pays, $conn) {
             $rank[$value] = "N/A";
         } else {
             $year = $data[$end]['year'];
-            $evol[$value] = 100*($data[$end][$value] - $data[$start][$value]) / $data[$start][$value];
+            $evol[$value] = round(100*($data[$end][$value] - $data[$start][$value]) / $data[$start][$value], 2);
 
             $query = "SELECT * FROM (SELECT id_pays, $cols[$key], RANK() OVER (ORDER BY $cols[$key] DESC) AS 'rank' FROM $tables[$key] WHERE annee =  $year) AS t WHERE id_pays = '$pays';";
             $result = $conn->query($query);

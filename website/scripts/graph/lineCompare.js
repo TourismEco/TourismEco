@@ -34,21 +34,21 @@ function resetAnnees() {
 function updateInfo(index, data, type) {
     if (data) {      
         if (isNaN(data["rank"][type]["rank"])) {
-            $("#rank"+index).html("Nan")
+            $("#rank"+index).html("-")
         } else{
-            $("#rank"+index).html(data["rank"][type]["rank"])
+            $("#rank"+index).html(data["rank"][type]["rank"]+"e")
         }
 
         if (isNaN(data["evol"][type])) {
-            $("#evol"+index).html("Nan")
+            $("#evol"+index).html("-")
         } else{
-            $("#evol"+index).html(data["evol"][type])
+            $("#evol"+index).html(data["evol"][type]+"%")
         }
 
         if (isNaN(data["covid"][type])) {
-            $("#covid"+index).html("Nan")
+            $("#covid"+index).html("-")
         } else{
-            $("#covid"+index).html(data["covid"][type])
+            $("#covid"+index).html(data["covid"][type]+"%")
         }
     }
 }

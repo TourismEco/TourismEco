@@ -83,9 +83,9 @@ echo <<<HTML
 
 
 <script id=scripting hx-swap-oob=outerHTML>
-    // spiderCHTMX($incr, $dataSpider, $dataTab, "$nom")
+    spiderCHTMX($incr, $dataSpider, $dataTab, "$nom")
     lineHTMX($incr, $dataLine, "$nom")
-    // barHTMX($incr, $dataBar, "$nom")
+    barHTMX($incr, $dataBar, "$nom")
 
     if ($map) {
         map.setActive("$id_pays")

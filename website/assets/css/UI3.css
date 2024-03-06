@@ -444,8 +444,13 @@ h1 {
     text-align: center;
     justify-content: center;
     display: flex;
+    flex-flow: column;
+    font-size: 14px;
 }
 
 .container-info p {
-    margin: auto;
+    margin: 2px;
+}
+.big {
+    font-size:22px;
 }

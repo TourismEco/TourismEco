@@ -101,17 +101,37 @@
 
                 <div class="table">
                     <div class="container-info stretch"></div>
-                    <div class="container-info"><p id="rank0"></p></div>
-                    <div class="container-info"><p id="rank1"></p></div>
-                    <div class="container-info"><p id="evol0"></p></div>
-                    <div class="container-info"><p id="evol1"></p></div>
-                    <div class="container-info"><p id="covid0"></p></div>
-                    <div class="container-info"><p id="covid1"></p></div>
+                    <div class="container-info">
+                        <p>Le pays est actuellement</p>
+                        <p id="rank0" class="big">-</p>
+                        <p>parmi tous les pays</p>
+                    </div>
+                    <div class="container-info">
+                        <p>Le pays est actuellement</p>
+                        <p id="rank1" class="big">-</p>
+                        <p>parmi tous les pays</p>
+                    </div>
+                    <div class="container-info">
+                        <p>Entre / et / , évolution de</p>
+                        <p id="evol0" class="big">-</p>
+                    </div>
+                    <div class="container-info">
+                        <p>Entre / et / , évolution de</p>
+                        <p id="evol1" class="big">-</p>
+                    </div>
+                    <div class="container-info">
+                        <p>Impact du COVID :</p>
+                        <p id="covid0" class="big">-</p>
+                    </div>
+                    <div class="container-info">
+                        <p>Impact du COVID :</p>
+                        <p id="covid1" class="big">-</p>
+                    </div>
                 </div>
 
             </div>
 
-            <div class="zone" style="display:none" id="key">
+            <div class="zone" id="key" style="display:none">
 
                 <div class=graph id="spider"></div>
                 <div class="legende">
@@ -166,7 +186,7 @@
 
             </div>
 
-            <div class="zone" style="display:none" id="grow">
+            <div class="zone"  id="grow" style="display:none">
 
                 <div class=graph id="bar"></div>
                 <div class="legende">
