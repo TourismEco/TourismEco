@@ -59,6 +59,39 @@ $dataTab = json_encode(dataTab($id_pays, $cur),JSON_NUMERIC_CHECK);
 
 $incrP = $incr+1;
 
+$query = "SELECT * FROM villes WHERE id_pays = :id_pays";
+$id_pays = $_GET["id_pays"];
+$sth = $cur -> prepare($query);
+$sth -> bindParam(":id_pays", $id_pays, PDO::PARAM_STR);
+$sth -> execute();
+
+$cities = array();
+$capitals = array();
+while ($rs = $sth->fetch()) {
+    if (!$rs["capitale"]) {
+        $cities[] = array(
+            "id"=>$rs["id"], 
+            "title"=>$rs["nom"], 
+            "geometry"=>array(
+                "type"=>"Point",
+                "coordinates"=>array($rs["lon"],$rs["lat"])
+            )
+        );
+    } else {
+        $capitals[] = array(
+            "id"=>$rs["id"], 
+            "title"=>$rs["nom"], 
+            "geometry"=>array(
+                "type"=>"Point",
+                "coordinates"=>array($rs["lon"],$rs["lat"])
+            )
+        );
+    }
+}
+
+$cities = json_encode($cities);
+$capitals = json_encode($capitals);
+
 echo <<<HTML
 
 <div class="bandeau half" id="bandeau$incr" hx-swap-oob="outerHTML">     
@@ -87,8 +120,12 @@ echo <<<HTML
     lineHTMX($incr, $dataLine, "$nom")
     barHTMX($incr, $dataBar, "$nom")
 
+    miniMap[$incr].addCapitals($capitals)
+    miniMap[$incr].addCities($cities)
+
     if ($map) {
-        map.setActive("$id_pays")
+        miniMap[$incr].zoomTo("$id_pays")
+        // map.setActive("$id_pays")
     }
 
     addListe("$sv1[0]","$sv1[1]","test","$id_pays")

@@ -286,14 +286,18 @@ HTML;
 if ($map) {
     echo <<<HTML
         <script id=scripting hx-swap-oob=outerHTML>
-            spiderHTMX( $dataSpider, $dataTab, "$nom")
-            barreLineHTMX($dataBarreLine, "$nom")
-            linePaysHTMX($dataLine, $dataLineMean, "$nom")
-            topHTMX($dataBar, "$nom")
+            // spiderHTMX( $dataSpider, $dataTab, "$nom")
+            // barreLineHTMX($dataBarreLine, "$nom")
+            // linePaysHTMX($dataLine, $dataLineMean, "$nom")
+            // topHTMX($dataBar, "$nom")
            
-            map.zoomTo("$id_pays")
-            map.addCapitals($capitals)
-            map.addCities($cities)        
+            // map.zoomTo("$id_pays")
+            // map.addCapitals($capitals)
+            // map.addCities($cities)
+
+            miniMap[0].zoomTo("$id_pays")
+            miniMap[0].addCapitals($capitals)
+            miniMap[0].addCities($cities)
         </script>
     HTML;
 } else {
@@ -306,6 +310,9 @@ if ($map) {
 
             map.addCapitals($capitals)
             map.addCities($cities)               
+
+            miniMap[0].addCapitals($capitals)
+            miniMap[0].addCities($cities)      
         </script>
     HTML;
 }

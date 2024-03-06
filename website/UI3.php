@@ -73,10 +73,56 @@
                 <h2 class="nom-small">Catalogue</h2>
             </div>
 
-            <div class="zone" id="home" style="display:none"></div>
+            <div class="zone-presentation" id="home">
+                <div class="container-presentation expand-2" id="mini$incr" hx-swap-oob="outerHTML">
+                    <div class="bandeau"> 
+                        <img class="img-side img" src='assets/img/FR.jpg' alt="Bandeau">
+                        <div class="flag-plus-nom">
+                            <img class="flag" src='assets/twemoji/FR.svg'>
+                            <h2 class="nom">France</h2>
+                        </div>
+                        
+                    </div>
+                </div>
+
+                <div class="container-presentation expand-2" id="mini$incr" hx-swap-oob="outerHTML">
+                    <div class="bandeau"> 
+                        <img class="img-side img" src='assets/img/HR.jpg' alt="Bandeau">
+                        <div class="flag-plus-nom">
+                            <img class="flag" src='assets/twemoji/HR.svg'>
+                            <h2 class="nom">Croatie</h2>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container-presentation" id="mini$incr" hx-swap-oob="outerHTML">
+                    <div class="score-box score-A">A</div>
+                </div>
+
+                <div class="container-presentation" id="miniMap0" hx-swap-oob="outerHTML">
+                </div>
+
+                <div class="container-presentation" id="mini$incr" hx-swap-oob="outerHTML">
+                    <div class="score-box score-A">A</div>
+                </div>
+
+                <div class="container-presentation" id="miniMap1" hx-swap-oob="outerHTML">
+                </div>
+
+                <div class="container-presentation" id="mini$incr" hx-swap-oob="outerHTML">
+                </div>
+
+                <div class="container-presentation expand-2" id="mini$incr" hx-swap-oob="outerHTML">
+                </div>
+
+                <div class="container-presentation" id="mini$incr" hx-swap-oob="outerHTML">
+                
+                </div>
+
+            </div>
                 
 
-            <div class="zone" id="courbe">        
+            <div class="zone" id="courbe" style="display:none">        
                 <div class=graph id="line"></div>
 
                 <div class="details">
@@ -234,6 +280,9 @@
         spiderCompare("spider")
         lineCompare("line")
         barCompare("bar")
+
+        createMiniMap(0)
+        createMiniMap(1)
 
     </script>
 

@@ -33,7 +33,7 @@ var html =
         `
 
 class EcoMap {
-    constructor (id, option) {
+    constructor (id, option, mini) {
         this.root = am5.Root.new(id);
         this.countries = null
         this.continents = null
@@ -42,6 +42,7 @@ class EcoMap {
         this.cities = null
         this.capitals = null
         this.option = option
+        this.mini = mini
         this.max = {"pays":1, "compare":2, "continent":1}
 
         this.root.setThemes([
@@ -49,7 +50,8 @@ class EcoMap {
         ]);
 
         this.map = this.root.container.children.push(am5map.MapChart.new(this.root, {
-            panX: "rotateX",
+            panX: mini ? "none" : "rotateX",
+            panY : mini ? "none" : "rotateY",
             wheelX: "none",
             wheelY: "none",
             projection: am5map.geoNaturalEarth1()
@@ -130,7 +132,7 @@ class EcoMap {
             toggleKey: "active",
             interactive: true,
             tooltip: am5.Tooltip.new(base.root, {
-                labelHTML: html,
+                labelHTML: base.mini ? "{name}" : html,
             }),
         });
         
@@ -248,10 +250,12 @@ class EcoMap {
 }
 
 var map = undefined
+var miniMap = {0:undefined,1:undefined}
+
 function createMap() {
     $("#container-map").removeClass("hide")
     if (map == undefined) {
-        map = new EcoMap("map","pays")
+        map = new EcoMap("map","pays",false)
         map.addContinents()
         map.addCountries()
         map.addZoom()    
@@ -261,10 +265,22 @@ function createMap() {
     }
 }
 
+function createMiniMap(index) {
+    if (miniMap[index] == undefined) {
+        mi = new EcoMap("miniMap"+index,"pays",true)
+        mi.addContinents()
+        mi.addCountries()
+        miniMap[index] = mi
+    } else {
+        miniMap[index].togglePays()
+        miniMap[index].map.show()
+    }
+}
+
 function createMapCompare() {
     $("#container-map").removeClass("hide")
     if (map == undefined) {
-        map = new EcoMap("map","compare")
+        map = new EcoMap("map","compare",false)
         map.addContinents()
         map.addCountries()
         map.addZoom()
@@ -277,7 +293,7 @@ function createMapCompare() {
 function createMapContinent() {
     $("#container-map").removeClass("hide")
     if (map == undefined) {
-        map = new EcoMap("map","continent")
+        map = new EcoMap("map","continent",false)
         map.addContinents()
         map.addCountries()
         map.addZoom()    
