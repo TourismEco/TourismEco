@@ -73,7 +73,7 @@
                 <h2 class="nom-small">Catalogue</h2>
             </div>
 
-            <div class="zone-presentation" id="home">
+            <div class="zone-presentation display"  id="home">
                 <div class="container-presentation expand-2" id="mini$incr" hx-swap-oob="outerHTML">
                     <div class="bandeau"> 
                         <img class="img-side img" src='assets/img/FR.jpg' alt="Bandeau">
@@ -122,7 +122,7 @@
             </div>
                 
 
-            <div class="zone" id="courbe" style="display:none">        
+            <div class="zone display" id="courbe" style="display:none">        
                 <div class=graph id="line"></div>
 
                 <div class="details">
@@ -177,62 +177,153 @@
 
             </div>
 
-            <div class="zone" id="key" style="display:none">
+            <div class="zone-spider display" style="display:none" id="key">
+                    
+                <div class="graph" id="spider"></div>
+                <div class="cube" id="cube-1">
+                    <div class="el-cube">
+                        <img class="flag-tiny" src="assets/twemoji/FR.svg">
+                        <div id="td_cpi_0"></div>
+                    </div>
+                    <div class="tooltip">
+                        <img class="icon" src="assets/icons/transfer.svg">
+                        <div class="top">
+                            <h3>CPI</h3>
+                            <p>Ce pays a obtenu un score de sûreté et de sécurité très élevé pour l'année 2023.<br>Faites attention si vous vous y rendez.</p>
+                            <p>Obtenez plus d'informations auprès de <a class="lien" href="https://www.diplomatie.gouv.fr/fr/conseils-aux-voyageurs/">France Diplomacie</a> pour voyager en sécurité.</p>
+                            <i></i>
+                        </div>
+                    </div>
+                    <div class="el-cube">
+                        <img class="flag-tiny" src="assets/twemoji/HR.svg">
+                        <div id="td_cpi_1"></div>
+                    </div>
+                </div>
+                <div class="cube" id="cube-2">
+                    <div class="el-cube">
+                        <img class="flag-tiny" src="assets/twemoji/FR.svg">
+                        <div id="td_pib_0"></div>
+                    </div>
+                    <div class="tooltip">
+                        <img class="icon" src="assets/icons/dollar.svg">
+                        <div class="top">
+                            <h3>PIB/Habitant</h3>
+                            <p>Ce pays a obtenu un score de sûreté et de sécurité très élevé pour l'année 2023.<br>Faites attention si vous vous y rendez.</p>
+                            <p>Obtenez plus d'informations auprès de <a class="lien" href="https://www.diplomatie.gouv.fr/fr/conseils-aux-voyageurs/">France Diplomacie</a> pour voyager en sécurité.</p>
+                            <i></i>
+                        </div>
+                    </div>
+                    <div class="el-cube">
+                        <img class="flag-tiny" src="assets/twemoji/HR.svg">
+                        <div id="td_pib_1"></div>
+                    </div>
+                </div>
+                <div class="cube" id="cube-3">
+                    <div class="el-cube">
+                        <img class="flag-tiny" src="assets/twemoji/FR.svg">
+                        <div id="td_gpi_0"></div>
+                    </div>
+                    <div class="tooltip">
+                        <img class="icon" src="assets/icons/shield.svg">
+                        <div class="top">
+                            <h3>Global Peace Index</h3>
+                            <p>Ce pays a obtenu un score de sûreté et de sécurité très élevé pour l'année 2023.<br>Faites attention si vous vous y rendez.</p>
+                            <p>Obtenez plus d'informations auprès de <a class="lien" href="https://www.diplomatie.gouv.fr/fr/conseils-aux-voyageurs/">France Diplomacie</a> pour voyager en sécurité.</p>
+                            <i></i>
+                        </div>
+                    </div>
+                    <div class="el-cube">
+                        <img class="flag-tiny" src="assets/twemoji/HR.svg">
+                        <div id="td_gpi_1"></div>
+                    </div>
+                </div>
+                <div class="cube" id="cube-4">
+                    <div class="el-cube">
+                        <img class="flag-tiny" src="assets/twemoji/FR.svg">
+                        <div id="td_Enr_0"></div>
+                    </div>
+                    <div class="tooltip">
+                        <img class="icon" src="assets/icons/leaf.svg">
+                        <div class="top">
+                            <h3>% d'énergies renouvellables</h3>
+                            <p>Ce pays a obtenu un score de sûreté et de sécurité très élevé pour l'année 2023.<br>Faites attention si vous vous y rendez.</p>
+                            <p>Obtenez plus d'informations auprès de <a class="lien" href="https://www.diplomatie.gouv.fr/fr/conseils-aux-voyageurs/">France Diplomacie</a> pour voyager en sécurité.</p>
+                            <i></i>
+                        </div>
+                    </div>
+                    <div class="el-cube">
+                        <img class="flag-tiny" src="assets/twemoji/HR.svg">
+                        <div id="td_Enr_1"></div>
+                    </div>
+                </div>
+                <div class="cube" id="cube-5">
+                    <div class="el-cube">
+                        <img class="flag-tiny" src="assets/twemoji/FR.svg">
+                        <div id="td_departs_0"></div>
+                    </div>
+                    <div class="tooltip">
+                        <img class="icon" src="assets/icons/up.svg">
+                        <div class="top">
+                            <h3>Départs touristiques</h3>
+                            <p>Ce pays a obtenu un score de sûreté et de sécurité très élevé pour l'année 2023.<br>Faites attention si vous vous y rendez.</p>
+                            <p>Obtenez plus d'informations auprès de <a class="lien" href="https://www.diplomatie.gouv.fr/fr/conseils-aux-voyageurs/">France Diplomacie</a> pour voyager en sécurité.</p>
+                            <i></i>
+                        </div>
+                    </div>
+                    <div class="el-cube">
+                        <img class="flag-tiny" src="assets/twemoji/HR.svg">
+                        <div id="td_departs_1"></div>
+                    </div>
+                </div>
+                <div class="cube" id="cube-6">
+                    <div class="el-cube">
+                        <img class="flag-tiny" src="assets/twemoji/FR.svg">
+                        <div id="td_co2_0"></div>
+                    </div>
+                    <div class="tooltip">
+                        <img class="icon" src="assets/icons/cloud.svg">
+                        <div class="top">
+                            <h3>Emissions de CO2</h3>
+                            <p>Ce pays a obtenu un score de sûreté et de sécurité très élevé pour l'année 2023.<br>Faites attention si vous vous y rendez.</p>
+                            <p>Obtenez plus d'informations auprès de <a class="lien" href="https://www.diplomatie.gouv.fr/fr/conseils-aux-voyageurs/">France Diplomacie</a> pour voyager en sécurité.</p>
+                            <i></i>
+                        </div>
+                    </div>
+                    <div class="el-cube">
+                        <img class="flag-tiny" src="assets/twemoji/HR.svg">
+                        <div id="td_co2_1"></div>
+                    </div>
+                </div>
+                <div class="cube" id="cube-7">
+                    <div class="el-cube">
+                        <img class="flag-tiny" src="assets/twemoji/FR.svg">
+                        <div id="td_arrivees_0"></div>
+                    </div>
+                    <div class="tooltip">
+                        <img class="icon" src="assets/icons/down.svg">
+                        <div class="top">
+                            <h3>Arrivées tourstiques</h3>
+                            <p>Ce pays a obtenu un score de sûreté et de sécurité très élevé pour l'année 2023.<br>Faites attention si vous vous y rendez.</p>
+                            <p>Obtenez plus d'informations auprès de <a class="lien" href="https://www.diplomatie.gouv.fr/fr/conseils-aux-voyageurs/">France Diplomacie</a> pour voyager en sécurité.</p>
+                            <i></i>
+                        </div>
+                    </div>
+                    <div class="el-cube">
+                        <img class="flag-tiny" src="assets/twemoji/HR.svg">
+                        <div id="td_arrivees_1"></div>
+                    </div>
+                </div>
 
-                <div class=graph id="spider"></div>
-                <div class="legende">
+                <div class="legende-key">
                     <div class="square bg-52796F"></div>
                     <p>France</p>
                     <div class="square bg-83A88B"></div>
                     <p>Croatie</p>
                 </div>
 
-                <table class="text">
-                    <tr>
-                        <td id="cell_6_1">Indicateur</td>
-                        <td id="nom_0"></td>
-                        <td id="nom_1"></td>
-                    </tr>
-                    <tr>
-                        <td id="td_pib">PIB/Hab</td>
-                        <td id="td_pib_0"></td>
-                        <td id="td_pib_1"></td>
-                    </tr>
-                    <tr>
-                        <td id="td_enr">% énergies renouvellables</td>
-                        <td id="td_Enr_0"></td>
-                        <td id="td_Enr_1"></td>
-                    </tr>
-                    <tr>
-                        <td id="td_co2">Émissions de CO2</td>
-                        <td id="td_co2_0"></td>
-                        <td id="td_co2_1"></td>
-                    </tr>
-                    <tr>
-                        <td id="td_arrivees">Arrivées toursitiques</td>
-                        <td id="td_arrivees_0"></td>
-                        <td id="td_arrivees_1"></td>
-                    </tr>
-                    <tr>
-                        <td id="td_departs">Départs toursitiques</td>
-                        <td id="td_departs_0"></td>
-                        <td id="td_departs_1"></td>
-                    </tr>
-                    <tr>
-                        <td id="td_gpi">Indice de paix</td>
-                        <td id="td_gpi_0"></td>
-                        <td id="td_gpi_1"></td>
-                    </tr>
-                    <tr>
-                        <td id="td_cpi">CPI</td>
-                        <td id="td_cpi_0"></td>
-                        <td id="td_cpi_1"></td>
-                    </tr>
-                </table>
-
             </div>
 
-            <div class="zone"  id="grow" style="display:none">
+            <div class="zone display"  id="grow" style="display:none">
 
                 <div class=graph id="bar"></div>
                 <div class="legende">
@@ -244,30 +335,30 @@
 
             </div>
 
-            <div class="zone" style="display:none" id="more">
+            <div class="zone display" style="display:none" id="more">
             </div>
 
-            <div class="container-bottom bg-354F52 g10-2" id="mini$incr" hx-swap-oob="outerHTML">
+            <div class="container-bottom bg-354F52 g10-2 switch active" data-switch="home">
                 <img class="flag-small" src='assets/icons/info.svg'>
                 <h2 class="nom-small">Présentation</h2>
             </div>
 
-            <div class="container-bottom bg-354F52 g10-3" id="mini$incr" hx-swap-oob="outerHTML">
+            <div class="container-bottom bg-354F52 g10-3 switch" data-switch="key">
                 <img class="flag-small" src='assets/icons/lamp.svg'>
                 <h2 class="nom-small">Indicateurs clés</h2>
             </div>
 
-            <div class="container-bottom bg-354F52 g10-4 active" id="mini$incr" hx-swap-oob="outerHTML">
+            <div class="container-bottom bg-354F52 g10-4 switch" data-switch="courbe">
                 <img class="flag-small" src='assets/icons/sort.svg'>
                 <h2 class="nom-small">Courbe de comparaison</h2>
             </div>
 
-            <div class="container-bottom bg-354F52 g10-5" id="mini$incr" hx-swap-oob="outerHTML">
+            <div class="container-bottom bg-354F52 switch g10-5" data-switch="grow">
                 <img class="flag-small" src='assets/icons/stats.svg'>
                 <h2 class="nom-small">Croissances</h2>
             </div>
 
-            <div class="container-bottom bg-354F52 g10-6" id="mini$incr" hx-swap-oob="outerHTML">
+            <div class="container-bottom bg-354F52 switch g10-6" data-switch="more">
                 <img class="flag-small" src='assets/icons/plus.svg'>
                 <h2 class="nom-small">Informations complémentaires</h2>
             </div>
@@ -288,9 +379,16 @@
 
     <script>
         $(".icon").on("click", function () {
-            console.log("qsdsqd");
             $(".icon-active").removeClass("icon-active")
             $(this).addClass("icon-active")
+        })
+
+        $(".switch").on("click", function () {
+            $(".switch").removeClass("active")
+            $(this).addClass("active")
+            $(".display").css("display","none")
+            console.log($(this).data("switch"))
+            $("#"+$(this).data("switch")).css("display","grid")
         })
     </script>
 

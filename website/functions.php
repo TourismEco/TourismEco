@@ -265,7 +265,7 @@ function dataCompareMeanLine($pays, $conn) {
 
 function dataSpider($pays, $conn) {
     $query = "SELECT ecologie.annee as annee,
-    pibParHab AS pib, elecRenew AS Enr, co2, arriveesTotal AS arrivees, departs, gpi, cpi
+    pibParHab AS 'PIB/Hab', elecRenew AS '% énergies ren.', co2 AS 'Emissions de CO2', arriveesTotal AS 'Arrivées touristiques', departs AS 'Départs', gpi AS 'Global Peace Index', cpi AS 'CPI'
 
     FROM ecologie_norm AS ecologie, economie_norm AS economie, tourisme_norm AS tourisme, surete_norm AS surete
     WHERE ecologie.id_pays = economie.id_pays
@@ -284,7 +284,7 @@ function dataSpider($pays, $conn) {
     $data = array();
     while ($rs = $result->fetch(PDO::FETCH_ASSOC)) {
         $data[$rs["annee"]] = array();
-        foreach (array("pib","Enr","co2","arrivees","departs","gpi","cpi") as $key => $value) {
+        foreach (array("PIB/Hab","% énergies ren.","Emissions de CO2","Arrivées touristiques","Départs","Global Peace Index","CPI") as $key => $value) {
             if (!isset($rs[$value])){
                 $rs[$value]=null;
             } 
@@ -405,7 +405,7 @@ function dataBarreLine($pays, $conn) {
 
 function dataTab($pays, $conn) {
     $query = "SELECT ecologie.annee as annee,
-    pibParHab AS pib, elecRenew AS Enr, co2, arriveesTotal AS arrivees, departs, gpi, cpi
+    pibParHab AS pib, elecRenew AS Enr, co2, arriveesTotal*1000 AS arrivees, departs*1000 AS departs, gpi, cpi
 
     FROM ecologie, economie, tourisme, surete 
     WHERE ecologie.id_pays = economie.id_pays
