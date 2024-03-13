@@ -33,7 +33,6 @@ require_once "functions.php";
     <script src="scripts/map/map.js"></script>
 
 	<script src="scripts/graph/lineCompare.js"></script>
-	<script src="scripts/graph/spiderCompare.js"></script>
 
 	<script src="scripts/graph/spider.js"></script>
 	

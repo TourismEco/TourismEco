@@ -376,7 +376,7 @@
 
     <script id=scripting>
         
-        spider("spider")
+        spider("spider",2)
         lineCompare("line")
         barCompare("bar")
 

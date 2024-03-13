@@ -3,7 +3,7 @@ function spider(id, nb) {
     g.createXAxis("var")
     g.createYAxis(null)
     g.setDataXAxis([{"var":"PIB/Hab"},{"var":"% énergies ren."},{"var":"Emissions de CO2"},{"var":"Arrivées touristiques"},{"var":"Départs"},{"var":"Global Peace Index"},{"var":"CPI"}])
-    g.addSlider(updateSpider,400,-20,50,50,90,2008,2020)
+    g.addSlider(updateSpider,400,-20,50,50,90,1995,2021)
 
     for (i=0;i<nb;i++) {
         g.addSerie("radar", "var", "value", null, "{name} : {valueY}", color[i])
@@ -12,13 +12,14 @@ function spider(id, nb) {
 
 var color = ["#52796F", "#83A88B"];
 function spiderHTMX(index, data, dataComp, name) {
+    console.log(dataComp);
     g.updateSerie(index, data, name, dataComp);
     updateTable(index, dataComp[g.getYear()]);
 
     if (g.getSeriesLength() == 1) {
         updateGrow(dataComp, g.getYear())
     } else if (g.getSeriesLength() == 2) {
-        updateBold(g.getSeries(),g.getYear())
+        updateBold(g.getSeries(), g.getYear())
     }
 }
 
@@ -69,19 +70,43 @@ function updateTable(index, data) {
 
 function updateGrow(data, year) {
     for (var i=0;i<data[year].length;i++) {
-        if (data[year][i]["value"] == null || data[year-1][i]["value"] == null) {
+        try {
+            if (data[year][i]["value"] == null || data[year-1][i]["value"] == null) {
+                throw new Error()
+            }
+            grow = (100*(data[year][i]["value"] - data[year-1][i]["value"])/data[year-1][i]["value"]).toFixed(2)
+            rank = data[year][i]["rank"]
+            evolRank = data[year-1][i]["rank"] - rank
+            if (grow > 0) {
+                iconGrow = "<img src='assets/icons/miniup.svg' class='small-icon'>"
+            } else if (grow < 0) {
+                iconGrow = "<img src='assets/icons/minidown.svg' class='small-icon'>"
+            } else {
+                grow = "-"
+                iconGrow = ""
+            }
+            grow += "%"
+            rank += "e"
+
+            if (evolRank > 0) {
+                iconRank = "<img src='assets/icons/miniup.svg' class='small-icon'>"
+            } else if (evolRank < 0) {
+                iconRank = "<img src='assets/icons/minidown.svg' class='small-icon'>"
+            } else {
+                evolRank = "-"
+                iconRank = ""
+            }
+        } catch {
             grow = "/"
             rank = "/"
             evolRank = "/"
-        } else {
-            grow = 100*(data[year][i]["value"] - data[year-1][i]["value"])/data[year-1][i]["value"]
-            rank = data[year][i]["rank"]
-            evolRank = data[year-1][i]["rank"] - data[year][i]["rank"]
+            iconGrow = ""
+            iconRank = ""
         }
 
-        $("#td_"+data[year][i]["var"]+"_grow").html(grow)
+        $("#td_"+data[year][i]["var"]+"_grow").html(iconGrow+" <p>"+grow+"</p>")
         $("#td_"+data[year][i]["var"]+"_rank").html(rank)
-        $("#td_"+data[year][i]["var"]+"_rankEvol").html(rank)
+        $("#td_"+data[year][i]["var"]+"_rankEvol").html(iconRank+" <p>"+evolRank+"</p>")
     }
 }
 

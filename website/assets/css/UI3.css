@@ -282,6 +282,27 @@ body {
     cursor: default;
 }
 
+.cube .icon {
+    align-self: center;
+}
+
+.small {
+    font-size: 13px;
+    display: flex;
+    justify-content: center;
+    height: 20px;
+}
+
+.small-icon {
+    width: 20px;
+    height: 20px;
+}
+
+.small p {
+    margin: 0;
+    align-self: center;
+}
+
 
 .zone-presentation {
     grid-row: 1 / 10;
@@ -531,6 +552,7 @@ h1 {
     height: 30px;
     border-radius: 10px;
     padding: 5px;
+    transition: all .5s;
 }
 
 .icon:hover {
@@ -548,6 +570,7 @@ h1 {
 
 .icon-active {
     background-color: #EED;
+    transition: all .5s;
 }
 
 .table {

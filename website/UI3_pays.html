@@ -23,7 +23,7 @@
 	<script src="scripts/graph/amTools.js"></script>
 
     <script src="scripts/graph/lineCompare.js"></script>
-	<script src="scripts/graph/spiderCompare.js"></script>
+	<script src="scripts/graph/spider.js"></script>
 	<script src="scripts/graph/barCompare.js"></script>
 
 	<script src="scripts/js/functions.js"></script>
@@ -79,7 +79,7 @@
                 <h2 class="nom-small">Catalogue</h2>
             </div>
 
-            <div class="zone-presentation display" id="home">
+            <div class="zone-presentation display" id="home" style="display: none;">
                 <div class="container-presentation expand-3" id="mini$incr" hx-swap-oob="outerHTML">
                     <div class="bandeau"> 
                         <img class="img-side img" src='assets/img/FR.jpg' alt="Bandeau">
@@ -119,62 +119,62 @@
 
             </div>
 
-            <div class="zone display" id="key" style="display: none;">
+            <div class="zone-spider display" id="key" >
                 <div class="graph" id="spider"></div>
 
                 <div class="cube" id="cube-1">
                     <div class="el-cube">
                         <div id="td_cpi_0"></div>
-                        <div id="td_cpi_grow"></div>
+                        <div id="td_cpi_grow" class="small"></div>
                     </div>
                     
                     <img class="icon" src="assets/icons/transfer.svg">
                        
                     <div class="el-cube">
                         <div id="td_cpi_rank"></div>
-                        <div id="td_cpi_rankEvol"></div>
+                        <div id="td_cpi_rankEvol" class="small"></div>
                     </div>
                 </div>
 
                 <div class="cube" id="cube-2">
                     <div class="el-cube">
                         <div id="td_pib_0"></div>
-                        <div id="td_pib_grow"></div>
+                        <div id="td_pib_grow" class="small"></div>
                     </div>
                     
                     <img class="icon" src="assets/icons/dollar.svg">
                        
                     <div class="el-cube">
                         <div id="td_pib_rank"></div>
-                        <div id="td_pib_rankEvol"></div>
+                        <div id="td_pib_rankEvol" class="small"></div>
                     </div>
                 </div>
 
                 <div class="cube" id="cube-3">
                     <div class="el-cube">
                         <div id="td_gpi_0"></div>
-                        <div id="td_gpi_grow"></div>
+                        <div id="td_gpi_grow" class="small"></div>
                     </div>
                     
                     <img class="icon" src="assets/icons/shield.svg">
                         
                     <div class="el-cube">
                         <div id="td_gpi_rank"></div>
-                        <div id="td_gpi_rankEvol"></div>
+                        <div id="td_gpi_rankEvol" class="small"></div>
                     </div>
                 </div>
 
                 <div class="cube" id="cube-4">
                     <div class="el-cube">
                         <div id="td_Enr_0"></div>
-                        <div id="td_Enr_grow"></div>
+                        <div id="td_Enr_grow" class="small"></div>
                     </div>
                     
                     <img class="icon" src="assets/icons/leaf.svg">
                         
                     <div class="el-cube">
                         <div id="td_Enr_rank"></div>
-                        <div id="td_Enr_rankEvol"></div>
+                        <div id="td_Enr_rankEvol" class="small"></div>
                     </div>
                     
                 </div>
@@ -182,67 +182,67 @@
                 <div class="cube" id="cube-5">
                     <div class="el-cube">
                         <div id="td_departs_0"></div>
-                        <div id="td_departs_grow"></div>
+                        <div id="td_departs_grow" class="small"></div>
                     </div>
                     
                     <img class="icon" src="assets/icons/up.svg">
                         
                     <div class="el-cube">
                         <div id="td_departs_rank"></div>
-                        <div id="td_departs_rankEvol"></div>
+                        <div id="td_departs_rankEvol" class="small"></div>
                     </div>
                 </div>
 
                 <div class="cube" id="cube-6">
                     <div class="el-cube">
                         <div id="td_co2_0"></div>
-                        <div id="td_co2_grow"></div>
+                        <div id="td_co2_grow" class="small"></div>
                     </div>
                     
                     <img class="icon" src="assets/icons/cloud.svg">
                         
                     <div class="el-cube">
                         <div id="td_co2_rank"></div>
-                        <div id="td_co2_rankEvol"></div>
+                        <div id="td_co2_rankEvol" class="small"></div>
                     </div>
                 </div>
 
                 <div class="cube" id="cube-7">
                     <div class="el-cube">
                         <div id="td_arrivees_0"></div>
-                        <div id="td_arrivees_grow"></div>
+                        <div id="td_arrivees_grow" class="small"></div>
                     </div>
                     
                     <img class="icon" src="assets/icons/down.svg">
                         
                     <div class="el-cube">
                         <div id="td_arrivees_rank"></div>
-                        <div id="td_arrivees_rankEvol"></div>
+                        <div id="td_arrivees_rankEvol" class="small"></div>
                     </div>
                 </div>
             </div>
 
-            <div class="container-bottom bg-354F52 g10-2 active" data-switch="home">
+            <div class="container-bottom bg-354F52 switch g10-2 active" data-switch="home">
                 <img class="flag-small" src='assets/icons/info.svg'>
                 <h2 class="nom-small">Présentation</h2>
             </div>
 
-            <div class="container-bottom bg-354F52 g10-3" data-switch="key">
+            <div class="container-bottom bg-354F52 switch g10-3" data-switch="key">
                 <img class="flag-small" src='assets/icons/lamp.svg'>
                 <h2 class="nom-small">Indicateurs clés</h2>
             </div>
 
-            <div class="container-bottom bg-354F52 g10-4" data-switch="courbe">
+            <div class="container-bottom bg-354F52 switch g10-4" data-switch="courbe">
                 <img class="flag-small" src='assets/icons/sort.svg'>
                 <h2 class="nom-small">Courbe d'évolution</h2>
             </div>
 
-            <div class="container-bottom bg-354F52 g10-5" data-switch="grow">
+            <div class="container-bottom bg-354F52 switch g10-5" data-switch="grow">
                 <img class="flag-small" src='assets/icons/stats.svg'>
                 <h2 class="nom-small">Croissances</h2>
             </div>
 
-            <div class="container-bottom bg-354F52 g10-6" data-switch="more">
+            <div class="container-bottom bg-354F52 switch g10-6" data-switch="more">
                 <img class="flag-small" src='assets/icons/plus.svg'>
                 <h2 class="nom-small">Informations complémentaires</h2>
             </div>
@@ -252,7 +252,29 @@
 
     <script id="scripting">
         createMiniMap(0)
+        spider("spider",1)
         // lineCompare("line")
+    </script>
+
+    <script>
+        $(".icon").on("click", function () {
+            $(".icon-active").removeClass("icon-active")
+            $(this).addClass("icon-active")
+
+            // Get the variable name from the clicked icon's onclick attribute
+            var variableName = $(this).attr("onclick").match(/\('([^']+)'\)/)[1];
+
+            // Update the text content of the icon_name element
+            $(".icon_name").text(variableName);
+        })
+
+        $(".switch").on("click", function () {
+            $(".switch").removeClass("active")
+            $(this).addClass("active")
+            $(".display").css("display","none")
+            console.log($(this).data("switch"))
+            $("#"+$(this).data("switch")).css("display","grid")
+        })
     </script>
 
     <div hx-get="scripts/htmx/getPays.php" hx-vals="js:{id_pays:'FR'}" hx-trigger="load delay:2s"></div>

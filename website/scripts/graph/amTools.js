@@ -270,8 +270,8 @@ class Graphique {
             rotation: -rotation
         }));
 
-        var yearTemp = 2020
-        this.year = 2020
+        var yearTemp = 2021
+        this.year = 2021
     
         slider.events.on("rangechanged", function () {
             yearTemp = first + Math.round(slider.get("start", 0) * (last - first));

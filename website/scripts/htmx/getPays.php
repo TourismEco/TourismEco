@@ -6,7 +6,6 @@ $cur = getDB();
 $id_pays = $_GET["id_pays"];
 $_SESSION["pays"][0] = $id_pays;
 
-
 if (!isset($_SESSION["historique"]) || !is_array($_SESSION["historique"])) {
     $_SESSION["historique"] = array();
 }
@@ -116,40 +115,48 @@ while ($rs = $sth->fetch()) {
 $cities = json_encode($cities);
 $capitals = json_encode($capitals);
 
+$allLine = dataLine($id_pays, $cur);
+
 $dataSpider = json_encode(dataSpider($id_pays, $cur),JSON_NUMERIC_CHECK);
-$dataLine = json_encode(dataLine($id_pays, $cur)['data'],JSON_NUMERIC_CHECK);
+$dataLine = json_encode($allLine['data'],JSON_NUMERIC_CHECK);
 $dataLineMean = json_encode(dataMean($cur),JSON_NUMERIC_CHECK);
 $dataBar = json_encode(dataBar($id_pays, $cur),JSON_NUMERIC_CHECK);
 $dataTab = json_encode(dataTab($id_pays, $cur),JSON_NUMERIC_CHECK);
 
 //Graphique Line
-$covidLine = json_encode(dataLine($id_pays,$cur)['covid']['co2'],JSON_NUMERIC_CHECK);
-$rankLine = json_encode(dataLine($id_pays,$cur)['rank']['co2']['rank'],JSON_NUMERIC_CHECK);
-$rankLineYear = json_encode(dataLine($id_pays,$cur)['rank']['co2']['year'],JSON_NUMERIC_CHECK);
+$covidLine = json_encode($allLine['covid']['co2'],JSON_NUMERIC_CHECK);
+$rankLine = json_encode($allLine['rank']['co2']['rank'],JSON_NUMERIC_CHECK);
+$rankLineYear = json_encode($allLine['rank']['co2']['year'],JSON_NUMERIC_CHECK);
 
-$minYearLine = json_encode(dataLine($id_pays,$cur)['min']['co2']['year'],JSON_NUMERIC_CHECK);
-$minValueLine = json_encode(dataLine($id_pays,$cur)['min']['co2']['val'],JSON_NUMERIC_CHECK);
+$minYearLine = json_encode($allLine['min']['co2']['year'],JSON_NUMERIC_CHECK);
+$minValueLine = json_encode($allLine['min']['co2']['val'],JSON_NUMERIC_CHECK);
 
-$maxYearLine = json_encode(dataLine($id_pays,$cur)['max']['co2']['year'],JSON_NUMERIC_CHECK);
-$maxValueLine = json_encode(dataLine($id_pays,$cur)['max']['co2']['val'],JSON_NUMERIC_CHECK);
+$maxYearLine = json_encode($allLine['max']['co2']['year'],JSON_NUMERIC_CHECK);
+$maxValueLine = json_encode($allLine['max']['co2']['val'],JSON_NUMERIC_CHECK);
 
-$compareMeanLineVal = json_encode(dataCompareMeanLine($id_pays,$cur)['val'], JSON_NUMERIC_CHECK);
-$compareMeanLineType = json_encode(dataCompareMeanLine($id_pays,$cur)['type'], JSON_NUMERIC_CHECK);
+
+$compareMeanLine = dataCompareMeanLine($id_pays, $cur);
+$compareMeanLineVal = json_encode($compareMeanLine['val'], JSON_NUMERIC_CHECK);
+$compareMeanLineType = json_encode($compareMeanLine['type'], JSON_NUMERIC_CHECK);
 
 //Graphique Barre Line
-$dataBarreLine= json_encode(dataBarreLine($id_pays, $cur)['data'],JSON_NUMERIC_CHECK);
-$dataBLMinYearPIB= json_encode(dataBarreLine($id_pays, $cur)['minPib']['year'],JSON_NUMERIC_CHECK);
-$dataBLMinValPIB= json_encode(dataBarreLine($id_pays, $cur)['minPib']['value'],JSON_NUMERIC_CHECK);
-$dataBLMaxYearPIB= json_encode(dataBarreLine($id_pays, $cur)['maxPib']['year'],JSON_NUMERIC_CHECK);
-$dataBLMaxValPIB= json_encode(dataBarreLine($id_pays, $cur)['maxPib']['value'],JSON_NUMERIC_CHECK);
+echo "bite";
+$allBareLine = dataBarreLine($id_pays, $cur);
+echo "bite25";
 
-$dataBLMinValTourism= json_encode(dataBarreLine($id_pays, $cur)['minTourisme']['value'],JSON_NUMERIC_CHECK);
-$dataBLMinYearTourism= json_encode(dataBarreLine($id_pays, $cur)['minTourisme']['year'],JSON_NUMERIC_CHECK);
-$dataBLMaxValTourism= json_encode(dataBarreLine($id_pays, $cur)['maxTourisme']['value'],JSON_NUMERIC_CHECK);
-$dataBLMaxYearTourism= json_encode(dataBarreLine($id_pays, $cur)['maxTourisme']['year'],JSON_NUMERIC_CHECK);
+$dataBarreLine= json_encode($allBareLine['data'],JSON_NUMERIC_CHECK);
+$dataBLMinYearPIB= json_encode($allBareLine['minPib']['year'],JSON_NUMERIC_CHECK);
+$dataBLMinValPIB= json_encode($allBareLine['minPib']['value'],JSON_NUMERIC_CHECK);
+$dataBLMaxYearPIB= json_encode($allBareLine['maxPib']['year'],JSON_NUMERIC_CHECK);
+$dataBLMaxValPIB= json_encode($allBareLine['maxPib']['value'],JSON_NUMERIC_CHECK);
 
-$dataBLcovidImpactPib= json_encode(dataBarreLine($id_pays, $cur)['covidImpactPib'],JSON_NUMERIC_CHECK);
-$dataBLcovidImpactTourisme= json_encode(dataBarreLine($id_pays, $cur)['covidImpactTourisme'],JSON_NUMERIC_CHECK);
+$dataBLMinValTourism= json_encode($allBareLine['minTourisme']['value'],JSON_NUMERIC_CHECK);
+$dataBLMinYearTourism= json_encode($allBareLine['minTourisme']['year'],JSON_NUMERIC_CHECK);
+$dataBLMaxValTourism= json_encode($allBareLine['maxTourisme']['value'],JSON_NUMERIC_CHECK);
+$dataBLMaxYearTourism= json_encode($allBareLine['maxTourisme']['year'],JSON_NUMERIC_CHECK);
+
+$dataBLcovidImpactPib= json_encode($allBareLine['covidImpactPib'],JSON_NUMERIC_CHECK);
+$dataBLcovidImpactTourisme= json_encode($allBareLine['covidImpactTourisme'],JSON_NUMERIC_CHECK);
 
 
 
@@ -286,7 +293,7 @@ HTML;
 if ($map) {
     echo <<<HTML
         <script id=scripting hx-swap-oob=outerHTML>
-            // spiderHTMX( $dataSpider, $dataTab, "$nom")
+            spiderHTMX(0, $dataSpider, $dataTab, "$nom")
             // barreLineHTMX($dataBarreLine, "$nom")
             // linePaysHTMX($dataLine, $dataLineMean, "$nom")
             // topHTMX($dataBar, "$nom")
