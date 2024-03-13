@@ -116,7 +116,7 @@ echo <<<HTML
 
 
 <script id=scripting hx-swap-oob=outerHTML>
-    spiderCHTMX($incr, $dataSpider, $dataTab, "$nom")
+    spiderHTMX($incr, $dataSpider, $dataTab, "$nom")
     lineHTMX($incr, $dataLine, "$nom")
     barHTMX($incr, $dataBar, "$nom")
 

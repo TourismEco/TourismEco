@@ -58,28 +58,28 @@
 
     <div class="flex">
         <div class="grid">
-            <div class="container-side bg-354F52 g1-1" id="mini$incr" hx-swap-oob="outerHTML">
+            <div class="container-side bg-354F52 g1-1" id="mini0">
                 <img class="img-side" src='assets/img/FR.jpg' alt="Bandeau">
                 <img class="flag-small" src='assets/twemoji/FR.svg'>
                 <h2 class="nom-small">France</h2>
             </div>
 
-            <div class="container-side bg-354F52 g4-1 active" id="mini$incr" hx-swap-oob="outerHTML">
+            <div class="container-side bg-354F52 g4-1 active">
                 <img class="flag-small" src='assets/icons/stats.svg'>
                 <h2 class="nom-small">Statistiques</h2>
             </div>
 
-            <div class="container-side bg-354F52 g5-1" id="mini$incr" hx-swap-oob="outerHTML">
+            <div class="container-side bg-354F52 g5-1" >
                 <img class="flag-small" src='assets/icons/map.svg'>
                 <h2 class="nom-small">Carte</h2>
             </div>
 
-            <div class="container-side bg-354F52 g6-1" id="mini$incr" hx-swap-oob="outerHTML">
+            <div class="container-side bg-354F52 g6-1">
                 <img class="flag-small" src='assets/icons/catalogue.svg'>
                 <h2 class="nom-small">Catalogue</h2>
             </div>
 
-            <div class="zone-presentation">
+            <div class="zone-presentation display" id="home">
                 <div class="container-presentation expand-3" id="mini$incr" hx-swap-oob="outerHTML">
                     <div class="bandeau"> 
                         <img class="img-side img" src='assets/img/FR.jpg' alt="Bandeau">
@@ -91,55 +91,158 @@
                     </div>
                 </div>
 
-                <div class="container-presentation" id="miniMap" hx-swap-oob="outerHTML">
+                <div class="container-presentation" id="miniMap0">
 
                 </div>
 
-                <div class="container-presentation" id="mini$incr" hx-swap-oob="outerHTML">
+                <div class="container-presentation">
                     <div class="score-box score-A">A</div>
                 </div>
 
-                <div class="container-presentation" id="mini$incr" hx-swap-oob="outerHTML">
+                <div class="container-presentation">
                     <div class="cost"><p class="big">60€</p><p>par jour</p></div>
                     <div class="trait"></div>
                     <div class="cost"><p class="big">420€</p><p>pour 7 jours</p></div>
                 </div>
 
-                <div class="container-presentation expand-2" id="mini$incr" hx-swap-oob="outerHTML">
+                <div class="container-presentation expand-2">
                 </div>
 
-                <div class="container-presentation" id="mini$incr" hx-swap-oob="outerHTML">
+                <div class="container-presentation">
                     <p class="paragraphe">La Tour Eiffel et ses Illuminations :<br>
                     La Tour Eiffel à Paris est l'un des monuments les plus emblématiques au monde. Une anecdote célèbre est que la Tour Eiffel est illuminée chaque nuit par des milliers de lumières scintillantes pendant les premières heures après le coucher du soleil. Cette pratique a débuté en 1985 pour célébrer le 100e anniversaire de la tour et est devenue une tradition appréciée.</p>
                 </div>
 
-                <div class="container-presentation expand-3" id="mini$incr" hx-swap-oob="outerHTML">
+                <div class="container-presentation expand-3">
                     <p class="paragraphe">La France, nation emblématique d'Europe occidentale, séduit par sa diversité culturelle, son patrimoine historique et ses paysages variés. Avec Paris comme capitale, la France est reconnue pour ses monuments emblématiques tels que la Tour Eiffel, sa cuisine raffinée, ses vignobles renommés et ses régions pittoresques allant des Alpes aux plages méditerranéennes. Politiquement, c'est une république avec une longue histoire démocratique. L'économie française est diversifiée, englobant le secteur agricole, industriel et des services, faisant du pays l'une des principales puissances économiques mondiales. La France demeure une influence culturelle majeure avec ses contributions aux arts, à la littérature et à la mode. Son attrait touristique est universel, attirant des visiteurs du monde entier pour découvrir son art de vivre unique et son riche héritage.</p>
                 </div>
 
             </div>
 
-            <div class="container-bottom bg-354F52 g10-2 active" id="mini$incr" hx-swap-oob="outerHTML">
+            <div class="zone display" id="key" style="display: none;">
+                <div class="graph" id="spider"></div>
+
+                <div class="cube" id="cube-1">
+                    <div class="el-cube">
+                        <div id="td_cpi_0"></div>
+                        <div id="td_cpi_grow"></div>
+                    </div>
+                    
+                    <img class="icon" src="assets/icons/transfer.svg">
+                       
+                    <div class="el-cube">
+                        <div id="td_cpi_rank"></div>
+                        <div id="td_cpi_rankEvol"></div>
+                    </div>
+                </div>
+
+                <div class="cube" id="cube-2">
+                    <div class="el-cube">
+                        <div id="td_pib_0"></div>
+                        <div id="td_pib_grow"></div>
+                    </div>
+                    
+                    <img class="icon" src="assets/icons/dollar.svg">
+                       
+                    <div class="el-cube">
+                        <div id="td_pib_rank"></div>
+                        <div id="td_pib_rankEvol"></div>
+                    </div>
+                </div>
+
+                <div class="cube" id="cube-3">
+                    <div class="el-cube">
+                        <div id="td_gpi_0"></div>
+                        <div id="td_gpi_grow"></div>
+                    </div>
+                    
+                    <img class="icon" src="assets/icons/shield.svg">
+                        
+                    <div class="el-cube">
+                        <div id="td_gpi_rank"></div>
+                        <div id="td_gpi_rankEvol"></div>
+                    </div>
+                </div>
+
+                <div class="cube" id="cube-4">
+                    <div class="el-cube">
+                        <div id="td_Enr_0"></div>
+                        <div id="td_Enr_grow"></div>
+                    </div>
+                    
+                    <img class="icon" src="assets/icons/leaf.svg">
+                        
+                    <div class="el-cube">
+                        <div id="td_Enr_rank"></div>
+                        <div id="td_Enr_rankEvol"></div>
+                    </div>
+                    
+                </div>
+
+                <div class="cube" id="cube-5">
+                    <div class="el-cube">
+                        <div id="td_departs_0"></div>
+                        <div id="td_departs_grow"></div>
+                    </div>
+                    
+                    <img class="icon" src="assets/icons/up.svg">
+                        
+                    <div class="el-cube">
+                        <div id="td_departs_rank"></div>
+                        <div id="td_departs_rankEvol"></div>
+                    </div>
+                </div>
+
+                <div class="cube" id="cube-6">
+                    <div class="el-cube">
+                        <div id="td_co2_0"></div>
+                        <div id="td_co2_grow"></div>
+                    </div>
+                    
+                    <img class="icon" src="assets/icons/cloud.svg">
+                        
+                    <div class="el-cube">
+                        <div id="td_co2_rank"></div>
+                        <div id="td_co2_rankEvol"></div>
+                    </div>
+                </div>
+
+                <div class="cube" id="cube-7">
+                    <div class="el-cube">
+                        <div id="td_arrivees_0"></div>
+                        <div id="td_arrivees_grow"></div>
+                    </div>
+                    
+                    <img class="icon" src="assets/icons/down.svg">
+                        
+                    <div class="el-cube">
+                        <div id="td_arrivees_rank"></div>
+                        <div id="td_arrivees_rankEvol"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container-bottom bg-354F52 g10-2 active" data-switch="home">
                 <img class="flag-small" src='assets/icons/info.svg'>
                 <h2 class="nom-small">Présentation</h2>
             </div>
 
-            <div class="container-bottom bg-354F52 g10-3" id="mini$incr" hx-swap-oob="outerHTML">
+            <div class="container-bottom bg-354F52 g10-3" data-switch="key">
                 <img class="flag-small" src='assets/icons/lamp.svg'>
                 <h2 class="nom-small">Indicateurs clés</h2>
             </div>
 
-            <div class="container-bottom bg-354F52 g10-4" id="mini$incr" hx-swap-oob="outerHTML">
+            <div class="container-bottom bg-354F52 g10-4" data-switch="courbe">
                 <img class="flag-small" src='assets/icons/sort.svg'>
-                <h2 class="nom-small">Courbe de comparaison</h2>
+                <h2 class="nom-small">Courbe d'évolution</h2>
             </div>
 
-            <div class="container-bottom bg-354F52 g10-5" id="mini$incr" hx-swap-oob="outerHTML">
+            <div class="container-bottom bg-354F52 g10-5" data-switch="grow">
                 <img class="flag-small" src='assets/icons/stats.svg'>
                 <h2 class="nom-small">Croissances</h2>
             </div>
 
-            <div class="container-bottom bg-354F52 g10-6" id="mini$incr" hx-swap-oob="outerHTML">
+            <div class="container-bottom bg-354F52 g10-6" data-switch="more">
                 <img class="flag-small" src='assets/icons/plus.svg'>
                 <h2 class="nom-small">Informations complémentaires</h2>
             </div>

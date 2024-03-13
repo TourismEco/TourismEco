@@ -281,14 +281,24 @@ function dataSpider($pays, $conn) {
 
     $result = $conn->query($query);
 
+    $tables = array("economie","ecologie","ecologie","tourisme","tourisme","surete","economie");
+    $cols = array("pibParHab","elecRenew","co2","arriveesTotal","departs","gpi","cpi");
+    
     $data = array();
     while ($rs = $result->fetch(PDO::FETCH_ASSOC)) {
-        $data[$rs["annee"]] = array();
+        $year = $rs["annee"];
+        $data[$year] = array();
         foreach (array("PIB/Hab","% énergies ren.","Emissions de CO2","Arrivées touristiques","Départs","Global Peace Index","CPI") as $key => $value) {
             if (!isset($rs[$value])){
                 $rs[$value]=null;
-            } 
-            $data[$rs["annee"]][] = array("var" => $value, "value" => $rs[$value]);
+                $rank = null;
+            } else {
+                $query = "SELECT * FROM (SELECT id_pays, $cols[$key], RANK() OVER (ORDER BY $cols[$key] DESC) AS 'rank' FROM $tables[$key] WHERE annee =  $year) AS t WHERE id_pays = '$pays';";
+                $result = $conn->query($query);
+                $rs = $result->fetch(PDO::FETCH_ASSOC);
+                $rank = $rs["rank"];
+            }
+            $data[$year][] = array("var" => $value, "value" => $rs[$value], "rank" => $rank);
         }
     }
 

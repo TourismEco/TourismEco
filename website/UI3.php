@@ -95,27 +95,27 @@
                     </div>
                 </div>
 
-                <div class="container-presentation" id="mini$incr" hx-swap-oob="outerHTML">
+                <div class="container-presentation">
                     <div class="score-box score-A">A</div>
                 </div>
 
                 <div class="container-presentation" id="miniMap0" hx-swap-oob="outerHTML">
                 </div>
 
-                <div class="container-presentation" id="mini$incr" hx-swap-oob="outerHTML">
+                <div class="container-presentation">
                     <div class="score-box score-A">A</div>
                 </div>
 
                 <div class="container-presentation" id="miniMap1" hx-swap-oob="outerHTML">
                 </div>
 
-                <div class="container-presentation" id="mini$incr" hx-swap-oob="outerHTML">
+                <div class="container-presentation">
                 </div>
 
-                <div class="container-presentation expand-2" id="mini$incr" hx-swap-oob="outerHTML">
+                <div class="container-presentation expand-2">
                 </div>
 
-                <div class="container-presentation" id="mini$incr" hx-swap-oob="outerHTML">
+                <div class="container-presentation">
                 
                 </div>
 
@@ -124,9 +124,6 @@
 
             <div class="zone display" id="courbe" style="display:none">        
                 <div class=graph id="line"></div>
-
-                
-                    
 
                 <div class=container-buttons>
                     <img class="icon icon-active" src="assets/icons/cloud.svg" onclick="changeVar('co2')">
@@ -138,10 +135,7 @@
                     <img class="icon" src="assets/icons/leaf.svg" onclick="changeVar('Enr')">
                 </div>
 
-                
-
                 <div class="table">
-
                     <div class="legende">
                         <div class="legende-element">
                             <div class="square bg-52796F"></div>
@@ -335,49 +329,6 @@
                     <p>Croatie</p>
                 </div>
 
-                <table class="text">
-                    <tr>
-                        <td id="cell_6_1">Indicateur</td>
-                        <td id="nom_0"></td>
-                        <td id="nom_1"></td>
-                    </tr>
-                    <tr>
-                        <td id="td_pib">PIB/Hab</td>
-                        <td id="td_pib_0"></td>
-                        <td id="td_pib_1"></td>
-                    </tr>
-                    <tr>
-                        <td id="td_enr">% énergies renouvellables</td>
-                        <td id="td_Enr_0"></td>
-                        <td id="td_Enr_1"></td>
-                    </tr>
-                    <tr>
-                        <td id="td_co2">Émissions de CO2</td>
-                        <td id="td_co2_0"></td>
-                        <td id="td_co2_1"></td>
-                    </tr>
-                    <tr>
-                        <td id="td_arrivees">Arrivées toursitiques</td>
-                        <td id="td_arrivees_0"></td>
-                        <td id="td_arrivees_1"></td>
-                    </tr>
-                    <tr>
-                        <td id="td_departs">Départs toursitiques</td>
-                        <td id="td_departs_0"></td>
-                        <td id="td_departs_1"></td>
-                    </tr>
-                    <tr>
-                        <td id="td_gpi">Indice de paix</td>
-                        <td id="td_gpi_0"></td>
-                        <td id="td_gpi_1"></td>
-                    </tr>
-                    <tr>
-                        <td id="td_cpi">CPI</td>
-                        <td id="td_cpi_0"></td>
-                        <td id="td_cpi_1"></td>
-                    </tr>
-                </table>
-
             </div>
 
             <div class="zone display"  id="grow" style="display:none">
@@ -425,7 +376,7 @@
 
     <script id=scripting>
         
-        spiderCompare("spider")
+        spider("spider")
         lineCompare("line")
         barCompare("bar")
 
