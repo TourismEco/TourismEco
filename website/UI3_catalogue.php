@@ -97,15 +97,16 @@
                 </script>
 
                 <div class="zone-cataloguePays">
-                    <div class="container-catalogue">
-                        <input class="search-bar" placeholder="Cherchez un pays" id="txt" hx-get="scripts/htmx/search.php" hx-trigger="keyup[this.value.trim().length > 0] changed delay:0.5s" hx-vals='js:{search: getSearchValue(), page:"pays",id_continent: getIdContinent()}' hx-target="#search" hx-swap="outerHTML">
-                    </div>
+                    <input class="search-bar" placeholder="Cherchez un pays" id="txt" hx-get="scripts/htmx/search.php" hx-trigger="keyup[this.value.trim().length > 0] changed delay:0.5s" hx-vals='js:{search: getSearchValue(), page:"pays",id_continent: getIdContinent()}' hx-target="#search" hx-swap="outerHTML">
                     <div id=search>
 
                     </div>
 
+                    <div class="trait-vertical"></div>
+
                     <div class='container-continents display' id="asie">
                             <?php
+                                $page = "pays";
 
                                 $queryPays = "SELECT * FROM pays WHERE id_continent = 4 ORDER BY score DESC LIMIT 12";
                                 $resultPays = $cur->query($queryPays);
@@ -249,7 +250,10 @@
             $(this).addClass("active")
             $(".display").css("display","none")
             console.log($(this).data("switch"))
-            $("#"+$(this).data("switch")).css("display","grid")
+            $("#"+$(this).data("switch")).css("display","flex")
+            $("#txt").val("")
+            $("#search").empty()
+
 
             id_continent = $(this).data("id_continent")
         })

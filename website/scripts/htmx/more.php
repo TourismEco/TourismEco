@@ -42,7 +42,7 @@ while ($rsPays = $resultPays->fetch(PDO::FETCH_ASSOC)) {
     echo addSlimCountry($rsPays["id"],$rsPays["nom"],$letter,$page);
 }
 
-if ($count > $offset+4) {
+if ($count > $offset+12) {
     echo <<<HTML
         <div class="container-slim bg-52796F cursor" hx-get="scripts/htmx/more.php" hx-vals="js:{continent:'$continent', more:$more, page:'$page'}"hx-swap="outerHTML">
             <div class="bandeau-slim"> 
