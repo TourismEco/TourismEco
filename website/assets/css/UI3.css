@@ -198,6 +198,29 @@ body {
     overflow-y: auto;
 }
 
+.zone-totale {
+    grid-row: 1 / 11;
+    grid-column: 1 / 7;
+    background-color: #EED;
+    border-radius: 10px;
+    border: solid 1px #222;
+    z-index: 5;
+    filter: drop-shadow(10px 20px 10px #222);
+    border-bottom: none;
+    border-left: none;
+    color:#222;
+    gap: 20px;
+    padding: 20px 35px;
+    overflow-y: auto;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+.column {
+    flex-direction: column;
+}
+
 .cube {
     background-color: #D9D9D9;
     width: 190px;
@@ -989,4 +1012,73 @@ h1 {
 }
 .name{
     margin: 0px;
+}
+
+.logo {
+    width: 150px;
+    height: 150px;
+    margin:0 auto;
+}
+
+.connexion-container {
+    width: 600px;
+    margin: 0 auto;
+}
+
+form {
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+label {
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+input {
+    width: 60%;
+    padding: 15px;
+    margin-bottom: 15px;
+    font-size: 16px;
+    border-radius: 10px;
+    background-color: #D9D9D9;
+    border: none;
+    z-index: 3;
+}
+
+::placeholder {
+    font-style: italic;
+    text-align: center;
+}
+
+.right-section {
+    text-align: center;
+    font-size: 18px;
+    width: 50%;
+    margin: auto 0;
+    line-height: 1.25;
+}
+
+.left-section {
+    width: 50%;
+    margin: auto 0;
+}
+
+.big-trait {
+    border: solid 1px;
+    height: 450px;
+    margin:auto 0
+}
+
+.submit {
+    background-color: #52796F;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    width: 150px;
+    cursor: pointer;
 }
