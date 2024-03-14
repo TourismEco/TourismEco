@@ -115,34 +115,18 @@ while ($rs = $sth->fetch()) {
 $cities = json_encode($cities);
 $capitals = json_encode($capitals);
 
-$allLine = dataLine($id_pays, $cur);
+$dataLine = dataLine($id_pays, $cur);
+$dataLineMean = dataMean($cur);
+$dataLine["comp"] = dataCompareLine($dataLine["data"],$dataLineMean);
 
 $dataSpider = json_encode(dataSpider($id_pays, $cur),JSON_NUMERIC_CHECK);
-$dataLine = json_encode($allLine['data'],JSON_NUMERIC_CHECK);
-$dataLineMean = json_encode(dataMean($cur),JSON_NUMERIC_CHECK);
+$dataLine = json_encode($dataLine,JSON_NUMERIC_CHECK);
+$dataLineMean = json_encode($dataLineMean,JSON_NUMERIC_CHECK);
 $dataBar = json_encode(dataBar($id_pays, $cur),JSON_NUMERIC_CHECK);
 $dataTab = json_encode(dataTab($id_pays, $cur),JSON_NUMERIC_CHECK);
 
-//Graphique Line
-$covidLine = json_encode($allLine['covid']['co2'],JSON_NUMERIC_CHECK);
-$rankLine = json_encode($allLine['rank']['co2']['rank'],JSON_NUMERIC_CHECK);
-$rankLineYear = json_encode($allLine['rank']['co2']['year'],JSON_NUMERIC_CHECK);
-
-$minYearLine = json_encode($allLine['min']['co2']['year'],JSON_NUMERIC_CHECK);
-$minValueLine = json_encode($allLine['min']['co2']['val'],JSON_NUMERIC_CHECK);
-
-$maxYearLine = json_encode($allLine['max']['co2']['year'],JSON_NUMERIC_CHECK);
-$maxValueLine = json_encode($allLine['max']['co2']['val'],JSON_NUMERIC_CHECK);
-
-
-$compareMeanLine = dataCompareMeanLine($id_pays, $cur);
-$compareMeanLineVal = json_encode($compareMeanLine['val'], JSON_NUMERIC_CHECK);
-$compareMeanLineType = json_encode($compareMeanLine['type'], JSON_NUMERIC_CHECK);
-
 //Graphique Barre Line
-echo "bite";
 $allBareLine = dataBarreLine($id_pays, $cur);
-echo "bite25";
 
 $dataBarreLine= json_encode($allBareLine['data'],JSON_NUMERIC_CHECK);
 $dataBLMinYearPIB= json_encode($allBareLine['minPib']['year'],JSON_NUMERIC_CHECK);
@@ -175,63 +159,13 @@ echo <<<HTML
 
 </div>
 
-<div class="container-side bg-354F52" id="mini0" hx-swap-oob="outerHTML">
-    <div class="bandeau-side"> 
-        <img class="img img-side" src='assets/img/$id_pays.jpg' alt="Bandeau">
-        <img class="flag-small" src='assets/twemoji/$id_pays.svg'>
-        <h2 class="nom-small">$nom</h2>
-        <div class="close-compare">
-        <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-            viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
-        <g>
-            <path d="M358.4,133.1v71.7h-256v46.1L0,169l102.4-87v51.2H358.4 M512,348.2l-102.4,81.9V384h-256v-71.7h256v-51.2L512,348.2"/>
-        </g>
-        </svg>                 
-        </div>
-    </div>
+<div class="container-side g1-1" id="mini0" hx-swap-oob="outerHTML">
+    <img class="img img-side" src='assets/img/$id_pays.jpg' alt="Bandeau">
+    <img class="flag-small" src='assets/twemoji/$id_pays.svg'>
+    <h2 class="nom-small">$nom</h2>
 </div>
 
 <div id="score" class="score-box score-$letter" hx-swap-oob="outerHTML">$letter</div>
-
-<div class="container-even" id="indicateurs" hx-swap-oob="outerHTML">
-    <div class="container-indic">
-        <h3>Émissions de CO2</h3>
-        <p>$co2</p>
-    </div>
-    <div class="container-indic">
-        <h3>PIB/habitant</h3>
-        <p>$pib</p>
-    </div>
-    <div class="container-indic">
-        <h3>Indice de sûreté</h3>
-        <p>$gpi</p>
-    </div>
-    <div class="container-indic">
-        <h3>Arrivées</h3>
-        <p>$arrivees</p>
-    </div>
-</div>
-
-<div id="descip" hx-swap-oob="outerHTML">
-    <p class="text-full">$description</p>
-</div>
-
-<div id="catalogue" hx-swap-oob="outerHTML"></div>
-
-<div class="container-even" id="graphLine" hx-swap-oob="outerHTML">
-    <div class="container-indic">
-        <h3>Impact du covid sur le pays</h3>
-        <p>$covidLine</p>
-        <h3>Rang du pays en $rankLineYear </h3> 
-        <p>$rankLine</p>
-        <h3>Minimum atteint en $minYearLine</h3>
-        <p> $minValueLine</p>
-        <h3>Maximum atteint en $maxYearLine</h3>
-        <p> $maxValueLine</p>
-        <h3>Le pays pour la dernière années est $compareMeanLineVal fois $compareMeanLineType à la moyenne </h3>
-
-    </div>
-</div>
 
 <div class="container-even" id="graphBarLine" hx-swap-oob="outerHTML">
     <div class="container-indic">
@@ -294,8 +228,8 @@ if ($map) {
     echo <<<HTML
         <script id=scripting hx-swap-oob=outerHTML>
             spiderHTMX(0, $dataSpider, $dataTab, "$nom")
-            // barreLineHTMX($dataBarreLine, "$nom")
-            // linePaysHTMX($dataLine, $dataLineMean, "$nom")
+            barreLineHTMX($dataBarreLine, "$nom")
+            linePaysHTMX($dataLine, $dataLineMean, "$nom")
             // topHTMX($dataBar, "$nom")
            
             // map.zoomTo("$id_pays")

@@ -49,8 +49,7 @@ $ligne = $sth->fetch();
 $capitale = $ligne["nom"];
 
 // Line
-$dictLine = dataLine($id_pays, $cur);
-$dataLine = json_encode($dictLine,JSON_NUMERIC_CHECK);
+$dataLine = json_encode($dataLine($id_pays, $cur),JSON_NUMERIC_CHECK);
 
 $dataSpider = json_encode(dataSpider($id_pays, $cur),JSON_NUMERIC_CHECK);
 

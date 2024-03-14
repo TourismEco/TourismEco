@@ -12,7 +12,6 @@ function spider(id, nb) {
 
 var color = ["#52796F", "#83A88B"];
 function spiderHTMX(index, data, dataComp, name) {
-    console.log(dataComp);
     g.updateSerie(index, data, name, dataComp);
     updateTable(index, dataComp[g.getYear()]);
 
@@ -39,33 +38,37 @@ function updateSpider(year) {
 function updateTable(index, data) {
     if (data) {      
         for (var i=0;i<data.length;i++) {
-            if (data[i]["value"] == null) {
-                st = "/"
-            } else {
-                if (data[i]["var"] == "Enr") {
-                    st = data[i]["value"].toFixed(2)+" %"
-                } else if (data[i]["var"] == "gpi" || data[i]["var"] == "cpi") {
-                    st = data[i]["value"]
-                } else {
-                    if (data[i]["value"] > Math.pow(10,9)) {
-                        st = (data[i]["value"]/Math.pow(10,9)).toFixed(2)+"Ma"
-                    } else if (data[i]["value"] > Math.pow(10,6)) {
-                        st = (data[i]["value"]/Math.pow(10,6)).toFixed(2)+"M"
-                    } else if (data[i]["value"] > Math.pow(10,3)) {
-                        st = data[i]["value"].toFixed(0).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, " ")
-                    } else {
-                        st = data[i]["value"].toFixed(0)
-                    }
-
-                    if (data[i]["var"] == "pib") {
-                        st += " $"
-                    }
-                }
-            }
-
+            st = formatNumber(data[i]["value"], data[i]["var"])
             $("#td_"+data[i]["var"]+"_"+index).html(st)
         }
     }
+}
+
+function formatNumber(value, variable) {
+    if (value == null) {
+        return "/"
+    }
+    if (variable == "Enr" || variable == "%") {
+        return value.toFixed(2)+" %"
+    } 
+    if (variable == "gpi" || variable == "cpi") {
+        return value
+    }
+
+    if (value > Math.pow(10,9)) {
+        st = (value/Math.pow(10,9)).toFixed(2)+"Ma"
+    } else if (value > Math.pow(10,6)) {
+        st = (value/Math.pow(10,6)).toFixed(2)+"M"
+    } else if (value > Math.pow(10,3)) {
+        st = value.toFixed(0).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, " ")
+    } else {
+        st = value.toFixed(0)
+    }
+
+    if (variable == "pib") {
+        st += " $"
+    }
+    return st
 }
 
 function updateGrow(data, year) {

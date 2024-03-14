@@ -22,7 +22,9 @@
 
 	<script src="scripts/graph/amTools.js"></script>
 
+    <script src="scripts/graph/linePays.js"></script>
     <script src="scripts/graph/lineCompare.js"></script>
+    <script src="scripts/graph/barreLine.js"></script>
 	<script src="scripts/graph/spider.js"></script>
 	<script src="scripts/graph/barCompare.js"></script>
 
@@ -119,7 +121,7 @@
 
             </div>
 
-            <div class="zone-spider display" id="key" >
+            <div class="zone-spider display" id="key" style="display: none;">
                 <div class="graph" id="spider"></div>
 
                 <div class="cube" id="cube-1">
@@ -222,6 +224,71 @@
                 </div>
             </div>
 
+            <div class="zone display" id="courbe" style="display: none;">
+                <div class="graph" id="line"></div>
+
+                <div class=container-buttons>
+                    <img class="icon icon-active" src="assets/icons/cloud.svg" onclick="changeVar('co2')">
+                    <img class="icon" src="assets/icons/dollar.svg" onclick="changeVar('pib')">
+                    <img class="icon" src="assets/icons/shield.svg" onclick="changeVar('gpi')">
+                    <img class="icon" src="assets/icons/down.svg" onclick="changeVar('arrivees')">
+                    <img class="icon" src="assets/icons/up.svg" onclick="changeVar('departs')">
+                    <img class="icon" src="assets/icons/transfer.svg" onclick="changeVar('cpi')">
+                    <img class="icon" src="assets/icons/leaf.svg" onclick="changeVar('Enr')">
+                </div>
+
+                <div class="table">
+                    <div class="legende">
+                        <div class="icon_name legende-element"></div>
+                        <div class="legende-element">
+                            <div class="square bg-52796F"></div>
+                            <p class = "name">France</p>
+                        </div>
+
+                        <div class="legende-element">
+                            <div class="square bg-83A88B"></div>
+                            <p class = "name" >Moyenne Mondiale</p>
+                        </div>
+                    </div>
+
+                    <div class="container-info">
+                        <p>Dernière valeur</p>
+                        <p id="comp0" class="big">-</p>
+                        <p id="comp_detail">-</p>
+                    </div>
+
+                    <div class="container-info">
+                        <p>Le pays est actuellement</p>
+                        <p id="rank0" class="big">-</p>
+                        <p>parmi tous les pays</p>
+                    </div>
+                    <div class="container-info">
+                        <p>Minimum atteint en</p>
+                        <p id="min0" class="big">-</p>
+                        <p id="min_detail">-</p>
+                    </div>
+                    <div class="container-info">
+                        <p>Maximum atteint en</p>
+                        <p id="max0" class="big">-</p>
+                        <p id="max_detail">-</p>
+                    </div>
+                    <div class="container-info">
+                        <p>Evolution de</p>
+                        <p id="evol0" class="big">-</p>
+                        <p id="evol_detail">-</p>
+                    </div>
+                    <div class="container-info">
+                        <p>Impact du COVID en 2020</p>
+                        <p id="covid0" class="big">-</p>
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="zone display" id="barl">
+                <div class="graph" id="barreLine"></div>
+            </div>
+
             <div class="container-bottom bg-354F52 switch g10-2 active" data-switch="home">
                 <img class="flag-small" src='assets/icons/info.svg'>
                 <h2 class="nom-small">Présentation</h2>
@@ -237,9 +304,9 @@
                 <h2 class="nom-small">Courbe d'évolution</h2>
             </div>
 
-            <div class="container-bottom bg-354F52 switch g10-5" data-switch="grow">
+            <div class="container-bottom bg-354F52 switch g10-5" data-switch="barl">
                 <img class="flag-small" src='assets/icons/stats.svg'>
-                <h2 class="nom-small">Croissances</h2>
+                <h2 class="nom-small">PIB et Tourisme</h2>
             </div>
 
             <div class="container-bottom bg-354F52 switch g10-6" data-switch="more">
@@ -253,7 +320,8 @@
     <script id="scripting">
         createMiniMap(0)
         spider("spider",1)
-        // lineCompare("line")
+        createLine("line")
+        barreLine("barreLine")
     </script>
 
     <script>

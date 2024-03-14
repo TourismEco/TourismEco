@@ -198,7 +198,7 @@ function dataLine($pays, $conn) {
             $rank[$value] = "N/A";
         } else {
             $year = $data[$end]['year'];
-            $evol[$value] = round(100*($data[$end][$value] - $data[$start][$value]) / $data[$start][$value], 2);
+            $evol[$value] = array("val" => round(100*($data[$end][$value] - $data[$start][$value]) / $data[$start][$value], 2), "start" => $data[$start]['year'], "end" => $year);
 
             $query = "SELECT * FROM (SELECT id_pays, $cols[$key], RANK() OVER (ORDER BY $cols[$key] DESC) AS 'rank' FROM $tables[$key] WHERE annee =  $year) AS t WHERE id_pays = '$pays';";
             $result = $conn->query($query);
@@ -213,7 +213,7 @@ function dataLine($pays, $conn) {
 
 
 function dataMean($conn) {
-    $query = "SELECT annee AS year, AVG(co2) AS co2 FROM ecologie GROUP BY annee;";
+    $query = "SELECT * FROM moyennes ORDER BY year ASC";
 
     $result = $conn->query($query);
 
@@ -222,7 +222,7 @@ function dataMean($conn) {
         foreach (array("pib","Enr","co2","arrivees","departs","gpi","cpi") as $key => $value) {
             if (!isset($rs[$value])){
                 $rs[$value]=null;
-            } 
+            }
         }
 
         $data[] = $rs;
@@ -231,30 +231,31 @@ function dataMean($conn) {
     return $data;
 }
 
-function dataCompareMeanLine($pays, $conn) {
-    $dataLine = dataLine($pays, $conn)['data'][0];
-    $dataMean = dataMean($conn)[0];
+function dataCompareLine($data1, $data2) {
     $comparaison = array();
     foreach (array("pib","Enr","co2","arrivees","departs","gpi","cpi") as $value) {
-        if ($dataLine[$value] > $dataMean[$value]) {
-            $comparaison[$value] = "supérieure";
-        } elseif ($dataLine[$value] < $dataMean[$value]) {
-            $comparaison[$value] = "inférieure";
+        $end = count($data1)-1;
+        while ($end >= 0 && $data1[$end][$value] == null) {
+            $end--;
+        }
+
+        if ($end == -1) {
+            $comparaison[$value] = array("year" => null, "val" => null);
         } else {
-            $comparaison[$value] = "égale";
-        }
+            $year = $data1[$end]["year"];
+            $i = count($data2)-1;
+            while ($i >= 0 && $data2[$i]["year"] != $year) {
+                $i--;
+            }
+
+            if ($i == -1) {
+                $comparaison[$value] = array("year" => null, "val" => null);
+            } else {
+                $comparaison[$value] = array("year" => $year, "val" => $data1[$end][$value]/$data2[$i][$value]);
+            }   
+        } 
     }
-    $counts = array_count_values($comparaison);
-    $results = array();
-    foreach ($counts as $comparaison => $count) {
-        if ($comparaison == "supérieure" || $comparaison == "inférieure") {
-            $results[] = array(
-                "val" => $count,
-                "type" => $comparaison
-            );
-        }
-    }
-    return array("val"=>$count, "type"=>$comparaison);
+    return $comparaison;
 }
 
 

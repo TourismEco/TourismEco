@@ -33,22 +33,51 @@ function resetAnnees() {
 
 function updateInfo(index, data, type) {
     if (data) {      
+        console.log(data);
         if (isNaN(data["rank"][type]["rank"])) {
             $("#rank"+index).html("-")
         } else{
             $("#rank"+index).html(data["rank"][type]["rank"]+"e")
         }
 
-        if (isNaN(data["evol"][type])) {
+        if (isNaN(data["evol"][type]["val"])) {
             $("#evol"+index).html("-")
         } else{
-            $("#evol"+index).html(data["evol"][type]+"%")
+            $("#evol"+index).html(formatNumber(data["evol"][type]["val"],"%"))
+            $("#evol_detail").html("entre "+data["evol"][type]["start"]+" et "+data["evol"][type]["end"])
         }
 
         if (isNaN(data["covid"][type])) {
             $("#covid"+index).html("-")
         } else{
-            $("#covid"+index).html(data["covid"][type]+"%")
+            $("#covid"+index).html(formatNumber(data["covid"][type],"%"))
+        }
+
+        if (isNaN(data["max"][type]["year"])) {
+            $("#max"+index).html("-")
+        } else{
+            $("#max"+index).html(data["max"][type]["year"])
+            $("#max_detail").html(`(${formatNumber(data["max"][type]["val"],type)})`)
+        }
+
+        if (isNaN(data["min"][type]["year"])) {
+            $("#min"+index).html("-")
+        } else{
+            $("#min"+index).html(data["min"][type]["year"])
+            $("#min_detail").html(`(${formatNumber(data["min"][type]["val"],type)})`)
+        }
+
+        if (isNaN(data["comp"][type]["val"])) {
+            $("#comp"+index).html("-")
+        } else{
+            if (data["comp"][type]["val"] < 1) {
+                $("#comp"+index).html(Math.pow(data["comp"][type]["val"],-1).toFixed(2)+" fois")
+                $("#comp_detail").html("inférieure à la moyenne")
+            } else {
+                $("#comp"+index).html(data["comp"][type]["val"].toFixed(2)+" fois")
+                $("#comp_detail").html("supérieure à la moyenne")
+            }
+            
         }
     }
 }

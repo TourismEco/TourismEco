@@ -131,7 +131,7 @@
             <script id=scripting>
 
                 barreLine("barreLine")
-                spider("spider")
+                spider("spider",1)
                 createLine("chartdiv2")
                 createMap()
                 

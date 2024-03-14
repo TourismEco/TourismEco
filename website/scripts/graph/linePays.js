@@ -10,7 +10,8 @@ function createLine(id) {
 
 var color = ["#52796F","#83A88B"]
 function linePaysHTMX(data, dataMean, name) {
-    l.updateSerie(0, data, name)
+    l.updateSerie(0, data["data"], name, data)
     l.updateSerie(1, dataMean)
+    updateInfo(0,data,l.getType())
     resetAnnees()
 }
