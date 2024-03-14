@@ -15,6 +15,7 @@ $cur = getDB();
 
 $search = $_GET["search"];
 $page = $_GET["page"];
+$continent = $_GET["id_continent"];
 
 if (strlen($search) == 0) {
     echo <<<HTML
@@ -22,9 +23,15 @@ if (strlen($search) == 0) {
     HTML;
     exit;
 }
+if ($continent == 2) {
+    $queryPays = "SELECT pays.id AS idp, pays.nom AS p, score FROM pays WHERE (id_continent = 3 OR id_continent = $continent ) AND (pays.nom LIKE '%".$search."%') ORDER BY score DESC LIMIT 20";
+    $resultPays = $cur->query($queryPays);
+}
+else{
+    $queryPays = "SELECT pays.id AS idp, pays.nom AS p, score FROM pays WHERE id_continent = $continent AND (pays.nom LIKE '%".$search."%') ORDER BY score DESC LIMIT 20";
+    $resultPays = $cur->query($queryPays);
+}
 
-$queryPays = "SELECT pays.id AS idp, pays.nom AS p, continents.nom AS c, score FROM pays, continents WHERE id_continent = continents.id AND (pays.nom LIKE '%".$search."%' OR continents.nom LIKE '%".$search."%') ORDER BY score DESC LIMIT 20";
-$resultPays = $cur->query($queryPays);
 
 echo <<<HTML
     <div id=search class="container-catalogue">
@@ -32,7 +39,7 @@ HTML;
 
 while ($rsPays = $resultPays->fetch(PDO::FETCH_ASSOC)) {
     $letter = getLetter($rsPays["score"]);
-    echo addCardCountry($rsPays["idp"],$rsPays["p"],$letter,$page);
+    echo addSlimCountry($rsPays["idp"],$rsPays["p"],$letter,$page);
 }
 
 echo <<<HTML

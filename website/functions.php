@@ -115,9 +115,6 @@ function addSlimCountry($id,$nom,$letter,$page) {
                 <img class="img img-slim" src='assets/img/$id.jpg' alt="Bandeau">
                 <img class="flag-slim" src='assets/twemoji/$id.svg'>
                 <h2 class="nom-slim">$nom</h2>
-                <div class="buttons-slim">
-                    <button class=button-catalogue id=v-$id hx-get="scripts/htmx/get$page.php" hx-vals="js:{id_pays:'$id'}" hx-swap="beforeend show:top">Consulter</button>
-                </div>
             </div>
         </div>
     HTML;

@@ -16,15 +16,26 @@ $cur = getDB();
 $continent = $_GET["continent"];
 $more = $_GET["more"];
 $page = $_GET["page"];
-$offset = 4*$more++; 
+$offset = 12*$more++; 
 
-$queryCount = "SELECT COUNT(*) AS Count FROM pays WHERE id_continent = ".$continent;
-$resultCount = $cur->query($queryCount);
-$rsCount = $resultCount->fetch(PDO::FETCH_ASSOC);
-$count = $rsCount["Count"];
-
-$queryPays = "SELECT * FROM pays WHERE id_continent = ".$continent." ORDER BY score DESC LIMIT $offset, 4";
-$resultPays = $cur->query($queryPays);
+if ($continent == 2) {
+    $queryCount = "SELECT COUNT(*) AS Count FROM pays WHERE id_continent = 3 OR id_continent=".$continent;
+    $resultCount = $cur->query($queryCount);
+    $rsCount = $resultCount->fetch(PDO::FETCH_ASSOC);
+    $count = $rsCount["Count"];
+    
+    $queryPays = "SELECT * FROM pays WHERE id_continent = 2 OR id_continent = 3 ORDER BY score DESC LIMIT $offset, 12";
+    $resultPays = $cur->query($queryPays);
+}
+else{
+    $queryCount = "SELECT COUNT(*) AS Count FROM pays WHERE id_continent = ".$continent;
+    $resultCount = $cur->query($queryCount);
+    $rsCount = $resultCount->fetch(PDO::FETCH_ASSOC);
+    $count = $rsCount["Count"];
+    
+    $queryPays = "SELECT * FROM pays WHERE id_continent = ".$continent." ORDER BY score DESC LIMIT $offset, 12";
+    $resultPays = $cur->query($queryPays);
+}
 
 while ($rsPays = $resultPays->fetch(PDO::FETCH_ASSOC)) {
     $letter = getLetter($rsPays["score"]);
