@@ -33,7 +33,7 @@ var html =
         `
 
 class EcoMap {
-    constructor (id, option, mini) {
+    constructor (id, option, mini, index=0) {
         this.root = am5.Root.new(id);
         this.countries = null
         this.continents = null
@@ -43,7 +43,8 @@ class EcoMap {
         this.capitals = null
         this.option = option
         this.mini = mini
-        this.max = {"pays":1, "compare":2, "continent":1}
+        this.max = {"pays":1, "compare":1, "continent":1}
+        this.index = index
 
         this.root.setThemes([
             am5themes_Animated.new(this.root)
@@ -168,7 +169,8 @@ class EcoMap {
 
         serie.mapPolygons.template.events.on("click", function (ev) {
             if (base.option == "compare") {
-                htmx.ajax("GET","scripts/htmx/getCompare.php",{values:{map:true,id_pays:ev.target.dataItem._settings.id},swap:"beforeend"})
+                serie.zoomToDataItem(ev.target.dataItem);
+                htmx.ajax("GET","scripts/htmx/getCompare.php",{values:{map:true,id_pays:ev.target.dataItem._settings.id,incr:base.index},swap:"beforeend"})
             } else if (base.option == "pays") {
                 serie.zoomToDataItem(ev.target.dataItem);
                 htmx.ajax("GET","scripts/htmx/getPays.php",{values:{map:true,id_pays:ev.target.dataItem._settings.id},swap:"beforeend"})
@@ -265,9 +267,9 @@ function createMap() {
     }
 }
 
-function createMiniMap(index) {
+function createMiniMap(index,option) {
     if (miniMap[index] == undefined) {
-        mi = new EcoMap("miniMap"+index,"pays",true)
+        mi = new EcoMap("miniMap"+index,option,true,index)
         mi.addContinents()
         mi.addCountries()
         miniMap[index] = mi

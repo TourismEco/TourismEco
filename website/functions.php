@@ -295,19 +295,18 @@ function dataSpider($pays, $conn) {
 
 function dataBar($pays, $conn) {
    
-    $query = "SELECT ecologie.annee as annee,
-    pibParHab AS pib, co2, arriveesTotal AS arrivees, gpi, cpi
-
-    FROM ecologie_grow AS ecologie, economie_grow AS economie, tourisme_grow AS tourisme, surete_grow AS surete
-    WHERE ecologie.id_pays = economie.id_pays
-    AND economie.id_pays = tourisme.id_pays
-    AND tourisme.id_pays = surete.id_pays
-    AND surete.id_pays = '$pays'
-
-    AND ecologie.annee = economie.annee
-    AND economie.annee = tourisme.annee
-    AND tourisme.annee = surete.annee  
-    ORDER BY `ecologie`.`annee` DESC;
+    $query = "SELECT allk.id_pays, allk.annee AS annee, co2, pibParHab AS pib, cpi, gpi, arriveesTotal AS 'arrivees'
+    FROM (SELECT id_pays, annee FROM economie_grow UNION 
+            SELECT id_pays, annee FROM tourisme_grow UNION
+            SELECT id_pays, annee FROM surete_grow UNION
+            SELECT id_pays, annee FROM ecologie_grow
+            ) allk 
+    LEFT OUTER JOIN economie_grow ON allk.id_pays = economie_grow.id_pays AND allk.annee = economie_grow.annee 
+    LEFT OUTER JOIN ecologie_grow ON allk.id_pays = ecologie_grow.id_pays AND allk.annee = ecologie_grow.annee 
+    LEFT OUTER JOIN surete_grow ON allk.id_pays = surete_grow.id_pays AND allk.annee = surete_grow.annee 
+    LEFT OUTER JOIN tourisme_grow ON allk.id_pays = tourisme_grow.id_pays AND allk.annee = tourisme_grow.annee
+    WHERE allk.id_pays = '$pays' AND allk.annee >= 1995 AND allk.annee <= 2021
+    ORDER BY allk.annee;
     ";
 
     $result = $conn->query($query);

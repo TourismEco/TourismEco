@@ -109,6 +109,7 @@ body {
 
 .flag {
     width: 100px;
+    margin:auto;
 }
 
 .nom-small {
@@ -133,6 +134,8 @@ body {
     z-index: 5;
     align-self: center;
     justify-self: center;
+    display: flex;
+    flex-direction: column;
 }
 
 .g1-1 {

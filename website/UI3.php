@@ -51,12 +51,9 @@
     ?>
 
     <div class="flex">
-        <div class="grid">
-            <div class="container-side g1-1" id="mini0">
-            </div>
-
-            <div class="container-side g2-1" id="mini1">
-            </div>
+        <div class="grid" id="grid">
+            <div class="container-side g1-1" id="mini0"></div>
+            <div class="container-side g2-1" id="mini1"></div>
 
             <div class="container-side bg-354F52 g4-1 active">
                 <img class="flag-small" src='assets/icons/stats.svg'>
@@ -68,57 +65,24 @@
                 <h2 class="nom-small">Carte</h2>
             </div>
 
-            <div class="container-side bg-354F52 g6-1">
+            <div class="container-side bg-354F52 g6-1" hx-get="UI3_catalogue.php" hx-select="#grid" hx-target="#grid" hx-trigger="click" hx-vals="js:{page:'Pays'}" hx-swap="outerHTML">
                 <img class="flag-small" src='assets/icons/catalogue.svg'>
                 <h2 class="nom-small">Catalogue</h2>
             </div>
 
-            <div class="zone-presentation display"  id="home">
-                <div class="container-presentation expand-2" id="mini$incr" hx-swap-oob="outerHTML">
-                    <div class="bandeau"> 
-                        <img class="img-side img" src='assets/img/FR.jpg' alt="Bandeau">
-                        <div class="flag-plus-nom">
-                            <img class="flag" src='assets/twemoji/FR.svg'>
-                            <h2 class="nom">France</h2>
-                        </div>
-                        
-                    </div>
-                </div>
+            <div class="zone-presentation display" id="home">
+                <div class="container-presentation expand-2" id="bandeau0"></div>
+                <div class="container-presentation expand-2" id="bandeau1"></div>
 
-                <div class="container-presentation expand-2" id="mini$incr" hx-swap-oob="outerHTML">
-                    <div class="bandeau"> 
-                        <img class="img-side img" src='assets/img/HR.jpg' alt="Bandeau">
-                        <div class="flag-plus-nom">
-                            <img class="flag" src='assets/twemoji/HR.svg'>
-                            <h2 class="nom">Croatie</h2>
-                        </div>
-                    </div>
-                </div>
+                <div class="container-presentation" id="score0"></div>
+                <div class="container-presentation" id="miniMap0"></div>
 
-                <div class="container-presentation">
-                    <div class="score-box score-A">A</div>
-                </div>
+                <div class="container-presentation" id="score1"></div>
+                <div class="container-presentation" id="miniMap1"></div>
 
-                <div class="container-presentation" id="miniMap0" hx-swap-oob="outerHTML">
-                </div>
-
-                <div class="container-presentation">
-                    <div class="score-box score-A">A</div>
-                </div>
-
-                <div class="container-presentation" id="miniMap1" hx-swap-oob="outerHTML">
-                </div>
-
-                <div class="container-presentation">
-                </div>
-
-                <div class="container-presentation expand-2">
-                </div>
-
-                <div class="container-presentation">
-                
-                </div>
-
+                <div class="container-presentation"></div>
+                <div class="container-presentation expand-2"></div>
+                <div class="container-presentation"></div>
             </div>
                 
 
@@ -126,26 +90,26 @@
                 <div class=graph id="line"></div>
 
                 <div class=container-buttons>
-                    <img class="icon icon-active" src="assets/icons/cloud.svg" onclick="changeVar('co2')">
-                    <img class="icon" src="assets/icons/dollar.svg" onclick="changeVar('pib')">
-                    <img class="icon" src="assets/icons/shield.svg" onclick="changeVar('gpi')">
-                    <img class="icon" src="assets/icons/down.svg" onclick="changeVar('arrivees')">
-                    <img class="icon" src="assets/icons/up.svg" onclick="changeVar('departs')">
-                    <img class="icon" src="assets/icons/transfer.svg" onclick="changeVar('cpi')">
-                    <img class="icon" src="assets/icons/leaf.svg" onclick="changeVar('Enr')">
+                    <img class="icon icon-active" src="assets/icons/cloud.svg" onclick="changeVar('co2')" data-name="Émissions de CO2">
+                    <img class="icon" src="assets/icons/dollar.svg" onclick="changeVar('pib')" data-name="PIB/Habitant">
+                    <img class="icon" src="assets/icons/shield.svg" onclick="changeVar('gpi')" data-name="Global Peace Index">
+                    <img class="icon" src="assets/icons/down.svg" onclick="changeVar('arrivees')" data-name="Arrivées touristiques">
+                    <img class="icon" src="assets/icons/up.svg" onclick="changeVar('departs')" data-name="Départs">
+                    <img class="icon" src="assets/icons/transfer.svg" onclick="changeVar('cpi')" data-name="CPI">
+                    <img class="icon" src="assets/icons/leaf.svg" onclick="changeVar('Enr')" data-name="% d'énergies renouvellables">
                 </div>
 
                 <div class="table">
                     <div class="legende">
                         <div class="legende-element">
                             <div class="square bg-52796F"></div>
-                            <p class = "name">France</p>
+                            <p class="name" id="nom0"></p>
                         </div>
-                        <div class = "icon_name legende-element"></div>
+                        <div class="icon_name legende-element">Émissions de CO2</div>
 
                         <div class="legende-element">
                             
-                            <p class = "name" >Croatie</p>
+                            <p class="name" id="nom1"></p>
                             <div class="square bg-83A88B"></div>
                             
                         </div>
@@ -188,9 +152,10 @@
             <div class="zone-spider display" style="display:none" id="key">
                     
                 <div class="graph" id="spider"></div>
+                <div></div>
                 <div class="cube" id="cube-1">
                     <div class="el-cube">
-                        <img class="flag-tiny" src="assets/twemoji/FR.svg">
+                        <img class="flag-tiny" id="flag0">
                         <div id="td_cpi_0"></div>
                     </div>
                     <div class="tooltip">
@@ -203,13 +168,13 @@
                         </div>
                     </div>
                     <div class="el-cube">
-                        <img class="flag-tiny" src="assets/twemoji/HR.svg">
+                        <img class="flag-tiny" id="flag1">
                         <div id="td_cpi_1"></div>
                     </div>
                 </div>
                 <div class="cube" id="cube-2">
                     <div class="el-cube">
-                        <img class="flag-tiny" src="assets/twemoji/FR.svg">
+                        <img class="flag-tiny" id="flag0">
                         <div id="td_pib_0"></div>
                     </div>
                     <div class="tooltip">
@@ -222,13 +187,13 @@
                         </div>
                     </div>
                     <div class="el-cube">
-                        <img class="flag-tiny" src="assets/twemoji/HR.svg">
+                        <img class="flag-tiny" id="flag1">
                         <div id="td_pib_1"></div>
                     </div>
                 </div>
                 <div class="cube" id="cube-3">
                     <div class="el-cube">
-                        <img class="flag-tiny" src="assets/twemoji/FR.svg">
+                        <img class="flag-tiny" id="flag0">
                         <div id="td_gpi_0"></div>
                     </div>
                     <div class="tooltip">
@@ -241,13 +206,13 @@
                         </div>
                     </div>
                     <div class="el-cube">
-                        <img class="flag-tiny" src="assets/twemoji/HR.svg">
+                        <img class="flag-tiny" id="flag1">
                         <div id="td_gpi_1"></div>
                     </div>
                 </div>
                 <div class="cube" id="cube-4">
                     <div class="el-cube">
-                        <img class="flag-tiny" src="assets/twemoji/FR.svg">
+                        <img class="flag-tiny" id="flag0">
                         <div id="td_Enr_0"></div>
                     </div>
                     <div class="tooltip">
@@ -260,13 +225,13 @@
                         </div>
                     </div>
                     <div class="el-cube">
-                        <img class="flag-tiny" src="assets/twemoji/HR.svg">
+                        <img class="flag-tiny" id="flag1">
                         <div id="td_Enr_1"></div>
                     </div>
                 </div>
                 <div class="cube" id="cube-5">
                     <div class="el-cube">
-                        <img class="flag-tiny" src="assets/twemoji/FR.svg">
+                        <img class="flag-tiny" id="flag0">
                         <div id="td_departs_0"></div>
                     </div>
                     <div class="tooltip">
@@ -279,13 +244,13 @@
                         </div>
                     </div>
                     <div class="el-cube">
-                        <img class="flag-tiny" src="assets/twemoji/HR.svg">
+                        <img class="flag-tiny" id="flag1">
                         <div id="td_departs_1"></div>
                     </div>
                 </div>
                 <div class="cube" id="cube-6">
                     <div class="el-cube">
-                        <img class="flag-tiny" src="assets/twemoji/FR.svg">
+                        <img class="flag-tiny" id="flag0">
                         <div id="td_co2_0"></div>
                     </div>
                     <div class="tooltip">
@@ -298,13 +263,13 @@
                         </div>
                     </div>
                     <div class="el-cube">
-                        <img class="flag-tiny" src="assets/twemoji/HR.svg">
+                        <img class="flag-tiny" id="flag1">
                         <div id="td_co2_1"></div>
                     </div>
                 </div>
                 <div class="cube" id="cube-7">
                     <div class="el-cube">
-                        <img class="flag-tiny" src="assets/twemoji/FR.svg">
+                        <img class="flag-tiny" id="flag0">
                         <div id="td_arrivees_0"></div>
                     </div>
                     <div class="tooltip">
@@ -317,16 +282,16 @@
                         </div>
                     </div>
                     <div class="el-cube">
-                        <img class="flag-tiny" src="assets/twemoji/HR.svg">
+                        <img class="flag-tiny" id="flag1">
                         <div id="td_arrivees_1"></div>
                     </div>
                 </div>
 
                 <div class="legende-key">
                     <div class="square bg-52796F"></div>
-                    <p>France</p>
+                    <p id="nom0"></p>
                     <div class="square bg-83A88B"></div>
-                    <p>Croatie</p>
+                    <p id="nom1"></p>
                 </div>
 
             </div>
@@ -380,8 +345,8 @@
         lineCompare("line")
         barCompare("bar")
 
-        createMiniMap(0)
-        createMiniMap(1)
+        createMiniMap(0,"compare")
+        createMiniMap(1,"compare")
 
     </script>
 
@@ -389,12 +354,7 @@
         $(".icon").on("click", function () {
             $(".icon-active").removeClass("icon-active")
             $(this).addClass("icon-active")
-
-            // Get the variable name from the clicked icon's onclick attribute
-            var variableName = $(this).attr("onclick").match(/\('([^']+)'\)/)[1];
-
-            // Update the text content of the icon_name element
-            $(".icon_name").text(variableName);
+            $(".icon_name").text($(this).data("name"));
         })
 
         $(".switch").on("click", function () {
@@ -408,7 +368,6 @@
 
     <div hx-get="scripts/htmx/getCompare.php" hx-vals="js:{incr:0,id_pays:'FR'}" hx-trigger="load delay:2s"></div>
     <div hx-get="scripts/htmx/getCompare.php" hx-vals="js:{incr:1,id_pays:'HR'}" hx-trigger="load delay:2.5s"></div>
-    
     
 </body>
 </html>

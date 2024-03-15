@@ -33,41 +33,40 @@ function resetAnnees() {
 
 function updateInfo(index, data, type) {
     if (data) {      
-        console.log(data);
-        if (isNaN(data["rank"][type]["rank"])) {
+        if (!("rank" in data) || isNaN(data["rank"][type]["rank"])) {
             $("#rank"+index).html("-")
         } else{
             $("#rank"+index).html(data["rank"][type]["rank"]+"e")
         }
 
-        if (isNaN(data["evol"][type]["val"])) {
+        if (!("evol" in data) || isNaN(data["evol"][type]["val"])) {
             $("#evol"+index).html("-")
         } else{
             $("#evol"+index).html(formatNumber(data["evol"][type]["val"],"%"))
             $("#evol_detail").html("entre "+data["evol"][type]["start"]+" et "+data["evol"][type]["end"])
         }
 
-        if (isNaN(data["covid"][type])) {
+        if (!("covid" in data) || isNaN(data["covid"][type])) {
             $("#covid"+index).html("-")
         } else{
             $("#covid"+index).html(formatNumber(data["covid"][type],"%"))
         }
 
-        if (isNaN(data["max"][type]["year"])) {
+        if (!("max" in data) || isNaN(data["max"][type]["year"])) {
             $("#max"+index).html("-")
         } else{
             $("#max"+index).html(data["max"][type]["year"])
             $("#max_detail").html(`(${formatNumber(data["max"][type]["val"],type)})`)
         }
 
-        if (isNaN(data["min"][type]["year"])) {
+        if (!("min" in data) || isNaN(data["min"][type]["year"])) {
             $("#min"+index).html("-")
         } else{
             $("#min"+index).html(data["min"][type]["year"])
             $("#min_detail").html(`(${formatNumber(data["min"][type]["val"],type)})`)
         }
 
-        if (isNaN(data["comp"][type]["val"])) {
+        if (!("comp" in data) || isNaN(data["comp"][type]["val"])) {
             $("#comp"+index).html("-")
         } else{
             if (data["comp"][type]["val"] < 1) {

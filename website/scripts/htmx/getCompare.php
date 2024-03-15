@@ -48,15 +48,10 @@ $sth->execute();
 $ligne = $sth->fetch();
 $capitale = $ligne["nom"];
 
-// Line
-$dataLine = json_encode($dataLine($id_pays, $cur),JSON_NUMERIC_CHECK);
-
+$dataLine = json_encode(dataLine($id_pays, $cur),JSON_NUMERIC_CHECK);
 $dataSpider = json_encode(dataSpider($id_pays, $cur),JSON_NUMERIC_CHECK);
-
 $dataBar = json_encode(dataBar($id_pays, $cur),JSON_NUMERIC_CHECK);
 $dataTab = json_encode(dataTab($id_pays, $cur),JSON_NUMERIC_CHECK);
-
-$incrP = $incr+1;
 
 $query = "SELECT * FROM villes WHERE id_pays = :id_pays";
 $id_pays = $_GET["id_pays"];
@@ -91,17 +86,23 @@ while ($rs = $sth->fetch()) {
 $cities = json_encode($cities);
 $capitals = json_encode($capitals);
 
+$incrP = $incr+1;
+
 echo <<<HTML
 
-<div class="bandeau half" id="bandeau$incr" hx-swap-oob="outerHTML">     
-    <img class="img" src='assets/img/$id_pays.jpg' alt="Bandeau">
-    <img class="flag" src='assets/twemoji/$id_pays.svg'>
-    <h1 class="nom">$nom</h1>
-    <p class="capital">Capitale : $capitale</p>
-   
+<div class="container-presentation expand-2" id="bandeau$incr" hx-swap-oob="outerHTML">
+    <div class="bandeau"> 
+        <img class="img-side img" src='assets/img/$id_pays.jpg' alt="Bandeau">
+        <div class="flag-plus-nom">
+            <img class="flag" src='assets/twemoji/$id_pays.svg'>
+            <h2 class="nom">$nom</h2>
+        </div>
+    </div>
 </div>
 
-<div class="score-box score-$letter" id="score$incr" hx-swap-oob="outerHTML">$letter</div>
+<div class="container-presentation" id="score$incr" hx-swap-oob="outerHTML">
+    <div class="score-box score-$letter">$letter</div>
+</div>
 
 <div class="container-side g$incrP-1" id="mini$incr" hx-swap-oob="outerHTML">
     <img class="img img-side" src='assets/img/$id_pays.jpg' alt="Bandeau">
@@ -109,10 +110,8 @@ echo <<<HTML
     <h2 class="nom-small">$nom</h2>
 </div>
 
-<table id="tabtemp">
-    <tr><td id="nom_$incr" hx-swap-oob=outerHTML>$nom</td></tr>
-</table>
-
+<p class="name" id="nom$incr" hx-swap-oob="outerHTML">$nom</p>
+<img class="flag-tiny" src="assets/twemoji/$id_pays.svg" id="flag$incr" hx-swap-oob="outerHTML">
 
 <script id=scripting hx-swap-oob=outerHTML>
     spiderHTMX($incr, $dataSpider, $dataTab, "$nom")
@@ -124,15 +123,13 @@ echo <<<HTML
 
     if ($map) {
         miniMap[$incr].zoomTo("$id_pays")
-        // map.setActive("$id_pays")
     }
 
-    addListe("$sv1[0]","$sv1[1]","test","$id_pays")
-    addListe("$sv2[0]","$sv2[1]","test","$id_pays")
-    addListe("$sv3[0]","$sv3[1]","test","$id_pays")
-    delListe("$old")
+    // addListe("$sv1[0]","$sv1[1]","test","$id_pays")
+    // addListe("$sv2[0]","$sv2[1]","test","$id_pays")
+    // addListe("$sv3[0]","$sv3[1]","test","$id_pays")
+    // delListe("$old")
 
-    $("#tabtemp").remove()
     // $("#scripting").empty()
 </script>
 

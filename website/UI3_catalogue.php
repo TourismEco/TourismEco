@@ -63,21 +63,20 @@
     </nav>
 
     <div class="flex">
-        <div class="grid">
+        <div class="grid" id="grid">
             
-
-            <div class="container-side bg-354F52 g4-1 " id="mini$incr" hx-swap-oob="outerHTML">
+            <div class="container-side bg-354F52 g4-1" hx-get="UI3.php" hx-select="#grid" hx-target="#grid" hx-trigger="click" hx-swap="outerHTML">
                 <img class="flag-small" src='assets/icons/stats.svg'>
                 <h2 class="nom-small">Statistiques</h2>
             </div>
 
 
-            <div class="container-side bg-354F52 g5-1" id="mini$incr" hx-swap-oob="outerHTML" onclick="window.location.href = 'UI3_carte.php';">
+            <div class="container-side bg-354F52 g5-1">
                 <img class="flag-small" src='assets/icons/map.svg'>
                 <h2 class="nom-small">Carte</h2>
             </div>
 
-            <div class="container-side bg-354F52 g6-1 active" id="mini$incr" hx-swap-oob="outerHTML" onclick="window.location.href = 'UI3_catalogue.php';">
+            <div class="container-side bg-354F52 g6-1 active">
                 <img class="flag-small" src='assets/icons/catalogue.svg'>
                 <h2 class="nom-small">Catalogue</h2>
             </div>
@@ -212,52 +211,53 @@
                 </div>
             </div>
 
-            <div class="container-bottom bg-354F52 g10-2 active switch" id="mini$incr" hx-swap-oob="outerHTML" data-switch="asie" data-id_continent="4">
+            <div class="container-bottom bg-354F52 g10-2 active switch" data-switch="asie" data-id_continent="4">
                 <img class="flag-small" src='assets/icons/sort.svg'>
                 <h2 class="nom-small">Asie</h2>
             </div>
 
-            <div class="container-bottom bg-354F52 g10-3 switch" id="mini$incr" hx-swap-oob="outerHTML" data-switch="afrique" data-id_continent="1">
+            <div class="container-bottom bg-354F52 g10-3 switch" data-switch="afrique" data-id_continent="1">
                 <img class="flag-small" src='assets/icons/sort.svg'>
                 <h2 class="nom-small">Afrique</h2>
             </div>
 
-            <div class="container-bottom bg-354F52 g10-4 switch" id="mini$incr" hx-swap-oob="outerHTML" data-switch="amerique" data-id_continent="2">
+            <div class="container-bottom bg-354F52 g10-4 switch" data-switch="amerique" data-id_continent="2">
                 <img class="flag-small" src='assets/icons/sort.svg'>
                 <h2 class="nom-small">Amérique</h2>
             </div>
 
-            <div class="container-bottom bg-354F52 g10-5 switch" id="mini$incr" hx-swap-oob="outerHTML" data-switch="europe" data-id_continent="5">
+            <div class="container-bottom bg-354F52 g10-5 switch" data-switch="europe" data-id_continent="5">
                 <img class="flag-small" src='assets/icons/sort.svg'>
                 <h2 class="nom-small">Europe</h2>
             </div>
 
-            <div class="container-bottom bg-354F52 g10-6 switch" id="mini$incr" hx-swap-oob="outerHTML" data-switch="oceanie" data-id_continent="6">
+            <div class="container-bottom bg-354F52 g10-6 switch" data-switch="oceanie" data-id_continent="6">
                 <img class="flag-small" src='assets/icons/sort.svg'>
                 <h2 class="nom-small">Océanie</h2>
             </div>
+
+            <script id="scripting">
+                createMap()
+            </script>
+
+            <script>
+                var id_continent = 4;
+                $(".switch").on("click", function () {
+                    $(".switch").removeClass("active")
+                    $(this).addClass("active")
+                    $(".display").css("display","none")
+                    console.log($(this).data("switch"))
+                    $("#"+$(this).data("switch")).css("display","flex")
+                    $("#txt").val("")
+                    $("#search").empty()
+
+
+                    id_continent = $(this).data("id_continent")
+                })
+            </script>
+
         </div>
     </div>
-
-    <script id="scripting">
-        createMap()
-    </script>
-
-    <script>
-        var id_continent = 4;
-        $(".switch").on("click", function () {
-            $(".switch").removeClass("active")
-            $(this).addClass("active")
-            $(".display").css("display","none")
-            console.log($(this).data("switch"))
-            $("#"+$(this).data("switch")).css("display","flex")
-            $("#txt").val("")
-            $("#search").empty()
-
-
-            id_continent = $(this).data("id_continent")
-        })
-    </script>
 
 </body>
 </html>
