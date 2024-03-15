@@ -38,53 +38,14 @@ $sv2 = explode(" : ",htmlspecialchars($ligne["sv2"]));
 $sv3 = explode(" : ",htmlspecialchars($ligne["sv3"]));
 $letter = getLetter($ligne["score"]);
 
-// Capitale
-$query = "SELECT * FROM villes WHERE id_pays = :id_pays and capitale = :is_capitale";
-$sth = $cur->prepare($query);
-$is_capitale = 1;
-$sth->bindParam(":id_pays", $id_pays, PDO::PARAM_STR);
-$sth->bindParam(":is_capitale", $is_capitale, PDO::PARAM_INT);
-$sth->execute();
-$ligne = $sth->fetch();
-$capitale = $ligne["nom"];
-
 $dataLine = json_encode(dataLine($id_pays, $cur),JSON_NUMERIC_CHECK);
 $dataSpider = json_encode(dataSpider($id_pays, $cur),JSON_NUMERIC_CHECK);
 $dataBar = json_encode(dataBar($id_pays, $cur),JSON_NUMERIC_CHECK);
 $dataTab = json_encode(dataTab($id_pays, $cur),JSON_NUMERIC_CHECK);
 
-$query = "SELECT * FROM villes WHERE id_pays = :id_pays";
-$id_pays = $_GET["id_pays"];
-$sth = $cur -> prepare($query);
-$sth -> bindParam(":id_pays", $id_pays, PDO::PARAM_STR);
-$sth -> execute();
-
-$cities = array();
-$capitals = array();
-while ($rs = $sth->fetch()) {
-    if (!$rs["capitale"]) {
-        $cities[] = array(
-            "id"=>$rs["id"], 
-            "title"=>$rs["nom"], 
-            "geometry"=>array(
-                "type"=>"Point",
-                "coordinates"=>array($rs["lon"],$rs["lat"])
-            )
-        );
-    } else {
-        $capitals[] = array(
-            "id"=>$rs["id"], 
-            "title"=>$rs["nom"], 
-            "geometry"=>array(
-                "type"=>"Point",
-                "coordinates"=>array($rs["lon"],$rs["lat"])
-            )
-        );
-    }
-}
-
-$cities = json_encode($cities);
-$capitals = json_encode($capitals);
+$c = getCities($id_pays, $cur);
+$cities = json_encode($c["cities"]);
+$capitals = json_encode($c["capitals"]);
 
 $incrP = $incr+1;
 

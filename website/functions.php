@@ -613,3 +613,45 @@ function getAirplaneModel($idRoute){
     $conn = null;
     return $airplane;
 }
+
+function getCities($id_pays, $cur) {
+    $query = "SELECT * FROM villes WHERE id_pays = :id_pays and capitale = :is_capitale";
+    $sth = $cur->prepare($query);
+    $is_capitale = 1;
+    $sth->bindParam(":id_pays", $id_pays, PDO::PARAM_STR);
+    $sth->bindParam(":is_capitale", $is_capitale, PDO::PARAM_INT);
+    $sth->execute();
+    $ligne = $sth->fetch();
+
+    $query = "SELECT * FROM villes WHERE id_pays = :id_pays";
+    $id_pays = $_GET["id_pays"];
+    $sth = $cur -> prepare($query);
+    $sth -> bindParam(":id_pays", $id_pays, PDO::PARAM_STR);
+    $sth -> execute();
+
+    $cities = array();
+    $capitals = array();
+    while ($rs = $sth->fetch()) {
+        if (!$rs["capitale"]) {
+            $cities[] = array(
+                "id"=>$rs["id"], 
+                "title"=>$rs["nom"], 
+                "geometry"=>array(
+                    "type"=>"Point",
+                    "coordinates"=>array($rs["lon"],$rs["lat"])
+                )
+            );
+        } else {
+            $capitals[] = array(
+                "id"=>$rs["id"], 
+                "title"=>$rs["nom"], 
+                "geometry"=>array(
+                    "type"=>"Point",
+                    "coordinates"=>array($rs["lon"],$rs["lat"])
+                )
+            );
+        }
+    }
+
+    return array("cities"=>$cities, "capitals"=>$capitals);
+}

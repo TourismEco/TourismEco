@@ -36,84 +36,9 @@ $description = $ligne["description"];
 $letter = getLetter($ligne["score"]);
 
 // Capitale
-$query = "SELECT * FROM villes WHERE id_pays = :id_pays and capitale = :is_capitale";
-$sth = $cur->prepare($query);
-$is_capitale = 1;
-$sth->bindParam(":id_pays", $id_pays, PDO::PARAM_STR);
-$sth->bindParam(":is_capitale", $is_capitale, PDO::PARAM_INT);
-$sth->execute();
-$ligne = $sth->fetch();
-$capitale = $ligne["nom"];
-
-
-$query = "SELECT * FROM economie WHERE id_pays = :id_pays and annee = :annee";
-$sth = $cur->prepare($query);
-$annee = 2021;
-$sth->bindParam(":id_pays", $id_pays, PDO::PARAM_STR);
-$sth->bindParam(":annee", $annee, PDO::PARAM_INT);
-$sth->execute();
-$ligne = $sth->fetch();
-$pib = $ligne["pibParHab"];
-      
-$query = "SELECT * FROM ecologie WHERE id_pays = :id_pays and annee = :annee";
-$sth = $cur->prepare($query);
-$annee = 2020;
-$sth->bindParam(":id_pays", $id_pays, PDO::PARAM_STR);
-$sth->bindParam(":annee", $annee, PDO::PARAM_INT);
-$sth->execute();
-$ligne = $sth->fetch();
-$co2 = $ligne["co2"];
-
-$query = "SELECT * FROM tourisme WHERE id_pays = :id_pays and annee = :annee";
-$sth = $cur->prepare($query);
-$annee = 2021;
-$sth->bindParam(":id_pays", $id_pays, PDO::PARAM_STR);
-$sth->bindParam(":annee", $annee, PDO::PARAM_INT);
-$sth->execute();
-$ligne = $sth->fetch();
-$arrivees = $ligne["arriveesTotal"];
-
-$query = "SELECT * FROM surete WHERE id_pays = :id_pays and annee = :annee";
-$sth = $cur->prepare($query);
-$annee = 2023;
-$sth->bindParam(":id_pays", $id_pays, PDO::PARAM_STR);
-$sth->bindParam(":annee", $annee, PDO::PARAM_INT);
-$sth->execute();
-$ligne = $sth->fetch();
-$gpi = $ligne["gpi"];
-
-$query = "SELECT * FROM villes WHERE id_pays = :id_pays";
-$id_pays = $_GET["id_pays"];
-$sth = $cur -> prepare($query);
-$sth -> bindParam(":id_pays", $id_pays, PDO::PARAM_STR);
-$sth -> execute();
-
-$cities = array();
-$capitals = array();
-while ($rs = $sth->fetch()) {
-    if (!$rs["capitale"]) {
-        $cities[] = array(
-            "id"=>$rs["id"], 
-            "title"=>$rs["nom"], 
-            "geometry"=>array(
-                "type"=>"Point",
-                "coordinates"=>array($rs["lon"],$rs["lat"])
-            )
-        );
-    } else {
-        $capitals[] = array(
-            "id"=>$rs["id"], 
-            "title"=>$rs["nom"], 
-            "geometry"=>array(
-                "type"=>"Point",
-                "coordinates"=>array($rs["lon"],$rs["lat"])
-            )
-        );
-    }
-}
-
-$cities = json_encode($cities);
-$capitals = json_encode($capitals);
+$c = getCities($id_pays, $cur);
+$cities = json_encode($c["cities"]);
+$capitals = json_encode($c["capitals"]);
 
 $dataLine = dataLine($id_pays, $cur);
 $dataLineMean = dataMean($cur);
