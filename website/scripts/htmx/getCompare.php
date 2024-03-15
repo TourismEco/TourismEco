@@ -118,9 +118,9 @@ echo <<<HTML
     lineHTMX($incr, $dataLine, "$nom")
     barHTMX($incr, $dataBar, "$nom")
 
-    miniMap[$incr].addCapitals($capitals)
     miniMap[$incr].addCities($cities)
-
+    miniMap[$incr].addCapitals($capitals)
+    
     if ($map) {
         miniMap[$incr].zoomTo("$id_pays")
     }

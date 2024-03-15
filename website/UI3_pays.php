@@ -1,105 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <!-- <link rel="stylesheet" href="assets/css/styles2.css"> -->
-    <link rel="stylesheet" href="assets/css/UI3.css">
-
-    <script src="https://unpkg.com/htmx.org"></script>
-	<script src="https://unpkg.com/jquery.min.js"></script>
-
-    <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
-	<script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
-	<script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
-    <script src="https://cdn.amcharts.com/lib/5/radar.js"></script>
-
-    <script src="https://cdn.amcharts.com/lib/5/map.js"></script>
-	<script src="https://cdn.amcharts.com/lib/5/geodata/continentsLow.js"></script>
-	<script src="https://cdn.amcharts.com/lib/5/geodata/worldLow.js"></script>
-	<script src="https://cdn.amcharts.com/lib/5/geodata/lang/FR.js"></script>
-
-	<script src="scripts/graph/amTools.js"></script>
-
-    <script src="scripts/graph/linePays.js"></script>
-    <script src="scripts/graph/lineCompare.js"></script>
-    <script src="scripts/graph/barreLine.js"></script>
-	<script src="scripts/graph/spider.js"></script>
-	<script src="scripts/graph/barCompare.js"></script>
-
-	<script src="scripts/js/functions.js"></script>
-    <script src="scripts/map/map.js"></script>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
-</head>
+<?php require_once 'head.php'?>
 
 <body>
-    <nav class="navbar" hx-boost="true" hx-target="#grille" hx-select="#grille" hx-swap="outerHTML show:body:top swap:0.5s">
-    
-        <div class="right-nav">
-            <a href="monde.php">Monde</a>
-            <a href="pays.php">Pays</a>
-            <a href="continent.php">Continent</a>
-            <a href="comparateur.php">Comparateur</a>
-        </div>
-    
-        <div class="img-nav">
-            <a href="index.php"><img src="assets/img/eco.png"></a>
-        </div>
-    
-        <div class="left-nav">
-            <a href="calculateur.php">Calculateur</a>
-            <a href="inscription.php" >S'inscrire</a>
-            <a href="connexion.php">Se connecter</a>
-        </div>
-    
-    </nav>
-
     <div class="flex">
-        <div class="grid">
-            <div class="container-side bg-354F52 g1-1" id="mini0">
-                <img class="img-side" src='assets/img/FR.jpg' alt="Bandeau">
-                <img class="flag-small" src='assets/twemoji/FR.svg'>
-                <h2 class="nom-small">France</h2>
-            </div>
+        <div class="grid" id="grid">
+            <div class="container-side bg-354F52 g1-1" id="mini0"></div>
 
             <div class="container-side bg-354F52 g4-1 active">
                 <img class="flag-small" src='assets/icons/stats.svg'>
                 <h2 class="nom-small">Statistiques</h2>
             </div>
 
-            <div class="container-side bg-354F52 g5-1" >
+            <div class="container-side bg-354F52 g5-1">
                 <img class="flag-small" src='assets/icons/map.svg'>
-                <h2 class="nom-small">Carte</h2>
+                <h2 class="nom-small">Exploration</h2>
             </div>
 
-            <div class="container-side bg-354F52 g6-1">
+            <div class="container-side bg-354F52 g6-1" hx-get="UI3_catalogue.php" hx-select="#grid" hx-target="#grid" hx-trigger="click" hx-vals="js:{page:'Pays'}" hx-swap="outerHTML swap:0.5s">
                 <img class="flag-small" src='assets/icons/catalogue.svg'>
                 <h2 class="nom-small">Catalogue</h2>
             </div>
 
-            <div class="zone-presentation display" id="home" style="display: none;">
-                <div class="container-presentation expand-3" id="mini$incr" hx-swap-oob="outerHTML">
-                    <div class="bandeau"> 
-                        <img class="img-side img" src='assets/img/FR.jpg' alt="Bandeau">
-                        <div class="flag-plus-nom">
-                            <img class="flag" src='assets/twemoji/FR.svg'>
-                            <h2 class="nom">France</h2>
-                        </div>
-                        
-                    </div>
-                </div>
-
-                <div class="container-presentation" id="miniMap0">
-
-                </div>
-
-                <div class="container-presentation">
-                    <div class="score-box score-A">A</div>
-                </div>
+            <div class="zone-presentation display" id="home">
+                <div class="container-presentation expand-3" id="bandeau0"></div>
+                <div class="container-presentation" id="miniMap0"></div>
+                <div class="container-presentation" id="score0"></div>
 
                 <div class="container-presentation">
                     <div class="cost"><p class="big">60€</p><p>par jour</p></div>
@@ -115,9 +39,7 @@
                     La Tour Eiffel à Paris est l'un des monuments les plus emblématiques au monde. Une anecdote célèbre est que la Tour Eiffel est illuminée chaque nuit par des milliers de lumières scintillantes pendant les premières heures après le coucher du soleil. Cette pratique a débuté en 1985 pour célébrer le 100e anniversaire de la tour et est devenue une tradition appréciée.</p>
                 </div>
 
-                <div class="container-presentation expand-3">
-                    <p class="paragraphe">La France, nation emblématique d'Europe occidentale, séduit par sa diversité culturelle, son patrimoine historique et ses paysages variés. Avec Paris comme capitale, la France est reconnue pour ses monuments emblématiques tels que la Tour Eiffel, sa cuisine raffinée, ses vignobles renommés et ses régions pittoresques allant des Alpes aux plages méditerranéennes. Politiquement, c'est une république avec une longue histoire démocratique. L'économie française est diversifiée, englobant le secteur agricole, industriel et des services, faisant du pays l'une des principales puissances économiques mondiales. La France demeure une influence culturelle majeure avec ses contributions aux arts, à la littérature et à la mode. Son attrait touristique est universel, attirant des visiteurs du monde entier pour découvrir son art de vivre unique et son riche héritage.</p>
-                </div>
+                <div class="container-presentation expand-3" id="description0"></div>
 
             </div>
 
@@ -228,26 +150,29 @@
                 <div class="graph" id="line"></div>
 
                 <div class=container-buttons>
-                    <img class="icon icon-active" src="assets/icons/cloud.svg" onclick="changeVar('co2')">
-                    <img class="icon" src="assets/icons/dollar.svg" onclick="changeVar('pib')">
-                    <img class="icon" src="assets/icons/shield.svg" onclick="changeVar('gpi')">
-                    <img class="icon" src="assets/icons/down.svg" onclick="changeVar('arrivees')">
-                    <img class="icon" src="assets/icons/up.svg" onclick="changeVar('departs')">
-                    <img class="icon" src="assets/icons/transfer.svg" onclick="changeVar('cpi')">
-                    <img class="icon" src="assets/icons/leaf.svg" onclick="changeVar('Enr')">
+                <img class="icon icon-active" src="assets/icons/cloud.svg" onclick="changeVar('co2')" data-name="Émissions de CO2">
+                    <img class="icon" src="assets/icons/dollar.svg" onclick="changeVar('pib')" data-name="PIB/Habitant">
+                    <img class="icon" src="assets/icons/shield.svg" onclick="changeVar('gpi')" data-name="Global Peace Index">
+                    <img class="icon" src="assets/icons/down.svg" onclick="changeVar('arrivees')" data-name="Arrivées touristiques">
+                    <img class="icon" src="assets/icons/up.svg" onclick="changeVar('departs')" data-name="Départs">
+                    <img class="icon" src="assets/icons/transfer.svg" onclick="changeVar('cpi')" data-name="CPI">
+                    <img class="icon" src="assets/icons/leaf.svg" onclick="changeVar('Enr')" data-name="% d'énergies renouvellables">
                 </div>
 
                 <div class="table">
                     <div class="legende">
-                        <div class="icon_name legende-element"></div>
+                        <div class="icon_name legende-element">
+                            <img src="assets/icons/courbe.svg" class="square">
+                            <p class="name" id="icon_name">Émissions de CO2</p>
+                        </div>
                         <div class="legende-element">
                             <div class="square bg-52796F"></div>
-                            <p class = "name">France</p>
+                            <p class="name" id="nom0"></p>
                         </div>
 
                         <div class="legende-element">
                             <div class="square bg-83A88B"></div>
-                            <p class = "name" >Moyenne Mondiale</p>
+                            <p class ="name">Moyenne Mondiale</p>
                         </div>
                     </div>
 
@@ -285,7 +210,7 @@
                 </div>
             </div>
 
-            <div class="zone display" id="barl">
+            <div class="zone display" id="barl" style="display:none">
                 <div class="graph" id="barreLine"></div>
             </div>
 
@@ -314,39 +239,66 @@
                 <h2 class="nom-small">Informations complémentaires</h2>
             </div>
 
+            <script id="scripting">
+                createMiniMap(0,"pays")
+                spider("spider",1)
+                createLine("line")
+                barreLine("barreLine")
+            </script>
+
+            <script>
+                $(".icon").on("click", function () {
+                    $(".icon-active").removeClass("icon-active")
+                    $(this).addClass("icon-active")
+                    $("#icon_name").text($(this).data("name"));
+                })
+
+                $(".switch").on("click", function () {
+                    $(".switch").removeClass("active")
+                    $(this).addClass("active")
+                    $(".display").css("display","none")
+                    console.log($(this).data("switch"))
+                    $("#"+$(this).data("switch")).css("display","grid")
+                })
+            </script>
+
+            <?php
+                $cur = getDB();
+
+                if (!isset($_SESSION["pays"])) {
+                    $_SESSION["pays"] = array();
+                }
+
+                if (isset($_GET["id_pays"])) {
+                    $_SESSION["pays"][0] = $_GET["id_pays"];
+                }
+
+                $pays = "";
+                if (count($_SESSION["pays"]) != 0) {
+                    $query = "SELECT * FROM pays WHERE id = :id_pays";
+                    $sth = $cur->prepare($query);
+                    $sth->bindParam(":id_pays", $_SESSION["pays"][0], PDO::PARAM_STR);
+                    $sth->execute();
+
+                    $ligne = $sth->fetch();
+                    if ($ligne) {
+                        $pays = $_SESSION["pays"][0];
+                    }
+                }
+
+                if ($pays == "") {
+                    echo <<<HTML
+                        <div hx-get="catalogue.php" hx-trigger="load" hx-select="#grid" hx-target="#grid" hx-vals="js:{page:'Pays'}" hx-swap="outerHTML swap:0.5s"></div>
+                    HTML;
+                } else {
+                    echo <<<HTML
+                        <div hx-get="scripts/htmx/getPays.php" hx-vals="js:{id_pays:'$pays'}" hx-trigger="load delay:.1s"></div>
+                    HTML;
+                }
+            ?>
         </div>
+
     </div>
 
-    <script id="scripting">
-        createMiniMap(0)
-        spider("spider",1)
-        createLine("line")
-        barreLine("barreLine")
-    </script>
-
-    <script>
-        $(".icon").on("click", function () {
-            $(".icon-active").removeClass("icon-active")
-            $(this).addClass("icon-active")
-
-            // Get the variable name from the clicked icon's onclick attribute
-            var variableName = $(this).attr("onclick").match(/\('([^']+)'\)/)[1];
-
-            // Update the text content of the icon_name element
-            $(".icon_name").text(variableName);
-        })
-
-        $(".switch").on("click", function () {
-            $(".switch").removeClass("active")
-            $(this).addClass("active")
-            $(".display").css("display","none")
-            console.log($(this).data("switch"))
-            $("#"+$(this).data("switch")).css("display","grid")
-        })
-    </script>
-
-    <div hx-get="scripts/htmx/getPays.php" hx-vals="js:{id_pays:'FR'}" hx-trigger="load delay:2s"></div>
-    
-    
 </body>
 </html>

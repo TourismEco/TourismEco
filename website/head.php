@@ -22,6 +22,12 @@ require_once "functions.php";
 	<script src="https://cdn.amcharts.com/lib/5/map.js"></script>
 	<script src="https://cdn.amcharts.com/lib/5/geodata/continentsLow.js"></script>
 	<script src="https://cdn.amcharts.com/lib/5/geodata/worldLow.js"></script>
+	<script src="https://cdn.amcharts.com/lib/5/geodata/region/world/europeLow.js"></script>
+	<script src="https://cdn.amcharts.com/lib/5/geodata/region/world/africaLow.js"></script>
+	<script src="https://cdn.amcharts.com/lib/5/geodata/region/world/asiaLow.js"></script>
+	<script src="https://cdn.amcharts.com/lib/5/geodata/region/world/oceaniaLow.js"></script>
+	<script src="https://cdn.amcharts.com/lib/5/geodata/region/world/northAmericaLow.js"></script>
+	<script src="https://cdn.amcharts.com/lib/5/geodata/region/world/southAmericaLow.js"></script>
 	<script src="https://cdn.amcharts.com/lib/5/geodata/lang/FR.js"></script>
 
 	<script src="https://cdn.amcharts.com/lib/5/xy.js"></script>

@@ -1,55 +1,6 @@
 <?php require_once 'head.php'?>
 
 <body>
-    <?php
-        $cur = getDB();
-
-        // unset($_SESSION["pays"]);
-        $pays = array();
-        if (isset($_SESSION["pays"])) {
-            foreach ($_SESSION["pays"] as $key => $id_pays) {
-                // echo $_SESSION["incr"];
-                $query = "SELECT * FROM pays WHERE id = :id_pays";
-                $sth = $cur->prepare($query);
-                $sth->bindParam(":id_pays", $id_pays, PDO::PARAM_STR);
-                $sth->execute();
-
-                $ligne = $sth->fetch();
-                if ($ligne) {
-                    $pays[] = $id_pays;
-                }
-            }
-        } else {
-            $_SESSION["pays"] = array();
-            $_SESSION["incr"] = 0;
-        }
-
-        // switch (count($pays)) {
-        //     case 2:
-        //         echo <<<HTML
-        //             <div hx-get="scripts/htmx/getCompare.php" hx-vals="js:{incr:0,id_pays:'$pays[0]'}" hx-trigger="load delay:1s"></div>
-        //             <div hx-get="scripts/htmx/getCompare.php" hx-vals="js:{incr:1,id_pays:'$pays[1]'}" hx-trigger="load delay:1.05s"></div>
-        //         HTML;
-        //         break;
-            
-        //     case 1:
-        //         echo <<<HTML
-        //             <div hx-get="scripts/htmx/getCompare.php" hx-vals="js:{incr:0,id_pays:'$pays[0]'}" hx-trigger="load delay:1s"></div>
-        //             <div hx-get="catalogue.php" hx-trigger="load" hx-select="#catalogue" hx-target="#catalogue" hx-vals="js:{page:'Compare'}"></div>
-        //         HTML;
-        //         break;
-            
-        //     case 0:
-        //         echo <<<HTML
-        //             <div hx-get="catalogue.php" hx-trigger="load" hx-select="#catalogue" hx-target="#catalogue" hx-vals="js:{page:'Compare'}"></div>
-        //         HTML;
-        //         break;
-        // }
-
-        $pays = json_encode($pays);
-
-    ?>
-
     <div class="flex">
         <div class="grid" id="grid">
             <div class="container-side g1-1" id="mini0"></div>
@@ -62,10 +13,10 @@
 
             <div class="container-side bg-354F52 g5-1">
                 <img class="flag-small" src='assets/icons/map.svg'>
-                <h2 class="nom-small">Carte</h2>
+                <h2 class="nom-small">Exploration</h2>
             </div>
 
-            <div class="container-side bg-354F52 g6-1" hx-get="UI3_catalogue.php" hx-select="#grid" hx-target="#grid" hx-trigger="click" hx-vals="js:{page:'Pays'}" hx-swap="outerHTML">
+            <div class="container-side bg-354F52 g6-1" hx-get="UI3_catalogue.php" hx-select="#grid" hx-target="#grid" hx-trigger="click" hx-vals="js:{page:'Pays'}" hx-swap="outerHTML swap:0.5s">
                 <img class="flag-small" src='assets/icons/catalogue.svg'>
                 <h2 class="nom-small">Catalogue</h2>
             </div>
@@ -105,13 +56,13 @@
                             <div class="square bg-52796F"></div>
                             <p class="name" id="nom0"></p>
                         </div>
-                        <div class="icon_name legende-element">Émissions de CO2</div>
-
+                        <div class="icon_name legende-element">
+                            <img src="assets/icons/courbe.svg" class="square">
+                            <p class="name" id="icon_name">Émissions de CO2</p>
+                        </div>
                         <div class="legende-element">
-                            
                             <p class="name" id="nom1"></p>
                             <div class="square bg-83A88B"></div>
-                            
                         </div>
                     </div>
 
@@ -336,38 +287,80 @@
                 <h2 class="nom-small">Informations complémentaires</h2>
             </div>
 
+            <script>
+                $(".icon").on("click", function () {
+                    $(".icon-active").removeClass("icon-active")
+                    $(this).addClass("icon-active")
+                    $("#icon_name").text($(this).data("name"));
+                })
+
+                $(".switch").on("click", function () {
+                    $(".switch").removeClass("active")
+                    $(this).addClass("active")
+                    $(".display").css("display","none")
+                    console.log($(this).data("switch"))
+                    $("#"+$(this).data("switch")).css("display","grid")
+                })
+            </script>
+
+            <script id=scripting>
+                    
+                spider("spider",2)
+                lineCompare("line")
+                barCompare("bar")
+
+                createMiniMap(0,"compare")
+                createMiniMap(1,"compare")
+
+            </script>
+
+            <?php
+                $cur = getDB();
+
+                // unset($_SESSION["pays"]);
+                $pays = array();
+                if (isset($_SESSION["pays"])) {
+                    foreach ($_SESSION["pays"] as $key => $id_pays) {
+                        // echo $_SESSION["incr"];
+                        $query = "SELECT * FROM pays WHERE id = :id_pays";
+                        $sth = $cur->prepare($query);
+                        $sth->bindParam(":id_pays", $id_pays, PDO::PARAM_STR);
+                        $sth->execute();
+
+                        $ligne = $sth->fetch();
+                        if ($ligne) {
+                            $pays[] = $id_pays;
+                        }
+                    }
+                } else {
+                    $_SESSION["pays"] = array();
+                    $_SESSION["incr"] = 0;
+                }
+
+                switch (count($pays)) {
+                    case 2:
+                        echo <<<HTML
+                            <div hx-get="scripts/htmx/getCompare.php" hx-vals="js:{incr:0,id_pays:'$pays[0]'}" hx-trigger="load delay:.1s"></div>
+                            <div hx-get="scripts/htmx/getCompare.php" hx-vals="js:{incr:1,id_pays:'$pays[1]'}" hx-trigger="load delay:.2s"></div>
+                        HTML;
+                        break;
+                    
+                    case 1:
+                        echo <<<HTML
+                            <div hx-get="scripts/htmx/getCompare.php" hx-vals="js:{incr:0,id_pays:'$pays[0]'}" hx-trigger="load delay:.1s"></div>
+                        HTML;
+                        break;
+                    
+                    case 0:
+                        echo <<<HTML
+                            <div hx-get="catalogue.php" hx-trigger="load" hx-select="#grid" hx-target="#grid" hx-vals="js:{page:'Compare'}" hx-swap="outerHTML swap:0.5s"></div>
+                        HTML;
+                        break;
+                }
+            ?>
+
         </div>
     </div>
-
-    <script id=scripting>
-        
-        spider("spider",2)
-        lineCompare("line")
-        barCompare("bar")
-
-        createMiniMap(0,"compare")
-        createMiniMap(1,"compare")
-
-    </script>
-
-    <script>
-        $(".icon").on("click", function () {
-            $(".icon-active").removeClass("icon-active")
-            $(this).addClass("icon-active")
-            $(".icon_name").text($(this).data("name"));
-        })
-
-        $(".switch").on("click", function () {
-            $(".switch").removeClass("active")
-            $(this).addClass("active")
-            $(".display").css("display","none")
-            console.log($(this).data("switch"))
-            $("#"+$(this).data("switch")).css("display","grid")
-        })
-    </script>
-
-    <div hx-get="scripts/htmx/getCompare.php" hx-vals="js:{incr:0,id_pays:'FR'}" hx-trigger="load delay:2s"></div>
-    <div hx-get="scripts/htmx/getCompare.php" hx-vals="js:{incr:1,id_pays:'HR'}" hx-trigger="load delay:2.5s"></div>
     
 </body>
 </html>

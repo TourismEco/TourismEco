@@ -15,6 +15,7 @@ body {
     grid-template-rows: repeat(10, 1fr);
     margin: 0 clamp(30px, 2%, 70px);
     height: calc(97vh - 82px);
+    transition: opacity .5s ease-out;
 }
 
 .flex {
@@ -33,7 +34,6 @@ body {
     cursor: pointer;
     display:grid;
     height: 70px;
-    align-self: center;
 }
 
 .container-bottom {
@@ -417,8 +417,9 @@ body {
 
 .map-catalogue{
     grid-column: 1;
-    border-radius: 0;
+    border-radius: 10px;
     grid-row: 1;
+    background-color: #D9D9D9;
 }
 
 .map-carte{
@@ -1091,4 +1092,21 @@ input {
     width: 150px;
     cursor: pointer;
 }
+
+.bigrondsamere-boncouragepourcomprendre {
+    grid-column: 2 / 5;
+    grid-row: 1 / 9;
+    width: 500px;
+    height: 500px;
+    background-color: #D9D9D9;
+    border-radius: 100%;
+    justify-self: center;
+    align-self: center;
+    z-index: -2;
+    margin-bottom: 80px;
 }
+
+.htmx-swapping {
+    opacity: 0%;
+    transition: opacity .5s ease-out;
+  }

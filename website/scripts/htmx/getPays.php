@@ -142,85 +142,35 @@ $dataBLMaxYearTourism= json_encode($allBareLine['maxTourisme']['year'],JSON_NUME
 $dataBLcovidImpactPib= json_encode($allBareLine['covidImpactPib'],JSON_NUMERIC_CHECK);
 $dataBLcovidImpactTourisme= json_encode($allBareLine['covidImpactTourisme'],JSON_NUMERIC_CHECK);
 
-
-
-
 //$dataBarPays = json_encode(dataBarPays($id_pays, $cur),JSON_NUMERIC_CHECK);
 
 echo <<<HTML
 
-<div class="bandeau" id="bandeau0" hx-swap-oob="outerHTML">     
-    <img class="img" src='assets/img/$id_pays.jpg' alt="Bandeau">
-    <img class="flag" src='assets/twemoji/$id_pays.svg'>
-    <h1 class="nom">$nom</h1>
-    <p class="capital">Capitale : $capitale</p>
-    <img id="favorite" src="assets/img/heart.png" hx-get="scripts/htmx/getFavorite.php" hx-trigger="click" hx-swap="outerHTML" hx-vals="js:{id_pays:'{$ligne['id_pays']}'}">
-    <!-- <img id="favorite" src="assets/img/heart_full.png"> -->
-
+<div class="container-presentation expand-3" id="bandeau0" hx-swap-oob="outerHTML">
+    <div class="bandeau"> 
+        <img class="img-side img" src='assets/img/$id_pays.jpg' alt="Bandeau">
+        <div class="flag-plus-nom">
+            <img class="flag" src='assets/twemoji/$id_pays.svg'>
+            <h2 class="nom">$nom</h2>
+        </div>
+    </div>
 </div>
 
-<div class="container-side g1-1" id="mini0" hx-swap-oob="outerHTML">
-    <img class="img img-side" src='assets/img/$id_pays.jpg' alt="Bandeau">
+<div class="container-side bg-354F52 g1-1" id="mini0" hx-swap-oob="outerHTML">
+    <img class="img-side" src='assets/img/$id_pays.jpg' alt="Bandeau">
     <img class="flag-small" src='assets/twemoji/$id_pays.svg'>
     <h2 class="nom-small">$nom</h2>
 </div>
 
-<div id="score" class="score-box score-$letter" hx-swap-oob="outerHTML">$letter</div>
-
-<div class="container-even" id="graphBarLine" hx-swap-oob="outerHTML">
-    <div class="container-indic">
-        <h3> Impact du covid sur le tourisme :</h3>
-        <p> $dataBLcovidImpactTourisme </p>
-
-        <h3> Impact du covid sur le PIB :</h3>
-        <p> $dataBLcovidImpactPib </p>
-
-        <h3>Valeurs minimales et maximales</h2>
-        <table>
-            <tr>
-                <th>Indicateur</th>
-                <th>Type</th>
-                <th>Année</th>
-                <th>Valeur</th>
-            </tr>
-            <tr>
-                <td colspan="4"><hr></td>
-            </tr>
-            <tr>
-                <td><strong>PIB</strong></td>
-                <td>Minimum</td>
-                <td>$dataBLMinYearPIB</td>
-                <td>$dataBLMinValPIB</td>
-            </tr>
-            <tr>
-                <td></td>
-                <td>Maximum</td>
-                <td>$dataBLMaxYearPIB</td>
-                <td>$dataBLMaxValPIB</td>
-            </tr>
-            <tr>
-                <td colspan="4"><hr></td>
-            </tr>
-            <tr>
-                <td><strong>Tourisme</strong></td>
-                <td>Minimum</td>
-                <td>$dataBLMinYearTourism</td>
-                <td>$dataBLMinValTourism</td>
-            </tr>
-            <tr>
-                <td></td>
-                <td>Maximum</td>
-                <td>$dataBLMaxYearTourism</td>
-                <td>$dataBLMaxValTourism</td>
-            </tr>
-        </table>
-    </div>
-    <br><br>
+<div class="container-presentation" id="score0" hx-swap-oob="outerHTML">
+    <div class="score-box score-$letter">$letter</div>
 </div>
 
+<div class="container-presentation expand-3" id="description0" hx-swap-oob="outerHTML">
+    <p class="paragraphe">$description</p>
+</div>
 
-
-
+<p class="name" id="nom0" hx-swap-oob="outerHTML">$nom</p>
 
 HTML;
 
@@ -231,14 +181,10 @@ if ($map) {
             barreLineHTMX($dataBarreLine, "$nom")
             linePaysHTMX($dataLine, $dataLineMean, "$nom")
             // topHTMX($dataBar, "$nom")
-           
-            // map.zoomTo("$id_pays")
-            // map.addCapitals($capitals)
-            // map.addCities($cities)
 
             miniMap[0].zoomTo("$id_pays")
-            miniMap[0].addCapitals($capitals)
             miniMap[0].addCities($cities)
+            miniMap[0].addCapitals($capitals)
         </script>
     HTML;
 } else {
@@ -249,11 +195,9 @@ if ($map) {
             linePaysHTMX($dataLine, $dataLineMean, "$nom")
             topHTMX($dataBar, "$nom")
 
-            map.addCapitals($capitals)
-            map.addCities($cities)               
-
+            miniMap[0].addCities($cities)
             miniMap[0].addCapitals($capitals)
-            miniMap[0].addCities($cities)      
+            
         </script>
     HTML;
 }

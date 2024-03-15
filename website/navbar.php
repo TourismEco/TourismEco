@@ -1,10 +1,10 @@
-<nav class="navbar" hx-boost="true" hx-target="#grille" hx-select="#grille" hx-swap="outerHTML show:body:top swap:0.5s">
+<nav class="navbar" hx-boost="true" hx-target="#grid" hx-select="#grid" hx-swap="outerHTML show:body:top swap:0.5s">
     
     <div class="right-nav">
         <a href="monde.php">Monde</a>
-        <a href="pays.php">Pays</a>
+        <a href="UI3_pays.php">Pays</a>
         <a href="continent.php">Continent</a>
-        <a href="comparateur.php">Comparateur</a>
+        <a href="UI3.php">Comparateur</a>
     </div>
 
     <div class="img-nav">
@@ -13,8 +13,8 @@
 
     <div class="left-nav">
         <a href="calculateur.php">Calculateur</a>
-        <a href="inscription.php" >S'inscrire</a>
-        <a href="connexion.php">Se connecter</a>
+        <a href="UI3_register.php" >S'inscrire</a>
+        <a href="UI3_login.php">Se connecter</a>
     </div>
 
 </nav>

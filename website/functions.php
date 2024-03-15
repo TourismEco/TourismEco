@@ -109,7 +109,7 @@ function addCardCountry($id,$nom,$letter,$page) {
 
 function addSlimCountry($id,$nom,$letter,$page) {
     return <<<HTML
-        <div class="container-slim bg-354F52">
+        <div class="container-slim bg-354F52" hx-get="UI3_pays.php" hx-vals="js:{id_pays:'$id'}" hx-swap="outerHTML swap:0.5s" hx-target="#grid" hx-select="#grid">
             <div class="bandeau-slim"> 
                 <!-- <div class="mini-score-box score-$letter">$letter</div> -->
                 <img class="img img-slim" src='assets/img/$id.jpg' alt="Bandeau">
@@ -370,7 +370,7 @@ function dataBarreLine($pays, $conn) {
         }
 
         // Impact du covid
-        if ($rs['annee'] == 2020) {
+        if ($rs['annee'] == 2020 && $rs['arrivees'] != null) {
             $covidImpactPib = 100*($rs['pib'] - $data[count($data)-1]['value']) / $data[count($data)-1]['value'];
             $covidImpactTourisme = 100*($rs['arrivees'] - $data[count($data)-1]['valueLeft']) / $data[count($data)-1]['valueLeft'];
         }

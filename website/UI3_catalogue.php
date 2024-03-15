@@ -63,9 +63,9 @@
     </nav>
 
     <div class="flex">
-        <div class="grid" id="grid">
+        <div class="grid" id="grid" hx-swap="swap:0.5s">
             
-            <div class="container-side bg-354F52 g4-1" hx-get="UI3.php" hx-select="#grid" hx-target="#grid" hx-trigger="click" hx-swap="outerHTML">
+            <div class="container-side bg-354F52 g4-1" hx-get="UI3.php" hx-select="#grid" hx-target="#grid" hx-trigger="click" hx-swap="outerHTML swap:0.5s">
                 <img class="flag-small" src='assets/icons/stats.svg'>
                 <h2 class="nom-small">Statistiques</h2>
             </div>
@@ -103,7 +103,7 @@
 
                     <div class="trait-vertical"></div>
 
-                    <div class='container-continents display' id="asie">
+                    <div class='container-continents display' style="display:none" id="asia">
                             <?php
                                 $page = "pays";
 
@@ -125,7 +125,7 @@
                             ?>
                     </div>
 
-                    <div class='container-continents display' style="display:none" id="afrique">
+                    <div class='container-continents display' style="display:none" id="africa">
                             <?php
 
                                 $queryPays = "SELECT * FROM pays WHERE id_continent = 1 ORDER BY score DESC LIMIT 12";
@@ -167,7 +167,7 @@
                             ?>
                     </div>
 
-                    <div class='container-continents display' style="display:none" id="europe">
+                    <div class='container-continents display' id="europe">
                             <?php
 
                                 $queryPays = "SELECT * FROM pays WHERE id_continent = 5 ORDER BY score DESC LIMIT 12";
@@ -188,7 +188,7 @@
                             ?>
                     </div>
 
-                    <div class='container-continents display' style="display:none" id="oceanie">
+                    <div class='container-continents display' style="display:none" id="oceania">
                             <?php
 
                                 $queryPays = "SELECT * FROM pays WHERE id_continent = 6 ORDER BY score DESC LIMIT 12";
@@ -211,33 +211,33 @@
                 </div>
             </div>
 
-            <div class="container-bottom bg-354F52 g10-2 active switch" data-switch="asie" data-id_continent="4">
-                <img class="flag-small" src='assets/icons/sort.svg'>
-                <h2 class="nom-small">Asie</h2>
+            <div class="container-bottom bg-354F52 g10-2 active switch" data-switch="europe" data-id_continent="5">
+                <img class="flag-small" src='assets/icons/europe.svg'>
+                <h2 class="nom-small">Europe</h2>
             </div>
 
-            <div class="container-bottom bg-354F52 g10-3 switch" data-switch="afrique" data-id_continent="1">
-                <img class="flag-small" src='assets/icons/sort.svg'>
+            <div class="container-bottom bg-354F52 g10-3 switch" data-switch="africa" data-id_continent="1">
+                <img class="flag-small" src='assets/icons/afrique.svg'>
                 <h2 class="nom-small">Afrique</h2>
             </div>
 
             <div class="container-bottom bg-354F52 g10-4 switch" data-switch="amerique" data-id_continent="2">
-                <img class="flag-small" src='assets/icons/sort.svg'>
+                <img class="flag-small" src='assets/icons/amerique.svg'>
                 <h2 class="nom-small">Amérique</h2>
             </div>
 
-            <div class="container-bottom bg-354F52 g10-5 switch" data-switch="europe" data-id_continent="5">
-                <img class="flag-small" src='assets/icons/sort.svg'>
-                <h2 class="nom-small">Europe</h2>
+            <div class="container-bottom bg-354F52 g10-5 switch" data-switch="asia" data-id_continent="4">
+                <img class="flag-small" src='assets/icons/asie.svg'>
+                <h2 class="nom-small">Asie</h2>
             </div>
 
-            <div class="container-bottom bg-354F52 g10-6 switch" data-switch="oceanie" data-id_continent="6">
-                <img class="flag-small" src='assets/icons/sort.svg'>
+            <div class="container-bottom bg-354F52 g10-6 switch" data-switch="oceania" data-id_continent="6">
+                <img class="flag-small" src='assets/icons/oceanie.svg'>
                 <h2 class="nom-small">Océanie</h2>
             </div>
 
             <script id="scripting">
-                createMap()
+                createMapCatalogue("pays")
             </script>
 
             <script>
@@ -250,6 +250,7 @@
                     $("#"+$(this).data("switch")).css("display","flex")
                     $("#txt").val("")
                     $("#search").empty()
+                    map.zoomToContinent($(this).data("switch"))
 
 
                     id_continent = $(this).data("id_continent")
