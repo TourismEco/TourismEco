@@ -2,24 +2,8 @@
 
 <body>
     <div class="flex">
-        <div class="grid" id="grid">
-            <div class="container-side bg-354F52 g1-1" id="mini0"></div>
 
-            <div class="container-side bg-354F52 g4-1 active">
-                <img class="flag-small" src='assets/icons/stats.svg'>
-                <h2 class="nom-small">Statistiques</h2>
-            </div>
-
-            <div class="container-side bg-354F52 g5-1">
-                <img class="flag-small" src='assets/icons/map.svg'>
-                <h2 class="nom-small">Exploration</h2>
-            </div>
-
-            <div class="container-side bg-354F52 g6-1" hx-get="UI3_catalogue.php" hx-select="#grid" hx-target="#grid" hx-trigger="click" hx-vals="js:{page:'Pays'}" hx-swap="outerHTML swap:0.5s">
-                <img class="flag-small" src='assets/icons/catalogue.svg'>
-                <h2 class="nom-small">Catalogue</h2>
-            </div>
-
+        <div id="zones">
             <div class="zone-presentation display" id="home">
                 <div class="container-presentation expand-3" id="bandeau0"></div>
                 <div class="container-presentation" id="miniMap0"></div>
@@ -53,7 +37,7 @@
                     </div>
                     
                     <img class="icon" src="assets/icons/transfer.svg">
-                       
+                        
                     <div class="el-cube">
                         <div id="td_cpi_rank"></div>
                         <div id="td_cpi_rankEvol" class="small"></div>
@@ -67,7 +51,7 @@
                     </div>
                     
                     <img class="icon" src="assets/icons/dollar.svg">
-                       
+                        
                     <div class="el-cube">
                         <div id="td_pib_rank"></div>
                         <div id="td_pib_rankEvol" class="small"></div>
@@ -213,31 +197,63 @@
             <div class="zone display" id="barl" style="display:none">
                 <div class="graph" id="barreLine"></div>
             </div>
+        </div>
 
-            <div class="container-bottom bg-354F52 switch g10-2 active" data-switch="home">
-                <img class="flag-small" src='assets/icons/info.svg'>
-                <h2 class="nom-small">Présentation</h2>
+
+        <div class="nav-bottom">
+            <div class="nav-categ">
+                <div class="pack-categ">
+                    <div class="container-bottom bg-354F52 active" data-index="0" data-name="Statistiques">
+                        <img class="flag-small" src='assets/icons/stats.svg'>
+                    </div>
+
+                    <div class="container-bottom bg-354F52" data-index="1" data-name="Explorer">
+                        <img class="flag-small" src='assets/icons/map.svg'>
+                    </div>
+
+                    <div class="container-bottom bg-354F52" data-index="2" data-name="Catalogue" hx-get="UI3_catalogue.php" hx-select="#zones" hx-target="#zones" hx-trigger="click" hx-vals="js:{page:'Pays'}" hx-swap="outerHTML swap:0.5s">
+                        <img class="flag-small" src='assets/icons/catalogue.svg'>
+                    </div>
+
+                    <div id="trans-page" class="active-bg"></div>
+                </div>
+
+                <div class="nav-trait"></div>
+
+                <div id="name-page" class="nav-text">Statistiques</div>
             </div>
 
-            <div class="container-bottom bg-354F52 switch g10-3" data-switch="key">
-                <img class="flag-small" src='assets/icons/lamp.svg'>
-                <h2 class="nom-small">Indicateurs clés</h2>
-            </div>
+            <div class="nav-categ">
+                <div class="pack-categ">
+                    <div class="container-bottom bg-354F52 active switch" data-switch="home" data-index="0" data-name="Présentation">
+                        <img class="flag-small" src='assets/icons/info.svg'>
+                    </div>
 
-            <div class="container-bottom bg-354F52 switch g10-4" data-switch="courbe">
-                <img class="flag-small" src='assets/icons/sort.svg'>
-                <h2 class="nom-small">Courbe d'évolution</h2>
-            </div>
+                    <div class="container-bottom bg-354F52 switch" data-switch="key" data-index="1" data-name="Indicateurs clés">
+                        <img class="flag-small" src='assets/icons/lamp.svg'>
+                    </div>
 
-            <div class="container-bottom bg-354F52 switch g10-5" data-switch="barl">
-                <img class="flag-small" src='assets/icons/stats.svg'>
-                <h2 class="nom-small">PIB et Tourisme</h2>
-            </div>
+                    <div class="container-bottom bg-354F52 switch" data-switch="courbe" data-index="2" data-name="Courbes d'évolution">
+                        <img class="flag-small" src='assets/icons/sort.svg'>
+                    </div>
 
-            <div class="container-bottom bg-354F52 switch g10-6" data-switch="more">
-                <img class="flag-small" src='assets/icons/plus.svg'>
-                <h2 class="nom-small">Informations complémentaires</h2>
+                    <div class="container-bottom bg-354F52 switch" data-switch="barl" data-index="3" data-name="PIB et tourisme">
+                        <img class="flag-small" src='assets/icons/stats.svg'>
+                    </div>
+
+                    <div class="container-bottom bg-354F52 switch" data-switch="more" data-index="4" data-name="Informations complémentaires">
+                        <img class="flag-small" src='assets/icons/plus.svg'>
+                    </div>
+
+                    <div id="trans" class="active-bg"></div>
+                </div>
+
+                <div class="nav-trait"></div>
+
+                <div id="name-switch" class="nav-text">Présentation</div>
             </div>
+        </div>
+            
 
             <script id="scripting">
                 createMiniMap(0,"pays")
@@ -257,8 +273,11 @@
                     $(".switch").removeClass("active")
                     $(this).addClass("active")
                     $(".display").css("display","none")
-                    console.log($(this).data("switch"))
+
                     $("#"+$(this).data("switch")).css("display","grid")
+                    nb = $(this).data("index")*53
+                    $("#trans").css("transform","translateX("+nb+"px)")
+                    $("#name-switch").html($(this).data("name"))
                 })
             </script>
 
@@ -288,7 +307,7 @@
 
                 if ($pays == "") {
                     echo <<<HTML
-                        <div hx-get="catalogue.php" hx-trigger="load" hx-select="#grid" hx-target="#grid" hx-vals="js:{page:'Pays'}" hx-swap="outerHTML swap:0.5s"></div>
+                        <div hx-get="UI3_catalogue.php" hx-trigger="load" hx-select="#grid" hx-target="#grid" hx-vals="js:{page:'Pays'}" hx-swap="outerHTML swap:0.5s"></div>
                     HTML;
                 } else {
                     echo <<<HTML
@@ -296,7 +315,6 @@
                     HTML;
                 }
             ?>
-        </div>
 
     </div>
 

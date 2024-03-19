@@ -63,25 +63,8 @@
     </nav>
 
     <div class="flex">
-        <div class="grid" id="grid" hx-swap="swap:0.5s">
-            
-            <div class="container-side bg-354F52 g4-1" hx-get="UI3.php" hx-select="#grid" hx-target="#grid" hx-trigger="click" hx-swap="outerHTML swap:0.5s">
-                <img class="flag-small" src='assets/icons/stats.svg'>
-                <h2 class="nom-small">Statistiques</h2>
-            </div>
 
-
-            <div class="container-side bg-354F52 g5-1">
-                <img class="flag-small" src='assets/icons/map.svg'>
-                <h2 class="nom-small">Carte</h2>
-            </div>
-
-            <div class="container-side bg-354F52 g6-1 active">
-                <img class="flag-small" src='assets/icons/catalogue.svg'>
-                <h2 class="nom-small">Catalogue</h2>
-            </div>
-
-            <div class="zone-catalogue">
+            <div class="zone-catalogue" id="zones" hx-swap="swap:0.5s">
                 <div class="map-catalogue" id="map"></div>
 
                 <script>
