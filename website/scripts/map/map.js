@@ -109,8 +109,6 @@ class EcoMap {
             this.behaviorSerie(s)
             this.activePays(s)
         }
-
-        
     }
 
     behaviorSerie(serie) {
@@ -167,7 +165,7 @@ class EcoMap {
             
             } else {
                 if (base.option == "pays") {
-                    htmx.ajax("GET","UI3_pays.php",{values:{id_pays:ev.target.dataItem._settings.id},swap:"outerHTML swap:0.5s",target:"#grid",select:"#grid"})
+                    htmx.ajax("GET","UI3_pays.php",{values:{id_pays:ev.target.dataItem._settings.id},swap:"outerHTML swap:0.5s",target:"#zones",select:"#zones"})
                 } else if (base.option == "compare") {
                     // ?
                     serie.zoomToDataItem(ev.target.dataItem);
@@ -262,7 +260,6 @@ var miniMap = {0:undefined,1:undefined}
 
 function createMiniMap(index,option) {
     mi = new EcoMap("miniMap"+index,option,true,index)
-    mi.addContinents()
     mi.addCountries()
     miniMap[index] = mi
 }

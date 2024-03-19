@@ -197,89 +197,6 @@
             <div class="zone display" id="barl" style="display:none">
                 <div class="graph" id="barreLine"></div>
             </div>
-        </div>
-
-
-        <div class="nav-bottom">
-            <div class="nav-categ">
-                <div class="pack-categ">
-                    <div class="container-bottom bg-354F52 active" data-index="0" data-name="Statistiques">
-                        <img class="flag-small" src='assets/icons/stats.svg'>
-                    </div>
-
-                    <div class="container-bottom bg-354F52" data-index="1" data-name="Explorer">
-                        <img class="flag-small" src='assets/icons/map.svg'>
-                    </div>
-
-                    <div class="container-bottom bg-354F52" data-index="2" data-name="Catalogue" hx-get="UI3_catalogue.php" hx-select="#zones" hx-target="#zones" hx-trigger="click" hx-vals="js:{page:'Pays'}" hx-swap="outerHTML swap:0.5s">
-                        <img class="flag-small" src='assets/icons/catalogue.svg'>
-                    </div>
-
-                    <div id="trans-page" class="active-bg"></div>
-                </div>
-
-                <div class="nav-trait"></div>
-
-                <div id="name-page" class="nav-text">Statistiques</div>
-            </div>
-
-            <div class="nav-categ">
-                <div class="pack-categ">
-                    <div class="container-bottom bg-354F52 active switch" data-switch="home" data-index="0" data-name="Présentation">
-                        <img class="flag-small" src='assets/icons/info.svg'>
-                    </div>
-
-                    <div class="container-bottom bg-354F52 switch" data-switch="key" data-index="1" data-name="Indicateurs clés">
-                        <img class="flag-small" src='assets/icons/lamp.svg'>
-                    </div>
-
-                    <div class="container-bottom bg-354F52 switch" data-switch="courbe" data-index="2" data-name="Courbes d'évolution">
-                        <img class="flag-small" src='assets/icons/sort.svg'>
-                    </div>
-
-                    <div class="container-bottom bg-354F52 switch" data-switch="barl" data-index="3" data-name="PIB et tourisme">
-                        <img class="flag-small" src='assets/icons/stats.svg'>
-                    </div>
-
-                    <div class="container-bottom bg-354F52 switch" data-switch="more" data-index="4" data-name="Informations complémentaires">
-                        <img class="flag-small" src='assets/icons/plus.svg'>
-                    </div>
-
-                    <div id="trans" class="active-bg"></div>
-                </div>
-
-                <div class="nav-trait"></div>
-
-                <div id="name-switch" class="nav-text">Présentation</div>
-            </div>
-        </div>
-            
-
-            <script id="scripting">
-                createMiniMap(0,"pays")
-                spider("spider",1)
-                createLine("line")
-                barreLine("barreLine")
-            </script>
-
-            <script>
-                $(".icon").on("click", function () {
-                    $(".icon-active").removeClass("icon-active")
-                    $(this).addClass("icon-active")
-                    $("#icon_name").text($(this).data("name"));
-                })
-
-                $(".switch").on("click", function () {
-                    $(".switch").removeClass("active")
-                    $(this).addClass("active")
-                    $(".display").css("display","none")
-
-                    $("#"+$(this).data("switch")).css("display","grid")
-                    nb = $(this).data("index")*53
-                    $("#trans").css("transform","translateX("+nb+"px)")
-                    $("#name-switch").html($(this).data("name"))
-                })
-            </script>
 
             <?php
                 $cur = getDB();
@@ -307,7 +224,7 @@
 
                 if ($pays == "") {
                     echo <<<HTML
-                        <div hx-get="UI3_catalogue.php" hx-trigger="load" hx-select="#grid" hx-target="#grid" hx-vals="js:{page:'Pays'}" hx-swap="outerHTML swap:0.5s"></div>
+                        <div hx-get="UI3_catalogue.php" hx-trigger="load" hx-select="#zones" hx-target="#zones" hx-vals="js:{page:'Pays'}" hx-swap="outerHTML swap:0.5s"></div>
                     HTML;
                 } else {
                     echo <<<HTML
@@ -315,6 +232,103 @@
                     HTML;
                 }
             ?>
+        </div>
+
+        <div class="zone mask"></div>
+
+        <div class="nav-bottom">
+            <div class="nav-categ" id="bn" hx-swap-oob="outerHTML">
+                <div class="pack-categ">
+                    <div class="container-bottom active page" data-index="0" data-name="Statistiques" id="s-stats">
+                        <img class="flag-small" src='assets/icons/stats.svg'>
+                    </div>
+
+                    <div class="container-bottom page" data-index="1" data-name="Explorer" id="s-explore">
+                        <img class="flag-small" src='assets/icons/map.svg'>
+                    </div>
+
+                    <div class="container-bottom page" data-index="2" data-name="Catalogue" id="s-catalogue" hx-get="UI3_catalogue.php" hx-select="#zones" hx-target="#zones" hx-trigger="click" hx-vals="js:{page:'Pays'}" hx-swap="outerHTML swap:0.5s">
+                        <img class="flag-small" src='assets/icons/catalogue.svg'>
+                    </div>
+
+                    <div id="trans-page" class="active-bg"></div>
+                </div>
+
+                <div class="nav-trait"></div>
+
+                <div id="name-page" class="nav-text">Statistiques</div>
+            </div>
+
+            <div class="nav-categ" id="bu" hx-swap-oob="outerHTML">
+
+                <img class="flag-small" id="flag-bot" style="margin:0 10px">
+
+                <div class="nav-trait"></div>
+
+                <div class="pack-categ">
+                    <div class="container-bottom active switch" data-switch="home" data-index="0" data-name="Présentation">
+                        <img class="flag-small" src='assets/icons/info.svg'>
+                    </div>
+
+                    <div class="container-bottom switch" data-switch="key" data-index="1" data-name="Indicateurs clés">
+                        <img class="flag-small" src='assets/icons/lamp.svg'>
+                    </div>
+
+                    <div class="container-bottom switch" data-switch="courbe" data-index="2" data-name="Courbes d'évolution">
+                        <img class="flag-small" src='assets/icons/sort.svg'>
+                    </div>
+
+                    <div class="container-bottom switch" data-switch="barl" data-index="3" data-name="PIB et tourisme">
+                        <img class="flag-small" src='assets/icons/stats.svg'>
+                    </div>
+
+                    <div class="container-bottom switch" data-switch="more" data-index="4" data-name="Informations complémentaires">
+                        <img class="flag-small" src='assets/icons/plus.svg'>
+                    </div>
+
+                    <div id="trans" class="active-bg"></div>
+                </div>
+
+                <div class="nav-trait"></div>
+
+                <div id="name-switch" class="nav-text">Présentation</div>
+            </div>
+        </div>
+            
+
+            <script id="scripting" hx-swap-oob="outerHTML">
+                createMiniMap(0,"pays")
+                spider("spider",1)
+                createLine("line")
+                barreLine("barreLine")
+            </script>
+
+            <script id="behave" hx-swap-oob="outerHTML">
+                $(".icon").on("click", function () {
+                    $(".icon-active").removeClass("icon-active")
+                    $(this).addClass("icon-active")
+                    $("#icon_name").text($(this).data("name"));
+                })
+
+                $(".switch").on("click", function () {
+                    $(".switch").removeClass("active")
+                    $(this).addClass("active")
+                    $(".display").css("display","none")
+
+                    $("#"+$(this).data("switch")).css("display","grid")
+                    nb = $(this).data("index")*53
+                    $("#trans").css("transform","translateX("+nb+"px)")
+                    $("#name-switch").html($(this).data("name"))
+                })
+
+                $(".page").removeClass("active")
+                $("#s-stats").addClass("active")
+                $("#name-page").text("Statistiques");
+
+                nb = 0
+                $("#trans-page").css("transform","translateX("+nb+"px)")
+                
+            </script>
 
     </div>
 

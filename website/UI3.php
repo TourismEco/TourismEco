@@ -2,25 +2,8 @@
 
 <body>
     <div class="flex">
-        <div class="grid" id="grid">
-            <div class="container-side g1-1" id="mini0"></div>
-            <div class="container-side g2-1" id="mini1"></div>
 
-            <div class="container-side bg-354F52 g4-1 active">
-                <img class="flag-small" src='assets/icons/stats.svg'>
-                <h2 class="nom-small">Statistiques</h2>
-            </div>
-
-            <div class="container-side bg-354F52 g5-1">
-                <img class="flag-small" src='assets/icons/map.svg'>
-                <h2 class="nom-small">Exploration</h2>
-            </div>
-
-            <div class="container-side bg-354F52 g6-1" hx-get="UI3_catalogue.php" hx-select="#grid" hx-target="#grid" hx-trigger="click" hx-vals="js:{page:'Pays'}" hx-swap="outerHTML swap:0.5s">
-                <img class="flag-small" src='assets/icons/catalogue.svg'>
-                <h2 class="nom-small">Catalogue</h2>
-            </div>
-
+        <div id="zones">
             <div class="zone-presentation display" id="home">
                 <div class="container-presentation expand-2" id="bandeau0"></div>
                 <div class="container-presentation expand-2" id="bandeau1"></div>
@@ -36,7 +19,6 @@
                 <div class="container-presentation"></div>
             </div>
                 
-
             <div class="zone display" id="courbe" style="display:none">        
                 <div class=graph id="line"></div>
 
@@ -247,7 +229,7 @@
 
             </div>
 
-            <div class="zone display"  id="grow" >
+            <div class="zone display" style="display:none" id="grow">
 
                 <div class=graph id="bar"></div>
                 <!-- <div class="legende">
@@ -345,58 +327,6 @@
             <div class="zone display" style="display:none" id="more">
             </div>
 
-            <div class="container-bottom bg-354F52 g10-2 switch active" data-switch="home">
-                <img class="flag-small" src='assets/icons/info.svg'>
-                <h2 class="nom-small">Présentation</h2>
-            </div>
-
-            <div class="container-bottom bg-354F52 g10-3 switch" data-switch="key">
-                <img class="flag-small" src='assets/icons/lamp.svg'>
-                <h2 class="nom-small">Indicateurs clés</h2>
-            </div>
-
-            <div class="container-bottom bg-354F52 g10-4 switch" data-switch="courbe">
-                <img class="flag-small" src='assets/icons/sort.svg'>
-                <h2 class="nom-small">Courbe de comparaison</h2>
-            </div>
-
-            <div class="container-bottom bg-354F52 switch g10-5" data-switch="grow">
-                <img class="flag-small" src='assets/icons/stats.svg'>
-                <h2 class="nom-small">Croissances</h2>
-            </div>
-
-            <div class="container-bottom bg-354F52 switch g10-6" data-switch="more">
-                <img class="flag-small" src='assets/icons/plus.svg'>
-                <h2 class="nom-small">Informations complémentaires</h2>
-            </div>
-
-            <script>
-                $(".icon").on("click", function () {
-                    $(".icon-active").removeClass("icon-active")
-                    $(this).addClass("icon-active")
-                    $("#icon_name").text($(this).data("name"));
-                })
-
-                $(".switch").on("click", function () {
-                    $(".switch").removeClass("active")
-                    $(this).addClass("active")
-                    $(".display").css("display","none")
-                    console.log($(this).data("switch"))
-                    $("#"+$(this).data("switch")).css("display","grid")
-                })
-            </script>
-
-            <script id=scripting>
-                    
-                spider("spider",2)
-                lineCompare("line")
-                barCompare("bar")
-
-                createMiniMap(0,"compare")
-                createMiniMap(1,"compare")
-
-            </script>
-
             <?php
                 $cur = getDB();
 
@@ -430,19 +360,111 @@
                     
                     case 1:
                         echo <<<HTML
-                            <div hx-get="scripts/htmx/getCompare.php" hx-vals="js:{incr:0,id_pays:'$pays[0]'}" hx-trigger="load delay:.1s"></div>
+                            <div hx-get="UI3_catalogue.php" hx-trigger="load" hx-select="#zones" hx-target="#zones" hx-vals="js:{page:'Compare'}" hx-swap="outerHTML swap:0.5s"></div>
                         HTML;
                         break;
                     
                     case 0:
                         echo <<<HTML
-                            <div hx-get="catalogue.php" hx-trigger="load" hx-select="#grid" hx-target="#grid" hx-vals="js:{page:'Compare'}" hx-swap="outerHTML swap:0.5s"></div>
+                            <div hx-get="UI3_catalogue.php" hx-trigger="load" hx-select="#zones" hx-target="#zones" hx-vals="js:{page:'Compare'}" hx-swap="outerHTML swap:0.5s"></div>
                         HTML;
                         break;
                 }
             ?>
-
         </div>
+
+        <div class="zone mask"></div>
+
+        <div class="nav-bottom">
+            <div class="nav-categ" id="bn" hx-swap-oob="outerHTML">
+                <div class="pack-categ">
+                    <div class="container-bottom bg-354F52 active page" data-index="0" data-name="Statistiques" id="s-stats">
+                        <img class="flag-small" src='assets/icons/stats.svg'>
+                    </div>
+
+                    <div class="container-bottom bg-354F52 page" data-index="1" data-name="Explorer" id="s-explore">
+                        <img class="flag-small" src='assets/icons/map.svg'>
+                    </div>
+
+                    <div class="container-bottom bg-354F52 page" data-index="2" data-name="Catalogue" id="s-catalogue" hx-get="UI3_catalogue.php" hx-select="#zones" hx-target="#zones" hx-trigger="click" hx-vals="js:{page:'Compare'}" hx-swap="outerHTML swap:0.5s">
+                        <img class="flag-small" src='assets/icons/catalogue.svg'>
+                    </div>
+
+                    <div id="trans-page" class="active-bg"></div>
+                </div>
+
+                <div class="nav-trait"></div>
+
+                <div id="name-page" class="nav-text">Statistiques</div>
+            </div>
+
+            <div class="nav-categ" id="bu" hx-swap-oob="outerHTML">
+                <div class="pack-categ">
+                    <div class="container-bottom bg-354F52 active switch" data-switch="home" data-index="0" data-name="Présentation">
+                        <img class="flag-small" src='assets/icons/info.svg'>
+                    </div>
+
+                    <div class="container-bottom bg-354F52 switch" data-switch="key" data-index="1" data-name="Indicateurs clés">
+                        <img class="flag-small" src='assets/icons/lamp.svg'>
+                    </div>
+
+                    <div class="container-bottom bg-354F52 switch" data-switch="courbe" data-index="2" data-name="Courbes d'évolution">
+                        <img class="flag-small" src='assets/icons/sort.svg'>
+                    </div>
+
+                    <div class="container-bottom bg-354F52 switch" data-switch="grow" data-index="3" data-name="Croissances">
+                        <img class="flag-small" src='assets/icons/stats.svg'>
+                    </div>
+
+                    <div class="container-bottom bg-354F52 switch" data-switch="more" data-index="4" data-name="Informations complémentaires">
+                        <img class="flag-small" src='assets/icons/plus.svg'>
+                    </div>
+
+                    <div id="trans" class="active-bg"></div>
+                </div>
+
+                <div class="nav-trait"></div>
+
+                <div id="name-switch" class="nav-text">Présentation</div>
+            </div>
+        </div>
+
+        <script id="scripting" hx-swap-oob="outerHTML">
+            spider("spider",2)
+            lineCompare("line")
+            barCompare("bar")
+
+            createMiniMap(0,"compare")
+            createMiniMap(1,"compare")
+        </script>
+
+        <script id="behave" hx-swap-oob="outerHTML">
+            $(".icon").on("click", function () {
+                $(".icon-active").removeClass("icon-active")
+                $(this).addClass("icon-active")
+                $("#icon_name").text($(this).data("name"));
+            })
+
+            $(".switch").on("click", function () {
+                $(".switch").removeClass("active")
+                $(this).addClass("active")
+                $(".display").css("display","none")
+
+                $("#"+$(this).data("switch")).css("display","grid")
+                nb = $(this).data("index")*53
+                $("#trans").css("transform","translateX("+nb+"px)")
+                $("#name-switch").html($(this).data("name"))
+            })
+
+            $(".page").removeClass("active")
+            $("#s-stats").addClass("active")
+            $("#name-page").text("Comparateur");
+
+            nb = 0
+            $("#trans-page").css("transform","translateX("+nb+"px)")
+            
+        </script>
+
     </div>
     
 </body>

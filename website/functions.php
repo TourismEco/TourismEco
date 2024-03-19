@@ -109,7 +109,7 @@ function addCardCountry($id,$nom,$letter,$page) {
 
 function addSlimCountry($id,$nom,$letter,$page) {
     return <<<HTML
-        <div class="container-slim bg-354F52" hx-get="UI3_pays.php" hx-vals="js:{id_pays:'$id'}" hx-swap="outerHTML swap:0.5s" hx-target="#grid" hx-select="#grid">
+        <div class="container-slim bg-354F52" hx-get="UI3_pays.php" hx-vals="js:{id_pays:'$id'}" hx-swap="outerHTML swap:0.5s" hx-target="#zones" hx-select="#zones">
             <div class="bandeau-slim"> 
                 <!-- <div class="mini-score-box score-$letter">$letter</div> -->
                 <img class="img img-slim" src='assets/img/$id.jpg' alt="Bandeau">

@@ -20,7 +20,7 @@ body {
 
 .flex {
     margin: 0 100px;
-    height: calc(100vh - 79px);
+    display: grid;
 }
 
 .container-side {
@@ -560,12 +560,9 @@ h1 {
 
 .bg-52796F {
     background-color: #52796F;
-    margin-right: 5px;
 }
 .bg-83A88B {
     background-color: #83A88B;
-    margin-left: 5px;
-
 }
 
 
@@ -842,6 +839,7 @@ h1 {
     border-radius: 10px;
     width: 130px;
     height: 70px;
+    background-color: #D9D9D9;
 }
 
 .score-A {
@@ -1090,7 +1088,7 @@ input {
 .htmx-swapping {
     opacity: 0%;
     transition: opacity .5s ease-out;
-  }
+}
 
 .nav-bottom {
     justify-content: center;
@@ -1164,4 +1162,16 @@ input {
     grid-column: 1/7;
     grid-row: 1/6;
   
+}
+
+#zones {
+    transition: opacity .5s ease-out;
+    grid-row: 1;
+    grid-column: 1;
+}
+
+.mask {
+    z-index: -25;
+    grid-row: 1;
+    grid-column: 1;
 }
