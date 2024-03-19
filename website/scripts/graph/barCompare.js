@@ -13,10 +13,28 @@ function barCompare(id) {
 
 function barHTMX(index,data,name) {
     b.updateSerie(index, data, name)
+    console.log(data)
+    updateTable_bar(index,data[b.getYear()]);
 }
 
 function updateBar(year) {
     for (var s of b.getSeries()) {
         s.setDataSerie(s.data[year])
+        updateTable_bar(s.getIndex(),s.data[year]);
     }  
+}
+
+function updateTable_bar(index, data) {
+    if (data) {      
+        for (var i=0;i<data.length;i++) {
+            if (data[i]["value"] == null) {
+                st = "/"
+            } else {
+                if (data[i]["var"]) {
+                    st = data[i]["value"].toFixed(2)+" %"
+                }
+            }
+            $("#bar_"+data[i]["var"]+"_"+index).html(st)
+        }
+    }
 }

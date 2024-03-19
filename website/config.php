@@ -5,7 +5,7 @@ require_once "private.php";
 // Defintion of constants
 define("DB_HOSTNAME", "localhost");
 define("DB_USERNAME", "root");
-define("DB_PASSWORD", "root");
+define("DB_PASSWORD", "");
 define("DB_DATABASE", "ecotourisme");
 define("SOURCE", "/projet_L3/website/");
 define("SITE_URL", "http://localhost/projet_L3/website/");

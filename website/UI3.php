@@ -247,16 +247,99 @@
 
             </div>
 
-            <div class="zone display"  id="grow" style="display:none">
+            <div class="zone display"  id="grow" >
 
                 <div class=graph id="bar"></div>
-                <div class="legende">
+                <!-- <div class="legende">
                     <div class="square bg-52796F"></div>
                     <p >France</p>
                     <div class="square bg-83A88B"></div>
                     <p >Croatie</p>
+                </div> -->
+                <div class="cube" id="cube-8">
+                    <div class="el-cube">
+                        <img class="flag-tiny" src="assets/twemoji/FR.svg">
+                        <div id="bar_pib_0"></div>
+                    </div>
+                    <div class="tooltip">
+                        <img class="icon" src="assets/icons/dollar.svg">
+                        <div class="top">
+                            <h3>PIB</h3>
+                        </div>
+                    </div>
+                    <div class="el-cube">
+                        <img class="flag-tiny" src="assets/twemoji/HR.svg">
+                        <div id="bar_pib_1"></div>
+                    </div>
                 </div>
 
+                <div class="cube" id="cube-9">
+                    <div class="el-cube">
+                        <img class="flag-tiny" src="assets/twemoji/FR.svg">
+                        <div id="bar_co2_0"></div>
+                    </div>
+                    <div class="tooltip">
+                        <img class="icon" src="assets/icons/cloud.svg">
+                        <div class="top">
+                            <h3>CO2</h3>
+                        </div>
+                    </div>
+                    <div class="el-cube">
+                        <img class="flag-tiny" src="assets/twemoji/HR.svg">
+                        <div id="bar_co2_1"></div>
+                    </div>
+                </div>
+
+                <div class="cube" id="cube-10">
+                    <div class="el-cube">
+                        <img class="flag-tiny" src="assets/twemoji/FR.svg">
+                        <div id="bar_arrivees_0"></div>
+                    </div>
+                    <div class="tooltip">
+                        <img class="icon" src="assets/icons/down.svg">
+                        <div class="top">
+                            <h3>PIB</h3>
+                        </div>
+                    </div>
+                    <div class="el-cube">
+                        <img class="flag-tiny" src="assets/twemoji/HR.svg">
+                        <div id="bar_arrivees_1"></div>
+                    </div>
+                </div>
+
+                <div class="cube" id="cube-11">
+                    <div class="el-cube">
+                        <img class="flag-tiny" src="assets/twemoji/FR.svg">
+                        <div id="bar_gpi_0"></div>
+                    </div>
+                    <div class="tooltip">
+                        <img class="icon" src="assets/icons/shield.svg">
+                        <div class="top">
+                            <h3>GPI</h3>
+                        </div>
+                    </div>
+                    <div class="el-cube">
+                        <img class="flag-tiny" src="assets/twemoji/HR.svg">
+                        <div id="bar_gpi_1"></div>
+                    </div>
+                </div>
+
+                <div class="cube" id="cube-12">
+                    <div class="el-cube">
+                        <img class="flag-tiny" src="assets/twemoji/FR.svg">
+                        <div id="bar_cpi_0"></div>
+                    </div>
+                    <div class="tooltip">
+                        <img class="icon" src="assets/icons/transfer.svg">
+                        <div class="top">
+                            <h3>CPI</h3>
+                        </div>
+                    </div>
+                    <div class="el-cube">
+                        <img class="flag-tiny" src="assets/twemoji/HR.svg">
+                        <div id="bar_cpi_1"></div>
+                    </div>
+                </div>
             </div>
 
             <div class="zone display" style="display:none" id="more">
