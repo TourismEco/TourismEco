@@ -1,17 +1,18 @@
 <?php
-require("../../functions.php");
-
-$cur = getDB();
 
 if (!isset($_SERVER["HTTP_HX_REQUEST"])) {
-    header("HTTP/1.1 401 Unauthorized");
+    header("HTTP/1.1 401");
     exit;
 }
 
 if (!isset($_GET["id_pays"]) || !isset($_GET["incr"])) {
-    header("HTTP/1.1 400 Bad Request");
+    header("HTTP/1.1 400");
     exit;
 }
+
+require("../../functions.php");
+
+$cur = getDB();
 
 $id_pays = $_GET["id_pays"];
 $incr = $_GET["incr"];

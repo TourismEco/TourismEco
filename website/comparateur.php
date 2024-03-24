@@ -38,13 +38,13 @@
                     
                     case 1:
                         echo <<<HTML
-                            <div hx-get="UI3_catalogue.php" hx-trigger="load" hx-select="#zones" hx-target="#zones" hx-vals="js:{page:'compare'}" hx-swap="outerHTML swap:0.5s"></div>
+                            <div hx-get="catalogue.php" hx-trigger="load" hx-select="#zones" hx-target="#zones" hx-vals="js:{page:'compare'}" hx-swap="outerHTML swap:0.5s"></div>
                         HTML;
                         break;
                     
                     case 0:
                         echo <<<HTML
-                            <div hx-get="UI3_catalogue.php" hx-trigger="load" hx-select="#zones" hx-target="#zones" hx-vals="js:{page:'compare'}" hx-swap="outerHTML swap:0.5s"></div>
+                            <div hx-get="catalogue.php" hx-trigger="load" hx-select="#zones" hx-target="#zones" hx-vals="js:{page:'compare'}" hx-swap="outerHTML swap:0.5s"></div>
                         HTML;
                         break;
                 }
@@ -387,7 +387,7 @@
                         <img class="flag-small" src='assets/icons/map.svg'>
                     </div>
 
-                    <div class="container-bottom page" data-index="2" data-name="Catalogue" id="s-catalogue" hx-get="UI3_catalogue.php" hx-select="#zones" hx-target="#zones" hx-trigger="click" hx-vals="js:{page:'Compare'}" hx-swap="outerHTML swap:0.5s">
+                    <div class="container-bottom page" data-index="2" data-name="Catalogue" id="s-catalogue" hx-get="catalogue.php" hx-select="#zones" hx-target="#zones" hx-trigger="click" hx-vals="js:{page:'Compare'}" hx-swap="outerHTML swap:0.5s">
                         <img class="flag-small" src='assets/icons/catalogue.svg'>
                     </div>
 

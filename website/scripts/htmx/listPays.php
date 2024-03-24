@@ -1,5 +1,15 @@
 <?php
 
+if (!isset($_SERVER["HTTP_HX_REQUEST"])) {
+    header("HTTP/1.1 401");
+    exit;
+}
+
+if (!isset($_GET["search"]) || !isset($_GET["sens"])) {
+    header("HTTP/1.1 400");
+    exit;
+}
+
 require('../../functions.php');
 
 if (isset($_GET["search"])) {

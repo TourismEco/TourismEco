@@ -1,12 +1,12 @@
 <?php
 
 if (!isset($_SERVER["HTTP_HX_REQUEST"])) {
-    echo "Bien vu ça hein";
+    header("HTTP/1.1 401");
     exit;
 }
 
-if (!isset($_GET["search"])) {
-    echo "Mauvais arguments.";
+if (!isset($_GET["search"]) || !isset($_GET["page"]) || !isset($_GET["id_continent"])) {
+    header("HTTP/1.1 400");
     exit;
 }
 

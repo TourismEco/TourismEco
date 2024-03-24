@@ -1,4 +1,10 @@
 <?php
+
+if (!isset($_SERVER["HTTP_HX_REQUEST"])) {
+    header("HTTP/1.1 401");
+    exit;
+}
+
 require("../../config.php");
 
 $cur = getDB();

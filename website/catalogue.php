@@ -147,13 +147,13 @@
                     <?php
                         if ($page == "pays") {
                             echo <<<HTML
-                                <div class="container-bottom page active" id="s-stats" hx-get="UI3_pays.php" hx-select="#zones" hx-target="#zones" hx-trigger="click" hx-swap="outerHTML swap:0.5s" data-name="Statistiques">
+                                <div class="container-bottom page active" id="s-stats" hx-get="pays.php" hx-select="#zones" hx-target="#zones" hx-trigger="click" hx-swap="outerHTML swap:0.5s" data-name="Statistiques">
                                     <img class="flag-small" src='assets/icons/stats.svg'>
                                 </div>
                             HTML;
                         } else {
                             echo <<<HTML
-                                <div class="container-bottom page active" id="s-stats" hx-get="UI3.php" hx-select="#zones" hx-target="#zones" hx-trigger="click" hx-swap="outerHTML swap:0.5s" data-name="Comparateur">
+                                <div class="container-bottom page active" id="s-stats" hx-get="comparateur.php" hx-select="#zones" hx-target="#zones" hx-trigger="click" hx-swap="outerHTML swap:0.5s" data-name="Comparateur">
                                     <img class="flag-small" src='assets/icons/stats.svg'>
                                 </div>
                             HTML;
