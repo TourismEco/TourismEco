@@ -80,7 +80,7 @@ body {
     width: 35px;
     grid-row: 1;
     grid-column: 1;
-    z-index: 5;
+    z-index: 7;
     align-self: center;
     color:white;
     opacity: 100%;
@@ -1132,9 +1132,19 @@ input {
     border-radius: 0 0 10px 10px;
     transition: all .5s;
     align-self: end;
+    z-index: 6;
 }
 
+.bg-compare {
+    height: 70px;
+    border-radius: 10px;
+    background-color: #D9D9D9;
+}
 
+#compare-switch {
+    width: 20px;
+    margin: 5px 12.5px;
+}
 
 /* @keyframes fadeIn {
     0% {opacity: 0;}

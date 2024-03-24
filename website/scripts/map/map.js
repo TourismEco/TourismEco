@@ -167,9 +167,7 @@ class EcoMap {
                 if (base.option == "pays") {
                     htmx.ajax("GET","UI3_pays.php",{values:{id_pays:ev.target.dataItem._settings.id},swap:"outerHTML swap:0.5s",target:"#zones",select:"#zones"})
                 } else if (base.option == "compare") {
-                    // ?
-                    serie.zoomToDataItem(ev.target.dataItem);
-                    htmx.ajax("GET","scripts/htmx/getContinent.php",{values:{map:true,id_pays:ev.target.dataItem._settings.id},swap:"beforeend"})
+                    htmx.ajax("GET","scripts/htmx/appendCompare.php",{values:{id_pays:ev.target.dataItem._settings.id,incr:getIncr()},swap:"beforeend"})
                 } 
             }
         });

@@ -261,7 +261,20 @@
 
             <div class="nav-categ" id="bu" hx-swap-oob="outerHTML">
 
-                <img class="flag-small" id="flag-bot" style="margin:0 10px">
+                <div class="pack-categ">
+                    <?php
+                        if (isset($_SESSION["pays"][0])) {
+                            $id_pays = $_SESSION["pays"][0];
+                            echo <<<HTML
+                                <img class="flag-small" id="flag-bot" src='assets/twemoji/$id_pays.svg'>
+                            HTML;
+                        } else {
+                            echo <<<HTML
+                                <img class="flag-small" id="flag-bot" src='assets/icons/question.svg'>
+                            HTML;
+                        }
+                    ?>
+                </div>
 
                 <div class="nav-trait"></div>
 

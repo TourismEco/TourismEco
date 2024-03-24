@@ -108,16 +108,30 @@ function addCardCountry($id,$nom,$letter,$page) {
 }
 
 function addSlimCountry($id,$nom,$letter,$page) {
-    return <<<HTML
-        <div class="container-slim bg-354F52" hx-get="UI3_pays.php" hx-vals="js:{id_pays:'$id'}" hx-swap="outerHTML swap:0.5s" hx-target="#zones" hx-select="#zones">
-            <div class="bandeau-slim"> 
-                <!-- <div class="mini-score-box score-$letter">$letter</div> -->
-                <img class="img img-slim" src='assets/img/$id.jpg' alt="Bandeau">
-                <img class="flag-slim" src='assets/twemoji/$id.svg'>
-                <h2 class="nom-slim">$nom</h2>
+    if ($page == "pays") {
+        return <<<HTML
+            <div class="container-slim bg-354F52" hx-get="UI3_pays.php" hx-vals="js:{id_pays:'$id'}" hx-swap="outerHTML swap:0.5s" hx-target="#zones" hx-select="#zones">
+                <div class="bandeau-slim"> 
+                    <!-- <div class="mini-score-box score-$letter">$letter</div> -->
+                    <img class="img img-slim" src='assets/mini/$id.jpg' alt="Bandeau">
+                    <img class="flag-slim" src='assets/twemoji/$id.svg'>
+                    <h2 class="nom-slim">$nom</h2>
+                </div>
             </div>
-        </div>
-    HTML;
+        HTML;
+    } else {
+        return <<<HTML
+            <div class="container-slim bg-354F52" hx-get="scripts/htmx/appendCompare.php" hx-vals="js:{id_pays:'$id',incr:getIncr()}" hx-swap="beforeend">
+                <div class="bandeau-slim"> 
+                    <!-- <div class="mini-score-box score-$letter">$letter</div> -->
+                    <img class="img img-slim" src='assets/mini/$id.jpg' alt="Bandeau">
+                    <img class="flag-slim" src='assets/twemoji/$id.svg'>
+                    <h2 class="nom-slim">$nom</h2>
+                </div>
+            </div>
+        HTML;
+    }
+    
 }
 
 function addCardContinent($id,$nom) {

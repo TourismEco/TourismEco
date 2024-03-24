@@ -3,14 +3,18 @@ require("../../functions.php");
 
 $cur = getDB();
 
-$id_pays = $_GET["id_pays"];
-
-if (isset($_GET["incr"])) {
-    $incr = $_GET["incr"];
-    $_SESSION["incr"] = $incr;
-} else {
-    $incr = $_SESSION["incr"];
+if (!isset($_SERVER["HTTP_HX_REQUEST"])) {
+    header("HTTP/1.1 401 Unauthorized");
+    exit;
 }
+
+if (!isset($_GET["id_pays"]) || !isset($_GET["incr"])) {
+    header("HTTP/1.1 400 Bad Request");
+    exit;
+}
+
+$id_pays = $_GET["id_pays"];
+$incr = $_GET["incr"];
 
 $old = "00";
 if (!in_array($id_pays,$_SESSION["pays"])) {
@@ -85,17 +89,8 @@ echo <<<HTML
     if ($map) {
         miniMap[$incr].zoomTo("$id_pays")
     }
-
-    // addListe("$sv1[0]","$sv1[1]","test","$id_pays")
-    // addListe("$sv2[0]","$sv2[1]","test","$id_pays")
-    // addListe("$sv3[0]","$sv3[1]","test","$id_pays")
-    // delListe("$old")
-
-    // $("#scripting").empty()
 </script>
 
 HTML;
-
-$_SESSION["incr"] = ($_SESSION["incr"]+1)%2
 
 ?>
