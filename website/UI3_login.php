@@ -3,7 +3,7 @@
 <body>
 
     <div class="flex">
-        <div class="zone-totale column" id="barl">
+        <div class="zone-totale column" id="zones">
             <h1 class="titre">Connexion</h1>
             <img class="logo" src="assets/icons/profil.png" alt="LogoProfil">
 
@@ -66,7 +66,13 @@
             </script>
         </div>
         </div>
+        
+        <div class="zone mask"></div>
 
+        <div id="nav-bot" hx-swap-oob="outerHTML"></div>
+
+        <script id="scripting" hx-swap-oob="outerHTML"></script>
+        <script id="behave" hx-swap-oob="outerHTML"></script>
     </div>
 
 </body>

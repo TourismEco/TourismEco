@@ -1,7 +1,7 @@
 <?php require_once 'head.php'?>
 
 <body>
-    <div class="flex">
+    <div class="flex" id="main">
 
         <div id="zones">
 
@@ -376,8 +376,8 @@
 
         <div class="zone mask"></div>
 
-        <div class="nav-bottom">
-            <div class="nav-categ" id="bn" hx-swap-oob="outerHTML">
+        <div class="nav-bottom" id="nav-bot" hx-swap-oob="outerHTML">
+            <div class="nav-categ">
                 <div class="pack-categ">
                     <div class="container-bottom active page" data-index="0" data-name="Statistiques" id="s-stats">
                         <img class="flag-small" src='assets/icons/stats.svg'>
@@ -399,7 +399,7 @@
                 <div id="name-page" class="nav-text">Statistiques</div>
             </div>
 
-            <div class="nav-categ" id="bu" hx-swap-oob="outerHTML">
+            <div class="nav-categ">
                 <div class="pack-categ">
                     <?php
                         if (isset($_SESSION["pays"][0])) {

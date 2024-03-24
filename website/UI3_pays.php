@@ -1,7 +1,7 @@
 <?php require_once 'head.php'?>
 
 <body>
-    <div class="flex">
+    <div class="flex" id="main">
 
         <div id="zones">
             <div class="zone-presentation display" id="home">
@@ -200,7 +200,6 @@
 
             <?php
                 $cur = getDB();
-
                 if (!isset($_SESSION["pays"])) {
                     $_SESSION["pays"] = array();
                 }
@@ -224,7 +223,7 @@
 
                 if ($pays == "") {
                     echo <<<HTML
-                        <div hx-get="UI3_catalogue.php" hx-trigger="load" hx-select="#zones" hx-target="#zones" hx-vals="js:{page:'Pays'}" hx-swap="outerHTML swap:0.5s"></div>
+                        <div hx-get="UI3_catalogue.php" hx-trigger="load" hx-select="#zones" hx-target="#zones" hx-vals="js:{page:'pays'}" hx-swap="outerHTML swap:0.5s"></div>
                     HTML;
                 } else {
                     echo <<<HTML
@@ -236,8 +235,8 @@
 
         <div class="zone mask"></div>
 
-        <div class="nav-bottom">
-            <div class="nav-categ" id="bn" hx-swap-oob="outerHTML">
+        <div class="nav-bottom" id="nav-bot" hx-swap-oob="outerHTML">
+            <div class="nav-categ" id="bn">
                 <div class="pack-categ">
                     <div class="container-bottom active page" data-index="0" data-name="Statistiques" id="s-stats">
                         <img class="flag-small" src='assets/icons/stats.svg'>
@@ -247,7 +246,7 @@
                         <img class="flag-small" src='assets/icons/map.svg'>
                     </div>
 
-                    <div class="container-bottom page" data-index="2" data-name="Catalogue" id="s-catalogue" hx-get="UI3_catalogue.php" hx-select="#zones" hx-target="#zones" hx-trigger="click" hx-vals="js:{page:'Pays'}" hx-swap="outerHTML swap:0.5s">
+                    <div class="container-bottom page" data-index="2" data-name="Catalogue" id="s-catalogue" hx-get="UI3_catalogue.php" hx-select="#zones" hx-target="#zones" hx-trigger="click" hx-vals="js:{page:'pays'}" hx-swap="outerHTML swap:0.5s">
                         <img class="flag-small" src='assets/icons/catalogue.svg'>
                     </div>
 
@@ -259,7 +258,7 @@
                 <div id="name-page" class="nav-text">Statistiques</div>
             </div>
 
-            <div class="nav-categ" id="bu" hx-swap-oob="outerHTML">
+            <div class="nav-categ" id="bu">
 
                 <div class="pack-categ">
                     <?php

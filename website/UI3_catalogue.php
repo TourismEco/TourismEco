@@ -141,11 +141,11 @@
             </div>
         </div>
 
-        <div class="nav-bottom">
-            <div class="nav-categ" id="bn" hx-swap-oob="outerHTML">
+        <div class="nav-bottom" id="nav-bot" hx-swap-oob="outerHTML">
+            <div class="nav-categ">
                 <div class="pack-categ">
                     <?php
-                        if ($page == "Pays") {
+                        if ($page == "pays") {
                             echo <<<HTML
                                 <div class="container-bottom page active" id="s-stats" hx-get="UI3_pays.php" hx-select="#zones" hx-target="#zones" hx-trigger="click" hx-swap="outerHTML swap:0.5s" data-name="Statistiques">
                                     <img class="flag-small" src='assets/icons/stats.svg'>
@@ -176,12 +176,12 @@
                 <div id="name-page" class="nav-text">Catalogue</div>
             </div>
 
-            <div class="nav-categ" id="bu" hx-swap-oob="outerHTML">
+            <div class="nav-categ">
                 <div class="pack-categ">
                     <?php
                         if ($page == "pays") {
                             $incr = 0;
-
+                            
                             if (isset($_SESSION["pays"][0])) {
                                 $id_pays = $_SESSION["pays"][0];
                                 echo <<<HTML

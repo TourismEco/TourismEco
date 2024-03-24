@@ -15,7 +15,6 @@ $id_pays = $_GET["id_pays"];
 $incr = $_GET["incr"];
 
 if (in_array($id_pays,$_SESSION["pays"])) {
-    header("HTTP/1.1 400 Bad Request");
     exit;
 }
 

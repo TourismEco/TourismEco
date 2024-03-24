@@ -10,7 +10,7 @@
                 $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
             }
         ?>
-        <div class="zone-totale" id="barl">
+        <div class="zone-totale" id="zones">
             <div class="left-section">
                 <form action="scripts/login/ajouter.php" method="post">
                     <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
@@ -176,6 +176,13 @@
                     </ul>
             </div>
         </div>
+
+        <div class="zone mask"></div>
+
+        <div id="nav-bot" hx-swap-oob="outerHTML"></div>
+
+        <script id="scripting" hx-swap-oob="outerHTML"></script>
+        <script id="behave" hx-swap-oob="outerHTML"></script>
 
     </div>    
     

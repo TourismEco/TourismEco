@@ -97,7 +97,7 @@ echo <<<HTML
 
 <p class="name" id="nom0" hx-swap-oob="outerHTML">$nom</p>
 
-<img class="flag-small" id="flag-bot" hx-swap-oob="outerHTML" src='assets/twemoji/$id_pays.svg' style="margin:0 10px">
+<img class="flag-small" id="flag-bot" hx-swap-oob="outerHTML" src='assets/twemoji/$id_pays.svg'>
 
 HTML;
 
