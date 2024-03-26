@@ -12,6 +12,11 @@ if (!isset($_GET["id_pays"]) || !isset($_GET["incr"])) {
 
 require("../../functions.php");
 
+if (!checkHTMX("comparateur", $_SERVER["HTTP_HX_CURRENT_URL"])) {
+    header("HTTP/1.1 401");
+    exit;
+}
+
 $cur = getDB();
 
 $id_pays = $_GET["id_pays"];
@@ -23,12 +28,6 @@ if (!in_array($id_pays,$_SESSION["pays"])) {
         $old = $_SESSION["pays"][$incr];
     }
     $_SESSION["pays"][$incr] = $id_pays;
-}
-
-if (isset($_GET["map"])) {
-    $map = "false";
-} else {
-    $map = "true";
 }
 
 // Nom
@@ -79,17 +78,14 @@ echo <<<HTML
 <p class="name" id="nom$incr" hx-swap-oob="outerHTML">$nom</p>
 <img class="flag-tiny" src="assets/twemoji/$id_pays.svg" id="flag$incr" hx-swap-oob="outerHTML">
 
-<script id=scripting hx-swap-oob=outerHTML>
+<script id="orders" hx-swap-oob="outerHTML">
     spiderHTMX($incr, $dataSpider, $dataTab, "$nom")
     lineHTMX($incr, $dataLine, "$nom")
     barHTMX($incr, $dataBar, "$nom")
 
     miniMap[$incr].addCities($cities)
     miniMap[$incr].addCapitals($capitals)
-    
-    if ($map) {
-        miniMap[$incr].zoomTo("$id_pays")
-    }
+    miniMap[$incr].zoomTo("$id_pays")
 </script>
 
 HTML;

@@ -15,68 +15,6 @@ function getDB($hostname=DB_HOSTNAME, $username=DB_USERNAME, $password=DB_PASSWO
     }
 }
 
-function getArrivals(string $id_pays, PDO $conn): int {
-    $query = <<<SQL
-    SELECT arriveesTotal
-    FROM Tourisme
-    WHERE id_pays = :id_pays AND annee = 2021
-SQL;
-    $sth = $conn->prepare($query);
-    $sth->bindParam(":id_pays", $id_pays, PDO::PARAM_STR);
-    $sth->execute();
-    $row = $sth->fetch();
-    var_dump($row);
-    return $row["arriveesTotal"];
-}
-
-function getCO2(string $id_pays, PDO $conn): float {
-    $query = <<<SQL
-    SELECT co2
-    FROM Ecologie
-    WHERE id_pays = :id_pays AND annee = 2020
-SQL;
-    $sth = $conn->prepare($query);
-    $sth->bindParam(":id_pays", $id_pays, PDO::PARAM_STR);
-    $sth->execute();
-    $row = $sth->fetch();
-    var_dump($row);
-    return $row["co2"];
-}
-
-function getPIB(string $id_pays, PDO $conn): float {
-    $query = <<<SQL
-    SELECT pibParHab
-    FROM Economie
-    WHERE id_pays = :id_pays AND annee = 2021 /* Normalement 2022 mais c'est NULL pour la france il faudra que je fasse une fonction qui check*/
-SQL;
-    $sth = $conn->prepare($query);
-    $sth->bindParam(":id_pays", $id_pays, PDO::PARAM_STR);
-    $sth->execute();
-    $row = $sth->fetch();
-    var_dump($row);
-    return $row["pibParHab"];
-}
-
-function getGPI(string $id_pays, PDO $conn): float {
-    $query = <<<SQL
-    SELECT gpi
-    FROM Surete
-    WHERE id_pays = :id_pays AND annee = 2023
-SQL;
-    $sth = $conn->prepare($query);
-    $sth->bindParam(":id_pays", $id_pays, PDO::PARAM_STR);
-    $sth->execute();
-    $row = $sth->fetch();
-    return $row["gpi"];
-}
-function getStats(string $id_pays, PDO $conn): array {
-    return array(
-        "arrivees" => getArrivals($id_pays, $conn),
-        "co2" => getCO2($id_pays, $conn),
-        "pib" => getPIB($id_pays, $conn),
-        "gpi" => getGPI($id_pays, $conn));
-}
-
 function getLetter($score) {
     if ($score < 20) {
         return "E";
@@ -96,8 +34,8 @@ function addCardCountry($id,$nom,$letter,$page) {
         <div class="container-small bg-354F52">
             <div class="bandeau-small hide-flag"> 
                 <div class="score-box-small score-$letter">$letter</div>
-                <img class="img img-small" src='assets/img/$id.jpg' alt="Bandeau">
-                <img class="flag-small" src='assets/twemoji/$id.svg'>
+                <img class="img img-small" src='assets/img/$id.jpg' alt="Bandeau de $nom">
+                <img class="flag-small" src='assets/twemoji/$id.svg' alt="Drapeau de $nom">
                 <h2 class="nom-small">$nom</h2>
                 <div class="buttons-small">
                     <button class=button-catalogue id=v-$id hx-get="scripts/htmx/get$page.php" hx-vals="js:{id_pays:'$id'}" hx-swap="beforeend show:top swap:0.5s">Consulter</button>
@@ -110,43 +48,26 @@ function addCardCountry($id,$nom,$letter,$page) {
 function addSlimCountry($id,$nom,$letter,$page) {
     if ($page == "pays") {
         return <<<HTML
-            <div class="container-slim bg-354F52" hx-get="pays.php" hx-vals="js:{id_pays:'$id'}" hx-swap="outerHTML swap:0.5s" hx-target="#zones" hx-select="#zones">
-                <div class="bandeau-slim"> 
-                    <!-- <div class="mini-score-box score-$letter">$letter</div> -->
-                    <img class="img img-slim" src='assets/mini/$id.jpg' alt="Bandeau">
-                    <img class="flag-slim" src='assets/twemoji/$id.svg'>
-                    <h2 class="nom-slim">$nom</h2>
-                </div>
+            <div class="bandeau-slim" hx-get="pays.php" hx-vals="js:{id_pays:'$id'}" hx-swap="outerHTML swap:0.5s" hx-target="#zones" hx-select="#zones"> 
+                <!-- <div class="mini-score-box score-$letter">$letter</div> -->
+                <img class="img img-slim" src='assets/mini/$id.jpg' alt="Illustration de $nom">
+                <img class="flag-slim" src='assets/twemoji/$id.svg' alt="Drapeau de $nom">
+                <h2 class="nom-slim">$nom</h2>
             </div>
         HTML;
     } else {
         return <<<HTML
-            <div class="container-slim bg-354F52" hx-get="scripts/htmx/appendCompare.php" hx-vals="js:{id_pays:'$id',incr:getIncr()}" hx-swap="beforeend">
-                <div class="bandeau-slim"> 
-                    <!-- <div class="mini-score-box score-$letter">$letter</div> -->
-                    <img class="img img-slim" src='assets/mini/$id.jpg' alt="Bandeau">
-                    <img class="flag-slim" src='assets/twemoji/$id.svg'>
-                    <h2 class="nom-slim">$nom</h2>
+            <div class="bandeau-slim" hx-get="scripts/htmx/appendCompare.php" hx-vals="js:{id_pays:'$id',incr:getIncr()}" hx-swap="beforeend"> 
+                <!-- <div class="mini-score-box score-$letter">$letter</div> -->
+                <img class="img img-slim" src='assets/mini/$id.jpg' alt="Illustration de $nom">
+                <img class="flag-slim" src='assets/twemoji/$id.svg' alt="Drapeau de $nom">
+                <h2 class="nom-slim">$nom</h2>
                 </div>
-            </div>
         HTML;
     }
     
 }
 
-function addCardContinent($id,$nom) {
-    return <<<HTML
-        <div class="container-slim bg-52796F">
-            <div class="bandeau-slim"> 
-                <img class="img img-slim" src='assets/img/$id.png' alt="Bandeau">
-                <h2 class="nom-region">$nom</h2>
-                <div class="buttons-small">
-                    <button class=button-catalogue id=v-$id>Consulter</button>
-                </div>
-            </div>
-        </div>
-    HTML;
-}
 
 function dataLine($pays, $conn) {
     $query = "SELECT allk.id_pays, allk.annee AS year, co2, elecRenew AS Enr, pibParHab AS pib, cpi, gpi, arriveesTotal*1000 AS arrivees, departs*1000 AS departs
@@ -458,7 +379,7 @@ function carousel($conn) {
         <a class="prev" onclick="plusSlides(-1)">❮</a>
 
         <div class="text-center">
-            <img id="logo-carousel" src="assets/img/eco.png">
+            <img id="logo-carousel" src="assets/img/eco.png" alt="Logo TourismEco">
             <h1>Ecotourisme</h1>
             <h2>Partez à la découverte du monde</h2>
         </div>
@@ -471,10 +392,10 @@ function carousel($conn) {
     foreach ($images as $image):
         echo <<<HTML
         <div class="custom-slider">
-            <img class="slide-img" src="assets/img/$image[id].jpg" >
+            <img class="slide-img" src="assets/img/$image[id].jpg" alt="Illustration de $image[nom]">
             <a class="slide-link" href="pays.php?id_pays=$image[id]">
                 <div class="slide-text">
-                    <img class="slide-logo" src="assets/twemoji/$image[id].svg" alt="Logo SVG">
+                    <img class="slide-logo" src="assets/twemoji/$image[id].svg" alt="Drapeau de $image[nom]">
                     <p>$image[nom]</p>
                 </div>
             </a>
@@ -668,4 +589,13 @@ function getCities($id_pays, $cur) {
     }
 
     return array("cities"=>$cities, "capitals"=>$capitals);
+}
+
+
+function checkHTMX($page, $hx_page) {
+    $hx = explode("/",$hx_page);
+    if ($hx[2] == "localhost" || $hx[2] == "tourismeco.fr") {
+        return $hx[count($hx)-1] == $page.".php";
+    }
+    return false;
 }

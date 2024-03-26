@@ -157,15 +157,14 @@ class EcoMap {
         serie.mapPolygons.template.events.on("click", function (ev) {
             if (base.mini) {
                 if (base.option == "compare") {
-                    serie.zoomToDataItem(ev.target.dataItem);
-                    htmx.ajax("GET","scripts/htmx/getCompare.php",{values:{map:true,id_pays:ev.target.dataItem._settings.id,incr:base.index},swap:"beforeend"})
+                    htmx.ajax("GET","scripts/htmx/getCompare.php",{values:{id_pays:ev.target.dataItem._settings.id,incr:base.index},swap:"beforeend"})
                 } else if (base.option == "pays") {
-                    htmx.ajax("GET","scripts/htmx/getPays.php",{values:{map:true,id_pays:ev.target.dataItem._settings.id},swap:"beforeend"})
+                    htmx.ajax("GET","scripts/htmx/getPays.php",{values:{id_pays:ev.target.dataItem._settings.id},swap:"beforeend"})
                 }
             
             } else {
                 if (base.option == "pays") {
-                    htmx.ajax("GET","UI3_pays.php",{values:{id_pays:ev.target.dataItem._settings.id},swap:"outerHTML swap:0.5s",target:"#zones",select:"#zones"})
+                    htmx.ajax("GET","pays.php",{values:{id_pays:ev.target.dataItem._settings.id},swap:"outerHTML swap:0.5s",target:"#zones",select:"#zones"})
                 } else if (base.option == "compare") {
                     htmx.ajax("GET","scripts/htmx/appendCompare.php",{values:{id_pays:ev.target.dataItem._settings.id,incr:getIncr()},swap:"beforeend"})
                 } 

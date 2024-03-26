@@ -8,7 +8,8 @@ if (!isset($_SERVER["HTTP_HX_REQUEST"])) {
 		<head>
 			<meta charset="UTF-8">
 			<meta name="viewport" content="width=device-width, initial-scale=1.0">
-			<title>Ecotourisme</title>
+			<meta name="description" content="TourismEco, découvrez votre prochaine destination de voyage.">
+			<title>TourismEco</title>
 			<link rel="stylesheet" href="assets/css/UI3.css" async>
 
 			<!-- Stack -->

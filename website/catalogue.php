@@ -38,106 +38,10 @@
 
                 <div class="trait-vertical"></div>
 
-                <div class='container-continents display' id="europe">
-                        <?php
-
-                            $queryPays = "SELECT * FROM pays WHERE id_continent = 5 ORDER BY score DESC LIMIT 12";
-                            $resultPays = $cur->query($queryPays);
-
-                            while ($rsPays = $resultPays->fetch(PDO::FETCH_ASSOC)) {
-                                $letter = getLetter($rsPays["score"]);
-                                echo addSlimCountry($rsPays["id"],$rsPays["nom"],$letter,$page);
-                            }
-
-                            echo <<<HTML
-                                <div class="container-slim bg-52796F cursor" hx-get="scripts/htmx/more.php" hx-vals="js:{continent:'5',more:1,page:'$page'}" hx-swap="outerHTML">
-                                    <div class="bandeau-slim">
-                                        <h2 class="nom-region">Voir plus</h2>
-                                    </div>
-                                </div>
-                            HTML;
-                        ?>
+                <div class='container-continents display' id="cata" hx-swap="swap:0.5s">
+                        
                 </div>
 
-                <div class='container-continents display' style="display:none" id="asia">
-                        <?php
-                            $queryPays = "SELECT * FROM pays WHERE id_continent = 4 ORDER BY score DESC LIMIT 12";
-                            $resultPays = $cur->query($queryPays);
-
-                            while ($rsPays = $resultPays->fetch(PDO::FETCH_ASSOC)) {
-                                $letter = getLetter($rsPays["score"]);
-                                echo addSlimCountry($rsPays["id"],$rsPays["nom"],$letter,$page);
-                            }
-
-                            echo <<<HTML
-                                <div class="container-slim bg-52796F cursor" hx-get="scripts/htmx/more.php" hx-vals="js:{continent:'4',more:1,page:'$page'}" hx-swap="outerHTML">
-                                    <div class="bandeau-slim">
-                                        <h2 class="nom-region">Voir plus</h2>
-                                    </div>
-                                </div>
-                            HTML;
-                        ?>
-                </div>
-
-                <div class='container-continents display' style="display:none" id="africa">
-                        <?php
-                            $queryPays = "SELECT * FROM pays WHERE id_continent = 1 ORDER BY score DESC LIMIT 12";
-                            $resultPays = $cur->query($queryPays);
-
-                            while ($rsPays = $resultPays->fetch(PDO::FETCH_ASSOC)) {
-                                $letter = getLetter($rsPays["score"]);
-                                echo addSlimCountry($rsPays["id"],$rsPays["nom"],$letter,$page);
-                            }
-
-                            echo <<<HTML
-                                <div class="container-slim bg-52796F cursor" hx-get="scripts/htmx/more.php" hx-vals="js:{continent:'1',more:1,page:'$page'}" hx-swap="outerHTML">
-                                    <div class="bandeau-slim">
-                                        <h2 class="nom-region">Voir plus</h2>
-                                    </div>
-                                </div>
-                            HTML;
-                        ?>
-                </div>
-
-                <div class='container-continents display' style="display:none" id="amerique">
-                        <?php
-                            $queryPays = "SELECT * FROM pays WHERE id_continent = 3 OR id_continent = 2 ORDER BY score DESC LIMIT 12";
-                            $resultPays = $cur->query($queryPays);
-
-                            while ($rsPays = $resultPays->fetch(PDO::FETCH_ASSOC)) {
-                                $letter = getLetter($rsPays["score"]);
-                                echo addSlimCountry($rsPays["id"],$rsPays["nom"],$letter,$page);
-                            }
-
-                            echo <<<HTML
-                                <div class="container-slim bg-52796F cursor" hx-get="scripts/htmx/more.php" hx-vals="js:{continent:'2',more:1,page:'$page'}" hx-swap="outerHTML">
-                                    <div class="bandeau-slim">
-                                        <h2 class="nom-region">Voir plus</h2>
-                                    </div>
-                                </div>
-                            HTML;
-                        ?>
-                </div>
-
-                <div class='container-continents display' style="display:none" id="oceania">
-                        <?php
-                            $queryPays = "SELECT * FROM pays WHERE id_continent = 6 ORDER BY score DESC LIMIT 12";
-                            $resultPays = $cur->query($queryPays);
-
-                            while ($rsPays = $resultPays->fetch(PDO::FETCH_ASSOC)) {
-                                $letter = getLetter($rsPays["score"]);
-                                echo addSlimCountry($rsPays["id"],$rsPays["nom"],$letter,$page);
-                            }
-
-                            echo <<<HTML
-                                <div class="container-slim bg-52796F cursor" hx-get="scripts/htmx/more.php" hx-vals="js:{continent:'6',more:1,page:'$page'}" hx-swap="outerHTML">
-                                    <div class="bandeau-slim">
-                                        <h2 class="nom-region">Voir plus</h2>
-                                    </div>
-                                </div>
-                            HTML;
-                        ?>
-                </div>
             </div>
         </div>
 
@@ -235,25 +139,27 @@
                 <div class="nav-trait"></div>
 
                 <div class="pack-categ">
-                    <div class="container-bottom active switch" data-switch="europe" data-index="0" data-name="Europe">
+                    <div class="container-bottom active switch" data-switch="europe" data-id_continent="5" data-index="0" data-name="Europe" hx-get="scripts/htmx/getCatalogue.php" hx-vals="js:{id_continent:5,page:'<?=$page?>'}" hx-target="#cata" hx-select="#cata" hx-swap="outerHTML swap:0.5s">
                         <img class="flag-small" src='assets/icons/europe.svg'>
                     </div>
 
-                    <div class="container-bottom switch" data-switch="africa" data-index="1" data-name="Afrique">
+                    <div class="container-bottom switch" data-switch="africa" data-id_continent="1" data-index="1" data-name="Afrique" hx-get="scripts/htmx/getCatalogue.php" hx-vals="js:{id_continent:1,page:'<?=$page?>'}" hx-target="#cata" hx-select="#cata" hx-swap="outerHTML swap:0.5s">
                         <img class="flag-small" src='assets/icons/afrique.svg'>
                     </div>
 
-                    <div class="container-bottom switch" data-switch="america" data-index="2" data-name="Amérique">
+                    <div class="container-bottom switch" data-switch="america" data-id_continent="2" data-index="2" data-name="Amérique" hx-get="scripts/htmx/getCatalogue.php" hx-vals="js:{id_continent:2,page:'<?=$page?>'}" hx-target="#cata" hx-select="#cata" hx-swap="outerHTML swap:0.5s">
                         <img class="flag-small" src='assets/icons/amerique.svg'>
                     </div>
 
-                    <div class="container-bottom switch" data-switch="asia" data-index="3" data-name="Asie">
+                    <div class="container-bottom switch" data-switch="asia" data-id_continent="4" data-index="3" data-name="Asie" hx-get="scripts/htmx/getCatalogue.php" hx-vals="js:{id_continent:4,page:'<?=$page?>'}" hx-target="#cata" hx-select="#cata" hx-swap="outerHTML swap:0.5s">
                         <img class="flag-small" src='assets/icons/asie.svg'>
                     </div>
 
-                    <div class="container-bottom switch" data-switch="oceania" data-index="4" data-name="Océanie">
+                    <div class="container-bottom switch" data-switch="oceania" data-id_continent="6" data-index="4" data-name="Océanie" hx-get="scripts/htmx/getCatalogue.php" hx-vals="js:{id_continent:6,page:'<?=$page?>'}" hx-target="#cata" hx-select="#cata" hx-swap="outerHTML swap:0.5s">
                         <img class="flag-small" src='assets/icons/oceanie.svg'>
                     </div>
+
+                    <div hx-get="scripts/htmx/getCatalogue.php" hx-vals="js:{id_continent:5,page:'<?=$page?>'}" hx-trigger="load" hx-target="#cata" hx-select="#cata" hx-swap="outerHTML swap:0.5s"></div>
 
                     <div id="trans" class="active-bg"></div>
                 </div>
@@ -273,8 +179,6 @@
                 $(this).addClass("active")
 
                 $(".display").css("display","none")
-
-                $("#"+$(this).data("switch")).css("display","flex")
 
                 $("#txt").val("")
                 $("#search").empty()
@@ -302,11 +206,13 @@
 
             nb = 106
             $("#trans-page").css("transform","translateX("+nb+"px)")
-
             $("#trans-compare").css("transform","translateX("+(53*incr)+"px)")
+            $("#nav-bot").css("transform","translateY(0)")
         </script>
 
-        <script id="scritping"></script>
+        <script id="scritping" hx-swap-oob="outerHTML"></script>
+
+        <script id="orders" hx-swap-oob="outerHTML"></script>
 
     </div>
 

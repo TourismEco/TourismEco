@@ -467,6 +467,9 @@
             createMiniMap(1,"compare")
         </script>
 
+        <script id="orders" hx-swap-oob="outerHTML">
+        </script>
+
         <script id="behave" hx-swap-oob="outerHTML">
             $(".icon").on("click", function () {
                 $(".icon-active").removeClass("icon-active")
@@ -491,6 +494,7 @@
 
             nb = 0
             $("#trans-page").css("transform","translateX("+nb+"px)")
+            $("#nav-bot").css("transform","translateY(0)")
             
         </script>
 

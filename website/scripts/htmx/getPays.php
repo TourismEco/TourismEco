@@ -11,6 +11,12 @@ if (!isset($_GET["id_pays"])) {
 }
 
 require("../../functions.php");
+
+if (!checkHTMX("pays", $_SERVER["HTTP_HX_CURRENT_URL"])) {
+    header("HTTP/1.1 401");
+    exit;
+}
+
 $cur = getDB();
 
 $id_pays = $_GET["id_pays"];
@@ -27,12 +33,6 @@ if (!in_array($id_pays, $_SESSION["historique"])) {
     while (count($_SESSION["historique"]) > $maxHistoriqueSize) {
         array_shift($_SESSION["historique"]);
     }
-}
-
-if (isset($_GET["map"])) {
-    $map = "false";
-} else {
-    $map = "true";
 }
 
 // Nom
@@ -109,34 +109,17 @@ echo <<<HTML
 
 <img class="flag-small" id="flag-bot" hx-swap-oob="outerHTML" src='assets/twemoji/$id_pays.svg'>
 
+<script id=orders hx-swap-oob=outerHTML>
+    spiderHTMX(0, $dataSpider, $dataTab, "$nom")
+    barreLineHTMX($dataBarreLine, "$nom")
+    linePaysHTMX($dataLine, $dataLineMean, "$nom")
+    // topHTMX($dataBar, "$nom")
+
+    miniMap[0].zoomTo("$id_pays")
+    miniMap[0].addCities($cities)
+    miniMap[0].addCapitals($capitals)
+</script>
+
 HTML;
-
-if ($map) {
-    echo <<<HTML
-        <script id=scripting hx-swap-oob=outerHTML>
-            spiderHTMX(0, $dataSpider, $dataTab, "$nom")
-            barreLineHTMX($dataBarreLine, "$nom")
-            linePaysHTMX($dataLine, $dataLineMean, "$nom")
-            // topHTMX($dataBar, "$nom")
-
-            miniMap[0].zoomTo("$id_pays")
-            miniMap[0].addCities($cities)
-            miniMap[0].addCapitals($capitals)
-        </script>
-    HTML;
-} else {
-    echo <<<HTML
-        <script id=scripting hx-swap-oob=outerHTML>
-            spiderHTMX( $dataSpider, $dataTab, "$nom")
-            barreLineHTMX($dataBarreLine, "$nom")
-            linePaysHTMX($dataLine, $dataLineMean, "$nom")
-            topHTMX($dataBar, "$nom")
-
-            miniMap[0].addCities($cities)
-            miniMap[0].addCapitals($capitals)
-            
-        </script>
-    HTML;
-}
 
 ?>

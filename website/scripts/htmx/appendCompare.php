@@ -1,5 +1,4 @@
 <?php
-session_start();
 
 if (!isset($_SERVER["HTTP_HX_REQUEST"])) {
     header("HTTP/1.1 401 Unauthorized");
@@ -8,6 +7,13 @@ if (!isset($_SERVER["HTTP_HX_REQUEST"])) {
 
 if (!isset($_GET["id_pays"]) || !isset($_GET["incr"])) {
     header("HTTP/1.1 400 Bad Request");
+    exit;
+}
+
+require("../../functions.php");
+
+if (!checkHTMX("comparateur", $_SERVER["HTTP_HX_CURRENT_URL"])) {
+    header("HTTP/1.1 401");
     exit;
 }
 
