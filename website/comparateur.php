@@ -1,53 +1,45 @@
 <?php require_once 'head.php'?>
 
+<?php
+    $cur = getDB();
+
+    // unset($_SESSION["pays"]);
+
+    $pays = array();
+    if (isset($_SESSION["pays"])) {
+        foreach ($_SESSION["pays"] as $key => $id_pays) {
+            // echo $_SESSION["incr"];
+            $query = "SELECT * FROM pays WHERE id = :id_pays";
+            $sth = $cur->prepare($query);
+            $sth->bindParam(":id_pays", $id_pays, PDO::PARAM_STR);
+            $sth->execute();
+
+            $ligne = $sth->fetch();
+            if ($ligne) {
+                $pays[] = $id_pays;
+            }
+        }
+    } else {
+        $_SESSION["pays"] = array();
+        $_SESSION["incr"] = 0;
+    }
+
+    if (count($pays) <= 1) {
+        require_once 'catalogue.php';
+        exit;
+    }
+?>
+
 <body>
     <div class="flex" id="main">
 
         <div id="zones">
 
             <?php
-                $cur = getDB();
-
-                // unset($_SESSION["pays"]);
-                $pays = array();
-                if (isset($_SESSION["pays"])) {
-                    foreach ($_SESSION["pays"] as $key => $id_pays) {
-                        // echo $_SESSION["incr"];
-                        $query = "SELECT * FROM pays WHERE id = :id_pays";
-                        $sth = $cur->prepare($query);
-                        $sth->bindParam(":id_pays", $id_pays, PDO::PARAM_STR);
-                        $sth->execute();
-
-                        $ligne = $sth->fetch();
-                        if ($ligne) {
-                            $pays[] = $id_pays;
-                        }
-                    }
-                } else {
-                    $_SESSION["pays"] = array();
-                    $_SESSION["incr"] = 0;
-                }
-
-                switch (count($pays)) {
-                    case 2:
-                        echo <<<HTML
-                            <div hx-get="scripts/htmx/getCompare.php" hx-vals="js:{incr:0,id_pays:'$pays[0]'}" hx-trigger="load delay:.1s"></div>
-                            <div hx-get="scripts/htmx/getCompare.php" hx-vals="js:{incr:1,id_pays:'$pays[1]'}" hx-trigger="load delay:.2s"></div>
-                        HTML;
-                        break;
-                    
-                    case 1:
-                        echo <<<HTML
-                            <div hx-get="catalogue.php" hx-trigger="load" hx-select="#zones" hx-target="#zones" hx-vals="js:{page:'compare'}" hx-swap="outerHTML swap:0.5s"></div>
-                        HTML;
-                        break;
-                    
-                    case 0:
-                        echo <<<HTML
-                            <div hx-get="catalogue.php" hx-trigger="load" hx-select="#zones" hx-target="#zones" hx-vals="js:{page:'compare'}" hx-swap="outerHTML swap:0.5s"></div>
-                        HTML;
-                        break;
-                }
+                echo <<<HTML
+                    <div hx-get="scripts/htmx/getCompare.php" hx-vals="js:{incr:0,id_pays:'$pays[0]'}" hx-trigger="load delay:.5s"></div>
+                    <div hx-get="scripts/htmx/getCompare.php" hx-vals="js:{incr:1,id_pays:'$pays[1]'}" hx-trigger="load delay:.6s"></div>
+                HTML;
             ?>
 
             <div class="zone-presentation display" id="home">
@@ -387,7 +379,7 @@
                         <img class="flag-small" src='assets/icons/map.svg'>
                     </div>
 
-                    <div class="container-bottom page" data-index="2" data-name="Catalogue" id="s-catalogue" hx-get="catalogue.php" hx-select="#zones" hx-target="#zones" hx-trigger="click" hx-vals="js:{page:'Compare'}" hx-swap="outerHTML swap:0.5s">
+                    <div class="container-bottom page" data-index="2" data-name="Catalogue" id="s-catalogue" hx-get="catalogue.php" hx-select="#zones" hx-target="#zones" hx-trigger="click" hx-vals="js:{page:'comparateur'}" hx-swap="outerHTML swap:0.5s">
                         <img class="flag-small" src='assets/icons/catalogue.svg'>
                     </div>
 
@@ -401,29 +393,8 @@
 
             <div class="nav-categ">
                 <div class="pack-categ">
-                    <?php
-                        if (isset($_SESSION["pays"][0])) {
-                            $id_pays = $_SESSION["pays"][0];
-                            echo <<<HTML
-                                <img class="flag-small" id="flag-bot0" src='assets/twemoji/$id_pays.svg'>
-                            HTML;
-                        } else {
-                            echo <<<HTML
-                                <img class="flag-small" id="flag-bot0" src='assets/icons/question.svg'>
-                            HTML;
-                        }
-
-                        if (isset($_SESSION["pays"][1])) {
-                            $id_pays = $_SESSION["pays"][1];
-                            echo <<<HTML
-                                <img class="flag-small" id="flag-bot1" src='assets/twemoji/$id_pays.svg'>
-                            HTML;
-                        } else {
-                            echo <<<HTML
-                                <img class="flag-small" id="flag-bot1" src='assets/icons/question.svg'>
-                            HTML;
-                        }
-                    ?>
+                    <img class="flag-small" id="flag-bot0" src='assets/icons/question.svg'>
+                    <img class="flag-small" id="flag-bot1" src='assets/icons/question.svg'>
                 </div>
 
                 <div class="nav-trait"></div>
@@ -463,8 +434,8 @@
             lineCompare("line")
             barCompare("bar")
 
-            createMiniMap(0,"compare")
-            createMiniMap(1,"compare")
+            createMiniMap(0,"comparateur")
+            createMiniMap(1,"comparateur")
         </script>
 
         <script id="orders" hx-swap-oob="outerHTML">

@@ -1,9 +1,48 @@
 <?php require_once 'head.php'?>
 
+<?php
+    echo "pays";
+    $cur = getDB();
+    // unset($_SESSION["pays"]);
+    if (!isset($_SESSION["pays"])) {
+        $_SESSION["pays"] = array();
+    }
+
+    if (isset($_GET["id_pays"])) {
+        $_SESSION["pays"][0] = $_GET["id_pays"];
+    }
+
+    $pays = "";
+    if (count($_SESSION["pays"]) != 0) {
+        $query = "SELECT * FROM pays WHERE id = :id_pays";
+        $sth = $cur->prepare($query);
+        $sth->bindParam(":id_pays", $_SESSION["pays"][0], PDO::PARAM_STR);
+        $sth->execute();
+
+        $ligne = $sth->fetch();
+        if ($ligne) {
+            $pays = $_SESSION["pays"][0];
+        }
+    }
+
+    if ($pays == "") {
+        require_once 'catalogue.php';
+        exit;
+    }
+?>
+
 <body>
+    
     <div class="flex" id="main">
 
         <div id="zones">
+
+            <?php
+                echo <<<HTML
+                    <div hx-get="scripts/htmx/getPays.php" hx-vals="js:{id_pays:'$pays'}" hx-trigger="load delay:.1s"></div>
+                HTML;
+            ?>
+
             <div class="zone-presentation display" id="home">
                 <div class="container-presentation expand-3" id="bandeau0"></div>
                 <div class="container-presentation" id="miniMap0"></div>
@@ -197,40 +236,6 @@
             <div class="zone display" id="barl" style="display:none">
                 <div class="graph" id="barreLine"></div>
             </div>
-
-            <?php
-                $cur = getDB();
-                if (!isset($_SESSION["pays"])) {
-                    $_SESSION["pays"] = array();
-                }
-
-                if (isset($_GET["id_pays"])) {
-                    $_SESSION["pays"][0] = $_GET["id_pays"];
-                }
-
-                $pays = "";
-                if (count($_SESSION["pays"]) != 0) {
-                    $query = "SELECT * FROM pays WHERE id = :id_pays";
-                    $sth = $cur->prepare($query);
-                    $sth->bindParam(":id_pays", $_SESSION["pays"][0], PDO::PARAM_STR);
-                    $sth->execute();
-
-                    $ligne = $sth->fetch();
-                    if ($ligne) {
-                        $pays = $_SESSION["pays"][0];
-                    }
-                }
-
-                if ($pays == "") {
-                    echo <<<HTML
-                        <div hx-get="catalogue.php" hx-trigger="load" hx-select="#zones" hx-target="#zones" hx-vals="js:{page:'pays'}" hx-swap="outerHTML swap:0.5s"></div>
-                    HTML;
-                } else {
-                    echo <<<HTML
-                        <div hx-get="scripts/htmx/getPays.php" hx-vals="js:{id_pays:'$pays'}" hx-trigger="load delay:.1s"></div>
-                    HTML;
-                }
-            ?>
         </div>
 
         <div class="zone mask"></div>
@@ -261,18 +266,7 @@
             <div class="nav-categ" id="bu">
 
                 <div class="pack-categ">
-                    <?php
-                        if (isset($_SESSION["pays"][0])) {
-                            $id_pays = $_SESSION["pays"][0];
-                            echo <<<HTML
-                                <img class="flag-small" id="flag-bot" src='assets/twemoji/$id_pays.svg'>
-                            HTML;
-                        } else {
-                            echo <<<HTML
-                                <img class="flag-small" id="flag-bot" src='assets/icons/question.svg'>
-                            HTML;
-                        }
-                    ?>
+                    <img class="flag-small" id="flag-bot" src='assets/icons/question.svg'>
                 </div>
 
                 <div class="nav-trait"></div>

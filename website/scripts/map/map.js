@@ -45,7 +45,7 @@ class EcoMap {
         this.capitals = null
         this.option = option
         this.mini = mini
-        this.max = {"pays":1, "compare":1, "continent":1}
+        this.max = {"pays":1, "comparateur":1, "continent":1}
         this.index = index
 
         this.root.setThemes([
@@ -156,16 +156,16 @@ class EcoMap {
 
         serie.mapPolygons.template.events.on("click", function (ev) {
             if (base.mini) {
-                if (base.option == "compare") {
-                    htmx.ajax("GET","scripts/htmx/getCompare.php",{values:{id_pays:ev.target.dataItem._settings.id,incr:base.index},swap:"beforeend"})
-                } else if (base.option == "pays") {
+                if (base.option == "pays") {
                     htmx.ajax("GET","scripts/htmx/getPays.php",{values:{id_pays:ev.target.dataItem._settings.id},swap:"beforeend"})
+                } else if (base.option == "comparateur") {
+                    htmx.ajax("GET","scripts/htmx/getCompare.php",{values:{id_pays:ev.target.dataItem._settings.id,incr:base.index},swap:"beforeend"})
                 }
             
             } else {
                 if (base.option == "pays") {
                     htmx.ajax("GET","pays.php",{values:{id_pays:ev.target.dataItem._settings.id},swap:"outerHTML swap:0.5s",target:"#zones",select:"#zones"})
-                } else if (base.option == "compare") {
+                } else if (base.option == "comparateur") {
                     htmx.ajax("GET","scripts/htmx/appendCompare.php",{values:{id_pays:ev.target.dataItem._settings.id,incr:getIncr()},swap:"beforeend"})
                 } 
             }

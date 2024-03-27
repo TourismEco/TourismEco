@@ -77,6 +77,7 @@ echo <<<HTML
 
 <p class="name" id="nom$incr" hx-swap-oob="outerHTML">$nom</p>
 <img class="flag-tiny" src="assets/twemoji/$id_pays.svg" id="flag$incr" hx-swap-oob="outerHTML">
+<img class="flag-small" id="flag-bot$incr" hx-swap-oob="outerHTML" src='assets/twemoji/$id_pays.svg'>
 
 <script id="orders" hx-swap-oob="outerHTML">
     spiderHTMX($incr, $dataSpider, $dataTab, "$nom")

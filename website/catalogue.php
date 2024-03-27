@@ -6,8 +6,19 @@
 
         <div class="zone-catalogue" id="zones" hx-swap="swap:0.5s">
             <?php 
+                require_once "functions.php";
+                if (isset($_GET["page"])) {
+                    $page = $_GET["page"];
+                } else {
+                    $page = substr(explode(".",$_SERVER["REQUEST_URI"])[0],1);
+                }
+    
+                if ($page != "pays" && $page != "comparateur") {
+                    header("HTTP/1.1 401");
+                    exit;
+                }
+
                 $cur = getDB();
-                $page = $_GET["page"];
             ?>
 
             <div class="map-catalogue" id="map"></div>
@@ -38,12 +49,14 @@
 
                 <div class="trait-vertical"></div>
 
-                <div class='container-continents display' id="cata" hx-swap="swap:0.5s">
+                <div class='container-continents' id="cata" hx-swap="swap:0.5s">
                         
                 </div>
 
             </div>
         </div>
+
+        <div class="zone mask"></div>
 
         <div class="nav-bottom" id="nav-bot" hx-swap-oob="outerHTML">
             <div class="nav-categ">
@@ -178,8 +191,6 @@
                 $(".switch").removeClass("active")
                 $(this).addClass("active")
 
-                $(".display").css("display","none")
-
                 $("#txt").val("")
                 $("#search").empty()
 
@@ -210,7 +221,7 @@
             $("#nav-bot").css("transform","translateY(0)")
         </script>
 
-        <script id="scritping" hx-swap-oob="outerHTML"></script>
+        <script id="scripting" hx-swap-oob="outerHTML"></script>
 
         <script id="orders" hx-swap-oob="outerHTML"></script>
 

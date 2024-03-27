@@ -30,7 +30,7 @@ $nextIncr = ($incr+1)%2;
 echo <<<HTML
     <img class="flag-small switch-compare" id="flag-bot$incr" src='assets/twemoji/$id_pays.svg' data-incr="$incr" hx-swap-oob="outerHTML" >
 
-    <script id="scripting" hx-swap-oob="outerHTML">
+    <script id="orders" hx-swap-oob="outerHTML">
         $(".switch-compare").removeClass("active")
         $("#fb$nextIncr").addClass("active")
         nb = $nextIncr*53
