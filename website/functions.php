@@ -54,7 +54,8 @@ function addSlimCountry($id,$nom,$letter,$page) {
                 <img class="flag-slim" src='assets/twemoji/$id.svg' alt="Drapeau de $nom">
                 <h2 class="nom-slim">$nom</h2>
             </div>
-        HTML;
+        </div>
+    HTML;
     } else {
         return <<<HTML
             <div class="bandeau-slim" hx-get="scripts/htmx/appendCompare.php" hx-vals="js:{id_pays:'$id',incr:getIncr()}" hx-swap="beforeend"> 
@@ -66,6 +67,33 @@ function addSlimCountry($id,$nom,$letter,$page) {
         HTML;
     }
     
+}
+
+function addFirstCountry($id,$nom,$letter,$page) {
+    return <<<HTML
+        <div class="container-first bg-354F52" hx-get="UI3_pays.php" hx-vals="js:{id_pays:'$id'}" hx-swap="outerHTML swap:0.5s" hx-target="#grid" hx-select="#grid">
+            <div class="bandeau-first"> 
+                <div class="mini-score-box score-$letter">$letter</div>
+                <img class="img img-first" src='assets/img/$id.jpg' alt="Bandeau">
+                <img class="flag-first" src='assets/twemoji/$id.svg'>
+                <h2 class="nom-first">$nom</h2>
+            </div>
+        </div>
+    HTML;
+}
+
+function addCardContinent($id,$nom) {
+    return <<<HTML
+        <div class="container-slim bg-52796F">
+            <div class="bandeau-slim"> 
+                <img class="img img-slim" src='assets/img/$id.png' alt="Bandeau">
+                <h2 class="nom-region">$nom</h2>
+                <div class="buttons-small">
+                    <button class=button-catalogue id=v-$id>Consulter</button>
+                </div>
+            </div>
+        </div>
+    HTML;
 }
 
 

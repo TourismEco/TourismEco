@@ -45,7 +45,7 @@ class EcoMap {
         this.capitals = null
         this.option = option
         this.mini = mini
-        this.max = {"pays":1, "comparateur":1, "continent":1}
+        this.max = {"pays":1, "compare":1, "continent":1, "explore":1}
         this.index = index
 
         this.root.setThemes([
@@ -164,9 +164,11 @@ class EcoMap {
             
             } else {
                 if (base.option == "pays") {
-                    htmx.ajax("GET","pays.php",{values:{id_pays:ev.target.dataItem._settings.id},swap:"outerHTML swap:0.5s",target:"#zones",select:"#zones"})
-                } else if (base.option == "comparateur") {
-                    htmx.ajax("GET","scripts/htmx/appendCompare.php",{values:{id_pays:ev.target.dataItem._settings.id,incr:getIncr()},swap:"beforeend"})
+                    htmx.ajax("GET","UI3_pays.php",{values:{id_pays:ev.target.dataItem._settings.id},swap:"outerHTML swap:0.5s",target:"#grid",select:"#grid"})
+                } else if (base.option == "compare") {
+                    // ?
+                    serie.zoomToDataItem(ev.target.dataItem);
+                    htmx.ajax("GET","scripts/htmx/getContinent.php",{values:{map:true,id_pays:ev.target.dataItem._settings.id},swap:"beforeend"})
                 } 
             }
         });
@@ -270,4 +272,10 @@ function createMapCatalogue(option) {
         map.zoomToContinent("europe")
         map.root.events.off("frameended")
     })
+}
+
+function createMapExplorer() {
+    map = new EcoMap("map","explore",false)
+    map.addCountries()
+    map.addZoom()
 }

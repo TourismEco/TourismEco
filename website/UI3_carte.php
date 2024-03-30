@@ -4,66 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carte</title>
-    <!-- <link rel="stylesheet" href="assets/css/styles2.css"> -->
-    <link rel="stylesheet" href="assets/css/UI3.css">
-
-	<script src="https://unpkg.com/jquery.min.js"></script>
-    <script src="https://unpkg.com/htmx.org"></script>
-
-    <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
-	<script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
-	<script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
-    <script src="https://cdn.amcharts.com/lib/5/radar.js"></script>
-
-	<script src="scripts/graph/amTools.js"></script>
-
-    <script src="scripts/graph/lineCompare.js"></script>
-	<script src="scripts/graph/spiderCompare.js"></script>
-	<script src="scripts/graph/barCompare.js"></script>
-
-	<script src="scripts/js/functions.js"></script>
-
-    <script src="scripts/map/map.js"></script>
-    <script src="https://cdn.amcharts.com/lib/5/map.js"></script>
-	<script src="https://cdn.amcharts.com/lib/5/geodata/continentsLow.js"></script>
-	<script src="https://cdn.amcharts.com/lib/5/geodata/worldLow.js"></script>
-	<script src="https://cdn.amcharts.com/lib/5/geodata/lang/FR.js"></script>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
     
     <?php
         require("functions.php");
+        require('head.php');
         $cur = getDB();
     ?>
 
 </head>
 
 <body>
-    <nav class="navbar" hx-boost="true" hx-target="#grille" hx-select="#grille" hx-swap="outerHTML show:body:top swap:0.5s">
-    
-        <div class="right-nav">
-            <a href="monde.php">Monde</a>
-            <a href="pays.php">Pays</a>
-            <a href="continent.php">Continent</a>
-            <a href="comparateur.php">Comparateur</a>
-        </div>
-    
-        <div class="img-nav">
-            <a href="index.php"><img src="assets/img/eco.png"></a>
-        </div>
-    
-        <div class="left-nav">
-            <a href="calculateur.php">Calculateur</a>
-            <a href="inscription.php" >S'inscrire</a>
-            <a href="connexion.php">Se connecter</a>
-        </div>
-    
-    </nav>
+    <?php
+        $page ="pays";
+        $cur = getDB();
 
-    <div class="flex">
-        <div class="grid">
+        $pays = "";
+        if (isset($_SESSION["pays"]) && count($_SESSION["pays"]) != 0) {
+                    $query = "SELECT * FROM pays WHERE id = :id_pays";
+                    $sth = $cur->prepare($query);
+                    $sth->bindParam(":id_pays", $_SESSION["pays"][0], PDO::PARAM_STR);
+                    $sth->execute();
+
+                    $ligne = $sth->fetch();
+                    if ($ligne) {
+                        $pays = $_SESSION["pays"][0];
+                    }
+                } else {
+                    $_SESSION["pays"] = array();
+                }
+        
+    ?>
+     <div class="flex">
+        <div class="grid" id="grid">
             
 
             <div class="container-side bg-354F52 g4-1 " id="mini$incr" hx-swap-oob="outerHTML">
@@ -74,7 +46,7 @@
 
             <div class="container-side bg-354F52 g5-1 active" id="mini$incr" hx-swap-oob="outerHTML" onclick="window.location.href = 'UI3_carte.php';">
                 <img class="flag-small" src='assets/icons/map.svg'>
-                <h2 class="nom-small">Carte</h2>
+                <h2 class="nom-small">Exploration</h2>
             </div>
 
             <div class="container-side bg-354F52 g6-1 " id="mini$incr" hx-swap-oob="outerHTML" onclick="window.location.href = 'UI3_catalogue.php';">
@@ -93,67 +65,172 @@
 
                 </script>
                 <div class="zone-cartePays">
-                    <h3 class="title-section">10 meilleurs scores</h3>
-                    <div class="container-carte">
-                        <?php
-                            $queryPays = "SELECT * FROM pays ORDER BY score DESC LIMIT 10";
-                            $resultPays = $cur->query($queryPays);
-
-                            while ($rsPays = $resultPays->fetch(PDO::FETCH_ASSOC)) {
-                                $letter = getLetter($rsPays["score"]);
-                                echo addSlimCountry($rsPays["id"],$rsPays["nom"],$letter,$page);
-                            }
-                        ?>
+                    <div class='container-cartePays display' style="display:none" id="explore">
+                        <input type="text" class="search-bar" placeholder="Cherchez un pays" id="txt" hx-get="scripts/htmx/search.php" hx-trigger="keyup[this.value.trim().length > 0] changed delay:0.5s" hx-vals='js:{search: getSearchValue(), page:"pays"}' hx-target="#search" hx-swap="outerHTML">
+                        <div id=search></div>
+                        <div class="container-explore">
+                            <div class="explore-bandeau" id="bandeau"></div>
+                            <div class="explore-prix" id="prix"></div>
+                            <div class="explore-score" id="score" ></div>
+                            <div class="explore-rang" id="rang"></div>
+                            <div class="explore-describ" id="describ"></div>
+                            <div class="explore-more" id="more"></div>
+                        </div>
                     </div>
-                </div>
+            
+
+                    <div class='.container-cartePays display' style="display:none" id="fav">
+                        <h3 class="title-section">Vos favoris</h3>
+                        <div class="container-carte">
+                                                    <?php
+                                $queryPays = "SELECT * FROM pays ORDER BY score DESC LIMIT 10";
+                                $resultPays = $cur->query($queryPays);
+
+                                while ($rsPays = $resultPays->fetch(PDO::FETCH_ASSOC)) {
+                                    $letter = getLetter($rsPays["score"]);
+                                    echo addSlimCountry($rsPays["id"],$rsPays["nom"],$letter,$page);
+                                }
+                            ?>
+                        </div>
+                    </div>
+
+                    <div class='container-cartePays display'  id="podium">
+                        <h3 class="title-section">Classement</h3>
+                        <div class="container-classement">
+                            <div class ="classement first">
+                                <div class="premier">1</div>
+                                <div class="classement-pays"> France</div>
+                                <img src="assets/twemoji/FR.svg" alt="France" class="flagClassement first">
+                                <img src="assets/img/FR.jpg" alt="France" class="imgClassement img-first first">
+                            </div>
+                            <div class ="classement second">
+                                <div class="deuxieme">2</div>
+                                <div class="classement-pays"> France</div>
+                                <img src="assets/twemoji/FR.svg" alt="France" class="flagClassement second">
+                                <img src="assets/img/FR.jpg" alt="France" class="imgClassement img-first second">
+                            </div>
+                            <div class ="classement third">
+                                <div class="troisieme">3</div>
+                                <div class="classement-pays"> France</div>
+                                <img src="assets/twemoji/FR.svg" alt="France" class="flagClassement third">
+                                <img src="assets/img/FR.jpg" alt="France" class="imgClassement img-first third">
+                            </div>
+                            <div class ="classement fourth">
+                                <div class="quatrieme">4</div>
+                                <div class="classement-pays"> France</div>
+                                <img src="assets/twemoji/FR.svg" alt="France" class="flagClassement fourth">
+                                <img src="assets/img/FR.jpg" alt="France" class="imgClassement img-first fourth">
+                            </div>
+                            <div class ="otherDiv">
+                                <div class="classement">
+                                    <div class="otherclassement">5</div>
+                                    <div class="classement-pays"> France</div>
+                                    <img src="assets/twemoji/FR.svg" alt="France" class="flagClassement other">
+                                    <img src="assets/img/FR.jpg" alt="France" class="imgClassement img-first other">
+                                </div>
+                                <div class="classement">
+                                    <div class="otherclassement">6</div>
+                                    <div class="classement-pays"> France</div>
+                                    <img src="assets/twemoji/FR.svg" alt="France" class="flagClassement other">
+                                    <img src="assets/img/FR.jpg" alt="France" class="imgClassement img-first other">
+                                </div>
+                            </div>
+                            <div class ="otherDiv">
+                                <div class="classement">
+                                    <div class="otherclassement">7</div>
+                                    <div class="classement-pays"> France</div>
+                                    <img src="assets/twemoji/FR.svg" alt="France" class="flagClassement other">
+                                    <img src="assets/img/FR.jpg" alt="France" class="imgClassement img-first other">
+                                </div>
+                                <div class="classement">
+                                    <div class="otherclassement">8</div>
+                                    <div class="classement-pays"> France</div>
+                                    <img src="assets/twemoji/FR.svg" alt="France" class="flagClassement other">
+                                    <img src="assets/img/FR.jpg" alt="France" class="imgClassement img-first other">
+                                </div>
+                            </div>
+                            <div class ="otherDiv">
+                                <div class="classement">
+                                    <div class="otherclassement">9</div>
+                                    <div class="classement-pays"> France</div>
+                                    <img src="assets/twemoji/FR.svg" alt="France" class="flagClassement other">
+                                    <img src="assets/img/FR.jpg" alt="France" class="imgClassement img-first other">
+                                </div>
+                                <div class="classement">
+                                    <div class="otherclassement">10</div>
+                                    <div class="classement-pays"> France</div>
+                                    <img src="assets/twemoji/FR.svg" alt="France" class="flagClassement other">
+                                    <img src="assets/img/FR.jpg" alt="France" class="imgClassement img-first other">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class='container-cartePays display' style="display:none" id="historical">
+                        <h3 class="title-section">Historique</h3>
+                        <div class="container-carte">
+                        </div>
+                    </div>
+
+                    <div class='container-cartePays display' style="display:none" id="alea">
+                        <h3 class="title-section">Découvrir</h3>
+                        <div class="container-carte">
+                        </div>
+                    </div>
+                    
+                    
+
 
 
             </div>
+        </div>
 
 
-        <div class="container-bottom bg-354F52 g10-2 active switch" id="mini$incr" hx-swap-oob="outerHTML" data-switch="asie">
+
+        <div class="container-bottom bg-354F52 g10-2 active switch" id="mini$incr" hx-swap-oob="outerHTML" data-switch="explore">
                 <img class="flag-small" src='assets/icons/map.svg'>
-                <h2 class="nom-small">Carte</h2>
+                <h2 class="nom-small">Exploration</h2>
             </div>
 
-            <div class="container-bottom bg-354F52 g10-3 switch" id="mini$incr" hx-swap-oob="outerHTML" data-switch="afrique" data-id_continent="1">
-                <img class="flag-small" src='assets/icons/podium.svg'>
-                <h2 class="nom-small">Les meilleurs scores</h2>
-            </div>
-
-            <div class="container-bottom bg-354F52 g10-4 switch" id="mini$incr" hx-swap-oob="outerHTML" data-switch="amerique" data-id_continent="2">
+            <div class="container-bottom bg-354F52 g10-3 switch" id="mini$incr" hx-swap-oob="outerHTML" data-switch="fav">
                 <img class="flag-small" src='assets/icons/heart.svg'>
                 <h2 class="nom-small">Vos favoris</h2>
             </div>
 
-            <div class="container-bottom bg-354F52 g10-5 switch" id="mini$incr" hx-swap-oob="outerHTML" data-switch="europe" data-id_continent="5">
-                <img class="flag-small" src='assets/icons/trophy.svg'>
-                <h2 class="nom-small">Les populaires</h2>
+            <div class="container-bottom bg-354F52 g10-4 switch" id="mini$incr" hx-swap-oob="outerHTML" data-switch="podium" >
+                <img class="flag-small" src='assets/icons/podium.svg'>
+                <h2 class="nom-small">Classement</h2>
             </div>
 
-            <div class="container-bottom bg-354F52 g10-6 switch" id="mini$incr" hx-swap-oob="outerHTML" data-switch="oceanie" data-id_continent="6">
+            <div class="container-bottom bg-354F52 g10-5 switch" id="mini$incr" hx-swap-oob="outerHTML" data-switch="historical" >
                 <img class="flag-small" src='assets/icons/historical.svg'>
                 <h2 class="nom-small">Historique</h2>
+            </div>
+
+            <div class="container-bottom bg-354F52 g10-6 switch" id="mini$incr" hx-swap-oob="outerHTML" data-switch="alea">
+                <img class="flag-small" src='assets/icons/shuffle.svg'>
+                <h2 class="nom-small">Découverte aléatoire</h2>
             </div>
         </div>
     </div>
 
     <script id="scripting">
-        createMap()
+        createMapExplorer()
     </script>
 
     <script>
-        var id_continent = 4;
         $(".switch").on("click", function () {
             $(".switch").removeClass("active")
             $(this).addClass("active")
             $(".display").css("display","none")
             console.log($(this).data("switch"))
             $("#"+$(this).data("switch")).css("display","grid")
-
-            id_continent = $(this).data("id_continent")
         })
     </script>
+
+<!-- <div hx-get="scripts/htmx/getExplore.php" hx-vals="js:{id_pays: 'FR'}" hx-trigger="load delay:.1s"></div> -->
+<div hx-get="scripts/htmx/getClassement.php" hx-vals="js:{var:'arriveesTotal'}" hx-trigger="load delay:.1s"></div>
+
 
 </body>
 </html>
