@@ -285,7 +285,7 @@ class Graphique {
 
     changeColor(colors) {
         var c = []
-        for (i in colors) {
+        for (var i in colors) {
             c.push(am5.color(parseInt(i,16)))
         }
         this.graph.get("colors").set("colors", c)

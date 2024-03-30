@@ -12,11 +12,13 @@
                 } else {
                     $page = substr(explode(".",$_SERVER["REQUEST_URI"])[0],1);
                 }
+
+                $page = "pays";
     
-                if ($page != "pays" && $page != "comparateur") {
-                    header("HTTP/1.1 401");
-                    exit;
-                }
+                // if ($page != "pays" && $page != "comparateur") {
+                //     header("HTTP/1.1 401");
+                //     exit;
+                // }
 
                 $cur = getDB();
             ?>

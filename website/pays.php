@@ -1,7 +1,6 @@
 <?php require_once 'head.php'?>
 
 <?php
-    echo "pays";
     $cur = getDB();
     // unset($_SESSION["pays"]);
     if (!isset($_SESSION["pays"])) {
@@ -173,7 +172,7 @@
                 <div class="graph" id="line"></div>
 
                 <div class=container-buttons>
-                <img class="icon icon-active" src="assets/icons/cloud.svg" onclick="changeVar('co2')" data-name="Émissions de CO2">
+                    <img class="icon icon-active" src="assets/icons/cloud.svg" onclick="changeVar('co2')" data-name="Émissions de CO2">
                     <img class="icon" src="assets/icons/dollar.svg" onclick="changeVar('pib')" data-name="PIB/Habitant">
                     <img class="icon" src="assets/icons/shield.svg" onclick="changeVar('gpi')" data-name="Global Peace Index">
                     <img class="icon" src="assets/icons/down.svg" onclick="changeVar('arrivees')" data-name="Arrivées touristiques">

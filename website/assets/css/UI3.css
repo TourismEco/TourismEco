@@ -381,19 +381,16 @@ body {
 }
 
 .zone-carte {
-    grid-row: 1 / 10;
-    grid-column: 2 / 7;
     background-color: #EED;
-    border: solid 1px #222;
     z-index: 5;
-    border-bottom: none;
-    border-left: none;
     color:#222;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 20px;
     padding: 20px 35px;
     overflow-y: clip;
+    height: calc(100vh - 210px);
+    border-radius: 10px;
 }
 
 .container-explore {
@@ -487,9 +484,7 @@ body {
 .classement{
     display: grid;
     grid-template-columns: max-content;
-    width: 100%;
     transition: all .5s;
-    border-radius: 10px;
     color: white;
     align-items: center;
 }
@@ -555,7 +550,6 @@ body {
 .first{
     height: 70px;
     font-size: 25px;
-
 }
 
 .second{
@@ -668,9 +662,11 @@ body {
 
 .map-carte{
     grid-column: 1;
-    border-radius: 0 0 0 0;
+    border-radius: 10px;
     grid-row: 1;
-    height: 500px;
+    display: grid;
+    grid-template-rows: 1fr;
+    gap:20px;
 }
 
 .g10-2 {
@@ -717,7 +713,7 @@ body {
     justify-content: space-around;
     background-color: #D9D9D9D9;
     border-radius: 10px;
-    width: 95%;
+    width: 100%;
     padding: 10px;
     align-items: center;
 }

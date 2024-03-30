@@ -54,7 +54,6 @@ function addSlimCountry($id,$nom,$letter,$page) {
                 <img class="flag-slim" src='assets/twemoji/$id.svg' alt="Drapeau de $nom">
                 <h2 class="nom-slim">$nom</h2>
             </div>
-        </div>
     HTML;
     } else {
         return <<<HTML
@@ -63,7 +62,7 @@ function addSlimCountry($id,$nom,$letter,$page) {
                 <img class="img img-slim" src='assets/mini/$id.jpg' alt="Illustration de $nom">
                 <img class="flag-slim" src='assets/twemoji/$id.svg' alt="Drapeau de $nom">
                 <h2 class="nom-slim">$nom</h2>
-                </div>
+            </div>
         HTML;
     }
     
@@ -386,6 +385,44 @@ function dataTab($pays, $conn) {
             }
             $data[$rs["annee"]][] = array("var" => $value, "value" => $rs[$value],"rank" => $rank);
         }
+    }
+
+    return $data;
+}
+
+function dataExplorer($conn) {
+    $tables = array("economie","ecologie","ecologie","tourisme","tourisme","surete","economie");
+    $cols = array("pibParHab","elecRenew","co2","arriveesTotal","departs","gpi","cpi");
+    $years = array("pibParHab"=>2021,"elecRenew"=>2020,"co2"=>2020,"arriveesTotal"=>2019,"departs"=>2019,"gpi"=>2023,"cpi"=>2021);
+    $data = array();
+
+    $query = "SELECT id, score FROM pays;";
+    $result = $conn->query($query);
+    while ($rs = $result->fetch(PDO::FETCH_ASSOC)) {
+        $data[$rs["id"]] = array("id"=>$rs["id"], "score"=>$rs["score"]);
+    }
+
+    foreach ($cols as $key => $value) {
+        $query = "SELECT id_pays, $value, RANK() OVER (ORDER BY $value DESC) AS 'rank' FROM $tables[$key] WHERE annee = $years[$value];";
+        $result = $conn->query($query);
+        while ($rs = $result->fetch(PDO::FETCH_ASSOC)) {
+            if (!isset($rs[$value])){
+                $data[$rs["id_pays"]][$value] = null;
+                $data[$rs["id_pays"]][$value.'rank'] = null;
+            } else {
+                if ($value == "arriveesTotal" || $value == "departs") {
+                    $rs[$value]*=1000;
+                }
+                $data[$rs["id_pays"]][$value] = $rs[$value];
+                $data[$rs["id_pays"]][$value.'rank'] = $rs["rank"];
+            }
+        }
+    }
+
+    $i = 0;
+    foreach ($data as $key => $value) {
+        $data[$i++] = $data[$key];
+        unset($data[$key]);
     }
 
     return $data;
