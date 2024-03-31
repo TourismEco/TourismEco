@@ -1,37 +1,3 @@
-var html = 
-        `<div style="display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            grid-template-rows: repeat(1,100px);
-            width: 240px;
-            height: 80px;
-            justify-content: center;
-            align-items: center;
-            word-break: break-word;
-            text-align: center;
-            font-family: Arial, Helvetica, sans-serif;">
-            <img style="grid-column: 1 / 3;
-                grid-row: 1;
-                width: 240px;
-                height: 80px;
-                object-fit: cover;" 
-                src='assets/img/{id}.jpg'>
-
-            <div style="grid-column: 2;
-                grid-row: 1;
-                justify-content: center;">
-                    <h1 style="font-size: 20px;
-                    color: white;  ">{name}</h1>
-            </div>
-
-            <div style="grid-column: 1;
-                grid-row: 1;
-                width: 100%;">
-                <img style="width: 50px;
-                    height: 50px;" src='assets/twemoji/{id}.svg'>
-            </div>
-        </div>
-        `
-
 class EcoMap {
     constructor (id, option, mini, index=0) {
         this.root = am5.Root.new(id);
@@ -113,7 +79,7 @@ class EcoMap {
             toggleKey: "active",
             interactive: true,
             tooltip: am5.Tooltip.new(base.root, {
-                labelHTML: base.mini ? "{name}" : html,
+                labelHTML: `<div style="display:flex;gap:10px"><img style="width: 25px;height: 25px;" src='assets/twemoji/{id}.svg'> <p style="margin:auto">{name}</p></div>`,
             }),
         });
         
@@ -259,7 +225,12 @@ class EcoMap {
         }]);
             
         this.countries.mapPolygons.template.events.on("pointerover", function(ev) {
-            base.heatLegend.showValue(ev.target.dataItem.get("value"));
+            if (ev.target.dataItem.get("value") == null) {
+                base.heatLegend.showValue(0, "Pas de données");
+            } else {
+                base.heatLegend.showValue(ev.target.dataItem.get("value"));
+            }
+            
         });
 
         this.countries.events.on("datavalidated", function () {
@@ -287,6 +258,7 @@ class EcoMap {
         });
 
         this.countries.data.setAll(data)
+        updatePodium("score",data)
     }
 }
 
@@ -319,20 +291,48 @@ function createMapExplorer() {
 
 }
 
-function changeVarMap(type) {
+function changeVarExplorer(type) {
     data = map.data
     map.countries.set("valueField",type)
-    map.countries.data.setAll(map.data)
+    map.countries.data.setAll(data)
     map.behaviorSerie(map.countries)
     map.activePays(map.countries)
-    
-    // dataSort = products.sort((p1, p2) => (p1[type] < p2[type]) ? 1 : (p1[type] > p2[type]) ? -1 : 0)
+    updatePodium(type,data)
+    typeC = type
+    if (id_pays != null) {
+        updateRanking(id_pays, type, data)
+    }
+}
 
-    // $("#podium").empty()
-    // for (i = 0;i<10;i++) {
-    //     $("#podium").append(`
-        
-        
-    //     `)
-    // }
+function updatePodium(type, data) {
+    dataSort = data.sort((p1, p2) => (p1[type] < p2[type]) ? 1 : (p1[type] > p2[type]) ? -1 : 0)
+
+    $("#rank").empty()
+    cla = ["first","second","third","fourth","other","other","other","other","other","other"]
+    sty = ["premier","deuxieme","troisieme","quatrieme","otherclassement","otherclassement","otherclassement","otherclassement","otherclassement","otherclassement"]
+    for (i = 0;i<10;i++) {
+        $("#rank").append(`
+        <div class ="classement ${cla[i]}" hx-get="">
+            <div class="${sty[i]}">${i+1}</div>
+            <div class="classement-pays">${dataSort[i]["nom"]}</div>
+            <img src="assets/twemoji/${dataSort[i]["id"]}.svg" alt="${dataSort[i]["nom"]}" class="flagClassement">
+            <img src="assets/img/${dataSort[i]["id"]}.jpg" alt="${dataSort[i]["nom"]}" class="imgClassement">
+            <div class="value">${formatNumber(dataSort[i][type],type)}</div>
+        </div>
+        `)
+    }
+}
+
+function updateRanking(id_pays, type, data) {
+    ligne = data.filter((val) => {return val.id == id_pays})[0]
+    $("#rang").html(ligne[type])
+    $("#rank_pays").html(`
+        <div class ="classement other" hx-get="">
+            <div class="otherclassement">${ligne[type+"rank"]}</div>
+            <div class="classement-pays">${ligne["nom"]}</div>
+            <img src="assets/twemoji/${ligne["id"]}.svg" alt="${ligne["nom"]}" class="flagClassement">
+            <img src="assets/img/${ligne["id"]}.jpg" alt="${ligne["nom"]}" class="imgClassement">
+            <div class="value">${formatNumber(ligne[type],type)}</div>
+        </div>
+        `)
 }

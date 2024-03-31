@@ -1,29 +1,24 @@
 <?php
+    if (!isset($_SERVER["HTTP_HX_REQUEST"])) {
+        header("HTTP/1.1 401");
+        exit;
+    }
+    
+    if (!isset($_GET["id_pays"])) {
+        header("HTTP/1.1 400");
+        exit;
+    }
+    
     require("../../functions.php");
+    
+    if (!checkHTMX("comparateur", $_SERVER["HTTP_HX_CURRENT_URL"]) && !checkHTMX("pays", $_SERVER["HTTP_HX_CURRENT_URL"])) {
+        header("HTTP/1.1 401");
+        exit;
+    }
 
     $cur = getDB();
 
     $id_pays = $_GET["id_pays"];
-    $_SESSION["pays"][0] = $id_pays;
-
-    if (!isset($_SESSION["historique"]) || !is_array($_SESSION["historique"])) {
-        $_SESSION["historique"] = array();
-    }
-    if (!in_array($id_pays, $_SESSION["historique"])) {
-        // Ajoutez le nouvel élément à l'historique
-        $_SESSION["historique"][] = $id_pays;
-    
-        $maxHistoriqueSize = 3;  // Définir la taille maximale de l'historique
-        while (count($_SESSION["historique"]) > $maxHistoriqueSize) {
-            array_shift($_SESSION["historique"]);
-        }
-    }
-
-    if (isset($_GET["map"])) {
-        $map = "false";
-    } else {
-        $map = "true";
-    }
 
     // Nom
     $query = "SELECT * FROM pays WHERE id = :id_pays";
@@ -45,34 +40,43 @@
 
     echo <<<HTML
 
-    <div class="explore-bandeau" id="bandeau" hx-swap-oob="outerHTML">
-        <div class="bandeau"> 
-            <img class="img-side img" src='assets/img/$id_pays.jpg' alt="Bandeau">
-            <div class="flag-plus-nom">
-                <img class="flag-explore" src='assets/twemoji/$id_pays.svg'>
-                <h2 class="nom">$nom</h2>
+    <div id="pays" class="container-explore" hx-swap-oob="outerHTML">
+
+        <div class="explore-bandeau">
+            <div class="bandeau"> 
+                <img class="img-side img" src='assets/img/$id_pays.jpg' alt="Bandeau">
+                <div class="flag-plus-nom">
+                    <img class="flag-explore" src='assets/twemoji/$id_pays.svg'>
+                    <h2 class="nom">$nom</h2>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="explore-score" id="score" hx-swap-oob="outerHTML">
-        <div class="score-box score-$letter">$letter</div>
-    </div>
+        <div class="explore-prix"></div>
 
-    <div class="explore-describ" id="describ" hx-swap-oob="outerHTML">
-        <p class="paragraphe">$anec</p>
-    </div>
+        <div class="explore-score">
+            <div class="score-box score-$letter">$letter</div>
+        </div>
 
-    <p class="name" id="nom" hx-swap-oob="outerHTML">$nom</p>
+        <div class="explore-describ">
+            <p class="paragraphe">$anec</p>
+        </div>
 
-    <div id="more" class="explore-more" hx-swap-oob="outerHTML" hx-get="UI3_pays.php" hx-vals="js:{id_pays:'$id_pays'}" hx-swap="outerHTML swap:0.5s" hx-target="#grid" hx-select="#grid">
-        <img src="assets/icons/plus.svg" alt="icon plus">
-        <p class="more">Voir plus</p>
+        <div class="explore-rang" id="rang"></div>
+
+        <div class="explore-more" hx-get="pays.php" hx-vals="js:{id_pays:'$id_pays'}" hx-swap="outerHTML swap:0.5s" hx-target="#zones" hx-select="#zones">
+            <img src="assets/icons/plus.svg" alt="icon plus">
+            <p class="more-text">Voir plus</p>
+        </div>
+
     </div>
 
     <script id="scripting" hx-swap-oob="outerHTML">
+        map.zoomTo("$id_pays")
         map.addCities($cities)
         map.addCapitals($capitals)
+        id_pays = "$id_pays"
+        updateRanking(id_pays,typeC,map.data)
     </script>
 
     HTML;

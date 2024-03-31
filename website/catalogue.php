@@ -79,7 +79,7 @@
                         }
                     ?>
                     
-                    <div class="container-bottom page" id="s-explorer" data-name="Explorateur">
+                    <div class="container-bottom page" id="s-explorer" data-name="Explorateur" hx-get="explorer.php" hx-select="#zones" hx-target="#zones" hx-trigger="click" hx-vals="js:{page:'pays'}" hx-swap="outerHTML swap:0.5s">
                         <img class="flag-small" src='assets/icons/map.svg'>
                     </div>
 

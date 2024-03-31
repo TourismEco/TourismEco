@@ -55,9 +55,18 @@ function addSlimCountry($id,$nom,$letter,$page) {
                 <h2 class="nom-slim">$nom</h2>
             </div>
     HTML;
-    } else {
+    } else if ($page == "comparateur") {
         return <<<HTML
             <div class="bandeau-slim" hx-get="scripts/htmx/appendCompare.php" hx-vals="js:{id_pays:'$id',incr:getIncr()}" hx-swap="beforeend"> 
+                <!-- <div class="mini-score-box score-$letter">$letter</div> -->
+                <img class="img img-slim" src='assets/mini/$id.jpg' alt="Illustration de $nom">
+                <img class="flag-slim" src='assets/twemoji/$id.svg' alt="Drapeau de $nom">
+                <h2 class="nom-slim">$nom</h2>
+            </div>
+        HTML;
+    } else if ($page == "explorer") {
+        return <<<HTML
+            <div class="bandeau-slim" hx-get="scripts/htmx/getExplore.php" hx-vals="js:{id_pays:'$id'}" hx-swap="beforeend"> 
                 <!-- <div class="mini-score-box score-$letter">$letter</div> -->
                 <img class="img img-slim" src='assets/mini/$id.jpg' alt="Illustration de $nom">
                 <img class="flag-slim" src='assets/twemoji/$id.svg' alt="Drapeau de $nom">
@@ -396,20 +405,17 @@ function dataExplorer($conn) {
     $years = array("pibParHab"=>2021,"elecRenew"=>2020,"co2"=>2020,"arriveesTotal"=>2019,"departs"=>2019,"gpi"=>2023,"cpi"=>2021);
     $data = array();
 
-    $query = "SELECT id, score FROM pays;";
+    $query = "SELECT id, score, nom, RANK() OVER (ORDER BY score DESC) AS 'scorerank' FROM pays;";
     $result = $conn->query($query);
     while ($rs = $result->fetch(PDO::FETCH_ASSOC)) {
-        $data[$rs["id"]] = array("id"=>$rs["id"], "score"=>$rs["score"]);
+        $data[$rs["id"]] = array("id"=>$rs["id"], "score"=>$rs["score"], "scorerank"=>$rs["scorerank"], "nom"=>$rs["nom"],"pibParHab"=>null,"elecRenew"=>null,"co2"=>null,"arriveesTotal"=>null,"departs"=>null,"gpi"=>null,"cpi"=>null,"pibParHabrank"=>667,"elecRenewrank"=>667,"co2rank"=>667,"arriveesTotalrank"=>667,"departsrank"=>667,"gpirank"=>667,"cpirank"=>667);
     }
 
     foreach ($cols as $key => $value) {
         $query = "SELECT id_pays, $value, RANK() OVER (ORDER BY $value DESC) AS 'rank' FROM $tables[$key] WHERE annee = $years[$value];";
         $result = $conn->query($query);
         while ($rs = $result->fetch(PDO::FETCH_ASSOC)) {
-            if (!isset($rs[$value])){
-                $data[$rs["id_pays"]][$value] = null;
-                $data[$rs["id_pays"]][$value.'rank'] = null;
-            } else {
+            if (isset($rs[$value])){
                 if ($value == "arriveesTotal" || $value == "departs") {
                     $rs[$value]*=1000;
                 }

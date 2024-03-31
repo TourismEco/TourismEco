@@ -246,7 +246,7 @@
                         <img class="flag-small" src='assets/icons/stats.svg'>
                     </div>
 
-                    <div class="container-bottom page" data-index="1" data-name="Explorer" id="s-explore">
+                    <div class="container-bottom page" data-index="1" data-name="Explorer" id="s-explore" hx-get="explorer.php" hx-select="#zones" hx-target="#zones" hx-trigger="click" hx-vals="js:{page:'pays'}" hx-swap="outerHTML swap:0.5s">
                         <img class="flag-small" src='assets/icons/map.svg'>
                     </div>
 

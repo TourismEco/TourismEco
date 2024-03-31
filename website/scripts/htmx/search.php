@@ -5,7 +5,7 @@ if (!isset($_SERVER["HTTP_HX_REQUEST"])) {
     exit;
 }
 
-if (!isset($_GET["id_continent"]) || !isset($_GET["more"]) || !isset($_GET["page"])) {
+if (!isset($_GET["id_continent"]) || !isset($_GET["search"]) || !isset($_GET["page"])) {
     header("HTTP/1.1 400");
     exit;
 }
@@ -23,15 +23,17 @@ if (strlen($search) == 0) {
     HTML;
     exit;
 }
-if ($id_continent == 2) {
+
+// INJECTION SQL !!!!!!!!!!!!!!!!!!!!!!!!
+if ($id_continent == 0) {
+    $queryPays = "SELECT pays.id AS idp, pays.nom AS p, score FROM pays WHERE pays.nom LIKE '%".$search."%' ORDER BY score DESC LIMIT 8";
+} else if ($id_continent == 2) {
     $queryPays = "SELECT pays.id AS idp, pays.nom AS p, score FROM pays WHERE (id_continent = 3 OR id_continent = 2 ) AND (pays.nom LIKE '%".$search."%') ORDER BY score DESC LIMIT 8";
-    $resultPays = $cur->query($queryPays);
-}
-else{
+} else {
     $queryPays = "SELECT pays.id AS idp, pays.nom AS p, score FROM pays WHERE id_continent = $id_continent AND (pays.nom LIKE '%".$search."%') ORDER BY score DESC LIMIT 8";
-    $resultPays = $cur->query($queryPays);
 }
 
+$resultPays = $cur->query($queryPays);
 $i = 0;
 
 echo <<<HTML

@@ -48,7 +48,7 @@ function formatNumber(value, variable) {
     if (value == null) {
         return "/"
     }
-    if (variable == "Enr" || variable == "%") {
+    if (variable == "Enr" || variable == "%" || variable == "elecRenew") {
         return value.toFixed(2)+" %"
     } 
     if (variable == "gpi" || variable == "cpi") {
@@ -65,7 +65,7 @@ function formatNumber(value, variable) {
         st = value.toFixed(0)
     }
 
-    if (variable == "pib") {
+    if (variable == "pib" || variable == "pibParHab") {
         st += " $"
     }
     return st
