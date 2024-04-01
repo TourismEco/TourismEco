@@ -288,7 +288,7 @@ class Graphique {
         for (var i in colors) {
             c.push(am5.color(parseInt(i,16)))
         }
-        this.graph.get("colors").set("colors", c)
+        this.graph.set("colors", c)
     }
 
     // Ensemble de setter et de getter

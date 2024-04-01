@@ -1,23 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carte</title>
-    
-    <?php
-        require("functions.php");
-        require('head.php');
-        $cur = getDB();
-        $dataMap = json_encode(dataExplorer($cur),JSON_NUMERIC_CHECK);
-    ?>
-
-</head>
+<?php require_once 'head.php'?>
 
 <body>
     <?php
-        $page ="pays";
         $cur = getDB();
+        $dataMap = json_encode(dataExplorer($cur),JSON_NUMERIC_CHECK);
+        $page ="pays";
 
         $pays = "";
         if (isset($_SESSION["pays"]) && count($_SESSION["pays"]) != 0) {
@@ -51,17 +38,9 @@
                 </div>
             </div>
 
-            <script>
-                function getSearchValue() {
-                    var s = document.getElementById("txt")
-                    return s.value
-                }
-
-            </script>
-
             <div class="zone-cartePays">
                 <div class='container-cartePays display' id="explore">
-                    <input type="text" class="search-bar" placeholder="Cherchez un pays" id="txt" hx-get="scripts/htmx/search.php" hx-trigger="keyup[this.value.trim().length > 0] changed delay:0.5s" hx-vals='js:{search: getSearchValue(), page:"explorer", id_continent:0}' hx-target="#search" hx-swap="outerHTML">
+                    <input type="text" class="search-bar" placeholder="Cherchez un pays" id="txt" hx-get="scripts/htmx/search.php" hx-trigger="keyup[this.value.trim().length > 0] changed delay:0.5s" hx-vals='js:{search: getSearchValue("txt"), page:"explorer", id_continent:0}' hx-target="#search" hx-swap="outerHTML">
                     <div id=search></div>
 
                     <div class="trait-vertical"></div>
@@ -223,8 +202,7 @@
         </div>
 
         <script id="scripting" hx-swap-oob="outerHTML">
-            createMapExplorer()
-            map.addHeat(<?=$dataMap?>)
+            createMapExplorer(<?=$dataMap?>)
         </script>
 
         <script id="behave" hx-swap-oob="outerHTML">

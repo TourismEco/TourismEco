@@ -26,25 +26,12 @@
             <div class="map-catalogue" id="map"></div>
 
             <script>
-                function getSearchValue() {
-                    var s = document.getElementById("txt")
-                    return s.value
-                }
-
-                function getIdContinent() {
-                    return id_continent
-                }
-
-                function getIncr() {
-                    return incr
-                }
-
                 createMapCatalogue("<?=$page?>")
             </script>
 
             <div class="zone-cataloguePays">
                 
-                <input class="search-bar" placeholder="Cherchez un pays" id="txt" hx-get="scripts/htmx/search.php" hx-trigger="keyup[this.value.trim().length > 0] changed delay:0.5s" hx-vals='js:{search: getSearchValue(), page:"pays",id_continent: getIdContinent()}' hx-target="#search" hx-swap="outerHTML">
+                <input class="search-bar" placeholder="Cherchez un pays" id="txt" hx-get="scripts/htmx/search.php" hx-trigger="keyup[this.value.trim().length > 0] changed delay:0.5s" hx-vals='js:{search: getSearchValue("txt"), page:"pays",id_continent: getIdContinent()}' hx-target="#search" hx-swap="outerHTML">
                 <div id=search>
 
                 </div>

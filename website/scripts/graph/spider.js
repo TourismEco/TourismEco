@@ -3,7 +3,7 @@ function spider(id, nb) {
     g.createXAxis("var")
     g.createYAxis(null)
     g.setDataXAxis([{"var":"PIB/Hab"},{"var":"% énergies ren."},{"var":"Emissions de CO2"},{"var":"Arrivées touristiques"},{"var":"Départs"},{"var":"Global Peace Index"},{"var":"CPI"}])
-    g.addSlider(updateSpider,400,-20,50,50,90,1995,2021)
+    g.addSlider(updateSpider,400,-20,50,50,90,1995,2022)
 
     for (i=0;i<nb;i++) {
         g.addSerie("radar", "var", "value", null, "{name} : {valueY}", color[i])
@@ -48,7 +48,7 @@ function formatNumber(value, variable) {
     if (value == null) {
         return "/"
     }
-    if (variable == "Enr" || variable == "%" || variable == "elecRenew") {
+    if (variable == "%" || variable == "elecRenew") {
         return value.toFixed(2)+" %"
     } 
     if (variable == "gpi" || variable == "cpi") {

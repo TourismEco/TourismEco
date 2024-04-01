@@ -78,15 +78,15 @@
 
                 <div class="cube" id="cube-2">
                     <div class="el-cube">
-                        <div id="td_pib_0"></div>
-                        <div id="td_pib_grow" class="small"></div>
+                        <div id="td_pibParHab_0"></div>
+                        <div id="td_pibParHab_grow" class="small"></div>
                     </div>
                     
                     <img class="icon" src="assets/icons/dollar.svg">
                         
                     <div class="el-cube">
-                        <div id="td_pib_rank"></div>
-                        <div id="td_pib_rankEvol" class="small"></div>
+                        <div id="td_pibParHab_rank"></div>
+                        <div id="td_pibParHab_rankEvol" class="small"></div>
                     </div>
                 </div>
 
@@ -106,15 +106,15 @@
 
                 <div class="cube" id="cube-4">
                     <div class="el-cube">
-                        <div id="td_Enr_0"></div>
-                        <div id="td_Enr_grow" class="small"></div>
+                        <div id="td_elecRenew_0"></div>
+                        <div id="td_EelecRenew_grow" class="small"></div>
                     </div>
                     
                     <img class="icon" src="assets/icons/leaf.svg">
                         
                     <div class="el-cube">
-                        <div id="td_Enr_rank"></div>
-                        <div id="td_Enr_rankEvol" class="small"></div>
+                        <div id="td_elecRenew_rank"></div>
+                        <div id="td_elecRenew_rankEvol" class="small"></div>
                     </div>
                     
                 </div>
@@ -149,15 +149,15 @@
 
                 <div class="cube" id="cube-7">
                     <div class="el-cube">
-                        <div id="td_arrivees_0"></div>
-                        <div id="td_arrivees_grow" class="small"></div>
+                        <div id="td_arriveesTotal_0"></div>
+                        <div id="td_arriveesTotal_grow" class="small"></div>
                     </div>
                     
                     <img class="icon" src="assets/icons/down.svg">
                         
                     <div class="el-cube">
-                        <div id="td_arrivees_rank"></div>
-                        <div id="td_arrivees_rankEvol" class="small"></div>
+                        <div id="td_arriveesTotal_rank"></div>
+                        <div id="td_arriveesTotal_rankEvol" class="small"></div>
                     </div>
                 </div>
             </div>
@@ -167,12 +167,12 @@
 
                 <div class=container-buttons>
                     <img class="icon icon-active" src="assets/icons/cloud.svg" onclick="changeVar('co2')" data-name="Émissions de CO2">
-                    <img class="icon" src="assets/icons/dollar.svg" onclick="changeVar('pib')" data-name="PIB/Habitant">
+                    <img class="icon" src="assets/icons/dollar.svg" onclick="changeVar('pibParHab')" data-name="PIB/Habitant">
                     <img class="icon" src="assets/icons/shield.svg" onclick="changeVar('gpi')" data-name="Global Peace Index">
-                    <img class="icon" src="assets/icons/down.svg" onclick="changeVar('arrivees')" data-name="Arrivées touristiques">
+                    <img class="icon" src="assets/icons/down.svg" onclick="changeVar('arriveesTotal')" data-name="Arrivées touristiques">
                     <img class="icon" src="assets/icons/up.svg" onclick="changeVar('departs')" data-name="Départs">
                     <img class="icon" src="assets/icons/transfer.svg" onclick="changeVar('cpi')" data-name="CPI">
-                    <img class="icon" src="assets/icons/leaf.svg" onclick="changeVar('Enr')" data-name="% d'énergies renouvellables">
+                    <img class="icon" src="assets/icons/leaf.svg" onclick="changeVar('elecRenew')" data-name="% d'énergies renouvellables">
                 </div>
 
                 <div class="table">

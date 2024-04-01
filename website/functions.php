@@ -106,7 +106,7 @@ function addCardContinent($id,$nom) {
 
 
 function dataLine($pays, $conn) {
-    $query = "SELECT allk.id_pays, allk.annee AS year, co2, elecRenew AS Enr, pibParHab AS pib, cpi, gpi, arriveesTotal*1000 AS arrivees, departs*1000 AS departs
+    $query = "SELECT allk.id_pays, allk.annee AS year, co2, elecRenew, pibParHab, cpi, gpi, arriveesTotal*1000 AS arriveesTotal, departs*1000 AS departs
     FROM (SELECT id_pays, annee FROM economie UNION 
             SELECT id_pays, annee FROM tourisme UNION
             SELECT id_pays, annee FROM surete UNION
@@ -126,7 +126,7 @@ function dataLine($pays, $conn) {
     $minAnnee = array();
     $maxAnnee = array();
     while ($rs = $result->fetch(PDO::FETCH_ASSOC)) {
-        foreach (array("pib","Enr","co2","arrivees","departs","gpi","cpi") as $key => $value) {
+        foreach (array("pibParHab","elecRenew","co2","arriveesTotal","departs","gpi","cpi") as $key => $value) {
             if (!isset($rs[$value])){
                 $rs[$value]=null;
                 if ($rs["year"] == 2020) {
@@ -153,7 +153,7 @@ function dataLine($pays, $conn) {
 
     $tables = array("economie","ecologie","ecologie","tourisme","tourisme","surete","economie");
     $cols = array("pibParHab","elecRenew","co2","arriveesTotal","departs","gpi","cpi");
-    foreach (array("pib","Enr","co2","arrivees","departs","gpi","cpi") as $key => $value) {
+    foreach ($cols as $key => $value) {
         $start = 0;
         while ($start < count($data) && $data[$start][$value] == null) {
             $start++;
@@ -190,7 +190,7 @@ function dataMean($conn) {
 
     $data = array();
     while ($rs = $result->fetch(PDO::FETCH_ASSOC)) {
-        foreach (array("pib","Enr","co2","arrivees","departs","gpi","cpi") as $key => $value) {
+        foreach (array("pibParHab","elecRenew","co2","arriveesTotal","departs","gpi","cpi") as $key => $value) {
             if (!isset($rs[$value])){
                 $rs[$value]=null;
             }
@@ -204,7 +204,7 @@ function dataMean($conn) {
 
 function dataCompareLine($data1, $data2) {
     $comparaison = array();
-    foreach (array("pib","Enr","co2","arrivees","departs","gpi","cpi") as $value) {
+    foreach (array("pibParHab","elecRenew","co2","arriveesTotal","departs","gpi","cpi") as $value) {
         $end = count($data1)-1;
         while ($end >= 0 && $data1[$end][$value] == null) {
             $end--;
@@ -266,7 +266,7 @@ function dataSpider($pays, $conn) {
 
 function dataBar($pays, $conn) {
    
-    $query = "SELECT allk.id_pays, allk.annee AS annee, co2, pibParHab AS pib, cpi, gpi, arriveesTotal AS 'arrivees'
+    $query = "SELECT allk.id_pays, allk.annee AS annee, co2, pibParHab, cpi, gpi, arriveesTotal
     FROM (SELECT id_pays, annee FROM economie_grow UNION 
             SELECT id_pays, annee FROM tourisme_grow UNION
             SELECT id_pays, annee FROM surete_grow UNION
@@ -285,7 +285,7 @@ function dataBar($pays, $conn) {
     $data = array();
     while ($rs = $result->fetch(PDO::FETCH_ASSOC)) {
         $data[$rs["annee"]] = array();
-        foreach (array("pib","co2","arrivees","gpi","cpi") as $key => $value) {
+        foreach (array("pibParHab","co2","arriveesTotal","gpi","cpi") as $key => $value) {
             if (!isset($rs[$value])){
                 $rs[$value]=null;
             } 
@@ -297,7 +297,7 @@ function dataBar($pays, $conn) {
 }
 
 function dataBarreLine($pays, $conn) {
-    $query = "SELECT tourisme.annee as annee, pibParHab AS pib, arriveesTotal AS arrivees
+    $query = "SELECT tourisme.annee as annee, pibParHab, arriveesTotal
 
     FROM economie, tourisme, pays
     WHERE economie.id_pays = tourisme.id_pays
@@ -322,28 +322,28 @@ function dataBarreLine($pays, $conn) {
     while ($rs = $result->fetch(PDO::FETCH_ASSOC)) {
         $data[] = array(
             "year" => $rs['annee'],
-            "value" => $rs['pib'],
-            "valueLeft" => $rs['arrivees']
+            "value" => $rs['pibParHab'],
+            "valueLeft" => $rs['arriveesTotal']
         );
 
         // Min et Max pour les indicateurs
-        if (count($minPib) == 0 || $rs['pib'] < $minPib['value']) {
-            $minPib = array("year" => $rs["annee"], "value" => $rs['pib']);
+        if (count($minPib) == 0 || $rs['pibParHab'] < $minPib['value']) {
+            $minPib = array("year" => $rs["annee"], "value" => $rs['pibParHab']);
         }
-        if (count($maxPib) == 0 || $rs['pib'] > $maxPib['value']) {
-            $maxPib = array("year" => $rs["annee"], "value" => $rs['pib']);
+        if (count($maxPib) == 0 || $rs['pibParHab'] > $maxPib['value']) {
+            $maxPib = array("year" => $rs["annee"], "value" => $rs['pibParHab']);
         }
-        if (count($minTourisme) == 0 || $rs['arrivees'] < $minTourisme['value']) {
-            $minTourisme = array("year" => $rs["annee"], "value" => $rs['arrivees']);
+        if (count($minTourisme) == 0 || $rs['arriveesTotal'] < $minTourisme['value']) {
+            $minTourisme = array("year" => $rs["annee"], "value" => $rs['arriveesTotal']);
         }
-        if (count($maxTourisme) == 0 || $rs['arrivees'] > $maxTourisme['value']) {
-            $maxTourisme = array("year" => $rs["annee"], "value" => $rs['arrivees']);
+        if (count($maxTourisme) == 0 || $rs['arriveesTotal'] > $maxTourisme['value']) {
+            $maxTourisme = array("year" => $rs["annee"], "value" => $rs['arriveesTotal']);
         }
 
         // Impact du covid
-        if ($rs['annee'] == 2020 && $rs['arrivees'] != null) {
-            $covidImpactPib = 100*($rs['pib'] - $data[count($data)-1]['value']) / $data[count($data)-1]['value'];
-            $covidImpactTourisme = 100*($rs['arrivees'] - $data[count($data)-1]['valueLeft']) / $data[count($data)-1]['valueLeft'];
+        if ($rs['annee'] == 2020 && $rs['arriveesTotal'] != null) {
+            $covidImpactPib = 100*($rs['pibParHab'] - $data[count($data)-1]['value']) / $data[count($data)-1]['value'];
+            $covidImpactTourisme = 100*($rs['arriveesTotal'] - $data[count($data)-1]['valueLeft']) / $data[count($data)-1]['valueLeft'];
         }
     }
 
@@ -360,7 +360,7 @@ function dataBarreLine($pays, $conn) {
 
 
 function dataTab($pays, $conn) {
-    $query = "SELECT allk.id_pays, allk.annee AS annee, co2, elecRenew AS 'Enr', pibParHab AS 'pib', gpi, arriveesTotal*1000 AS 'arrivees', departs*1000 AS 'departs'
+    $query = "SELECT allk.id_pays, allk.annee AS annee, co2, elecRenew, pibParHab, gpi, arriveesTotal*1000 AS 'arriveesTotal', departs*1000 AS 'departs'
     FROM (SELECT id_pays, annee FROM economie UNION 
             SELECT id_pays, annee FROM tourisme UNION
             SELECT id_pays, annee FROM surete UNION
@@ -382,7 +382,7 @@ function dataTab($pays, $conn) {
     while ($rs = $result->fetch(PDO::FETCH_ASSOC)) {
         $year = $rs["annee"];
         $data[$year] = array();
-        foreach (array("pib","Enr","co2","arrivees","departs","gpi","cpi") as $key => $value) {
+        foreach (array("pibParHab","elecRenew","co2","arriveesTotal","departs","gpi","cpi") as $key => $value) {
             if (!isset($rs[$value])){
                 $rs[$value]=null;
                 $rank = null;
@@ -402,7 +402,7 @@ function dataTab($pays, $conn) {
 function dataExplorer($conn) {
     $tables = array("economie","ecologie","ecologie","tourisme","tourisme","surete","economie");
     $cols = array("pibParHab","elecRenew","co2","arriveesTotal","departs","gpi","cpi");
-    $years = array("pibParHab"=>2021,"elecRenew"=>2020,"co2"=>2020,"arriveesTotal"=>2019,"departs"=>2019,"gpi"=>2023,"cpi"=>2021);
+    $years = array("pibParHab"=>2021,"elecRenew"=>2020,"co2"=>2020,"arriveesTotal"=>2022,"departs"=>2022,"gpi"=>2023,"cpi"=>2021);
     $data = array();
 
     $query = "SELECT id, score, nom, RANK() OVER (ORDER BY score DESC) AS 'scorerank' FROM pays;";

@@ -9,3 +9,4 @@ disallow: /config.php
 disallow: /functions.php
 disallow: /head.php
 disallow: /catalogue.php
+disallow: /explorer.php

@@ -4,7 +4,7 @@ function barCompare(id) {
     b = new Graphique(id, "bar")
     b.createXAxis("var")
     b.createYAxis()
-    b.setDataXAxis([{"var":"pib"},{"var":"co2"},{"var":"arrivees"},{"var":"gpi"},{"var":"cpi"}])
+    b.setDataXAxis([{"var":"pibParHab"},{"var":"co2"},{"var":"arriveesTotal"},{"var":"gpi"},{"var":"cpi"}])
     b.addSlider(updateBar,700,10,50,50,0,2008,2020)
     b.setNumberFormat("# '%'")
     b.addSerie("bar", "var", "value", null, "{name} : {valueY}", "#52796F")

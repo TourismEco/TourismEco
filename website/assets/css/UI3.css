@@ -170,6 +170,18 @@ body {
     height: calc(100vh - 210px);
 }
 
+.zone-bar {
+    background-color: #EED;
+    border-radius: 10px;
+    color:#222;
+    display: grid;
+    grid-template-rows: 10fr 1fr;
+    gap: 10px;
+    padding: 30px;
+    overflow-y: auto;
+    height: calc(100vh - 210px);
+}
+
 .zone-spider {
     background-color: #EED;
     border-radius: 10px;
@@ -287,29 +299,16 @@ body {
     margin-top:25px
 }
 
-#cube-8 {
-    grid-row: 6 / 7;
-    grid-column: 1;
+.cubes-bar {
+    height: 65px;
+    grid-row: 2;
+    margin-left: 75px;
+    margin-right: 18px;
+    display: grid;
 }
-#cube-9 {
-    grid-row: 6 / 7;
-    grid-column: 2;
-}
-#cube-10 {
-    grid-row: 6 / 7;
-    grid-column: 3;
-}
-#cube-11 {
-    grid-row: 6 / 7;
-    grid-column: 4;
-}
-#cube-12 {
-    grid-row: 6 / 7;
-    grid-column: 5;
-}
-#cube-13 {
-    grid-row: 6 / 7;
-    grid-column: 6;
+
+.cubes-bar .cube {
+    grid-row: 1;
 }
 
 
@@ -1444,8 +1443,7 @@ input {
 } */
 
 #bar{
-    grid-column: 1/7;
-    grid-row: 1/6;
+    grid-row: 1;
 }
 
 #zones {

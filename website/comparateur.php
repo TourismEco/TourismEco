@@ -55,12 +55,12 @@
 
                 <div class=container-buttons>
                     <img class="icon icon-active" src="assets/icons/cloud.svg" onclick="changeVar('co2')" data-name="Émissions de CO2">
-                    <img class="icon" src="assets/icons/dollar.svg" onclick="changeVar('pib')" data-name="PIB/Habitant">
+                    <img class="icon" src="assets/icons/dollar.svg" onclick="changeVar('pibParHab')" data-name="PIB/Habitant">
                     <img class="icon" src="assets/icons/shield.svg" onclick="changeVar('gpi')" data-name="Global Peace Index">
-                    <img class="icon" src="assets/icons/down.svg" onclick="changeVar('arrivees')" data-name="Arrivées touristiques">
+                    <img class="icon" src="assets/icons/down.svg" onclick="changeVar('arriveesTotal')" data-name="Arrivées touristiques">
                     <img class="icon" src="assets/icons/up.svg" onclick="changeVar('departs')" data-name="Départs">
                     <img class="icon" src="assets/icons/transfer.svg" onclick="changeVar('cpi')" data-name="CPI">
-                    <img class="icon" src="assets/icons/leaf.svg" onclick="changeVar('Enr')" data-name="% d'énergies renouvellables">
+                    <img class="icon" src="assets/icons/leaf.svg" onclick="changeVar('elecRenew')" data-name="% d'énergies renouvellables">
                 </div>
 
                 <div class="table">
@@ -139,7 +139,7 @@
                 <div class="cube" id="cube-2">
                     <div class="el-cube">
                         <img class="flag-tiny" id="flag0">
-                        <div id="td_pib_0"></div>
+                        <div id="td_pibParHab_0"></div>
                     </div>
                     <div class="tooltip">
                         <img class="icon" src="assets/icons/dollar.svg">
@@ -152,7 +152,7 @@
                     </div>
                     <div class="el-cube">
                         <img class="flag-tiny" id="flag1">
-                        <div id="td_pib_1"></div>
+                        <div id="td_pibParHab_1"></div>
                     </div>
                 </div>
                 <div class="cube" id="cube-3">
@@ -177,7 +177,7 @@
                 <div class="cube" id="cube-4">
                     <div class="el-cube">
                         <img class="flag-tiny" id="flag0">
-                        <div id="td_Enr_0"></div>
+                        <div id="td_elecRenew_0"></div>
                     </div>
                     <div class="tooltip">
                         <img class="icon" src="assets/icons/leaf.svg">
@@ -190,7 +190,7 @@
                     </div>
                     <div class="el-cube">
                         <img class="flag-tiny" id="flag1">
-                        <div id="td_Enr_1"></div>
+                        <div id="td_elecRenew_1"></div>
                     </div>
                 </div>
                 <div class="cube" id="cube-5">
@@ -234,7 +234,7 @@
                 <div class="cube" id="cube-7">
                     <div class="el-cube">
                         <img class="flag-tiny" id="flag0">
-                        <div id="td_arrivees_0"></div>
+                        <div id="td_arriveesTotal_0"></div>
                     </div>
                     <div class="tooltip">
                         <img class="icon" src="assets/icons/down.svg">
@@ -247,7 +247,7 @@
                     </div>
                     <div class="el-cube">
                         <img class="flag-tiny" id="flag1">
-                        <div id="td_arrivees_1"></div>
+                        <div id="td_arriveesTotal_1"></div>
                     </div>
                 </div>
 
@@ -260,98 +260,102 @@
 
             </div>
 
-            <div class="zone display" style="display:none" id="grow">
+            <div class="zone-bar display" style="display:none" id="grow">
 
-                <div class=graph id="bar"></div>
+                <div class="graph" id="bar"></div>
                 <!-- <div class="legende">
                     <div class="square bg-52796F"></div>
                     <p >France</p>
                     <div class="square bg-83A88B"></div>
                     <p >Croatie</p>
                 </div> -->
-                <div class="cube" id="cube-8">
-                    <div class="el-cube">
-                        <img class="flag-tiny" src="assets/twemoji/FR.svg">
-                        <div id="bar_pib_0"></div>
-                    </div>
-                    <div class="tooltip">
-                        <img class="icon" src="assets/icons/dollar.svg">
-                        <div class="top">
-                            <h3>PIB</h3>
-                        </div>
-                    </div>
-                    <div class="el-cube">
-                        <img class="flag-tiny" src="assets/twemoji/HR.svg">
-                        <div id="bar_pib_1"></div>
-                    </div>
-                </div>
 
-                <div class="cube" id="cube-9">
-                    <div class="el-cube">
-                        <img class="flag-tiny" src="assets/twemoji/FR.svg">
-                        <div id="bar_co2_0"></div>
-                    </div>
-                    <div class="tooltip">
-                        <img class="icon" src="assets/icons/cloud.svg">
-                        <div class="top">
-                            <h3>CO2</h3>
+                <div class="cubes-bar">
+                    <div class="cube">
+                        <div class="el-cube">
+                            <img class="flag-tiny" id="flag0">
+                            <div id="bar_pibParHab_0"></div>
+                        </div>
+                        <div class="tooltip">
+                            <img class="icon" src="assets/icons/dollar.svg">
+                            <div class="top">
+                                <h3>PIB</h3>
+                            </div>
+                        </div>
+                        <div class="el-cube">
+                            <img class="flag-tiny" id="flag1">
+                            <div id="bar_pibParHab_1"></div>
                         </div>
                     </div>
-                    <div class="el-cube">
-                        <img class="flag-tiny" src="assets/twemoji/HR.svg">
-                        <div id="bar_co2_1"></div>
-                    </div>
-                </div>
 
-                <div class="cube" id="cube-10">
-                    <div class="el-cube">
-                        <img class="flag-tiny" src="assets/twemoji/FR.svg">
-                        <div id="bar_arrivees_0"></div>
-                    </div>
-                    <div class="tooltip">
-                        <img class="icon" src="assets/icons/down.svg">
-                        <div class="top">
-                            <h3>PIB</h3>
+                    <div class="cube">
+                        <div class="el-cube">
+                            <img class="flag-tiny" id="flag0">
+                            <div id="bar_co2_0"></div>
+                        </div>
+                        <div class="tooltip">
+                            <img class="icon" src="assets/icons/cloud.svg">
+                            <div class="top">
+                                <h3>CO2</h3>
+                            </div>
+                        </div>
+                        <div class="el-cube">
+                            <img class="flag-tiny" id="flag1">
+                            <div id="bar_co2_1"></div>
                         </div>
                     </div>
-                    <div class="el-cube">
-                        <img class="flag-tiny" src="assets/twemoji/HR.svg">
-                        <div id="bar_arrivees_1"></div>
-                    </div>
-                </div>
 
-                <div class="cube" id="cube-11">
-                    <div class="el-cube">
-                        <img class="flag-tiny" src="assets/twemoji/FR.svg">
-                        <div id="bar_gpi_0"></div>
-                    </div>
-                    <div class="tooltip">
-                        <img class="icon" src="assets/icons/shield.svg">
-                        <div class="top">
-                            <h3>GPI</h3>
+                    <div class="cube">
+                        <div class="el-cube">
+                            <img class="flag-tiny" id="flag0">
+                            <div id="bar_arriveesTotal_0"></div>
+                        </div>
+                        <div class="tooltip">
+                            <img class="icon" src="assets/icons/down.svg">
+                            <div class="top">
+                                <h3>PIB</h3>
+                            </div>
+                        </div>
+                        <div class="el-cube">
+                            <img class="flag-tiny" id="flag1">
+                            <div id="bar_arriveesTotal_1"></div>
                         </div>
                     </div>
-                    <div class="el-cube">
-                        <img class="flag-tiny" src="assets/twemoji/HR.svg">
-                        <div id="bar_gpi_1"></div>
-                    </div>
-                </div>
 
-                <div class="cube" id="cube-12">
-                    <div class="el-cube">
-                        <img class="flag-tiny" src="assets/twemoji/FR.svg">
-                        <div id="bar_cpi_0"></div>
-                    </div>
-                    <div class="tooltip">
-                        <img class="icon" src="assets/icons/transfer.svg">
-                        <div class="top">
-                            <h3>CPI</h3>
+                    <div class="cube">
+                        <div class="el-cube">
+                            <img class="flag-tiny" id="flag0">
+                            <div id="bar_gpi_0"></div>
+                        </div>
+                        <div class="tooltip">
+                            <img class="icon" src="assets/icons/shield.svg">
+                            <div class="top">
+                                <h3>GPI</h3>
+                            </div>
+                        </div>
+                        <div class="el-cube">
+                            <img class="flag-tiny" id="flag1">
+                            <div id="bar_gpi_1"></div>
                         </div>
                     </div>
-                    <div class="el-cube">
-                        <img class="flag-tiny" src="assets/twemoji/HR.svg">
-                        <div id="bar_cpi_1"></div>
+
+                    <div class="cube">
+                        <div class="el-cube">
+                            <img class="flag-tiny" id="flag0">
+                            <div id="bar_cpi_0"></div>
+                        </div>
+                        <div class="tooltip">
+                            <img class="icon" src="assets/icons/transfer.svg">
+                            <div class="top">
+                                <h3>CPI</h3>
+                            </div>
+                        </div>
+                        <div class="el-cube">
+                            <img class="flag-tiny" id="flag1">
+                            <div id="bar_cpi_1"></div>
+                        </div>
                     </div>
+
                 </div>
             </div>
 
