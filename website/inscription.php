@@ -182,7 +182,9 @@
         <div id="nav-bot" hx-swap-oob="outerHTML"></div>
 
         <script id="scripting" hx-swap-oob="outerHTML"></script>
+        <script id="orders" hx-swap-oob="outerHTML"></script>
         <script id="behave" hx-swap-oob="outerHTML"></script>
+        <div id="htmxing" hx-swap-oob="outerHTML"></div>
 
     </div>    
     

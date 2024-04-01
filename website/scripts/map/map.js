@@ -52,23 +52,34 @@ class EcoMap {
             visible: false,
             fill:am5.color("#222")
         }));
+    }
 
-        var json = [am5geodata_region_world_africaLow,am5geodata_region_world_europeLow,am5geodata_region_world_asiaLow,am5geodata_region_world_oceaniaLow,am5geodata_region_world_northAmericaLow,am5geodata_region_world_southAmericaLow]
-        var name = ["africa","europe","asia","oceania","northAmerica","southAmerica"]
-
-        for (var i=0;i<json.length;i++) {
-            var s = this.map.series.push(am5map.MapPolygonSeries.new(base.root, {
-                geoJSON: json[i],
-                geodataNames:am5geodata_lang_FR,
-                exclude: ["AX","BL","BQ","BV","CW","HM","MF","SJ","SS","SX","TL","UM","AF","AQ","CC","CX","EH","FK","FO","GG","GI","GL","GQ","GS","IM","IO","JE","KP","LR","NF","NR","PM","PN","SH","SO","SZ","TF","TK","VA","WF","YT","AI","CK","GF","GP","KN","MQ","MS","NU","PS","RE","TW","ST","MR"],
-                visible: false,
-                fill:am5.color("#222")
-            }));
-
-            this.allContinents[name[i]] = s
-            this.behaviorSerie(s)
-            this.activePays(s)
+    addThisContinent(id) {
+        var json
+        var base = this
+        if (id == "asia") {
+            json = am5geodata_region_world_asiaLow
+        } else if (id == "america") {
+            json = am5geodata_region_world_northAmericaLow
+        } else if (id == "africa") {
+            json = am5geodata_region_world_africaLow
+        } else if (id == "europe") {
+            json = am5geodata_region_world_europeLow
+        } else if (id == "oceania") {
+            json = am5geodata_region_world_oceaniaLow
         }
+
+        var s = this.map.series.push(am5map.MapPolygonSeries.new(base.root, {
+            geoJSON: json,
+            geodataNames:am5geodata_lang_FR,
+            exclude: ["AX","BL","BQ","BV","CW","HM","MF","SJ","SS","SX","TL","UM","AF","AQ","CC","CX","EH","FK","FO","GG","GI","GL","GQ","GS","IM","IO","JE","KP","LR","NF","NR","PM","PN","SH","SO","SZ","TF","TK","VA","WF","YT","AI","CK","GF","GP","KN","MQ","MS","NU","PS","RE","TW","ST","MR"],
+            visible: false,
+            fill:am5.color("#222")
+        }));
+
+        this.allContinents[id] = s
+        this.behaviorSerie(s)
+        this.activePays(s)
     }
 
     behaviorSerie(serie) {
@@ -203,9 +214,13 @@ class EcoMap {
     }
 
     zoomToContinent(id_continent) {
+        if (id_continent in this.allContinents == false) {
+            this.addThisContinent(id_continent)
+        }
         if (this.continentActive != null) {
             this.allContinents[this.continentActive].hide()
         }
+        
         this.continentActive = id_continent
         this.allContinents[id_continent].show()
         var elem = this.continents.getDataItemById(id_continent)

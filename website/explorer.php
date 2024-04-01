@@ -270,11 +270,10 @@
             $("#trans-page").css("transform","translateX("+nb+"px)")
             $("#trans-compare").css("transform","translateX("+(53*incr)+"px)")
             $("#nav-bot").css("transform","translateY(0)")
-
-            console.log(<?=$dataMap?>)
         </script>
 
         <script id="orders" hx-swap-oob="outerHTML"></script>
+        <div id="htmxing" hx-swap-oob="outerHTML"></div>
 
     </div>
 

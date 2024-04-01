@@ -174,8 +174,6 @@
                         <img class="flag-small" src='assets/icons/oceanie.svg'>
                     </div>
 
-                    <div hx-get="scripts/htmx/getCatalogue.php" hx-vals="js:{id_continent:5,page:'<?=$page?>'}" hx-trigger="load" hx-target="#cata" hx-select="#cata" hx-swap="outerHTML swap:0.5s"></div>
-
                     <div id="trans" class="active-bg"></div>
                 </div>
 
@@ -224,8 +222,10 @@
         </script>
 
         <script id="scripting" hx-swap-oob="outerHTML"></script>
-
         <script id="orders" hx-swap-oob="outerHTML"></script>
+        <div id="htmxing" hx-swap-oob="outerHTML">
+            <div hx-get="scripts/htmx/getCatalogue.php" hx-vals="js:{id_continent:5,page:'<?=$page?>'}" hx-trigger="load" hx-target="#cata" hx-select="#cata" hx-swap="outerHTML swap:0.5s"></div>
+        </div>
 
     </div>
 

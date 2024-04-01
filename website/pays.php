@@ -36,12 +36,6 @@
 
         <div id="zones">
 
-            <?php
-                echo <<<HTML
-                    <div hx-get="scripts/htmx/getPays.php" hx-vals="js:{id_pays:'$pays'}" hx-trigger="load delay:.1s"></div>
-                HTML;
-            ?>
-
             <div class="zone-presentation display" id="home">
                 <div class="container-presentation expand-3" id="bandeau0"></div>
                 <div class="container-presentation" id="miniMap0"></div>
@@ -308,8 +302,7 @@
                 barreLine("barreLine")
             </script>
 
-            <script id="orders" hx-swap-oob="outerHTML">
-            </script>
+            <script id="orders" hx-swap-oob="outerHTML"></script>
 
             <script id="behave" hx-swap-oob="outerHTML">
                 $(".icon").on("click", function () {
@@ -338,6 +331,14 @@
                 $("#nav-bot").css("transform","translateY(0)")
                 
             </script>
+
+            <div id="htmxing" hx-swap-oob="outerHTML">
+                <?php
+                    echo <<<HTML
+                        <div hx-get="scripts/htmx/getPays.php" hx-vals="js:{id_pays:'$pays'}" hx-trigger="load"></div>
+                    HTML;
+                ?>
+            </div>
 
     </div>
 

@@ -35,13 +35,6 @@
 
         <div id="zones">
 
-            <?php
-                echo <<<HTML
-                    <div hx-get="scripts/htmx/getCompare.php" hx-vals="js:{incr:0,id_pays:'$pays[0]'}" hx-trigger="load delay:.5s"></div>
-                    <div hx-get="scripts/htmx/getCompare.php" hx-vals="js:{incr:1,id_pays:'$pays[1]'}" hx-trigger="load delay:.6s"></div>
-                HTML;
-            ?>
-
             <div class="zone-presentation display" id="home">
                 <div class="container-presentation expand-2" id="bandeau0"></div>
                 <div class="container-presentation expand-2" id="bandeau1"></div>
@@ -468,6 +461,15 @@
             $("#nav-bot").css("transform","translateY(0)")
             
         </script>
+
+        <div id="htmxing" hx-swap-oob="outerHTML">
+            <?php
+                echo <<<HTML
+                    <div hx-get="scripts/htmx/getCompare.php" hx-vals="js:{incr:0,id_pays:'$pays[0]'}" hx-trigger="load"></div>
+                    <div hx-get="scripts/htmx/getCompare.php" hx-vals="js:{incr:1,id_pays:'$pays[1]'}" hx-trigger="load"></div>
+                HTML;
+            ?>
+        </div>
 
     </div>
     
