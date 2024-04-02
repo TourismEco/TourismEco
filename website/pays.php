@@ -50,9 +50,20 @@
                 <div class="container-presentation expand-2">
                 </div>
 
-                <div class="container-presentation">
-                    <p class="paragraphe">La Tour Eiffel et ses Illuminations :<br>
-                    La Tour Eiffel à Paris est l'un des monuments les plus emblématiques au monde. Une anecdote célèbre est que la Tour Eiffel est illuminée chaque nuit par des milliers de lumières scintillantes pendant les premières heures après le coucher du soleil. Cette pratique a débuté en 1985 pour célébrer le 100e anniversaire de la tour et est devenue une tradition appréciée.</p>
+                <div class="scroll">
+
+                    <div class="scroll-buttons">
+                            <div class="scroll-dot dot-active" id="scrb0" data-index="0"></div>
+                            <div class="scroll-dot" id="scrb1" data-index="1"></div>
+                            <div class="scroll-dot" id="scrb2" data-index="2"></div>
+                        </div>
+
+                    <div class="container-scrollable" id="scr">
+                        <div class="allow-scroll" style="background-color:#222"></div>
+                        <div class="allow-scroll" style="background-color:red"></div>
+                        <div class="allow-scroll" style="background-color:blue"></div>
+                    </div>
+
                 </div>
 
                 <div class="container-presentation expand-3" id="description0"></div>
@@ -305,6 +316,7 @@
             <script id="orders" hx-swap-oob="outerHTML"></script>
 
             <script id="behave" hx-swap-oob="outerHTML">
+                
                 $(".icon").on("click", function () {
                     $(".icon-active").removeClass("icon-active")
                     $(this).addClass("icon-active")
@@ -329,6 +341,37 @@
                 nb = 0
                 $("#trans-page").css("transform","translateX("+nb+"px)")
                 $("#nav-bot").css("transform","translateY(0)")
+                
+
+                $("#scr").on("scroll", function() {
+                    el = document.getElementById("scr")
+                    h = el.clientHeight.toFixed(0)
+                    s = el.scrollTop
+
+                    console.log(h, s, s/h, s%h);
+
+                    if (s%h == 0) {
+                        if (s/h == 0) {
+                            $(".scroll-dot").removeClass("dot-active")
+                            $("#scrb0").addClass("dot-active")
+                            console.log("0");
+                        } else if (s/h >= 2) {
+                            $(".scroll-dot").removeClass("dot-active")
+                            $("#scrb2").addClass("dot-active")
+                            console.log("400");
+                        } else if (s/h >= 1) {
+                            $(".scroll-dot").removeClass("dot-active")
+                            $("#scrb1").addClass("dot-active")
+                            console.log("200");
+                        }
+                    } 
+                })
+
+                $(".scroll-dot").on("click", function() {
+                    nb = $(this).data("index")
+                    h = el.clientHeight.toFixed(0)
+                    document.getElementById('scr').scroll({top:h*nb,behavior:"smooth"})
+                })
                 
             </script>
 

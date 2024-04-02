@@ -18,6 +18,7 @@ function changeVarExplorer(type) {
     map.countries.data.setAll(data)
     map.behaviorSerie(map.countries)
     map.activePays(map.countries)
+    map.map.goHome()
     updatePodium(type,data)
     typeC = type
     if (id_pays != null) {
