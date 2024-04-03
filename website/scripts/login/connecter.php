@@ -3,31 +3,28 @@
 require('../../functions.php');
 
 try {
-    // Vérifier le token CSRF
     if (!isset($_SESSION['csrf_token'], $_POST['csrf_token'])) {
         echo "Token CSRF invalide.";
         exit;
     }
 
-    // Récupérer les données du formulaire
     $username = htmlspecialchars($_POST['username']);
     $password = htmlspecialchars($_POST['password']);
 
-    // Obtenir une connexion à la base de données
     $connexion = getDB();
 
-    // Vérifier l'existence de l'utilisateur
     $stmt = $connexion->prepare("SELECT * FROM client WHERE nom = ?");
     $stmt->bindParam(1, $username);
     $stmt->execute();
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    // Vérifier le mot de passe
     if ($user && password_verify($password, $user['mdp'])) {
-        $_SESSION['client']['username'] = $user['nom'];
-        $_SESSION['client']['country'] = $user['pays'];
-        $_SESSION['client']['city'] = $user['ville'];
+        
+        $_SESSION['user']['username'] = $user['nom'];
+        $_SESSION['user']['country'] = $user['pays'];
+        $_SESSION['user']['city'] = $user['ville'];
         echo json_encode(['success' => true, 'message' => 'Connexion réussie']);
+        
         exit;
     } else {
         

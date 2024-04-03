@@ -44,7 +44,6 @@
     
                 </form>
             </div>
-    
             <script>
                 $(document).ready(function () {
                     var count = 0
@@ -148,7 +147,7 @@
                         // Si au moins un champ a une erreur, empêcher la soumission du formulaire
                         if (count > 0) {
                             return false;
-                        }                        
+                        }
     
                         return true;
                     }

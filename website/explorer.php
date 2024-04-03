@@ -51,18 +51,51 @@
                 </div>
         
 
-                <div class='.container-cartePays display' style="display:none" id="fav">
+                <div class='container-cartePays display' style="display:none" id="fav">
                     <h3 class="title-section">Vos favoris</h3>
                     <div class="container-carte">
-                        <?php
-                            $queryPays = "SELECT * FROM pays ORDER BY score DESC LIMIT 10";
-                            $resultPays = $cur->query($queryPays);
+                    <?php
+                        
+                        if (isset($_SESSION['user'])) {
+                            $userId = $_SESSION['user']["username"];
+                            $queryPays = "SELECT pays.nom AS PaysNom, pays.id, client.nom, pays.score FROM favoris
+                                        JOIN pays ON pays.id = favoris.id_pays
+                                        JOIN client ON client.nom = favoris.id_client
+                                        WHERE favoris.id_client= :userId LIMIT 8";
 
-                            while ($rsPays = $resultPays->fetch(PDO::FETCH_ASSOC)) {
+                            $stmt = $cur->prepare($queryPays);
+                            $stmt->execute(['userId' => $userId]);
+
+                            while ($rsPays = $stmt->fetch(PDO::FETCH_ASSOC)) {
                                 $letter = getLetter($rsPays["score"]);
-                                echo addSlimCountry($rsPays["id"],$rsPays["nom"],$letter,$page);
+                                echo addSlimCountry($rsPays["id"],$rsPays["PaysNom"],$letter,$page);
                             }
-                        ?>
+                        } else {
+                            echo "<p>Connectez-vous pour accéder à cette fonctionnalité.</p>";
+                        }
+                    ?>
+                    </div>
+
+                    <h3 class="title-section" style="border-top: 1px solid #000; padding-top:10px;">Historique</h3>
+                    <div class="container-carte">
+                    <?php
+                        if (isset($_SESSION['user'])) {
+                            if (isset($_SESSION["historique"]) && is_array($_SESSION["historique"])) {
+                                foreach ($_SESSION["historique"] as $id_pays) {
+                                    $queryPays = "SELECT * FROM pays WHERE id = :id_pays";
+                                    $stmt = $cur->prepare($queryPays);
+                                    $stmt->execute(['id_pays' => $id_pays]);
+
+                                    if ($rsPays = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                                        $letter = getLetter($rsPays["score"]);
+                                        echo addSlimCountry($rsPays["id"],$rsPays["nom"],$letter,$page);
+                                    }
+                                }
+                            }
+                        } else {
+                            echo "<p>Connectez-vous pour accéder à cette fonctionnalité.</p>";
+                        }
+                    ?>
                     </div>
                 </div>
 

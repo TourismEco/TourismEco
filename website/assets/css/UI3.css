@@ -802,6 +802,11 @@ h1 {
     top: 1px;
 }
 
+.titre {
+    font-size: 25px;
+    text-align: center;
+}
+
 .legende {
     display: flex;
     height: 20px;
@@ -1003,6 +1008,7 @@ h1 {
     justify-content: center;
     gap: 0 20px;
     padding-bottom: 10px;
+    overflow-y: auto;
 }
 
 .no {
@@ -1558,4 +1564,20 @@ input {
     height: 20px;
     cursor: auto;
     background-color: white;
+}
+
+.favorite{
+    grid-row:1;
+    grid-column:1;
+    z-index: 10;
+    justify-self: end;
+    margin: 10px;
+    width: 30px;
+    transition: all .3s;
+}
+
+.favorite:hover {
+    width: 35px;
+    transition: all .3s;
+    margin:7.5px
 }

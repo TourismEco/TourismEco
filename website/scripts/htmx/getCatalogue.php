@@ -26,7 +26,7 @@ $resultPays->bindParam(":id_continent", $id_continent, PDO::PARAM_INT);
 $resultPays->execute();
 
 echo <<<HTML
-    <div class='container-continents display' id="cata" hx-swap="swap:0.5s">              
+    <div class='container-continents display' id="cata" hx-swap="swap:0.5s">
 HTML;
 
 while ($rsPays = $resultPays->fetch(PDO::FETCH_ASSOC)) {

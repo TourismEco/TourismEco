@@ -1,4 +1,10 @@
-<?php require_once 'head.php'?>
+<?php require_once 'head.php' ?>
+<?php
+            // Générer un nouveau token CSRF si la variable de session n'existe pas
+            if (!isset($_SESSION['csrf_token'])) {
+                $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+            }
+?>
 
 <body>
 
@@ -44,14 +50,14 @@
                         // Envoyer la demande Ajax pour traiter la connexion
                         $.ajax({
                             method: 'POST',
-                            url: "connecter.php",
+                            url: "scripts/login/connecter.php",
                             data: formData,
                             dataType: 'json',
                             success: function (response) {
                                 // Traiter la réponse du serveur ici
                                 $("#errorMessages").html(response.message);
                                 if (response.success) {
-                                    window.location.href = 'ok.php';
+                                    window.location.href = 'pays.php';
                                 } else {
                                     alert('Erreur de connexion : ' + response.message);
                                 }
