@@ -106,12 +106,6 @@ echo <<<HTML
     </div>
 </div>
 
-<div class="container-side bg-354F52 g1-1" id="mini0" hx-swap-oob="outerHTML">
-    <img class="img-side" src='assets/img/$id_pays.jpg' alt="Bandeau">
-    <img class="flag-small" src='assets/twemoji/$id_pays.svg'>
-    <h2 class="nom-small">$nom</h2>
-</div>
-
 <div class="container-presentation" id="score0" hx-swap-oob="outerHTML">
     <div class="score-box score-$letter">$letter</div>
 </div>

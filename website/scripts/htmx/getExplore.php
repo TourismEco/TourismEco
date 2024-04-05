@@ -42,7 +42,7 @@
 
     <div id="pays" class="container-explore" hx-swap-oob="outerHTML">
 
-        <div class="explore-bandeau">
+        <div class="container-explore-pays expand-4">
             <div class="bandeau"> 
                 <img class="img-side img" src='assets/img/$id_pays.jpg' alt="Bandeau">
                 <div class="flag-plus-nom">
@@ -52,13 +52,13 @@
             </div>
         </div>
 
-        <div class="explore-prix"></div>
+        <div class="container-explore-pays expand-2"></div>
 
-        <div class="explore-score">
+        <div class="container-explore-pays">
             <div class="score-box score-$letter">$letter</div>
         </div>
 
-        <div class="explore-describ">
+        <div class="container-explore-pays expand-2 expandrow-2">
             <p class="paragraphe">$anec</p>
         </div>
 

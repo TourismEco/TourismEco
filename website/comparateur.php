@@ -106,7 +106,7 @@
                         <p id="covid1" class="big">-</p>
                     </div>
                     
-                    <div class="container-info stretch">
+                    <div class="container-info expand-2">
                         <p>,ndicnzepidfncisjndcvisndpicnpiAKBNDOUnaepifdhnpzenf</p>
                     </div>
                 </div>

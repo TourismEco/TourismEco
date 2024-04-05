@@ -23,8 +23,8 @@
         
     ?>
      <div class="flex" id="main">
-        <div class="zone-carte" id="zones">
-            <div class="map-carte">
+        <div class="zone-explore" id="zones">
+            <div class="map-explore">
                 <div id="map"></div>
                 <div class="container-buttons">
                     <img class="icon icon-active" src="assets/icons/score.svg" onclick="changeVarExplorer('score')" data-name="Score">
