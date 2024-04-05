@@ -36,7 +36,7 @@
 
         <div id="zones">
 
-            <div class="zone-presentation display" id="home">
+            <div class="zone-presentation display" id="home" style="display:none">
                 <div class="container-presentation expand-3" id="bandeau0"></div>
                 <div class="container-presentation" id="miniMap0"></div>
                 <div class="container-presentation" id="score0"></div>
@@ -240,6 +240,222 @@
             <div class="zone display" id="barl" style="display:none">
                 <div class="graph" id="barreLine"></div>
             </div>
+
+            <div class="zone-scores display" id="scores">
+                <div class="scores-column">
+                    <div class="container-scores border-C">
+                        <div class="title-scores">
+                            <img src="assets/icons/dollar.svg" class="score-C">
+                            <p>PIB par habitant</p>
+                        </div>
+
+                        <div class="stats-scores">
+                            <p>0.234</p>
+                            <div class="stats-scores-minmax">
+                                <p>Min<br>0.100</p>
+                                <div class="trait-small"></div>
+                                <p>Max<br>0.988</p>
+                            </div>
+                        </div>
+
+                        <div>
+                            <p class="small-text">Poids : 2</p>
+                            <div class="poids-scores">
+                                <div class="el-poids score-C"></div>
+                                <div class="el-poids score-C"></div>
+                                <div class="el-poids"></div>
+                                <div class="el-poids"></div>
+                                <div class="el-poids"></div>
+                                <div class="el-poids"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="container-scores border-D">
+                        <div class="title-scores">
+                            <img src="assets/icons/idh.svg" class="score-D">
+                            <p>Indice de développement humain</p>
+                        </div>
+
+                        <div class="stats-scores">
+                            <p>0.234</p>
+                            <div class="stats-scores-minmax">
+                                <p>Min<br>0.100</p>
+                                <div class="trait-small"></div>
+                                <p>Max<br>0.988</p>
+                            </div>
+                        </div>
+
+                        <div>
+                            <p class="small-text">Poids : 4</p>
+                            <div class="poids-scores">
+                                <div class="el-poids score-D"></div>
+                                <div class="el-poids score-D"></div>
+                                <div class="el-poids score-D"></div>
+                                <div class="el-poids score-D"></div>
+                                <div class="el-poids"></div>
+                                <div class="el-poids"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="container-scores border-B">
+                        <div class="title-scores">
+                            <img src="assets/icons/shield.svg" class="score-B">
+                            <p>Global Peace Index</p>
+                        </div>
+
+                        <div class="stats-scores">
+                            <p>0.234</p>
+                            <div class="stats-scores-minmax">
+                                <p>Min<br>0.100</p>
+                                <div class="trait-small"></div>
+                                <p>Max<br>0.988</p>
+                            </div>
+                        </div>
+
+                        <div>
+                            <p class="small-text">Poids : 4</p>
+                            <div class="poids-scores">
+                                <div class="el-poids score-B"></div>
+                                <div class="el-poids score-B"></div>
+                                <div class="el-poids score-B"></div>
+                                <div class="el-poids score-B"></div>
+                                <div class="el-poids"></div>
+                                <div class="el-poids"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="scores-column scores-center">
+                    <div class="choice-scores">
+                        <div class="border-scores score-A">
+                            <div class="score-box score-A border-W">A</div>
+                        </div>
+                        <div class="border-scores">
+                            <div class="score-box border-E">E</div>
+                        </div>
+                        <div class="border-scores">
+                            <div class="score-box border-C">C</div>
+                        </div>
+                        <div class="border-scores">
+                            <div class="score-box border-NA"><img src="assets/icons/db.svg"></div>
+                        </div>
+                    </div>
+ 
+                    <div class="big-score score-A">
+                        <div class="score-box">A</div>
+                        <div>Score Global</div>
+                    </div>
+                    <div class="jauge-scores">
+                        <div class="score-E"></div>
+                        <div class="score-D"></div>
+                        <div class="score-C"></div>
+                        <div class="score-B"></div>
+                        <div class="score-A"></div>
+                    </div>
+                    <div class="units-scores">
+                        <div>0</div>
+                        <div>0</div>
+                        <div>0</div>
+                        <div>0</div>
+                        <div>0</div>
+                        <div>1</div>
+                    </div>
+                    <div class="trait-scores"></div>
+
+                    <div class="infos-scores">
+                        <img src="assets/icons/info.svg" class="score-B">
+                        <p>Le score global représente...</p>
+                    </div>
+                    
+                </div>
+                <div class="scores-column">
+                    <div class="container-scores border-B">
+                        <div class="title-scores">
+                            <img src="assets/icons/elec.svg" class="score-B">
+                            <p>Production d'énergies renouvellables</p>
+                        </div>
+
+                        <div class="stats-scores">
+                            <p>0.234</p>
+                            <div class="stats-scores-minmax">
+                                <p>Min<br>0.100</p>
+                                <div class="trait-small"></div>
+                                <p>Max<br>0.988</p>
+                            </div>
+                        </div>
+
+                        <div>
+                            <p class="small-text">Poids : 4</p>
+                            <div class="poids-scores">
+                                <div class="el-poids score-B"></div>
+                                <div class="el-poids score-B"></div>
+                                <div class="el-poids score-B"></div>
+                                <div class="el-poids score-B"></div>
+                                <div class="el-poids"></div>
+                                <div class="el-poids"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="container-scores border-E">
+                        <div class="title-scores">
+                            <img src="assets/icons/cloud.svg" class="score-E">
+                            <p>Émissions de GES par habitant</p>
+                        </div>
+
+                        <div class="stats-scores">
+                            <p>0.234</p>
+                            <div class="stats-scores-minmax">
+                                <p>Min<br>0.100</p>
+                                <div class="trait-small"></div>
+                                <p>Max<br>0.988</p>
+                            </div>
+                        </div>
+
+                        <div>
+                            <p class="small-text">Poids : 4</p>
+                            <div class="poids-scores">
+                                <div class="el-poids score-E"></div>
+                                <div class="el-poids score-E"></div>
+                                <div class="el-poids score-E"></div>
+                                <div class="el-poids score-E"></div>
+                                <div class="el-poids"></div>
+                                <div class="el-poids"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="container-scores border-A">
+                        <div class="title-scores">
+                            <img src="assets/icons/down.svg" class="score-A">
+                            <p>Arrivées touristiques</p>
+                        </div>
+
+                        <div class="stats-scores">
+                            <p>0.234</p>
+                            <div class="stats-scores-minmax">
+                                <p>Min<br>0.100</p>
+                                <div class="trait-small"></div>
+                                <p>Max<br>0.988</p>
+                            </div>
+                        </div>
+
+                        <div>
+                            <p class="small-text">Poids : 4</p>
+                            <div class="poids-scores">
+                                <div class="el-poids score-A"></div>
+                                <div class="el-poids score-A"></div>
+                                <div class="el-poids score-A"></div>
+                                <div class="el-poids score-A"></div>
+                                <div class="el-poids"></div>
+                                <div class="el-poids"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="zone mask"></div>
@@ -292,7 +508,7 @@
                         <img class="flag-small" src='assets/icons/stats.svg'>
                     </div>
 
-                    <div class="container-bottom switch" data-switch="more" data-index="4" data-name="Informations complémentaires">
+                    <div class="container-bottom switch" data-switch="scores" data-index="4" data-name="Informations complémentaires">
                         <img class="flag-small" src='assets/icons/plus.svg'>
                     </div>
 
