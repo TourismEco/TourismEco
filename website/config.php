@@ -5,14 +5,14 @@ require_once "private.php";
 // Defintion of constants
 define("DB_HOSTNAME", "localhost");
 define("DB_USERNAME", "root");
-define("DB_PASSWORD", "root");
+define("DB_PASSWORD", "");
 define("DB_DATABASE", "ecotourisme");
 define("SOURCE", "/projet_L3/website/");
 define("SITE_URL", "http://localhost/projet_L3/website/");
 
 // Handling PHP errors
 // TODO: Set to 0 in production
-ini_set('display_errors', 0);
+ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
 // Function to handle exceptions and log them

@@ -1,98 +1,30 @@
-var html = 
-        `<div style="display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            grid-template-rows: repeat(1,100px);
-            width: 240px;
-            height: 80px;
-            justify-content: center;
-            align-items: center;
-            word-break: break-word;
-            text-align: center;
-            font-family: Arial, Helvetica, sans-serif;">
-            <img style="grid-column: 1 / 3;
-                grid-row: 1;
-                width: 240px;
-                height: 80px;
-                object-fit: cover;" 
-                src='assets/img/{id}.jpg'>
-
-            <div style="grid-column: 2;
-                grid-row: 1;
-                justify-content: center;">
-                    <h1 style="font-size: 20px;
-                    color: white;  ">{name}</h1>
-            </div>
-
-            <div style="grid-column: 1;
-                grid-row: 1;
-                width: 100%;">
-                <img style="width: 50px;
-                    height: 50px;" src='assets/twemoji/{id}.svg'>
-            </div>
-        </div>
-        `
-
 class EcoMap {
-    constructor (id, option) {
+    constructor (id, option, mini, index=0) {
         this.root = am5.Root.new(id);
         this.countries = null
         this.continents = null
+        this.allContinents = {}
+        this.continentActive = null
         this.poly = []
         this.incr = 0
         this.cities = null
         this.capitals = null
         this.option = option
-        this.max = {"pays":1, "compare":2, "continent":1}
+        this.mini = mini
+        this.index = index
+        this.heatLegend = null
+        this.data = null
 
         this.root.setThemes([
             am5themes_Animated.new(this.root)
         ]);
 
         this.map = this.root.container.children.push(am5map.MapChart.new(this.root, {
-            panX: "rotateX",
+            panX: "translateX",
+            panY: "translateY",
             wheelX: "none",
-            wheelY: "none",
-            projection: am5map.geoNaturalEarth1()
+            projection: am5map.geoNaturalEarth1(),
         }));
-    }
-
-    togglePays() {
-        this.option = "pays"
-        this.incr = 1
-        for (var i=1; i<this.poly.length; i++) {
-            this.poly[i].set("active",false)
-            this.poly[i].set("interactive",true)
-        }
-        this.poly = [this.poly[0]]
-
-        this.showCountries()
-    }
-
-    toggleCompare() {
-        this.option = "compare"
-        this.cities.data.clear()
-        this.capitals.data.clear()
-        this.map.goHome();
-
-        this.showCountries()
-    }
-
-    toggleContinent() {
-        this.option = "continent"
-        this.cities.data.clear()
-        this.capitals.data.clear()
-        this.map.goHome();
-
-        this.showContinents()
-    }
-
-    showCountries() {
-        this.continents.hide();
-        this.countries.show();
-    }
-    showContinents() {
-        this.countries.hide();
-        this.continents.show();
     }
 
     addCountries() {
@@ -102,7 +34,9 @@ class EcoMap {
             geoJSON: am5geodata_worldLow,
             geodataNames:am5geodata_lang_FR,
             exclude: ["AX","BL","BQ","BV","CW","HM","MF","SJ","SS","SX","TL","UM","AF","AQ","CC","CX","EH","FK","FO","GG","GI","GL","GQ","GS","IM","IO","JE","KP","LR","NF","NR","PM","PN","SH","SO","SZ","TF","TK","VA","WF","YT","AI","CK","GF","GP","KN","MQ","MS","NU","PS","RE","TW","ST","MR"],
-            fill:am5.color("#84A98C")
+            valueField:"gpi",
+            calculateAggregates: true,
+            fill:am5.color("#222")
         }));    
         this.behaviorSerie(this.countries)
         this.activePays(this.countries)
@@ -114,12 +48,38 @@ class EcoMap {
         this.continents = this.map.series.push(am5map.MapPolygonSeries.new(base.root, {
             geoJSON: am5geodata_continentsLow,
             geodataNames:am5geodata_lang_FR,
-            exclude: ["antarctica"],
+            exclude: ["AX","BL","BQ","BV","CW","HM","MF","SJ","SS","SX","TL","UM","AF","AQ","CC","CX","EH","FK","FO","GG","GI","GL","GQ","GS","IM","IO","JE","KP","LR","NF","NR","PM","PN","SH","SO","SZ","TF","TK","VA","WF","YT","AI","CK","GF","GP","KN","MQ","MS","NU","PS","RE","TW","ST","MR"],
             visible: false,
-            fill:am5.color("#84A98C")
+            fill:am5.color("#222")
         }));
-        this.behaviorSerie(this.continents)
-        this.activePays(this.continents)
+    }
+
+    addThisContinent(id) {
+        var json
+        var base = this
+        if (id == "asia") {
+            json = am5geodata_region_world_asiaLow
+        } else if (id == "america") {
+            json = am5geodata_region_world_northAmericaLow
+        } else if (id == "africa") {
+            json = am5geodata_region_world_africaLow
+        } else if (id == "europe") {
+            json = am5geodata_region_world_europeLow
+        } else if (id == "oceania") {
+            json = am5geodata_region_world_oceaniaLow
+        }
+
+        var s = this.map.series.push(am5map.MapPolygonSeries.new(base.root, {
+            geoJSON: json,
+            geodataNames:am5geodata_lang_FR,
+            exclude: ["AX","BL","BQ","BV","CW","HM","MF","SJ","SS","SX","TL","UM","AF","AQ","CC","CX","EH","FK","FO","GG","GI","GL","GQ","GS","IM","IO","JE","KP","LR","NF","NR","PM","PN","SH","SO","SZ","TF","TK","VA","WF","YT","AI","CK","GF","GP","KN","MQ","MS","NU","PS","RE","TW","ST","MR"],
+            visible: false,
+            fill:am5.color("#222")
+        }));
+
+        this.allContinents[id] = s
+        this.behaviorSerie(s)
+        this.activePays(s)
     }
 
     behaviorSerie(serie) {
@@ -130,12 +90,12 @@ class EcoMap {
             toggleKey: "active",
             interactive: true,
             tooltip: am5.Tooltip.new(base.root, {
-                labelHTML: html,
+                labelHTML: `<div style="display:flex;gap:10px"><img style="width: 25px;height: 25px;" src='assets/twemoji/{id}.svg'> <p style="margin:auto">{name}</p></div>`,
             }),
         });
         
         serie.mapPolygons.template.states.create("hover", {
-            fill: am5.color("#CAD2C5"),
+            fill: am5.color("#52796F"),
         });
     
         serie.mapPolygons.template.states.create("active", {
@@ -148,7 +108,7 @@ class EcoMap {
 
         serie.mapPolygons.template.on("active", function(active, target) {
             if (active) {
-                var max = base.max[base.option]
+                var max = 1
                 target.set("interactive",false)
                 if (base.incr == max) {
                     base.incr = 0
@@ -165,14 +125,21 @@ class EcoMap {
         })
 
         serie.mapPolygons.template.events.on("click", function (ev) {
-            if (base.option == "compare") {
-                htmx.ajax("GET","scripts/htmx/getCompare.php",{values:{map:true,id_pays:ev.target.dataItem._settings.id},swap:"beforeend"})
-            } else if (base.option == "pays") {
-                serie.zoomToDataItem(ev.target.dataItem);
-                htmx.ajax("GET","scripts/htmx/getPays.php",{values:{map:true,id_pays:ev.target.dataItem._settings.id},swap:"beforeend"})
+            if (base.mini) {
+                if (base.option == "pays") {
+                    htmx.ajax("GET","scripts/htmx/getPays.php",{values:{id_pays:ev.target.dataItem._settings.id},swap:"beforeend"})
+                } else if (base.option == "comparateur") {
+                    htmx.ajax("GET","scripts/htmx/getCompare.php",{values:{id_pays:ev.target.dataItem._settings.id,incr:base.index},swap:"beforeend"})
+                }
+            
             } else {
-                serie.zoomToDataItem(ev.target.dataItem);
-                htmx.ajax("GET","scripts/htmx/getContinent.php",{values:{map:true,id_pays:ev.target.dataItem._settings.id},swap:"beforeend"})
+                if (base.option == "pays") {
+                    htmx.ajax("GET","pays.php",{values:{id_pays:ev.target.dataItem._settings.id},swap:"outerHTML swap:0.5s",target:"#zones",select:"#zones"})
+                } else if (base.option == "comparateur") {
+                    htmx.ajax("GET","scripts/htmx/appendCompare.php",{values:{id_pays:ev.target.dataItem._settings.id,incr:getIncr()},swap:"beforeend"})
+                } else if (base.option == "explorer") {
+                    htmx.ajax("GET","scripts/htmx/getExplore.php",{values:{id_pays:ev.target.dataItem._settings.id},swap:"beforeend"})
+                }
             }
         });
     }
@@ -183,13 +150,13 @@ class EcoMap {
         var zoom = this.map.set("zoomControl", am5map.ZoomControl.new(base.root, {}));
         zoom.homeButton.set("visible", true)
         zoom.minusButton.get("background").setAll({
-            fill: am5.color("#CAD2C5")
+            fill: am5.color("#52796F")
         })
         zoom.plusButton.get("background").setAll({
-            fill: am5.color("#CAD2C5")
+            fill: am5.color("#52796F")
         })
         zoom.homeButton.get("background").setAll({
-            fill: am5.color("#CAD2C5")
+            fill: am5.color("#52796F")
         })
     }
 
@@ -245,52 +212,94 @@ class EcoMap {
         elem._settings.mapPolygon.set("active",true)
         return elem
     }
+
+    zoomToContinent(id_continent) {
+        if (id_continent in this.allContinents == false) {
+            this.addThisContinent(id_continent)
+        }
+        if (this.continentActive != null) {
+            this.allContinents[this.continentActive].hide()
+        }
+        
+        this.continentActive = id_continent
+        this.allContinents[id_continent].show()
+        var elem = this.continents.getDataItemById(id_continent)
+        this.continents.zoomToDataItem(elem)
+    }
+
+    addHeat(data) {
+        var base = this
+        this.data = data
+
+        this.countries.set("heatRules", [{
+            target: base.countries.mapPolygons.template,
+            dataField: "value",
+            min: am5.color(0xCAD2C5),
+            max: am5.color(0x354F52),
+            key: "fill",
+        }]);
+            
+        this.countries.mapPolygons.template.events.on("pointerover", function(ev) {
+            if (ev.target.dataItem.get("value") == null) {
+                base.heatLegend.showValue(0, "Pas de données");
+            } else {
+                base.heatLegend.showValue(ev.target.dataItem.get("value"));
+            }
+            
+        });
+
+        this.countries.events.on("datavalidated", function () {
+            base.heatLegend.set("startValue", base.countries.getPrivate("valueLow"));
+            base.heatLegend.set("endValue", base.countries.getPrivate("valueHigh"));
+        });
+
+        this.heatLegend = this.map.children.push(am5.HeatLegend.new(base.root, {
+            orientation: "horizontal",
+            startColor: am5.color(0xCAD2C5),
+            endColor: am5.color(0x354F52),
+            startText: base.countries.getPrivate("valueLow"),
+            endText: base.countries.getPrivate("valueHigh"),
+            stepCount: 5
+        }));
+          
+        this.heatLegend.startLabel.setAll({
+            fontSize: 12,
+            fill: base.heatLegend.get("startColor")
+        });
+          
+        this.heatLegend.endLabel.setAll({
+            fontSize: 12,
+            fill: base.heatLegend.get("endColor")
+        });
+
+        this.countries.data.setAll(data)
+        updatePodium("score",data)
+    }
 }
 
 var map = undefined
-function createMap() {
-    $("#container-map").removeClass("hide")
-    if (map == undefined) {
-        map = new EcoMap("map","pays")
-        map.addContinents()
-        map.addCountries()
-        map.addZoom()    
-    } else {
-        map.togglePays()
-        map.map.show()
-    }
+var miniMap = {0:undefined,1:undefined}
+
+function createMiniMap(index,option) {
+    mi = new EcoMap("miniMap"+index,option,true,index)
+    mi.addCountries()
+    miniMap[index] = mi
 }
 
-function createMapCompare() {
-    $("#container-map").removeClass("hide")
-    if (map == undefined) {
-        map = new EcoMap("map","compare")
-        map.addContinents()
-        map.addCountries()
-        map.addZoom()
-    } else {
-        map.toggleCompare()
-        map.map.show()
-    }
+function createMapCatalogue(option) {
+    map = new EcoMap("map",option,false)
+    map.addContinents()
+    map.addZoom()
+
+    map.root.events.on("frameended",() => {
+        map.zoomToContinent("europe")
+        map.root.events.off("frameended")
+    })
 }
 
-function createMapContinent() {
-    $("#container-map").removeClass("hide")
-    if (map == undefined) {
-        map = new EcoMap("map","continent")
-        map.addContinents()
-        map.addCountries()
-        map.addZoom()    
-        map.showContinents()
-    } else {
-        map.toggleContinent()
-        map.map.show()
-    }
-}
-
-function hideMap() {
-    $("#container-map").addClass("hide")
-    if (map != undefined) {
-        map.map.hide()
-    }
+function createMapExplorer(data) {
+    map = new EcoMap("map","explorer",false)
+    map.addCountries()
+    map.addZoom()
+    map.addHeat(data)
 }

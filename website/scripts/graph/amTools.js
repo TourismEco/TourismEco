@@ -269,8 +269,8 @@ class Graphique {
             rotation: -rotation
         }));
 
-        var yearTemp = 2020
-        this.year = 2020
+        var yearTemp = last
+        this.year = last
     
         slider.events.on("rangechanged", function () {
             yearTemp = first + Math.round(slider.get("start", 0) * (last - first));
@@ -284,10 +284,10 @@ class Graphique {
 
     changeColor(colors) {
         var c = []
-        for (i in colors) {
+        for (var i in colors) {
             c.push(am5.color(parseInt(i,16)))
         }
-        this.graph.get("colors").set("colors", c)
+        this.graph.set("colors", c)
     }
 
     // Ensemble de setter et de getter

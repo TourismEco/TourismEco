@@ -1,9 +1,15 @@
 <?php
-require("../../config.php");
+
+if (!isset($_SERVER["HTTP_HX_REQUEST"])) {
+    header("HTTP/1.1 401");
+    exit;
+}
+
+require("../../functions.php");
 
 $cur = getDB();
-$id_client = $_SESSION['client']['username'];
-$id_pays = $_SESSION["pays"][0];
+$id_client = $_SESSION['user']['username'];
+$id_pays = $_GET['id_pays'];
 $query = "SELECT * FROM favoris WHERE id_pays = :id_pays AND id_client = :id_client";
 $sth = $cur->prepare($query);
 $sth->bindParam(":id_pays", $id_pays, PDO::PARAM_STR);
@@ -19,7 +25,7 @@ if ($ligne) {
     $sth->execute();
 
     echo <<<HTML
-        <img id="favorite" src="assets/img/heart.png" hx-get="scripts/htmx/getFavorite.php" hx-trigger="click" hx-swap="outerHTML" hx-vals="js:{id_pays:'{$ligne['id_pays']}'}">
+        <img class="favorite" id="favorite" src="assets/icons/heart.png" hx-get="scripts/htmx/getFavorite.php" hx-trigger="click" hx-swap="outerHTML" hx-vals="js:{id_pays:'$id_pays'}">
     HTML;
 } else {
     // Assurez-vous que id_pays est défini avant d'insérer
@@ -31,7 +37,7 @@ if ($ligne) {
         $sth->execute();
 
         echo <<<HTML
-            <img id="favorite" src="assets/img/heart_full.png" hx-get="scripts/htmx/getFavorite.php" hx-trigger="click" hx-swap="outerHTML" hx-vals="js:{id_pays:'$id_pays'}">
+            <img class="favorite" id="favorite" src="assets/icons/heart_full.png" hx-get="scripts/htmx/getFavorite.php" hx-trigger="click" hx-swap="outerHTML" hx-vals="js:{id_pays:'$id_pays'}">
         HTML;
     } else {
         echo "Erreur : id_pays n'est pas défini.";

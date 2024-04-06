@@ -9,16 +9,19 @@ function lineCompare(id) {
 
 var color = ["#52796F","#83A88B"]
 function lineHTMX(index, data, name) {
-    l.updateSerie(index, data, name)
+    l.updateSerie(index, data["data"], name, data)
+    updateInfo(index,data,l.getType())
     resetAnnees()
 }
 
 function changeVar(type) {
+    l.setType(type)
+
     for (var s of l.series) {
         s.serie.set("valueYField",type)
         s.setDataSerie(s.data)
+        updateInfo(s.getIndex(),s.comp,l.getType())
     }
-    l.setType(type)
     resetAnnees()
 }
 
@@ -26,6 +29,56 @@ function resetAnnees() {
     min = Math.min(getMin(l.series[0].getData(),l.getType()), getMin(l.series[1].getData(),l.getType()))
     max = Math.max(getMax(l.series[0].getData(),l.getType()), getMax(l.series[1].getData(),l.getType()))
     l.setDataXAxis(getAnnees(min,max))
+}
+
+function updateInfo(index, data, type) {
+    if (data) {      
+        if (!("rank" in data) || isNaN(data["rank"][type]["rank"])) {
+            $("#rank"+index).html("-")
+        } else{
+            $("#rank"+index).html(data["rank"][type]["rank"]+"e")
+        }
+
+        if (!("evol" in data) || isNaN(data["evol"][type]["val"])) {
+            $("#evol"+index).html("-")
+        } else{
+            $("#evol"+index).html(formatNumber(data["evol"][type]["val"],"%"))
+            $("#evol_detail").html("entre "+data["evol"][type]["start"]+" et "+data["evol"][type]["end"])
+        }
+
+        if (!("covid" in data) || isNaN(data["covid"][type])) {
+            $("#covid"+index).html("-")
+        } else{
+            $("#covid"+index).html(formatNumber(data["covid"][type],"%"))
+        }
+
+        if (!("max" in data) || isNaN(data["max"][type]["year"])) {
+            $("#max"+index).html("-")
+        } else{
+            $("#max"+index).html(data["max"][type]["year"])
+            $("#max_detail").html(`(${formatNumber(data["max"][type]["val"],type)})`)
+        }
+
+        if (!("min" in data) || isNaN(data["min"][type]["year"])) {
+            $("#min"+index).html("-")
+        } else{
+            $("#min"+index).html(data["min"][type]["year"])
+            $("#min_detail").html(`(${formatNumber(data["min"][type]["val"],type)})`)
+        }
+
+        if (!("comp" in data) || isNaN(data["comp"][type]["val"])) {
+            $("#comp"+index).html("-")
+        } else{
+            if (data["comp"][type]["val"] < 1) {
+                $("#comp"+index).html(Math.pow(data["comp"][type]["val"],-1).toFixed(2)+" fois")
+                $("#comp_detail").html("inférieure à la moyenne")
+            } else {
+                $("#comp"+index).html(data["comp"][type]["val"].toFixed(2)+" fois")
+                $("#comp_detail").html("supérieure à la moyenne")
+            }
+            
+        }
+    }
 }
 
 function getAnnees(min,max) {

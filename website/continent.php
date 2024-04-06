@@ -88,12 +88,12 @@
                 <h2 class="title-section">Comparaison de chaque indicateur</h2>
                 <div class=container-buttons>
                     <button onclick="changeVar('co2')" class=button-compare>Émissions de CO2</button>
-                    <button onclick="changeVar('pib')" class=button-compare>PIB par habitant</button>
+                    <button onclick="changeVar('pibParHab')" class=button-compare>PIB par habitant</button>
                     <button onclick="changeVar('gpi')" class=button-compare>Indice de paix</button>
-                    <button onclick="changeVar('arrivees')" class=button-compare>Arrivées</button>
+                    <button onclick="changeVar('arriveesTotal')" class=button-compare>Arrivées</button>
                     <button onclick="changeVar('departs')" class=button-compare>Départs</button>
                     <button onclick="changeVar('cpi')" class=button-compare>Consumer Price Index</button>
-                    <button onclick="changeVar('Enr')" class=button-compare>% énergies renouvellables</button>
+                    <button onclick="changeVar('elecRenew')" class=button-compare>% énergies renouvellables</button>
                 </div>
                 <div class="graph" id="barContinent"></div>
                 <div class="graph" id="lineContinent"></div>

@@ -1,180 +1,605 @@
 <?php require_once 'head.php'?>
 
+<?php
+    $cur = getDB();
+    // unset($_SESSION["pays"]);
+    if (!isset($_SESSION["pays"])) {
+        $_SESSION["pays"] = array();
+    }
+
+    if (isset($_GET["id_pays"])) {
+        $_SESSION["pays"][0] = $_GET["id_pays"];
+    }
+
+    $pays = "";
+    if (count($_SESSION["pays"]) != 0) {
+        $query = "SELECT * FROM pays WHERE id = :id_pays";
+        $sth = $cur->prepare($query);
+        $sth->bindParam(":id_pays", $_SESSION["pays"][0], PDO::PARAM_STR);
+        $sth->execute();
+
+        $ligne = $sth->fetch();
+        if ($ligne) {
+            $pays = $_SESSION["pays"][0];
+        }
+    }
+
+    if ($pays == "") {
+        require_once 'catalogue.php';
+        exit;
+    }
+?>
 
 <body>
-    <div class="container-map" id="container-map">
-        <div id="map"></div>
-    </div>
+    
+    <div class="flex" id="main">
 
-    <div class="grille" id="grille" hx-swap="outerHTML">
+        <div id="zones">
 
-        <div class="sidebar">
-            <div id="mini0"></div>
+            <div class="zone-presentation display" id="home" style="display:none">
+                <div class="container-presentation expand-3" id="bandeau0"></div>
+                <div class="container-presentation" id="miniMap0"></div>
+                <div class="container-presentation" id="score0"></div>
 
-            <div class="container-side bg-52796F" hx-get="catalogue.php" hx-select="#catalogue" hx-target="#catalogue" hx-trigger="click" hx-swap="show:top" hx-vals="js:{page:'Pays'}">
-                <div class="bandeau-small"> 
-                    <img id=plus class="flag-small" src='assets/img/plus.svg'>
-                    <h2 class="nom-small">Choisir des pays</h2>
+                <div class="container-presentation">
+                    <div class="cost"><p class="big">60€</p><p>par jour</p></div>
+                    <div class="trait"></div>
+                    <div class="cost"><p class="big">420€</p><p>pour 7 jours</p></div>
                 </div>
 
-            </div>
-        </div>
-
-        <div class="main" id="main">
-
-            <?php
-                $cur = getDB();
-
-                $pays = "";
-                if (isset($_SESSION["pays"]) && count($_SESSION["pays"]) != 0) {
-                    $query = "SELECT * FROM pays WHERE id = :id_pays";
-                    $sth = $cur->prepare($query);
-                    $sth->bindParam(":id_pays", $_SESSION["pays"][0], PDO::PARAM_STR);
-                    $sth->execute();
-
-                    $ligne = $sth->fetch();
-                    if ($ligne) {
-                        $pays = $_SESSION["pays"][0];
-                    }
-                } else {
-                    $_SESSION["pays"] = array();
-                }
-
-                if ($pays == "") {
-                    echo <<<HTML
-                        <div hx-get="catalogue.php" hx-trigger="load" hx-select="#catalogue" hx-target="#catalogue" hx-vals="js:{page:'Pays'}"></div>
-                    HTML;
-                } else {
-                    echo <<<HTML
-                        <div hx-get="scripts/htmx/getPays.php" hx-vals="js:{id_pays:'$pays'}" hx-trigger="load delay:1s"></div>
-                    HTML;
-                }
-            ?>
-
-            <div id="catalogue"></div>
-
-            <div class="container-bandeaux">
-                <div id="bandeau0"></div>
-            </div>
-
-            <div class="container-simple bg-52796F">
-                <h2 class="title-section">Description</h2>
-                <div id="descip"></div>
-            </div>
-
-            <div class="container-simple bg-52796F">
-                <h2 class="title-section">Indicateurs clés</h2>
-                <div class="container-even" id="indicateurs"></div>
-            </div>
-
-            <div class="container-simple bg-52796F">
-
-                <div class="score-jauge-container">
-                    <div class="score-container">
-                        <div id="score"></div>
-                        <h2>Score EcoTourism</h2>
-                        <p >
-                            Le Lorem Ipsum est simplement du faux texte employéLe Lorem Ipsum est simplement du faux texte employé Lorem Ipsum .</p>
-                    </div>
-                    <div class="jauge-container">
-                        <div class="graph" id="jauge"></div>
-                        <p >Coût du séjour</p>
-                    </div>
-                    <div class="jauge-container">
-                        <div class="graph" id="jauge2"></div>
-                        <p >Impact écologique</p>
-                    </div>
+                <div class="container-presentation expand-2">
                 </div>
-            </div>
 
-          
+                <div class="scroll">
 
+                    <div class="scroll-buttons">
+                            <div class="scroll-dot dot-active" id="scrb0" data-index="0"></div>
+                            <div class="scroll-dot" id="scrb1" data-index="1"></div>
+                            <div class="scroll-dot" id="scrb2" data-index="2"></div>
+                        </div>
 
-            <div class="container-simple bg-354F52">
-                <h2 class="title-section">Evolution du Co2 en France dans le temps</h2>
-                <div class="section">
-                    <div class="graph" id="chartdiv2"></div>
-                    <div class="text" id='graphLine'>
+                    <div class="container-scrollable" id="scr">
+                        <div class="allow-scroll" style="background-color:#222"></div>
+                        <div class="allow-scroll" style="background-color:red"></div>
+                        <div class="allow-scroll" style="background-color:blue"></div>
                     </div>
+
                 </div>
+
+                <div class="container-presentation expand-3" id="description0"></div>
+
             </div>
 
-            <div class="container-simple bg-354F52">
-                <h2 class="title-section">Evolution du PIB par rapport au tourisme</h2>
-                <div class="section">
-                    <div class="text" id='graphBarLine'>
+            <div class="zone-spider display" id="key" style="display: none;">
+                <div class="graph" id="spider"></div>
+
+                <div class="cube" id="cube-1">
+                    <div class="el-cube">
+                        <div id="td_cpi_0"></div>
+                        <div id="td_cpi_grow" class="small"></div>
                     </div>
                     
-                    <div class="graph" id="barreLine"></div>
+                    <img class="icon" src="assets/icons/transfer.svg">
+                        
+                    <div class="el-cube">
+                        <div id="td_cpi_rank"></div>
+                        <div id="td_cpi_rankEvol" class="small"></div>
+                    </div>
+                </div>
+
+                <div class="cube" id="cube-2">
+                    <div class="el-cube">
+                        <div id="td_pibParHab_0"></div>
+                        <div id="td_pibParHab_grow" class="small"></div>
+                    </div>
+                    
+                    <img class="icon" src="assets/icons/dollar.svg">
+                        
+                    <div class="el-cube">
+                        <div id="td_pibParHab_rank"></div>
+                        <div id="td_pibParHab_rankEvol" class="small"></div>
+                    </div>
+                </div>
+
+                <div class="cube" id="cube-3">
+                    <div class="el-cube">
+                        <div id="td_gpi_0"></div>
+                        <div id="td_gpi_grow" class="small"></div>
+                    </div>
+                    
+                    <img class="icon" src="assets/icons/shield.svg">
+                        
+                    <div class="el-cube">
+                        <div id="td_gpi_rank"></div>
+                        <div id="td_gpi_rankEvol" class="small"></div>
+                    </div>
+                </div>
+
+                <div class="cube" id="cube-4">
+                    <div class="el-cube">
+                        <div id="td_elecRenew_0"></div>
+                        <div id="td_EelecRenew_grow" class="small"></div>
+                    </div>
+                    
+                    <img class="icon" src="assets/icons/leaf.svg">
+                        
+                    <div class="el-cube">
+                        <div id="td_elecRenew_rank"></div>
+                        <div id="td_elecRenew_rankEvol" class="small"></div>
+                    </div>
+                    
+                </div>
+
+                <div class="cube" id="cube-5">
+                    <div class="el-cube">
+                        <div id="td_departs_0"></div>
+                        <div id="td_departs_grow" class="small"></div>
+                    </div>
+                    
+                    <img class="icon" src="assets/icons/up.svg">
+                        
+                    <div class="el-cube">
+                        <div id="td_departs_rank"></div>
+                        <div id="td_departs_rankEvol" class="small"></div>
+                    </div>
+                </div>
+
+                <div class="cube" id="cube-6">
+                    <div class="el-cube">
+                        <div id="td_co2_0"></div>
+                        <div id="td_co2_grow" class="small"></div>
+                    </div>
+                    
+                    <img class="icon" src="assets/icons/cloud.svg">
+                        
+                    <div class="el-cube">
+                        <div id="td_co2_rank"></div>
+                        <div id="td_co2_rankEvol" class="small"></div>
+                    </div>
+                </div>
+
+                <div class="cube" id="cube-7">
+                    <div class="el-cube">
+                        <div id="td_arriveesTotal_0"></div>
+                        <div id="td_arriveesTotal_grow" class="small"></div>
+                    </div>
+                    
+                    <img class="icon" src="assets/icons/down.svg">
+                        
+                    <div class="el-cube">
+                        <div id="td_arriveesTotal_rank"></div>
+                        <div id="td_arriveesTotal_rankEvol" class="small"></div>
+                    </div>
                 </div>
             </div>
+
+            <div class="zone display" id="courbe" style="display: none;">
+                <div class="graph" id="line"></div>
+
+                <div class=container-buttons>
+                    <img class="icon icon-active" src="assets/icons/cloud.svg" onclick="changeVar('co2')" data-name="Émissions de CO2">
+                    <img class="icon" src="assets/icons/dollar.svg" onclick="changeVar('pibParHab')" data-name="PIB/Habitant">
+                    <img class="icon" src="assets/icons/shield.svg" onclick="changeVar('gpi')" data-name="Global Peace Index">
+                    <img class="icon" src="assets/icons/down.svg" onclick="changeVar('arriveesTotal')" data-name="Arrivées touristiques">
+                    <img class="icon" src="assets/icons/up.svg" onclick="changeVar('departs')" data-name="Départs">
+                    <img class="icon" src="assets/icons/transfer.svg" onclick="changeVar('cpi')" data-name="CPI">
+                    <img class="icon" src="assets/icons/leaf.svg" onclick="changeVar('elecRenew')" data-name="% d'énergies renouvellables">
+                </div>
+
+                <div class="table">
+                    <div class="legende">
+                        <div class="icon_name legende-element">
+                            <img src="assets/icons/courbe.svg" class="square">
+                            <p class="name" id="icon_name">Émissions de CO2</p>
+                        </div>
+                        <div class="legende-element">
+                            <div class="square bg-52796F"></div>
+                            <p class="name" id="nom0"></p>
+                        </div>
+
+                        <div class="legende-element">
+                            <div class="square bg-83A88B"></div>
+                            <p class ="name">Moyenne Mondiale</p>
+                        </div>
+                    </div>
+
+                    <div class="container-info">
+                        <p>Dernière valeur</p>
+                        <p id="comp0" class="big">-</p>
+                        <p id="comp_detail">-</p>
+                    </div>
+
+                    <div class="container-info">
+                        <p>Le pays est actuellement</p>
+                        <p id="rank0" class="big">-</p>
+                        <p>parmi tous les pays</p>
+                    </div>
+                    <div class="container-info">
+                        <p>Minimum atteint en</p>
+                        <p id="min0" class="big">-</p>
+                        <p id="min_detail">-</p>
+                    </div>
+                    <div class="container-info">
+                        <p>Maximum atteint en</p>
+                        <p id="max0" class="big">-</p>
+                        <p id="max_detail">-</p>
+                    </div>
+                    <div class="container-info">
+                        <p>Evolution de</p>
+                        <p id="evol0" class="big">-</p>
+                        <p id="evol_detail">-</p>
+                    </div>
+                    <div class="container-info">
+                        <p>Impact du COVID en 2020</p>
+                        <p id="covid0" class="big">-</p>
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="zone display" id="barl" style="display:none">
+                <div class="graph" id="barreLine"></div>
+            </div>
+
+            <div class="zone-scores display" id="scores">
+                <div class="scores-column">
+                    <div class="container-scores border-C">
+                        <div class="title-scores">
+                            <img src="assets/icons/dollar.svg" class="score-C">
+                            <p>PIB par habitant</p>
+                        </div>
+
+                        <div class="stats-scores">
+                            <p>0.234</p>
+                            <div class="stats-scores-minmax">
+                                <p>Min<br>0.100</p>
+                                <div class="trait-small"></div>
+                                <p>Max<br>0.988</p>
+                            </div>
+                        </div>
+
+                        <div>
+                            <p class="small-text">Poids : 2</p>
+                            <div class="poids-scores">
+                                <div class="el-poids score-C"></div>
+                                <div class="el-poids score-C"></div>
+                                <div class="el-poids"></div>
+                                <div class="el-poids"></div>
+                                <div class="el-poids"></div>
+                                <div class="el-poids"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="container-scores border-D">
+                        <div class="title-scores">
+                            <img src="assets/icons/idh.svg" class="score-D">
+                            <p>Indice de développement humain</p>
+                        </div>
+
+                        <div class="stats-scores">
+                            <p>0.234</p>
+                            <div class="stats-scores-minmax">
+                                <p>Min<br>0.100</p>
+                                <div class="trait-small"></div>
+                                <p>Max<br>0.988</p>
+                            </div>
+                        </div>
+
+                        <div>
+                            <p class="small-text">Poids : 4</p>
+                            <div class="poids-scores">
+                                <div class="el-poids score-D"></div>
+                                <div class="el-poids score-D"></div>
+                                <div class="el-poids score-D"></div>
+                                <div class="el-poids score-D"></div>
+                                <div class="el-poids"></div>
+                                <div class="el-poids"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="container-scores border-B">
+                        <div class="title-scores">
+                            <img src="assets/icons/shield.svg" class="score-B">
+                            <p>Global Peace Index</p>
+                        </div>
+
+                        <div class="stats-scores">
+                            <p>0.234</p>
+                            <div class="stats-scores-minmax">
+                                <p>Min<br>0.100</p>
+                                <div class="trait-small"></div>
+                                <p>Max<br>0.988</p>
+                            </div>
+                        </div>
+
+                        <div>
+                            <p class="small-text">Poids : 4</p>
+                            <div class="poids-scores">
+                                <div class="el-poids score-B"></div>
+                                <div class="el-poids score-B"></div>
+                                <div class="el-poids score-B"></div>
+                                <div class="el-poids score-B"></div>
+                                <div class="el-poids"></div>
+                                <div class="el-poids"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="scores-column scores-center">
+                    <div class="choice-scores">
+                        <div class="border-scores score-A">
+                            <div class="score-box score-A border-W">A</div>
+                        </div>
+                        <div class="border-scores">
+                            <div class="score-box border-E">E</div>
+                        </div>
+                        <div class="border-scores">
+                            <div class="score-box border-C">C</div>
+                        </div>
+                        <div class="border-scores">
+                            <div class="score-box border-NA"><img src="assets/icons/db.svg"></div>
+                        </div>
+                    </div>
+ 
+                    <div class="big-score score-A">
+                        <div class="score-box">A</div>
+                        <div>Score Global</div>
+                    </div>
+                    <div class="jauge-scores">
+                        <div class="score-E"></div>
+                        <div class="score-D"></div>
+                        <div class="score-C"></div>
+                        <div class="score-B"></div>
+                        <div class="score-A"></div>
+                    </div>
+                    <div class="units-scores">
+                        <div>0</div>
+                        <div>0</div>
+                        <div>0</div>
+                        <div>0</div>
+                        <div>0</div>
+                        <div>1</div>
+                    </div>
+                    <div class="trait-scores"></div>
+
+                    <div class="infos-scores">
+                        <img src="assets/icons/info.svg" class="score-B">
+                        <p>Le score global représente...</p>
+                    </div>
+                    
+                </div>
+                <div class="scores-column">
+                    <div class="container-scores border-B">
+                        <div class="title-scores">
+                            <img src="assets/icons/elec.svg" class="score-B">
+                            <p>Production d'énergies renouvellables</p>
+                        </div>
+
+                        <div class="stats-scores">
+                            <p>0.234</p>
+                            <div class="stats-scores-minmax">
+                                <p>Min<br>0.100</p>
+                                <div class="trait-small"></div>
+                                <p>Max<br>0.988</p>
+                            </div>
+                        </div>
+
+                        <div>
+                            <p class="small-text">Poids : 4</p>
+                            <div class="poids-scores">
+                                <div class="el-poids score-B"></div>
+                                <div class="el-poids score-B"></div>
+                                <div class="el-poids score-B"></div>
+                                <div class="el-poids score-B"></div>
+                                <div class="el-poids"></div>
+                                <div class="el-poids"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="container-scores border-E">
+                        <div class="title-scores">
+                            <img src="assets/icons/cloud.svg" class="score-E">
+                            <p>Émissions de GES par habitant</p>
+                        </div>
+
+                        <div class="stats-scores">
+                            <p>0.234</p>
+                            <div class="stats-scores-minmax">
+                                <p>Min<br>0.100</p>
+                                <div class="trait-small"></div>
+                                <p>Max<br>0.988</p>
+                            </div>
+                        </div>
+
+                        <div>
+                            <p class="small-text">Poids : 4</p>
+                            <div class="poids-scores">
+                                <div class="el-poids score-E"></div>
+                                <div class="el-poids score-E"></div>
+                                <div class="el-poids score-E"></div>
+                                <div class="el-poids score-E"></div>
+                                <div class="el-poids"></div>
+                                <div class="el-poids"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="container-scores border-A">
+                        <div class="title-scores">
+                            <img src="assets/icons/down.svg" class="score-A">
+                            <p>Arrivées touristiques</p>
+                        </div>
+
+                        <div class="stats-scores">
+                            <p>0.234</p>
+                            <div class="stats-scores-minmax">
+                                <p>Min<br>0.100</p>
+                                <div class="trait-small"></div>
+                                <p>Max<br>0.988</p>
+                            </div>
+                        </div>
+
+                        <div>
+                            <p class="small-text">Poids : 4</p>
+                            <div class="poids-scores">
+                                <div class="el-poids score-A"></div>
+                                <div class="el-poids score-A"></div>
+                                <div class="el-poids score-A"></div>
+                                <div class="el-poids score-A"></div>
+                                <div class="el-poids"></div>
+                                <div class="el-poids"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="zone mask"></div>
+
+        <div class="nav-bottom" id="nav-bot" hx-swap-oob="outerHTML">
+            <div class="nav-categ" id="bn">
+                <div class="pack-categ">
+                    <div class="container-bottom active page" data-index="0" data-name="Statistiques" id="s-stats">
+                        <img class="flag-small" src='assets/icons/stats.svg'>
+                    </div>
+
+                    <div class="container-bottom page" data-index="1" data-name="Explorer" id="s-explore" hx-get="explorer.php" hx-select="#zones" hx-target="#zones" hx-trigger="click" hx-vals="js:{page:'pays'}" hx-swap="outerHTML swap:0.5s">
+                        <img class="flag-small" src='assets/icons/map.svg'>
+                    </div>
+
+                    <div class="container-bottom page" data-index="2" data-name="Catalogue" id="s-catalogue" hx-get="catalogue.php" hx-select="#zones" hx-target="#zones" hx-trigger="click" hx-vals="js:{page:'pays'}" hx-swap="outerHTML swap:0.5s">
+                        <img class="flag-small" src='assets/icons/catalogue.svg'>
+                    </div>
+
+                    <div id="trans-page" class="active-bg"></div>
+                </div>
+
+                <div class="nav-trait"></div>
+
+                <div id="name-page" class="nav-text">Statistiques</div>
+            </div>
+
+            <div class="nav-categ" id="bu">
+
+                <div class="pack-categ">
+                    <img class="flag-small" id="flag-bot" src='assets/icons/question.svg'>
+                </div>
+
+                <div class="nav-trait"></div>
+
+                <div class="pack-categ">
+                    <div class="container-bottom active switch" data-switch="home" data-index="0" data-name="Présentation">
+                        <img class="flag-small" src='assets/icons/info.svg'>
+                    </div>
+
+                    <div class="container-bottom switch" data-switch="key" data-index="1" data-name="Indicateurs clés">
+                        <img class="flag-small" src='assets/icons/lamp.svg'>
+                    </div>
+
+                    <div class="container-bottom switch" data-switch="courbe" data-index="2" data-name="Courbes d'évolution">
+                        <img class="flag-small" src='assets/icons/sort.svg'>
+                    </div>
+
+                    <div class="container-bottom switch" data-switch="barl" data-index="3" data-name="PIB et tourisme">
+                        <img class="flag-small" src='assets/icons/stats.svg'>
+                    </div>
+
+                    <div class="container-bottom switch" data-switch="scores" data-index="4" data-name="Informations complémentaires">
+                        <img class="flag-small" src='assets/icons/plus.svg'>
+                    </div>
+
+                    <div id="trans" class="active-bg"></div>
+                </div>
+
+                <div class="nav-trait"></div>
+
+                <div id="name-switch" class="nav-text">Présentation</div>
+            </div>
+        </div>
             
 
-            <div class="container-simple bg-354F52">
-                <h2 class="title-section">Evolution du PIB de la France dans le temps</h2>
-                <div class="section">
-                    <div class="graph" id="spider"></div>
-                    <table class="text">
-                        <tr>
-                            <td id="td_pib">PIB/Hab</td>
-                            <td id="td_pib_0"></td>
-                        </tr>
-                        <tr>
-                            <td id="td_enr">% énergies renouvellables</td>
-                            <td id="td_Enr_0"></td>
-                        </tr>
-                        <tr>
-                            <td id="td_co2">Émissions de CO2</td>
-                            <td id="td_co2_0"></td>
-                        </tr>
-                        <tr>
-                            <td id="td_arrivees">Arrivées toursitiques</td>
-                            <td id="td_arrivees_0"></td>
-                        </tr>
-                        <tr>
-                            <td id="td_departs">Départs toursitiques</td>
-                            <td id="td_departs_0"></td>
-                        </tr>
-                        <tr>
-                            <td id="td_gpi">Indice de paix</td>
-                            <td id="td_gpi_0"></td>
-                        </tr>
-                        <tr>
-                            <td id="td_cpi">CPI</td>
-                            <td id="td_cpi_0"></td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-
-
-            <div class="container-simple bg-52796F">
-                <h2 class="title-section">Comparateur rapide</h2>
-                <p>
-                    Voici quelques pays pertinents que vous pouvez comparer avec la France
-                </p>
-                <div id=top class=graph></div>
-
-
-            </div>
-
-            <script id=scripting>
-
+            <script id="scripting" hx-swap-oob="outerHTML">
+                createMiniMap(0,"pays")
+                spider("spider",1)
+                createLine("line")
                 barreLine("barreLine")
-                spider("spider")
-                createLine("chartdiv2")
-                createMap()
-                
-                addJauge("jauge")
-                addJauge("jauge2")
-
-                barre("top")
             </script>
 
-        </div>
+            <script id="orders" hx-swap-oob="outerHTML"></script>
+
+            <script id="behave" hx-swap-oob="outerHTML">
+                
+                $(".icon").on("click", function () {
+                    $(".icon-active").removeClass("icon-active")
+                    $(this).addClass("icon-active")
+                    $("#icon_name").text($(this).data("name"));
+                })
+
+                $(".switch").on("click", function () {
+                    $(".switch").removeClass("active")
+                    $(this).addClass("active")
+                    $(".display").css("display","none")
+
+                    $("#"+$(this).data("switch")).css("display","grid")
+                    nb = $(this).data("index")*53
+                    $("#trans").css("transform","translateX("+nb+"px)")
+                    $("#name-switch").html($(this).data("name"))
+                })
+
+                $(".page").removeClass("active")
+                $("#s-stats").addClass("active")
+                $("#name-page").text("Statistiques");
+
+                nb = 0
+                $("#trans-page").css("transform","translateX("+nb+"px)")
+                $("#nav-bot").css("transform","translateY(0)")
+                
+
+                $("#scr").on("scroll", function() {
+                    el = document.getElementById("scr")
+                    h = el.clientHeight.toFixed(0)
+                    s = el.scrollTop
+
+                    console.log(h, s, s/h, s%h);
+
+                    if (s%h == 0) {
+                        if (s/h == 0) {
+                            $(".scroll-dot").removeClass("dot-active")
+                            $("#scrb0").addClass("dot-active")
+                            console.log("0");
+                        } else if (s/h >= 2) {
+                            $(".scroll-dot").removeClass("dot-active")
+                            $("#scrb2").addClass("dot-active")
+                            console.log("400");
+                        } else if (s/h >= 1) {
+                            $(".scroll-dot").removeClass("dot-active")
+                            $("#scrb1").addClass("dot-active")
+                            console.log("200");
+                        }
+                    } 
+                })
+
+                $(".scroll-dot").on("click", function() {
+                    nb = $(this).data("index")
+                    h = el.clientHeight.toFixed(0)
+                    document.getElementById('scr').scroll({top:h*nb,behavior:"smooth"})
+                })
+                
+            </script>
+
+            <div id="htmxing" hx-swap-oob="outerHTML">
+                <?php
+                    echo <<<HTML
+                        <div hx-get="scripts/htmx/getPays.php" hx-vals="js:{id_pays:'$pays'}" hx-trigger="load"></div>
+                    HTML;
+                ?>
+            </div>
+
     </div>
 
-    
-            
-    <?php require_once 'footer.html'?>
 </body>
+</html>

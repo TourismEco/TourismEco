@@ -1,0 +1,12 @@
+user-agent: *
+disallow: /assets/
+disallow: /errors/
+disallow: /logs/
+disallow: /scripts/
+disallow: /tests/
+disallow: /private.php
+disallow: /config.php
+disallow: /functions.php
+disallow: /head.php
+disallow: /catalogue.php
+disallow: /explorer.php

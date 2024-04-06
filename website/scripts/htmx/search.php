@@ -1,12 +1,12 @@
 <?php
 
 if (!isset($_SERVER["HTTP_HX_REQUEST"])) {
-    echo "Bien vu ça hein";
+    header("HTTP/1.1 401");
     exit;
 }
 
-if (!isset($_GET["search"])) {
-    echo "Mauvais arguments.";
+if (!isset($_GET["id_continent"]) || !isset($_GET["search"]) || !isset($_GET["page"])) {
+    header("HTTP/1.1 400");
     exit;
 }
 
@@ -15,6 +15,7 @@ $cur = getDB();
 
 $search = $_GET["search"];
 $page = $_GET["page"];
+$id_continent = $_GET["id_continent"];
 
 if (strlen($search) == 0) {
     echo <<<HTML
@@ -23,8 +24,17 @@ if (strlen($search) == 0) {
     exit;
 }
 
-$queryPays = "SELECT pays.id AS idp, pays.nom AS p, continents.nom AS c, score FROM pays, continents WHERE id_continent = continents.id AND (pays.nom LIKE '%".$search."%' OR continents.nom LIKE '%".$search."%') ORDER BY score DESC LIMIT 20";
+// INJECTION SQL !!!!!!!!!!!!!!!!!!!!!!!!
+if ($id_continent == 0) {
+    $queryPays = "SELECT pays.id AS idp, pays.nom AS p, score FROM pays WHERE pays.nom LIKE '%".$search."%' ORDER BY score DESC LIMIT 8";
+} else if ($id_continent == 2) {
+    $queryPays = "SELECT pays.id AS idp, pays.nom AS p, score FROM pays WHERE (id_continent = 3 OR id_continent = 2 ) AND (pays.nom LIKE '%".$search."%') ORDER BY score DESC LIMIT 8";
+} else {
+    $queryPays = "SELECT pays.id AS idp, pays.nom AS p, score FROM pays WHERE id_continent = $id_continent AND (pays.nom LIKE '%".$search."%') ORDER BY score DESC LIMIT 8";
+}
+
 $resultPays = $cur->query($queryPays);
+$i = 0;
 
 echo <<<HTML
     <div id=search class="container-catalogue">
@@ -32,7 +42,14 @@ HTML;
 
 while ($rsPays = $resultPays->fetch(PDO::FETCH_ASSOC)) {
     $letter = getLetter($rsPays["score"]);
-    echo addCardCountry($rsPays["idp"],$rsPays["p"],$letter,$page);
+    echo addSlimCountry($rsPays["idp"],$rsPays["p"],$letter,$page);
+    $i++;
+}
+
+if ($i == 0) {
+    echo <<<HTML
+        <p class="no">Aucun résultat.</p>
+    HTML;    
 }
 
 echo <<<HTML

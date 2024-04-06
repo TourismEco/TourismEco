@@ -1,38 +1,34 @@
-<?php
-require_once "config.php"
-?>
-
-
-<!-- Barre de navigation -->
-<nav class="navbar" hx-boost="true" hx-target="#grille" hx-select="#grille" hx-swap="outerHTML show:body:top swap:0.5s">
-    <div class="onglets">
-    <a href="index.php">ECOTOURISME</a>
-    <a href="index.php">Accueil</a>
-    <a href="monde.php">Monde</a>
-    <a href="pays.php">Pays</a>
-    <a href="continent.php">Continent</a>
-    <a href="comparateur.php">Comparateur</a>
-    <a href="calculateur.php">Calculateur</a>
-    <!-- <a href="#news">Statistiques</a> -->
-    <!-- <a href="#news">Calculateur</a> -->
-    <div class="search-container" style="float:right">
-    <!-- <form action="/action_page.php"> -->
-    <!-- <input type="text" placeholder="Rechercher.." name="search"></form> -->
-
-    <?php
-    if (isset($_SESSION['client'])) {
-        echo <<<HTML
-            <a href="calculateur.php">Calculateur</a>
-            <a href="profil.php">Bonjour {$_SESSION['client']['username']}</a>
-        HTML;
-    } else {
-        echo <<<HTML
-            <a href="inscription.php" style="float:right">S'inscrire</a>
-            <a href="connexion.php" style="float:right">Se connecter</a>
-        HTML;
-}
-?>
-
-
+<nav class="navbar" hx-boost="true" hx-target="#zones" hx-select="#zones" hx-swap="outerHTML swap:0.5s">
+    
+    <div class="right-nav">
+        <a href="monde.php" aria-label="MONDE">Monde</a>
+        <a href="pays.php" aria-label="Pays">Pays</a>
+        <a href="continent.php" aria-label="Continent">Continent</a>
+        <a href="comparateur.php" aria-label="Comparateur">Comparateur</a>
     </div>
+
+    <div class="img-nav">
+        <a href="index.php" aria-label="Accueil"><img src="assets/icons/eco.png" alt="Logo TourismEco"></a>
+    </div>
+
+    <div class="left-nav">
+    <a href="calculateur.php" aria-label="Calculateur">Calculateur</a>
+    <?php
+    if (isset($_SESSION['user'])) {
+        echo '<a href="profil.php" aria-label="Profil">Profil</a>';
+        echo '<a href="Profil/deconnexion.php" aria-label="Déconnexion">Déconnexion</a>';
+    } else {
+        echo '<a href="inscription.php" aria-label="Inscription">S\'inscrire</a>';
+        echo '<a href="connexion.php" aria-label="Connexion">Se connecter</a>';
+    }
+    ?>
+</div>
+
+    <script>
+        $("a").on("click",function() {
+            $("#nav-bot").css("z-index","1")
+            $("#nav-bot").css("transform","translateY(-70px)")
+        })
+    </script>
+
 </nav>

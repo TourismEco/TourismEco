@@ -15,68 +15,6 @@ function getDB($hostname=DB_HOSTNAME, $username=DB_USERNAME, $password=DB_PASSWO
     }
 }
 
-function getArrivals(string $id_pays, PDO $conn): int {
-    $query = <<<SQL
-    SELECT arriveesTotal
-    FROM Tourisme
-    WHERE id_pays = :id_pays AND annee = 2021
-SQL;
-    $sth = $conn->prepare($query);
-    $sth->bindParam(":id_pays", $id_pays, PDO::PARAM_STR);
-    $sth->execute();
-    $row = $sth->fetch();
-    var_dump($row);
-    return $row["arriveesTotal"];
-}
-
-function getCO2(string $id_pays, PDO $conn): float {
-    $query = <<<SQL
-    SELECT co2
-    FROM Ecologie
-    WHERE id_pays = :id_pays AND annee = 2020
-SQL;
-    $sth = $conn->prepare($query);
-    $sth->bindParam(":id_pays", $id_pays, PDO::PARAM_STR);
-    $sth->execute();
-    $row = $sth->fetch();
-    var_dump($row);
-    return $row["co2"];
-}
-
-function getPIB(string $id_pays, PDO $conn): float {
-    $query = <<<SQL
-    SELECT pibParHab
-    FROM Economie
-    WHERE id_pays = :id_pays AND annee = 2021 /* Normalement 2022 mais c'est NULL pour la france il faudra que je fasse une fonction qui check*/
-SQL;
-    $sth = $conn->prepare($query);
-    $sth->bindParam(":id_pays", $id_pays, PDO::PARAM_STR);
-    $sth->execute();
-    $row = $sth->fetch();
-    var_dump($row);
-    return $row["pibParHab"];
-}
-
-function getGPI(string $id_pays, PDO $conn): float {
-    $query = <<<SQL
-    SELECT gpi
-    FROM Surete
-    WHERE id_pays = :id_pays AND annee = 2023
-SQL;
-    $sth = $conn->prepare($query);
-    $sth->bindParam(":id_pays", $id_pays, PDO::PARAM_STR);
-    $sth->execute();
-    $row = $sth->fetch();
-    return $row["gpi"];
-}
-function getStats(string $id_pays, PDO $conn): array {
-    return array(
-        "arrivees" => getArrivals($id_pays, $conn),
-        "co2" => getCO2($id_pays, $conn),
-        "pib" => getPIB($id_pays, $conn),
-        "gpi" => getGPI($id_pays, $conn));
-}
-
 function getLetter($score) {
     if ($score < 20) {
         return "E";
@@ -96,8 +34,8 @@ function addCardCountry($id,$nom,$letter,$page) {
         <div class="container-small bg-354F52">
             <div class="bandeau-small hide-flag"> 
                 <div class="score-box-small score-$letter">$letter</div>
-                <img class="img img-small" src='assets/img/$id.jpg' alt="Bandeau">
-                <img class="flag-small" src='assets/twemoji/$id.svg'>
+                <img class="img img-small" src='assets/img/$id.jpg' alt="Bandeau de $nom">
+                <img class="flag-small" src='assets/twemoji/$id.svg' alt="Drapeau de $nom">
                 <h2 class="nom-small">$nom</h2>
                 <div class="buttons-small">
                     <button class=button-catalogue id=v-$id hx-get="scripts/htmx/get$page.php" hx-vals="js:{id_pays:'$id'}" hx-swap="beforeend show:top swap:0.5s">Consulter</button>
@@ -108,16 +46,45 @@ function addCardCountry($id,$nom,$letter,$page) {
 }
 
 function addSlimCountry($id,$nom,$letter,$page) {
-    return <<<HTML
-        <div class="container-slim bg-354F52">
-            <div class="bandeau-slim"> 
+    if ($page == "pays") {
+        return <<<HTML
+            <div class="bandeau-slim" hx-get="pays.php" hx-vals="js:{id_pays:'$id'}" hx-swap="outerHTML swap:0.5s" hx-target="#zones" hx-select="#zones"> 
                 <!-- <div class="mini-score-box score-$letter">$letter</div> -->
-                <img class="img img-slim" src='assets/img/$id.jpg' alt="Bandeau">
-                <img class="flag-slim" src='assets/twemoji/$id.svg'>
+                <img class="img img-slim" src='assets/mini/$id.jpg' alt="Illustration de $nom">
+                <img class="flag-slim" src='assets/twemoji/$id.svg' alt="Drapeau de $nom">
                 <h2 class="nom-slim">$nom</h2>
-                <div class="buttons-slim">
-                    <button class=button-catalogue id=v-$id hx-get="scripts/htmx/get$page.php" hx-vals="js:{id_pays:'$id'}" hx-swap="beforeend show:top">Consulter</button>
-                </div>
+            </div>
+    HTML;
+    } else if ($page == "comparateur") {
+        return <<<HTML
+            <div class="bandeau-slim" hx-get="scripts/htmx/appendCompare.php" hx-vals="js:{id_pays:'$id',incr:getIncr()}" hx-swap="beforeend"> 
+                <!-- <div class="mini-score-box score-$letter">$letter</div> -->
+                <img class="img img-slim" src='assets/mini/$id.jpg' alt="Illustration de $nom">
+                <img class="flag-slim" src='assets/twemoji/$id.svg' alt="Drapeau de $nom">
+                <h2 class="nom-slim">$nom</h2>
+            </div>
+        HTML;
+    } else if ($page == "explorer") {
+        return <<<HTML
+            <div class="bandeau-slim" hx-get="scripts/htmx/getExplore.php" hx-vals="js:{id_pays:'$id'}" hx-swap="beforeend"> 
+                <!-- <div class="mini-score-box score-$letter">$letter</div> -->
+                <img class="img img-slim" src='assets/mini/$id.jpg' alt="Illustration de $nom">
+                <img class="flag-slim" src='assets/twemoji/$id.svg' alt="Drapeau de $nom">
+                <h2 class="nom-slim">$nom</h2>
+            </div>
+        HTML;
+    }
+    
+}
+
+function addFirstCountry($id,$nom,$letter,$page) {
+    return <<<HTML
+        <div class="container-first bg-354F52" hx-get="UI3_pays.php" hx-vals="js:{id_pays:'$id'}" hx-swap="outerHTML swap:0.5s" hx-target="#grid" hx-select="#grid">
+            <div class="bandeau-first"> 
+                <div class="mini-score-box score-$letter">$letter</div>
+                <img class="img img-first" src='assets/img/$id.jpg' alt="Bandeau">
+                <img class="flag-first" src='assets/twemoji/$id.svg'>
+                <h2 class="nom-first">$nom</h2>
             </div>
         </div>
     HTML;
@@ -137,8 +104,9 @@ function addCardContinent($id,$nom) {
     HTML;
 }
 
+
 function dataLine($pays, $conn) {
-    $query = "SELECT allk.id_pays, allk.annee AS year, co2, elecRenew AS Enr, pibParHab AS pib, cpi, gpi, arriveesTotal*1000 AS arrivees, departs*1000 AS departs
+    $query = "SELECT allk.id_pays, allk.annee AS year, co2, elecRenew, pibParHab, cpi, gpi, arriveesTotal*1000 AS arriveesTotal, departs*1000 AS departs
     FROM (SELECT id_pays, annee FROM economie UNION 
             SELECT id_pays, annee FROM tourisme UNION
             SELECT id_pays, annee FROM surete UNION
@@ -158,7 +126,7 @@ function dataLine($pays, $conn) {
     $minAnnee = array();
     $maxAnnee = array();
     while ($rs = $result->fetch(PDO::FETCH_ASSOC)) {
-        foreach (array("pib","Enr","co2","arrivees","departs","gpi","cpi") as $key => $value) {
+        foreach (array("pibParHab","elecRenew","co2","arriveesTotal","departs","gpi","cpi") as $key => $value) {
             if (!isset($rs[$value])){
                 $rs[$value]=null;
                 if ($rs["year"] == 2020) {
@@ -166,7 +134,7 @@ function dataLine($pays, $conn) {
                 }
             } else {
                 if ($rs["year"] == 2020 && count($data) != 0) {
-                    $covid[$value] = 100*($rs[$value] - $data[count($data)-1][$value]) / $data[count($data)-1][$value];
+                    $covid[$value] = round(100*($rs[$value] - $data[count($data)-1][$value]) / $data[count($data)-1][$value],2);
                 }
                 if (!isset($minAnnee[$value]) || $rs[$value] < $minAnnee[$value]["val"]) {
                     $minAnnee[$value] = array("val"=>$rs[$value], "year"=> $rs["year"]);
@@ -185,7 +153,7 @@ function dataLine($pays, $conn) {
 
     $tables = array("economie","ecologie","ecologie","tourisme","tourisme","surete","economie");
     $cols = array("pibParHab","elecRenew","co2","arriveesTotal","departs","gpi","cpi");
-    foreach (array("pib","Enr","co2","arrivees","departs","gpi","cpi") as $key => $value) {
+    foreach ($cols as $key => $value) {
         $start = 0;
         while ($start < count($data) && $data[$start][$value] == null) {
             $start++;
@@ -201,7 +169,7 @@ function dataLine($pays, $conn) {
             $rank[$value] = "N/A";
         } else {
             $year = $data[$end]['year'];
-            $evol[$value] = 100*($data[$end][$value] - $data[$start][$value]) / $data[$start][$value];
+            $evol[$value] = array("val" => round(100*($data[$end][$value] - $data[$start][$value]) / $data[$start][$value], 2), "start" => $data[$start]['year'], "end" => $year);
 
             $query = "SELECT * FROM (SELECT id_pays, $cols[$key], RANK() OVER (ORDER BY $cols[$key] DESC) AS 'rank' FROM $tables[$key] WHERE annee =  $year) AS t WHERE id_pays = '$pays';";
             $result = $conn->query($query);
@@ -216,16 +184,16 @@ function dataLine($pays, $conn) {
 
 
 function dataMean($conn) {
-    $query = "SELECT annee AS year, AVG(co2) AS co2 FROM ecologie GROUP BY annee;";
+    $query = "SELECT * FROM moyennes ORDER BY year ASC";
 
     $result = $conn->query($query);
 
     $data = array();
     while ($rs = $result->fetch(PDO::FETCH_ASSOC)) {
-        foreach (array("pib","Enr","co2","arrivees","departs","gpi","cpi") as $key => $value) {
+        foreach (array("pibParHab","elecRenew","co2","arriveesTotal","departs","gpi","cpi") as $key => $value) {
             if (!isset($rs[$value])){
                 $rs[$value]=null;
-            } 
+            }
         }
 
         $data[] = $rs;
@@ -234,61 +202,61 @@ function dataMean($conn) {
     return $data;
 }
 
-function dataCompareMeanLine($pays, $conn) {
-    $dataLine = dataLine($pays, $conn)['data'][0];
-    $dataMean = dataMean($conn)[0];
+function dataCompareLine($data1, $data2) {
     $comparaison = array();
-    foreach (array("pib","Enr","co2","arrivees","departs","gpi","cpi") as $value) {
-        if ($dataLine[$value] > $dataMean[$value]) {
-            $comparaison[$value] = "supérieure";
-        } elseif ($dataLine[$value] < $dataMean[$value]) {
-            $comparaison[$value] = "inférieure";
+    foreach (array("pibParHab","elecRenew","co2","arriveesTotal","departs","gpi","cpi") as $value) {
+        $end = count($data1)-1;
+        while ($end >= 0 && $data1[$end][$value] == null) {
+            $end--;
+        }
+
+        if ($end == -1) {
+            $comparaison[$value] = array("year" => null, "val" => null);
         } else {
-            $comparaison[$value] = "égale";
-        }
+            $year = $data1[$end]["year"];
+            $i = count($data2)-1;
+            while ($i >= 0 && $data2[$i]["year"] != $year) {
+                $i--;
+            }
+
+            if ($i == -1) {
+                $comparaison[$value] = array("year" => null, "val" => null);
+            } else {
+                $comparaison[$value] = array("year" => $year, "val" => $data1[$end][$value]/$data2[$i][$value]);
+            }   
+        } 
     }
-    $counts = array_count_values($comparaison);
-    $results = array();
-    foreach ($counts as $comparaison => $count) {
-        if ($comparaison == "supérieure" || $comparaison == "inférieure") {
-            $results[] = array(
-                "val" => $count,
-                "type" => $comparaison
-            );
-        }
-    }
-    return array("val"=>$count, "type"=>$comparaison);
+    return $comparaison;
 }
 
 
 
 
 function dataSpider($pays, $conn) {
-    $query = "SELECT ecologie.annee as annee,
-    pibParHab AS pib, elecRenew AS Enr, co2, arriveesTotal AS arrivees, departs, gpi, cpi
-
-    FROM ecologie_norm AS ecologie, economie_norm AS economie, tourisme_norm AS tourisme, surete_norm AS surete
-    WHERE ecologie.id_pays = economie.id_pays
-    AND economie.id_pays = tourisme.id_pays
-    AND tourisme.id_pays = surete.id_pays
-    AND surete.id_pays = '$pays'
-
-    AND ecologie.annee = economie.annee
-    AND economie.annee = tourisme.annee
-    AND tourisme.annee = surete.annee  
-    ORDER BY `ecologie`.`annee` DESC;
-    ";
+    $query = "SELECT allk.id_pays, allk.annee AS annee, co2 AS 'Emissions de CO2', elecRenew AS '% énergies ren.', pibParHab AS 'PIB/Hab', cpi AS 'CPI', gpi AS 'Global Peace Index', arriveesTotal AS 'Arrivées touristiques', departs AS 'Départs'
+    FROM (SELECT id_pays, annee FROM economie_norm UNION 
+            SELECT id_pays, annee FROM tourisme_norm UNION
+            SELECT id_pays, annee FROM surete_norm UNION
+            SELECT id_pays, annee FROM ecologie_norm
+            ) allk 
+    LEFT OUTER JOIN economie_norm ON allk.id_pays = economie_norm.id_pays AND allk.annee = economie_norm.annee 
+    LEFT OUTER JOIN ecologie_norm ON allk.id_pays = ecologie_norm.id_pays AND allk.annee = ecologie_norm.annee 
+    LEFT OUTER JOIN surete_norm ON allk.id_pays = surete_norm.id_pays AND allk.annee = surete_norm.annee 
+    LEFT OUTER JOIN tourisme_norm ON allk.id_pays = tourisme_norm.id_pays AND allk.annee = tourisme_norm.annee
+    WHERE allk.id_pays = '$pays'
+    ORDER BY allk.annee;";
 
     $result = $conn->query($query);
-
+    
     $data = array();
     while ($rs = $result->fetch(PDO::FETCH_ASSOC)) {
-        $data[$rs["annee"]] = array();
-        foreach (array("pib","Enr","co2","arrivees","departs","gpi","cpi") as $key => $value) {
+        $year = $rs["annee"];
+        $data[$year] = array();
+        foreach (array("PIB/Hab","% énergies ren.","Emissions de CO2","Arrivées touristiques","Départs","Global Peace Index","CPI") as $key => $value) {
             if (!isset($rs[$value])){
                 $rs[$value]=null;
-            } 
-            $data[$rs["annee"]][] = array("var" => $value, "value" => $rs[$value]);
+            }
+            $data[$year][] = array("var" => $value, "value" => $rs[$value]);
         }
     }
 
@@ -298,19 +266,18 @@ function dataSpider($pays, $conn) {
 
 function dataBar($pays, $conn) {
    
-    $query = "SELECT ecologie.annee as annee,
-    pibParHab AS pib, co2, arriveesTotal AS arrivees, gpi, cpi
-
-    FROM ecologie_grow AS ecologie, economie_grow AS economie, tourisme_grow AS tourisme, surete_grow AS surete
-    WHERE ecologie.id_pays = economie.id_pays
-    AND economie.id_pays = tourisme.id_pays
-    AND tourisme.id_pays = surete.id_pays
-    AND surete.id_pays = '$pays'
-
-    AND ecologie.annee = economie.annee
-    AND economie.annee = tourisme.annee
-    AND tourisme.annee = surete.annee  
-    ORDER BY `ecologie`.`annee` DESC;
+    $query = "SELECT allk.id_pays, allk.annee AS annee, co2, pibParHab, cpi, gpi, arriveesTotal
+    FROM (SELECT id_pays, annee FROM economie_grow UNION 
+            SELECT id_pays, annee FROM tourisme_grow UNION
+            SELECT id_pays, annee FROM surete_grow UNION
+            SELECT id_pays, annee FROM ecologie_grow
+            ) allk 
+    LEFT OUTER JOIN economie_grow ON allk.id_pays = economie_grow.id_pays AND allk.annee = economie_grow.annee 
+    LEFT OUTER JOIN ecologie_grow ON allk.id_pays = ecologie_grow.id_pays AND allk.annee = ecologie_grow.annee 
+    LEFT OUTER JOIN surete_grow ON allk.id_pays = surete_grow.id_pays AND allk.annee = surete_grow.annee 
+    LEFT OUTER JOIN tourisme_grow ON allk.id_pays = tourisme_grow.id_pays AND allk.annee = tourisme_grow.annee
+    WHERE allk.id_pays = '$pays' AND allk.annee >= 1995 AND allk.annee <= 2021
+    ORDER BY allk.annee;
     ";
 
     $result = $conn->query($query);
@@ -318,7 +285,7 @@ function dataBar($pays, $conn) {
     $data = array();
     while ($rs = $result->fetch(PDO::FETCH_ASSOC)) {
         $data[$rs["annee"]] = array();
-        foreach (array("pib","co2","arrivees","gpi","cpi") as $key => $value) {
+        foreach (array("pibParHab","co2","arriveesTotal","gpi","cpi") as $key => $value) {
             if (!isset($rs[$value])){
                 $rs[$value]=null;
             } 
@@ -330,21 +297,16 @@ function dataBar($pays, $conn) {
 }
 
 function dataBarreLine($pays, $conn) {
-    $query = "SELECT ecologie.annee as annee,
-    pibParHab AS pib, co2, arriveesTotal AS arrivees, gpi, cpi
+    $query = "SELECT tourisme.annee as annee, pibParHab, arriveesTotal
 
-    FROM ecologie_grow AS ecologie, economie AS economie, tourisme AS tourisme, surete_grow AS surete, pays
-    WHERE ecologie.id_pays = economie.id_pays
-    AND economie.id_pays = tourisme.id_pays
-    AND tourisme.id_pays = surete.id_pays
-    AND surete.id_pays = pays.id
+    FROM economie, tourisme, pays
+    WHERE economie.id_pays = tourisme.id_pays
+    AND economie.id_pays = pays.id
     AND pays.id = '$pays'
    
-    AND ecologie.annee = economie.annee
     AND economie.annee = tourisme.annee
-    AND tourisme.annee = surete.annee 
 
-    ORDER BY `ecologie`.`annee` ASC;
+    ORDER BY `tourisme`.`annee` ASC;
     ";
 
     $result = $conn->query($query);
@@ -360,30 +322,28 @@ function dataBarreLine($pays, $conn) {
     while ($rs = $result->fetch(PDO::FETCH_ASSOC)) {
         $data[] = array(
             "year" => $rs['annee'],
-            "value" => $rs['pib'],
-            "valueLeft" => $rs['arrivees']
+            "value" => $rs['pibParHab'],
+            "valueLeft" => $rs['arriveesTotal']
         );
 
-        // Min et Max pour les indicateurs PIB et Tourisme
-        if (count($minPib) == 0  || $rs['pib'] < $minPib['value']) {
-            $minPib = array("year" => $rs["annee"], "value" => $rs['pib']);
+        // Min et Max pour les indicateurs
+        if (count($minPib) == 0 || $rs['pibParHab'] < $minPib['value']) {
+            $minPib = array("year" => $rs["annee"], "value" => $rs['pibParHab']);
         }
-        if (count($maxPib) == 0 || $rs['pib'] > $maxPib['value']) {
-            $maxPib = array("year" => $rs["annee"], "value" => $rs['pib']);
+        if (count($maxPib) == 0 || $rs['pibParHab'] > $maxPib['value']) {
+            $maxPib = array("year" => $rs["annee"], "value" => $rs['pibParHab']);
         }
-        if (count($minTourisme) == 0 || $rs['arrivees'] < $minTourisme['value']) {
-            $minTourisme = array("year" => $rs["annee"], "value" => $rs['arrivees']);
+        if (count($minTourisme) == 0 || $rs['arriveesTotal'] < $minTourisme['value']) {
+            $minTourisme = array("year" => $rs["annee"], "value" => $rs['arriveesTotal']);
         }
-        if (count($maxTourisme) == 0  || $rs['arrivees'] > $maxTourisme['value']) {
-            $maxTourisme = array("year" => $rs["annee"], "value" => $rs['arrivees']);
+        if (count($maxTourisme) == 0 || $rs['arriveesTotal'] > $maxTourisme['value']) {
+            $maxTourisme = array("year" => $rs["annee"], "value" => $rs['arriveesTotal']);
         }
 
         // Impact du covid
-        if ($rs['annee'] == 2020) {
-            $covidImpactPib = ($rs['pib'] - $data[count($data) - 2]['value']) / $data[count($data) - 2]['value'] * 100;
-        }
-        if ($rs['annee'] == 2020) {
-            $covidImpactTourisme = ($rs['arrivees'] - $data[count($data) - 2]['valueLeft']) / $data[count($data) - 2]['valueLeft'] * 100;
+        if ($rs['annee'] == 2020 && $rs['arriveesTotal'] != null) {
+            $covidImpactPib = 100*($rs['pibParHab'] - $data[count($data)-1]['value']) / $data[count($data)-1]['value'];
+            $covidImpactTourisme = 100*($rs['arriveesTotal'] - $data[count($data)-1]['valueLeft']) / $data[count($data)-1]['valueLeft'];
         }
     }
 
@@ -400,29 +360,75 @@ function dataBarreLine($pays, $conn) {
 
 
 function dataTab($pays, $conn) {
-    $query = "SELECT ecologie.annee as annee, pibParHab AS pib, elecRenew AS Enr, co2, arriveesTotal AS arrivees, departs, gpi, cpi
-    FROM ecologie, economie, tourisme, surete 
-    WHERE ecologie.id_pays = economie.id_pays
-    AND economie.id_pays = tourisme.id_pays
-    AND tourisme.id_pays = surete.id_pays
-    AND surete.id_pays = '$pays'
-    AND ecologie.annee = economie.annee
-    AND economie.annee = tourisme.annee
-    AND tourisme.annee = surete.annee  
-    ORDER BY `ecologie`.`annee` DESC;
-    ";
+    $query = "SELECT allk.id_pays, allk.annee AS annee, co2, elecRenew, pibParHab, gpi, arriveesTotal*1000 AS 'arriveesTotal', departs*1000 AS 'departs'
+    FROM (SELECT id_pays, annee FROM economie UNION 
+            SELECT id_pays, annee FROM tourisme UNION
+            SELECT id_pays, annee FROM surete UNION
+            SELECT id_pays, annee FROM ecologie
+            ) allk 
+    LEFT OUTER JOIN economie ON allk.id_pays = economie.id_pays AND allk.annee = economie.annee 
+    LEFT OUTER JOIN ecologie ON allk.id_pays = ecologie.id_pays AND allk.annee = ecologie.annee 
+    LEFT OUTER JOIN surete ON allk.id_pays = surete.id_pays AND allk.annee = surete.annee 
+    LEFT OUTER JOIN tourisme ON allk.id_pays = tourisme.id_pays AND allk.annee = tourisme.annee
+    WHERE allk.id_pays = '$pays'
+    ORDER BY allk.annee;";
 
     $result = $conn->query($query);
 
+    $tables = array("economie","ecologie","ecologie","tourisme","tourisme","surete","economie");
+    $cols = array("pibParHab","elecRenew","co2","arriveesTotal","departs","gpi","cpi");
+
     $data = array();
     while ($rs = $result->fetch(PDO::FETCH_ASSOC)) {
-        $data[$rs["annee"]] = array();
-        foreach (array("pib","Enr","co2","arrivees","departs","gpi","cpi") as $key => $value) {
+        $year = $rs["annee"];
+        $data[$year] = array();
+        foreach (array("pibParHab","elecRenew","co2","arriveesTotal","departs","gpi","cpi") as $key => $value) {
             if (!isset($rs[$value])){
                 $rs[$value]=null;
-            } 
-            $data[$rs["annee"]][] = array("var" => $value, "value" => $rs[$value]);
+                $rank = null;
+            } else {
+                $queryR = "SELECT * FROM (SELECT id_pays, $cols[$key], RANK() OVER (ORDER BY $cols[$key] DESC) AS 'rank' FROM $tables[$key] WHERE annee =  $year) AS t WHERE id_pays = '$pays';";
+                $resRank = $conn->query($queryR);
+                $rsR = $resRank->fetch(PDO::FETCH_ASSOC);
+                $rank = $rsR["rank"];
+            }
+            $data[$rs["annee"]][] = array("var" => $value, "value" => $rs[$value],"rank" => $rank);
         }
+    }
+
+    return $data;
+}
+
+function dataExplorer($conn) {
+    $tables = array("economie","ecologie","ecologie","tourisme","tourisme","surete","economie");
+    $cols = array("pibParHab","elecRenew","co2","arriveesTotal","departs","gpi","cpi");
+    $years = array("pibParHab"=>2021,"elecRenew"=>2020,"co2"=>2020,"arriveesTotal"=>2022,"departs"=>2022,"gpi"=>2023,"cpi"=>2021);
+    $data = array();
+
+    $query = "SELECT id, score, nom, RANK() OVER (ORDER BY score DESC) AS 'scorerank' FROM pays;";
+    $result = $conn->query($query);
+    while ($rs = $result->fetch(PDO::FETCH_ASSOC)) {
+        $data[$rs["id"]] = array("id"=>$rs["id"], "score"=>$rs["score"], "scorerank"=>$rs["scorerank"], "nom"=>$rs["nom"],"pibParHab"=>null,"elecRenew"=>null,"co2"=>null,"arriveesTotal"=>null,"departs"=>null,"gpi"=>null,"cpi"=>null,"pibParHabrank"=>667,"elecRenewrank"=>667,"co2rank"=>667,"arriveesTotalrank"=>667,"departsrank"=>667,"gpirank"=>667,"cpirank"=>667);
+    }
+
+    foreach ($cols as $key => $value) {
+        $query = "SELECT id_pays, $value, RANK() OVER (ORDER BY $value DESC) AS 'rank' FROM $tables[$key] WHERE annee = $years[$value];";
+        $result = $conn->query($query);
+        while ($rs = $result->fetch(PDO::FETCH_ASSOC)) {
+            if (isset($rs[$value])){
+                if ($value == "arriveesTotal" || $value == "departs") {
+                    $rs[$value]*=1000;
+                }
+                $data[$rs["id_pays"]][$value] = $rs[$value];
+                $data[$rs["id_pays"]][$value.'rank'] = $rs["rank"];
+            }
+        }
+    }
+
+    $i = 0;
+    foreach ($data as $key => $value) {
+        $data[$i++] = $data[$key];
+        unset($data[$key]);
     }
 
     return $data;
@@ -444,7 +450,7 @@ function carousel($conn) {
         <a class="prev" onclick="plusSlides(-1)">❮</a>
 
         <div class="text-center">
-            <img id="logo-carousel" src="assets/img/eco.png">
+            <img id="logo-carousel" src="assets/img/eco.png" alt="Logo TourismEco">
             <h1>Ecotourisme</h1>
             <h2>Partez à la découverte du monde</h2>
         </div>
@@ -457,10 +463,10 @@ function carousel($conn) {
     foreach ($images as $image):
         echo <<<HTML
         <div class="custom-slider">
-            <img class="slide-img" src="assets/img/$image[id].jpg" >
+            <img class="slide-img" src="assets/img/$image[id].jpg" alt="Illustration de $image[nom]">
             <a class="slide-link" href="pays.php?id_pays=$image[id]">
                 <div class="slide-text">
-                    <img class="slide-logo" src="assets/twemoji/$image[id].svg" alt="Logo SVG">
+                    <img class="slide-logo" src="assets/twemoji/$image[id].svg" alt="Drapeau de $image[nom]">
                     <p>$image[nom]</p>
                 </div>
             </a>
@@ -612,4 +618,55 @@ function getAirplaneModel($idRoute){
     }
     $conn = null;
     return $airplane;
+}
+
+function getCities($id_pays, $cur) {
+    $query = "SELECT * FROM villes WHERE id_pays = :id_pays and capitale = :is_capitale";
+    $sth = $cur->prepare($query);
+    $is_capitale = 1;
+    $sth->bindParam(":id_pays", $id_pays, PDO::PARAM_STR);
+    $sth->bindParam(":is_capitale", $is_capitale, PDO::PARAM_INT);
+    $sth->execute();
+    $ligne = $sth->fetch();
+
+    $query = "SELECT * FROM villes WHERE id_pays = :id_pays";
+    $id_pays = $_GET["id_pays"];
+    $sth = $cur -> prepare($query);
+    $sth -> bindParam(":id_pays", $id_pays, PDO::PARAM_STR);
+    $sth -> execute();
+
+    $cities = array();
+    $capitals = array();
+    while ($rs = $sth->fetch()) {
+        if (!$rs["capitale"]) {
+            $cities[] = array(
+                "id"=>$rs["id"], 
+                "title"=>$rs["nom"], 
+                "geometry"=>array(
+                    "type"=>"Point",
+                    "coordinates"=>array($rs["lon"],$rs["lat"])
+                )
+            );
+        } else {
+            $capitals[] = array(
+                "id"=>$rs["id"], 
+                "title"=>$rs["nom"], 
+                "geometry"=>array(
+                    "type"=>"Point",
+                    "coordinates"=>array($rs["lon"],$rs["lat"])
+                )
+            );
+        }
+    }
+
+    return array("cities"=>$cities, "capitals"=>$capitals);
+}
+
+
+function checkHTMX($page, $hx_page) {
+    $hx = explode("/",$hx_page);
+    if ($hx[2] == "localhost" || $hx[2] == "tourismeco.fr") {
+        return $hx[count($hx)-1] == $page.".php";
+    }
+    return false;
 }

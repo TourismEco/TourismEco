@@ -1,5 +1,21 @@
 <?php
+
+if (!isset($_SERVER["HTTP_HX_REQUEST"])) {
+    header("HTTP/1.1 401");
+    exit;
+}
+
+if (!isset($_GET["id_pays"])) {
+    header("HTTP/1.1 400");
+    exit;
+}
+
 require("../../functions.php");
+
+if (!checkHTMX("pays", $_SERVER["HTTP_HX_CURRENT_URL"])) {
+    header("HTTP/1.1 401");
+    exit;
+}
 
 $cur = getDB();
 
@@ -19,12 +35,6 @@ if (!in_array($id_pays, $_SESSION["historique"])) {
     }
 }
 
-if (isset($_GET["map"])) {
-    $map = "false";
-} else {
-    $map = "true";
-}
-
 // Nom
 $query = "SELECT * FROM pays WHERE id = :id_pays";
 $sth = $cur->prepare($query);
@@ -36,270 +46,89 @@ $description = $ligne["description"];
 $letter = getLetter($ligne["score"]);
 
 // Capitale
-$query = "SELECT * FROM villes WHERE id_pays = :id_pays and capitale = :is_capitale";
-$sth = $cur->prepare($query);
-$is_capitale = 1;
-$sth->bindParam(":id_pays", $id_pays, PDO::PARAM_STR);
-$sth->bindParam(":is_capitale", $is_capitale, PDO::PARAM_INT);
-$sth->execute();
-$ligne = $sth->fetch();
-$capitale = $ligne["nom"];
+$c = getCities($id_pays, $cur);
+$cities = json_encode($c["cities"]);
+$capitals = json_encode($c["capitals"]);
 
-
-$query = "SELECT * FROM economie WHERE id_pays = :id_pays and annee = :annee";
-$sth = $cur->prepare($query);
-$annee = 2021;
-$sth->bindParam(":id_pays", $id_pays, PDO::PARAM_STR);
-$sth->bindParam(":annee", $annee, PDO::PARAM_INT);
-$sth->execute();
-$ligne = $sth->fetch();
-$pib = $ligne["pibParHab"];
-      
-$query = "SELECT * FROM ecologie WHERE id_pays = :id_pays and annee = :annee";
-$sth = $cur->prepare($query);
-$annee = 2020;
-$sth->bindParam(":id_pays", $id_pays, PDO::PARAM_STR);
-$sth->bindParam(":annee", $annee, PDO::PARAM_INT);
-$sth->execute();
-$ligne = $sth->fetch();
-$co2 = $ligne["co2"];
-
-$query = "SELECT * FROM tourisme WHERE id_pays = :id_pays and annee = :annee";
-$sth = $cur->prepare($query);
-$annee = 2021;
-$sth->bindParam(":id_pays", $id_pays, PDO::PARAM_STR);
-$sth->bindParam(":annee", $annee, PDO::PARAM_INT);
-$sth->execute();
-$ligne = $sth->fetch();
-$arrivees = $ligne["arriveesTotal"];
-
-$query = "SELECT * FROM surete WHERE id_pays = :id_pays and annee = :annee";
-$sth = $cur->prepare($query);
-$annee = 2023;
-$sth->bindParam(":id_pays", $id_pays, PDO::PARAM_STR);
-$sth->bindParam(":annee", $annee, PDO::PARAM_INT);
-$sth->execute();
-$ligne = $sth->fetch();
-$gpi = $ligne["gpi"];
-
-$query = "SELECT * FROM villes WHERE id_pays = :id_pays";
-$id_pays = $_GET["id_pays"];
-$sth = $cur -> prepare($query);
-$sth -> bindParam(":id_pays", $id_pays, PDO::PARAM_STR);
-$sth -> execute();
-
-$cities = array();
-$capitals = array();
-while ($rs = $sth->fetch()) {
-    if (!$rs["capitale"]) {
-        $cities[] = array(
-            "id"=>$rs["id"], 
-            "title"=>$rs["nom"], 
-            "geometry"=>array(
-                "type"=>"Point",
-                "coordinates"=>array($rs["lon"],$rs["lat"])
-            )
-        );
-    } else {
-        $capitals[] = array(
-            "id"=>$rs["id"], 
-            "title"=>$rs["nom"], 
-            "geometry"=>array(
-                "type"=>"Point",
-                "coordinates"=>array($rs["lon"],$rs["lat"])
-            )
-        );
-    }
-}
-
-$cities = json_encode($cities);
-$capitals = json_encode($capitals);
+$dataLine = dataLine($id_pays, $cur);
+$dataLineMean = dataMean($cur);
+$dataLine["comp"] = dataCompareLine($dataLine["data"],$dataLineMean);
 
 $dataSpider = json_encode(dataSpider($id_pays, $cur),JSON_NUMERIC_CHECK);
-$dataLineAll = dataLine($id_pays, $cur);
-$dataLineMean = json_encode(dataMean($cur),JSON_NUMERIC_CHECK);
+$dataLine = json_encode($dataLine,JSON_NUMERIC_CHECK);
+$dataLineMean = json_encode($dataLineMean,JSON_NUMERIC_CHECK);
 $dataBar = json_encode(dataBar($id_pays, $cur),JSON_NUMERIC_CHECK);
 $dataTab = json_encode(dataTab($id_pays, $cur),JSON_NUMERIC_CHECK);
 
-//Graphique Line
-// Construction des données pour le graphique en ligne
-$covidLine = $dataLineAll['covid']['co2'];
-$rankLine = $dataLineAll['rank']['co2']['rank'];
-$rankLineYear = $dataLineAll['rank']['co2']['year'];
-$minYearLine = $dataLineAll['min']['co2']['year'];
-$minValueLine = $dataLineAll['min']['co2']['val'];
-$maxYearLine = $dataLineAll['max']['co2']['year'];
-$maxValueLine = $dataLineAll['max']['co2']['val'];
-$dataLine = json_encode($dataLineAll['data'],JSON_NUMERIC_CHECK);
-$compareMeanLine = dataCompareMeanLine($id_pays, $cur);
+//Graphique Barre Line
+$allBareLine = dataBarreLine($id_pays, $cur);
 
-// Construction des données pour le graphique en barre
-$dataBarreLine = dataBarreLine($id_pays, $cur);
-$dataBarreL = json_encode($dataBarreLine['data'],JSON_NUMERIC_CHECK);
-$dataBLcovidImpactPib = $dataBarreLine['covidImpactPib'];
-$dataBLcovidImpactTourisme = $dataBarreLine['covidImpactTourisme'];
+$dataBarreLine= json_encode($allBareLine['data'],JSON_NUMERIC_CHECK);
+$dataBLMinYearPIB= json_encode($allBareLine['minPib']['year'],JSON_NUMERIC_CHECK);
+$dataBLMinValPIB= json_encode($allBareLine['minPib']['value'],JSON_NUMERIC_CHECK);
+$dataBLMaxYearPIB= json_encode($allBareLine['maxPib']['year'],JSON_NUMERIC_CHECK);
+$dataBLMaxValPIB= json_encode($allBareLine['maxPib']['value'],JSON_NUMERIC_CHECK);
 
-// Construction des données pour le tableau de valeurs minimales et maximales
-$dataBLMinYearPIB= $dataBarreLine['minPib']['year'];
-$dataBLMinValPIB= $dataBarreLine['minPib']['value'];
-$dataBLMaxYearPIB= $dataBarreLine['maxPib']['year'];
-$dataBLMaxValPIB= $dataBarreLine['maxPib']['value'];
-$dataBLMinValTourism= $dataBarreLine['minTourisme']['value'];
-$dataBLMinYearTourism= $dataBarreLine['minTourisme']['year'];
-$dataBLMaxValTourism=$dataBarreLine['maxTourisme']['value'];
-$dataBLMaxYearTourism= $dataBarreLine['maxTourisme']['year'];
+$dataBLMinValTourism= json_encode($allBareLine['minTourisme']['value'],JSON_NUMERIC_CHECK);
+$dataBLMinYearTourism= json_encode($allBareLine['minTourisme']['year'],JSON_NUMERIC_CHECK);
+$dataBLMaxValTourism= json_encode($allBareLine['maxTourisme']['value'],JSON_NUMERIC_CHECK);
+$dataBLMaxYearTourism= json_encode($allBareLine['maxTourisme']['year'],JSON_NUMERIC_CHECK);
+
+$dataBLcovidImpactPib= json_encode($allBareLine['covidImpactPib'],JSON_NUMERIC_CHECK);
+$dataBLcovidImpactTourisme= json_encode($allBareLine['covidImpactTourisme'],JSON_NUMERIC_CHECK);
 
 //$dataBarPays = json_encode(dataBarPays($id_pays, $cur),JSON_NUMERIC_CHECK);
 
+$id_client = $_SESSION['user']['username'];
+$id_pays = $_GET['id_pays'];
+$query = "SELECT COUNT(id_client) FROM favoris WHERE id_pays = :id_pays AND id_client = :id_client";
+$sth = $cur->prepare($query);
+$sth->bindParam(":id_pays", $id_pays, PDO::PARAM_STR);
+$sth->bindParam(":id_client", $id_client, PDO::PARAM_STR);
+$sth->execute();
+
+if ($sth->fetchColumn() > 0) {
+    $favorite = "assets/icons/heart_full.png";
+} else {
+    $favorite = "assets/icons/heart.png";
+}
+
 echo <<<HTML
 
-    <div class="bandeau" id="bandeau0" hx-swap-oob="outerHTML">     
-        <img class="img" src='assets/img/$id_pays.jpg' alt="Bandeau">
-        <img class="flag" src='assets/twemoji/$id_pays.svg'>
-        <h1 class="nom">$nom</h1>
-        <p class="capital">Capitale : $capitale</p>
-        <img id="favorite" src="assets/img/heart.png" hx-get="scripts/htmx/getFavorite.php" hx-trigger="click" hx-swap="outerHTML" hx-vals="js:{id_pays:'{$ligne['id_pays']}'}">
-        <!-- <img id="favorite" src="assets/img/heart_full.png"> -->
-    </div>
-
-    <div class="container-side bg-354F52" id="mini0" hx-swap-oob="outerHTML">
-        <div class="bandeau-side"> 
-            <img class="img img-side" src='assets/img/$id_pays.jpg' alt="Bandeau">
-            <img class="flag-small" src='assets/twemoji/$id_pays.svg'>
-            <h2 class="nom-small">$nom</h2>
-            <div class="close-compare">
-            <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
-            <g>
-                <path d="M358.4,133.1v71.7h-256v46.1L0,169l102.4-87v51.2H358.4 M512,348.2l-102.4,81.9V384h-256v-71.7h256v-51.2L512,348.2"/>
-            </g>
-            </svg>                 
-            </div>
+<div class="container-presentation expand-3" id="bandeau0" hx-swap-oob="outerHTML">
+    <div class="bandeau"> 
+        <img class="img-side img" src='assets/img/$id_pays.jpg' alt="Bandeau">
+            <img class="favorite" id="favorite" src=$favorite hx-get="scripts/htmx/getFavorite.php" hx-trigger="click" hx-swap="outerHTML" hx-vals="js:{id_pays:'$id_pays'}">
+        <div class="flag-plus-nom">
+            <img class="flag" src='assets/twemoji/$id_pays.svg'>
+            <h2 class="nom">$nom</h2>
         </div>
     </div>
+</div>
 
-    <div id="score" class="score-box score-$letter" hx-swap-oob="outerHTML">$letter</div>
+<div class="container-presentation" id="score0" hx-swap-oob="outerHTML">
+    <div class="score-box score-$letter">$letter</div>
+</div>
 
-    <div class="container-even" id="indicateurs" hx-swap-oob="outerHTML">
-        <div class="container-indic">
-            <h3>Émissions de CO2</h3>
-            <p>$co2</p>
-        </div>
-        <div class="container-indic">
-            <h3>PIB/habitant</h3>
-            <p>$pib</p>
-        </div>
-        <div class="container-indic">
-            <h3>Indice de sûreté</h3>
-            <p>$gpi</p>
-        </div>
-        <div class="container-indic">
-            <h3>Arrivées</h3>
-            <p>$arrivees</p>
-        </div>
-    </div>
+<div class="container-presentation expand-3" id="description0" hx-swap-oob="outerHTML">
+    <p class="paragraphe">$description</p>
+</div>
 
-    <div id="descip" hx-swap-oob="outerHTML">
-        <p class="text-full">$description</p>
-    </div>
+<p class="name" id="nom0" hx-swap-oob="outerHTML">$nom</p>
 
-    <div id="catalogue" hx-swap-oob="outerHTML"></div>
+<img class="flag-small" id="flag-bot" hx-swap-oob="outerHTML" src='assets/twemoji/$id_pays.svg'>
 
-    <div class="container-even" id="graphLine" hx-swap-oob="outerHTML">
-        <div class="container-indic">
-            <h3>Impact du covid sur le pays</h3>
-            <p>$covidLine</p>
-            <h3>Rang du pays en $rankLineYear </h3> 
-            <p>$rankLine</p>
-            <h3>Minimum atteint en $minYearLine</h3>
-            <p> $minValueLine</p>
-            <h3>Maximum atteint en $maxYearLine</h3>
-            <p> $maxValueLine</p>
-            <h3>Le pays pour la dernière années est $compareMeanLineVal fois $compareMeanLineType à la moyenne </h3>
+<script id=orders hx-swap-oob=outerHTML>
+    spiderHTMX(0, $dataSpider, $dataTab, "$nom")
+    barreLineHTMX($dataBarreLine, "$nom")
+    linePaysHTMX($dataLine, $dataLineMean, "$nom")
+    // topHTMX($dataBar, "$nom")
 
-        </div>
-    </div>
-
-    <div class="container-even" id="graphBarLine" hx-swap-oob="outerHTML">
-        <div class="container-indic">
-            <h3> Impact du covid sur le tourisme :</h3>
-            <p> $dataBLcovidImpactTourisme </p>
-
-            <h3> Impact du covid sur le PIB :</h3>
-            <p> $dataBLcovidImpactPib </p>
-
-            <h3>Valeurs minimales et maximales</h2>
-            <table>
-                <tr>
-                    <th>Indicateur</th>
-                    <th>Type</th>
-                    <th>Année</th>
-                    <th>Valeur</th>
-                </tr>
-                <tr>
-                    <td colspan="4"><hr></td>
-                </tr>
-                <tr>
-                    <td><strong>PIB</strong></td>
-                    <td>Minimum</td>
-                    <td>$dataBLMinYearPIB</td>
-                    <td>$dataBLMinValPIB</td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>Maximum</td>
-                    <td>$dataBLMaxYearPIB</td>
-                    <td>$dataBLMaxValPIB</td>
-                </tr>
-                <tr>
-                    <td colspan="4"><hr></td>
-                </tr>
-                <tr>
-                    <td><strong>Tourisme</strong></td>
-                    <td>Minimum</td>
-                    <td>$dataBLMinYearTourism</td>
-                    <td>$dataBLMinValTourism</td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>Maximum</td>
-                    <td>$dataBLMaxYearTourism</td>
-                    <td>$dataBLMaxValTourism</td>
-                </tr>
-            </table>
-        </div>
-        <br><br>
-    </div>
+    miniMap[0].zoomTo("$id_pays")
+    miniMap[0].addCities($cities)
+    miniMap[0].addCapitals($capitals)
+</script>
 
 HTML;
-
-
-
-    if ($map) {
-        echo <<<HTML
-            <script id=scripting hx-swap-oob=outerHTML>
-                spiderHTMX( $dataSpider, $dataTab, "$nom")
-                barreLineHTMX($dataBarreL, "$nom")
-                linePaysHTMX($dataLine, $dataLineMean, "$nom")
-                topHTMX($dataBar, "$nom")
-            
-                map.zoomTo("$id_pays")
-                map.addCapitals($capitals)
-                map.addCities($cities)        
-            </script>
-        HTML;
-    } else {
-        echo <<<HTML
-            <script id=scripting hx-swap-oob=outerHTML>
-                spiderHTMX( $dataSpider, $dataTab, "$nom")
-                barreLineHTMX($dataBarreL, "$nom")
-                linePaysHTMX($dataLine, $dataLineMean, "$nom")
-                topHTMX($dataBar, "$nom")
-
-                map.addCapitals($capitals)
-                map.addCities($cities)               
-            </script>
-        HTML;
-    }
 
 ?>
