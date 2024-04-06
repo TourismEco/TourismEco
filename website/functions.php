@@ -437,7 +437,7 @@ function dataExplorer($conn) {
 function carousel($conn) {
     $query = "SELECT id, nom FROM pays
             ORDER BY RAND()
-            LIMIT 5";
+            LIMIT 10";
     $result = $conn->prepare($query);
     $result->execute();
     $images = $result->fetchAll(PDO::FETCH_ASSOC);
@@ -451,7 +451,7 @@ function carousel($conn) {
 
         <div class="text-center">
             <img id="logo-carousel" src="assets/img/eco.png" alt="Logo TourismEco">
-            <h1>Ecotourisme</h1>
+            <p class="hHome">TourismEco</p>
             <h2>Partez à la découverte du monde</h2>
         </div>
         

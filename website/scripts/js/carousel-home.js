@@ -13,6 +13,8 @@ function currentSlide(n) {
     showSlides(slideIndex = n);
 }
 
+
+
 // Fonction pour gérer le clic sur le slider
 function clickSlider() {
     userClicked = true; 
