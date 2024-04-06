@@ -20,7 +20,7 @@
             <h2 style="font-size:20px;">Modifier votre profil</h2>
 
             <div class="connexion-container">
-                    <form id="loginForm" action="Profil/modif.php" method="post" onsubmit="return validateForm()">
+                    <form id="loginForm" action="scripts/profil/modif.php" method="post" onsubmit="return validateForm()">
                         <label for="country">Pays actuel</label>
                         <input type="text" id="country_register" name="country" placeholder=<?php echo $_SESSION['user']['country'] ?> required autocomplete="off"
                             hx-get="scripts/htmx/listPays.php" hx-trigger="keyup[this.value.trim().length > 0] changed delay:0.5s" hx-vals='js:{search: getSearchValue("country_register"), sens:"register"}'>

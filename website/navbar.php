@@ -16,7 +16,7 @@
     <?php
     if (isset($_SESSION['user'])) {
         echo '<a href="profil.php" aria-label="Profil">Profil</a>';
-        echo '<a href="Profil/deconnexion.php" aria-label="Déconnexion">Déconnexion</a>';
+        echo '<a href="assets/profil/deconnexion.php" aria-label="Déconnexion">Déconnexion</a>';
     } else {
         echo '<a href="inscription.php" aria-label="Inscription">S\'inscrire</a>';
         echo '<a href="connexion.php" aria-label="Connexion">Se connecter</a>';
