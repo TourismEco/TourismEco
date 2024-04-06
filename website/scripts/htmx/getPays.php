@@ -43,6 +43,9 @@ $sth->execute();
 $ligne = $sth->fetch();
 $nom = $ligne["nom"];
 $description = $ligne["description"];
+$sv1 = explode(" : ",htmlspecialchars($ligne["sv1"]));
+$sv2 = explode(" : ",htmlspecialchars($ligne["sv2"]));
+$sv3 = explode(" : ",htmlspecialchars($ligne["sv3"]));
 $letter = getLetter($ligne["score"]);
 
 // Capitale
@@ -106,8 +109,32 @@ echo <<<HTML
     </div>
 </div>
 
-<div class="container-presentation" id="score0" hx-swap-oob="outerHTML">
-    <div class="score-box score-$letter">$letter</div>
+<div class="scroll expand-3" id="description0" hx-swap-oob="outerHTML">
+    <div class="scroll-buttons">
+        <div class="scroll-dot dot-active" id="scrb0" data-index="0"></div>
+        <div class="scroll-dot" id="scrb1" data-index="1"></div>
+        <div class="scroll-dot" id="scrb2" data-index="2"></div>
+        <div class="scroll-dot" id="scrb3" data-index="3"></div>
+    </div>
+
+    <div class="container-scrollable" id="scr">
+        <div class="allow-scroll">
+            <h3 class="h3-scroll">Description</h3>
+            <p class="paragraphe">$description</p>
+        </div>
+        <div class="allow-scroll">
+            <h3 class="h3-scroll">$sv1[0]</h3>
+            <p class="paragraphe">$sv1[1]</p>
+        </div>
+        <div class="allow-scroll">
+            <h3 class="h3-scroll">$sv2[0]</h3>
+            <p class="paragraphe">$sv2[1]</p>
+        </div>
+        <div class="allow-scroll">
+            <h3 class="h3-scroll">$sv3[0]</h3>
+            <p class="paragraphe">$sv3[1]</p>
+        </div>
+    </div>
 </div>
 
 <div class="container-presentation expand-3" id="description0" hx-swap-oob="outerHTML">

@@ -106,15 +106,17 @@ function addCardContinent($id,$nom) {
 
 
 function dataLine($pays, $conn) {
-    $query = "SELECT allk.id_pays, allk.annee AS year, co2, elecRenew, pibParHab, cpi, gpi, arriveesTotal*1000 AS arriveesTotal, departs*1000 AS departs
+    $query = "SELECT allk.id_pays, allk.annee AS year, co2, elecRenew, pibParHab, idh, gpi, arriveesTotal*1000 AS arriveesTotal, departs*1000 AS departs
     FROM (SELECT id_pays, annee FROM economie UNION 
             SELECT id_pays, annee FROM tourisme UNION
             SELECT id_pays, annee FROM surete UNION
+            SELECT id_pays, annee FROM idh UNION
             SELECT id_pays, annee FROM ecologie
             ) allk 
     LEFT OUTER JOIN economie ON allk.id_pays = economie.id_pays AND allk.annee = economie.annee 
     LEFT OUTER JOIN ecologie ON allk.id_pays = ecologie.id_pays AND allk.annee = ecologie.annee 
     LEFT OUTER JOIN surete ON allk.id_pays = surete.id_pays AND allk.annee = surete.annee 
+    LEFT OUTER JOIN idh ON allk.id_pays = idh.id_pays AND allk.annee = idh.annee 
     LEFT OUTER JOIN tourisme ON allk.id_pays = tourisme.id_pays AND allk.annee = tourisme.annee
     WHERE allk.id_pays = '$pays'
     ORDER BY allk.annee;";
@@ -126,7 +128,7 @@ function dataLine($pays, $conn) {
     $minAnnee = array();
     $maxAnnee = array();
     while ($rs = $result->fetch(PDO::FETCH_ASSOC)) {
-        foreach (array("pibParHab","elecRenew","co2","arriveesTotal","departs","gpi","cpi") as $key => $value) {
+        foreach (array("pibParHab","elecRenew","co2","arriveesTotal","departs","gpi","idh") as $key => $value) {
             if (!isset($rs[$value])){
                 $rs[$value]=null;
                 if ($rs["year"] == 2020) {
@@ -151,8 +153,8 @@ function dataLine($pays, $conn) {
     $evol = array();
     $rank = array();
 
-    $tables = array("economie","ecologie","ecologie","tourisme","tourisme","surete","economie");
-    $cols = array("pibParHab","elecRenew","co2","arriveesTotal","departs","gpi","cpi");
+    $tables = array("economie","ecologie","ecologie","tourisme","tourisme","surete","idh");
+    $cols = array("pibParHab","elecRenew","co2","arriveesTotal","departs","gpi","idh");
     foreach ($cols as $key => $value) {
         $start = 0;
         while ($start < count($data) && $data[$start][$value] == null) {
@@ -190,7 +192,7 @@ function dataMean($conn) {
 
     $data = array();
     while ($rs = $result->fetch(PDO::FETCH_ASSOC)) {
-        foreach (array("pibParHab","elecRenew","co2","arriveesTotal","departs","gpi","cpi") as $key => $value) {
+        foreach (array("pibParHab","elecRenew","co2","arriveesTotal","departs","gpi","idh") as $key => $value) {
             if (!isset($rs[$value])){
                 $rs[$value]=null;
             }
@@ -204,7 +206,7 @@ function dataMean($conn) {
 
 function dataCompareLine($data1, $data2) {
     $comparaison = array();
-    foreach (array("pibParHab","elecRenew","co2","arriveesTotal","departs","gpi","cpi") as $value) {
+    foreach (array("pibParHab","elecRenew","co2","arriveesTotal","departs","gpi","idh") as $value) {
         $end = count($data1)-1;
         while ($end >= 0 && $data1[$end][$value] == null) {
             $end--;
@@ -233,15 +235,17 @@ function dataCompareLine($data1, $data2) {
 
 
 function dataSpider($pays, $conn) {
-    $query = "SELECT allk.id_pays, allk.annee AS annee, co2 AS 'Emissions de CO2', elecRenew AS '% énergies ren.', pibParHab AS 'PIB/Hab', cpi AS 'CPI', gpi AS 'Global Peace Index', arriveesTotal AS 'Arrivées touristiques', departs AS 'Départs'
+    $query = "SELECT allk.id_pays, allk.annee AS annee, co2 AS 'Emissions de CO2', elecRenew AS '% énergies ren.', pibParHab AS 'PIB/Hab', idh AS 'IDH', gpi AS 'Global Peace Index', arriveesTotal AS 'Arrivées touristiques', departs AS 'Départs'
     FROM (SELECT id_pays, annee FROM economie_norm UNION 
             SELECT id_pays, annee FROM tourisme_norm UNION
             SELECT id_pays, annee FROM surete_norm UNION
+            SELECT id_pays, annee FROM idh_norm UNION
             SELECT id_pays, annee FROM ecologie_norm
             ) allk 
     LEFT OUTER JOIN economie_norm ON allk.id_pays = economie_norm.id_pays AND allk.annee = economie_norm.annee 
     LEFT OUTER JOIN ecologie_norm ON allk.id_pays = ecologie_norm.id_pays AND allk.annee = ecologie_norm.annee 
     LEFT OUTER JOIN surete_norm ON allk.id_pays = surete_norm.id_pays AND allk.annee = surete_norm.annee 
+    LEFT OUTER JOIN idh_norm ON allk.id_pays = idh_norm.id_pays AND allk.annee = idh_norm.annee 
     LEFT OUTER JOIN tourisme_norm ON allk.id_pays = tourisme_norm.id_pays AND allk.annee = tourisme_norm.annee
     WHERE allk.id_pays = '$pays'
     ORDER BY allk.annee;";
@@ -252,7 +256,7 @@ function dataSpider($pays, $conn) {
     while ($rs = $result->fetch(PDO::FETCH_ASSOC)) {
         $year = $rs["annee"];
         $data[$year] = array();
-        foreach (array("PIB/Hab","% énergies ren.","Emissions de CO2","Arrivées touristiques","Départs","Global Peace Index","CPI") as $key => $value) {
+        foreach (array("PIB/Hab","% énergies ren.","Emissions de CO2","Arrivées touristiques","Départs","Global Peace Index","IDH") as $key => $value) {
             if (!isset($rs[$value])){
                 $rs[$value]=null;
             }
@@ -266,15 +270,17 @@ function dataSpider($pays, $conn) {
 
 function dataBar($pays, $conn) {
    
-    $query = "SELECT allk.id_pays, allk.annee AS annee, co2, pibParHab, cpi, gpi, arriveesTotal
+    $query = "SELECT allk.id_pays, allk.annee AS annee, co2, pibParHab, idh, gpi, arriveesTotal
     FROM (SELECT id_pays, annee FROM economie_grow UNION 
             SELECT id_pays, annee FROM tourisme_grow UNION
             SELECT id_pays, annee FROM surete_grow UNION
+            SELECT id_pays, annee FROM idh_grow UNION
             SELECT id_pays, annee FROM ecologie_grow
             ) allk 
     LEFT OUTER JOIN economie_grow ON allk.id_pays = economie_grow.id_pays AND allk.annee = economie_grow.annee 
     LEFT OUTER JOIN ecologie_grow ON allk.id_pays = ecologie_grow.id_pays AND allk.annee = ecologie_grow.annee 
     LEFT OUTER JOIN surete_grow ON allk.id_pays = surete_grow.id_pays AND allk.annee = surete_grow.annee 
+    LEFT OUTER JOIN idh_grow ON allk.id_pays = idh_grow.id_pays AND allk.annee = idh_grow.annee 
     LEFT OUTER JOIN tourisme_grow ON allk.id_pays = tourisme_grow.id_pays AND allk.annee = tourisme_grow.annee
     WHERE allk.id_pays = '$pays' AND allk.annee >= 1995 AND allk.annee <= 2021
     ORDER BY allk.annee;
@@ -285,7 +291,7 @@ function dataBar($pays, $conn) {
     $data = array();
     while ($rs = $result->fetch(PDO::FETCH_ASSOC)) {
         $data[$rs["annee"]] = array();
-        foreach (array("pibParHab","co2","arriveesTotal","gpi","cpi") as $key => $value) {
+        foreach (array("pibParHab","co2","arriveesTotal","gpi","idh") as $key => $value) {
             if (!isset($rs[$value])){
                 $rs[$value]=null;
             } 
@@ -360,29 +366,31 @@ function dataBarreLine($pays, $conn) {
 
 
 function dataTab($pays, $conn) {
-    $query = "SELECT allk.id_pays, allk.annee AS annee, co2, elecRenew, pibParHab, gpi, arriveesTotal*1000 AS 'arriveesTotal', departs*1000 AS 'departs'
+    $query = "SELECT allk.id_pays, allk.annee AS annee, co2, elecRenew, pibParHab, gpi, idh,arriveesTotal*1000 AS 'arriveesTotal', departs*1000 AS 'departs'
     FROM (SELECT id_pays, annee FROM economie UNION 
             SELECT id_pays, annee FROM tourisme UNION
             SELECT id_pays, annee FROM surete UNION
+            SELECT id_pays, annee FROM idh UNION
             SELECT id_pays, annee FROM ecologie
             ) allk 
     LEFT OUTER JOIN economie ON allk.id_pays = economie.id_pays AND allk.annee = economie.annee 
     LEFT OUTER JOIN ecologie ON allk.id_pays = ecologie.id_pays AND allk.annee = ecologie.annee 
     LEFT OUTER JOIN surete ON allk.id_pays = surete.id_pays AND allk.annee = surete.annee 
+    LEFT OUTER JOIN idh ON allk.id_pays = idh.id_pays AND allk.annee = idh.annee 
     LEFT OUTER JOIN tourisme ON allk.id_pays = tourisme.id_pays AND allk.annee = tourisme.annee
     WHERE allk.id_pays = '$pays'
     ORDER BY allk.annee;";
 
     $result = $conn->query($query);
 
-    $tables = array("economie","ecologie","ecologie","tourisme","tourisme","surete","economie");
-    $cols = array("pibParHab","elecRenew","co2","arriveesTotal","departs","gpi","cpi");
+    $tables = array("economie","ecologie","ecologie","tourisme","tourisme","surete","idh");
+    $cols = array("pibParHab","elecRenew","co2","arriveesTotal","departs","gpi","idh");
 
     $data = array();
     while ($rs = $result->fetch(PDO::FETCH_ASSOC)) {
         $year = $rs["annee"];
         $data[$year] = array();
-        foreach (array("pibParHab","elecRenew","co2","arriveesTotal","departs","gpi","cpi") as $key => $value) {
+        foreach (array("pibParHab","elecRenew","co2","arriveesTotal","departs","gpi","idh") as $key => $value) {
             if (!isset($rs[$value])){
                 $rs[$value]=null;
                 $rank = null;
@@ -400,15 +408,15 @@ function dataTab($pays, $conn) {
 }
 
 function dataExplorer($conn) {
-    $tables = array("economie","ecologie","ecologie","tourisme","tourisme","surete","economie");
-    $cols = array("pibParHab","elecRenew","co2","arriveesTotal","departs","gpi","cpi");
-    $years = array("pibParHab"=>2021,"elecRenew"=>2020,"co2"=>2020,"arriveesTotal"=>2022,"departs"=>2022,"gpi"=>2023,"cpi"=>2021);
+    $tables = array("economie","ecologie","ecologie","tourisme","tourisme","surete","idh");
+    $cols = array("pibParHab","elecRenew","co2","arriveesTotal","departs","gpi","idh");
+    $years = array("pibParHab"=>2021,"elecRenew"=>2020,"co2"=>2020,"arriveesTotal"=>2022,"departs"=>2022,"gpi"=>2023,"idh"=>2022);
     $data = array();
 
     $query = "SELECT id, score, nom, RANK() OVER (ORDER BY score DESC) AS 'scorerank' FROM pays;";
     $result = $conn->query($query);
     while ($rs = $result->fetch(PDO::FETCH_ASSOC)) {
-        $data[$rs["id"]] = array("id"=>$rs["id"], "score"=>$rs["score"], "scorerank"=>$rs["scorerank"], "nom"=>$rs["nom"],"pibParHab"=>null,"elecRenew"=>null,"co2"=>null,"arriveesTotal"=>null,"departs"=>null,"gpi"=>null,"cpi"=>null,"pibParHabrank"=>667,"elecRenewrank"=>667,"co2rank"=>667,"arriveesTotalrank"=>667,"departsrank"=>667,"gpirank"=>667,"cpirank"=>667);
+        $data[$rs["id"]] = array("id"=>$rs["id"], "score"=>$rs["score"], "scorerank"=>$rs["scorerank"], "nom"=>$rs["nom"],"pibParHab"=>null,"elecRenew"=>null,"co2"=>null,"arriveesTotal"=>null,"departs"=>null,"gpi"=>null,"idh"=>null,"pibParHabrank"=>667,"elecRenewrank"=>667,"co2rank"=>667,"arriveesTotalrank"=>667,"departsrank"=>667,"gpirank"=>667,"idhrank"=>667);
     }
 
     foreach ($cols as $key => $value) {

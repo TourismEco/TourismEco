@@ -59,8 +59,8 @@
                     <img class="icon" src="assets/icons/shield.svg" onclick="changeVar('gpi')" data-name="Global Peace Index">
                     <img class="icon" src="assets/icons/down.svg" onclick="changeVar('arriveesTotal')" data-name="Arrivées touristiques">
                     <img class="icon" src="assets/icons/up.svg" onclick="changeVar('departs')" data-name="Départs">
-                    <img class="icon" src="assets/icons/transfer.svg" onclick="changeVar('cpi')" data-name="CPI">
-                    <img class="icon" src="assets/icons/leaf.svg" onclick="changeVar('elecRenew')" data-name="% d'énergies renouvellables">
+                    <img class="icon" src="assets/icons/idh.svg" onclick="changeVar('idh')" data-name="idh">
+                    <img class="icon" src="assets/icons/elec.svg" onclick="changeVar('elecRenew')" data-name="% d'énergies renouvellables">
                 </div>
 
                 <div class="table">
@@ -120,12 +120,12 @@
                 <div class="cube" id="cube-1">
                     <div class="el-cube">
                         <img class="flag-tiny" id="flag0">
-                        <div id="td_cpi_0"></div>
+                        <div id="td_idh_0"></div>
                     </div>
                     <div class="tooltip">
-                        <img class="icon" src="assets/icons/transfer.svg">
+                        <img class="icon" src="assets/icons/idh.svg">
                         <div class="top">
-                            <h3>CPI</h3>
+                            <h3>IDH</h3>
                             <p>Ce pays a obtenu un score de sûreté et de sécurité très élevé pour l'année 2023.<br>Faites attention si vous vous y rendez.</p>
                             <p>Obtenez plus d'informations auprès de <a class="lien" href="https://www.diplomatie.gouv.fr/fr/conseils-aux-voyageurs/">France Diplomacie</a> pour voyager en sécurité.</p>
                             <i></i>
@@ -133,7 +133,7 @@
                     </div>
                     <div class="el-cube">
                         <img class="flag-tiny" id="flag1">
-                        <div id="td_cpi_1"></div>
+                        <div id="td_idh_1"></div>
                     </div>
                 </div>
                 <div class="cube" id="cube-2">
@@ -180,7 +180,7 @@
                         <div id="td_elecRenew_0"></div>
                     </div>
                     <div class="tooltip">
-                        <img class="icon" src="assets/icons/leaf.svg">
+                        <img class="icon" src="assets/icons/elec.svg">
                         <div class="top">
                             <h3>% d'énergies renouvellables</h3>
                             <p>Ce pays a obtenu un score de sûreté et de sécurité très élevé pour l'année 2023.<br>Faites attention si vous vous y rendez.</p>
@@ -342,17 +342,51 @@
                     <div class="cube">
                         <div class="el-cube">
                             <img class="flag-tiny" id="flag0">
-                            <div id="bar_cpi_0"></div>
+                            <div id="bar_arriveesTotal_0"></div>
                         </div>
                         <div class="tooltip">
-                            <img class="icon" src="assets/icons/transfer.svg">
+                            <img class="icon" src="assets/icons/down.svg">
                             <div class="top">
-                                <h3>CPI</h3>
+                                <h3>PIB</h3>
                             </div>
                         </div>
                         <div class="el-cube">
                             <img class="flag-tiny" id="flag1">
-                            <div id="bar_cpi_1"></div>
+                            <div id="bar_arriveesTotal_1"></div>
+                        </div>
+                    </div>
+
+                    <div class="cube">
+                        <div class="el-cube">
+                            <img class="flag-tiny" id="flag0">
+                            <div id="bar_gpi_0"></div>
+                        </div>
+                        <div class="tooltip">
+                            <img class="icon" src="assets/icons/shield.svg">
+                            <div class="top">
+                                <h3>GPI</h3>
+                            </div>
+                        </div>
+                        <div class="el-cube">
+                            <img class="flag-tiny" id="flag1">
+                            <div id="bar_gpi_1"></div>
+                        </div>
+                    </div>
+
+                    <div class="cube">
+                        <div class="el-cube">
+                            <img class="flag-tiny" id="flag0">
+                            <div id="bar_idh_0"></div>
+                        </div>
+                        <div class="tooltip">
+                            <img class="icon" src="assets/icons/idh.svg">
+                            <div class="top">
+                                <h3>IDH</h3>
+                            </div>
+                        </div>
+                        <div class="el-cube">
+                            <img class="flag-tiny" id="flag1">
+                            <div id="bar_idh_1"></div>
                         </div>
                     </div>
 

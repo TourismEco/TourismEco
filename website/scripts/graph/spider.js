@@ -2,7 +2,7 @@ function spider(id, nb) {
     g = new Graphique(id, "radar")
     g.createXAxis("var")
     g.createYAxis(null)
-    g.setDataXAxis([{"var":"PIB/Hab"},{"var":"% énergies ren."},{"var":"Emissions de CO2"},{"var":"Arrivées touristiques"},{"var":"Départs"},{"var":"Global Peace Index"},{"var":"CPI"}])
+    g.setDataXAxis([{"var":"PIB/Hab"},{"var":"% énergies ren."},{"var":"Emissions de CO2"},{"var":"Arrivées touristiques"},{"var":"Départs"},{"var":"Global Peace Index"},{"var":"IDH"}])
     g.addSlider(updateSpider,400,-20,50,50,90,1995,2022)
 
     for (i=0;i<nb;i++) {
@@ -51,7 +51,7 @@ function formatNumber(value, variable) {
     if (variable == "%" || variable == "elecRenew") {
         return value.toFixed(2)+" %"
     } 
-    if (variable == "gpi" || variable == "cpi") {
+    if (variable == "gpi" || variable == "idh") {
         return value
     }
 

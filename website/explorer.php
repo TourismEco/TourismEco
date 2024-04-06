@@ -23,8 +23,8 @@
         
     ?>
      <div class="flex" id="main">
-        <div class="zone-explore" id="zones">
-            <div class="map-explore">
+        <div class="zone-carte" id="zones">
+            <div class="map-carte">
                 <div id="map"></div>
                 <div class="container-buttons">
                     <img class="icon icon-active" src="assets/icons/score.svg" onclick="changeVarExplorer('score')" data-name="Score">
@@ -33,8 +33,8 @@
                     <img class="icon" src="assets/icons/shield.svg" onclick="changeVarExplorer('gpi')" data-name="Global Peace Index">
                     <img class="icon" src="assets/icons/down.svg" onclick="changeVarExplorer('arriveesTotal')" data-name="Arrivées touristiques">
                     <img class="icon" src="assets/icons/up.svg" onclick="changeVarExplorer('departs')" data-name="Départs">
-                    <img class="icon" src="assets/icons/transfer.svg" onclick="changeVarExplorer('cpi')" data-name="CPI">
-                    <img class="icon" src="assets/icons/leaf.svg" onclick="changeVarExplorer('elecRenew')" data-name="% d'énergies renouvellables">
+                    <img class="icon" src="assets/icons/idh.svg" onclick="changeVarExplorer('idh')" data-name="IDH">
+                    <img class="icon" src="assets/icons/elec.svg" onclick="changeVarExplorer('elecRenew')" data-name="% d'énergies renouvellables">
                 </div>
             </div>
 

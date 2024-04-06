@@ -75,15 +75,15 @@
 
                 <div class="cube" id="cube-1">
                     <div class="el-cube">
-                        <div id="td_cpi_0"></div>
-                        <div id="td_cpi_grow" class="small"></div>
+                        <div id="td_idh_0"></div>
+                        <div id="td_idh_grow" class="small"></div>
                     </div>
                     
-                    <img class="icon" src="assets/icons/transfer.svg">
+                    <img class="icon" src="assets/icons/idh.svg">
                         
                     <div class="el-cube">
-                        <div id="td_cpi_rank"></div>
-                        <div id="td_cpi_rankEvol" class="small"></div>
+                        <div id="td_idh_rank"></div>
+                        <div id="td_idh_rankEvol" class="small"></div>
                     </div>
                 </div>
 
@@ -99,29 +99,30 @@
                         <div id="td_pibParHab_rank"></div>
                         <div id="td_pibParHab_rankEvol" class="small"></div>
                     </div>
+                    
                 </div>
 
                 <div class="cube" id="cube-3">
                     <div class="el-cube">
-                        <div id="td_gpi_0"></div>
-                        <div id="td_gpi_grow" class="small"></div>
+                        <div id="td_co2_0"></div>
+                        <div id="td_co2_grow" class="small"></div>
                     </div>
                     
-                    <img class="icon" src="assets/icons/shield.svg">
+                    <img class="icon" src="assets/icons/up.svg">
                         
                     <div class="el-cube">
-                        <div id="td_gpi_rank"></div>
-                        <div id="td_gpi_rankEvol" class="small"></div>
+                        <div id="td_co2_rank"></div>
+                        <div id="td_co2_rankEvol" class="small"></div>
                     </div>
                 </div>
 
                 <div class="cube" id="cube-4">
                     <div class="el-cube">
                         <div id="td_elecRenew_0"></div>
-                        <div id="td_EelecRenew_grow" class="small"></div>
+                        <div id="td_elecRenew_grow" class="small"></div>
                     </div>
                     
-                    <img class="icon" src="assets/icons/leaf.svg">
+                    <img class="icon" src="assets/icons/elec.svg">
                         
                     <div class="el-cube">
                         <div id="td_elecRenew_rank"></div>
@@ -182,8 +183,8 @@
                     <img class="icon" src="assets/icons/shield.svg" onclick="changeVar('gpi')" data-name="Global Peace Index">
                     <img class="icon" src="assets/icons/down.svg" onclick="changeVar('arriveesTotal')" data-name="Arrivées touristiques">
                     <img class="icon" src="assets/icons/up.svg" onclick="changeVar('departs')" data-name="Départs">
-                    <img class="icon" src="assets/icons/transfer.svg" onclick="changeVar('cpi')" data-name="CPI">
-                    <img class="icon" src="assets/icons/leaf.svg" onclick="changeVar('elecRenew')" data-name="% d'énergies renouvellables">
+                    <img class="icon" src="assets/icons/idh.svg" onclick="changeVar('idh')" data-name="idh">
+                    <img class="icon" src="assets/icons/elec.svg" onclick="changeVar('elecRenew')" data-name="% d'énergies renouvellables">
                 </div>
 
                 <div class="table">
@@ -558,29 +559,40 @@
                 $("#trans-page").css("transform","translateX("+nb+"px)")
                 $("#nav-bot").css("transform","translateY(0)")
                 
-
+                var i = 0
+                var sens = 1
                 $("#scr").on("scroll", function() {
                     el = document.getElementById("scr")
                     h = el.clientHeight.toFixed(0)
                     s = el.scrollTop
 
                     console.log(h, s, s/h, s%h);
+                    f = false
+                    if (s > h*i && s < h*(i-1)) {
+                        i++
+                        f = true
+                    } else if (s < h*i && s > h*(i+1)) {
+                        i--
+                        f = true
+                    }
 
-                    if (s%h == 0) {
-                        if (s/h == 0) {
+                    if (f) {
+                        if (i == 0) {
                             $(".scroll-dot").removeClass("dot-active")
                             $("#scrb0").addClass("dot-active")
                             console.log("0");
-                        } else if (s/h >= 2) {
+                        } else if (i == 2) {
                             $(".scroll-dot").removeClass("dot-active")
                             $("#scrb2").addClass("dot-active")
                             console.log("400");
-                        } else if (s/h >= 1) {
+                        } else if (i == 1) {
                             $(".scroll-dot").removeClass("dot-active")
                             $("#scrb1").addClass("dot-active")
                             console.log("200");
                         }
-                    } 
+                    }
+                    f = false
+                    
                 })
 
                 $(".scroll-dot").on("click", function() {
