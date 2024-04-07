@@ -69,7 +69,9 @@ echo <<<HTML
     <div class="score-box score-$letter">$letter</div>
 </div>
 
-<div class="score-box score-$letter" id="score$incr" hx-swap-oob="outerHTML">$letter</div>
+<div class="container-presentation" id="score$incr" hx-swap-oob="outerHTML">
+    <div class="score-box score-$letter">$letter</div>
+</div>
 
 <div class="container-side g$incrP-1" id="mini$incr" hx-swap-oob="outerHTML">
     <img class="img img-side" src='assets/img/$id_pays.jpg' alt="Bandeau">

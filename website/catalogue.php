@@ -54,12 +54,14 @@
                         if ($page == "pays") {
                             echo <<<HTML
                                 <div class="container-bottom page active" id="s-stats" hx-get="pays.php" hx-select="#zones" hx-target="#zones" hx-trigger="click" hx-swap="outerHTML swap:0.5s" data-name="Statistiques">
+                                    <span>Statistiques</span>
                                     <img class="flag-small" src='assets/icons/stats.svg'>
                                 </div>
                             HTML;
                         } else {
                             echo <<<HTML
                                 <div class="container-bottom page active" id="s-stats" hx-get="comparateur.php" hx-select="#zones" hx-target="#zones" hx-trigger="click" hx-swap="outerHTML swap:0.5s" data-name="Comparateur">
+                                    <span>Comparer</span>
                                     <img class="flag-small" src='assets/icons/stats.svg'>
                                 </div>
                             HTML;
@@ -67,6 +69,7 @@
                     ?>
                     
                     <div class="container-bottom page" id="s-explorer" data-name="Explorateur" hx-get="explorer.php" hx-select="#zones" hx-target="#zones" hx-trigger="click" hx-vals="js:{page:'pays'}" hx-swap="outerHTML swap:0.5s">
+                        <span>Explorateur</span>
                         <img class="flag-small" src='assets/icons/map.svg'>
                     </div>
 
@@ -142,22 +145,27 @@
 
                 <div class="pack-categ">
                     <div class="container-bottom active switch" data-switch="europe" data-id_continent="5" data-index="0" data-name="Europe" hx-get="scripts/htmx/getCatalogue.php" hx-vals="js:{id_continent:5,page:'<?=$page?>'}" hx-target="#cata" hx-select="#cata" hx-swap="outerHTML swap:0.5s">
+                        <span>Europe</span>
                         <img class="flag-small" src='assets/icons/europe.svg'>
                     </div>
 
                     <div class="container-bottom switch" data-switch="africa" data-id_continent="1" data-index="1" data-name="Afrique" hx-get="scripts/htmx/getCatalogue.php" hx-vals="js:{id_continent:1,page:'<?=$page?>'}" hx-target="#cata" hx-select="#cata" hx-swap="outerHTML swap:0.5s">
+                        <span>Afrique</span>
                         <img class="flag-small" src='assets/icons/afrique.svg'>
                     </div>
 
                     <div class="container-bottom switch" data-switch="america" data-id_continent="2" data-index="2" data-name="Amérique" hx-get="scripts/htmx/getCatalogue.php" hx-vals="js:{id_continent:2,page:'<?=$page?>'}" hx-target="#cata" hx-select="#cata" hx-swap="outerHTML swap:0.5s">
+                        <span>Amérique</span>
                         <img class="flag-small" src='assets/icons/amerique.svg'>
                     </div>
 
                     <div class="container-bottom switch" data-switch="asia" data-id_continent="4" data-index="3" data-name="Asie" hx-get="scripts/htmx/getCatalogue.php" hx-vals="js:{id_continent:4,page:'<?=$page?>'}" hx-target="#cata" hx-select="#cata" hx-swap="outerHTML swap:0.5s">
+                        <span>Asie</span>
                         <img class="flag-small" src='assets/icons/asie.svg'>
                     </div>
 
                     <div class="container-bottom switch" data-switch="oceania" data-id_continent="6" data-index="4" data-name="Océanie" hx-get="scripts/htmx/getCatalogue.php" hx-vals="js:{id_continent:6,page:'<?=$page?>'}" hx-target="#cata" hx-select="#cata" hx-swap="outerHTML swap:0.5s">
+                        <span>Océanie</span>
                         <img class="flag-small" src='assets/icons/oceanie.svg'>
                     </div>
 

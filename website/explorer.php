@@ -22,9 +22,9 @@
         }
         
     ?>
-     <div class="flex" id="main">
-        <div class="zone-carte" id="zones">
-            <div class="map-carte">
+     <div class="flex">
+        <div class="zone-explore" id="zones">
+            <div class="map-explore">
                 <div id="map"></div>
                 <div class="container-buttons">
                     <img class="icon icon-active" src="assets/icons/score.svg" onclick="changeVarExplorer('score')" data-name="Score">
@@ -126,12 +126,14 @@
                         if ($page == "pays") {
                             echo <<<HTML
                                 <div class="container-bottom page active" id="s-stats" hx-get="pays.php" hx-select="#zones" hx-target="#zones" hx-trigger="click" hx-swap="outerHTML swap:0.5s" data-name="Statistiques">
+                                    <span>Statistiques</span>
                                     <img class="flag-small" src='assets/icons/stats.svg'>
                                 </div>
                             HTML;
                         } else {
                             echo <<<HTML
                                 <div class="container-bottom page active" id="s-stats" hx-get="comparateur.php" hx-select="#zones" hx-target="#zones" hx-trigger="click" hx-swap="outerHTML swap:0.5s" data-name="Comparateur">
+                                    <span>Comparer</span>
                                     <img class="flag-small" src='assets/icons/stats.svg'>
                                 </div>
                             HTML;
@@ -143,6 +145,7 @@
                     </div>
 
                     <div class="container-bottom page" id="s-catalogue" data-name="Catalogue" hx-get="catalogue.php" hx-select="#zones" hx-target="#zones" hx-trigger="click" hx-vals="js:{page:'pays'}" hx-swap="outerHTML swap:0.5s">
+                        <span>Catalogue</span>
                         <img class="flag-small" src='assets/icons/catalogue.svg'>
                     </div>
 
@@ -214,14 +217,17 @@
 
                 <div class="pack-categ">
                     <div class="container-bottom active switch" data-switch="explore" data-index="0" data-name="Explorer">
+                        <span>Explorer</span>
                         <img class="flag-small" src='assets/icons/map.svg'>
                     </div>
 
                     <div class="container-bottom switch" data-switch="fav" data-index="1" data-name="Pour vous">
+                        <span>Pour vous</span>
                         <img class="flag-small" src='assets/icons/heart.svg'>
                     </div>
 
                     <div class="container-bottom switch" data-switch="podium" data-index="2" data-name="Classements">
+                        <span>Classements</span>
                         <img class="flag-small" src='assets/icons/rank.svg'>
                     </div>
 

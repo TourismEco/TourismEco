@@ -45,10 +45,15 @@ function showSlides(n) {
 
 // Fonction pour avancer automatiquement les diapositives à intervalles réguliers
 function autoSlide() {
-    if (!userClicked) {
-        plusSlides(1);
+    try {
+        if (!userClicked) {
+            plusSlides(1);
+        }
+    } catch {
+        clearInterval(refresh);
     }
+    
 }
 
-setInterval(autoSlide, 3000);
+var refresh = setInterval(autoSlide, 3000);
 

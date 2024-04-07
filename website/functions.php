@@ -29,22 +29,6 @@ function getLetter($score) {
     }
 }
 
-function addCardCountry($id,$nom,$letter,$page) {
-    return <<<HTML
-        <div class="container-small bg-354F52">
-            <div class="bandeau-small hide-flag"> 
-                <div class="score-box-small score-$letter">$letter</div>
-                <img class="img img-small" src='assets/img/$id.jpg' alt="Bandeau de $nom">
-                <img class="flag-small" src='assets/twemoji/$id.svg' alt="Drapeau de $nom">
-                <h2 class="nom-small">$nom</h2>
-                <div class="buttons-small">
-                    <button class=button-catalogue id=v-$id hx-get="scripts/htmx/get$page.php" hx-vals="js:{id_pays:'$id'}" hx-swap="beforeend show:top swap:0.5s">Consulter</button>
-                </div>
-            </div>
-        </div>
-    HTML;
-}
-
 function addSlimCountry($id,$nom,$letter,$page) {
     if ($page == "pays") {
         return <<<HTML
@@ -76,34 +60,6 @@ function addSlimCountry($id,$nom,$letter,$page) {
     }
     
 }
-
-function addFirstCountry($id,$nom,$letter,$page) {
-    return <<<HTML
-        <div class="container-first bg-354F52" hx-get="UI3_pays.php" hx-vals="js:{id_pays:'$id'}" hx-swap="outerHTML swap:0.5s" hx-target="#grid" hx-select="#grid">
-            <div class="bandeau-first"> 
-                <div class="mini-score-box score-$letter">$letter</div>
-                <img class="img img-first" src='assets/img/$id.jpg' alt="Bandeau">
-                <img class="flag-first" src='assets/twemoji/$id.svg'>
-                <h2 class="nom-first">$nom</h2>
-            </div>
-        </div>
-    HTML;
-}
-
-function addCardContinent($id,$nom) {
-    return <<<HTML
-        <div class="container-slim bg-52796F">
-            <div class="bandeau-slim"> 
-                <img class="img img-slim" src='assets/img/$id.png' alt="Bandeau">
-                <h2 class="nom-region">$nom</h2>
-                <div class="buttons-small">
-                    <button class=button-catalogue id=v-$id>Consulter</button>
-                </div>
-            </div>
-        </div>
-    HTML;
-}
-
 
 function dataLine($pays, $conn) {
     $query = "SELECT allk.id_pays, allk.annee AS year, co2, elecRenew, pibParHab, idh, gpi, arriveesTotal*1000 AS arriveesTotal, departs*1000 AS departs
@@ -458,7 +414,7 @@ function carousel($conn) {
         <a class="prev" onclick="plusSlides(-1)">❮</a>
 
         <div class="text-center">
-            <img id="logo-carousel" src="assets/img/eco.png" alt="Logo TourismEco">
+            <img id="logo-carousel" src="assets/icons/eco.png" alt="Logo TourismEco">
             <p class="hHome">TourismEco</p>
             <h2>Partez à la découverte du monde</h2>
         </div>
@@ -472,7 +428,7 @@ function carousel($conn) {
         echo <<<HTML
         <div class="custom-slider">
             <img class="slide-img" src="assets/img/$image[id].jpg" alt="Illustration de $image[nom]">
-            <a class="slide-link" href="pays.php?id_pays=$image[id]">
+            <a class="slide-link" hx-post="pays.php" hx-push-url="true" hx-target="#zones" hx-select="#zones" hx-swap="outerHTML swap:0.5s" hx-vals="js:{id_pays:'$image[id]'}">
                 <div class="slide-text">
                     <img class="slide-logo" src="assets/twemoji/$image[id].svg" alt="Drapeau de $image[nom]">
                     <p>$image[nom]</p>

@@ -9,6 +9,8 @@
 
     if (isset($_GET["id_pays"])) {
         $_SESSION["pays"][0] = $_GET["id_pays"];
+    } else if (isset($_POST["id_pays"])) {
+        $_SESSION["pays"][0] = $_POST["id_pays"];
     }
 
     $pays = "";
@@ -32,11 +34,11 @@
 
 <body>
     
-    <div class="flex" id="main">
+    <div class="flex">
 
         <div id="zones">
 
-            <div class="zone-presentation display" id="home" style="display:none">
+            <div class="zone-presentation display" id="home">
                 <div class="container-presentation expand-3" id="bandeau0"></div>
                 <div class="container-presentation" id="miniMap0"></div>
                 <div class="container-presentation" id="score0"></div>
@@ -104,15 +106,15 @@
 
                 <div class="cube" id="cube-3">
                     <div class="el-cube">
-                        <div id="td_co2_0"></div>
-                        <div id="td_co2_grow" class="small"></div>
+                        <div id="td_gpi_0"></div>
+                        <div id="td_gpi_grow" class="small"></div>
                     </div>
                     
-                    <img class="icon" src="assets/icons/up.svg">
+                    <img class="icon" src="assets/icons/shield.svg">
                         
                     <div class="el-cube">
-                        <div id="td_co2_rank"></div>
-                        <div id="td_co2_rankEvol" class="small"></div>
+                        <div id="td_gpi_rank"></div>
+                        <div id="td_gpi_rankEvol" class="small"></div>
                     </div>
                 </div>
 
@@ -242,7 +244,7 @@
                 <div class="graph" id="barreLine"></div>
             </div>
 
-            <div class="zone-scores display" id="scores">
+            <div class="zone-scores display" id="scores" style="display:none">
                 <div class="scores-column">
                     <div class="container-scores border-C">
                         <div class="title-scores">
@@ -469,10 +471,12 @@
                     </div>
 
                     <div class="container-bottom page" data-index="1" data-name="Explorer" id="s-explore" hx-get="explorer.php" hx-select="#zones" hx-target="#zones" hx-trigger="click" hx-vals="js:{page:'pays'}" hx-swap="outerHTML swap:0.5s">
+                        <span>Explorateur</span>
                         <img class="flag-small" src='assets/icons/map.svg'>
                     </div>
 
                     <div class="container-bottom page" data-index="2" data-name="Catalogue" id="s-catalogue" hx-get="catalogue.php" hx-select="#zones" hx-target="#zones" hx-trigger="click" hx-vals="js:{page:'pays'}" hx-swap="outerHTML swap:0.5s">
+                        <span>Catalogue</span>
                         <img class="flag-small" src='assets/icons/catalogue.svg'>
                     </div>
 
@@ -494,23 +498,28 @@
 
                 <div class="pack-categ">
                     <div class="container-bottom active switch" data-switch="home" data-index="0" data-name="Présentation">
+                        <span>Présentation</span>
                         <img class="flag-small" src='assets/icons/info.svg'>
                     </div>
 
-                    <div class="container-bottom switch" data-switch="key" data-index="1" data-name="Indicateurs clés">
+                    <div class="container-bottom switch" data-switch="scores" data-index="1" data-name="Détail des scores">
+                        <span>Détail des scores</span>
+                        <img class="flag-small" src='assets/icons/plus.svg'>
+                    </div>
+
+                    <div class="container-bottom switch" data-switch="key" data-index="2" data-name="Indicateurs clés">
+                        <span>Indicateurs clés</span>
                         <img class="flag-small" src='assets/icons/lamp.svg'>
                     </div>
 
-                    <div class="container-bottom switch" data-switch="courbe" data-index="2" data-name="Courbes d'évolution">
+                    <div class="container-bottom switch" data-switch="courbe" data-index="3" data-name="Courbes d'évolution">
+                        <span>Courbes d'évolution</span>
                         <img class="flag-small" src='assets/icons/sort.svg'>
                     </div>
 
-                    <div class="container-bottom switch" data-switch="barl" data-index="3" data-name="PIB et tourisme">
+                    <div class="container-bottom switch" data-switch="barl" data-index="4" data-name="PIB et tourisme">
+                        <span>PIB et tourisme</span>
                         <img class="flag-small" src='assets/icons/stats.svg'>
-                    </div>
-
-                    <div class="container-bottom switch" data-switch="scores" data-index="4" data-name="Informations complémentaires">
-                        <img class="flag-small" src='assets/icons/plus.svg'>
                     </div>
 
                     <div id="trans" class="active-bg"></div>

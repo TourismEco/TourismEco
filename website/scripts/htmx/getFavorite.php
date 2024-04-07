@@ -5,6 +5,11 @@ if (!isset($_SERVER["HTTP_HX_REQUEST"])) {
     exit;
 }
 
+if (!checkHTMX("pays", $_SERVER["HTTP_HX_CURRENT_URL"])) {
+    header("HTTP/1.1 401");
+    exit;
+}
+
 require("../../functions.php");
 
 $cur = getDB();

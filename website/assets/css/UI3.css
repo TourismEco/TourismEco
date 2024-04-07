@@ -16,9 +16,10 @@ body {
 
 .container-bottom {
     z-index: 10;
-    transition: .5s all .3s;
+    transition: .5s all .3s, .5s background-color;
     cursor: pointer;
     height: 45px;
+    border-radius: 10px;
 }
 
 .container-presentation {
@@ -1141,8 +1142,8 @@ input {
     justify-content: center;
     display: flex;
     gap: 20px;
-    z-index: 1;
-    transition: all .5s;
+    z-index: 8;
+    transition: all 1s ease-in-out;
 }
 
 .nav-categ {
@@ -1757,12 +1758,8 @@ input {
     z-index: 50;
     justify-self: end;
     padding: 10px;
+    cursor: pointer;
   }
-  .grille {
-    display:flex;
-    opacity:100%;
-    transition: opacity .5s ease-out;
-}
 
 .home{
     background-color: #EED;
@@ -1773,8 +1770,6 @@ input {
     gap: 20px;
     padding: 30px;
     overflow-y: auto;
-    margin-left:100px;
-    margin-right:100px;
     margin-bottom: 30px;
 
 }
@@ -1792,7 +1787,7 @@ input {
     align-items: center;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr;
-    margin: 60px;
+    margin: 25px 100px;
 }
 
 .sectionHome .imgR {
@@ -1860,9 +1855,11 @@ input {
     text-align: center;
     border-radius: 10px;
     grid-column: 2;
+    grid-row: 2;
     max-width: 150px;
     justify-self: center;
     align-self: center;
+    cursor: pointer;
 }
 
 .btnIndex:hover {
@@ -1883,6 +1880,7 @@ input {
     max-width: 150px;
     justify-self: center;
     align-self: center;
+    cursor: pointer;
 }
 
 .btnIndex2:hover {
@@ -1892,6 +1890,40 @@ input {
 .separator {
     height: 2px;
     width: 800px;
-    background-color: #999999;
-    margin: 20px auto;
+    background-color: #222;
+    margin: 0 auto;
 }
+
+.container-bottom:hover {
+    background-color: #44685f;
+}
+
+.container-bottom:hover span {
+    opacity: 1;
+    transform: translate(0,-50px);
+}
+span {
+    position: absolute;
+    opacity: 0;
+    padding: 10px;
+    background-color: #44685f;
+    font-size: 15px;
+    text-align: center;
+    white-space: nowrap;
+    transform: translate(0, -40px);
+    transition: all .2s ease-in-out;
+    border-radius: 15px;
+    color: white;
+    font-weight: 400;
+}
+
+.active:hover span {
+    opacity: 0;
+    transform: translate(0, -40px);
+}
+
+.active:hover {
+    cursor: default;
+    background-color: inherit;
+}
+

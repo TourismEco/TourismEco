@@ -34,7 +34,7 @@ class EcoMap {
             geoJSON: am5geodata_worldLow,
             geodataNames:am5geodata_lang_FR,
             exclude: ["AX","BL","BQ","BV","CW","HM","MF","SJ","SS","SX","TL","UM","AF","AQ","CC","CX","EH","FK","FO","GG","GI","GL","GQ","GS","IM","IO","JE","KP","LR","NF","NR","PM","PN","SH","SO","SZ","TF","TK","VA","WF","YT","AI","CK","GF","GP","KN","MQ","MS","NU","PS","RE","TW","ST","MR"],
-            valueField:"gpi",
+            valueField:"score",
             calculateAggregates: true,
             fill:am5.color("#222")
         }));    

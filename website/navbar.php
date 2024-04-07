@@ -1,4 +1,4 @@
-<nav class="navbar" hx-boost="true" hx-target="#zones" hx-select="#zones" hx-swap="outerHTML swap:0.5s">
+<nav class="navbar" hx-boost="true" hx-target="#zones" hx-select="#zones" hx-swap="outerHTML swap:0.5s show:window:top">
     
     <div class="right-nav">
         <a href="monde.php" aria-label="MONDE">Monde</a>
@@ -27,7 +27,7 @@
     <script>
         $("a").on("click",function() {
             $("#nav-bot").css("z-index","1")
-            $("#nav-bot").css("transform","translateY(-70px)")
+            $("#nav-bot").css("transform","translateX(-3000px)")
         })
     </script>
 

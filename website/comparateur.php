@@ -31,7 +31,7 @@
 ?>
 
 <body>
-    <div class="flex" id="main">
+    <div class="flex">
 
         <div id="zones">
 
@@ -403,14 +403,17 @@
             <div class="nav-categ">
                 <div class="pack-categ">
                     <div class="container-bottom active page" data-index="0" data-name="Statistiques" id="s-stats">
+                        <span>Statistiques</span>
                         <img class="flag-small" src='assets/icons/stats.svg'>
                     </div>
 
                     <div class="container-bottom page" data-index="1" data-name="Explorer" id="s-explore">
+                        <span>Explorateur</span>
                         <img class="flag-small" src='assets/icons/map.svg'>
                     </div>
 
                     <div class="container-bottom page" data-index="2" data-name="Catalogue" id="s-catalogue" hx-get="catalogue.php" hx-select="#zones" hx-target="#zones" hx-trigger="click" hx-vals="js:{page:'comparateur'}" hx-swap="outerHTML swap:0.5s">
+                        <span>Catalogue</span>
                         <img class="flag-small" src='assets/icons/catalogue.svg'>
                     </div>
 
@@ -432,22 +435,27 @@
 
                 <div class="pack-categ">
                     <div class="container-bottom active switch" data-switch="home" data-index="0" data-name="Présentation">
+                        <span>Présentation</span>
                         <img class="flag-small" src='assets/icons/info.svg'>
                     </div>
 
                     <div class="container-bottom switch" data-switch="key" data-index="1" data-name="Indicateurs clés">
+                        <span>Indicateurs clés</span>
                         <img class="flag-small" src='assets/icons/lamp.svg'>
                     </div>
 
                     <div class="container-bottom switch" data-switch="courbe" data-index="2" data-name="Courbes d'évolution">
+                        <span>Courbes d'évolution</span>
                         <img class="flag-small" src='assets/icons/sort.svg'>
                     </div>
 
                     <div class="container-bottom switch" data-switch="grow" data-index="3" data-name="Croissances">
+                        <span>Croissances</span>
                         <img class="flag-small" src='assets/icons/stats.svg'>
                     </div>
 
                     <div class="container-bottom switch" data-switch="more" data-index="4" data-name="Informations complémentaires">
+                        <span>Informations complémentaires</span>
                         <img class="flag-small" src='assets/icons/plus.svg'>
                     </div>
 

@@ -1,7 +1,7 @@
 function spider(id, nb) {
     g = new Graphique(id, "radar")
     g.createXAxis("var")
-    g.createYAxis(null)
+    g.createYAxis(null,{max:100,min:0})
     g.setDataXAxis([{"var":"PIB/Hab"},{"var":"% énergies ren."},{"var":"Emissions de CO2"},{"var":"Arrivées touristiques"},{"var":"Départs"},{"var":"Global Peace Index"},{"var":"IDH"}])
     g.addSlider(updateSpider,400,-20,50,50,90,1995,2022)
 
@@ -12,6 +12,7 @@ function spider(id, nb) {
 
 var color = ["#52796F", "#83A88B"];
 function spiderHTMX(index, data, dataComp, name) {
+    console.log("s",data);
     g.updateSerie(index, data, name, dataComp);
     updateTable(index, dataComp[g.getYear()]);
 

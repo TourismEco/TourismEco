@@ -82,26 +82,31 @@ $dataBLcovidImpactTourisme= json_encode($allBareLine['covidImpactTourisme'],JSON
 
 //$dataBarPays = json_encode(dataBarPays($id_pays, $cur),JSON_NUMERIC_CHECK);
 
-$id_client = $_SESSION['user']['username'];
-$id_pays = $_GET['id_pays'];
-$query = "SELECT COUNT(id_client) FROM favoris WHERE id_pays = :id_pays AND id_client = :id_client";
-$sth = $cur->prepare($query);
-$sth->bindParam(":id_pays", $id_pays, PDO::PARAM_STR);
-$sth->bindParam(":id_client", $id_client, PDO::PARAM_STR);
-$sth->execute();
+if (isset($_SESSION["user"])) {
+    $id_client = $_SESSION['user']['username'];
+    $id_pays = $_GET['id_pays'];
+    $query = "SELECT COUNT(id_client) FROM favoris WHERE id_pays = :id_pays AND id_client = :id_client";
+    $sth = $cur->prepare($query);
+    $sth->bindParam(":id_pays", $id_pays, PDO::PARAM_STR);
+    $sth->bindParam(":id_client", $id_client, PDO::PARAM_STR);
+    $sth->execute();
 
-if ($sth->fetchColumn() > 0) {
-    $favorite = "assets/icons/heart_full.png";
+    if ($sth->fetchColumn() > 0) {
+        $favorite = "assets/icons/heart_full.png";
+    } else {
+        $favorite = "assets/icons/heart.png";
+    }
 } else {
-    $favorite = "assets/icons/heart.png";
+    $favorite = "";
 }
+
 
 echo <<<HTML
 
 <div class="container-presentation expand-3" id="bandeau0" hx-swap-oob="outerHTML">
     <div class="bandeau"> 
         <img class="img-side img" src='assets/img/$id_pays.jpg' alt="Bandeau">
-            <img class="favorite" id="favorite" src=$favorite hx-get="scripts/htmx/getFavorite.php" hx-trigger="click" hx-swap="outerHTML" hx-vals="js:{id_pays:'$id_pays'}">
+            <img class="favorite" id="favorite" src="$favorite" hx-get="scripts/htmx/getFavorite.php" hx-trigger="click" hx-swap="outerHTML" hx-vals="js:{id_pays:'$id_pays'}">
         <div class="flag-plus-nom">
             <img class="flag" src='assets/twemoji/$id_pays.svg'>
             <h2 class="nom">$nom</h2>

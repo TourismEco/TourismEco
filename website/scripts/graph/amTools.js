@@ -61,7 +61,7 @@ class Graphique {
             innerRadius: this.option == "jauge" ? -25 : 0 
         });
         xRenderer.labels.template.setAll({
-            fill:"#FFFFFF",
+            fill:"#222",
         });
 
         var xAx
@@ -96,7 +96,7 @@ class Graphique {
             opposite:opposite,
         });
         yRenderer.labels.template.setAll({
-            fill:"#FFFFFF",
+            fill:"#222",
         });
 
         var yAx
