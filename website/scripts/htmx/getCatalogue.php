@@ -37,7 +37,7 @@ while ($rsPays = $resultPays->fetch(PDO::FETCH_ASSOC)) {
 echo <<<HTML
     <div id="break" class="break"></div>
     <div id="more" class="more" hx-get="scripts/htmx/more.php" hx-vals="js:{id_continent:'$id_continent',more:1,page:'$page'}" hx-swap="beforebegin" hx-target="#break">
-        <img src="assets/icons/plus.svg">
+        <p>Voir plus</p>
     </div>
     </div>
 HTML;

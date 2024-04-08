@@ -4,7 +4,8 @@
 
     <div class="flex">
 
-        <div class="zone-catalogue" id="zones" hx-swap="swap:0.5s">
+        <div class="zone-explore" id="zones" hx-swap="swap:0.5s">
+
             <?php 
                 require_once "functions.php";
                 if (isset($_GET["page"])) {
@@ -21,9 +22,32 @@
                 // }
 
                 $cur = getDB();
-            ?>
 
-            <div class="map-catalogue" id="map"></div>
+                if ($page == "pays") {
+                    echo <<<HTML
+                        <div class="title-zone">
+                            <img class="flag-small" src='assets/icons/catalogue.svg'>
+                            <div>
+                                <h2>Catalogue</h2>
+                                <p>Voici la liste de nos pays, triés par continents. Choisissez un pays pour consulter toutes ses informations.</p>
+                            </div>
+                        </div>
+                    HTML;
+                } else {
+                    echo <<<HTML
+                        <div class="title-zone">
+                            <img class="flag-small" src='assets/icons/catalogue.svg'>
+                            <div>
+                                <h2>Catalogue</h2>
+                                <p>Voici la liste de nos pays, triés par continents. Choisissez deux pays puis retournez sur la section 'Statistiques' pour les comparer.</p>
+                            </div>
+                        </div>
+                    HTML;
+                }
+            ?>
+            
+
+            <div class="map-explore" id="map"></div>
 
             <script>
                 createMapCatalogue("<?=$page?>")

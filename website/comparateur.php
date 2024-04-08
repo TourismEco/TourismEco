@@ -50,17 +50,46 @@
                 <div class="container-presentation"></div>
             </div>
                 
-            <div class="zone display" id="courbe" style="display:none">        
+            <div class="zone display" id="courbe" style="display:none">    
+                <div class="title-zone">
+                    <img class="flag-small" src='assets/icons/sort.svg'>
+                    <div>
+                        <h2>.. VS ..</h2>
+                        <p>Ce graphique compare l'évolution entre .. et .. au fil des années sur la statistiques que vous souhaitez.</p>
+                    </div>
+                </div>
+
                 <div class=graph id="line"></div>
 
                 <div class=container-buttons>
-                    <img class="icon icon-active" src="assets/icons/cloud.svg" onclick="changeVar('co2')" data-name="Émissions de CO2">
-                    <img class="icon" src="assets/icons/dollar.svg" onclick="changeVar('pibParHab')" data-name="PIB/Habitant">
-                    <img class="icon" src="assets/icons/shield.svg" onclick="changeVar('gpi')" data-name="Global Peace Index">
-                    <img class="icon" src="assets/icons/down.svg" onclick="changeVar('arriveesTotal')" data-name="Arrivées touristiques">
-                    <img class="icon" src="assets/icons/up.svg" onclick="changeVar('departs')" data-name="Départs">
-                    <img class="icon" src="assets/icons/idh.svg" onclick="changeVar('idh')" data-name="idh">
-                    <img class="icon" src="assets/icons/elec.svg" onclick="changeVar('elecRenew')" data-name="% d'énergies renouvellables">
+                    <div class="var-swap">
+                        <span>Émissions de CO2</span>
+                        <img class="icon icon-active" src="assets/icons/cloud.svg" onclick="changeVar('co2')" data-name="Émissions de CO2">
+                    </div>
+                    <div class="var-swap">
+                        <span>PIB/Habitant</span>
+                        <img class="icon" src="assets/icons/dollar.svg" onclick="changeVar('pibParHab')" data-name="PIB/Habitant">
+                    </div>
+                    <div class="var-swap">
+                        <span>Global Peace Index</span>
+                        <img class="icon" src="assets/icons/shield.svg" onclick="changeVar('gpi')" data-name="Global Peace Index">
+                    </div>
+                    <div class="var-swap">
+                        <span>Arrivées touristiques</span>
+                        <img class="icon" src="assets/icons/down.svg" onclick="changeVar('arriveesTotal')" data-name="Arrivées touristiques">
+                    </div>
+                    <div class="var-swap">
+                        <span>Départs</span>
+                        <img class="icon" src="assets/icons/up.svg" onclick="changeVar('departs')" data-name="Départs">
+                    </div>
+                    <div class="var-swap">
+                        <span>Indice de développement humain</span>
+                        <img class="icon" src="assets/icons/idh.svg" onclick="changeVar('idh')" data-name="Indice de développement humain">
+                    </div>
+                    <div class="var-swap">
+                        <span>% d'énergies renouvellables</span>
+                        <img class="icon" src="assets/icons/elec.svg" onclick="changeVar('elecRenew')" data-name="% d'énergies renouvellables">
+                    </div>
                 </div>
 
                 <div class="table">
@@ -251,6 +280,14 @@
                     </div>
                 </div>
 
+                <div class="title-zone">
+                    <img class="flag-small" src='assets/icons/lamp.svg'>
+                    <div>
+                        <h2>Indicateurs clés</h2>
+                        <p>Ce <i>Spider Chart</i> compare la position des deux pays pour 7 variables, normalisées.</p>
+                    </div>
+                </div>
+
                 <div class="legende-key">
                     <div class="square bg-52796F"></div>
                     <p id="nom0"></p>
@@ -262,13 +299,15 @@
 
             <div class="zone-bar display" style="display:none" id="grow">
 
+                <div class="title-zone">
+                    <img class="flag-small" src='assets/icons/stats.svg'>
+                    <div>
+                        <h2>Croissances</h2>
+                        <p>Ce graphique vous montre pour chaque année comment 5 variables croit ou décroit pour nos deux pays.</p>
+                    </div>
+                </div>
+
                 <div class="graph" id="bar"></div>
-                <!-- <div class="legende">
-                    <div class="square bg-52796F"></div>
-                    <p >France</p>
-                    <div class="square bg-83A88B"></div>
-                    <p >Croatie</p>
-                </div> -->
 
                 <div class="cubes-bar">
                     <div class="cube">
@@ -308,23 +347,6 @@
                     <div class="cube">
                         <div class="el-cube">
                             <img class="flag-tiny" id="flag0">
-                            <div id="bar_arriveesTotal_0"></div>
-                        </div>
-                        <div class="tooltip">
-                            <img class="icon" src="assets/icons/down.svg">
-                            <div class="top">
-                                <h3>PIB</h3>
-                            </div>
-                        </div>
-                        <div class="el-cube">
-                            <img class="flag-tiny" id="flag1">
-                            <div id="bar_arriveesTotal_1"></div>
-                        </div>
-                    </div>
-
-                    <div class="cube">
-                        <div class="el-cube">
-                            <img class="flag-tiny" id="flag0">
                             <div id="bar_gpi_0"></div>
                         </div>
                         <div class="tooltip">
@@ -353,23 +375,6 @@
                         <div class="el-cube">
                             <img class="flag-tiny" id="flag1">
                             <div id="bar_arriveesTotal_1"></div>
-                        </div>
-                    </div>
-
-                    <div class="cube">
-                        <div class="el-cube">
-                            <img class="flag-tiny" id="flag0">
-                            <div id="bar_gpi_0"></div>
-                        </div>
-                        <div class="tooltip">
-                            <img class="icon" src="assets/icons/shield.svg">
-                            <div class="top">
-                                <h3>GPI</h3>
-                            </div>
-                        </div>
-                        <div class="el-cube">
-                            <img class="flag-tiny" id="flag1">
-                            <div id="bar_gpi_1"></div>
                         </div>
                     </div>
 

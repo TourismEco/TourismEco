@@ -80,6 +80,7 @@ echo <<<HTML
 </div>
 
 <p class="name" id="nom$incr" hx-swap-oob="outerHTML">$nom</p>
+<span id="paysvs$incr" hx-swap-oob="outerHTML">$nom</span>
 <img class="flag-tiny" src="assets/twemoji/$id_pays.svg" id="flag$incr" hx-swap-oob="outerHTML">
 <img class="flag-small" id="flag-bot$incr" hx-swap-oob="outerHTML" src='assets/twemoji/$id_pays.svg'>
 

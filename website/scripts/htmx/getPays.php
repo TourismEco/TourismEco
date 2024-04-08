@@ -146,9 +146,15 @@ echo <<<HTML
     <p class="paragraphe">$description</p>
 </div>
 
+<div class="container-presentation bg-lgbt" id="score0" hx-swap-oob="outerHTML">
+    <div class="score-box score-$letter">$letter</div>
+</div>
+
 <p class="name" id="nom0" hx-swap-oob="outerHTML">$nom</p>
 
 <img class="flag-small" id="flag-bot" hx-swap-oob="outerHTML" src='assets/twemoji/$id_pays.svg'>
+
+<h2 id="paysvs" hx-swap-oob="outerHTML">$nom VS Moyenne mondiale</h2>
 
 <script id=orders hx-swap-oob=outerHTML>
     spiderHTMX(0, $dataSpider, $dataTab, "$nom")

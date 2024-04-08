@@ -4,6 +4,10 @@ html {
     background-image: linear-gradient(to left, #2F3E46, #354F52);
 }
 
+.bg-lgbt {
+    background-image: linear-gradient(to left, #2F3E46, #354F52);
+}
+
 body {
     margin: 0;
 }
@@ -125,7 +129,7 @@ body {
     border-radius: 10px;
     color: #222;
     display: grid;
-    grid-template-rows: 10fr 1fr;
+    grid-template-rows: 1fr 10fr 1fr;
     gap: 10px;
     padding: 30px;
     overflow-y: auto;
@@ -251,7 +255,7 @@ body {
 
 .cubes-bar {
     height: 65px;
-    grid-row: 2;
+    grid-row: 3;
     margin-left: 75px;
     margin-right: 18px;
     display: grid;
@@ -299,19 +303,6 @@ body {
     height: calc(100vh - 210px);
 }
 
-.zone-catalogue {
-    background-color: #EED;
-    z-index: 5;
-    color: #222;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-    padding: 30px;
-    overflow-y: clip;
-    height: calc(100vh - 210px);
-    border-radius: 10px;
-}
-
 .zone-cataloguePays {
     z-index: 5;
     border-bottom: none;
@@ -319,7 +310,8 @@ body {
     color: #222;
     display: flex;
     flex-direction: column;
-    overflow-y: scroll;
+    overflow-y: auto;
+    grid-row: 1 / 3;
 }
 
 .zone-explore {
@@ -333,10 +325,13 @@ body {
     overflow-y: clip;
     height: calc(100vh - 210px);
     border-radius: 10px;
+    grid-template-rows: 50px;
 }
 
 .zone-cartePays {
     overflow-y: auto;
+    grid-row: 1 / 3;
+    grid-column: 2;
 }
 
 .container-explore {
@@ -355,6 +350,8 @@ body {
     flex-flow: column;
     height: 100%;
     justify-content: center;
+    padding-left: 20px;
+    gap: 20px;
 }
 
 .container-explore-pays {
@@ -400,10 +397,8 @@ body {
     overflow-y: auto;
     gap: 20px;
     display: grid;
-    padding: 0 20px;
     justify-content: center;
     grid-template-columns: 1fr 1fr;
-    margin-bottom: 20px;
 }
 
 .classement {
@@ -460,11 +455,6 @@ body {
     font-style: italic;
     font-weight: 350;
     border: solid 1.5px #222;
-}
-
-#rank_pays {
-    margin-top: 20px;
-    padding: 0 20px;
 }
 
 .black {
@@ -591,7 +581,7 @@ body {
 .map-explore {
     grid-column: 1;
     border-radius: 10px;
-    grid-row: 1;
+    grid-row: 2;
     display: grid;
     grid-template-rows: 1fr;
     gap: 20px;
@@ -626,13 +616,17 @@ body {
     background-color: #D9D9D9D9;
     border-radius: 10px;
     width: 100%;
-    padding: 10px;
+    padding: 5px 0;
     align-items: center;
 }
 
 .graph {
     height: 100%;
     grid-row: 1 / 4
+}
+
+#line {
+    grid-row:2 / 4
 }
 
 .active {
@@ -750,8 +744,8 @@ h1 {
 }
 
 .icon {
-    width: 30px;
-    height: 30px;
+    width: 25px;
+    height: 25px;
     border-radius: 10px;
     padding: 5px;
     transition: all .5s;
@@ -1197,7 +1191,7 @@ input {
 }
 
 #bar {
-    grid-row: 1;
+    grid-row: 2;
 }
 
 #zones {
@@ -1205,6 +1199,42 @@ input {
     grid-row: 1;
     grid-column: 1;
     z-index: 3;
+}
+
+.title-zone {
+    display: flex;
+}
+
+.title-zone div {
+    align-self: center;
+}
+
+.title-zone h2 {
+    margin: 0;
+    font-size: 22px;
+    margin-left: 5px;
+}
+
+.title-zone p {
+    margin: 0;
+    margin-left: 5px;
+    font-size: 13px;
+    text-align: justify;
+}
+
+.title-zone img {
+    filter: invert();
+}
+
+.zone-explore .title-zone {
+    grid-column: 1;
+    grid-row: 1;
+    height: fit-content;
+}
+
+.zone-spider .title-zone {
+    grid-row: 8;
+    grid-column: 1 / 3;
 }
 
 .mask {
@@ -1246,17 +1276,17 @@ input {
 }
 
 .more {
-    width: 60px;
     display: flex;
-    height: 60px;
     cursor: pointer;
     background-color: #52796F;
     border-radius: 10px;
     align-self: center;
+    padding: 10px;
+    color: white;
 }
 
-.more img {
-    padding: 10px;
+.more p {
+    margin: 0;
 }
 
 .break {
@@ -1902,6 +1932,17 @@ input {
     opacity: 1;
     transform: translate(0,-50px);
 }
+.var-swap:hover span {
+    opacity: 1;
+    transform: translate(0,55px);
+}
+
+.var-swap span {
+    background-color: #D9D9D9;
+    color:#222;
+    transform: translate(0, 45px);
+}
+
 span {
     position: absolute;
     opacity: 0;
@@ -1909,7 +1950,6 @@ span {
     background-color: #44685f;
     font-size: 15px;
     text-align: center;
-    white-space: nowrap;
     transform: translate(0, -40px);
     transition: all .2s ease-in-out;
     border-radius: 15px;
@@ -1926,4 +1966,3 @@ span {
     cursor: default;
     background-color: inherit;
 }
-

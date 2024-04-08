@@ -24,17 +24,50 @@
     ?>
      <div class="flex">
         <div class="zone-explore" id="zones">
+            <div class="title-zone">
+                <img class="flag-small" src='assets/icons/map.svg'>
+                <div>
+                    <h2>Explorateur</h2>
+                    <p>Un aperçu statistique mondial, pour vous faire découvrir de nouvelles destinations.</p>
+                </div>
+            </div>
+
             <div class="map-explore">
                 <div id="map"></div>
                 <div class="container-buttons">
-                    <img class="icon icon-active" src="assets/icons/score.svg" onclick="changeVarExplorer('score')" data-name="Score">
-                    <img class="icon" src="assets/icons/cloud.svg" onclick="changeVarExplorer('co2')" data-name="Émissions de CO2">
-                    <img class="icon" src="assets/icons/dollar.svg" onclick="changeVarExplorer('pibParHab')" data-name="PIB/Habitant">
-                    <img class="icon" src="assets/icons/shield.svg" onclick="changeVarExplorer('gpi')" data-name="Global Peace Index">
-                    <img class="icon" src="assets/icons/down.svg" onclick="changeVarExplorer('arriveesTotal')" data-name="Arrivées touristiques">
-                    <img class="icon" src="assets/icons/up.svg" onclick="changeVarExplorer('departs')" data-name="Départs">
-                    <img class="icon" src="assets/icons/idh.svg" onclick="changeVarExplorer('idh')" data-name="IDH">
-                    <img class="icon" src="assets/icons/elec.svg" onclick="changeVarExplorer('elecRenew')" data-name="% d'énergies renouvellables">
+                    <div class="var-swap">
+                        <span>Score</span>
+                        <img class="icon icon-active" src="assets/icons/score.svg" onclick="changeVarExplorer('score')" data-name="Score">
+                    </div>
+
+                    <div class="var-swap">
+                        <span>Émissions de CO2</span>
+                        <img class="icon" src="assets/icons/cloud.svg" onclick="changeVarExplorer('co2')" data-name="Émissions de CO2">
+                    </div>
+                    <div class="var-swap">
+                        <span>PIB/Habitant</span>
+                        <img class="icon" src="assets/icons/dollar.svg" onclick="changeVarExplorer('pibParHab')" data-name="PIB/Habitant">
+                    </div>
+                    <div class="var-swap">
+                        <span>Global Peace Index</span>
+                        <img class="icon" src="assets/icons/shield.svg" onclick="changeVarExplorer('gpi')" data-name="Global Peace Index">
+                    </div>
+                    <div class="var-swap">
+                        <span>Arrivées touristiques</span>
+                        <img class="icon" src="assets/icons/down.svg" onclick="changeVarExplorer('arriveesTotal')" data-name="Arrivées touristiques">
+                    </div>
+                    <div class="var-swap">
+                        <span>Départs</span>
+                        <img class="icon" src="assets/icons/up.svg" onclick="changeVarExplorer('departs')" data-name="Départs">
+                    </div>
+                    <div class="var-swap">
+                        <span>Indice de développement humain</span>
+                        <img class="icon" src="assets/icons/idh.svg" onclick="changeVarExplorer('idh')" data-name="Indice de développement humain">
+                    </div>
+                    <div class="var-swap">
+                        <span>% d'énergies renouvellables</span>
+                        <img class="icon" src="assets/icons/elec.svg" onclick="changeVarExplorer('elecRenew')" data-name="% d'énergies renouvellables">
+                    </div>
                 </div>
             </div>
 
@@ -100,6 +133,15 @@
                 </div>
 
                 <div class='container-cartePays display' style="display:none" id="podium">
+                        
+                    <div class="title-zone">
+                        <img class="flag-small" src='assets/icons/podium.svg'>
+                        <div>
+                            <h2>Classements</h2>
+                            <p>Choisissez une statistique pour afficher son top 10 des pays.</p>
+                        </div>
+                    </div>
+
                     <div class="container-classement" id="rank">
                     </div>
 

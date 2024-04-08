@@ -73,6 +73,14 @@
             </div>
 
             <div class="zone-spider display" id="key" style="display: none;">
+                <div class="title-zone">
+                    <img class="flag-small" src='assets/icons/lamp.svg'>
+                    <div>
+                        <h2>Indicateurs clés</h2>
+                        <p>Ce <i>Spider Chart</i> représente la position du pays pour 7 variables, normalisées.</p>
+                    </div>
+                </div>
+
                 <div class="graph" id="spider"></div>
 
                 <div class="cube" id="cube-1">
@@ -177,16 +185,46 @@
             </div>
 
             <div class="zone display" id="courbe" style="display: none;">
+
+                <div class="title-zone">
+                    <img class="flag-small" src='assets/icons/sort.svg'>
+                    <div>
+                        <h2 id="paysvs"></h2>
+                        <p>Ce graphique compare l'évolution entre le pays France et la moyenne mondial au fil des années sur la statistiques que vous souhaitez.</p>
+                    </div>
+                </div>
+                
                 <div class="graph" id="line"></div>
 
                 <div class=container-buttons>
-                    <img class="icon icon-active" src="assets/icons/cloud.svg" onclick="changeVar('co2')" data-name="Émissions de CO2">
-                    <img class="icon" src="assets/icons/dollar.svg" onclick="changeVar('pibParHab')" data-name="PIB/Habitant">
-                    <img class="icon" src="assets/icons/shield.svg" onclick="changeVar('gpi')" data-name="Global Peace Index">
-                    <img class="icon" src="assets/icons/down.svg" onclick="changeVar('arriveesTotal')" data-name="Arrivées touristiques">
-                    <img class="icon" src="assets/icons/up.svg" onclick="changeVar('departs')" data-name="Départs">
-                    <img class="icon" src="assets/icons/idh.svg" onclick="changeVar('idh')" data-name="idh">
-                    <img class="icon" src="assets/icons/elec.svg" onclick="changeVar('elecRenew')" data-name="% d'énergies renouvellables">
+                    <div class="var-swap">
+                        <span>Émissions de CO2</span>
+                        <img class="icon icon-active" src="assets/icons/cloud.svg" onclick="changeVar('co2')" data-name="Émissions de CO2">
+                    </div>
+                    <div class="var-swap">
+                        <span>PIB/Habitant</span>
+                        <img class="icon" src="assets/icons/dollar.svg" onclick="changeVar('pibParHab')" data-name="PIB/Habitant">
+                    </div>
+                    <div class="var-swap">
+                        <span>Global Peace Index</span>
+                        <img class="icon" src="assets/icons/shield.svg" onclick="changeVar('gpi')" data-name="Global Peace Index">
+                    </div>
+                    <div class="var-swap">
+                        <span>Arrivées touristiques</span>
+                        <img class="icon" src="assets/icons/down.svg" onclick="changeVar('arriveesTotal')" data-name="Arrivées touristiques">
+                    </div>
+                    <div class="var-swap">
+                        <span>Départs</span>
+                        <img class="icon" src="assets/icons/up.svg" onclick="changeVar('departs')" data-name="Départs">
+                    </div>
+                    <div class="var-swap">
+                        <span>Indice de développement humain</span>
+                        <img class="icon" src="assets/icons/idh.svg" onclick="changeVar('idh')" data-name="Indice de développement humain">
+                    </div>
+                    <div class="var-swap">
+                        <span>% d'énergies renouvellables</span>
+                        <img class="icon" src="assets/icons/elec.svg" onclick="changeVar('elecRenew')" data-name="% d'énergies renouvellables">
+                    </div>
                 </div>
 
                 <div class="table">

@@ -53,7 +53,7 @@ if ($count <= $offset+6) {
 } else {
     echo <<<HTML
         <div id="more" class="more" hx-get="scripts/htmx/more.php" hx-vals="js:{id_continent:'$id_continent',more:$more,page:'$page'}" hx-swap="beforebegin" hx-target="#break" hx-swap-oob="outerHTML">
-        <img src="assets/icons/plus.svg">
+        <p>Voir plus</p>
     </div>
     HTML;  
 }
