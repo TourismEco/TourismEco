@@ -1,16 +1,16 @@
-<?php require_once 'head.php'?>
+<?php require_once "head.php"; ?>
 
 <body>
     <div class="container-map" id="container-map">
         <div id="map"></div>
     </div>
-    
+
     <div class="grille" id="grille">
 
         <div class="left-section">
             <h1 class="titre">Prévoyez vos prochaines vacances</h1>
-            <form name="Calculateur" hx-get="calcul.php" hx-target="#calculateur-right-section">
-                <!-- <form action="test/calcul_test.php" method="get">git  -->
+            <!-- <form name="Calculateur" hx-get="calcul.php" hx-target="#calculateur-right-section"> -->
+                <form action="test/calcul_test.php" method="get">
 
                 <div class="dual-input">
                     <div class="container-input">
@@ -26,7 +26,6 @@
                         <div id="city_options_src" class="option-container"></div>
                     </div>
                 </div>
-
                 <div class="dual-input">
                     <div class="container-input">
                         <label for="country_dst">Pays d'arrivée</label>
@@ -42,23 +41,16 @@
                     </div>
                 </div>
 
-                <p class="fake-label">Moyen de transport</p>
-                <!-- <div class="liste-mode" hx-get="scripts/htmx/getTravelOptions.php" hx-target="#travel-options" hx-vals='js:{mode: document.forms["Calculateur"]["mode"].value}'> -->
-                    <div class="liste-mode">
-                    <input type="radio" name="mode" id="plane" class="radio-mode" value="PLANE">
-                    <label for="plane">
-                        <img src="assets/img/plane.svg" title="Avion">
-                    </label>
+                <div class="dual-input">
+                    <div class="container-input">
+                        <label for="departure-date">Date de départ</label>
+                        <input type="date" id="departure-date" name="departure-date" placeholder="Saisissez une date" required autocomplete="off">
+                    </div>
 
-                    <input type="radio" name="mode" id="train" class="radio-mode" value="TRAIN">
-                    <label for="train">
-                        <img src="assets/img/train.svg" title="Train">
-                    </label>
-
-                    <input type="radio" name="mode" id="driving" class="radio-mode" value="DRIVING">
-                    <label for="driving">
-                        <img src="assets/img/car.svg" title="Voiture">
-                    </label>
+                    <div class="container-input">
+                        <label for="arrival-date">Date de retour</label>
+                        <input type="date" id="arrival-date" name="arrival-date" placeholder="Saisissez une date" required autocomplete="off" disabled>
+                    </div>
                 </div>
 
                 <!-- Travel options (Airports if plane, train stations...) -->
@@ -75,7 +67,7 @@
                         <input type="number" id="passengers" name="passengers" placeholder="Saisissez un nombre" required autocomplete="off" value=2 min=1 max=69>
                     </div>
                 </div>
-                <!-- <input type="hidden" id="CSRF" name="CSRF" value="<?=$_SESSION["CSRF"]?>"> -->
+                <!-- <input type="hidden" id="CSRF" name="CSRF" value="<?= $_SESSION["CSRF"] ?>"> -->
 
                 <input type="submit" value="Calculer" class="submit">
 
@@ -94,5 +86,5 @@
         </script>
     </div>
 
-    <?php require_once 'footer.html'?>
+    <?php require_once "footer.html"; ?>
 </body>

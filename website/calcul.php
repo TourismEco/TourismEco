@@ -20,29 +20,23 @@ $model = isset($_GET["model"]) ? $_GET["model"] : null;
 $duration = isset($_GET["duration"]) ? $_GET["duration"] : null;
 $passengers = isset($_GET["passengers"]) ? $_GET["passengers"] : null;
 
-// main
 // default VALUES but need to implement the possibility to choose a certain car
-switch ($mode) {
-    case "PLANE":
-        // TO-DO: implement a function to check if there is a direct route from the origin to the destination
-        $transport = new Plane("A81", "KEROSENE", 4.23, 3);
-        break;
-    case "TRAIN":
-        $transport = new Train();
-        break;
-    case "DRIVING":
-        $transport = new Car("BERLINE", "GAZOLE", 6, $passengers);
-        break;
-}
+
+// $car = new Car();
+// $plane = new Plane();
+$train = new Train();
+
+echo "<script>console.log('country_src: $country_src, city_src: $city_src, country_dst: $country_dst, city_dst: $city_dst, airport_src: $airport_src, airport_dst: $airport_dst, mode: $mode, model: $model, duration: $duration, passengers: $passengers')</script>";
+$output = system("trainline_cli.py, -a $city_src, -d $city_dst, -n 2h", 1);
+echo "<script>console.log($output)</script>";
 
 $origin = getCoordinates($mode, $country_src, $city_src, $airport_src);
 $destination = getCoordinates($mode, $country_dst, $city_dst, $airport_dst);
-$transport;
-// TO-DO: SQL query to fetch the transport data from the DB
 // TO-DO: change the parameters of the constructors to match the database
 
 
-$travel = $transport->getTravel($origin, $destination);
+
+$train = $transport->getTravel($origin, $destination);
 ?>
 
 <div class="right-section" id="calculateur-right-section">
@@ -50,12 +44,14 @@ $travel = $transport->getTravel($origin, $destination);
         <div class="result-header">
             <div class="result-header-left">
                 <h2 class="result-header-left-title">Résultats</h2>
-                <p class="result-header-left-subtitle">Vos résultats pour un trajet de <?=$city_src . ", " . $country_src?> à <?=$city_dst . ", " . $country_dst?></p>
+                <p class="result-header-left-subtitle">Vos résultats pour un trajet de <?= $city_src .
+                                                                                            ", " .
+                                                                                            $country_src ?> à <?= $city_dst . ", " . $country_dst ?></p>
             </div>
             <div class="result-header-right">
                 <div class="result-header-right-mode">
                     <!-- <img src="assets/img/plane.svg"> -->
-                    <p class="result-header-right-mode-text"><?=$mode?></p>
+                    <p class="result-header-right-mode-text"><?= $mode ?></p>
                 </div>
                 <!-- <div class="result-header-right-mode">
                     <img src="assets/img/car.svg">
@@ -71,25 +67,25 @@ $travel = $transport->getTravel($origin, $destination);
             <div class="result-content-left">
                 <div class="result-content-left-item">
                     <h3 class="result-content-left-item-title">Distance</h3>
-                    <p class="result-content-left-item-value"><?=$travel["distance"]/1000?> km</p>
+                    <p class="result-content-left-item-value"><?= $travel["distance"] / 1000 ?> km</p>
                 </div>
                 <div class="result-content-left-item">
                     <h3 class="result-content-left-item-title">Durée</h3>
-                    <p class="result-content-left-item-value"><?=formatTime($travel["duration"])?></p>
+                    <p class="result-content-left-item-value"><?= formatTime($travel["duration"]) ?></p>
                 </div>
                 <div class="result-content-left-item">
                     <h3 class="result-content-left-item-title">Coût du trajet par passager</h3>
-                    <p class="result-content-left-item-value"><?=$travel["travelCost"]?> €</p>
+                    <p class="result-content-left-item-value"><?= $travel["travelCost"] ?> €</p>
                 </div>
             </div>
             <div class="result-content-right">
                 <div class="result-content-right-item">
                     <h3 class="result-content-right-item-title">Consommation de carburant</h3>
-                    <p class="result-content-right-item-value"><?=$travel["fuelConsumption"]?>L</p>
+                    <p class="result-content-right-item-value"><?= $travel["fuelConsumption"] ?>L</p>
                 </div>
                 <div class="result-content-right-item">
                     <h3 class="result-content-right-item-title">Empreinte carbone par passager</h3>
-                    <p class="result-content-right-item-value"><?=$travel["carbonFootprint"]?> kg</p>
+                    <p class="result-content-right-item-value"><?= $travel["carbonFootprint"] ?> kg</p>
                 </div>
             </div>
         </div>

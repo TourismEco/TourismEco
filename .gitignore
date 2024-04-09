@@ -5,3 +5,4 @@ ignore/
 .vscode/
 plotly/
 */private.php
+*.ipynb
