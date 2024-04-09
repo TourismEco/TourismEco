@@ -1,93 +1,39 @@
 <?php
 
 require_once "functions.php";
-require_once "transport.php";
 
 // CSRF protection
 // if (!isset($_GET["csrf"]) || $_GET["csrf"] !== $_SESSION["csrf"]) {
 //     die("CSRF token validation failed");
 // }
 
-// get the data from the POST request
+// get the data from the GET request
+$_GET = json_decode($_GET["data"], true);
 $country_src = isset($_GET["country_src"]) ? $_GET["country_src"] : null;
 $city_src = isset($_GET["city_src"]) ? $_GET["city_src"] : null;
 $country_dst = isset($_GET["country_dst"]) ? $_GET["country_dst"] : null;
 $city_dst = isset($_GET["city_dst"]) ? $_GET["city_dst"] : null;
-$airport_src = isset($_GET["airport_src"]) ? $_GET["airport_src"] : null;
-$airport_dst = isset($_GET["airport_dst"]) ? $_GET["airport_dst"] : null;
-$mode = isset($_GET["mode"]) ? $_GET["mode"] : null;
-$model = isset($_GET["model"]) ? $_GET["model"] : null;
-$duration = isset($_GET["duration"]) ? $_GET["duration"] : null;
+$departure_date = isset($_GET["departure_date"]) ? $_GET["departure_date"] : null;
+$arrival_date = isset($_GET["arrival_date"]) ? $_GET["arrival_date"] : null;
 $passengers = isset($_GET["passengers"]) ? $_GET["passengers"] : null;
+
 
 // default VALUES but need to implement the possibility to choose a certain car
 
-// $car = new Car();
-// $plane = new Plane();
-$train = new Train();
+var_dump($_GET);
+echo "<br>";
 
-echo "<script>console.log('country_src: $country_src, city_src: $city_src, country_dst: $country_dst, city_dst: $city_dst, airport_src: $airport_src, airport_dst: $airport_dst, mode: $mode, model: $model, duration: $duration, passengers: $passengers')</script>";
-$output = system("trainline_cli.py, -a $city_src, -d $city_dst, -n 2h", 1);
-echo "<script>console.log($output)</script>";
-
-$origin = getCoordinates($mode, $country_src, $city_src, $airport_src);
-$destination = getCoordinates($mode, $country_dst, $city_dst, $airport_dst);
+$origin = getCityCoordinates($country_src, $city_src);
+$destination = getCityCoordinates($country_dst, $city_dst);
 // TO-DO: change the parameters of the constructors to match the database
 
-
-
-$train = $transport->getTravel($origin, $destination);
+$car = null;
+$plane = null;
+$train = null;
 ?>
-
+<script>console.log(<?=json_encode($_GET)?>)</script>
 <div class="right-section" id="calculateur-right-section">
-    <div class="result">
-        <div class="result-header">
-            <div class="result-header-left">
-                <h2 class="result-header-left-title">Résultats</h2>
-                <p class="result-header-left-subtitle">Vos résultats pour un trajet de <?= $city_src .
-                                                                                            ", " .
-                                                                                            $country_src ?> à <?= $city_dst . ", " . $country_dst ?></p>
-            </div>
-            <div class="result-header-right">
-                <div class="result-header-right-mode">
-                    <!-- <img src="assets/img/plane.svg"> -->
-                    <p class="result-header-right-mode-text"><?= $mode ?></p>
-                </div>
-                <!-- <div class="result-header-right-mode">
-                    <img src="assets/img/car.svg">
-                    <p class="result-header-right-mode-text">Voiture</p>
-                </div>
-                <div class="result-header-right-mode">
-                    <img src="assets/img/train.svg">
-                    <p class="result-header-right-mode-text">Train</p>
-                </div> -->
-            </div>
-        </div>
-        <div class="result-content">
-            <div class="result-content-left">
-                <div class="result-content-left-item">
-                    <h3 class="result-content-left-item-title">Distance</h3>
-                    <p class="result-content-left-item-value"><?= $travel["distance"] / 1000 ?> km</p>
-                </div>
-                <div class="result-content-left-item">
-                    <h3 class="result-content-left-item-title">Durée</h3>
-                    <p class="result-content-left-item-value"><?= formatTime($travel["duration"]) ?></p>
-                </div>
-                <div class="result-content-left-item">
-                    <h3 class="result-content-left-item-title">Coût du trajet par passager</h3>
-                    <p class="result-content-left-item-value"><?= $travel["travelCost"] ?> €</p>
-                </div>
-            </div>
-            <div class="result-content-right">
-                <div class="result-content-right-item">
-                    <h3 class="result-content-right-item-title">Consommation de carburant</h3>
-                    <p class="result-content-right-item-value"><?= $travel["fuelConsumption"] ?>L</p>
-                </div>
-                <div class="result-content-right-item">
-                    <h3 class="result-content-right-item-title">Empreinte carbone par passager</h3>
-                    <p class="result-content-right-item-value"><?= $travel["carbonFootprint"] ?> kg</p>
-                </div>
-            </div>
-        </div>
-    </div>
+    <div hx-get="scripts/calculator/transport-car.php" hx-trigger="load" hx-vals=<?= json_encode($_GET)?>></div>
+    <div hx-get="scripts/calculator/transport-train.php" hx-trigger="load" hx-vals=<?= json_encode($_GET)?>></div>
+    <div hx-get="scripts/calculator/transport-plane.php" hx-trigger="load" hx-vals=<?= json_encode($_GET)?>></div>
 </div>

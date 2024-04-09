@@ -537,8 +537,8 @@ function getCoordinates($mode, $country=null, $city=null, $airport=null) {
 }
 
 function formatTime($seconds) {
-    $hours = floor($seconds / 3600) > 0 ? intval(floor($seconds / 3600)) . "h" : "";
-    $minutes = intval(floor(($seconds / 60)) % 60) > 0 ? intval(floor(($seconds / 60)) % 60) . "min" : "";
+    $hours = floor($seconds / 3600) > 0 ? sprintf("%02d", (floor($seconds / 3600))) . " h " : "";
+    $minutes = intval(floor(($seconds / 60)) % 60) > 0 ? sprintf("%02d",(floor(($seconds / 60)) % 60)) . " min " : "";
     return $hours . $minutes;
 }
 
@@ -633,4 +633,17 @@ function checkHTMX($page, $hx_page) {
         return $hx[count($hx)-1] == $page.".php";
     }
     return false;
+}
+
+function distanceMatrixRequestBuilder($origins, $destinations, $mode, $transit_mode=null) {
+    $url =
+        "https://maps.googleapis.com/maps/api/distancematrix/json?" .
+        "origins=" . urlencode($origins["lat"] . "," . $origins["lon"]) .
+        "&destinations=" . urlencode($destinations["lat"] . "," . $destinations["lon"]) .
+        "&mode=" . $mode .
+        "&key=" . MAPS_API_KEY;
+    if ($mode == "transit") {
+        $url .= "&transit_mode=" . $transit_mode;
+    }
+    return $url;
 }

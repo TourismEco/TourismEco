@@ -113,19 +113,21 @@ def get_best_result(data):
     best_result = {
         'duration': best_result['duration'],
         'emissions': best_result['emissions'],
-        'price': best_result['price']
+        'price': best_result['price'],
+        'stops': best_result['stops']
     }
     return best_result
     
-
-def run(playwright, origin, destination, departure_date, return_date, passengers):
+def search(playwright, origin, destination, departure_date, return_date, passengers):
     parser = get_page(playwright, origin, destination, departure_date, return_date, passengers)
     google_flights_results = scrape_google_flights(parser)
     best_result = get_best_result(google_flights_results)
+    return best_result
 
-    with open("data.json", "w") as file:
-        # file.write(json.dumps(google_flights_results, indent=2, ensure_ascii=False))
-        file.write(json.dumps(best_result, indent=2, ensure_ascii=False))
+def run(playwright, origin, destination, departure_date, return_date, passengers):
+    result = search(playwright, origin, destination, departure_date, return_date, passengers)
+    result_json = json.dumps(result, indent=2, ensure_ascii=False)
+    print(result_json)
 
 if __name__ == "__main__":
     passengers = 7

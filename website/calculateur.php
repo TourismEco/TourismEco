@@ -13,6 +13,7 @@
         <script>
             function getValues() {
                 console.log(htmx.values(htmx.find("#calc")));
+                return htmx.values(htmx.find("#calc"));
             }
         </script>
         <div class="zone-totale" id="zones">
@@ -60,10 +61,6 @@
                             <input type="date" id="arrival-date" name="arrival-date" placeholder="Saisissez une date" required autocomplete="off">
                         </div>
                     </div>
-
-                    <!-- Travel options (Airports if plane, train stations...) -->
-                    <div class="dual-input" id="travel-options"></div>
-
                     <div class="dual-input">
 
                         <div class="container-input">
@@ -73,7 +70,7 @@
                     </div>
                     <input type="hidden" id="CSRF" name="CSRF" value="<?= $_SESSION["csrf_token"] ?>">
 
-                    <input type="submit" value="Calculer" class="submit" hx-get="kek.php" hx-target="#calculateur-right-section" hx-select="#calculateur-right-section" hx-swap="outerHTML" hx-vals="js:{data:getValues()}">
+                    <input type="submit" value="Calculer" class="submit" hx-get="calcul.php" hx-target="#calculateur-right-section" hx-select="#calculateur-right-section" hx-swap="outerHTML" hx-vals="js:{data:getValues()}">
 
                 </form>
             </div>
