@@ -1079,7 +1079,7 @@ form {
 
 label {
     margin-bottom: 10px;
-    font-size: 18px;
+    font-size: 15px;
 }
 
 input {
@@ -1099,11 +1099,15 @@ input {
 }
 
 .right-section {
-    text-align: center;
-    font-size: 18px;
+    text-align: justify;
+    font-size: 17px;
     width: 50%;
-    margin: auto 0;
     line-height: 1.25;
+    display: grid;
+}
+
+.right-section h2 {
+    text-align:center;
 }
 
 .left-section {
@@ -1628,6 +1632,10 @@ input {
     color:white
 }
 
+.score-BR {
+    background-color: #52796F;
+}
+
 .border-W {
     border: solid 2px white;
 }
@@ -1655,6 +1663,11 @@ input {
 .border-NA {
     border: solid 2px #888;
     color:#888;
+    margin:7.5px
+}
+
+.border-GR {
+    border: solid 2px #52796F;
     margin:7.5px
 }
 
@@ -1965,4 +1978,84 @@ span {
 .active:hover {
     cursor: default;
     background-color: inherit;
+}
+
+.dual-input {
+    display: flex;
+    gap: 50px;
+    width: 70%;
+}
+
+.container-input {
+    align-items: center;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.container-input input, .container-input .option-container {
+    width: 100%;
+}
+
+.right-section .container-scores {
+    width: auto;
+    grid-template-rows: max-content;
+    display: grid;
+    justify-content: initial;
+}
+
+#calculateur-right-section {
+    grid-template-rows: repeat(3,1fr);
+}
+
+.stats-calc {
+    display: flex;
+    color:#222;
+    justify-items: center;
+    text-align: center;
+    gap: 5px;
+    align-items: center;
+    margin: 0 10px;
+    justify-content: space-evenly;
+}
+
+.stats-calc h3 {
+    font-weight: 400;
+    margin: 0;
+    font-size: 15px;
+}
+
+.stats-calc p {
+    margin: 0;
+    text-align: center;
+}
+
+.title-calc {
+    display: flex;
+    color: white;
+    width: fit-content;
+    background-color: #52796F;
+    border-radius: 0 10px 10px 0;
+    height: fit-content;
+    margin-top: 10px;
+}
+
+.title-calc img {
+    width: 30px;
+    filter: invert();
+}
+
+.title-calc p {
+    align-self: center;
+    color: white;
+    font-size: 15px;
+    margin: 5px;
+}
+
+.htmx-settling img {
+    opacity: 0;
+}
+img {
+    transition: opacity 300ms ease-in;
 }
