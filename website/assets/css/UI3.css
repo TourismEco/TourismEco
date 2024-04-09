@@ -727,11 +727,16 @@ h1 {
     border-radius: inherit;
 }
 
+.img-nav:hover {
+    background-color: #ddd;
+}
+
 .img-nav {
     justify-self: center;
     height: 65px;
     background-color: #EED;
-    border-radius: 0 0 10px 10px;
+    border-radius: 0 0 80px 80px;
+    padding-top: 8px;
 }
 
 .img-nav img {
@@ -1702,9 +1707,10 @@ input {
     font-size: 25px;
     font-style: normal;
     font-weight: 400;
-    line-height: normal;
     letter-spacing: -0.64px;
-    margin:0
+    margin:0;
+    margin-top: 20px;
+    font-weight: 300;
   }
   
   .prev, .next {
@@ -1781,6 +1787,7 @@ input {
   #logo-carousel {
     margin: auto;
     width: 150px;
+    border-radius: 25px;
   }
   .slide-link {
     grid-row: 3;
@@ -1818,8 +1825,17 @@ input {
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr;
     margin: 25px 100px;
+    border-radius: 10px;
 }
 
+.sectionHome:nth-of-type(even) {
+    background-color: #D9D9D9;
+}
+
+.sectionHome:last-of-type {
+    background-image: linear-gradient(to left, #2F3E46, #354F52);
+    color:white
+}
 .sectionHome .imgR {
     grid-column: 2;
     grid-row: 1;
@@ -1853,10 +1869,9 @@ input {
 }
 
 .sectionHome .content h2 {
-    color: rgb(0, 0, 0);
     font-family: 'Roboto', Arial, Helvetica, sans-serif;
     font-size: 25px;
-    font-weight: 800;
+    font-weight: 700;
     line-height: 1.2;
     letter-spacing: -0.64px; 
     margin-bottom: 50px; 
@@ -1864,7 +1879,6 @@ input {
 }
 
 .sectionHome .content p {
-    color: #000000;
     font-family: 'Roboto', Arial, Helvetica, sans-serif;
     font-size: 18px;
     font-weight: 400;
@@ -1915,13 +1929,6 @@ input {
 
 .btnIndex2:hover {
     background-color: #3f5b46;
-}
-
-.separator {
-    height: 2px;
-    width: 800px;
-    background-color: #222;
-    margin: 0 auto;
 }
 
 .container-bottom:hover {

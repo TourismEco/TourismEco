@@ -27,7 +27,11 @@
     }
 
     if ($pays == "") {
-        require_once 'catalogue.php';
+        if (isset($_POST["exp"])) {
+            require_once 'explorer.php';
+        } else {
+            require_once 'catalogue.php';
+        }
         exit;
     }
 ?>

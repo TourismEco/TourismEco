@@ -415,7 +415,6 @@ function carousel($conn) {
 
         <div class="text-center">
             <img id="logo-carousel" src="assets/icons/eco.png" alt="Logo TourismEco">
-            <p class="hHome">TourismEco</p>
             <h2>Partez à la découverte du monde</h2>
         </div>
         

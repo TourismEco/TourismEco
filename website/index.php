@@ -16,10 +16,8 @@
           <p>Bienvenue sur le site Écotourisme, votre destination en ligne pour explorer et comprendre les données économiques et écologiques de différentes régions du monde. Notre plateforme offre un éventail de fonctionnalités pour vous aider à planifier des voyages plus responsables, basés sur des informations pertinentes.</p>
       </div>
       <img class="imgR" src="assets/icons/airBalloon.svg" alt="Logo 3">
-      <a hx-get="pays.php" hx-push-url="true" hx-target="#zones" hx-select="#zones" hx-swap="outerHTML swap:0.5s" class="btnIndex">Explorez maintenant</a>
+      <a hx-post="pays.php" hx-push-url="true" hx-target="#zones" hx-select="#zones" hx-swap="outerHTML swap:0.5s"  hx-vals="js:{exp:true}" class="btnIndex">Explorez maintenant</a>
     </div>
-
-    <div class="separator"></div>
 
     <div class="sectionHome">
     <img  class="imgL" src="assets/icons/loupeIndex.svg" alt="Logo 3">
@@ -30,8 +28,6 @@
       </div>  
     </div>
 
-    <div class="separator"></div>
-
     <div class="sectionHome">
       <div class="content" id="R">
         <h2>Voyagez responsable</h2>
@@ -40,8 +36,6 @@
         <img class="imgR" src="assets/icons/CO2.svg" alt="Logo 2">
         <a hx-get="calculateur.php" hx-push-url="true" hx-target="#zones" hx-select="#zones" hx-swap="outerHTML swap:0.5s" class="btnIndex">Accédez au calculateur</a>
     </div>
-
-    <div class="separator"></div>
 
     <div class="sectionHome">
       <img class="imgL" src="assets/icons/balance.svg" alt="Logo 3">
@@ -52,8 +46,6 @@
       <p>Comparer les performances environnementales des nations vous aide à choisir des partenaires commerciaux, des destinations de voyage et des politiques favorables à la durabilité.</p>
       </div>  
     </div>
-
-    <div class="separator"></div>
 
       <div class="sectionHome">
       <div class="content" id="R">

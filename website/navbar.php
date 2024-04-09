@@ -8,7 +8,7 @@
     </div>
 
     <div class="img-nav">
-        <a href="index.php" aria-label="Accueil"><img src="assets/icons/eco.png" alt="Logo TourismEco"></a>
+        <a href="index.php" aria-label="Accueil"><img src="assets/icons/ecomini.png" alt="Logo TourismEco"></a>
     </div>
 
     <div class="left-nav">
