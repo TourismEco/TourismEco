@@ -11,5 +11,41 @@ $passengers = isset($_GET["passengers"]) ? $_GET["passengers"] : null;
 // $return_time = strtotime($arrival_date) - time();
 
 exec("../../.venv/bin/trainline_cli.py -d $city_src -a $city_dst -n 1d", $output);
+$output = json_decode($output[0], True);
 var_dump($output);
+
 ?>
+
+<div class="container-scores border-GR">
+    <div class="title-calc">
+        <img src="assets/icons/train.svg">
+        <p>Train</p>
+    </div>
+
+    <div class="stats-calc">
+        <div>
+            <h3>Empreinte Carbone</h3>
+            <p>//</p>
+        </div>
+        <div class="trait-small"></div>
+        <div>
+            <h3>Prix du trajet</h3>
+            <p><?=$output['price']?></p>
+        </div>
+        <div class="trait-small"></div>
+        <div>
+            <h3>Distance parcourue</h3>
+            <p>//</p>
+        </div>
+        <div class="trait-small"></div>
+        <div>
+            <h3>Durée trajet</h3>
+            <p><?=$output['duration']?></p>
+        </div>
+        <div class="trait-small"></div>
+        <div>
+            <h3>Nombre de segments</h3>
+            <p><?=$output['number_of_segments']?></p>
+        </div>
+    </div>
+</div>
