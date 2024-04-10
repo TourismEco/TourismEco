@@ -27,7 +27,7 @@ from playwright.sync_api import sync_playwright
     type=str,
     help='departure date \
 (format : DD-MM-YYYY)',
-    default=(datetime.now() + timedelta(days=1)).strftime("%d-%m-%Y"),
+    default=(datetime.now() + timedelta(days=3)).strftime("%d-%m-%Y"),
     show_default=True,
 )
 @click.option(
@@ -35,7 +35,7 @@ from playwright.sync_api import sync_playwright
     type=str,
     help='return date \
 (format : DD-MM-YYYY)',
-    default=(datetime.now() + timedelta(days=7)).strftime("%d-%m-%Y"),
+    default=(datetime.now() + timedelta(days=10)).strftime("%d-%m-%Y"),
     show_default=True,
 )
 @click.option(

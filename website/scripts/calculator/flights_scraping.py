@@ -126,15 +126,15 @@ def search(playwright, origin, destination, departure_date, return_date, passeng
 
 def run(playwright, origin, destination, departure_date, return_date, passengers):
     result = search(playwright, origin, destination, departure_date, return_date, passengers)
-    result_json = json.dumps(result, indent=2, ensure_ascii=False)
+    result_json = json.dumps(result, ensure_ascii=False)
     print(result_json)
 
 if __name__ == "__main__":
     passengers = 7
     origin = 'Lisbonne'
     destination = 'Paris'
-    departure_date = '05-06-2024'
-    return_date = '05-08-2024'
+    departure_date = '2024-06-05'
+    return_date = '2024-08-05'
 
     with sync_playwright() as playwright:
         run(playwright, origin, destination, departure_date, return_date, passengers)

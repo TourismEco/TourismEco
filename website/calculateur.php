@@ -52,13 +52,13 @@
 
                     <div class="dual-input">
                         <div class="container-input">
-                            <label for="departure-date">Date de départ</label>
-                            <input type="date" id="departure-date" name="departure-date" placeholder="Saisissez une date" required autocomplete="off">
+                            <label for="departure_date">Date de départ</label>
+                            <input type="date" id="departure_date" name="departure_date" placeholder="Saisissez une date" required autocomplete="off">
                         </div>
 
                         <div class="container-input">
-                            <label for="arrival-date">Date de retour</label>
-                            <input type="date" id="arrival-date" name="arrival-date" placeholder="Saisissez une date" required autocomplete="off">
+                            <label for="return_date">Date de retour</label>
+                            <input type="date" id="return_date" name="return_date" placeholder="Saisissez une date" required autocomplete="off">
                         </div>
                     </div>
                     <div class="dual-input">

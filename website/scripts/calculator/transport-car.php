@@ -115,7 +115,7 @@ $city_src = isset($_GET["city_src"]) ? $_GET["city_src"] : null;
 $country_dst = isset($_GET["country_dst"]) ? $_GET["country_dst"] : null;
 $city_dst = isset($_GET["city_dst"]) ? $_GET["city_dst"] : null;
 $departure_date = isset($_GET["departure_date"]) ? $_GET["departure_date"] : null;
-$arrival_date = isset($_GET["arrival_date"]) ? $_GET["arrival_date"] : null;
+$return_date = isset($_GET["return_date"]) ? $_GET["return_date"] : null;
 $passengers = isset($_GET["passengers"]) ? $_GET["passengers"] : null;
 
 $origin = getCoordinates("DRIVING", $country_src, $city_src);
