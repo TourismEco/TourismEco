@@ -2,39 +2,22 @@
 
 require('../../functions.php');
 
-// Récupérer les données du formulaire
-if (
-    isset($_POST['username']) &&
-    isset($_POST['password']) &&
-    isset($_POST['confirmPassword']) &&
-    isset($_POST['country_register']) &&
-    isset($_POST['city_register'])
-) {
+if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['confirmPassword']) && isset($_POST['country_register']) && isset($_POST['city_register'])) {
     $username = htmlspecialchars($_POST['username']);
     $password = $_POST['password'];
     $confirmPassword = $_POST['confirmPassword'];
     $country = htmlspecialchars($_POST['country_register']);
     $city = htmlspecialchars($_POST['city_register']);
 
-    if (empty($username) || empty($password) || empty($country) || empty($city) || empty($confirmPassword) || $password != $confirmPassword) {
-        // Retourne une réponse JSON indiquant une erreur de validation
-        echo json_encode(['success' => false, 'message' => 'Veuillez remplir correctement tous les champs.']);
-        exit;
-    }
-
-    // Enregistre les données dans la base de données
-    $response = ajouter($username, $password, $country, $city);
-
-    // Retourne la réponse JSON obtenue de la fonction d'enregistrement
-    echo $response;
-} else {
-    // Retourne une réponse JSON indiquant que le formulaire n'est pas complet
-    echo json_encode(['success' => false, 'message' => 'Veuillez remplir le formulaire.']);
-}
-
-function ajouter($username, $password, $country, $city)
-{
-    try {
+    if (empty($username) || empty($password) || empty($country) || empty($city) || empty($confirmPassword)) {
+        echo <<<HTML
+            <div id="error" class="form-warning" hx-swap-oob="outerHTML">Vous n'avez pas tout rempli !</div>
+        HTML;
+    } else if ($password != $confirmPassword) {
+        echo <<<HTML
+            <div id="error" class="form-warning" hx-swap-oob="outerHTML">Les mots de passes ne sont pas identiques.</div>
+        HTML;
+    } else {
         $connexion = getDB();
 
         // Vérifier l'unicité du nom d'utilisateur
@@ -45,7 +28,10 @@ function ajouter($username, $password, $country, $city)
 
         // Si le nom est déjà utilisé:
         if ($count > 0) {
-            return json_encode(['success' => false, 'message' => "Le nom d'utilisateur existe déjà."]);
+            echo <<<HTML
+                <div id="error" class="form-warning" hx-swap-oob="outerHTML">Ce nom d'utilisateur existe déjà !</div>
+            HTML;
+            exit;
         }
 
         //// Continuer le processus d'enregistrement puisque le nom d'utilisateur n'existe pas encore
@@ -59,7 +45,10 @@ function ajouter($username, $password, $country, $city)
         $cityCountryCount = $stmtCheckCityCountry->fetchColumn();
 
         if ($cityCountryCount == 0) {
-            return json_encode(['success' => false, 'message' => "La ville sélectionnée n'appartient pas au pays renseigné."]);
+            echo <<<HTML
+                <div id="error" class="form-warning" hx-swap-oob="outerHTML">Il y a une incohérence dans la ville entrée. Elle semble ne pas appartenir au pays choisi...</div>
+            HTML;
+            exit;
         }
 
         // Hasher le mot de passe
@@ -74,18 +63,27 @@ function ajouter($username, $password, $country, $city)
 
         if ($stmt->execute()) {
             // Stocker les informations de l'utilisateur dans la session
-            $_SESSION['client']['username'] = $username;
-            $_SESSION['client']['country'] = $country;
-            $_SESSION['client']['city'] = $city;
+            $_SESSION['user']['username'] = $username;
+            $_SESSION['user']['country'] = $country;
+            $_SESSION['user']['city'] = $city;
 
-            
-            header('Location: ../../Profil/profil.php');
-            exit;
+
+            echo <<<HTML
+                <div id="htmxing" hx-swap-oob="true">
+                    <div hx-get="profil.php" hx-target="#zones" hx-select="#zones" hx-swap="outerHTML swap:0.5s show:window:top" hx-push-url="true" hx-trigger="load"></div>
+                </div>
+                <a href="profil.php" aria-label="Profil" id="n1" hx-swap-oob="outerHTML">Profil</a>
+                <a href="deconnexion.php" aria-label="Déconnexion" id="n2" hx-swap-oob="outerHTML">Déconnexion</a>
+            HTML;
         } else {
-            return json_encode(['success' => false, 'message' => 'Erreur lors de l\'inscription : ' . $stmt->errorInfo()[2]]);
+            echo <<<HTML
+                <div id="error" class="form-warning" hx-swap-oob="outerHTML">Une erreur innatendue s'est produite.</div>
+            HTML;
         }
-    } catch (Exception $e) {
-        return json_encode(['success' => false, 'message' => 'Une erreur inattendue s\'est produite : ' . $e->getMessage()]);
     }
+} else {
+    // Retourne une réponse JSON indiquant que le formulaire n'est pas complet
+    echo <<<HTML
+        <div id="error" class="form-warning" hx-swap-oob="outerHTML">Une erreur inconnue a eu lieu.</div>
+    HTML;
 }
-?>
