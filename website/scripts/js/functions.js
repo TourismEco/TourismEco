@@ -58,3 +58,25 @@ function updateRanking(id_pays, type, data) {
         </div>
     `)
 }
+
+function changeScore(option, html) {
+    vars = ["pibParHab","ges","arriveesTotal","gpi","idh","elecRenew"]
+    poids = {   
+        global:{pibParHab:2,ges:6,arriveesTotal:2,gpi:4,idh:4,elecRenew:3},
+        decouverte:{pibParHab:0,ges:1,arriveesTotal:2,gpi:0,idh:2,elecRenew:0},
+        ecologie:{pibParHab:0,ges:3,arriveesTotal:0,gpi:0,idh:0,elecRenew:2},
+        economie:{pibParHab:2,ges:0,arriveesTotal:2,gpi:0,idh:2,elecRenew:0}
+    }
+
+    p = poids[option]
+
+    vars.forEach(element => {
+        div = $("#poids"+element).children()
+        for(i=0;i<p[element];i++) {
+            
+        }
+    });
+    
+    
+
+}

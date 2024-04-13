@@ -156,6 +156,21 @@ echo <<<HTML
 
 <h2 id="paysvs" hx-swap-oob="outerHTML">$nom VS Moyenne mondiale</h2>
 
+<div class="choice-scores" id="allScores" hx-swap-oob="outerHTML">
+    <div class="border-scores border-A score-active" onclick="changeScore('global')" data-value=0 data-letter="E">
+        <div class="score-box">A</div>
+    </div>
+    <div class="border-scores border-E" onclick="changeScore('decouverte')" data-value=0 data-letter="E">
+        <div class="score-box">E</div>
+    </div>
+    <div class="border-scores border-C" onclick="changeScore('ecologie')" data-value=0 data-letter="E">
+        <div class="score-box">C</div>
+    </div>
+    <div class="border-scores border-NA" onclick="changeScore('economie')" data-value=0 data-letter="E">
+        <div class="score-box"><img src="assets/icons/bd.svg"></div>
+    </div>
+</div>
+
 <script id=orders hx-swap-oob=outerHTML>
     spiderHTMX(0, $dataSpider, $dataTab, "$nom")
     barreLineHTMX($dataBarreLine, "$nom")
@@ -168,5 +183,9 @@ echo <<<HTML
 </script>
 
 HTML;
+
+foreach (array("pibParHab","elecRenew","arriveesTotal","gpi","idh","ges") as $key => $value) {
+    cardScore($value,345);
+}
 
 ?>

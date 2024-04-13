@@ -632,4 +632,62 @@ function checkHTMX($page, $hx_page) {
         return $hx[count($hx)-1] == $page.".php";
     }
     return false;
+function cardScore($option, $value) {
+    $arMin = array("pibParHab" =>0.12, "co2" =>0.12, "ges" =>0.12, "arriveesTotal" =>0.12, "idh" =>0.12, "gpi" =>0.12, "elecRenew" =>0.12);
+    $arMax = array("pibParHab" =>0.988, "co2" =>0.988, "ges" =>0.988, "arriveesTotal" =>0.988, "idh" =>0.988, "gpi" =>0.988, "elecRenew" =>0.988);
+    $icons = array("pibParHab" =>"dollar", "ges" =>"cloud", "arriveesTotal" =>"down", "idh" =>"idh", "gpi" =>"shield", "elecRenew" =>"elec");
+    $texts = array("pibParHab" =>"PIB par Habitant", "ges" =>"Émissions de GES par habitant", "arriveesTotal" =>"Arrivées touristiques", "idh" =>"Indice de développement humain", "gpi" => "Global peace index", "elecRenew" =>"Production d'énergies renouvellables");
+
+    $min = $arMin[$option];
+    $max = $arMax[$option];
+    $icon = $icons[$option];
+    $text = $texts[$option];
+
+    $letter = "E";
+
+    if ($value == null) {
+        echo <<<HTML
+            <div class="container-scores border-NA" id="sco-$option" hx-swap-oob="outerHTML">
+                <div class="title-scores">
+                    <img src="assets/icons/$icon.svg" class="score-NA">
+                    <p>$text</p>
+                </div>
+
+                <div class="stats-scores">
+                    <img src="assets/icons/bd.svg">
+                    <p>$value</p>
+                </div>
+            </div>
+        HTML;
+    } else {
+        echo <<<HTML
+            <div class="container-scores border-$letter" id="sco-$option" hx-swap-oob="outerHTML">
+                <div class="title-scores">
+                    <img src="assets/icons/$icon.svg" class="score-$letter">
+                    <p>$text</p>
+                </div>
+
+                <div class="stats-scores">
+                    <p>$value</p>
+                    <div class="stats-scores-minmax">
+                        <p>Min<br>$min</p>
+                        <div class="trait-small"></div>
+                        <p>Max<br>$max</p>
+                    </div>
+                </div>
+
+                <div>
+                    <p class="small-text"></p>
+                    <div class="poids-scores" id="poids-$option">
+                        <div class="el-poids"></div>
+                        <div class="el-poids"></div>
+                        <div class="el-poids"></div>
+                        <div class="el-poids"></div>
+                        <div class="el-poids"></div>
+                        <div class="el-poids"></div>
+                    </div>
+                </div>
+            </div>
+        HTML;
+    }
 }
