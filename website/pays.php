@@ -27,11 +27,7 @@
     }
 
     if ($pays == "") {
-        if (isset($_POST["exp"])) {
-            require_once 'explorer.php';
-        } else {
-            require_once 'catalogue.php';
-        }
+        require_once 'catalogue.php';
         exit;
     }
 ?>
@@ -42,7 +38,7 @@
 
         <div id="zones">
 
-            <div class="zone-presentation display" id="home">
+            <div class="zone zone-presentation display" id="home">
                 <div class="container-presentation expand-3" id="bandeau0"></div>
                 <div class="container-presentation" id="miniMap0"></div>
                 <div class="container-presentation" id="score0"></div>
@@ -76,7 +72,7 @@
 
             </div>
 
-            <div class="zone-spider display" id="key" style="display: none;">
+            <div class="zone zone-spider display" id="key" style="display: none;">
                 <div class="title-zone">
                     <img class="flag-small" src='assets/icons/lamp.svg'>
                     <div>
@@ -188,7 +184,7 @@
                 </div>
             </div>
 
-            <div class="zone display" id="courbe" style="display: none;">
+            <div class="zone zone-basic display" id="courbe" style="display: none;">
 
                 <div class="title-zone">
                     <img class="flag-small" src='assets/icons/sort.svg'>
@@ -282,7 +278,7 @@
                 </div>
             </div>
 
-            <div class="zone display" id="barl" style="display:none">
+            <div class="zone zone-basic display" id="barl" style="display:none">
                 <div class="graph" id="barreLine"></div>
             </div>
 
@@ -302,6 +298,7 @@
                                 <p>Max<br>0.988</p>
                             </div>
                         </div>
+            <div class="zone zone-scores display" id="scores" style="display:none">
 
                         <div>
                             <p class="small-text">Poids : 2</p>
@@ -512,12 +509,7 @@
                         <img class="flag-small" src='assets/icons/stats.svg'>
                     </div>
 
-                    <div class="container-bottom page" data-index="1" data-name="Explorer" id="s-explore" hx-get="explorer.php" hx-select="#zones" hx-target="#zones" hx-trigger="click" hx-vals="js:{page:'pays'}" hx-swap="outerHTML swap:0.5s">
-                        <span>Explorateur</span>
-                        <img class="flag-small" src='assets/icons/map.svg'>
-                    </div>
-
-                    <div class="container-bottom page" data-index="2" data-name="Catalogue" id="s-catalogue" hx-get="catalogue.php" hx-select="#zones" hx-target="#zones" hx-trigger="click" hx-vals="js:{page:'pays'}" hx-swap="outerHTML swap:0.5s">
+                    <div class="container-bottom page" data-index="1" data-name="Catalogue" id="s-catalogue" hx-get="catalogue.php" hx-select="#zones" hx-target="#zones" hx-trigger="click" hx-vals="js:{page:'pays'}" hx-swap="outerHTML swap:0.5s">
                         <span>Catalogue</span>
                         <img class="flag-small" src='assets/icons/catalogue.svg'>
                     </div>

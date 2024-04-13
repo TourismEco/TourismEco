@@ -164,100 +164,6 @@
         <div class="nav-bottom" id="nav-bot" hx-swap-oob="outerHTML">
             <div class="nav-categ">
                 <div class="pack-categ">
-                    <?php
-                        if ($page == "pays") {
-                            echo <<<HTML
-                                <div class="container-bottom page active" id="s-stats" hx-get="pays.php" hx-select="#zones" hx-target="#zones" hx-trigger="click" hx-swap="outerHTML swap:0.5s" data-name="Statistiques">
-                                    <span>Statistiques</span>
-                                    <img class="flag-small" src='assets/icons/stats.svg'>
-                                </div>
-                            HTML;
-                        } else {
-                            echo <<<HTML
-                                <div class="container-bottom page active" id="s-stats" hx-get="comparateur.php" hx-select="#zones" hx-target="#zones" hx-trigger="click" hx-swap="outerHTML swap:0.5s" data-name="Comparateur">
-                                    <span>Comparer</span>
-                                    <img class="flag-small" src='assets/icons/stats.svg'>
-                                </div>
-                            HTML;
-                        }
-                    ?>
-                    
-                    <div class="container-bottom page" id="s-explorer" data-name="Explorateur">
-                        <img class="flag-small" src='assets/icons/map.svg'>
-                    </div>
-
-                    <div class="container-bottom page" id="s-catalogue" data-name="Catalogue" hx-get="catalogue.php" hx-select="#zones" hx-target="#zones" hx-trigger="click" hx-vals="js:{page:'pays'}" hx-swap="outerHTML swap:0.5s">
-                        <span>Catalogue</span>
-                        <img class="flag-small" src='assets/icons/catalogue.svg'>
-                    </div>
-
-                    <div id="trans-page" class="active-bg"></div>
-                </div>
-
-                <div class="nav-trait"></div>
-
-                <div id="name-page" class="nav-text">Explorateur</div>
-            </div>
-
-            <div class="nav-categ">
-                <div class="pack-categ">
-                    <?php
-                        if ($page == "pays") {
-                            $incr = 0;
-                            
-                            if (isset($_SESSION["pays"][0])) {
-                                $id_pays = $_SESSION["pays"][0];
-                                echo <<<HTML
-                                    <img class="flag-small" id="flag-bot" src='assets/twemoji/$id_pays.svg'>
-                                HTML;
-                            } else {
-                                echo <<<HTML
-                                    <img class="flag-small" id="flag-bot" src='assets/icons/question.svg'>
-                                HTML;
-                            }
-                        } else {
-                            $incr = count($_SESSION["pays"])%2;
-                            $active0 = "";
-                            $active1 = "";
-                            if ($incr == 0) {
-                                $active0 = "active";
-                            } else {
-                                $active1 = "active";
-                            }
-
-                            if (isset($_SESSION["pays"][0])) {
-                                $url = "twemoji/".$_SESSION["pays"][0];
-                            } else {
-                                $url = "icons/question";
-                            }
-                            echo <<<HTML
-                                <div class="container-bottom switch-compare $active0" id="fb0" data-incr="0" style="filter: none;">
-                                    <img class="flag-small" id="flag-bot0" src='assets/$url.svg'>
-                                </div>
-                            HTML;
-
-                            if (isset($_SESSION["pays"][1])) {
-                                $url = "twemoji/".$_SESSION["pays"][1];
-                            } else {
-                                $url = "icons/question";
-                            }
-                            echo <<<HTML
-                                <div class="container-bottom switch-compare $active1" id="fb1" data-incr="1" style="filter: none;">
-                                    <img class="flag-small" id="flag-bot1" src='assets/$url.svg'>
-                                </div>
-                            HTML;
-
-                            echo <<<HTML
-                                <div id="trans-compare" class="active-bg bg-compare"><img id="compare-switch" src="assets/icons/switch.svg"></div>
-                            HTML;
-                        }
-                    ?>
-
-                </div>
-                
-                <div class="nav-trait"></div>
-
-                <div class="pack-categ">
                     <div class="container-bottom active switch" data-switch="explore" data-index="0" data-name="Explorer">
                         <span>Explorer</span>
                         <img class="flag-small" src='assets/icons/map.svg'>
@@ -287,7 +193,6 @@
         </script>
 
         <script id="behave" hx-swap-oob="outerHTML">
-            var incr = <?=$incr?>;
             var typeC = "score";
             var id_pays = null;
 
@@ -309,8 +214,6 @@
                 nb = $(this).data("index")*53
                 $("#trans").css("transform","translateX("+nb+"px)")
                 $("#name-switch").html($(this).data("name"))
-
-                id_continent = $(this).data("id_continent")
             })
 
             $(".switch-compare").on("click", function () {

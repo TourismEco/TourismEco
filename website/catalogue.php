@@ -4,7 +4,7 @@
 
     <div class="flex">
 
-        <div class="zone-explore" id="zones" hx-swap="swap:0.5s">
+        <div class="zone zone-explore" id="zones" hx-swap="swap:0.5s">
 
             <?php 
                 require_once "functions.php";
@@ -91,11 +91,6 @@
                             HTML;
                         }
                     ?>
-                    
-                    <div class="container-bottom page" id="s-explorer" data-name="Explorateur" hx-get="explorer.php" hx-select="#zones" hx-target="#zones" hx-trigger="click" hx-vals="js:{page:'pays'}" hx-swap="outerHTML swap:0.5s">
-                        <span>Explorateur</span>
-                        <img class="flag-small" src='assets/icons/map.svg'>
-                    </div>
 
                     <div class="container-bottom page" id="s-catalogue" data-name="Catalogue">
                         <img class="flag-small" src='assets/icons/catalogue.svg'>
@@ -234,7 +229,7 @@
             $("#s-catalogue").addClass("active")
             $("#name-page").text("Catalogue");
 
-            nb = 106
+            nb = 53
             $("#trans-page").css("transform","translateX("+nb+"px)")
             $("#trans-compare").css("transform","translateX("+(53*incr)+"px)")
             $("#nav-bot").css("transform","translateY(0)")

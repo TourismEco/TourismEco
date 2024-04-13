@@ -32,7 +32,6 @@ body {
     transition: .5s all;
     color: #222;
     display: flex;
-    justify-content: space-evenly;
 }
 
 .bandeau {
@@ -61,14 +60,9 @@ body {
 
 .flag-small {
     width: 35px;
-    grid-row: 1;
-    grid-column: 1;
     z-index: 7;
-    align-self: center;
     color: white;
-    opacity: 100%;
     transition: all .5s;
-    justify-self: center;
     border-radius: 10px;
     padding: 5px;
 }
@@ -116,50 +110,61 @@ body {
     z-index: 5;
     color: #222;
     display: grid;
-    grid-template-rows: repeat(2, max-content);
-    grid-template-columns: 3fr 2fr;
     gap: 20px;
     padding: 30px;
     overflow-y: auto;
-    height: calc(100vh - 210px);
+    height: calc(100vh - 195px);
+}
+
+.zone-basic {
+    grid-template-rows: repeat(2, max-content);
+    grid-template-columns: 3fr 2fr;
 }
 
 .zone-bar {
-    background-color: #EED;
-    border-radius: 10px;
-    color: #222;
-    display: grid;
     grid-template-rows: 1fr 10fr 1fr;
     gap: 10px;
-    padding: 30px;
-    overflow-y: auto;
-    height: calc(100vh - 210px);
 }
 
 .zone-spider {
-    background-color: #EED;
-    border-radius: 10px;
-    z-index: 5;
-    color: #222;
-    display: grid;
     grid-template-columns: repeat(5, 1fr);
-    padding: 30px;
-    overflow-y: auto;
-    height: calc(100vh - 210px);
 }
 
 .zone-totale {
-    background-color: #EED;
-    border-radius: 10px;
-    z-index: 5;
-    color: #222;
-    gap: 20px;
-    padding: 30px;
-    overflow-y: auto;
     display: flex;
     justify-content: center;
     text-align: center;
-    height: calc(100vh - 210px);
+}
+
+.zone-presentation {
+    grid-template-rows: repeat(3, calc(33% - 12px));
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.zone-cataloguePays {
+    border-bottom: none;
+    border-left: none;
+    display: flex;
+    flex-direction: column;
+    grid-row: 1 / 3;
+}
+
+.zone-explore {
+    grid-template-columns: 1fr 1fr;
+    padding: 20px 35px;
+    overflow-y: clip;
+    grid-template-rows: 50px;
+}
+
+.zone-cartePays {
+    overflow-y: auto;
+    grid-row: 1 / 3;
+    grid-column: 2;
+}
+
+.zone-scores {
+    grid-template-rows: min-content;
+    grid-template-columns: 1fr 1fr 1fr;
 }
 
 .column {
@@ -288,50 +293,6 @@ body {
 
 .cursor {
     cursor: pointer
-}
-
-.zone-presentation {
-    background-color: #EED;
-    border-radius: 10px;
-    z-index: 5;
-    color: #222;
-    display: grid;
-    grid-template-rows: repeat(3, calc(33% - 12px));
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-    padding: 30px;
-    height: calc(100vh - 210px);
-}
-
-.zone-cataloguePays {
-    z-index: 5;
-    border-bottom: none;
-    border-left: none;
-    color: #222;
-    display: flex;
-    flex-direction: column;
-    overflow-y: auto;
-    grid-row: 1 / 3;
-}
-
-.zone-explore {
-    background-color: #EED;
-    z-index: 5;
-    color: #222;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-    padding: 20px 35px;
-    overflow-y: clip;
-    height: calc(100vh - 210px);
-    border-radius: 10px;
-    grid-template-rows: 50px;
-}
-
-.zone-cartePays {
-    overflow-y: auto;
-    grid-row: 1 / 3;
-    grid-column: 2;
 }
 
 .container-explore {
@@ -684,68 +645,37 @@ h1 {
 }
 
 .navbar {
-    overflow: hidden;
-    display: grid;
+    display: flex;
     margin: auto;
-    border-radius: 0 0 10px 10px;
-    grid-template-columns: 1fr 65px 1fr;
-    border-top: none;
     filter: drop-shadow(10px 20px 10px #222);
-    margin-bottom: 10px;
-}
-
-.navbar a {
-    float: left;
-    display: block;
-    color: #222;
-    text-align: center;
-    padding: 15px 16px;
-    text-decoration: none;
-    align-self: center;
+    margin: 10px;
+    justify-content: center;
 }
 
 .navbar div {
-    grid-row: 1;
-    height: fit-content;
-}
-
-.right-nav {
-    justify-self: end;
-    border-radius: 0 0 0 10px;
+    display: flex;
+    gap: 20px;
+    padding: 0 15px;
+    border-radius: 10px;
     background-color: #EED;
 }
 
-.left-nav {
-    width: fit-content;
-    border-radius: 0 0 10px 0;
-    background-color: #EED;
+.navbar div a {
+    text-decoration: none;
+    color: #222;
+    line-height: 3;
+    height: 50px;
 }
 
-.navbar a:hover {
+.navbar div a:hover {
     background-color: #ddd;
     color: black;
     border-radius: inherit;
 }
 
-.img-nav:hover {
-    background-color: #ddd;
-}
-
 .img-nav {
-    justify-self: center;
-    height: 65px;
-    background-color: #EED;
-    border-radius: 0 0 80px 80px;
-    padding-top: 8px;
-}
-
-.img-nav img {
-    width: 65px;
-    height: 65px;
-}
-
-.img-nav a {
-    padding: 0;
+    width: 50px;
+    height: 50px;
 }
 
 .icon {
@@ -758,7 +688,6 @@ h1 {
 
 .icon:hover {
     cursor: pointer;
-
 }
 
 .details {
@@ -974,6 +903,7 @@ h1 {
     display: flex;
     align-items: center;
     color: white;
+    
 }
 
 .trait {
@@ -1204,6 +1134,7 @@ input {
     grid-row: 1;
     grid-column: 1;
     z-index: 3;
+    color:#222
 }
 
 .title-zone {
@@ -1240,6 +1171,10 @@ input {
 .zone-spider .title-zone {
     grid-row: 8;
     grid-column: 1 / 3;
+}
+
+.zone-scores .title-zone {
+    grid-column: 1 / 4;
 }
 
 .mask {
@@ -1369,20 +1304,6 @@ input {
     margin: 7.5px
 }
 
-.zone-scores {
-    background-color: #EED;
-    border-radius: 10px;
-    z-index: 5;
-    color: #222;
-    display: grid;
-    grid-template-rows: 1fr;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 20px;
-    padding: 30px;
-    overflow-y: auto;
-    height: calc(100vh - 210px);
-}
-
 .scores-column {
     display: grid;
     gap: 20px;
@@ -1401,6 +1322,7 @@ input {
     width: 300px;
     height: 150px;
     flex-direction: column;
+    border: solid 2px var(--color1);
 }
 
 .title-scores {
@@ -1451,10 +1373,6 @@ input {
 .stats-scores-minmax .trait-small {
     height: 30px;
     margin: 0 10px;
-}
-
-.border-C {
-    border: solid 2px #E49C15;
 }
 
 .el-poids {
@@ -1517,6 +1435,8 @@ input {
     height: 50px;
     border-radius: 10px;
     font-size: 25px;
+    color:var(--color1);
+    border:solid 2px var(--color1);
 } 
 
 .border-scores {
@@ -1633,34 +1553,40 @@ input {
     color:white
 }
 
-.border-W {
-    border: solid 2px white;
+.score-BR {
+    background-color: #52796F;
 }
 
+.border-W {
+    --color1 : white
+}
 .border-A {
-    border: solid 2px #006700;
-    color:#006700
+    --color1 : #006700;
 }
 .border-B {
-    border: solid 2px #446700;
-    color:#446700
+    --color1 : #446700;
 }
 .border-C {
-    border: solid 2px #E49C15;
-    color:#E49C15
+    --color1 : #E49C15;
 }
 .border-D {
-    border: solid 2px #BB5C00;
-    color:#BB5C00
+    --color1 : #BB5C00;
 }
 .border-E {
-    border: solid 2px #AA0000;
-    color:#AA0000
+    --color1 : #AA0000;
 }
 .border-NA {
-    border: solid 2px #888;
-    color:#888;
+    --color1 : #888;
+}
+
+.border-GR {
+    border: solid 2px #52796F;
     margin:7.5px
+}
+
+.score-active .score-box {
+    background-color:var(--color1);
+    color:white;
 }
 
 .preference-item {
@@ -1794,7 +1720,7 @@ input {
     grid-column: 3;
     z-index: 50;
     justify-self: end;
-    padding: 10px;
+    padding: 20px;
     cursor: pointer;
   }
 
@@ -1972,4 +1898,90 @@ span {
 .active:hover {
     cursor: default;
     background-color: inherit;
+}
+
+.dual-input {
+    display: flex;
+    gap: 50px;
+    width: 70%;
+}
+
+.container-input {
+    align-items: center;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.container-input input, .container-input .option-container {
+    width: 100%;
+}
+
+.right-section .container-scores {
+    width: auto;
+    grid-template-rows: max-content;
+    display: grid;
+    justify-content: initial;
+}
+
+#calculateur-right-section {
+    grid-template-rows: repeat(3,1fr);
+}
+
+.stats-calc {
+    display: flex;
+    color:#222;
+    justify-items: center;
+    text-align: center;
+    gap: 5px;
+    align-items: center;
+    margin: 0 10px;
+    justify-content: space-evenly;
+}
+
+.stats-calc h3 {
+    font-weight: 400;
+    margin: 0;
+    font-size: 15px;
+}
+
+.stats-calc p {
+    margin: 0;
+    text-align: center;
+}
+
+.title-calc {
+    display: flex;
+    color: white;
+    width: fit-content;
+    background-color: #52796F;
+    border-radius: 0 10px 10px 0;
+    height: fit-content;
+    margin-top: 10px;
+}
+
+.title-calc img {
+    width: 30px;
+    filter: invert();
+}
+
+.title-calc p {
+    align-self: center;
+    color: white;
+    font-size: 15px;
+    margin: 5px;
+}
+
+.htmx-settling img {
+    opacity: 0;
+}
+img {
+    transition: opacity 300ms ease-in;
+}
+
+.form-warning {
+    color: #A00;
+    font-size: 18px;
+    font-style: italic;
 }

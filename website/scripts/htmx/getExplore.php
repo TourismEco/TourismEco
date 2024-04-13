@@ -11,7 +11,7 @@
     
     require("../../functions.php");
     
-    if (!checkHTMX("comparateur", $_SERVER["HTTP_HX_CURRENT_URL"]) && !checkHTMX("pays", $_SERVER["HTTP_HX_CURRENT_URL"])) {
+    if (!checkHTMX("explorer", $_SERVER["HTTP_HX_CURRENT_URL"])) {
         header("HTTP/1.1 401");
         exit;
     }
@@ -64,7 +64,7 @@
 
         <div class="explore-rang" id="rang"></div>
 
-        <div class="explore-more" hx-get="pays.php" hx-vals="js:{id_pays:'$id_pays'}" hx-swap="outerHTML swap:0.5s" hx-target="#zones" hx-select="#zones">
+        <div class="explore-more" hx-post="pays.php" hx-vals="js:{id_pays:'$id_pays'}" hx-swap="outerHTML swap:0.5s" hx-target="#zones" hx-select="#zones" hx-push-url="true">
             <img src="assets/icons/plus.svg" alt="icon plus">
             <p class="more-text">Voir plus</p>
         </div>

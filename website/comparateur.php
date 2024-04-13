@@ -35,7 +35,7 @@
 
         <div id="zones">
 
-            <div class="zone-presentation display" id="home">
+            <div class="zone zone-presentation display" id="home">
                 <div class="container-presentation expand-2" id="bandeau0"></div>
                 <div class="container-presentation expand-2" id="bandeau1"></div>
 
@@ -50,7 +50,7 @@
                 <div class="container-presentation"></div>
             </div>
                 
-            <div class="zone display" id="courbe" style="display:none">    
+            <div class="zone zone-basic display" id="courbe" style="display:none">    
                 <div class="title-zone">
                     <img class="flag-small" src='assets/icons/sort.svg'>
                     <div>
@@ -142,7 +142,7 @@
 
             </div>
 
-            <div class="zone-spider display" style="display:none" id="key">
+            <div class="zone zone-spider display" style="display:none" id="key">
                     
                 <div class="graph" id="spider"></div>
                 <div></div>
@@ -297,7 +297,7 @@
 
             </div>
 
-            <div class="zone-bar display" style="display:none" id="grow">
+            <div class="zone zone-bar display" style="display:none" id="grow">
 
                 <div class="title-zone">
                     <img class="flag-small" src='assets/icons/stats.svg'>
@@ -398,7 +398,7 @@
                 </div>
             </div>
 
-            <div class="zone display" style="display:none" id="more">
+            <div class="zone zone-basic display" style="display:none" id="more">
             </div>
         </div>
 
@@ -412,12 +412,7 @@
                         <img class="flag-small" src='assets/icons/stats.svg'>
                     </div>
 
-                    <div class="container-bottom page" data-index="1" data-name="Explorer" id="s-explore">
-                        <span>Explorateur</span>
-                        <img class="flag-small" src='assets/icons/map.svg'>
-                    </div>
-
-                    <div class="container-bottom page" data-index="2" data-name="Catalogue" id="s-catalogue" hx-get="catalogue.php" hx-select="#zones" hx-target="#zones" hx-trigger="click" hx-vals="js:{page:'comparateur'}" hx-swap="outerHTML swap:0.5s">
+                    <div class="container-bottom page" data-index="1" data-name="Catalogue" id="s-catalogue" hx-get="catalogue.php" hx-select="#zones" hx-target="#zones" hx-trigger="click" hx-vals="js:{page:'comparateur'}" hx-swap="outerHTML swap:0.5s">
                         <span>Catalogue</span>
                         <img class="flag-small" src='assets/icons/catalogue.svg'>
                     </div>
