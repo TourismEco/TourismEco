@@ -46,7 +46,6 @@ $description = $ligne["description"];
 $sv1 = explode(" : ",htmlspecialchars($ligne["sv1"]));
 $sv2 = explode(" : ",htmlspecialchars($ligne["sv2"]));
 $sv3 = explode(" : ",htmlspecialchars($ligne["sv3"]));
-$letter = getLetter($ligne["score"]);
 
 // Capitale
 $c = getCities($id_pays, $cur);
@@ -100,16 +99,32 @@ if (isset($_SESSION["user"])) {
     $favorite = "";
 }
 
+echo addSafety($cur, $id_pays, "safe0");
+
+$query = "SELECT * FROM pays_score WHERE id = :id_pays";
+$sth = $cur->prepare($query);
+$sth->bindParam(":id_pays", $id_pays, PDO::PARAM_STR);
+$sth->execute();
+$ligneS = $sth->fetch();
+foreach (array("pibParHab","elecRenew","arriveesTotal","gpi","idh","gesHab") as $key => $value) {
+    echo cardScore($value,$ligneS[$value]);
+}
+
+foreach (array("Global","Decouverte","Economique","Ecologique") as $key => $value) {
+    echo scoreBox($value,$ligneS["score".$value],$ligneS["label".$value]);
+}
+
+$letter = $ligneS["labelGlobal"];
 
 echo <<<HTML
 
 <div class="container-presentation expand-3" id="bandeau0" hx-swap-oob="outerHTML">
     <div class="bandeau"> 
-        <img class="img-side img" src='assets/img/$id_pays.jpg' alt="Bandeau">
+        <img class="img-bandeau" src='assets/img/$id_pays.jpg' alt="Bandeau">
             <img class="favorite" id="favorite" src="$favorite" hx-get="scripts/htmx/getFavorite.php" hx-trigger="click" hx-swap="outerHTML" hx-vals="js:{id_pays:'$id_pays'}">
         <div class="flag-plus-nom">
-            <img class="flag" src='assets/twemoji/$id_pays.svg'>
-            <h2 class="nom">$nom</h2>
+            <img class="flag-bandeau" src='assets/twemoji/$id_pays.svg'>
+            <h2>$nom</h2>
         </div>
     </div>
 </div>
@@ -156,21 +171,6 @@ echo <<<HTML
 
 <h2 id="paysvs" hx-swap-oob="outerHTML">$nom VS Moyenne mondiale</h2>
 
-<div class="choice-scores" id="allScores" hx-swap-oob="outerHTML">
-    <div class="border-scores border-A score-active" onclick="changeScore('global')" data-value=0 data-letter="E">
-        <div class="score-box">A</div>
-    </div>
-    <div class="border-scores border-E" onclick="changeScore('decouverte')" data-value=0 data-letter="E">
-        <div class="score-box">E</div>
-    </div>
-    <div class="border-scores border-C" onclick="changeScore('ecologie')" data-value=0 data-letter="E">
-        <div class="score-box">C</div>
-    </div>
-    <div class="border-scores border-NA" onclick="changeScore('economie')" data-value=0 data-letter="E">
-        <div class="score-box"><img src="assets/icons/bd.svg"></div>
-    </div>
-</div>
-
 <script id=orders hx-swap-oob=outerHTML>
     spiderHTMX(0, $dataSpider, $dataTab, "$nom")
     barreLineHTMX($dataBarreLine, "$nom")
@@ -180,14 +180,9 @@ echo <<<HTML
     miniMap[0].zoomTo("$id_pays")
     miniMap[0].addCities($cities)
     miniMap[0].addCapitals($capitals)
+    changeScore("Global")
 </script>
 
 HTML;
-
-echo addSafety($cur, $id_pays, "safe0");
-
-foreach (array("pibParHab","elecRenew","arriveesTotal","gpi","idh","ges") as $key => $value) {
-    cardScore($value,345);
-}
 
 ?>

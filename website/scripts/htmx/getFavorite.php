@@ -5,12 +5,12 @@ if (!isset($_SERVER["HTTP_HX_REQUEST"])) {
     exit;
 }
 
+require("../../functions.php");
+
 if (!checkHTMX("pays", $_SERVER["HTTP_HX_CURRENT_URL"])) {
     header("HTTP/1.1 401");
     exit;
 }
-
-require("../../functions.php");
 
 $cur = getDB();
 $id_client = $_SESSION['user']['username'];

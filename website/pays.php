@@ -288,33 +288,22 @@
                 </div>
                 
                 <div class="scores-column">
-                    <div class="container-scores" id="sco-pibParHab">
-                    </div>
-                    <div class="container-scores" id="sco-idh">
-                    </div>
-                    <div class="container-scores" id="sco-gpi">
-                    </div>
+                    <div class="container-scores" id="sco-pibParHab"></div>
+                    <div class="container-scores" id="sco-idh"></div>
+                    <div class="container-scores" id="sco-gpi"></div>
                 </div>
-
+                
                 <div class="scores-column scores-center">
-                    <div class="choice-scores" id="allScores">
-                        <div class="border-scores border-A score-active">
-                            <div class="score-box">A</div>
-                        </div>
-                        <div class="border-scores border-E">
-                            <div class="score-box">E</div>
-                        </div>
-                        <div class="border-scores border-C">
-                            <div class="score-box">C</div>
-                        </div>
-                        <div class="border-scores border-NA">
-                            <div class="score-box"><img src="assets/icons/bd.svg"></div>
-                        </div>
+                    <div class="choice-scores">
+                        <div class="border-scores border-A score-active" id="scoreGlobal"></div>
+                        <div class="border-scores border-E" id="scoreDecouverte"></div>
+                        <div class="border-scores border-C" id="scoreEcologique"></div>
+                        <div class="border-scores border-NA" id="scoreEconomique"></div>
                     </div>
  
-                    <div class="big-score score-A">
-                        <div class="score-box">A</div>
-                        <div>Score Global</div>
+                    <div id="bigScore" class="big-score score-A">
+                        <div class="score-box" id="bigScore-letter">A</div>
+                        <div id="bigScore-text">Score Global</div>
                     </div>
                     <div class="jauge-scores">
                         <div class="score-E"></div>
@@ -324,14 +313,14 @@
                         <div class="score-A"></div>
                     </div>
                     <div class="units-scores">
-                        <div>0</div>
-                        <div>0</div>
-                        <div>0</div>
-                        <div>0</div>
-                        <div>0</div>
-                        <div>1</div>
+                        <div id="lim0">0</div>
+                        <div id="lim1">0</div>
+                        <div id="lim2">0</div>
+                        <div id="lim3">0</div>
+                        <div id="lim4">0</div>
+                        <div id="lim5">1</div>
                     </div>
-                    <div class="trait-scores"></div>
+                    <div class="trait-scores" id="tscor"></div>
 
                     <div class="infos-scores">
                         <img src="assets/icons/info.svg" class="score-B">
@@ -340,12 +329,9 @@
                     
                 </div>
                 <div class="scores-column">
-                    <div class="container-scores" id="sco-elecRenew">
-                    </div>
-                    <div class="container-scores" id="sco-ges">
-                    </div>
-                    <div class="container-scores" id="sco-arriveesTotal">
-                    </div>
+                    <div class="container-scores" id="sco-elecRenew"></div>
+                    <div class="container-scores" id="sco-gesHab"></div>
+                    <div class="container-scores" id="sco-arriveesTotal"></div>
                 </div>
 
             </div>

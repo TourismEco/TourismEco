@@ -4,7 +4,6 @@
     <?php
         $cur = getDB();
         $dataMap = json_encode(dataExplorer($cur),JSON_NUMERIC_CHECK);
-        $page ="pays";
 
         $pays = "";
         if (isset($_SESSION["pays"]) && count($_SESSION["pays"]) != 0) {
@@ -101,7 +100,7 @@
 
                             while ($rsPays = $stmt->fetch(PDO::FETCH_ASSOC)) {
                                 $letter = getLetter($rsPays["score"]);
-                                echo addSlimCountry($rsPays["id"],$rsPays["PaysNom"],$letter,$page);
+                                echo addSlimCountry($rsPays["id"],$rsPays["PaysNom"],$letter,"explorerFav");
                             }
                         } else {
                             echo "<p>Connectez-vous pour accéder à cette fonctionnalité.</p>";
@@ -121,7 +120,7 @@
 
                                     if ($rsPays = $stmt->fetch(PDO::FETCH_ASSOC)) {
                                         $letter = getLetter($rsPays["score"]);
-                                        echo addSlimCountry($rsPays["id"],$rsPays["nom"],$letter,$page);
+                                        echo addSlimCountry($rsPays["id"],$rsPays["nom"],$letter,"explorerFav");
                                     }
                                 }
                             }

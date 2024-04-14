@@ -3,8 +3,8 @@
         <a href="index.php" aria-label="Accueil"><img class="img-nav" src="assets/icons/ecomini.png" alt="Logo TourismEco"></a>
         <a href="explorer.php" aria-label="MONDE">Explorer</a>
         <a href="pays.php" aria-label="Pays">Pays</a>
-        <a href="continent.php" aria-label="Continent">Continent</a>
         <a href="comparateur.php" aria-label="Comparateur">Comparateur</a>
+        <a href="continent.php" aria-label="Continent">Continent</a>
         <a href="analyse.php" aria-label="MONDE">Analyse</a>
         <a href="calculateur.php" aria-label="Calculateur">Calculateur</a>
 

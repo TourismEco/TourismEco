@@ -59,24 +59,87 @@ function updateRanking(id_pays, type, data) {
     `)
 }
 
-function changeScore(option, html) {
-    vars = ["pibParHab","ges","arriveesTotal","gpi","idh","elecRenew"]
+function changeScore(option) {
+
+    vars = ["pibParHab","gesHab","arriveesTotal","gpi","idh","elecRenew"]
     poids = {   
-        global:{pibParHab:2,ges:6,arriveesTotal:2,gpi:4,idh:4,elecRenew:3},
-        decouverte:{pibParHab:0,ges:1,arriveesTotal:2,gpi:0,idh:2,elecRenew:0},
-        ecologie:{pibParHab:0,ges:3,arriveesTotal:0,gpi:0,idh:0,elecRenew:2},
-        economie:{pibParHab:2,ges:0,arriveesTotal:2,gpi:0,idh:2,elecRenew:0}
+        Global:{pibParHab:2,gesHab:6,arriveesTotal:2,gpi:4,idh:4,elecRenew:3},
+        Decouverte:{pibParHab:0,gesHab:1,arriveesTotal:2,gpi:0,idh:2,elecRenew:0},
+        Ecologique:{pibParHab:0,gesHab:3,arriveesTotal:0,gpi:0,idh:0,elecRenew:2},
+        Economique:{pibParHab:2,gesHab:0,arriveesTotal:2,gpi:0,idh:2,elecRenew:0}
+    }
+
+    inter = {
+        Global:[0.22, 0.26, 0.34, 0.42, 0.50, 0.60],
+        Decouverte:[0.18, 0.27, 0.36, 0.445, 0.54, 0.80],
+        Ecologique:[0, 0.17, 0.34, 0.51, 0.68, 0.87],
+        Economique:[0.14, 0.28, 0.42, 0.56, 0.7, 0.79382]
     }
 
     p = poids[option]
 
+    $(".poids-active").removeClass("poids-active")
+    $(".opaque").removeClass("opaque")
+
     vars.forEach(element => {
-        div = $("#poids"+element).children()
-        for(i=0;i<p[element];i++) {
-            
+        if (p[element] == 0) {
+            $("#textp-"+element).html("Pas pris en compte dans ce score.")
+            $("#sco-"+element).addClass("opaque")
+        } else {
+            div = $("#poids-"+element).children()
+            $("#textp-"+element).html("Poids : "+p[element])
+            for(i=0;i<p[element];i++) {
+                $(div[i]).addClass("poids-active")
+            }
         }
     });
+
+    $(".score-active").removeClass("score-active")
+    $("#score"+option).addClass("score-active")
+
+    letter = $("#score"+option).data("letter")
+    $("#bigScore").removeClass("score-A")
+    $("#bigScore").removeClass("score-B")
+    $("#bigScore").removeClass("score-C")
+    $("#bigScore").removeClass("score-D")
+    $("#bigScore").removeClass("score-E")
+    $("#bigScore").removeClass("score-NA")
+    $("#bigScore").addClass("score-"+letter)
+
+    if (letter == "NA") {
+        $("#bigScore-letter").html("<img src='assets/icons/bd.svg'>")
+    } else {
+        $("#bigScore-letter").html(letter)
+    }
     
-    
+    $("#bigScore-text").html("Score "+option)
+
+    for(i=0;i<6;i++) {
+        $("#lim"+i).html(inter[option][i])
+    }
+
+    value = $("#score"+option).data("value")
+    for(i=1;i<6;i++) {
+        if (value <= inter[option][i]) {
+            min = inter[option][i-1]
+            max = inter[option][i] - min
+            val = value - min
+            plus = val*60/max
+            if (i <= 2) {
+                tr = -30-plus-60*(i-1)
+            } else if (i >= 4) {
+                tr = 30+plus+60*(i-4)
+            } else {
+                if (plus > 30) {
+                    tr = plus/2
+                } else {
+                    tr = -plus/2
+                }
+            }
+            i = 100
+        }
+    }
+
+    $("#tscor").css("transform",`translateX(${tr}px)`)
 
 }

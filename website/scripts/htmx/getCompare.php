@@ -57,10 +57,10 @@ echo <<<HTML
 
 <div class="container-presentation expand-2" id="bandeau$incr" hx-swap-oob="outerHTML">
     <div class="bandeau"> 
-        <img class="img-side img" src='assets/img/$id_pays.jpg' alt="Bandeau">
+        <img class="img-bandeau" src='assets/img/$id_pays.jpg' alt="Bandeau">
         <div class="flag-plus-nom">
-            <img class="flag" src='assets/twemoji/$id_pays.svg'>
-            <h2 class="nom">$nom</h2>
+            <img class="flag-bandeau" src='assets/twemoji/$id_pays.svg'>
+            <h2>$nom</h2>
         </div>
     </div>
 </div>
@@ -71,12 +71,6 @@ echo <<<HTML
 
 <div class="container-presentation" id="score$incr" hx-swap-oob="outerHTML">
     <div class="score-box score-$letter">$letter</div>
-</div>
-
-<div class="container-side g$incrP-1" id="mini$incr" hx-swap-oob="outerHTML">
-    <img class="img img-side" src='assets/img/$id_pays.jpg' alt="Bandeau">
-    <img class="flag-small" src='assets/twemoji/$id_pays.svg'>
-    <h2 class="nom-small">$nom</h2>
 </div>
 
 <p class="name" id="nom$incr" hx-swap-oob="outerHTML">$nom</p>

@@ -44,10 +44,10 @@
 
         <div class="container-explore-pays expand-4">
             <div class="bandeau"> 
-                <img class="img-side img" src='assets/img/$id_pays.jpg' alt="Bandeau">
+                <img class="img-bandeau" src='assets/img/$id_pays.jpg' alt="Bandeau">
                 <div class="flag-plus-nom">
                     <img class="flag-explore" src='assets/twemoji/$id_pays.svg'>
-                    <h2 class="nom">$nom</h2>
+                    <h2>$nom</h2>
                 </div>
             </div>
         </div>

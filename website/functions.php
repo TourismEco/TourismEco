@@ -34,7 +34,7 @@ function addSlimCountry($id,$nom,$letter,$page) {
         return <<<HTML
             <div class="bandeau-slim" hx-get="pays.php" hx-vals="js:{id_pays:'$id'}" hx-swap="outerHTML swap:0.5s" hx-target="#zones" hx-select="#zones"> 
                 <!-- <div class="mini-score-box score-$letter">$letter</div> -->
-                <img class="img img-slim" src='assets/mini/$id.jpg' alt="Illustration de $nom">
+                <img class="img-slim" src='assets/mini/$id.jpg' alt="Illustration de $nom">
                 <img class="flag-slim" src='assets/twemoji/$id.svg' alt="Drapeau de $nom">
                 <h2 class="nom-slim">$nom</h2>
             </div>
@@ -43,7 +43,7 @@ function addSlimCountry($id,$nom,$letter,$page) {
         return <<<HTML
             <div class="bandeau-slim" hx-get="scripts/htmx/appendCompare.php" hx-vals="js:{id_pays:'$id',incr:getIncr()}" hx-swap="beforeend"> 
                 <!-- <div class="mini-score-box score-$letter">$letter</div> -->
-                <img class="img img-slim" src='assets/mini/$id.jpg' alt="Illustration de $nom">
+                <img class="img-slim" src='assets/mini/$id.jpg' alt="Illustration de $nom">
                 <img class="flag-slim" src='assets/twemoji/$id.svg' alt="Drapeau de $nom">
                 <h2 class="nom-slim">$nom</h2>
             </div>
@@ -52,7 +52,16 @@ function addSlimCountry($id,$nom,$letter,$page) {
         return <<<HTML
             <div class="bandeau-slim" hx-get="scripts/htmx/getExplore.php" hx-vals="js:{id_pays:'$id'}" hx-swap="beforeend"> 
                 <!-- <div class="mini-score-box score-$letter">$letter</div> -->
-                <img class="img img-slim" src='assets/mini/$id.jpg' alt="Illustration de $nom">
+                <img class="img-slim" src='assets/mini/$id.jpg' alt="Illustration de $nom">
+                <img class="flag-slim" src='assets/twemoji/$id.svg' alt="Drapeau de $nom">
+                <h2 class="nom-slim">$nom</h2>
+            </div>
+        HTML;
+    } else if ($page == "explorerFav") {
+        return <<<HTML
+            <div class="bandeau-slim" hx-post="pays.php" hx-vals="js:{id_pays:'$id'}" hx-swap="outerHTML swap:0.5s" hx-target="#zones" hx-select="#zones" hx-push-url="true"> 
+                <!-- <div class="mini-score-box score-$letter">$letter</div> -->
+                <img class="img-slim" src='assets/mini/$id.jpg' alt="Illustration de $nom">
                 <img class="flag-slim" src='assets/twemoji/$id.svg' alt="Drapeau de $nom">
                 <h2 class="nom-slim">$nom</h2>
             </div>
@@ -93,6 +102,12 @@ function dataLine($pays, $conn) {
             } else {
                 if ($rs["year"] == 2020 && count($data) != 0) {
                     $covid[$value] = round(100*($rs[$value] - $data[count($data)-1][$value]) / $data[count($data)-1][$value],2);
+                if ($rs["year"] == 2020 && count($data) > 1) {
+                    if ($data[count($data)-1][$value] == 0) {
+                        $covid[$value] = "N/A";
+                    } else {
+                        $covid[$value] = round(100*($rs[$value] - $data[count($data)-1][$value]) / $data[count($data)-1][$value],2);
+                    }
                 }
                 if (!isset($minAnnee[$value]) || $rs[$value] < $minAnnee[$value]["val"]) {
                     $minAnnee[$value] = array("val"=>$rs[$value], "year"=> $rs["year"]);
@@ -130,6 +145,11 @@ function dataLine($pays, $conn) {
             $evol[$value] = array("val" => round(100*($data[$end][$value] - $data[$start][$value]) / $data[$start][$value], 2), "start" => $data[$start]['year'], "end" => $year);
 
             $query = "SELECT * FROM (SELECT id_pays, $cols[$key], RANK() OVER (ORDER BY $cols[$key] DESC) AS 'rank' FROM $tables[$key] WHERE annee =  $year) AS t WHERE id_pays = '$pays';";
+            if ($data[$start][$value] == 0) {
+                $evol[$value] = "N/A";
+            } else {
+                $evol[$value] = array("val" => round(100*($data[$end][$value] - $data[$start][$value]) / $data[$start][$value], 2), "start" => $data[$start]['year'], "end" => $year);
+            }
             $result = $conn->query($query);
             $rs = $result->fetch(PDO::FETCH_ASSOC);
             $rank[$value] = array("rank"=>$rs["rank"],"year"=>$year);
@@ -306,6 +326,12 @@ function dataBarreLine($pays, $conn) {
         if ($rs['annee'] == 2020 && $rs['arriveesTotal'] != null) {
             $covidImpactPib = 100*($rs['pibParHab'] - $data[count($data)-1]['value']) / $data[count($data)-1]['value'];
             $covidImpactTourisme = 100*($rs['arriveesTotal'] - $data[count($data)-1]['valueLeft']) / $data[count($data)-1]['valueLeft'];
+            if ($data[count($data)-1]['value'] != 0) {
+                $covidImpactPib = 100*($rs['pibParHab'] - $data[count($data)-1]['value']) / $data[count($data)-1]['value'];
+            }
+            if ($data[count($data)-1]['valueLeft'] != null) {
+                $covidImpactTourisme = 100*($rs['arriveesTotal'] - $data[count($data)-1]['valueLeft']) / $data[count($data)-1]['valueLeft'];
+            }
         }
     }
 
@@ -625,20 +651,20 @@ function checkHTMX($page, $hx_page) {
     }
     return false;
 function cardScore($option, $value) {
-    $arMin = array("pibParHab" =>0.12, "co2" =>0.12, "ges" =>0.12, "arriveesTotal" =>0.12, "idh" =>0.12, "gpi" =>0.12, "elecRenew" =>0.12);
-    $arMax = array("pibParHab" =>0.988, "co2" =>0.988, "ges" =>0.988, "arriveesTotal" =>0.988, "idh" =>0.988, "gpi" =>0.988, "elecRenew" =>0.988);
-    $icons = array("pibParHab" =>"dollar", "ges" =>"cloud", "arriveesTotal" =>"down", "idh" =>"idh", "gpi" =>"shield", "elecRenew" =>"elec");
-    $texts = array("pibParHab" =>"PIB par Habitant", "ges" =>"Émissions de GES par habitant", "arriveesTotal" =>"Arrivées touristiques", "idh" =>"Indice de développement humain", "gpi" => "Global peace index", "elecRenew" =>"Production d'énergies renouvellables");
+    $arMin = array("pibParHab" =>0.12, "gesHab" =>0.12, "arriveesTotal" =>0.12, "idh" =>0.12, "gpi" =>0.12, "elecRenew" =>0.12);
+    $arMax = array("pibParHab" =>0.988, "gesHab" =>0.988, "arriveesTotal" =>0.988, "idh" =>0.988, "gpi" =>0.988, "elecRenew" =>0.988);
+    $icons = array("pibParHab" =>"dollar", "gesHab" =>"cloud", "arriveesTotal" =>"down", "idh" =>"idh", "gpi" =>"shield", "elecRenew" =>"elec");
+    $texts = array("pibParHab" =>"PIB par Habitant", "gesHab" =>"Émissions de GES par habitant", "arriveesTotal" =>"Arrivées touristiques", "idh" =>"Indice de développement humain", "gpi" => "Global peace index", "elecRenew" =>"Production d'énergies renouvellables");
 
     $min = $arMin[$option];
     $max = $arMax[$option];
     $icon = $icons[$option];
     $text = $texts[$option];
 
-    $letter = "E";
+    $letter = getLetter($value*100);
 
     if ($value == null) {
-        echo <<<HTML
+        return <<<HTML
             <div class="container-scores border-NA" id="sco-$option" hx-swap-oob="outerHTML">
                 <div class="title-scores">
                     <img src="assets/icons/$icon.svg" class="score-NA">
@@ -647,12 +673,13 @@ function cardScore($option, $value) {
 
                 <div class="stats-scores">
                     <img src="assets/icons/bd.svg">
-                    <p>$value</p>
+                    <p>Données manquantes</p>
                 </div>
             </div>
         HTML;
     } else {
-        echo <<<HTML
+        $value = round($value, 2);
+        return <<<HTML
             <div class="container-scores border-$letter" id="sco-$option" hx-swap-oob="outerHTML">
                 <div class="title-scores">
                     <img src="assets/icons/$icon.svg" class="score-$letter">
@@ -661,15 +688,15 @@ function cardScore($option, $value) {
 
                 <div class="stats-scores">
                     <p>$value</p>
-                    <div class="stats-scores-minmax">
+                    <!-- <div class="stats-scores-minmax">
                         <p>Min<br>$min</p>
                         <div class="trait-small"></div>
                         <p>Max<br>$max</p>
-                    </div>
+                    </div> -->
                 </div>
 
                 <div>
-                    <p class="small-text"></p>
+                    <p class="small-text" id="textp-$option"></p>
                     <div class="poids-scores" id="poids-$option">
                         <div class="el-poids"></div>
                         <div class="el-poids"></div>
@@ -684,8 +711,24 @@ function cardScore($option, $value) {
     }
 }
 
+function scoreBox($option, $value, $letter) {
+    if ($value != null) {
+        return <<<HTML
+            <div class="border-scores border-$letter" onclick="changeScore('$option')" data-value=$value data-letter="$letter" id="score$option" hx-swap-oob="outerHTML">
+                <div class="score-box">$letter</div>
+            </div>
+        HTML;
+    } else {
+        return <<<HTML
+            <div class="border-scores border-NA" onclick="changeScore('$option')" data-value="NA" data-letter="NA" id="score$option" hx-swap-oob="outerHTML">
+                <div class="score-box"><img src="assets/icons/bd.svg"></div>
+            </div>
+        HTML;
+    }
+}
+
 function addSafety($cur, $id_pays, $id_html) {
-    $query = "SELECT id_pays, safety, id_guerre FROM projet.surete, pays WHERE pays.id = surete.id_pays AND annee = 2023 AND id_pays = :id_pays;";
+    $query = "SELECT id_pays, safety, id_guerre FROM allData, pays WHERE pays.id = id_pays AND annee = 2023 AND id_pays = :id_pays;";
     $id_pays = $_GET["id_pays"];
     $sth = $cur -> prepare($query);
     $sth -> bindParam(":id_pays", $id_pays, PDO::PARAM_STR);
