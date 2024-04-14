@@ -8,14 +8,15 @@ $city_src = isset($_GET["city_src"]) ? $_GET["city_src"] : null;
 $country_dst = isset($_GET["country_dst"]) ? $_GET["country_dst"] : null;
 $city_dst = isset($_GET["city_dst"]) ? $_GET["city_dst"] : null;
 $departure_date = isset($_GET["departure_date"]) ? $_GET["departure_date"] : null;
-$return_date = isset($_GET["return_date"]) ? $_GET["return_date"] : null;
 $passengers = isset($_GET["passengers"]) ? intval($_GET["passengers"]) : 1;
 
-exec("./plane_cli.py --departure $city_src --arrival $city_dst -p $passengers -dd '$departure_date' -rd '$return_date'", $output);
+echo "./plane_cli.py --departure '$city_src' --arrival '$city_dst' -p '$passengers' -dd '$departure_date'";
+exec("./plane_cli.py --departure '$city_src' --arrival '$city_dst' -p '$passengers' -dd '$departure_date'", $output);
 $output = json_decode($output[0], True);
 
-
-function orthodromeDistance($departure, $arrival) {
+function orthodromeDistance($departure_iata, $arrival_iata) {
+    $departure = getAirportCoordinates($departure_iata);
+    $arrival = getAirportCoordinates($arrival_iata);
     // returns the distance between two points on the earth in km
     $lat1 = $departure['lat'];
     $lon1 = $departure['lon'];
@@ -49,7 +50,7 @@ function orthodromeDistance($departure, $arrival) {
     <div class="stats-calc">
         <div>
             <h3>Empreinte Carbone</h3>
-            <p><?=$output['emissions']?></p>
+            <p><?=$output['emissions']?> kg CO2e</p>
         </div>
         <div class="trait-small"></div>
         <div>
@@ -59,7 +60,14 @@ function orthodromeDistance($departure, $arrival) {
         <div class="trait-small"></div>
         <div>
             <h3>Distance parcourue</h3>
-            <p><?= orthodromeDistance(getCityCoordinates($country_src, $city_src), getCityCoordinates($country_dst, $city_dst))?></p>
+            <p>
+            <?php 
+            $total_distance = 0;
+            for ($i = 0; $i < sizeof($output["airports"]) - 1; $i++) {
+                $total_distance += intval(orthodromeDistance($output["airports"][$i], $output["airports"][$i+1]));
+            }
+            echo $total_distance;
+                ?> km</p>
         </div>
         <div class="trait-small"></div>
         <div>

@@ -31,14 +31,6 @@ from playwright.sync_api import sync_playwright
     show_default=True,
 )
 @click.option(
-    '--return-date', '-rd',
-    type=str,
-    help='return date \
-(format : DD-MM-YYYY)',
-    default=(datetime.now() + timedelta(days=10)).strftime("%d-%m-%Y"),
-    show_default=True,
-)
-@click.option(
     '--passengers', '-p',
     type=int,
     help='number of passengers',
@@ -50,11 +42,11 @@ from playwright.sync_api import sync_playwright
     is_flag=True,
     help='verbose mode',
 )
-def main(departure, arrival, departure_date, return_date, passengers, verbose):
+def main(departure, arrival, departure_date, passengers, verbose):
     if verbose:
-        print(f'Calculating best flight for {passengers} passengers from {departure} to {arrival} on {departure_date} and returning on {return_date}')
+        print(f'Calculating best flight for {passengers} passengers from {departure} to {arrival} on {departure_date}')
     with sync_playwright() as playwright:
-        flights_scraping.run(playwright, departure, arrival, departure_date, return_date, passengers)
+        flights_scraping.run(playwright, departure, arrival, departure_date, passengers)
 
 if __name__ == '__main__':
     main()

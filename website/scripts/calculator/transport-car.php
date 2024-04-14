@@ -11,8 +11,8 @@ class Car
     function __construct($fuel, $fuelConsumption, $passengers)
     {
         $this->fuel = $fuel;
-        $this->fuelConsumption = $fuelConsumption; // in L/100km
         $this->passengers = $passengers;
+        $this->fuelConsumption = $fuelConsumption; // in L/100km
     }
 
     function getFuelEmission()
@@ -101,7 +101,7 @@ class Car
         } else {
             $travel["distance"] = $mapsResult["rows"][0]["elements"][0]["distance"]["value"];
             $travel["duration"] = $mapsResult["rows"][0]["elements"][0]["duration"]["value"];
-            $travel["fuelConsumption"] = ($travel["distance"] / 1000) * ($this->fuelConsumption / 100);
+            $travel["fuelConsumption"] = ($travel["distance"] / 1000) * ($this->fuelConsumption * (1+$this->passengers*0.002) / 100);
             // getFuelEmission() returns the CO2 emission factor of the fuel in kg CO2e/L
             $travel["emissions"] = ($travel["fuelConsumption"] * $this->getFuelEmission());
             $travel["price"] = $travel["fuelConsumption"] * $this->getFuelPrice();
@@ -118,11 +118,11 @@ $departure_date = isset($_GET["departure_date"]) ? $_GET["departure_date"] : nul
 $return_date = isset($_GET["return_date"]) ? $_GET["return_date"] : null;
 $passengers = isset($_GET["passengers"]) ? $_GET["passengers"] : null;
 
-$origin = getCoordinates("DRIVING", $country_src, $city_src);
-$destination = getCoordinates("DRIVING", $country_dst, $city_dst);
+$origin = ["city" => $city_src, "country" => $country_src];
+$destination = ["city" => $city_dst, "country" => $country_dst];
 
 // Random default values !
-$car = new Car("B7", 6.5, 2);
+$car = new Car("B7", 6.5, $passengers);
 $travelData = $car->getTravel($origin, $destination);
 
 $cb = function ($fn) {
