@@ -42,12 +42,7 @@
                 <div class="container-presentation expand-3" id="bandeau0"></div>
                 <div class="container-presentation" id="miniMap0"></div>
                 <div class="container-presentation" id="score0"></div>
-
-                <div class="container-presentation">
-                    <div class="cost"><p class="big">60€</p><p>par jour</p></div>
-                    <div class="trait"></div>
-                    <div class="cost"><p class="big">420€</p><p>pour 7 jours</p></div>
-                </div>
+                <div class="container-presentation" id="safe0"></div>
 
                 <div class="container-presentation expand-2">
                 </div>

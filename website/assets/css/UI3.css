@@ -4,10 +4,6 @@ html {
     background-image: linear-gradient(to left, #2F3E46, #354F52);
 }
 
-.bg-lgbt {
-    background-image: linear-gradient(to left, #2F3E46, #354F52);
-}
-
 body {
     margin: 0;
 }
@@ -1984,4 +1980,37 @@ img {
     color: #A00;
     font-size: 18px;
     font-style: italic;
+}
+
+.container-safe {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    text-align: center;
+    font-size: 15px;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+.container-safe img {
+    width: 60px;
+    align-self: center;
+}
+
+.container-safe p {
+    margin-top: 5px;
+}
+
+.danger {
+    background-image: linear-gradient(to left, #A00000, #C62128);
+    color:white
+}
+
+.danger img {
+    filter:invert();
+}
+
+.warn {
+    background-image: linear-gradient(to left, #DA2626 , #D98324)
 }

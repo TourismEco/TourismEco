@@ -584,14 +584,6 @@ function getAirplaneModel($idRoute){
 }
 
 function getCities($id_pays, $cur) {
-    $query = "SELECT * FROM villes WHERE id_pays = :id_pays and capitale = :is_capitale";
-    $sth = $cur->prepare($query);
-    $is_capitale = 1;
-    $sth->bindParam(":id_pays", $id_pays, PDO::PARAM_STR);
-    $sth->bindParam(":is_capitale", $is_capitale, PDO::PARAM_INT);
-    $sth->execute();
-    $ligne = $sth->fetch();
-
     $query = "SELECT * FROM villes WHERE id_pays = :id_pays";
     $id_pays = $_GET["id_pays"];
     $sth = $cur -> prepare($query);
@@ -690,4 +682,58 @@ function cardScore($option, $value) {
             </div>
         HTML;
     }
+}
+
+function addSafety($cur, $id_pays, $id_html) {
+    $query = "SELECT id_pays, safety, id_guerre FROM projet.surete, pays WHERE pays.id = surete.id_pays AND annee = 2023 AND id_pays = :id_pays;";
+    $id_pays = $_GET["id_pays"];
+    $sth = $cur -> prepare($query);
+    $sth -> bindParam(":id_pays", $id_pays, PDO::PARAM_STR);
+    $sth -> execute();
+    $ligne = $sth->fetch();
+
+    $more = "";
+    if ($ligne == null) {
+        $img = "safeempty";
+        $text = "Il n'y a pas de données sur la sureté de ce pays.";
+    } else {
+        if ($ligne["id_guerre"] == 1) {
+            $img = "danger";
+            $text = "Ce pays est actuellement en guerre.<br>Faites attention si vous vous y rendez.
+            <br>Obtenez plus d'informations auprès de <a class='lien' href='https://www.diplomatie.gouv.fr/fr/conseils-aux-voyageurs/'>France Diplomacie</a> pour voyager en sécurité.";
+            $more = "danger";
+        } else if ($ligne["id_guerre"] != 0) {
+            $img = "danger";
+            $text = "Ce pays est actuellement en conflit interne.<br>Faites attention si vous vous y rendez.
+            <br>Obtenez plus d'informations auprès de <a class='lien' href='https://www.diplomatie.gouv.fr/fr/conseils-aux-voyageurs/'>France Diplomacie</a> pour voyager en sécurité.";
+            $more = "warn";
+        } else {
+            if ($ligne["safety"] >= 3) {
+                $img = "safedanger";
+                $text = "Ce pays n'est pas sûr. Voyagez prudamment.";
+                $more = "warn";
+            } else if ($ligne["safety"] >= 2.38) {
+                $img = "safebad";
+                $text = "Ce pays est moyennement sûr.";
+            } else if ($ligne["safety"] >= 2) {
+                $img = "safegood";
+                $text = "Ce pays est sûr.";
+            } else if ($ligne["safety"] >= 1.4) {
+                $img = "safesafe";
+                $text = "Ce pays est très sûr !";
+            } else {
+                $img = "safebest";
+                $text = "Ce pays fait partie des plus sûrs !";
+            }
+        }
+    }
+
+    return <<<HTML
+        <div class="container-presentation" id="$id_html" hx-swap-oob="outerHTML">
+            <div class="container-safe $more">
+                <img src="assets/icons/$img.svg">
+                <p>$text</p>
+            </div>
+        </div>
+    HTML;
 }

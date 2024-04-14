@@ -146,7 +146,7 @@ echo <<<HTML
     <p class="paragraphe">$description</p>
 </div>
 
-<div class="container-presentation bg-lgbt" id="score0" hx-swap-oob="outerHTML">
+<div class="container-presentation" id="score0" hx-swap-oob="outerHTML">
     <div class="score-box score-$letter">$letter</div>
 </div>
 
@@ -183,6 +183,8 @@ echo <<<HTML
 </script>
 
 HTML;
+
+echo addSafety($cur, $id_pays, "safe0");
 
 foreach (array("pibParHab","elecRenew","arriveesTotal","gpi","idh","ges") as $key => $value) {
     cardScore($value,345);
