@@ -102,6 +102,7 @@ function dataLine($pays, $conn) {
             } else {
                 if ($rs["year"] == 2020 && count($data) != 0) {
                     $covid[$value] = round(100*($rs[$value] - $data[count($data)-1][$value]) / $data[count($data)-1][$value],2);
+                }
                 if ($rs["year"] == 2020 && count($data) > 1) {
                     if ($data[count($data)-1][$value] == 0) {
                         $covid[$value] = "N/A";
@@ -650,6 +651,7 @@ function checkHTMX($page, $hx_page) {
         return $hx[count($hx)-1] == $page.".php";
     }
     return false;
+}
 function cardScore($option, $value) {
     $arMin = array("pibParHab" =>0.12, "gesHab" =>0.12, "arriveesTotal" =>0.12, "idh" =>0.12, "gpi" =>0.12, "elecRenew" =>0.12);
     $arMax = array("pibParHab" =>0.988, "gesHab" =>0.988, "arriveesTotal" =>0.988, "idh" =>0.988, "gpi" =>0.988, "elecRenew" =>0.988);
