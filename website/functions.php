@@ -728,7 +728,7 @@ function scoreBox($option, $value, $letter) {
 }
 
 function addSafety($cur, $id_pays, $id_html) {
-    $query = "SELECT id_pays, safety, id_guerre FROM allData, pays WHERE pays.id = id_pays AND annee = 2023 AND id_pays = :id_pays;";
+    $query = "SELECT id_pays, safety, id_guerre FROM surete, pays WHERE pays.id = id_pays AND annee = 2023 AND id_pays = :id_pays;";
     $id_pays = $_GET["id_pays"];
     $sth = $cur -> prepare($query);
     $sth -> bindParam(":id_pays", $id_pays, PDO::PARAM_STR);
