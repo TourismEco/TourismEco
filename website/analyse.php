@@ -6,7 +6,7 @@
 
         <div id="zones">
 
-            <div class="zone zone-double display" id="home">
+            <div class="zone zone-double display" id="home"  style="display:none">
                 <div class="container-presentation">
                     <div class="title-zone">
                         <img class="flag-small" src='assets/icons/analyseHome.svg'>
@@ -177,7 +177,39 @@
                 
             </div>
 
-            <div class="zone zone-basic display" id="arima" style="display:none">
+            <div class="zone display" id="arima">
+                <div class="scroll-buttons scroll-down scroll-arima">
+                    <img class="scroll-img" data-index="0" src="assets/icons/arimaHome">
+                    <img class="scroll-img" data-index="1" src="assets/icons/arimaTemp">
+                    <img class="scroll-img" data-index="2" src="assets/icons/arimaFav">
+                    <img class="scroll-img" data-index="3" src="assets/icons/arimaLook">
+                    <img class="scroll-img" data-index="4" src="assets/icons/arimaWrite">
+                </div>
+                <div class="container-scrollable container-scrollable-x" id="scrArima">
+                    <div class="allow-scroll allow-scroll-full zone-arima">
+                        <div class="container-presentation expandrow-2"></div>
+                        <div class="container-presentation expandrow-2"></div>
+                    </div>
+                    <div class="allow-scroll allow-scroll-full zone-arima">
+                        <div class="container-presentation expand-2"></div>
+                        <div class="container-presentation expand-2"></div>
+                    </div>
+                    <div class="allow-scroll allow-scroll-full zone-arima">
+                        <div class="container-presentation"></div>
+                        <div class="container-presentation expandrow-2"></div>
+                        <div class="container-presentation"></div>
+                    </div>
+                    <div class="allow-scroll allow-scroll-full zone-arima">
+                        <div class="container-presentation"></div>
+                        <div class="container-presentation"></div>
+                        <div class="container-presentation expand-2"></div>
+                    </div>
+                    <div class="allow-scroll allow-scroll-full zone-arima">
+                        <div class="container-presentation"></div>
+                        <div class="container-presentation"></div>
+                        <div class="container-presentation expand-2"></div>
+                    </div>
+                </div>
                 
             </div>
 
@@ -289,6 +321,16 @@
                 nb = $(this).data("index")
                 h = el.clientHeight.toFixed(0)
                 document.getElementById('scr').scroll({top:h*nb,behavior:"smooth"})
+            })
+
+            $(".scroll-img").on("click", function() {
+                // $(".scroll-img").removeClass("dot-active")
+                // $(this).addClass("dot-active")
+                el = document.getElementById("scrArima")
+                nb = $(this).data("index")
+                h = el.clientWidth.toFixed(0)
+                console.log(h);
+                document.getElementById('scrArima').scroll({left:h*nb,behavior:"smooth"})
             })
             
         </script>
