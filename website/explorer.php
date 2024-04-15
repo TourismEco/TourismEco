@@ -22,7 +22,7 @@
         
     ?>
      <div class="flex">
-        <div class="zone-explore" id="zones">
+        <div class="zone zone-explore" id="zones">
             <div class="title-zone">
                 <img class="flag-small" src='assets/icons/map.svg'>
                 <div>
