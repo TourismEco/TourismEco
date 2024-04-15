@@ -158,6 +158,28 @@ body {
     grid-template-columns: 1fr 1fr 1fr;
 }
 
+.zone-double {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.zone-triple {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 60%;
+    gap:40px;
+    padding: 30px 40px;
+}
+
+.zone-choix {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.zone-cluster {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 1fr 2fr;
+}
+
 .column {
     flex-direction: column;
 }
@@ -524,12 +546,6 @@ body {
     width: 50%;
 }
 
-.map-catalogue {
-    grid-column: 1;
-    border-radius: 10px;
-    grid-row: 1;
-}
-
 .map-explore {
     grid-column: 1;
     border-radius: 10px;
@@ -537,6 +553,10 @@ body {
     display: grid;
     grid-template-rows: 1fr;
     gap: 20px;
+}
+
+.map-cluster {
+    grid-row:span 2;
 }
 
 .info-explore {
@@ -1044,8 +1064,6 @@ input {
 
 .nav-categ {
     display: flex;
-    width: fit-content;
-    align-self: center;
     border-radius: 0 0 10px 10px;
     background-color: #52796F;
 }
@@ -1106,6 +1124,7 @@ input {
 
 .title-zone {
     display: flex;
+    height: max-content;
 }
 
 .title-zone div {
@@ -1132,7 +1151,6 @@ input {
 .zone-explore .title-zone {
     grid-column: 1;
     grid-row: 1;
-    height: fit-content;
 }
 
 .zone-spider .title-zone {
@@ -1142,6 +1160,10 @@ input {
 
 .zone-scores .title-zone {
     grid-column: 1 / 4;
+}
+
+.container-presentation .title-zone {
+    margin: 5px;
 }
 
 .mask {
@@ -1212,7 +1234,7 @@ input {
     background-color: #D9D9D9;
     border-radius: 10px;
     color: #222;
-    overflow-y: scroll;
+    overflow-y: hidden;
     scroll-snap-type: y mandatory;
     -ms-overflow-style: none;
     /* IE and Edge */
@@ -1225,13 +1247,19 @@ input {
     scroll-snap-align: start;
 }
 
+.allow-scroll img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
 .container-scrollable::-webkit-scrollbar {
     display: none;
 }
 
 .scroll-dot {
-    width: 7px;
-    height: 7px;
+    width: 10px;
+    height: 10px;
     background-color: #D9D9D9;
     border-radius: 50px;
     margin: 10px;
@@ -1247,10 +1275,21 @@ input {
     align-self: center;
 }
 
+.scroll-down {
+    justify-self: center;
+    align-self: end;
+    display: flex;
+}
+
+.scroll-down .dot-active {
+    width: 30px;
+    height: 10px;
+}
+
 .dot-active {
     transition: all .5s;
-    width: 7px;
-    height: 20px;
+    width: 10px;
+    height: 30px;
     cursor: auto;
     background-color: white;
 }
@@ -1287,7 +1326,6 @@ input {
     justify-content: space-evenly;
     flex-direction: column;
     border: solid 2px var(--color1);
-    margin: 15px;
 }
 
 .title-scores {
