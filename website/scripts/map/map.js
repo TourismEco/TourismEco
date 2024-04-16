@@ -139,6 +139,8 @@ class EcoMap {
                     htmx.ajax("GET","scripts/htmx/appendCompare.php",{values:{id_pays:ev.target.dataItem._settings.id,incr:getIncr()},swap:"beforeend"})
                 } else if (base.option == "explorer") {
                     htmx.ajax("GET","scripts/htmx/getExplore.php",{values:{id_pays:ev.target.dataItem._settings.id},swap:"beforeend"})
+                }else if (base.option == "continent") {
+                    htmx.ajax("GET","scripts/htmx/appendContinent.php",{values:{id_pays:ev.target.dataItem._settings.id},swap:"beforeend"})
                 }
             }
         });
@@ -290,6 +292,17 @@ function createMapCatalogue(option) {
     map = new EcoMap("map",option,false)
     map.addContinents()
     map.addZoom()
+
+    map.root.events.on("frameended",() => {
+        map.zoomToContinent("europe")
+        map.root.events.off("frameended")
+    })
+}
+
+function createMapCatalogueC(option) {
+    map = new EcoMap("map",option,false)
+    map.addContinents()
+    
 
     map.root.events.on("frameended",() => {
         map.zoomToContinent("europe")

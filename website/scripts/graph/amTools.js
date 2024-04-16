@@ -162,6 +162,7 @@ class Graphique {
             dict["stroke"] = color
         } 
 
+        
         if (option == "bar") {
             var serie = this.graph.series.push(am5xy.ColumnSeries.new(base.root, dict));
             if (color == null) {
@@ -190,10 +191,18 @@ class Graphique {
             serie.ticks.template.setAll({
                 forceHidden: true
             });
+            serie.labels.template.setAll({
+                forceHidden: true
+            });
         } else {
             console.error(`Type de données non reconnu. \nType donné : ${option} \ntypes acceptés : radar, pie, bar, line, dot`)
             return false
         }
+
+        if (this.legend != null) {              // Ajoute à la légende si elle existe. Par conséquent, il faut absolument que la légende soit ajoutée AVANT les données
+            this.legend.data.push(serie)
+        }
+        
 
         var s = new Serie(serie, this.getSeriesLength())
         this.series.push(s)
@@ -232,6 +241,19 @@ class Graphique {
             });
         });
     }
+
+    addLegend() {
+        // Ajoute la légende
+        this.legend = this.graph.children.push(
+            am5.Legend.new(this.root, {
+                centerX: am5.p100,
+                x: am5.p100,
+                y: am5.p0,
+                
+            })
+        );
+    }
+   
 
     addSlider(fun, width, padT, padR, padL, rotation, first, last) {
         // Ajoute un slider. Position personnalisable (width, padT, padR, parL). Bornes à fournir (first, last). La fonction executée lors du mouvement du slider est donnée dans fun. En JS et en Python, les fonctions sont des objets comme les autres. On peut donc les donner en argument d'une autre fonction, en passant simplement son nom.

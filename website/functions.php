@@ -1,3 +1,4 @@
+
 <?php
 
 require_once('config.php');
@@ -346,6 +347,204 @@ function dataBarreLine($pays, $conn) {
         "covidImpactTourisme" => $covidImpactTourisme
     );
 }
+
+function dataBarreContinent($continent, $conn) {
+    $query = "SELECT allk.id_pays, pays.nom AS `name`, allk.annee AS year, co2, elecRenew, pibParHab, cpi, gpi, arriveesTotal*1000 AS arriveesTotal, departs*1000 AS departs
+    FROM (SELECT id_pays, annee FROM economie UNION 
+            SELECT id_pays, annee FROM tourisme UNION
+            SELECT id_pays, annee FROM surete UNION
+            SELECT id_pays, annee FROM ecologie
+            ) allk 
+    LEFT OUTER JOIN economie ON allk.id_pays = economie.id_pays AND allk.annee = economie.annee 
+    LEFT OUTER JOIN ecologie ON allk.id_pays = ecologie.id_pays AND allk.annee = ecologie.annee 
+    LEFT OUTER JOIN surete ON allk.id_pays = surete.id_pays AND allk.annee = surete.annee 
+    LEFT OUTER JOIN tourisme ON allk.id_pays = tourisme.id_pays AND allk.annee = tourisme.annee
+    LEFT OUTER JOIN pays ON allk.id_pays = pays.id
+    WHERE pays.id_continent = '$continent' AND 
+     allk.annee = 2020";
+
+    $result = $conn->query($query);
+
+    $data = array();
+    $maxAnnee = array();
+    $minAnnee = array();
+    $medianPays = array();
+    $averageValues = array(
+        "pibParHab" => array("sum" => 0, "count" => 0),
+        "elecRenew" => array("sum" => 0, "count" => 0),
+        "co2" => array("sum" => 0, "count" => 0),
+        "arriveesTotal" => array("sum" => 0, "count" => 0),
+        "departs" => array("sum" => 0, "count" => 0),
+        "gpi" => array("sum" => 0, "count" => 0),
+        "cpi" => array("sum" => 0, "count" => 0)
+    );
+
+
+    while ($rs = $result->fetch(PDO::FETCH_ASSOC)) {
+        $data[] = $rs;
+
+        foreach (array("pibParHab", "elecRenew", "co2", "arriveesTotal", "departs", "gpi", "cpi") as $value) {
+            if ((!isset($minAnnee[$value]) || $rs[$value] < $minAnnee[$value]["val"]) && $rs[$value] != null) {
+                $minAnnee[$value] = array("val" => $rs[$value], "name" => $rs["name"]);
+            }
+            if (!isset($maxAnnee[$value]) || $rs[$value] > $maxAnnee[$value]["val"]) {
+                $maxAnnee[$value] = array("val" => $rs[$value], "name" => $rs["name"]);
+            }
+
+            if ($rs[$value] != null) {
+                $averageValues[$value]["sum"] += $rs[$value];
+                $averageValues[$value]["count"]++;
+
+                // Ajouter le pays à la liste pour calculer la médiane
+                $medianPays[$value][] = array("name" => $rs["name"], "value" => $rs[$value]);
+            }
+        }
+    
+    }
+    // Calculer les moyennes finales
+    $averages = array();
+    foreach ($averageValues as $value => $stats) {
+        if ($stats["count"] > 0) {
+            $averages[$value] = $stats["sum"] / $stats["count"];
+        } else {
+            $averages[$value] = null; // Éviter la division par zéro si aucun élément n'a été trouvé
+        }
+
+        // Trier et obtenir le pays médian pour chaque indicateur
+        if (isset($medianPays[$value]) && count($medianPays[$value]) > 0) {
+            // Trier la liste des pays par valeur croissante
+            usort($medianPays[$value], function ($a, $b) {
+                return $a["value"] <=> $b["value"];
+            });
+
+            // Obtenir l'élément médian (milieu de la liste triée)
+            $medianIndex = floor(count($medianPays[$value]) / 2);
+            $medianPays[$value] = $medianPays[$value][$medianIndex];
+        } else {
+            $medianPays[$value] = null; // Aucun pays trouvé pour cet indicateur
+        }
+    }
+    
+    return array("data" => $data, 'min' => $minAnnee, 'max' => $maxAnnee, 'avg' => $averages, 'median' => $medianPays);
+}
+
+
+function dataOptContient($conn, $id_continent, $option) {
+    $tables = array("economie", "ecologie", "ecologie", "tourisme", "tourisme", "surete", "economie");
+    $cols = array("pibParHab", "elecRenew", "co2", "arriveesTotal", "departs", "gpi", "cpi");
+
+    $data = array();
+    $minAnnee = array();
+    $maxAnnee = array();
+    $evol = array();
+    // Boucle sur les colonnes
+    foreach ($cols as $key => $value) {
+        $table = $tables[$key];
+
+        $query = "SELECT annee, p.nom AS nom_pays, $value
+        FROM $table
+        JOIN pays p ON id_pays = p.id
+        JOIN continents c ON p.id_continent = c.id
+        WHERE c.id =  :id_continent
+        AND $value IS NOT NULL
+        AND (annee, $value) IN (
+            SELECT annee, $option($value) AS min_pib
+            FROM $table
+            JOIN pays p ON id_pays = p.id
+            JOIN continents c ON p.id_continent = c.id
+            WHERE c.id =  :id_continent
+            AND $value IS NOT NULL
+            GROUP BY annee
+        )
+        ORDER BY annee ASC;
+        ";
+
+        $start = 0;
+        $end = 0;
+
+        $sth = $conn->prepare($query);
+        $sth->bindParam(":id_continent", $id_continent, PDO::PARAM_INT);
+        $sth->execute();
+
+        while ($rs = $sth->fetch(PDO::FETCH_ASSOC)) {
+            if (!isset($rs[$value])){
+                $rs[$value]=null;
+            } else {
+                if ($start == 0) {
+                    $start = $rs["annee"];
+                }
+                $end = $rs["annee"];
+            }
+
+            if (!isset($data[$rs["annee"]])) {
+                $data[$rs["annee"]] = array("year" => $rs["annee"]);
+            }
+
+            $data[$rs["annee"]][$value] = $rs[$value];
+            $data[$rs["annee"]][$value."nom"] = $rs["nom_pays"];
+ 
+            if ((!isset($minAnnee[$value]) || $rs[$value] < $minAnnee[$value]["val"]) && $rs[$value] != null) {
+                $minAnnee[$value] = array("val" => $rs[$value], "year" => $rs["annee"], "nom" => $rs["nom_pays"]);
+            }
+            if (!isset($maxAnnee[$value]) || $rs[$value] > $maxAnnee[$value]["val"]) {
+                $maxAnnee[$value] = array("val" => $rs[$value], "year" => $rs["annee"], "nom" => $rs["nom_pays"]);
+            }
+            
+
+        }
+
+        if ($start == 0 || $end == 0 || $data[$start][$value] == 0) {
+            $evol[$value] = "N/A";
+        } else {
+            $year = $data[$end]['year'];
+            $evol[$value] = array("val" => round(100*($data[$end][$value] - $data[$start][$value]) / $data[$start][$value], 2), "start" => $data[$start]['year'], "end" => $year);
+            
+        }
+    }
+
+    ksort($data);
+ 
+    $i = 0;
+    foreach ($data as $key => $value) {
+        $data[$i++] = $data[$key];
+        unset($data[$key]);
+    }
+    
+    return array("data" => $data, 'min' => $minAnnee, 'max' => $maxAnnee, 'evol' => $evol);
+}
+
+function dataMOYContient($conn, $id_continent) {
+
+        $query = "SELECT allk.annee AS year, AVG(co2) AS co2, AVG(pibParHab) AS pibParHab, AVG(cpi) AS cpi, AVG(gpi) AS gpi, AVG(arriveesTotal) AS arriveesTotal,AVG(departs) AS departs
+        FROM (SELECT id_pays, annee FROM economie UNION 
+                SELECT id_pays, annee FROM tourisme UNION
+                SELECT id_pays, annee FROM surete UNION
+                SELECT id_pays, annee FROM ecologie
+                ) allk 
+        LEFT OUTER JOIN economie ON allk.id_pays = economie.id_pays AND allk.annee = economie.annee 
+        LEFT OUTER JOIN ecologie ON allk.id_pays = ecologie.id_pays AND allk.annee = ecologie.annee 
+        LEFT OUTER JOIN surete ON allk.id_pays = surete.id_pays AND allk.annee = surete.annee 
+        LEFT OUTER JOIN tourisme ON allk.id_pays = tourisme.id_pays AND allk.annee = tourisme.annee
+        LEFT OUTER JOIN pays ON allk.id_pays = pays.id
+        WHERE id_continent = :id_continent
+        GROUP BY allk.annee
+        ORDER BY allk.annee ASC;
+        ";
+
+        $sth = $conn->prepare($query);
+        $sth->bindParam(":id_continent", $id_continent, PDO::PARAM_INT);
+        $sth->execute();
+
+        $data = array();
+        while ($rs = $sth->fetch(PDO::FETCH_ASSOC)) {
+            $data[] = $rs;
+        }
+
+        return $data;
+}
+
+
+
 
 
 function dataTab($pays, $conn) {
@@ -712,6 +911,7 @@ function cardScore($option, $value) {
         HTML;
     }
 }
+
 
 function scoreBox($option, $value, $letter) {
     if ($value != null) {

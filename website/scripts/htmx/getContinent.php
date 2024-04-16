@@ -36,21 +36,42 @@ if (isset($_GET["map"])) {
 } else {
     $map = true;
 }
+//halfpie
+$query = "SELECT score FROM pays WHERE id_continent = :id_continent";
+$sth = $cur->prepare($query);
+$sth->bindParam(":id_continent", $id_continent , PDO::PARAM_INT);
+$sth->execute();
+$dataHalfPie = array("A" => array("name"=>"A", "value"=>0), "B" => array("name"=>"B", "value"=>0), "C" => array("name"=>"C", "value"=>0), "D" => array("name"=>"D", "value"=>0), "E" => array("name"=>"E", "value"=>0));    
+while ($rs = $sth->fetch(PDO::FETCH_ASSOC)) {
+        $letter= getLetter($rs["score"]);
+        $dataHalfPie[$letter]["value"]++;
+    }
+    $i = 0;
+    foreach ($dataHalfPie as $key => $value) {
+        $dataHalfPie[$i++] = $dataHalfPie[$key];
+        unset($dataHalfPie[$key]);
+    }
 
 // Nom
-$query = "SELECT * FROM continents WHERE code = :id_continent";
+$query = "SELECT * FROM continents WHERE id = :id_continent";
 $sth = $cur->prepare($query);
 $sth->bindParam(":id_continent", $id_continent, PDO::PARAM_STR);
 $sth->execute();
 $ligne = $sth->fetch();
-$nom = $ligne["nom"];
-$code = $ligne["code"];
+
+if ($ligne !== false) {
+    $nom = $ligne["nom"];
+    $code = $ligne["code"];
+} else {
+    $nom = null;
+    $code = null;
+}
 
 //Top 3
 $query = "SELECT pays.nom
 FROM continents
 JOIN pays ON pays.id_continent = continents.id
-WHERE continents.code = :id_continent
+WHERE continents.id = :id_continent
 ORDER BY pays.score DESC
 LIMIT 3;";
 $sth = $cur->prepare($query);
@@ -66,7 +87,7 @@ $query = "SELECT p.nom AS nom_pays, SUM(t.arriveesTotal) AS somme_arrivees, SUM(
         JOIN continents c ON p.id_continent = c.id
         JOIN ecologie e ON t.annee = e.annee AND t.id_pays = e.id_pays
         WHERE t.annee = 2020
-        AND  c.code = :id_continent
+        AND  c.id = :id_continent 
         GROUP BY p.nom;
     ";
 $sth = $cur->prepare($query);
@@ -75,165 +96,114 @@ $sth->execute();
 
 $dataScatter = array();
     while ($rs = $sth->fetch(PDO::FETCH_ASSOC)) {
-        foreach (array("nom_pays","somme_arrivees","total_co2") as $key => $value) {
-            if (!isset($rs[$value])){
-                $rs[$value]=null;
-            }
+        if (isset($rs["somme_arrivees"]) && isset($rs["total_co2"])){
+            
+            $dataScatter[] = array("var" => $rs["somme_arrivees"], "value" => $rs["total_co2"], "nom"=>$rs["nom_pays"]);
+
         }
-        $dataScatter[] = array("var" => $rs["somme_arrivees"], "value" => $rs["total_co2"], "nom"=>$rs["nom_pays"]);
 }
 
 //graph en barre
-$query = "SELECT pays.nom AS nom_pays, economie.pibParHab
-        FROM pays
-        JOIN continents ON pays.id_continent = continents.id
-        JOIN economie ON pays.id = economie.id_pays
-        WHERE continents.code = :id_continent
-        AND economie.annee = 2020
-        ORDER BY economie.pibParHab DESC;
-";
-$sth = $cur->prepare($query);
-$sth->bindParam(":id_continent", $id_continent, PDO::PARAM_STR);
-$sth->execute();
-$dataBar = array();
-    while ($rs = $sth->fetch(PDO::FETCH_ASSOC)) {
-        foreach (array("nom_pays","pibParHab") as $key => $value) {
-            if (!isset($rs[$value])){
-                $rs[$value]=null;
-            }
-        }
-        $dataBar[] = array("name" => $rs["nom_pays"], "value" => $rs["pibParHab"]);
-}
-
-//---------- Line chart mean, max and min
-
-$query = "SELECT economie.annee, AVG(economie.pibParHab) as moyenne
-        FROM economie
-        JOIN pays p ON economie.id_pays = p.id
-        JOIN continents c ON p.id_continent = c.id
-        WHERE c.code = :id_continent
-        AND economie.annee <2021
-        GROUP BY economie.annee, c.nom;
-    ";
-$sth = $cur->prepare($query);
-$sth->bindParam(":id_continent", $id_continent, PDO::PARAM_STR);
-$sth->execute();
-$data_Mean = array();
-    while ($rs = $sth->fetch(PDO::FETCH_ASSOC)) {
-        foreach (array("annee","moyenne") as $key => $value) {
-            if (!isset($rs[$value])){
-                $rs[$value]=null;
-            }
-        }
-        $data_Mean[] = array("year" => $rs["annee"], "value" => $rs["moyenne"]);
-}
-
-// Min
-$queryMin = "SELECT economie.annee, p.nom AS nom_pays, economie.pibParHab
-FROM economie
-JOIN pays p ON economie.id_pays = p.id
-JOIN continents c ON p.id_continent = c.id
-WHERE c.code =  :id_continent
-  AND economie.pibParHab IS NOT NULL
-  AND (economie.annee, economie.pibParHab) IN (
-    SELECT economie.annee, MIN(economie.pibParHab) AS min_pib
-    FROM economie
-    JOIN pays p ON economie.id_pays = p.id
-    JOIN continents c ON p.id_continent = c.id
-    WHERE c.code =  :id_continent
-      AND economie.pibParHab IS NOT NULL
-    GROUP BY economie.annee
-  )
-  ORDER BY economie.annee ASC;
-";
-    $sth = $cur->prepare($queryMin);
-    $sth->bindParam(":id_continent", $id_continent, PDO::PARAM_STR);
-    $sth->execute();
-    $data_Min = array();
-        while ($rs = $sth->fetch(PDO::FETCH_ASSOC)) {
-            foreach (array("pibParHab") as $key => $value) {
-                if (!isset($rs[$value])){
-                    $rs[$value]=null;
-                }
-            }
-            $data_Min[] = array("year" => $rs["annee"], "nom"=>$rs["nom_pays"], "value" => $rs["pibParHab"],);
-    }
-
-
-// Max
-    $queryMax = "SELECT economie.annee, p.nom AS nom_pays, economie.pibParHab
-    FROM economie
-    JOIN pays p ON economie.id_pays = p.id
-    JOIN continents c ON p.id_continent = c.id
-    WHERE c.code =  :id_continent
-      AND economie.pibParHab IS NOT NULL
-      AND (economie.annee, economie.pibParHab) IN (
-        SELECT economie.annee, MAX(economie.pibParHab) AS max_pib
-        FROM economie
-        JOIN pays p ON economie.id_pays = p.id
-        JOIN continents c ON p.id_continent = c.id
-        WHERE c.code =  :id_continent
-        AND economie.pibParHab IS NOT NULL
-        GROUP BY economie.annee
-    )
-    ORDER BY economie.annee ASC
-;
-";    
-    $sth = $cur->prepare($queryMax);
-    $sth->bindParam(":id_continent", $id_continent, PDO::PARAM_STR);
-    $sth->execute();
-    $data_Max = array();
-        while ($rs = $sth->fetch(PDO::FETCH_ASSOC)) {
-            foreach (array("pibParHab") as $key => $value) {
-                if (!isset($rs[$value])){
-                    $rs[$value]=null;
-                }
-            }
-            $data_Max[] = array("year" => $rs["annee"],  "nom"=>$rs["nom_pays"], "value" => $rs["pibParHab"]);
-    }
-
-$dataScatterContinent = json_encode($dataScatter,JSON_NUMERIC_CHECK );
-$dataBarContinent = json_encode($dataBar,JSON_NUMERIC_CHECK );
-
-$data_Mean = json_encode($data_Mean,JSON_NUMERIC_CHECK);
-$data_Min = json_encode($data_Min,JSON_NUMERIC_CHECK);
-$data_Max = json_encode($data_Max,JSON_NUMERIC_CHECK);
-
-
-//graph comparer
-// $query = "SELECT pays,continents,score
-//         FROM (
-//             SELECT p.nom AS pays,c.nom AS continents,p.score,
-//             ROW_NUMBER() OVER (PARTITION BY c.id ORDER BY p.score DESC) AS row_num
-//             FROM pays p
-//             JOIN continents c ON p.id_continent = :id_continent
-//         ) AS ranked_pays
-//         WHERE row_num <= 3;";
+// $query = "SELECT pays.nom AS nom_pays, economie.pibParHab FROM pays JOIN economie ON pays.id = economie.id_pays WHERE pays.id_continent = :id_continent AND economie.annee = 2020 ORDER BY economie.pibParHab DESC;
+// ";
 // $sth = $cur->prepare($query);
 // $sth->bindParam(":id_continent", $id_continent, PDO::PARAM_STR);
 // $sth->execute();
-// $ligne = $sth->fetch();
-// $country = $ligne["pays"];
-// $mecontinent = $ligne["continents"];
-// $score = $ligne["score"];
+// $dataBar = array();
+//     while ($rs = $sth->fetch(PDO::FETCH_ASSOC)) {
+//         foreach (array("nom_pays","pibParHab") as $key => $value) {
+//             if (!isset($rs[$value])){
+//                 $rs[$value]=null;
+//             }
+//         }
+//         $dataBar[] = array("name" => $rs["nom_pays"], "value" => $rs["pibParHab"]);
+// }
 
+//---------- Line chart mean, max and min
+
+
+
+// Min
+$data_Min = json_encode(dataOptContient($cur,$id_continent,"MIN"),JSON_NUMERIC_CHECK);
+$data_Max = json_encode(dataOptContient($cur,$id_continent,"MAX"),JSON_NUMERIC_CHECK);
+
+$data_Mean = json_encode(dataMOYContient($cur,$id_continent),JSON_NUMERIC_CHECK);
+
+$dataScatterContinent = json_encode($dataScatter,JSON_NUMERIC_CHECK );
+$dataHalfPie= json_encode($dataHalfPie,JSON_NUMERIC_CHECK);
+
+
+$dataBarContinent = databarreContinent($id_continent, $cur);
+$dataBarContinent = json_encode ($dataBarContinent,JSON_NUMERIC_CHECK);
+
+
+
+$query = "SELECT pays.nom, score, pays.id
+FROM continents
+JOIN pays ON pays.id_continent = continents.id
+WHERE continents.id = :id_continent
+ORDER BY pays.score DESC
+LIMIT 4;";
+$sth = $cur->prepare($query);
+$sth->bindParam(":id_continent", $id_continent, PDO::PARAM_STR);
+$sth->execute();
+
+$rank = "";
+$i = 0;
+$iTAMERE = 1;
+$cla = ["first","second","third","fourth"];
+$sty = ["premier","deuxieme","troisieme","quatrieme"];
+while ($rs = $sth->fetch(PDO::FETCH_ASSOC)) {
+    $rs["score"] = round($rs["score"]);
+    $rank .= <<<HTML
+        <div class="classement $cla[$i]">
+            <div class="$sty[$i]">$iTAMERE</div>
+            <div class="classement-pays">$rs[nom]</div>
+            <img src="assets/twemoji/$rs[id].svg" alt="$rs[nom]" class="flagClassement">
+            <img src="assets/img/$rs[id].jpg" alt="$rs[nom]" class="imgClassement">
+            <div class="value">$rs[score]</div>
+        </div>
+    HTML;
+    $i++;
+    $iTAMERE++;
+}
+
+echo <<<HTML
+<div id="rank" hx-swap-oob="outerHTML">
+    $rank
+</div>
+HTML;
+
+$queryRandomCountry = "SELECT id FROM pays WHERE id_continent = :id_continent ORDER BY RAND() LIMIT 1;";
+$sth = $cur->prepare($queryRandomCountry);
+$sth->bindParam(":id_continent", $id_continent, PDO::PARAM_STR);
+$sth->execute();
+$randomCountryId = $sth->fetchColumn();
 
 
 //bandeau
 
 echo <<<HTML
 
-<div class="bandeau" id="bandeau" hx-swap-oob="outerHTML">     
-    <img class="img" src='assets/img/$code.jpg' alt="Bandeau">
-    <h1 class="nom">$nom</h1>
 
+<div class="container-presentation expand-3" id="bandeau0" hx-swap-oob="outerHTML">
+    <div class="bandeau"> 
+        <img class="img-bandeau" src='assets/img/$randomCountryId.jpg' alt="Bandeau">
+        <div class="flag-plus-nom">
+            <img class="flag-bandeau" src="assets/icons/$nom.svg">
+            <h2 class="nom">$nom</h2>
+        </div>
+        <img class="flag-down" src="assets/twemoji/$randomCountryId.svg">
+    </div>
 </div>
 
 <div id="catalogue" hx-swap-oob="outerHTML"></div>
 
 <script id=scripting hx-swap-oob=outerHTML>
+    halfpieHTMX($dataHalfPie, "data")
     barreContinentHTMX($dataBarContinent, "data")
-    lineHTMX($data_Mean, $data_Max, $data_Min)
+    lineHTMXContient($data_Mean, $data_Max, $data_Min)
+    scatterHTMX($dataScatterContinent, "Emission de CO2 ")
 </script>
 
 HTML;
