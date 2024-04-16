@@ -185,7 +185,7 @@
                     <img class="scroll-img" data-index="2" src="assets/icons/arimaFav.svg">
                     <img class="scroll-img" data-index="3" src="assets/icons/arimaLook.svg">
                     <img class="scroll-img" data-index="4" src="assets/icons/arimaWrite.svg">
-                </div>
+          </div>
                 
                 <div class="container-scrollable container-scrollable-x" id="scrArima">
                     <div class="allow-scroll allow-scroll-full zone-arima">
