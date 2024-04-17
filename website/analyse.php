@@ -343,9 +343,9 @@ absolue moyenne (MAE). </p>
                         </div>
 
                     <div class="container-scrollable" id="scr">
-                        <div class="allow-scroll"> <img src="assets/qddd.png"></div>
-                        <div class="allow-scroll"><img src="assets/qddd.png"></div>
-                        <div class="allow-scroll"><img  src="assets/qddd.png"></div>
+                        <div class="allow-scroll"> <img src="assets/img_Analyse/RL_PIB_IDH.png"></div>
+                        <div class="allow-scroll"><img src="assets/img_Analyse/RL_PIB_IDH.png"></div>
+                        <div class="allow-scroll"><img  src="assets/img_Analyse/RL_PIB_RNB.png"></div>
                     </div>
 
                 </div>
