@@ -189,15 +189,22 @@
                 
                 <div class="container-scrollable container-scrollable-x" id="scrArima">
                     <div class="allow-scroll allow-scroll-full zone-arima">
+                    
                         <div class="container-presentation expandrow-2"> 
-                            <h2>ARIMA</h2>
+                        <div class="title-zone">
+                        <img class="flag-small" src="assets/icons/arimaHome.svg">
+                        <div>
+                        <h2>ARIMA</h2>
                             <p> (AutoRegressive Integrated Moving Average) 
                                 est un modèle statistique puissant utilisé pour analyser et prévoir les séries temporelles.</p>
-                        </div>
-                        <div class="container-presentation expandrow-2">
-                            <p> ARIMA tire son efficacité de la combinaison de trois concepts principaux : l'autorégression (AR), l'intégration (I) et la moyenne mobile (MA).  Comprendre ces composantes est essentiel pour maîtriser ARIMA et
-exploiter ses capacités dans l'analyse des séries temporelles.
+                       </div>
+                    </div>
+                    </div>
 
+                        <div class="container-presentation expandrow-2">
+                        <div>
+                        <p> ARIMA tire son efficacité de la combinaison de trois concepts principaux : l'autorégression (AR), l'intégration (I) et la moyenne mobile (MA).  Comprendre ces composantes est essentiel pour maîtriser ARIMA et
+exploiter ses capacités dans l'analyse des séries temporelles.
 
 (AR) qui capture la dépendance des observations précédentes, 
 
@@ -210,13 +217,17 @@ En définissant les paramètres notées respectivement 'p', 'd' et 'q', le modè
 
 Cette flexibilité permet à ARIMA de modéliser une grande variété de séries
 temporelles avec précision. En comprenant ces concepts fondamentaux, nous sommes prêts à explorer plus en profondeur le fonctionnement et les applications pratiques du modèle ARIMA dans l'analyse et la prévision des séries temporelles. </p>
-                        </div>
+                        </div></div>
                     </div>
                     <div class="allow-scroll allow-scroll-full zone-arima">
                         <div class="container-presentation expand-2">
+                            <div class="title-zone">
+                                <img class="flag-small" src="assets/icons/arimaTemp.svg">
+                                <div>
                             <h2>SÉRIE TEMPORELLE</h2>
-                            <p> Les séries temporelles représentent un aspect interessant de l'analyse des données, offrant un aperçu des phénomènes qui évoluent avec le temps. Avant de plonger dans les détails du modèle ARIMA, il est important de comprendre les fondamentaux des séries temporelles.
-
+                        </div></div></div>
+                        <div class="container-presentation expand-2"> 
+                        <p> Les séries temporelles représentent un aspect interessant de l'analyse des données, offrant un aperçu des phénomènes qui évoluent avec le temps. Avant de plonger dans les détails du modèle ARIMA, il est important de comprendre les fondamentaux des séries temporelles.
 Elles sont décomposées en trois composantes principales :
 - Tendance (Tt) : Représente la variation à long terme de la série, pouvant être croissante, décroissante ou stable.
 - Saisonnalité (St) : Indique les variations périodiques qui se répètent à des intervalles réguliers, comme les saisons ou
@@ -224,15 +235,20 @@ Elles sont décomposées en trois composantes principales :
 - Résidu ou erreur (εt) : Comprend les fluctuations aléatoires non expliquées par la tendance ou la saisonnalité.
 
 Cette décomposition permet une compréhension approfondie de la structure des données temporelles, facilitant ainsi la modélisation et la prédiction. </p>
+                       
                         </div>
-                        <div class="container-presentation expand-2"> </div>
                     </div>
 
                     <div class="allow-scroll allow-scroll-full zone-arima">
-                        <div class="container-presentation"> 
+                        <div class="container-presentation">
+                        <div class="title-zone">
+                                <img class="flag-small" src="assets/icons/arimaFav.svg">
+                            <div>
                             <h2>DÉTERTMINER LES PARAMÈTRES ARIMA</h2>
                             <p> La configuration d'un modèle ARIMA implique de choisir les valeurs appropriées pour le paramètres p, d et q, qui déterminent l'ordre de l'autorégression, le degré de différenciation et l'ordre de la moyenne mobile, respectivement. </p>
-                         </div>
+                            </div>
+                        </div>
+                        </div>
                         <div class="container-presentation expandrow-2">
                             <p> Pour simplifier et accélérer le processus de configuration des modèles ARIMA, l'automatisation à
 l'aide de la recherche en grille est souvent utilisée. Cette approche implique de spécifier une grille
@@ -252,25 +268,32 @@ absolue moyenne (MAE). </p>
                     </div>
                     <div class="allow-scroll allow-scroll-full zone-arima">
                         <div class="container-presentation">
-                            <h2> PRÉDICTIONS SUR L’ÉCHANTILLION DE TEST</h2>
+                        <div class="title-zone">
+                                <img class="flag-small" src="assets/icons/arimaLook.svg">
+                            <div><h2> PRÉDICTIONS SUR L’ÉCHANTILLION DE TEST</h2>
                             <p> Une fois que le modèle ARIMA a été configuré et ajusté aux données d'entraînement, il est prêt à être utilisé pour faire des prédictions sur l'échantillon de test. Cette étape est cruciale pour évaluer la performance du modèle et sa capacité à généraliser les tendances observées dans les données d'entraînement. </p>
+                        </div></div>
                         </div>
                         <div class="container-presentation"></div>
                         <div class="container-presentation expand-2">
-                            <h2> INTERPRETATION DES RÉSULTATS : </h2>
+                            <div><h2> INTERPRETATION DES RÉSULTATS : </h2>
                             <p> L'évaluation des performances du modèle ARIMA sur l'échantillon de test fournit des informations précieuses sur sa capacité à capturer les tendances et les variations des données. Les métriques de performance telles que l'erreur quadratique moyenne (RMSE) et l'erreur absolue moyenne (MAE) permettent d'évaluer la précision des prédictions et d'identifier les domaines où le modèle peut être amélioré. </p>
-                        </div>
+                            </div></div>
                     </div>
                     <div class="allow-scroll allow-scroll-full zone-arima">
                         <div class="container-presentation">
-                            <h2> PRÉDICTIONS HORS ÉCHANTILLION </h2>
+                        <div class="title-zone">
+                                <img class="scroll-img" src="assets/icons/arimaWrite.svg">
+                           <div> <h2> PRÉDICTIONS HORS ÉCHANTILLION </h2>
                             <p> Une fois que le modèle ARIMA a été validé sur l'échantillon de test, il peut être utilisé pour faire des prédictions sur des données hors échantillon. Ces prédictions fournissent des informations sur les tendances futures et les variations potentielles des données, aidant ainsi à prendre des décisions éclairées et à anticiper les changements à venir. </p>
+                        </div></div>
                         </div>
                         <div class="container-presentation"></div>
                         <div class="container-presentation expand-2">
+                        <div>
                             <h2> APPLICATIONS PRATIQUES : </h2>
                             <p> Les modèles ARIMA sont largement utilisés dans divers domaines, y compris la finance, l'économie, la météorologie et la santé, pour analyser et prévoir les séries temporelles. Leur capacité à capturer les tendances et les variations des données en fait un outil puissant pour la modélisation et la prédiction des phénomènes qui évoluent avec le temps. </p>
-                        </div>
+                        </div></div>
                     </div>
                 </div>
                 

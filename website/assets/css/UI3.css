@@ -28,6 +28,7 @@ body {
     transition: .5s all;
     color: #222;
     display: flex;
+    padding: 10px;
 }
 
 .bandeau {
@@ -406,6 +407,7 @@ body {
 
 .expandrow-2 {
     grid-row: span 2;
+    color: #222;
 }
 
 .more-text {
@@ -1334,6 +1336,7 @@ input {
     height: 100%;
     width: 100%;
     object-fit: cover;
+    color: #222;
 }
 
 .container-scrollable::-webkit-scrollbar {
@@ -2119,6 +2122,7 @@ span {
 
 img {
     transition: opacity 300ms ease-in;
+    color :#222
 }
 
 .form-warning {
