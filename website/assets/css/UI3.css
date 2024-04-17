@@ -1077,7 +1077,7 @@ form {
 
 label {
     margin-bottom: 10px;
-    font-size: 18px;
+    font-size: 15px;
 }
 
 input {
@@ -1097,11 +1097,15 @@ input {
 }
 
 .right-section {
-    text-align: center;
-    font-size: 18px;
+    text-align: justify;
+    font-size: 17px;
     width: 50%;
-    margin: auto 0;
     line-height: 1.25;
+    display: grid;
+}
+
+.right-section h2 {
+    text-align:center;
 }
 
 .left-section {

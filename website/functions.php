@@ -729,85 +729,12 @@ function getCountryId($country): string {
     return $result["id"];
 }
 
-// get the coordinates (latitude and longitude) of a city
-function getCityCoordinates($countryName, $cityName): array{
-    $countryID = getCountryId($countryName);
-    $conn = getDB();
-    // TO-DO: change to lat and lon when the database is updated
-    $sql = "SELECT lat, lon FROM villes WHERE id_pays = ? AND nom = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->execute([$countryID, $cityName]);
-    $result = $stmt->fetch(PDO::FETCH_ASSOC);
-    return $result;
-}
-
-
-function getAirportCoordinates($airport) {
-    // $airport is the id of the airport
-    $conn = getDB();
-    $sql = "SELECT name, lat, lon FROM airports WHERE id = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->execute([$airport]);
-    $result = $stmt->fetch(PDO::FETCH_ASSOC);
-    return $result;
-}
-
-function getCoordinates($mode, $country=null, $city=null, $airport=null) {
-    
-    if ($mode == "PLANE") {
-        return getAirportCoordinates($airport);
-    } else {
-        return getCityCoordinates($country, $city);
-    }
-}
-
 function formatTime($seconds) {
-    $hours = floor($seconds / 3600) > 0 ? intval(floor($seconds / 3600)) . "h" : "";
-    $minutes = intval(floor(($seconds / 60)) % 60) > 0 ? intval(floor(($seconds / 60)) % 60) . "min" : "";
+    $hours = floor($seconds / 3600) > 0 ? sprintf("%02d", (floor($seconds / 3600))) . " h " : "";
+    $minutes = intval(floor(($seconds / 60)) % 60) > 0 ? sprintf("%02d",(floor(($seconds / 60)) % 60)) . " min " : "";
     return $hours . $minutes;
 }
 
-// function to get all the airports of the city
-function getAirports($idCity, $idCountry){
-    $query = "SELECT * FROM airports WHERE city = ? AND country = ?";
-    $conn = getDB();
-    $stmt = $conn->prepare($query);
-    $stmt->execute([$idCity, $idCountry]);
-    $airports = $stmt->fetchAll();
-    $conn = null;
-    return $airports;
-}
-
-// function to get the direct routes between two cities
-function directRoutesCity($idCitySrc, $idCityDst){
-    // TO-DO: check in database what having 2 equipments mean
-    $query = "SELECT * FROM routes WHERE src_apid IN (SELECT id FROM airports WHERE id_ville = ?) AND dst_apid IN (SELECT id FROM airports WHERE id_ville = ?) AND CHAR_LENGTH(equipment)<4";
-    $conn = getDB();
-    $stmt = $conn->prepare($query);
-    $stmt->execute([$idCitySrc, $idCityDst]);
-    $route = $stmt->fetch();
-    $conn = null;
-    return $route;
-}
-
-function getBestEquipment($routes){
-
-}
-
-// get the model of the Airplane
-function getAirplaneModel($idRoute){
-    $query = "SELECT equipment FROM routes WHERE id = ?";
-    $conn = getDB();
-    $stmt = $conn->prepare($query);
-    $stmt->execute([$idRoute]);
-    try {
-        $airplane = $stmt->fetch()["equipment"];
-    } catch (Exception $e) {
-        $airplane = null;
-    }
-    $conn = null;
-    return $airplane;
-}
 
 function getCities($id_pays, $cur) {
     $query = "SELECT * FROM villes WHERE id_pays = :id_pays";
@@ -850,6 +777,29 @@ function checkHTMX($page, $hx_page) {
         return $hx[count($hx)-1] == $page.".php";
     }
     return false;
+}
+
+function distanceMatrixRequestBuilder($origins, $destinations, $mode, $transit_mode=null) {
+    $url =
+        "https://maps.googleapis.com/maps/api/distancematrix/json?" .
+        "origins=" . urlencode($origins["city"] . "," . $origins["country"]) .
+        "&destinations=" . urlencode($destinations["city"] . "," . $destinations["country"]) .
+        "&mode=" . $mode .
+        "&key=" . MAPS_API_KEY;
+    if ($mode == "transit") {
+        $url .= "&transit_mode=" . $transit_mode;
+    }
+    return $url;
+}
+
+function getAirportCoordinates($airport_iata) {
+    // $airport is the id of the airport
+    $conn = getDB();
+    $sql = "SELECT name, lat, lon FROM airports WHERE iata = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute([$airport_iata]);
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $result;
 }
 function cardScore($option, $value) {
     $arMin = array("pibParHab" =>0.12, "gesHab" =>0.12, "arriveesTotal" =>0.12, "idh" =>0.12, "gpi" =>0.12, "elecRenew" =>0.12);
