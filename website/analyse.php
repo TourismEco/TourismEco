@@ -7,53 +7,59 @@
         <div id="zones">
 
             <div class="zone zone-double display" id="home"  style="display:none">
-                <div class="container-presentation">
-                    <div class="title-zone">
-                        <img class="flag-small" src='assets/icons/analyseHome.svg'>
-                        <div>
-                            <h2>Analyse</h2>
-                            <p>Découvrez comment est décomposé les 4 scores TourismEco de ce pays.</p>
-                        </div>
+            < class="container-presentation">
+                <div class="sectionAnalyse">
+                    <img class="flag-small" src='assets/icons/analyseHome.svg'>
+                    <div>
+                        <h2>Analyse</h2>
+                        <p> Cette page va vous permettre de mieux comprendre le processus de création du score, vous dévoilant les étapes et les méthodes utilisées pour évaluer et attribuer une valeur à différents pays. </p>
+                        <p> De plus, cette section met en avant une analyse approfondie de notre site. Vous aurez l'opportunité d'explorer les modèles de prédictions élaborés à partir de nos données. </p>
+                        <p> En parcourant cette partie dédiée à l'analyse, vous pourrez également vous familiariser avec les différentes techniques de regroupement de nos données, notamment le clustering. </p>
                     </div>
                 </div>
-                <div class="zone-choix">
-                    <div class="container-presentation">
-                        <div class="title-zone">
+                <div class="section">
+                    <div class="container-presentation" id="one">
+                        <div class="sectionAnalyse">
                             <img class="flag-small" src='assets/icons/analyseArima.svg'>
                             <div>
                                 <h2>ARIMA</h2>
+                                <p> ARIMA (Autoregressive Integrated Moving Average) est un modèle statistique utilisé pour analyser et prévoir des séries temporelles.</p>
                             </div>
                         </div>
                     </div>
-                    <div class="container-presentation">
-                        <div class="title-zone">
+                    <div class="container-presentation" id="two">
+                        <div class="sectionAnalyse">
                             <img class="flag-small" src='assets/icons/analyseScore.svg'>
                             <div>
                                 <h2>Score</h2>
+                                <p> Découvrez comment le score est créé, selon divers critères. Permettant d’avoir un score personnel, adapté à vos préférences et besoins. </p>
                             </div>
                         </div>
                     </div>
-                    <div class="container-presentation">
-                        <div class="title-zone">
+                    <div class="container-presentation" id="one">
+                        <div class="sectionAnalyse">
                             <img class="flag-small" src='assets/icons/analyseCluster.svg'>
                             <div>
                                 <h2>Clustering</h2>
+                                <p> Le clustering identifie des groupes similaires parmi les données. Il regroupe des éléments partageant des caractéristiques communes.</p>
                             </div>
                         </div>
                     </div>
-                    <div class="container-presentation">
-                        <div class="title-zone">
+                    <div class="container-presentation" id="two">
+                        <div class="sectionAnalyse">
                             <img class="flag-small" src='assets/icons/analyseClusterPlus.svg'>
                             <div>
                                 <h2>Clustering+</h2>
+                                <p> Le Clustering + va au-delà du clustering traditionnel en intégrant d'autres techniques pour une analyse plus approfondie des données.</p>
                             </div>
                         </div>
                     </div>
-                    <div class="container-presentation">
-                        <div class="title-zone">
+                    <div class="container-presentation" id="three">
+                        <div class="sectionAnalyse">
                             <img class="flag-small" src='assets/icons/stats.svg'>
                             <div>
                                 <h2>Régression Linéaire</h2>
+                                <p> La régression linéaire est une méthode d'analyse prédictive qui modélise la relation entre une variable dépendante et une autre variable indépendante.</p>
                             </div>
                         </div>
                     </div>
@@ -61,8 +67,29 @@
             </div>
 
             <div class="zone zone-triple display" id="score" style="display: none;">
-                <div class="container-presentation expandrow-2"></div>
-                <div class="container-presentation expandrow-2 expand-2"></div>
+            <div class="container-presentation expandrow-2">
+                    <h2> Score </h2>
+                    <p> Le projet vise à attribuer un score à chaque pays pour fournir une identité supplémentaire. Ce score, basé sur des critères éthiques, permet aux utilisateurs de découvrir facilement des informations sur leur future destination en fonction de leurs préférences. Quatre scores sont mis en place : "Tourismeco" pour une vue d'ensemble par défaut, et trois autres ("Tourisme moderne", "Tourisme Éco-responsable", et "Tourisme d'Exploration et de Découverte") pour des préférences spécifiques.</p>
+                    <p>Les critères de chaque score incluent des indicateurs tels que les arrivées d'avions, l'Indice de Développement Humain (IDH), les émissions de gaz à effet de serre (GES), etc. Chaque score est normalisé entre 0 et 1, puis noté de A à E, de parfait à mauvais.</p>
+                </div>
+                <div class="container-presentation expandrow-2 expand-2">
+                    <p> La mise en place des scores s'est faite en utilisant Python. Les données ont été traitées et des poids ont été attribués à chaque critère. Une moyenne pondérée a été utilisée pour obtenir le score final. Les intervalles de score ont été définis en fonction de la variance et appliqués aux données. Enfin, une vérification de cohérence a été réalisée à l'aide d'une visualisation par une carte du monde. </p>
+                    <p> De plus nous avons normaliser les données en utilisant la méthode multicritère, cela nous a permis de comparer différents critères. Elle consiste à attribuer des poids différents à chaque critère, certains augmentant le score tandis que d'autres le diminuent. Les valeurs résultantes sont comprises entre 0 et 1. Par exemple, les variables telles que les arrivées d'avions, le PIB par habitant, les énergies renouvelables et l'IDH augmentent le score (cf. calcul 2), tandis que le GPI et les émissions de GES par habitant le diminuent (cf. calcul 1). </p>
+                    <div class="math">
+                        <div class="frac">
+                            <div class="num">Valeur du critère de l’élément</div>
+                            <div class="fracbar">/</div>
+                            <div class="den">Plus grande valeur sur ce critère de tous les éléments comparés </div>
+                        </div>
+                    </div>
+                    <div class="math">
+                        <div class="frac">
+                            <div class="num">Plus petite valeur sur ce critère de tous les éléments comparés</div>
+                            <div class="fracbar">/</div>
+                            <div class="den"> Valeur du critère de l’élément</div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="zone zone-cluster display" id="cluster" style="display: none;">
@@ -301,7 +328,12 @@ absolue moyenne (MAE). </p>
 
             <div class="zone zone-triple display" id="regr" style="display:none">
 
-                <div class="container-presentation expand-2"></div>
+                <div class="container-presentation expand-2">
+                    <h2> Régression Linéaire </h2>
+                    <p> La régression linéaire constitue une approche utile pour prédire ou estimer des valeurs en se basant sur une relation linéaire entre une variable dépendante et une ou plusieurs variables explicatives.
+                        Notre approche consiste à trouver des relations entre différentes variables de notre base de données, pour qu’elles soient de prédictions intéressantes à mettre en place. Pour cela nous avons utiliser principalement la variable PIB comme variable explicative et on a exploré d’autres variables supplémentaires comme variable explicative.
+                        Pour mettre en place cette régression linéaire, nous avons utilisé le langage de programmation python. On a utilisé des fonctions et des méthodes similaires pour chaque régression, en prenant à chaque fois des données sur une intervalle de 2 ans. On a veillé à prendre des données les plus récentes, en général jusqu'à 2022 et parfois jusqu'à 2020 seulement. </p>
+                </div>
                 <div class="scroll">
 
                     <div class="scroll-buttons scroll-down">
@@ -317,7 +349,10 @@ absolue moyenne (MAE). </p>
                     </div>
 
                 </div>
-                <div class="container-presentation expand-3"></div>
+                <div class="container-presentation expand-3">
+                <p>L'analyse des relations entre le PIB par habitant et diverses variables explicatives a révélé des résultats significatifs, montrant le PIB comme un prédicteur efficace du Revenu National Brut par habitant et de l'Indice de Développement Humain. Bien que moins précis 
+                pour prédire les émissions de Gaz à Effet de Serre (GES). L'exploration de variables supplémentaires comme l'IDH, l'espérance de vie, le GPI et l'énergie renouvelable a mis en évidence des liens intéressants, notamment la forte corrélation entre l'IDH et l'espérance de vie et la corrélation négative entre l'énergie renouvelable et les émissions de GES par habitant.</p>
+                </div>
                 
             </div>
         </div>

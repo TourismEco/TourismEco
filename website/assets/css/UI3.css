@@ -2188,3 +2188,102 @@ img {
     margin-top: 15px;
     margin-bottom: 0px;
 }
+
+.sectionAnalyse{
+    display: grid; 
+    grid-template-columns: auto auto;
+    grid-template-rows: 1fr;
+    margin-top: 10px;
+}
+
+
+.sectionAnalyse img{
+    grid-column: 1;
+    filter: invert();
+    margin-right:10px;
+}
+
+ 
+.sectionAnalyse h2, .sectionAnalyse p{
+    grid-column: 2;
+}
+
+.sectionAnalyse h2 {
+    margin-top: 5px;
+    font-size: 25px;
+}
+
+.sectionAnalyse p {
+    font-size: 15px;
+    margin-top: 30px;
+    margin-right: 30px;
+}
+
+.section{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 10px;
+    grid-auto-rows: minmax(10px, auto);
+}
+
+.section #one {
+    grid-column: 1 / 3;
+}
+  
+.section #two {
+    grid-column: 3 / 5;
+}
+  
+.section #three {
+    grid-column: 2 / 4;
+}
+
+.section h2{
+    margin-top: 5px;
+    margin-left : 10px;
+    font-size : 15px;
+}
+
+.section p{
+    margin :10px;
+    font-size : 10px;
+}
+
+.container-presentation.expandrow-2, .container-presentation.expand-2, .container-presentation.expand-3{
+    display:block;
+    padding: 15px;
+}
+
+.container-presentation.expandrow-2 h2, .container-presentation.expand-2 h2, .container-presentation.expand-3 h2{
+    margin-top: 5px;
+}
+
+.container-presentation.expandrow-2 p, .container-presentation.expand-2 p, .container-presentation.expand-3 p{
+    font-size: 13px;
+}
+
+.math{
+    text-align: center;
+}
+
+.frac{
+    display:inline-block;
+    margin-left:.1em;margin-right:.1em;
+    vertical-align:-64%;
+    text-align:center;
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+.frac > .num, .frac > .den{
+    display:inline-block;
+    padding:0 .1em;
+}
+
+.frac > .fracbar {display:block;
+    height:0;margin:0;border:0;
+    border-bottom:.1em solid;
+    overflow:hidden;
+}
+
+.den{vertical-align:top;}
