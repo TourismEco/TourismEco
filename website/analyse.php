@@ -6,15 +6,16 @@
 
         <div id="zones">
 
-            <div class="zone zone-double display" id="home"  style="display:none">
-            < class="container-presentation">
-                <div class="sectionAnalyse">
-                    <img class="flag-small" src='assets/icons/analyseHome.svg'>
-                    <div>
-                        <h2>Analyse</h2>
-                        <p> Cette page va vous permettre de mieux comprendre le processus de création du score, vous dévoilant les étapes et les méthodes utilisées pour évaluer et attribuer une valeur à différents pays. </p>
-                        <p> De plus, cette section met en avant une analyse approfondie de notre site. Vous aurez l'opportunité d'explorer les modèles de prédictions élaborés à partir de nos données. </p>
-                        <p> En parcourant cette partie dédiée à l'analyse, vous pourrez également vous familiariser avec les différentes techniques de regroupement de nos données, notamment le clustering. </p>
+            <div class="zone zone-double display" id="home">
+                <div class="container-presentation">
+                    <div class="sectionAnalyse">
+                        <img class="flag-small" src='assets/icons/analyseHome.svg'>
+                        <div>
+                            <h2>Analyse</h2>
+                            <p> Cette page va vous permettre de mieux comprendre le processus de création du score, vous dévoilant les étapes et les méthodes utilisées pour évaluer et attribuer une valeur à différents pays. </p>
+                            <p> De plus, cette section met en avant une analyse approfondie de notre site. Vous aurez l'opportunité d'explorer les modèles de prédictions élaborés à partir de nos données. </p>
+                            <p> En parcourant cette partie dédiée à l'analyse, vous pourrez également vous familiariser avec les différentes techniques de regroupement de nos données, notamment le clustering. </p>
+                        </div>
                     </div>
                 </div>
                 <div class="section">
@@ -67,12 +68,12 @@
             </div>
 
             <div class="zone zone-triple display" id="score" style="display: none;">
-            <div class="container-presentation expandrow-2">
+            <div class="container-presentation expandrow-2 score">
                     <h2> Score </h2>
                     <p> Le projet vise à attribuer un score à chaque pays pour fournir une identité supplémentaire. Ce score, basé sur des critères éthiques, permet aux utilisateurs de découvrir facilement des informations sur leur future destination en fonction de leurs préférences. Quatre scores sont mis en place : "Tourismeco" pour une vue d'ensemble par défaut, et trois autres ("Tourisme moderne", "Tourisme Éco-responsable", et "Tourisme d'Exploration et de Découverte") pour des préférences spécifiques.</p>
                     <p>Les critères de chaque score incluent des indicateurs tels que les arrivées d'avions, l'Indice de Développement Humain (IDH), les émissions de gaz à effet de serre (GES), etc. Chaque score est normalisé entre 0 et 1, puis noté de A à E, de parfait à mauvais.</p>
                 </div>
-                <div class="container-presentation expandrow-2 expand-2">
+                <div class="container-presentation expandrow-2 expand-2 score">
                     <p> La mise en place des scores s'est faite en utilisant Python. Les données ont été traitées et des poids ont été attribués à chaque critère. Une moyenne pondérée a été utilisée pour obtenir le score final. Les intervalles de score ont été définis en fonction de la variance et appliqués aux données. Enfin, une vérification de cohérence a été réalisée à l'aide d'une visualisation par une carte du monde. </p>
                     <p> De plus nous avons normaliser les données en utilisant la méthode multicritère, cela nous a permis de comparer différents critères. Elle consiste à attribuer des poids différents à chaque critère, certains augmentant le score tandis que d'autres le diminuent. Les valeurs résultantes sont comprises entre 0 et 1. Par exemple, les variables telles que les arrivées d'avions, le PIB par habitant, les énergies renouvelables et l'IDH augmentent le score (cf. calcul 2), tandis que le GPI et les émissions de GES par habitant le diminuent (cf. calcul 1). </p>
                     <div class="math">
@@ -328,7 +329,7 @@ absolue moyenne (MAE). </p>
 
             <div class="zone zone-triple display" id="regr" style="display:none">
 
-                <div class="container-presentation expand-2">
+                <div class="container-presentation expand-2 regression1">
                     <h2> Régression Linéaire </h2>
                     <p> La régression linéaire constitue une approche utile pour prédire ou estimer des valeurs en se basant sur une relation linéaire entre une variable dépendante et une ou plusieurs variables explicatives.
                         Notre approche consiste à trouver des relations entre différentes variables de notre base de données, pour qu’elles soient de prédictions intéressantes à mettre en place. Pour cela nous avons utiliser principalement la variable PIB comme variable explicative et on a exploré d’autres variables supplémentaires comme variable explicative.
@@ -349,7 +350,7 @@ absolue moyenne (MAE). </p>
                     </div>
 
                 </div>
-                <div class="container-presentation expand-3">
+                <div class="container-presentation expand-3 regression2">
                 <p>L'analyse des relations entre le PIB par habitant et diverses variables explicatives a révélé des résultats significatifs, montrant le PIB comme un prédicteur efficace du Revenu National Brut par habitant et de l'Indice de Développement Humain. Bien que moins précis 
                 pour prédire les émissions de Gaz à Effet de Serre (GES). L'exploration de variables supplémentaires comme l'IDH, l'espérance de vie, le GPI et l'énergie renouvelable a mis en évidence des liens intéressants, notamment la forte corrélation entre l'IDH et l'espérance de vie et la corrélation négative entre l'énergie renouvelable et les émissions de GES par habitant.</p>
                 </div>

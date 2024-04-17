@@ -2249,16 +2249,16 @@ img {
     font-size : 10px;
 }
 
-.container-presentation.expandrow-2, .container-presentation.expand-2, .container-presentation.expand-3{
+.score, .regression1, .regression2{
     display:block;
     padding: 15px;
 }
 
-.container-presentation.expandrow-2 h2, .container-presentation.expand-2 h2, .container-presentation.expand-3 h2{
+.score h2, .regression1 h2, .regression2 h2{
     margin-top: 5px;
 }
 
-.container-presentation.expandrow-2 p, .container-presentation.expand-2 p, .container-presentation.expand-3 p{
+.score p, .regression1 p, .regression2 p{
     font-size: 13px;
 }
 
