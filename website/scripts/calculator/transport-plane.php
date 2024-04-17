@@ -10,9 +10,9 @@ $city_dst = isset($_GET["city_dst"]) ? $_GET["city_dst"] : null;
 $departure_date = isset($_GET["departure_date"]) ? $_GET["departure_date"] : null;
 $passengers = isset($_GET["passengers"]) ? intval($_GET["passengers"]) : 1;
 
-echo "./plane_cli.py --departure '$city_src' --arrival '$city_dst' -p '$passengers' -dd '$departure_date'";
+// echo "./plane_cli.py --departure '$city_src' --arrival '$city_dst' -p '$passengers' -dd '$departure_date'";
 exec("./plane_cli.py --departure '$city_src' --arrival '$city_dst' -p '$passengers' -dd '$departure_date'", $output);
-$output = json_decode($output[0], True);
+$output = $output ? json_decode($output[0], True) : null;
 
 function orthodromeDistance($departure_iata, $arrival_iata) {
     $departure = getAirportCoordinates($departure_iata);
@@ -39,45 +39,61 @@ function orthodromeDistance($departure_iata, $arrival_iata) {
     $distance = $earth_radius * $c;
     return sprintf("%0.2f km", $distance);
 }
-?>
 
-<div class="container-scores border-GR">
-    <div class="title-calc">
-        <img src="assets/icons/plane.svg">
-        <p>Avion</p>
-    </div>
+if ($output) {
+    echo <<<HTML
+    <div class="container-scores border-GR">
+        <div class="title-calc">
+            <img src="assets/icons/plane.svg">
+            <p>Avion</p>
+        </div>
 
-    <div class="stats-calc">
-        <div>
-            <h3>Empreinte Carbone</h3>
-            <p><?=$output['emissions']?> kg CO2e</p>
-        </div>
-        <div class="trait-small"></div>
-        <div>
-            <h3>Prix du trajet</h3>
-            <p><?=$output['price']?></p>
-        </div>
-        <div class="trait-small"></div>
-        <div>
-            <h3>Distance parcourue</h3>
-            <p>
-            <?php 
-            $total_distance = 0;
-            for ($i = 0; $i < sizeof($output["airports"]) - 1; $i++) {
-                $total_distance += intval(orthodromeDistance($output["airports"][$i], $output["airports"][$i+1]));
-            }
-            echo $total_distance;
-                ?> km</p>
-        </div>
-        <div class="trait-small"></div>
-        <div>
-            <h3>Durée trajet</h3>
-            <p><?=$output['duration']?></p>
-        </div>
-        <div class="trait-small"></div>
-        <div>
-            <h3>Nombre d'escales</h3>
-            <p><?=$output['stops']?></p>
+        <div class="stats-calc">
+            <div>
+                <h3>Empreinte Carbone</h3>
+                <p><$output[emissions]</p>
+            </div>
+            <div class="trait-small"></div>
+            <div>
+                <h3>Prix du trajet</h3>
+                <p><$output[price]</p>
+            </div>
+            <div class="trait-small"></div>
+            <div>
+                <h3>Distance parcourue</h3>
+                <p>
+    HTML;
+                $total_distance = 0;
+                for ($i = 0; $i < sizeof($output["airports"]) - 1; $i++) {
+                    $total_distance += intval(orthodromeDistance($output["airports"][$i], $output["airports"][$i+1]));
+                }
+                echo <<< HTML
+                $total_distance km</p>
+            </div>
+            <div class="trait-small"></div>
+            <div>
+                <h3>Durée trajet</h3>
+                <p>$output[duration]</p>
+            </div>
+            <div class="trait-small"></div>
+            <div>
+                <h3>Nombre d'escales</h3>
+                <p>$output[stops]</p>
+            </div>
         </div>
     </div>
-</div>
+    HTML;
+} else {
+    echo <<<HTML
+    <div class="container-scores border-GR">
+        <div class="title-calc">
+            <img src="assets/icons/plane.svg">
+            <p>Avion</p>
+        </div>
+
+        <div class="stats-calc">
+            Aucun itinéraire trouvé
+        </div>
+    </div>
+    HTML;
+}

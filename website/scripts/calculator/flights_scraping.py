@@ -59,9 +59,9 @@ def get_page(playwright:Playwright, origin:str, destination:str, departure_date,
         locator.click()
 
     page.pause()
+    page.screenshot(path="scripts/calculator/screen.png")
 
     parser = LexborHTMLParser(page.content())
-
 
     return parser
 
@@ -113,11 +113,13 @@ def scrape_google_flights(parser):
         category_data.append(flight_data)
 
         data[category.text().lower().replace(' ', '_')] = category_data
-
     return data
 
 def get_best_result(data):
-    best_result = data['meilleurs_vols'][0] if data['meilleurs_vols'] else data['autres_vols']
+    try:
+        best_result = data["meilleurs_vols"][0]
+    except KeyError as e:
+        best_result = data["tous_les_vols"][0]
     best_result = {
         'duration': best_result['duration'],
         'emissions': best_result['emissions'],

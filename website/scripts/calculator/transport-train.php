@@ -45,7 +45,7 @@ class Train {
     }
 }
 
-// echo "../../.venv/bin/trainline_cli.py -d '$city_src' -a '$city_dst' -dd '$departure_date 08:00'";
+echo "../../.venv/bin/trainline_cli.py -d '$city_src' -a '$city_dst' -dd '$departure_date 08:00'";
 exec("../../.venv/bin/trainline_cli.py -d '$city_src' -a '$city_dst' -dd '$departure_date 08:00'", $output);
 $output = $output ? json_decode($output[0], True) : null;
 
@@ -72,12 +72,12 @@ if ($output) {
             <div class="stats-calc">
                 <div>
                     <h3>Empreinte Carbone</h3>
-                    <p> $output[emissions]*$passengers kg CO₂e</p>
+                    <p> {$cb($output["emissions"]*$passengers)} kg CO2e</p>
                 </div>
                 <div class="trait-small"></div>
                 <div>
                     <h3>Prix du trajet</h3>
-                    <p>$output[price]</p>
+                    <p>$output[price] €</p>
                 </div>
                 <div class="trait-small"></div>
                 <div>
@@ -92,7 +92,7 @@ if ($output) {
                 <div class="trait-small"></div>
                 <div>
                     <h3>Nombre de correspondances</h3>
-                    <p>$output[number_of_segments]-1 > 0 ? $output[number_of_segments]-1 : "Aucune"</p>
+                    <p>{$cb($output["number_of_segments"]-1 > 0 ? $output["number_of_segments"]-1 : "Aucune")}</p>
                 </div>
             </div>
         </div>
