@@ -117,9 +117,12 @@
 
                         <div class="stats-scores">
                             <div class="stats-scores-minmax">
-                                <p>Min<br>$min</p>
+                            <p>Centroide 1<br>0.066</p>
                                 <div class="trait-small"></div>
-                                <p>Max<br>$max</p>
+                                <p>Centroide 2<br>0.012</p>
+                                <div class="trait-small"></div>
+                                <p>Centroide 3<br>0.210</p>
+
                             </div>
                         </div>
                     </div>
@@ -132,9 +135,12 @@
 
                         <div class="stats-scores">
                             <div class="stats-scores-minmax">
-                                <p>Min<br>$min</p>
+                            <p>Centroide 1<br>0.214</p>
                                 <div class="trait-small"></div>
-                                <p>Max<br>$max</p>
+                                <p>Centroide 2<br>0.045</p>
+                                <div class="trait-small"></div>
+                                <p>Centroide 3<br>0.566</p>
+
                             </div>
                         </div>
                     </div>
@@ -147,9 +153,12 @@
 
                         <div class="stats-scores">
                             <div class="stats-scores-minmax">
-                                <p>Min<br>$min</p>
+                            <p>Centroide 1<br>0.561</p>
                                 <div class="trait-small"></div>
-                                <p>Max<br>$max</p>
+                                <p>Centroide 2<br>0.522</p>
+                                <div class="trait-small"></div>
+                                <p>Centroide 3<br>0.722</p>
+
                             </div>
                         </div>
                     </div>
@@ -162,9 +171,12 @@
 
                         <div class="stats-scores">
                             <div class="stats-scores-minmax">
-                                <p>Min<br>$min</p>
+                            <p>Centroide 1<br>0.823</p>
                                 <div class="trait-small"></div>
-                                <p>Max<br>$max</p>
+                                <p>Centroide 2<br>0.588</p>
+                                <div class="trait-small"></div>
+                                <p>Centroide 3<br>0.952</p>
+
                             </div>
                         </div>
                     </div>
@@ -177,10 +189,15 @@
 
                         <div class="stats-scores">
                             <div class="stats-scores-minmax">
-                                <p>Min<br>$min</p>
+                                <p>Centroide 1<br>0.114</p>
                                 <div class="trait-small"></div>
-                                <p>Max<br>$max</p>
+                                <p>Centroide 2<br>0.268</p>
+                                <div class="trait-small"></div>
+                                <p>Centroide 3<br>0.063</p>
+
                             </div>
+                           
+                            
                         </div>
                     </div>
 
@@ -192,9 +209,12 @@
 
                         <div class="stats-scores">
                             <div class="stats-scores-minmax">
-                                <p>Min<br>$min</p>
+                            <p>Centroide 1<br>0.014</p>
                                 <div class="trait-small"></div>
-                                <p>Max<br>$max</p>
+                                <p>Centroide 2<br>0.099</p>
+                                <div class="trait-small"></div>
+                                <p>Centroide 3<br>0.009</p>
+
                             </div>
                         </div>
                     </div>
@@ -206,7 +226,7 @@
                 
             </div>
 
-            <div class="zone display" id="arima">
+            <div class="zone display" id="arima" style="display: none;">
                 <div class="scroll-buttons scroll-down scroll-arima">
                     <img class="scroll-img" data-index="0" src="assets/icons/arimaHome.svg">
                     <img class="scroll-img" data-index="1" src="assets/icons/arimaTemp.svg">
@@ -218,9 +238,9 @@
                 <div class="container-scrollable container-scrollable-x" id="scrArima">
                     <div class="allow-scroll allow-scroll-full zone-arima">
                     
-                        <div class="container-presentation expandrow-2"> 
+                    <div class="section">
+                        <div class="container-presentation" id="four"> 
                         <div class="title-zone">
-                        <img class="flag-small" src="assets/icons/arimaHome.svg">
                         <div>
                         <h2>ARIMA</h2>
                             <p> (AutoRegressive Integrated Moving Average) 
@@ -228,42 +248,74 @@
                        </div>
                     </div>
                     </div>
-
+                    <div class="container-presentation" id="five"> <div class="title-zone">
+                        <div>
+                        <h2>ARIMA</h2>
+                            <p> (AutoRegressive Integrated Moving Average) 
+                                est un modèle statistique puissant utilisé pour analyser et prévoir les séries temporelles.</p>
+                       </div>
+                    </div> </div>
+                    <div class="container-presentation" id="five">  <div class="title-zone">
+                        <div>
+                        <h2>ARIMA</h2>
+                            <p> (AutoRegressive Integrated Moving Average) 
+                                est un modèle statistique puissant utilisé pour analyser et prévoir les séries temporelles.</p>
+                       </div>
+                    </div></div>
+                    <div class="container-presentation" id="five">  <div class="title-zone">
+                        <div>
+                        <h2>ARIMA</h2>
+                            <p> (AutoRegressive Integrated Moving Average) 
+                                est un modèle statistique puissant utilisé pour analyser et prévoir les séries temporelles.</p>
+                       </div>
+                    </div></div>
+                    <div class="container-presentation" id="five"> <div class="title-zone">
+                        <div>
+                        <h2>ARIMA</h2>
+                            <p> (AutoRegressive Integrated Moving Average) 
+                                est un modèle statistique puissant utilisé pour analyser et prévoir les séries temporelles.</p>
+                       </div>
+                    </div> </div>
+                    
+</div>
                         <div class="container-presentation expandrow-2">
                         <div>
-                        <p> ARIMA tire son efficacité de la combinaison de trois concepts principaux : l'autorégression (AR), l'intégration (I) et la moyenne mobile (MA).  Comprendre ces composantes est essentiel pour maîtriser ARIMA et
+                        <p> ARIMA tire son efficacité de la combinaison de trois concepts principaux : l'autorégression (AR), l'intégration (I) et la moyenne mobile (MA).  
+                        </p><p>Comprendre ces composantes est essentiel pour maîtriser ARIMA et
 exploiter ses capacités dans l'analyse des séries temporelles.
-
-(AR) qui capture la dépendance des observations précédentes, 
-
-(I) qui rend la série stationnaire en différenciant les données, 
-
-(MA) qui modélise les erreurs résiduelles. 
-
+</p><p>
+- (AR) qui capture la dépendance des observations précédentes, 
+</p><p>
+- (I) qui rend la série stationnaire en différenciant les données, 
+</p><p>
+- (MA) qui modélise les erreurs résiduelles. 
+</p><p>
 
 En définissant les paramètres notées respectivement 'p', 'd' et 'q', le modèle ARIMA peut s'adapter aux structures temporelles spécifiques des données, capturant à la fois les tendances à long terme et les variations aléatoires.
-
+</p><p>
 Cette flexibilité permet à ARIMA de modéliser une grande variété de séries
 temporelles avec précision. En comprenant ces concepts fondamentaux, nous sommes prêts à explorer plus en profondeur le fonctionnement et les applications pratiques du modèle ARIMA dans l'analyse et la prévision des séries temporelles. </p>
                         </div></div>
+
                     </div>
                     <div class="allow-scroll allow-scroll-full zone-arima">
                         <div class="container-presentation expand-2">
                             <div class="title-zone">
-                                <img class="flag-small" src="assets/icons/arimaTemp.svg">
                                 <div>
                             <h2>SÉRIE TEMPORELLE</h2>
+                            <p> Ensembles de données indexées par le temps, reflétant ainsi l'évolution d'un phénomène au fil du temps. </p>
                         </div></div></div>
                         <div class="container-presentation expand-2"> 
+                        <div>
                         <p> Les séries temporelles représentent un aspect interessant de l'analyse des données, offrant un aperçu des phénomènes qui évoluent avec le temps. Avant de plonger dans les détails du modèle ARIMA, il est important de comprendre les fondamentaux des séries temporelles.
-Elles sont décomposées en trois composantes principales :
+Elles sont décomposées en trois composantes principales :</p><p>
 - Tendance (Tt) : Représente la variation à long terme de la série, pouvant être croissante, décroissante ou stable.
-- Saisonnalité (St) : Indique les variations périodiques qui se répètent à des intervalles réguliers, comme les saisons ou
+</p><p>- Saisonnalité (St) : Indique les variations périodiques qui se répètent à des intervalles réguliers, comme les saisons ou
  les cycles économiques.
-- Résidu ou erreur (εt) : Comprend les fluctuations aléatoires non expliquées par la tendance ou la saisonnalité.
-
+ </p><p>- Résidu ou erreur (εt) : Comprend les fluctuations aléatoires non expliquées par la tendance ou la saisonnalité.
+</p><p>
 Cette décomposition permet une compréhension approfondie de la structure des données temporelles, facilitant ainsi la modélisation et la prédiction. </p>
-                       
+</div>
                         </div>
                     </div>
 
@@ -278,16 +330,17 @@ Cette décomposition permet une compréhension approfondie de la structure des d
                         </div>
                         </div>
                         <div class="container-presentation expandrow-2">
+                            <div>
                             <p> Pour simplifier et accélérer le processus de configuration des modèles ARIMA, l'automatisation à
 l'aide de la recherche en grille est souvent utilisée. Cette approche implique de spécifier une grille
 de valeurs pour les paramètres p, d et q, puis d'évaluer la performance de chaque combinaison
-de paramètres à l'aide d'une métrique de performance définie.
+de paramètres à l'aide d'une métrique de performance définie.</p><p>
 
 La recherche en grille des hyperparamètres ARIMA est une approche systématique pour trouver
 les valeurs optimales des paramètres p, d et q. En résumé cette procédure implique de spécifier
 une grille de valeurs pour chaque paramètre, d'évaluer les performances de chaque combinaison
 de paramètres et de sélectionner celle qui donne les meilleures performances prévisionnelles. </p>
-                        </div>
+                        </div></div>
                         <div class="container-presentation">
                             <p> En raison de la complexité de l'estimation des paramètres ARIMA, des méthodes d'essais et d'erreurs itératifs sont souvent utilisées pour trouver les valeurs optimales. Cela implique d'ajuster différents modèles ARIMA avec des combinaisons de paramètres et de sélectionner celui qui
 minimise les erreurs de performance, telles que l'erreur quadratique moyenne (RMSE) ou l'erreur
@@ -295,16 +348,18 @@ absolue moyenne (MAE). </p>
                         </div>
                     </div>
                     <div class="allow-scroll allow-scroll-full zone-arima">
-                        <div class="container-presentation">
+                        <div class="container-presentation ">
                         <div class="title-zone">
                                 <img class="flag-small" src="assets/icons/arimaLook.svg">
                             <div><h2> PRÉDICTIONS SUR L’ÉCHANTILLION DE TEST</h2>
                             <p> Une fois que le modèle ARIMA a été configuré et ajusté aux données d'entraînement, il est prêt à être utilisé pour faire des prédictions sur l'échantillon de test. Cette étape est cruciale pour évaluer la performance du modèle et sa capacité à généraliser les tendances observées dans les données d'entraînement. </p>
                         </div></div>
                         </div>
-                        <div class="container-presentation"></div>
-                        <div class="container-presentation expand-2">
-                            <div><h2> INTERPRETATION DES RÉSULTATS : </h2>
+                        <div class="container-presentation img-pred ">
+                        <img src="assets/img_Analyse/prediction_ech.png">
+                        </div>
+                        <div class="container-presentation expand-2 ">
+                            <div><h3> INTERPRETATION DES RÉSULTATS : </h3>
                             <p> L'évaluation des performances du modèle ARIMA sur l'échantillon de test fournit des informations précieuses sur sa capacité à capturer les tendances et les variations des données. Les métriques de performance telles que l'erreur quadratique moyenne (RMSE) et l'erreur absolue moyenne (MAE) permettent d'évaluer la précision des prédictions et d'identifier les domaines où le modèle peut être amélioré. </p>
                             </div></div>
                     </div>
@@ -316,10 +371,10 @@ absolue moyenne (MAE). </p>
                             <p> Une fois que le modèle ARIMA a été validé sur l'échantillon de test, il peut être utilisé pour faire des prédictions sur des données hors échantillon. Ces prédictions fournissent des informations sur les tendances futures et les variations potentielles des données, aidant ainsi à prendre des décisions éclairées et à anticiper les changements à venir. </p>
                         </div></div>
                         </div>
-                        <div class="container-presentation"></div>
-                        <div class="container-presentation expand-2">
+                        <div class="container-presentation img-pred">  <img src="assets/img_Analyse/hors_ech.png"> </div>
+                        <div class="container-presentation expand-2 ">
                         <div>
-                            <h2> APPLICATIONS PRATIQUES : </h2>
+                            <h3> APPLICATIONS PRATIQUES : </h3>
                             <p> Les modèles ARIMA sont largement utilisés dans divers domaines, y compris la finance, l'économie, la météorologie et la santé, pour analyser et prévoir les séries temporelles. Leur capacité à capturer les tendances et les variations des données en fait un outil puissant pour la modélisation et la prédiction des phénomènes qui évoluent avec le temps. </p>
                         </div></div>
                     </div>
