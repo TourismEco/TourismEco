@@ -43,28 +43,20 @@
                 <div class="container-presentation" id="miniMap0"></div>
                 <div class="container-presentation" id="score0"></div>
                 <div class="container-presentation" id="safe0"></div>
-
-                <div class="container-presentation expand-2">
-                </div>
-
+                <div class="container-presentation expand-2" id="rankPays"></div>
                 <div class="scroll">
-
                     <div class="scroll-buttons">
-                            <div class="scroll-dot dot-active" id="scrb0" data-index="0"></div>
-                            <div class="scroll-dot" id="scrb1" data-index="1"></div>
-                            <div class="scroll-dot" id="scrb2" data-index="2"></div>
-                        </div>
-
-                    <div class="container-scrollable" id="scr">
-                        <div class="allow-scroll" style="background-color:#222"></div>
-                        <div class="allow-scroll" style="background-color:red"></div>
-                        <div class="allow-scroll" style="background-color:blue"></div>
+                        <div class="scroll-dot dot-active" id="scrb0" data-index="0"></div>
+                        <div class="scroll-dot" id="scrb1" data-index="1"></div>
+                        <div class="scroll-dot" id="scrb2" data-index="2"></div>
                     </div>
-
+                    <div class="container-scrollable" id="scr">
+                        <div class="allow-scroll" id="src1"></div>
+                        <div class="allow-scroll" id="src2"></div>
+                        <div class="allow-scroll" id="src3"></div>
+                    </div>
                 </div>
-
                 <div class="container-presentation expand-3" id="description0"></div>
-
             </div>
 
             <div class="zone zone-spider display" id="key" style="display: none;">

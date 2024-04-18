@@ -60,7 +60,6 @@ function updateRanking(id_pays, type, data) {
 }
 
 function changeScore(option) {
-
     vars = ["pibParHab","gesHab","arriveesTotal","gpi","idh","elecRenew"]
     poids = {   
         Global:{pibParHab:2,gesHab:6,arriveesTotal:2,gpi:4,idh:4,elecRenew:3},

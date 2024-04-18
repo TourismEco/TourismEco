@@ -104,6 +104,27 @@
             <h2 style="font-size:20px;">Modifier vos préférences</h2>
             <div class="connexion-container">
                 <form id="preference">
+                    <div class="preference-item">
+                        <label for="tourisme_moderne">Tourisme Moderne (economique)</label>
+                        <input type="checkbox" id="tourisme_moderne" name="preferences[]" value="Tourisme Moderne (economique)">
+                    </div>
+
+                    <div class="preference-item">
+                        <label for="tourisme_decouverte">Tourisme d'Exploration et de Découverte</label>
+                        <input type="checkbox" id="tourisme_decouverte" name="preferences[]" value="Tourisme d'Exploration et de Découverte">
+                    </div>
+
+                    <div class="preference-item">
+                        <label for="tourisme_eco">Tourisme Éco-responsable</label>
+                        <input type="checkbox" id="tourisme_eco" name="preferences[]" value="Tourisme Éco-responsable">
+                    </div>
+
+                    <div class="preference-item">
+                        <label for="pas_preference">Pas de préference particuliere</label>
+                        <input type="checkbox" id="pas_preference" name="preferences[]" value="Pas de préference particuliere">
+                    </div>
+
+                    <input type="submit" value="Mettre à jour" style="background-color: #52796F; color: white; border: 1px solid #52796F; border-radius: 8px; font-size: 16px; width:150px; display: block; margin: 0 auto;">
                 </form>
             </div>
         </div>

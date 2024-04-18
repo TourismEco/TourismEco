@@ -33,6 +33,7 @@
     $a = array("sv1","sv2","sv3");
     $sv = array_rand($a);
     $anec = $ligne[$a[$sv]];
+    $anec = explode(" : ",htmlspecialchars($ligne[$a[$sv]]));
 
     $c = getCities($id_pays, $cur);
     $cities = json_encode($c["cities"]);
@@ -58,8 +59,9 @@
             <div class="score-box score-$letter">$letter</div>
         </div>
 
-        <div class="container-explore-pays expand-2 expandrow-2">
-            <p class="paragraphe">$anec</p>
+        <div class="container-explore-pays expand-2 expandrow-2 anecExplore">
+            <h2 class="h3 anecTitle">$anec[0]</h2>
+            <p class="paragraphe">$anec[1]</p>
         </div>
 
         <div class="explore-rang" id="rang"></div>

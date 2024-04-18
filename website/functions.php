@@ -163,6 +163,7 @@ function dataLine($pays, $conn) {
 }
 
 
+
 function dataMean($conn) {
     $query = "SELECT * FROM moyennes ORDER BY year ASC";
 
