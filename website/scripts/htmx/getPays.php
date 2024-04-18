@@ -55,7 +55,7 @@ $c = getCities($id_pays, $cur);
 $cities = json_encode($c["cities"]);
 $capitals = json_encode($c["capitals"]);
 
-// Indiacteurs
+// Indicateurs
 $queryIndic="SELECT * FROM `developpement_humain` WHERE iso_code= :id_pays";
 $sth = $cur->prepare($queryIndic);
 $sth->bindParam(":id_pays", $id_pays, PDO::PARAM_STR);
@@ -117,6 +117,25 @@ if ($minRanking == 1) {
     $minRanking = $minRanking . " ème";
 }
 
+// On récupère le premier pays, le pays juste avant le $id_pays, notre pays et le pays juste après.
+$querySup=" SELECT alldata_rank.id_pays, $minYear, $minVariable, pays.nom AS nom
+FROM `alldata_rank`
+JOIN pays ON alldata_rank.id_pays = pays.id
+where annee = $minYear
+AND $minVariable IS NOT NULL
+ORDER BY $minVariable ASC
+LIMIT 2;";
+$sth = $cur->prepare($querySup);
+$sth->execute();
+
+// Créez un tableau pour stocker les classements pour chaque pays.
+$coutriesClassements = [];
+
+// Parcourez le résultat de la requête.
+while ($ligne = $sth->fetch(PDO::FETCH_ASSOC)) {
+    $coutriesClassements[] = ["nom" => $ligne["nom"], "ranking" => $ligne[$minVariable], 'flag' => $ligne['id_pays']];
+}
+
 // Pays avant $id_pays
 $queryPreviousCountry = "
 SELECT alldata_rank.id_pays, $minYear, $minVariable, pays.nom AS nom
@@ -160,26 +179,6 @@ $CountryNext = ["id" => $nextCountry["id_pays"], "nom" => $nextCountry["nom"], "
 
 
 
-// On récupère le premier pays, le pays juste avant le $id_pays, notre pays et le pays juste après.
-$querySup=" SELECT alldata_rank.id_pays, $minYear, $minVariable, pays.nom AS nom
-FROM `alldata_rank`
-JOIN pays ON alldata_rank.id_pays = pays.id
-where annee = $minYear
-AND $minVariable IS NOT NULL
-ORDER BY $minVariable ASC
-LIMIT 2;";
-$sth = $cur->prepare($querySup);
-$sth->execute();
-
-// Créez un tableau pour stocker les classements pour chaque pays.
-$coutriesClassements = [];
-
-// Parcourez le résultat de la requête.
-while ($ligne = $sth->fetch(PDO::FETCH_ASSOC)) {
-    $coutriesClassements[] = ["nom" => $ligne["nom"], "ranking" => $ligne[$minVariable], 'flag' => $ligne['id_pays']];
-}
-
-
 // Si le pays concerné est dans les 5 premiers
 $queryCountriesTop = " SELECT alldata_rank.id_pays, $minYear, $minVariable, pays.nom AS nom
     FROM `alldata_rank`
@@ -202,8 +201,9 @@ while ($ligne = $sth->fetch(PDO::FETCH_ASSOC)) {
 }
 
 //Evolution du classement
+$previousYear = $minYear - 1;
 $selectedCountryId = $id_pays;
-$queryRankingPreviousYear = "SELECT alldata_rank.id_pays, annee, $minVariable, pays.nom AS nom
+$queryRankingPreviousYear = "SELECT alldata_rank.id_pays as id, annee, $minVariable, pays.nom AS nom
 FROM `alldata_rank`
 JOIN pays ON alldata_rank.id_pays = pays.id
 WHERE annee = :prevYear
@@ -213,20 +213,20 @@ ORDER BY $minVariable ASC
 LIMIT 1;
 ";
 
-$previousYear = $minYear - 1;
+$sth2 = $cur->prepare($queryRankingPreviousYear);
+$sth2->bindParam(":id_pays", $selectedCountryId, PDO::PARAM_STR);
+$sth2->bindParam(":prevYear", $previousYear, PDO::PARAM_INT);
+$sth2->execute();
 
-$sth = $cur->prepare($queryRankingPreviousYear);
-$sth->bindParam(":id_pays", $selectedCountryId, PDO::PARAM_INT);
-$sth->bindParam(":prevYear", $previousYear, PDO::PARAM_INT);
-$sth->execute();
-
-$rankingPrevious = $sth->fetch(PDO::FETCH_ASSOC);
+$rankingPrevious = $sth2->fetch(PDO::FETCH_ASSOC);
 
 if ($rankingPrevious) {
-    $rankingPreviousYear = ["id" => $rankingPrevious["id_pays"], "annee" => $rankingPrevious["annee"], "nom" => $rankingPrevious["nom"], "ranking" => $rankingPrevious[$minVariable], 'flag' => $rankingPrevious['id_pays']];
+    $rankingPreviousYear = ["id" => $rankingPrevious["id"], "annee" => $rankingPrevious["annee"], "nom" => $rankingPrevious["nom"], "ranking" => $rankingPrevious[$minVariable], 'flag' => $rankingPrevious['id']];
 } else {
     echo "No data for previous year";
 }
+
+
 // Graphiques
 $dataLine = dataLine($id_pays, $cur);
 $dataLineMean = dataMean($cur);
@@ -322,9 +322,9 @@ HTML;
             echo <<<HTML
             <p class="rank-text">En {$rankingPreviousYear['annee']}, le pays était {$rankingPreviousYear['ranking']}$suffix</p>
             HTML;
-            if ($minRanking > $rankingPreviousYear['ranking']) {
+            if ($minRanking < $rankingPreviousYear['ranking']) {
                 echo '<p class="rank-text" style="font-size: 13px; color:green;">Le pays a gagné des places dans le classement</p>';
-            } elseif ($minRanking < $rankingPreviousYear['ranking']) {
+            } elseif ($minRanking > $rankingPreviousYear['ranking']) {
                 echo '<p class="rank-text" style="font-size: 13px; color:darkorange;">Le pays a perdu des places dans le classement</p>';
             } else {
                 echo '<p class="rank-text" style="font-size: 13px; color:darkgrey;">Le pays n\'a pas bougé du classement</p>';
