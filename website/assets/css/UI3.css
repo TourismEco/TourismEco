@@ -410,6 +410,7 @@ body {
     color: #222;
 }
 
+
 .more-text {
     justify-self: center;
     align-self: center;
@@ -652,8 +653,8 @@ body {
 .expand-5 {
     grid-column:3;
     grid-row: 2/4;
-    
 }
+
 
 
 .container-buttons {
@@ -2238,6 +2239,16 @@ img {
     grid-column: 2 / 4;
 }
 
+.section #four {
+    grid-column: 1/6;
+}
+  
+.section #five {
+    grid-column: 1/6 ;
+    
+}
+  
+
 .section h2{
     margin-top: 5px;
     margin-left : 10px;
@@ -2287,3 +2298,11 @@ img {
 }
 
 .den{vertical-align:top;}
+
+.img-pred{
+    width: 75%
+}
+
+.pred-ech{
+    height: 60%;
+}
