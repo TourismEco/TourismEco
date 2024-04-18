@@ -364,7 +364,7 @@ absolue moyenne (MAE). </p>
                             <div><h3> INTERPRETATION DES RÉSULTATS : </h3>
                             <p> Le coefficient de détermination R2 (R-carré) est utilisé pour évaluer la qualité de l'ajustement du modèle aux données. Un R2 de 0,88 indique que le modèle explique environ 88 % de la variance dans les données. En d'autres termes, il montre que le modèle ARIMA est assez bon pour représenter et prédire la tendance pour cet ensemble de donnée.
 En outre, il est important de noter que ces données peuvent être étendues pour inclure d'autres pays et d'autres années. Cela signifie que le modèle peut être adapté pour étudier et prédire les tendances de la production d'énergies renouvelables à l'échelle mondiale et sur des périodes plus étendues.</p>  </div></div>
-                    </div>
+                </div>
                     <div class="allow-scroll allow-scroll-full zone-arima">
                         <div class="container-presentation">
                         <div class="title-zone">
