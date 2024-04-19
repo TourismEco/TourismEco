@@ -30,7 +30,8 @@
         require_once 'catalogue.php';
         exit;
     }
-?>
+
+echo <<<HTML
 
 <body>
     
@@ -393,8 +394,11 @@
                 <div id="name-switch" class="nav-text">Présentation</div>
             </div>
         </div>
-            
 
+            
+HTML;
+
+echo <<<JS
             <script id="scripting" hx-swap-oob="outerHTML">
                 createMiniMap(0,"pays")
                 spider("spider",1)
@@ -472,11 +476,14 @@
                     h = el.clientHeight.toFixed(0)
                     document.getElementById('scr').scroll({top:h*nb,behavior:"smooth"})
                 })
+
+                
                 
             </script>
-
-            <div id="htmxing" hx-swap-oob="outerHTML">
-                <?php
+JS;
+            echo <<<HTML
+                <div id="htmxing" hx-swap-oob="outerHTML">
+            HTML;
                     echo <<<HTML
                         <div hx-get="scripts/htmx/getPays.php" hx-vals="js:{id_pays:'$pays'}" hx-trigger="load"></div>
                     HTML;
@@ -487,3 +494,4 @@
 
 </body>
 </html>
+HTML;

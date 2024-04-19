@@ -2159,7 +2159,7 @@ input {
     transform: translate(0, 45px);
 }
 
-.span {
+span {
     position: absolute;
     opacity: 0;
     padding: 10px;
