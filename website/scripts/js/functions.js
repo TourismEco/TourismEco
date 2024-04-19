@@ -47,8 +47,9 @@ function updatePodium(type, data) {
 
 function updateRanking(id_pays, type, data) {
     ligne = data.filter((val) => {return val.id == id_pays})[0]
-    $("#rang").html(ligne[type])
-    $("#rank_pays").html(`
+    var rank = ligne[type + 'rank'];
+    var suffix = (rank == 1) ? " er" : " ème";
+    $("#rang").addClass("centered-content").html("Rang du pays <br>" + rank + suffix);    $("#rank_pays").html(`
         <div class ="classement other" hx-get="">
             <div class="otherclassement">${ligne[type+"rank"] == 667 ? "/" : ligne[type+"rank"]}</div>
             <div class="classement-pays">${ligne["nom"]}</div>
@@ -60,7 +61,6 @@ function updateRanking(id_pays, type, data) {
 }
 
 function changeScore(option) {
-
     vars = ["pibParHab","gesHab","arriveesTotal","gpi","idh","elecRenew"]
     poids = {   
         Global:{pibParHab:2,gesHab:6,arriveesTotal:2,gpi:4,idh:4,elecRenew:3},
