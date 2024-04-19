@@ -1335,6 +1335,11 @@ input {
 .allow-scroll {
     height: 100%;
     scroll-snap-align: start;
+}
+
+.allow-scroll-pays{
+    height: 100%;
+    scroll-snap-align: start;
     align-items: center;
     display: flex;
     flex-direction: column;

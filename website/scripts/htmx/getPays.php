@@ -455,16 +455,16 @@ echo <<<HTML
     </div>
 
     <div class="container-scrollable" id="scr" hx-swap-oob="outerHTML">
-        <div class="allow-scroll" id="src2">
+        <div class="allow-scroll-pays" id="src2">
             <h3 class="h3-scroll" id="src1">Espérance de vie moyenne</h3>
             <p class="indic">$esp ans</p>
         </div>
-        <div class="allow-scroll">
+        <div class="allow-scroll-pays">
             <h3 class="h3-scroll" id="src1">Indice de développement humain</h3>
             <p class="indic">$hdi</p>
         </div>
         
-        <div class="allow-scroll" id="src3">
+        <div class="allow-scroll-pays" id="src3">
             <h3 class="h3-scroll" id="src1">Revenu par habitant / par an</h3>
             <p class="indic">$rnb</p>
         </div>
@@ -479,19 +479,19 @@ echo <<<HTML
         <div class="scroll-dot" id="scrb3" data-index="3"></div>
     </div>
     <div class="container-scrollable" id="scrAnec" hx-swap-oob="outerHTML">
-        <div class="allow-scroll" id="srcDesc">
+        <div class="allow-scroll-pays" id="srcDesc">
             <h3 class="h3-scrollDescrib" id="srcDesc">Description</h3>
             <p class="anec">$description</p>
         </div>
-        <div class="allow-scroll">
+        <div class="allow-scroll-pays">
             <h3 class="h3-scrollDescrib" id="src1Anec">$sv1[0]</h3>
             <p class="anec">$sv1Value</p>
         </div>
-        <div class="allow-scroll" id="src2Anec">
+        <div class="allow-scroll-pays" id="src2Anec">
             <h3 class="h3-scrollDescrib" id="src1Anec">$sv2[0]</h3>
             <p class="anec">$sv2Value</p>
         </div>
-        <div class="allow-scroll" id="src3Anec">
+        <div class="allow-scroll-pays" id="src3Anec">
             <h3 class="h3-scrollDescrib" id="src1Anec">$sv3[0]</h3>
             <p class="anec">$sv3Value</p>
         </div>

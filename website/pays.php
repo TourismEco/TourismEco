@@ -52,9 +52,9 @@ echo <<<HTML
                         <div class="scroll-dot" id="scrb2" data-index="2"></div>
                     </div>
                     <div class="container-scrollable" id="scr">
-                        <div class="allow-scroll" id="src1"></div>
-                        <div class="allow-scroll" id="src2"></div>
-                        <div class="allow-scroll" id="src3"></div>
+                        <div class="allow-scroll-pays" id="src1"></div>
+                        <div class="allow-scroll-pays" id="src2"></div>
+                        <div class="allow-scroll-pays" id="src3"></div>
                     </div>
                 </div>
                 <div class="container-presentation expand-3" id="description0"></div>
