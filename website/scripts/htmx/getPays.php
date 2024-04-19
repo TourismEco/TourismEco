@@ -70,9 +70,15 @@ $sth = $cur->prepare($queryIndicT);
 $sth->bindParam(":id_pays", $id_pays, PDO::PARAM_STR);
 $sth->execute();
 $ligne = $sth->fetch(PDO::FETCH_ASSOC);
-$arriveesT = $ligne["arriveesTotal"];
-$anneeT = $ligne["annee"];
-$departT = $ligne["departs"];
+if (is_array($ligne)) {
+    $arriveesT = $ligne["arriveesTotal"];
+    $anneeT = $ligne["annee"];
+    $departT = $ligne["departs"];
+} else {
+    $arriveesT = null;
+    $anneeT = null;
+    $departT = null;
+}
 
 // Rank
 // requête SQL pour récupérer toutes les années pour le pays dans l'ordre décroissant.
@@ -311,26 +317,86 @@ echo <<<HTML
 
 <div class="rankPays expand-2 rank" id="rankPays"  hx-swap-oob="outerHTML">
     <div class="left-column">
-        <p class="rank-textRank">$minRanking </p>
-        <p class="rank-text">pour $minVariable en $minYear</p>
-    </div>
+HTML;
+        if($minVariable == "co2"){
+            echo <<<HTML
+                <p class="rank-text"> Le rang du pays: </p>
+                <p class="rank-textRank" style="color:red;">$minRanking <img class="iconClassement" src="assets/icons/dangerClassement.svg" title="Un rang élevé en émissions de CO2 signifie que le pays émet beaucoup de CO2, ce qui est mauvais pour l'environnement."></p>
+                <p class="rank-text">pour les émissions de CO2 en $minYear </p>
+            HTML;
+        }elseif($minVariable == "elecRenew"){
+            echo <<<HTML
+                <p class="rank-text"> Le meilleur rang du pays: </p>
+                <p class="rank-textRank" style="color:green;">$minRanking </p>
+                <p class="rank-text">pour les énergies renouvelables en $minYear</p>
+            HTML;
+        }elseif($minVariable == "pibParHab"){
+            echo <<<HTML
+                <p class="rank-text"> Le meilleur rang du pays: </p>
+                <p class="rank-textRank" style="color:green;">$minRanking </p>
+                <p class="rank-text">pour le PIB par habitant en $minYear</p>
+            HTML;
+        }elseif($minVariable == "gpi"){
+            echo <<<HTML
+                <p class="rank-text"> Le meilleur rang du pays: </p>
+                <p class="rank-textRank" style="color:green;">$minRanking </p>
+                <p class="rank-text">pour l'indice de paix global en $minYear</p>
+            HTML;
+        }elseif($minVariable == "arriveesTotal"){
+            echo <<<HTML
+                <p class="rank-text"> Le meilleur rang du pays: </p>
+                <p class="rank-textRank" style="color:green;">$minRanking </p>
+                <p class="rank-text">pour le total d'arrivées sur le territoire en $minYear</p>
+            HTML;
+        }elseif($minVariable == "departs"){
+            echo <<<HTML
+                <p class="rank-text"> Le meilleur rang du pays: </p>
+                <p class="rank-textRank" style="color:green;">$minRanking </p>
+                <p class="rank-text">pour le total de départ du territoire en $minYear</p>
+            HTML;
+        }elseif($minVariable == "idh"){
+            echo <<<HTML
+                <p class="rank-text"> Le meilleur rang du pays: </p>
+                <p class="rank-textRank" style="color:green;">$minRanking </p>
+                <p class="rank-text">pour l'indice de développement humain en $minYear</p>
+            HTML;
+        }elseif($minVariable == "ges"){
+            echo <<<HTML
+                <p class="rank-text"> Le rang du pays: </p>
+                <p class="rank-textRank" style="color:red;">$minRanking <img class="iconClassement" src="assets/icons/dangerClassement.svg" title="Un rang élevé en émissions de gaz à effet de serre signifie que le pays émet beaucoup de ces gaz, ce qui contribue au réchauffement climatique."></p>
+                <p class="rank-text">pour les gaz à effet de serre en $minYear </p>
+            HTML;
+        }elseif($minVariable == "safety"){
+            echo <<<HTML
+                <p class="rank-text"> Le meilleur rang du pays: </p>
+                <p class="rank-textRank" style="color:green;" >$minRanking </p>
+                <p class="rank-text">pour l'indice de sureté en $minYear</p>
+            HTML;
+        }
+echo <<<HTML
+        </div>
     <div class="center-column">
         <div class="ranking-evolution">
 HTML;
         if ($rankingPreviousYear) {
+            $minRanking2 = intval($minRanking);
+            $rankDifferenceSup = $rankingPreviousYear['ranking'] - $minRanking2;
+            $rankDifferenceInf =  $minRanking2 - $rankingPreviousYear['ranking'];
+
             $suffix = ($rankingPreviousYear['ranking'] == 1) ? 'er' : 'ème';
             echo <<<HTML
             <p class="rank-text">En {$rankingPreviousYear['annee']}, le pays était {$rankingPreviousYear['ranking']}$suffix</p>
             HTML;
-            if ($minRanking < $rankingPreviousYear['ranking']) {
-                echo '<p class="rank-text" style="font-size: 13px; color:green;">Le pays a gagné des places dans le classement</p>';
-            } elseif ($minRanking > $rankingPreviousYear['ranking']) {
-                echo '<p class="rank-text" style="font-size: 13px; color:darkorange;">Le pays a perdu des places dans le classement</p>';
-            } else {
+            if ($minRanking2 < $rankingPreviousYear['ranking']) {
+                echo '<p class="rank-text" style="font-size: 13px; color:green;">Le pays a gagné ' . $rankDifferenceSup . ' places dans le classement</p>';
+            } elseif ($minRanking2 > $rankingPreviousYear['ranking']) {
+                echo '<p class="rank-text" style="font-size: 13px; color:darkorange;">Le pays a perdu ' . $rankDifferenceInf . ' places dans le classement</p>';
+            } elseif ($minRanking2 == $rankingPreviousYear['ranking']){
                 echo '<p class="rank-text" style="font-size: 13px; color:darkgrey;">Le pays n\'a pas bougé du classement</p>';
             }
         }
 echo <<<HTML
+
     </div>
         
     </div>
@@ -345,7 +411,7 @@ HTML;
                 $backgroundColor = ($country['id'] == $selectedCountryId) ? 'grey' : 'darkgrey';
                 $suffix = ($index == 0) ? 'er' : 'ème';
                 echo <<<HTML
-                <div class="bar" style="height: {$barHeights2[$index]}%; background-color: $backgroundColor; margin:5px; width:{$barWidths2[$index]}px;">
+                <div class="bar" style="height: {$barHeights2[$index]}%; background-color: $backgroundColor; margin-bottom:5%; width:{$barWidths2[$index]}px;">
                     <img style="width:{$barWidths2[$index]}px;" src="assets/twemoji/{$country['flag']}.svg" alt="{$country['nom']}" /> {$country['ranking']} $suffix
                 </div>
                 HTML;
@@ -356,20 +422,20 @@ HTML;
             foreach ($coutriesClassements as $index => $country) {
                 $suffix = ($index == 0) ? 'er' : 'ème';
                 echo <<<HTML
-                <div class="bar" style="height: {$barHeights2[$index]}%; background-color: darkgrey; margin:5px; width:{$barWidths[$index]}px;">
+                <div class="bar" style="height: {$barHeights2[$index]}%; background-color: darkgrey; margin-bottom:5%; width:{$barWidths[$index]}px;">
                     <img style="width:{$barWidths[$index]}px;" src="assets/twemoji/{$country['flag']}.svg" alt="{$country['nom']}" /> {$country['ranking']} $suffix
                 </div>
                 HTML;
             }
             echo <<<HTML
             <div class="txt_class"> ... </div>
-            <div class="bar" style="height: 60%; background-color: darkgrey; margin:5px; width:32px;">
+            <div class="bar" style="height: 60%; background-color: darkgrey;margin-bottom:5%; width:32px;">
                 <img src="assets/twemoji/{$CountryPrev['flag']}.svg" alt="{$CountryPrev['nom']}" /> {$CountryPrev['ranking']} ème
             </div>            
-            <div class="bar" style="height: 50%; background-color: grey; margin:5px; width:30px;">
+            <div class="bar" style="height: 50%; background-color: grey; margin-bottom:5%; width:30px;">
                 <img src="assets/twemoji/$id_pays.svg" alt="{$nom}" /> $minRanking
             </div>
-            <div class="bar" style="height: 40%; background-color: darkgrey; margin:5px; width:28px;">
+            <div class="bar" style="height: 40%; background-color: darkgrey; margin-bottom:5%; width:28px;">
                 <img src="assets/twemoji/{$CountryNext['flag']}.svg" alt="{$CountryNext['nom']}" /> {$CountryNext['ranking']} ème
             </div>  
             HTML;
@@ -427,13 +493,9 @@ echo <<<HTML
         </div>
         <div class="allow-scroll" id="src3Anec">
             <h3 class="h3-scrollDescrib" id="src1Anec">$sv3[0]</h3>
-            <p class="anec">$sv3Value]</p>
+            <p class="anec">$sv3Value</p>
         </div>
     </div>
-</div>
-
-<div class="container-presentation" id="score0" hx-swap-oob="outerHTML">
-    <div class="score-box score-$letter">$letter</div>
 </div>
 
 <div class="container-presentation" id="score0" hx-swap-oob="outerHTML">
