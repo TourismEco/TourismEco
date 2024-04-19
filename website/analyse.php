@@ -147,7 +147,7 @@
 
                     <div class="container-scores border-NA">
                         <div class="title-scores">
-                            <img src="assets/icons/dollar.svg" class="score-NA">
+                            <img src="assets/icons/shield.svg" class="score-NA">
                             <p>Global Peace Index</p>
                         </div>
 
@@ -165,7 +165,7 @@
 
                     <div class="container-scores border-NA">
                         <div class="title-scores">
-                            <img src="assets/icons/dollar.svg" class="score-NA">
+                            <img src="assets/icons/idh.svg" class="score-NA">
                             <p>Indice de Développement Humain</p>
                         </div>
 
@@ -183,7 +183,7 @@
 
                     <div class="container-scores border-NA">
                         <div class="title-scores">
-                            <img src="assets/icons/dollar.svg" class="score-NA">
+                            <img src="assets/icons/cloud.svg" class="score-NA">
                             <p>Emissions de GES/hab</p>
                         </div>
 
@@ -203,7 +203,7 @@
 
                     <div class="container-scores border-NA">
                         <div class="title-scores">
-                            <img src="assets/icons/dollar.svg" class="score-NA">
+                            <img src="assets/icons/danger.svg" class="score-NA">
                             <p>Emission de CO2</p>
                         </div>
 
@@ -240,7 +240,8 @@
                     
                     <div class="section">
                         <div class="container-presentation" id="four"> 
-                        <div class="title-zone">
+                        <div class="sectionAnalyse2">
+                        <img class="flag-small" src='assets/icons/arimaHome.svg'>
                         <div>
                         <h2>ARIMA</h2>
                             <p> (AutoRegressive Integrated Moving Average) 
@@ -248,32 +249,32 @@
                        </div>
                     </div>
                     </div>
-                    <div class="container-presentation" id="five"> <div class="title-zone">
+                    <div class="container-presentation" id="five">  <div class="sectionAnalyse2">
+                    <img class="flag-small " src='assets/icons/arimaTemp.svg'>
                         <div>
-                        <h2>ARIMA</h2>
-                            <p> (AutoRegressive Integrated Moving Average) 
-                                est un modèle statistique puissant utilisé pour analyser et prévoir les séries temporelles.</p>
+                        <h2>SÉRIE TEMPORELLE</h2>
+                            <p> Les séries temporelles représentent un aspect interessant de l'analyse des données, offrant un aperçu des phénomènes qui évoluent avec le temps. </p>
                        </div>
                     </div> </div>
-                    <div class="container-presentation" id="five">  <div class="title-zone">
+                    <div class="container-presentation" id="five">   <div class="sectionAnalyse2">
+                    <img class="flag-small " src='assets/icons/arimaFav.svg'>
                         <div>
-                        <h2>ARIMA</h2>
-                            <p> (AutoRegressive Integrated Moving Average) 
-                                est un modèle statistique puissant utilisé pour analyser et prévoir les séries temporelles.</p>
+                        <h2>DÉTERTMINER LES PARAMÈTRES ARIMA</h2>
+                            <p> Le processus de configuration et d'évaluation des modèles ARIMA est essentiel pour obtenir des prévisions précises et fiables des séries temporelles.</p>
                        </div>
                     </div></div>
-                    <div class="container-presentation" id="five">  <div class="title-zone">
+                    <div class="container-presentation" id="five">   <div class="sectionAnalyse2">
+                    <img class="flag-small " src='assets/icons/arimaLook.svg'>
                         <div>
-                        <h2>ARIMA</h2>
-                            <p> (AutoRegressive Integrated Moving Average) 
-                                est un modèle statistique puissant utilisé pour analyser et prévoir les séries temporelles.</p>
+                        <h2>PRÉDICTIONS SUR L’ÉCHANTILLION</h2>
+                            <p> Après que le modèle ARIMA soit ajusté aux données d'entraînement, il peut être utilisé pour faire des prédictions.</p>
                        </div>
                     </div></div>
-                    <div class="container-presentation" id="five"> <div class="title-zone">
+                    <div class="container-presentation" id="five">  <div class="sectionAnalyse2">
+                    <img class="flag-small" src='assets/icons/arimaWrite.svg'>
                         <div>
-                        <h2>ARIMA</h2>
-                            <p> (AutoRegressive Integrated Moving Average) 
-                                est un modèle statistique puissant utilisé pour analyser et prévoir les séries temporelles.</p>
+                        <h2>PRÉDICTIONS HORS ÉCHANTILLION </h2>
+                            <p> Ce sont des prévisions faites pour des périodes futures qui ne font pas partie de l'ensemble de données d'entraînement initial. </p>
                        </div>
                     </div> </div>
                     
@@ -300,7 +301,8 @@ temporelles avec précision. En comprenant ces concepts fondamentaux, nous somme
                     </div>
                     <div class="allow-scroll allow-scroll-full zone-arima">
                         <div class="container-presentation expand-2">
-                            <div class="title-zone">
+                            <div class="sectionAnalyse2">
+                            <img class="flag-small" src="assets/icons/arimaTemp.svg">
                                 <div>
                             <h2>SÉRIE TEMPORELLE</h2>
                             <p> Ensembles de données indexées par le temps, reflétant ainsi l'évolution d'un phénomène au fil du temps. </p>
@@ -321,7 +323,7 @@ Cette décomposition permet une compréhension approfondie de la structure des d
 
                     <div class="allow-scroll allow-scroll-full zone-arima">
                         <div class="container-presentation">
-                        <div class="title-zone">
+                        <div class="sectionAnalyse2">
                                 <img class="flag-small" src="assets/icons/arimaFav.svg">
                             <div>
                             <h2>DÉTERTMINER LES PARAMÈTRES ARIMA</h2>
@@ -349,35 +351,36 @@ absolue moyenne (MAE). </p>
                     </div>
                     <div class="allow-scroll allow-scroll-full zone-arima">
                         <div class="container-presentation ">
-                        <div class="title-zone">
+                        <div class="sectionAnalyse2">
                                 <img class="flag-small" src="assets/icons/arimaLook.svg">
                             <div><h2> PRÉDICTIONS SUR L’ÉCHANTILLION </h2>
                             <p> Une fois que le modèle ARIMA a été configuré et ajusté aux données d'entraînement, il est prêt à être utilisé pour faire des prédictions sur l'échantillon de test. Cette étape est cruciale pour évaluer la performance du modèle et sa capacité à généraliser les tendances observées dans les données d'entraînement. </p>
-                            <p> Les données portent sur le pourcentage de production d’énergies renouvelables aux États-Unis de 1995 à 2020. Ces données sont divisées en deux ensembles : un ensemble d'entraînement, qui comprend environ 80 % des données, et un ensemble de test, qui contient les 20 % restants. Cette division permet d'évaluer la performance du modèle sur des données qu'il n'a pas encore rencontrées lors de l'entraînement. 
-                            </p>
+                            
                         </div></div>
                         </div>
                         <div class="container-presentation img-pred ">
                         <img src="assets/img_Analyse/prediction_ech.png">
                         </div>
                         <div class="container-presentation expand-2 ">
-                            <div><h3> INTERPRETATION DES RÉSULTATS : </h3>
+                            <div>
+                            <p> Les données portent sur le pourcentage de production d’énergies renouvelables aux États-Unis de 1995 à 2020. Ces données sont divisées en deux ensembles : un ensemble d'entraînement, qui comprend environ 80 % des données, et un ensemble de test, qui contient les 20 % restants. Cette division permet d'évaluer la performance du modèle sur des données qu'il n'a pas encore rencontrées lors de l'entraînement. 
+                            </p>
                             <p> Le coefficient de détermination R2 (R-carré) est utilisé pour évaluer la qualité de l'ajustement du modèle aux données. Un R2 de 0,88 indique que le modèle explique environ 88 % de la variance dans les données. En d'autres termes, il montre que le modèle ARIMA est assez bon pour représenter et prédire la tendance pour cet ensemble de donnée.
 En outre, il est important de noter que ces données peuvent être étendues pour inclure d'autres pays et d'autres années. Cela signifie que le modèle peut être adapté pour étudier et prédire les tendances de la production d'énergies renouvelables à l'échelle mondiale et sur des périodes plus étendues.</p>  </div></div>
                 </div>
                     <div class="allow-scroll allow-scroll-full zone-arima">
                         <div class="container-presentation">
-                        <div class="title-zone">
-                                <img class="scroll-img" src="assets/icons/arimaWrite.svg">
+                        <div class="sectionAnalyse2">
+                                <img class="flag-small" src="assets/icons/arimaWrite.svg">
+                            
                            <div> <h2> PRÉDICTIONS HORS ÉCHANTILLION </h2>
-                            <p> Une fois que le modèle ARIMA a été validé sur l'échantillon de test, il peut être utilisé pour faire des prédictions sur des données hors échantillon. Ces prédictions fournissent des informations sur les tendances futures et les variations potentielles des données, aidant ainsi à prendre des décisions éclairées et à anticiper les changements à venir. </p>
+                            <p> Une fois que les paramètre du modèle ARIMA ont été configuré et que les prédictions sur l'échantillon de test ont été jugé bon à l’aide du calcul des erreurs métriques. Nous pouvons faire des prédictions hors échantillon, ce sont des prévisions faites pour des périodes futures qui ne font pas partie de l'ensemble de données d'entraînement initial. Ces prédictions sont importantes pour évaluer la capacité du modèle ARIMA à généraliser de nouvelles données et à maintenir sa performance prédictive dans des conditions réelles.</p>
                         </div></div>
                         </div>
                         <div class="container-presentation img-pred">  <img src="assets/img_Analyse/hors_ech.png"> </div>
                         <div class="container-presentation expand-2 ">
                         <div>
-                            <h3> APPLICATIONS PRATIQUES : </h3>
-                            <p> Les modèles ARIMA sont largement utilisés dans divers domaines, y compris la finance, l'économie, la météorologie et la santé, pour analyser et prévoir les séries temporelles. Leur capacité à capturer les tendances et les variations des données en fait un outil puissant pour la modélisation et la prédiction des phénomènes qui évoluent avec le temps. </p>
+                            <p> En conclusion, le graphique présente en rouge le pourcentage de production d'énergie renouvelable aux États-Unis de 1995 à 2020, tandis que les prévisions du pourcentage d'énergie renouvelable pour les sept années suivantes sont représentées en bleu. En outre, il est important de noter que ces données peuvent être étendues pour inclure d'autres pays et d'autres années. Cela signifie que le modèle ARIMA peut être adapté pour étudier et prédire les tendances de la production d'énergies renouvelables à l'échelle mondiale et sur des périodes plus étendues. </p>
                         </div></div>
                     </div>
                 </div>
