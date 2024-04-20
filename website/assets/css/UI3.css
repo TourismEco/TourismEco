@@ -235,6 +235,34 @@ html {
     display: flex;
 }
 
+.container-presentation h2 {
+    font-size: 18px;
+    text-align: justify;
+    padding: 5px;
+}
+
+.container-presentation h3 {
+    font-size: 15px;
+    text-align: center;
+}
+
+.container-flex-column {
+    background-color: #d9d9d9;
+    border-radius: 10px;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    gap: 20px;
+}
+
+.container-cartePays {
+    display: flex;
+    flex-flow: column;
+    height: 100%;
+    justify-content: center;
+    gap: 20px;
+}
+
 .bandeau {
     display: grid;
     grid-template-columns: 1fr;
@@ -566,33 +594,7 @@ html {
     flex-flow: column;
     height: 100%;
     justify-content: center;
-    padding-left: 10px;
-    padding-right: 10px;
     gap: 20px;
-}
-
-.container-cartePays {
-    display: flex;
-    flex-flow: column;
-    height: 100%;
-    justify-content: center;
-    padding-left: 20px;
-    gap: 20px;
-}
-
-.container-explore-pays {
-    border-radius: 10px;
-    background-color: #d9d9d9;
-    display: flex;
-}
-
-.explore-rang {
-    background-color: #d9d9d9;
-    border-radius: 10px;
-    grid-column: 1;
-    grid-row: 3;
-    padding: 10px;
-    height: 110px;
 }
 
 .explore-more {
@@ -645,10 +647,6 @@ html {
     padding: 5px;
 }
 
-.classement-continent {
-    grid-row: 2/4;
-}
-
 .flagClassement {
     grid-row: 1;
     grid-column: 2;
@@ -686,12 +684,6 @@ html {
     font-style: italic;
     font-weight: 350;
     border: solid 1.5px #222;
-}
-
-#rank {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
 }
 
 .black {
@@ -808,17 +800,9 @@ html {
     border-radius: 10px;
     width: 50%;
 }
-.map-catalogue-continent {
-    grid-column: 1/3;
-    border-radius: 10px;
-    grid-row: 2/4;
-    background-color: #d9d9d9;
-}
 
-.map-explore {
-    grid-column: 1;
+.map-side {
     border-radius: 10px;
-    grid-row: 2;
     display: grid;
     grid-template-rows: 1fr;
     gap: 20px;
@@ -1566,13 +1550,7 @@ input {
     margin-right: 15px;
 }
 
-.anecTitle {
-    font-size: 18px;
-    text-align: justify;
-    padding-left: 10px;
-}
-
-.anecExplore {
+.flex-column {
     flex-direction: column;
 }
 
@@ -1621,8 +1599,9 @@ input {
     grid-column: 2;
     display: flex;
     flex-direction: column;
-    align-self: center; */
+    align-self: center; 
 }
+*/
 
 .flag_classement {
     width: 38px;
@@ -1931,20 +1910,13 @@ input {
     transition: all 0.5s ease-in-out;
 }
 
-.score-container {
-    display: flex;
-    flex-direction: row, wrap;
-    justify-content: center;
+.h3-score {
+    font-size: 15px;
+    text-align: center;
+    max-width: 10%;
     align-items: center;
-    gap: 10px;
-    h3 {
-        font-size: 1.1em;
-        text-align: center;
-        max-width: max-content;
-        align-items: center;
-        align-self: center;
-        padding: 5%;
-    }
+    align-self: center;
+    padding: 5%;
 }
 
 .score-box img {

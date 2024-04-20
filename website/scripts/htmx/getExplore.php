@@ -58,34 +58,36 @@
 
     <div id="pays" class="container-explore" hx-swap-oob="outerHTML">
 
-        <div class="container-explore-pays expand-4">
+        <div class="container-presentation expand-3">
             <div class="bandeau"> 
                 <img class="img-bandeau" src='assets/img/$id_pays.jpg' alt="Bandeau">
                 <div class="flag-plus-nom">
                     <img class="flag-explore" src='assets/twemoji/$id_pays.svg'>
-                    <h2>$nom</h2>
+                    <h3>$nom</h3>
                 </div>
             </div>
         </div>
 
-        <div class="container-explore-pays expand-4">
-            <h3 class="h3-score">Score TourismEco</h3>
+        <div class="container-presentation expand-2 flex-column">
+            <h3>Score TourismEco</h3>
             <div class="score-box score-$letter">$letter</div>
-            <div class="trait"></div>
+        </div>
+
+        <div class="container-presentation flex-column">
     HTML;
             if ($typeC == 1){
                 echo <<<HTML
-                    <h3 class="h3-score">Score Economique</h3>
+                    <h3>Score Economique</h3>
                     <div class="score-box score-$labelEco">$labelEco</div>
                 HTML;
             } elseif ($typeC == 2){
                 echo <<<HTML
-                    <h3 class="h3-score">Score Ecologique</h3>
+                    <h3>Score Ecologique</h3>
                     <div class="score-box score-$labelEcolo">$labelEcolo</div>
                 HTML;
             } else {
                 echo <<<HTML
-                    <h3 class="h3-score">Score Découverte</h3>
+                    <h3>Score Découverte</h3>
                     <div class="score-box score-$labelDec">$labelDec</div>
                 HTML;
             }
@@ -94,16 +96,16 @@
 
         </div>
 
-        <div class="container-explore-pays expand-2 expandrow-2 anecExplore">
-            <h2 class="h3 anecTitle">$anec[0]</h2>
-            <p class="paragraphe">$anec[1]</p>
-        </div>
-
-        <div class="explore-rang" id="rang"></div>
+        <div class="container-presentation centered-content" id="rang"></div>
 
         <div class="explore-more" hx-post="pays.php" hx-vals="js:{id_pays:'$id_pays'}" hx-swap="outerHTML swap:0.5s" hx-target="#zones" hx-select="#zones" hx-push-url="true">
             <img src="assets/icons/plus.svg" alt="icon plus">
             <p class="more-text">Voir plus</p>
+        </div>
+
+        <div class="container-presentation expand-2 expandrow-2 flex-column">
+            <h2>$anec[0]</h2>
+            <p class="paragraphe">$anec[1]</p>
         </div>
 
     </div>

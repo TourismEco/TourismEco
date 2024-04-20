@@ -128,7 +128,7 @@ while ($rs = $sth->fetch(PDO::FETCH_ASSOC)) {
 }
 
 echo <<<HTML
-<div id="rank" hx-swap-oob="outerHTML">
+<div id="podium" class="container-flex-column expandrow-2" hx-swap-oob="outerHTML">
     $rank
 </div>
 HTML;

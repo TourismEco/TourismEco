@@ -30,7 +30,7 @@
                 </div>
             </div>
 
-            <div class="map-explore">
+            <div class="map-side">
                 <div id="map"></div>
                 <div class="container-buttons">
                     <div class="var-swap">

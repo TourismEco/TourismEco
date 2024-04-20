@@ -47,7 +47,7 @@
             ?>
 
 
-            <div class="map-explore" id="map"></div>
+            <div class="map-side" id="map"></div>
 
             <script>
                 createMapCatalogue("<?= $page ?>")
