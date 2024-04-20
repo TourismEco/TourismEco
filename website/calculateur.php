@@ -2,9 +2,10 @@
 
 <body>
 
-    <div class="flex">
+    <div class="window">
         <?php // Générer un nouveau token CSRF si la variable de session n'existe pas
-        if (!isset($_SESSION["csrf_token"])) {
+
+if (!isset($_SESSION["csrf_token"])) {
             $_SESSION["csrf_token"] = bin2hex(random_bytes(32));
         } ?>
 

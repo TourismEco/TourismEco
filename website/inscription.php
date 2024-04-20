@@ -1,23 +1,25 @@
-<?php require_once 'head.php' ?>
+<?php require_once "head.php"; ?>
 
 <body>
 
-    <div class="flex">
+    <div class="window">
 
         <?php
-        if (isset($_SESSION['user'])) {
+        if (isset($_SESSION["user"])) {
             header("Location: profil.php");
             exit();
         }
         // Générer un nouveau token CSRF si la variable de session n'existe pas
-        if (!isset($_SESSION['csrf_token'])) {
-            $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+        if (!isset($_SESSION["csrf_token"])) {
+            $_SESSION["csrf_token"] = bin2hex(random_bytes(32));
         }
         ?>
         <div class="zone-totale" id="zones">
             <div class="left-section">
                 <form hx-post="scripts/login/ajouter.php" hx-swap="beforeend">
-                    <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
+                    <input type="hidden" name="csrf_token" value="<?php echo $_SESSION[
+                        "csrf_token"
+                    ]; ?>">
                     <label for="username">Nom d'utilisateur</label>
                     <input type="text" id="username" name="username" placeholder="Saisissez votre nom d'utilisateur" required autocomplete="off">
                     <div id="errorUsername" class="error"></div>

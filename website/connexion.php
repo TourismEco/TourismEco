@@ -1,18 +1,19 @@
-<?php require_once 'head.php' ?>
-<?php
-// Générer un nouveau token CSRF si la variable de session n'existe pas
-if (isset($_SESSION['user'])) {
-    require_once("Location: profil.php");
+<?php require_once "head.php"; ?>
+<?php // Générer un nouveau token CSRF si la variable de session n'existe pas
+
+
+if (isset($_SESSION["user"])) {
+    require_once "Location: profil.php";
     exit();
 }
-if (!isset($_SESSION['csrf_token'])) {
-    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+if (!isset($_SESSION["csrf_token"])) {
+    $_SESSION["csrf_token"] = bin2hex(random_bytes(32));
 }
 ?>
 
 <body>
 
-    <div class="flex">
+    <div class="window">
         <div class="zone-totale column" id="zones">
             <h1 class="titre">Connexion</h1>
             <img class="logo" src="assets/icons/profil.png" alt="LogoProfil">
@@ -28,7 +29,9 @@ if (!isset($_SESSION['csrf_token'])) {
                     <div id="errorPassword" class="error"></div>
 
                     <!-- Ajouter un champ pour le token CSRF -->
-                    <input type="hidden" name="csrf_token" id="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
+                    <input type="hidden" name="csrf_token" id="csrf_token" value="<?php echo $_SESSION[
+                        "csrf_token"
+                    ]; ?>">
 
                     <input type="submit" value="Se connecter" class="submit">
                     <div id="errorMessages" class="error"></div>

@@ -1,8 +1,8 @@
-<?php require_once 'head.php'?>
+<?php require_once "head.php"; ?>
 
 <body>
-    
-    <div class="flex">
+
+    <div class="window">
 
         <div id="zones">
 
@@ -106,7 +106,7 @@
                 </div>
 
                 <div class="map-cluster" id="map"></div>
-                
+
 
                 <div class="zone-choix">
                     <div class="container-scores border-NA">
@@ -196,8 +196,8 @@
                                 <p>Centroide 3<br>0.063</p>
 
                             </div>
-                           
-                            
+
+
                         </div>
                     </div>
 
@@ -223,7 +223,7 @@
             </div>
 
             <div class="zone zone-basic display" id="clusterPlus" style="display:none">
-                
+
             </div>
 
             <div class="zone display" id="arima" style="display: none;">
@@ -234,17 +234,17 @@
                     <img class="scroll-img" data-index="3" src="assets/icons/arimaLook.svg">
                     <img class="scroll-img" data-index="4" src="assets/icons/arimaWrite.svg">
           </div>
-                
+
                 <div class="container-scrollable container-scrollable-x" id="scrArima">
                     <div class="allow-scroll allow-scroll-full zone-arima">
-                    
+
                     <div class="section">
-                        <div class="container-presentation" id="four"> 
+                        <div class="container-presentation" id="four">
                         <div class="sectionAnalyse2">
                         <img class="flag-small" src='assets/icons/arimaHome.svg'>
                         <div>
                         <h2>ARIMA</h2>
-                            <p> (AutoRegressive Integrated Moving Average) 
+                            <p> (AutoRegressive Integrated Moving Average)
                                 est un modèle statistique puissant utilisé pour analyser et prévoir les séries temporelles.</p>
                        </div>
                     </div>
@@ -277,19 +277,19 @@
                             <p> Ce sont des prévisions faites pour des périodes futures qui ne font pas partie de l'ensemble de données d'entraînement initial. </p>
                        </div>
                     </div> </div>
-                    
+
 </div>
                         <div class="container-presentation expandrow-2">
                         <div>
-                        <p> ARIMA tire son efficacité de la combinaison de trois concepts principaux : l'autorégression (AR), l'intégration (I) et la moyenne mobile (MA).  
+                        <p> ARIMA tire son efficacité de la combinaison de trois concepts principaux : l'autorégression (AR), l'intégration (I) et la moyenne mobile (MA). 
                         </p><p>Comprendre ces composantes est essentiel pour maîtriser ARIMA et
 exploiter ses capacités dans l'analyse des séries temporelles.
 </p><p>
-- (AR) qui capture la dépendance des observations précédentes, 
+- (AR) qui capture la dépendance des observations précédentes,
 </p><p>
-- (I) qui rend la série stationnaire en différenciant les données, 
+- (I) qui rend la série stationnaire en différenciant les données,
 </p><p>
-- (MA) qui modélise les erreurs résiduelles. 
+- (MA) qui modélise les erreurs résiduelles.
 </p><p>
 
 En définissant les paramètres notées respectivement 'p', 'd' et 'q', le modèle ARIMA peut s'adapter aux structures temporelles spécifiques des données, capturant à la fois les tendances à long terme et les variations aléatoires.
@@ -307,7 +307,7 @@ temporelles avec précision. En comprenant ces concepts fondamentaux, nous somme
                             <h2>SÉRIE TEMPORELLE</h2>
                             <p> Ensembles de données indexées par le temps, reflétant ainsi l'évolution d'un phénomène au fil du temps. </p>
                         </div></div></div>
-                        <div class="container-presentation expand-2"> 
+                        <div class="container-presentation expand-2">
                         <div>
                         <p> Les séries temporelles représentent un aspect interessant de l'analyse des données, offrant un aperçu des phénomènes qui évoluent avec le temps. Avant de plonger dans les détails du modèle ARIMA, il est important de comprendre les fondamentaux des séries temporelles.
 Elles sont décomposées en trois composantes principales :</p><p>
@@ -355,7 +355,7 @@ absolue moyenne (MAE). </p>
                                 <img class="flag-small" src="assets/icons/arimaLook.svg">
                             <div><h2> PRÉDICTIONS SUR L’ÉCHANTILLION </h2>
                             <p> Une fois que le modèle ARIMA a été configuré et ajusté aux données d'entraînement, il est prêt à être utilisé pour faire des prédictions sur l'échantillon de test. Cette étape est cruciale pour évaluer la performance du modèle et sa capacité à généraliser les tendances observées dans les données d'entraînement. </p>
-                            
+
                         </div></div>
                         </div>
                         <div class="container-presentation img-pred ">
@@ -363,7 +363,7 @@ absolue moyenne (MAE). </p>
                         </div>
                         <div class="container-presentation expand-2 ">
                             <div>
-                            <p> Les données portent sur le pourcentage de production d’énergies renouvelables aux États-Unis de 1995 à 2020. Ces données sont divisées en deux ensembles : un ensemble d'entraînement, qui comprend environ 80 % des données, et un ensemble de test, qui contient les 20 % restants. Cette division permet d'évaluer la performance du modèle sur des données qu'il n'a pas encore rencontrées lors de l'entraînement. 
+                            <p> Les données portent sur le pourcentage de production d’énergies renouvelables aux États-Unis de 1995 à 2020. Ces données sont divisées en deux ensembles : un ensemble d'entraînement, qui comprend environ 80 % des données, et un ensemble de test, qui contient les 20 % restants. Cette division permet d'évaluer la performance du modèle sur des données qu'il n'a pas encore rencontrées lors de l'entraînement.
                             </p>
                             <p> Le coefficient de détermination R2 (R-carré) est utilisé pour évaluer la qualité de l'ajustement du modèle aux données. Un R2 de 0,88 indique que le modèle explique environ 88 % de la variance dans les données. En d'autres termes, il montre que le modèle ARIMA est assez bon pour représenter et prédire la tendance pour cet ensemble de donnée.
 En outre, il est important de noter que ces données peuvent être étendues pour inclure d'autres pays et d'autres années. Cela signifie que le modèle peut être adapté pour étudier et prédire les tendances de la production d'énergies renouvelables à l'échelle mondiale et sur des périodes plus étendues.</p>  </div></div>
@@ -372,7 +372,7 @@ En outre, il est important de noter que ces données peuvent être étendues pou
                         <div class="container-presentation">
                         <div class="sectionAnalyse2">
                                 <img class="flag-small" src="assets/icons/arimaWrite.svg">
-                            
+
                            <div> <h2> PRÉDICTIONS HORS ÉCHANTILLION </h2>
                             <p> Une fois que les paramètre du modèle ARIMA ont été configuré et que les prédictions sur l'échantillon de test ont été jugé bon à l’aide du calcul des erreurs métriques. Nous pouvons faire des prédictions hors échantillon, ce sont des prévisions faites pour des périodes futures qui ne font pas partie de l'ensemble de données d'entraînement initial. Ces prédictions sont importantes pour évaluer la capacité du modèle ARIMA à généraliser de nouvelles données et à maintenir sa performance prédictive dans des conditions réelles.</p>
                         </div></div>
@@ -384,7 +384,7 @@ En outre, il est important de noter que ces données peuvent être étendues pou
                         </div></div>
                     </div>
                 </div>
-                
+
             </div>
 
             <div class="zone zone-triple display" id="regr" style="display:none">
@@ -411,10 +411,10 @@ En outre, il est important de noter que ces données peuvent être étendues pou
 
                 </div>
                 <div class="container-presentation expand-3 regression2">
-                <p>L'analyse des relations entre le PIB par habitant et diverses variables explicatives a révélé des résultats significatifs, montrant le PIB comme un prédicteur efficace du Revenu National Brut par habitant et de l'Indice de Développement Humain. Bien que moins précis 
+                <p>L'analyse des relations entre le PIB par habitant et diverses variables explicatives a révélé des résultats significatifs, montrant le PIB comme un prédicteur efficace du Revenu National Brut par habitant et de l'Indice de Développement Humain. Bien que moins précis
                 pour prédire les émissions de Gaz à Effet de Serre (GES). L'exploration de variables supplémentaires comme l'IDH, l'espérance de vie, le GPI et l'énergie renouvelable a mis en évidence des liens intéressants, notamment la forte corrélation entre l'IDH et l'espérance de vie et la corrélation négative entre l'énergie renouvelable et les émissions de GES par habitant.</p>
                 </div>
-                
+
             </div>
         </div>
 
@@ -463,7 +463,7 @@ En outre, il est important de noter que ces données peuvent être étendues pou
                 <div id="name-switch" class="nav-text">Accueil analyse</div>
             </div>
         </div>
-            
+
 
         <script id="scripting" hx-swap-oob="outerHTML">
             createMapCatalogue("pays")
@@ -484,7 +484,7 @@ En outre, il est important de noter que ces données peuvent être étendues pou
                 } else {
                     nb = 0
                 }
-                
+
                 $("#trans").css("transform","translateX("+nb+"px)")
                 $("#name-switch").html($(this).data("name"))
             })
@@ -514,7 +514,7 @@ En outre, il est important de noter que ces données peuvent être étendues pou
                 console.log(h);
                 document.getElementById('scrArima').scroll({left:h*nb,behavior:"smooth"})
             })
-            
+
         </script>
 
         <div id="htmxing" hx-swap-oob="outerHTML"></div>

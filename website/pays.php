@@ -1,41 +1,41 @@
-<?php require_once 'head.php'?>
+<?php require_once "head.php"; ?>
 
 <?php
-    $cur = getDB();
-    // unset($_SESSION["pays"]);
-    if (!isset($_SESSION["pays"])) {
-        $_SESSION["pays"] = array();
-    }
+$cur = getDB();
+// unset($_SESSION["pays"]);
+if (!isset($_SESSION["pays"])) {
+    $_SESSION["pays"] = [];
+}
 
-    if (isset($_GET["id_pays"])) {
-        $_SESSION["pays"][0] = $_GET["id_pays"];
-    } else if (isset($_POST["id_pays"])) {
-        $_SESSION["pays"][0] = $_POST["id_pays"];
-    }
+if (isset($_GET["id_pays"])) {
+    $_SESSION["pays"][0] = $_GET["id_pays"];
+} elseif (isset($_POST["id_pays"])) {
+    $_SESSION["pays"][0] = $_POST["id_pays"];
+}
 
-    $pays = "";
-    if (count($_SESSION["pays"]) != 0) {
-        $query = "SELECT * FROM pays WHERE id = :id_pays";
-        $sth = $cur->prepare($query);
-        $sth->bindParam(":id_pays", $_SESSION["pays"][0], PDO::PARAM_STR);
-        $sth->execute();
+$pays = "";
+if (count($_SESSION["pays"]) != 0) {
+    $query = "SELECT * FROM pays WHERE id = :id_pays";
+    $sth = $cur->prepare($query);
+    $sth->bindParam(":id_pays", $_SESSION["pays"][0], PDO::PARAM_STR);
+    $sth->execute();
 
-        $ligne = $sth->fetch();
-        if ($ligne) {
-            $pays = $_SESSION["pays"][0];
-        }
+    $ligne = $sth->fetch();
+    if ($ligne) {
+        $pays = $_SESSION["pays"][0];
     }
+}
 
-    if ($pays == "") {
-        require_once 'catalogue.php';
-        exit;
-    }
+if ($pays == "") {
+    require_once "catalogue.php";
+    exit();
+}
 
 echo <<<HTML
 
 <body>
-    
-    <div class="flex">
+
+    <div class="window">
 
         <div id="zones">
 
@@ -76,9 +76,9 @@ echo <<<HTML
                         <div id="td_idh_0"></div>
                         <div id="td_idh_grow" class="small"></div>
                     </div>
-                    
+
                     <img class="icon" src="assets/icons/idh.svg">
-                        
+
                     <div class="el-cube">
                         <div id="td_idh_rank"></div>
                         <div id="td_idh_rankEvol" class="small"></div>
@@ -90,14 +90,14 @@ echo <<<HTML
                         <div id="td_pibParHab_0"></div>
                         <div id="td_pibParHab_grow" class="small"></div>
                     </div>
-                    
+
                     <img class="icon" src="assets/icons/dollar.svg">
-                        
+
                     <div class="el-cube">
                         <div id="td_pibParHab_rank"></div>
                         <div id="td_pibParHab_rankEvol" class="small"></div>
                     </div>
-                    
+
                 </div>
 
                 <div class="cube" id="cube-3">
@@ -105,9 +105,9 @@ echo <<<HTML
                         <div id="td_gpi_0"></div>
                         <div id="td_gpi_grow" class="small"></div>
                     </div>
-                    
+
                     <img class="icon" src="assets/icons/shield.svg">
-                        
+
                     <div class="el-cube">
                         <div id="td_gpi_rank"></div>
                         <div id="td_gpi_rankEvol" class="small"></div>
@@ -119,14 +119,14 @@ echo <<<HTML
                         <div id="td_elecRenew_0"></div>
                         <div id="td_elecRenew_grow" class="small"></div>
                     </div>
-                    
+
                     <img class="icon" src="assets/icons/elec.svg">
-                        
+
                     <div class="el-cube">
                         <div id="td_elecRenew_rank"></div>
                         <div id="td_elecRenew_rankEvol" class="small"></div>
                     </div>
-                    
+
                 </div>
 
                 <div class="cube" id="cube-5">
@@ -134,9 +134,9 @@ echo <<<HTML
                         <div id="td_departs_0"></div>
                         <div id="td_departs_grow" class="small"></div>
                     </div>
-                    
+
                     <img class="icon" src="assets/icons/up.svg">
-                        
+
                     <div class="el-cube">
                         <div id="td_departs_rank"></div>
                         <div id="td_departs_rankEvol" class="small"></div>
@@ -148,9 +148,9 @@ echo <<<HTML
                         <div id="td_co2_0"></div>
                         <div id="td_co2_grow" class="small"></div>
                     </div>
-                    
+
                     <img class="icon" src="assets/icons/cloud.svg">
-                        
+
                     <div class="el-cube">
                         <div id="td_co2_rank"></div>
                         <div id="td_co2_rankEvol" class="small"></div>
@@ -162,9 +162,9 @@ echo <<<HTML
                         <div id="td_arriveesTotal_0"></div>
                         <div id="td_arriveesTotal_grow" class="small"></div>
                     </div>
-                    
+
                     <img class="icon" src="assets/icons/down.svg">
-                        
+
                     <div class="el-cube">
                         <div id="td_arriveesTotal_rank"></div>
                         <div id="td_arriveesTotal_rankEvol" class="small"></div>
@@ -181,7 +181,7 @@ echo <<<HTML
                         <p>Ce graphique compare l'évolution entre le pays France et la moyenne mondial au fil des années sur la statistiques que vous souhaitez.</p>
                     </div>
                 </div>
-                
+
                 <div class="graph" id="line"></div>
 
                 <div class=container-buttons>
@@ -262,7 +262,7 @@ echo <<<HTML
                         <p>Impact du COVID en 2020</p>
                         <p id="covid0" class="big">-</p>
                     </div>
-                    
+
                 </div>
             </div>
 
@@ -279,13 +279,13 @@ echo <<<HTML
                         <p>Découvrez comment est décomposé les 4 scores TourismEco de ce pays.</p>
                     </div>
                 </div>
-                
+
                 <div class="scores-column">
                     <div class="container-scores" id="sco-pibParHab"></div>
                     <div class="container-scores" id="sco-idh"></div>
                     <div class="container-scores" id="sco-gpi"></div>
                 </div>
-                
+
                 <div class="scores-column scores-center">
                     <div class="choice-scores">
                         <div class="border-scores border-A score-active" id="scoreGlobal"></div>
@@ -293,7 +293,7 @@ echo <<<HTML
                         <div class="border-scores border-C" id="scoreEcologique"></div>
                         <div class="border-scores border-NA" id="scoreEconomique"></div>
                     </div>
- 
+
                     <div id="bigScore" class="big-score score-A">
                         <div class="score-box" id="bigScore-letter">A</div>
                         <div id="bigScore-text">Score Global</div>
@@ -319,7 +319,7 @@ echo <<<HTML
                         <img src="assets/icons/info.svg" class="score-B">
                         <p>Le score global représente...</p>
                     </div>
-                    
+
                 </div>
                 <div class="scores-column">
                     <div class="container-scores" id="sco-elecRenew"></div>
@@ -395,7 +395,7 @@ echo <<<HTML
             </div>
         </div>
 
-            
+
 HTML;
 
 echo <<<JS
@@ -409,7 +409,7 @@ echo <<<JS
             <script id="orders" hx-swap-oob="outerHTML"></script>
 
             <script id="behave" hx-swap-oob="outerHTML">
-                
+
                 $(".icon").on("click", function () {
                     $(".icon-active").removeClass("icon-active")
                     $(this).addClass("icon-active")
@@ -434,7 +434,7 @@ echo <<<JS
                 nb = 0
                 $("#trans-page").css("transform","translateX("+nb+"px)")
                 $("#nav-bot").css("transform","translateY(0)")
-                
+
                 var i = 0
                 var sens = 1
                 $("#scr").on("scroll", function() {
@@ -468,7 +468,7 @@ echo <<<JS
                         }
                     }
                     f = false
-                    
+
                 })
 
                 $(".scroll-dot").on("click", function() {
@@ -477,17 +477,17 @@ echo <<<JS
                     document.getElementById('scr').scroll({top:h*nb,behavior:"smooth"})
                 })
 
-                
-                
+
+
             </script>
 JS;
-            echo <<<HTML
-                <div id="htmxing" hx-swap-oob="outerHTML">
-            HTML;
-                    echo <<<HTML
-                        <div hx-get="scripts/htmx/getPays.php" hx-vals="js:{id_pays:'$pays'}" hx-trigger="load"></div>
-                    HTML;
-                ?>
+echo <<<HTML
+    <div id="htmxing" hx-swap-oob="outerHTML">
+HTML;
+echo <<<HTML
+    <div hx-get="scripts/htmx/getPays.php" hx-vals="js:{id_pays:'$pays'}" hx-trigger="load"></div>
+HTML;
+?>
             </div>
 
     </div>

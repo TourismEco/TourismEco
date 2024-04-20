@@ -1,37 +1,37 @@
-<?php require_once 'head.php'?>
+<?php require_once "head.php"; ?>
 
 <?php
-    $cur = getDB();
+$cur = getDB();
 
-    // unset($_SESSION["pays"]);
+// unset($_SESSION["pays"]);
 
-    $pays = array();
-    if (isset($_SESSION["pays"])) {
-        foreach ($_SESSION["pays"] as $key => $id_pays) {
-            // echo $_SESSION["incr"];
-            $query = "SELECT * FROM pays WHERE id = :id_pays";
-            $sth = $cur->prepare($query);
-            $sth->bindParam(":id_pays", $id_pays, PDO::PARAM_STR);
-            $sth->execute();
+$pays = [];
+if (isset($_SESSION["pays"])) {
+    foreach ($_SESSION["pays"] as $key => $id_pays) {
+        // echo $_SESSION["incr"];
+        $query = "SELECT * FROM pays WHERE id = :id_pays";
+        $sth = $cur->prepare($query);
+        $sth->bindParam(":id_pays", $id_pays, PDO::PARAM_STR);
+        $sth->execute();
 
-            $ligne = $sth->fetch();
-            if ($ligne) {
-                $pays[] = $id_pays;
-            }
+        $ligne = $sth->fetch();
+        if ($ligne) {
+            $pays[] = $id_pays;
         }
-    } else {
-        $_SESSION["pays"] = array();
-        $_SESSION["incr"] = 0;
     }
+} else {
+    $_SESSION["pays"] = [];
+    $_SESSION["incr"] = 0;
+}
 
-    if (count($pays) <= 1) {
-        require_once 'catalogue.php';
-        exit;
-    }
+if (count($pays) <= 1) {
+    require_once "catalogue.php";
+    exit();
+}
 ?>
 
 <body>
-    <div class="flex">
+    <div class="window">
 
         <div id="zones">
 
@@ -49,8 +49,8 @@
                 <div class="container-presentation expand-2"></div>
                 <div class="container-presentation"></div>
             </div>
-                
-            <div class="zone zone-basic display" id="courbe" style="display:none">    
+
+            <div class="zone zone-basic display" id="courbe" style="display:none">
                 <div class="title-zone">
                     <img class="flag-small" src='assets/icons/sort.svg'>
                     <div>
@@ -134,7 +134,7 @@
                         <p>Impact du COVID :</p>
                         <p id="covid1" class="big">-</p>
                     </div>
-                    
+
                     <div class="container-info expand-2">
                         <p>,ndicnzepidfncisjndcvisndpicnpiAKBNDOUnaepifdhnpzenf</p>
                     </div>
@@ -143,7 +143,7 @@
             </div>
 
             <div class="zone zone-spider display" style="display:none" id="key">
-                    
+
                 <div class="graph" id="spider"></div>
                 <div></div>
                 <div class="cube" id="cube-1">
@@ -505,19 +505,17 @@
             nb = 0
             $("#trans-page").css("transform","translateX("+nb+"px)")
             $("#nav-bot").css("transform","translateY(0)")
-            
+
         </script>
 
         <div id="htmxing" hx-swap-oob="outerHTML">
-            <?php
-                echo <<<HTML
-                    <div hx-get="scripts/htmx/getCompare.php" hx-vals="js:{incr:0,id_pays:'$pays[0]'}" hx-trigger="load"></div>
-                    <div hx-get="scripts/htmx/getCompare.php" hx-vals="js:{incr:1,id_pays:'$pays[1]'}" hx-trigger="load"></div>
-                HTML;
-            ?>
+            <?php echo <<<HTML
+    <div hx-get="scripts/htmx/getCompare.php" hx-vals="js:{incr:0,id_pays:'$pays[0]'}" hx-trigger="load"></div>
+    <div hx-get="scripts/htmx/getCompare.php" hx-vals="js:{incr:1,id_pays:'$pays[1]'}" hx-trigger="load"></div>
+HTML; ?>
         </div>
 
     </div>
-    
+
 </body>
 </html>

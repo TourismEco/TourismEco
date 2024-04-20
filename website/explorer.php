@@ -1,27 +1,26 @@
-<?php require_once 'head.php'?>
+<?php require_once "head.php"; ?>
 
 <body>
     <?php
-        $cur = getDB();
-        $dataMap = json_encode(dataExplorer($cur),JSON_NUMERIC_CHECK);
+    $cur = getDB();
+    $dataMap = json_encode(dataExplorer($cur), JSON_NUMERIC_CHECK);
 
-        $pays = "";
-        if (isset($_SESSION["pays"]) && count($_SESSION["pays"]) != 0) {
-            $query = "SELECT * FROM pays WHERE id = :id_pays";
-            $sth = $cur->prepare($query);
-            $sth->bindParam(":id_pays", $_SESSION["pays"][0], PDO::PARAM_STR);
-            $sth->execute();
+    $pays = "";
+    if (isset($_SESSION["pays"]) && count($_SESSION["pays"]) != 0) {
+        $query = "SELECT * FROM pays WHERE id = :id_pays";
+        $sth = $cur->prepare($query);
+        $sth->bindParam(":id_pays", $_SESSION["pays"][0], PDO::PARAM_STR);
+        $sth->execute();
 
-            $ligne = $sth->fetch();
-            if ($ligne) {
-                $pays = $_SESSION["pays"][0];
-            }
-        } else {
-            $_SESSION["pays"] = array();
+        $ligne = $sth->fetch();
+        if ($ligne) {
+            $pays = $_SESSION["pays"][0];
         }
-        
+    } else {
+        $_SESSION["pays"] = [];
+    }
     ?>
-     <div class="flex">
+     <div class="window">
         <div class="zone zone-explore" id="zones">
             <div class="title-zone">
                 <img class="flag-small" src='assets/icons/map.svg'>
@@ -81,58 +80,67 @@
                         <p class="info-explore">Selectionnez un pays sur la carte ou depuis la barre de recherche pour consulter ses informations</p>
                     </div>
                 </div>
-        
+
 
                 <div class='container-cartePays display' style="display:none" id="fav">
                     <h3 class="title-section">Vos favoris</h3>
                     <div class="container-carte">
-                    <?php
-                        
-                        if (isset($_SESSION['user'])) {
-                            $userId = $_SESSION['user']["username"];
-                            $queryPays = "SELECT pays.nom AS PaysNom, pays.id, client.nom, pays.score FROM favoris
+                    <?php if (isset($_SESSION["user"])) {
+                        $userId = $_SESSION["user"]["username"];
+                        $queryPays = "SELECT pays.nom AS PaysNom, pays.id, client.nom, pays.score FROM favoris
                                         JOIN pays ON pays.id = favoris.id_pays
                                         JOIN client ON client.nom = favoris.id_client
                                         WHERE favoris.id_client= :userId LIMIT 8";
 
-                            $stmt = $cur->prepare($queryPays);
-                            $stmt->execute(['userId' => $userId]);
+                        $stmt = $cur->prepare($queryPays);
+                        $stmt->execute(["userId" => $userId]);
 
-                            while ($rsPays = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                                $letter = getLetter($rsPays["score"]);
-                                echo addSlimCountry($rsPays["id"],$rsPays["PaysNom"],$letter,"explorerFav");
-                            }
-                        } else {
-                            echo "<p>Connectez-vous pour accéder à cette fonctionnalité.</p>";
+                        while ($rsPays = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                            $letter = getLetter($rsPays["score"]);
+                            echo addSlimCountry(
+                                $rsPays["id"],
+                                $rsPays["PaysNom"],
+                                $letter,
+                                "explorerFav"
+                            );
                         }
-                    ?>
+                    } else {
+                        echo "<p>Connectez-vous pour accéder à cette fonctionnalité.</p>";
+                    } ?>
                     </div>
 
                     <h3 class="title-section" style="border-top: 1px solid #000; padding-top:10px;">Historique</h3>
                     <div class="container-carte">
-                    <?php
-                        if (isset($_SESSION['user'])) {
-                            if (isset($_SESSION["historique"]) && is_array($_SESSION["historique"])) {
-                                foreach ($_SESSION["historique"] as $id_pays) {
-                                    $queryPays = "SELECT * FROM pays WHERE id = :id_pays";
-                                    $stmt = $cur->prepare($queryPays);
-                                    $stmt->execute(['id_pays' => $id_pays]);
+                    <?php if (isset($_SESSION["user"])) {
+                        if (
+                            isset($_SESSION["historique"]) &&
+                            is_array($_SESSION["historique"])
+                        ) {
+                            foreach ($_SESSION["historique"] as $id_pays) {
+                                $queryPays =
+                                    "SELECT * FROM pays WHERE id = :id_pays";
+                                $stmt = $cur->prepare($queryPays);
+                                $stmt->execute(["id_pays" => $id_pays]);
 
-                                    if ($rsPays = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                                        $letter = getLetter($rsPays["score"]);
-                                        echo addSlimCountry($rsPays["id"],$rsPays["nom"],$letter,"explorerFav");
-                                    }
+                                if ($rsPays = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                                    $letter = getLetter($rsPays["score"]);
+                                    echo addSlimCountry(
+                                        $rsPays["id"],
+                                        $rsPays["nom"],
+                                        $letter,
+                                        "explorerFav"
+                                    );
                                 }
                             }
-                        } else {
-                            echo "<p>Connectez-vous pour accéder à cette fonctionnalité.</p>";
                         }
-                    ?>
+                    } else {
+                        echo "<p>Connectez-vous pour accéder à cette fonctionnalité.</p>";
+                    } ?>
                     </div>
                 </div>
 
                 <div class='container-cartePays display' style="display:none" id="podium">
-                        
+
                     <div class="title-zone">
                         <img class="flag-small" src='assets/icons/podium.svg'>
                         <div>
@@ -154,7 +162,7 @@
                     </div>
                     </div>
                 </div>
-                
+
             </div>
         </div>
 
@@ -188,7 +196,7 @@
         </div>
 
         <script id="scripting" hx-swap-oob="outerHTML">
-            createMapExplorer(<?=$dataMap?>)
+            createMapExplorer(<?= $dataMap ?>)
         </script>
 
         <script id="behave" hx-swap-oob="outerHTML">
