@@ -3,12 +3,10 @@
 <body>
 
     <div class="flex">
-        <?php
-            // Générer un nouveau token CSRF si la variable de session n'existe pas
-            if (!isset($_SESSION['csrf_token'])) {
-                $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
-            }
-        ?>
+        <?php // Générer un nouveau token CSRF si la variable de session n'existe pas
+        if (!isset($_SESSION["csrf_token"])) {
+            $_SESSION["csrf_token"] = bin2hex(random_bytes(32));
+        } ?>
 
         <script>
             function getValues() {
@@ -63,9 +61,11 @@
                             <input type="number" id="passengers" name="passengers" placeholder="Saisissez un nombre" required autocomplete="off" value=2 min=1 max=69>
                         </div>
                     </div>
-                    <input type="hidden" id="CSRF" name="CSRF" value="<?= $_SESSION["csrf_token"] ?>">
+                    <input type="hidden" id="CSRF" name="CSRF" value="<?= $_SESSION[
+                        "csrf_token"
+                    ] ?>">
 
-                    <input type="submit" value="Calculer" class="submit" hx-get="calcul.php" hx-target="#calculateur-right-section" hx-select="#calculateur-right-section" hx-swap="outerHTML" hx-vals="js:{data:getValues()}">
+                    <input type="submit" value="Calculer" class="submit" hx-get="scripts/calculator/calcul.php" hx-target="#calculateur-right-section" hx-select="#calculateur-right-section" hx-swap="outerHTML" hx-vals="js:{data:getValues()}">
 
                 </form>
             </div>
