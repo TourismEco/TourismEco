@@ -65,7 +65,7 @@ $rnb=$ligne["RNB par hab"];
 $esp=$ligne["Espérance de vie"];
 $hdi=$ligne["Value"];
 
-$queryIndicT="SELECT * FROM `tourisme` WHERE id_pays= :id_pays ORDER BY annee DESC LIMIT 1";
+$queryIndicT="SELECT * FROM `alldata` WHERE id_pays= :id_pays ORDER BY annee DESC LIMIT 1";
 $sth = $cur->prepare($queryIndicT);
 $sth->bindParam(":id_pays", $id_pays, PDO::PARAM_STR);
 $sth->execute();
@@ -512,6 +512,7 @@ echo <<<HTML
     spiderHTMX(0, $dataSpider, $dataTab, "$nom")
     barreLineHTMX($dataBarreLine, "$nom")
     linePaysHTMX($dataLine, $dataLineMean, "$nom")
+    changeScore('Global')
     // topHTMX($dataBar, "$nom")
 
     miniMap[0].zoomTo("$id_pays")

@@ -46,7 +46,7 @@ class Graphique {
         })
     }
 
-    createXAxis(field = null, dictSup = {}) {
+    createXAxis(field = null, title = null, dictSup = {}) {
         // field : nom de champ dans les données. Si null, valeurs numériques automatique. dictSup : arguments supplémentaires pour la construction de l'axe
         var base = this
 
@@ -81,9 +81,19 @@ class Graphique {
         }
 
         this.xAxis = this.graph.xAxes.push(xAx);
+
+        if (title != null) {
+            this.xAxis.children.push(
+                am5.Label.new(base.root, {
+                    text: title,
+                    x: am5.p50,
+                    centerX:am5.p50
+                })
+            );
+        }
     }
 
-    createYAxis(field = null, dictSup = {}, opposite = false) {
+    createYAxis(field = null, title = null, dictSup = {}, opposite = false) {
         // field : nom de champ dans les données. Si null, valeurs numériques automatique. dictSup : arguments supplémentaires pour la construction de l'axe. opposite : si l'axe doit être opposé
         var base = this
 
@@ -119,9 +129,32 @@ class Graphique {
         if (opposite) {
             this.yAxisLeft = this.graph.yAxes.push(yAx);
             this.axisType["yLeft"] = type
+
+            if (title != null) {
+                this.yAxisLeft.children.push(
+                    am5.Label.new(base.root, {
+                        rotation: 90,
+                        text: title,
+                        y: am5.p50,
+                        centerX: am5.p50
+                    })
+                );
+            }
+
         } else {
             this.yAxis = this.graph.yAxes.push(yAx);
             this.axisType["y"] = type
+
+            if (title != null) {
+                this.yAxis.children.unshift(
+                    am5.Label.new(base.root, {
+                        rotation: -90,
+                        text: title,
+                        y: am5.p50,
+                        centerX: am5.p50
+                    })
+                );
+            }
         }
     }
 
@@ -194,6 +227,9 @@ class Graphique {
             serie.labels.template.setAll({
                 forceHidden: true
             });
+            serie.set("colors", am5.ColorSet.new(base.root,{
+                colors:color
+            }))
         } else {
             console.error(`Type de données non reconnu. \nType donné : ${option} \ntypes acceptés : radar, pie, bar, line, dot`)
             return false
@@ -306,9 +342,10 @@ class Graphique {
 
     changeColor(colors) {
         var c = []
-        for (var i in colors) {
-            c.push(am5.color(parseInt(i,16)))
-        }
+        colors.forEach(element => {
+            c.push(am5.color(parseInt(element,16)))
+        })
+        console.log(c);
         this.graph.set("colors", c)
     }
 
@@ -373,87 +410,5 @@ class Serie {
     }
     getIndex() {
         return this.index
-    }
-}
-
-class Jauge extends Graphique {
-    // La Jauge n'est pas enfant de Graphique, car trop différent dans le code.
-    constructor(id) {
-        super(id, "jauge", {startAngle: 160, endAngle: 380})
-
-        this.clock = null
-        this.label = null
-    }
-
-    createXAxis() {
-        super.createXAxis(null, {min:0, max:100})
-    }
-
-    addClock() {
-        var base = this
-
-        this.data = this.xAxis.makeDataItem({});
-
-        this.clockHand = am5radar.ClockHand.new(this.root, {
-            pinRadius: am5.percent(15),   // grandeur rond
-            radius: am5.percent(95),     // hauteur trait
-            bottomWidth: 40   // taille base
-        })
-
-        this.data.set("bullet", am5xy.AxisBullet.new(base.root, {
-            sprite: base.clockHand
-        }));
-
-        this.xAxis.createAxisRange(this.data);
-
-        this.label = this.graph.radarContainer.children.push(am5.Label.new(base.root, {
-            fill: am5.color(0xffffff),
-            centerX: am5.percent(50),
-            centerY: am5.percent(50),
-            textAlign: "center",
-            fontSize: "35px"
-        }));
-
-        var bandsData = [
-            {color: "#AA0000", lowScore: 0, highScore: 20}, 
-            {color: "#BB5C00", lowScore: 20, highScore: 40}, 
-            {color: "#E49C15", lowScore: 40, highScore: 60}, 
-            {color: "#446700", lowScore: 60, highScore: 80}, 
-            {color: "#006700", lowScore: 80, highScore: 100}
-        ];
-          
-        am5.array.each(bandsData, function (data) {
-            var axisRange = base.xAxis.createAxisRange(base.xAxis.makeDataItem({}));
-            
-            axisRange.setAll({
-                value: data.lowScore,
-                endValue: data.highScore
-            });
-            
-            axisRange.get("axisFill").setAll({
-                fill: am5.color(data.color),
-            });
-        }); 
-    }
-
-    changeValue(value) {
-        this.data.animate({
-            key: "value",
-            to: value,
-            duration: 500,
-            easing: am5.ease.out(am5.ease.cubic)
-        });
-
-        var fill = "#FFFFFF"
-        this.xAxis.axisRanges.each(function (axisRange) {
-            if (value >= axisRange.get("value") && value <= axisRange.get("endValue")) {
-                fill = axisRange.get("axisFill").get("fill");
-            }
-        })
-
-        this.label.set("text", value.toString());
-
-        this.clockHand.pin.animate({key: "fill", to: fill, duration: 500, easing: am5.ease.out(am5.ease.cubic)})
-        this.clockHand.hand.animate({key: "fill", to: fill, duration: 500, easing: am5.ease.out(am5.ease.cubic)})
     }
 }

@@ -277,12 +277,10 @@ function dataBarreLine($pays, $conn) {
 
         // Impact du covid
         if ($rs['annee'] == 2020 && $rs['arriveesTotal'] != null) {
-            $covidImpactPib = 100*($rs['pibParHab'] - $data[count($data)-1]['value']) / $data[count($data)-1]['value'];
-            $covidImpactTourisme = 100*($rs['arriveesTotal'] - $data[count($data)-1]['valueLeft']) / $data[count($data)-1]['valueLeft'];
             if ($data[count($data)-1]['value'] != 0) {
                 $covidImpactPib = 100*($rs['pibParHab'] - $data[count($data)-1]['value']) / $data[count($data)-1]['value'];
             }
-            if ($data[count($data)-1]['valueLeft'] != null) {
+            if ($data[count($data)-1]['valueLeft'] != 0) {
                 $covidImpactTourisme = 100*($rs['arriveesTotal'] - $data[count($data)-1]['valueLeft']) / $data[count($data)-1]['valueLeft'];
             }
         }
@@ -300,8 +298,8 @@ function dataBarreLine($pays, $conn) {
 }
 
 
-function dataBarreContinent($pays, $conn) {
-    $query = "SELECT id_pays, annee, co2, elecRenew, pibParHab, gpi, idh, arriveesTotal, departs FROM alldata WHERE id_pays = '$pays' ORDER BY annee;";
+function dataBarreContinent($id_continent, $conn) {
+    $query = "SELECT pays.nom AS `name`, id_pays, annee, co2, elecRenew, pibParHab, gpi, idh, arriveesTotal, departs FROM alldata, pays WHERE id_pays = pays.id AND id_continent = $id_continent AND annee = 2020 ORDER BY annee;";
     $result = $conn->query($query);
 
     $data = array();

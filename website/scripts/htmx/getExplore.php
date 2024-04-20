@@ -72,7 +72,7 @@
             <h3 class="h3-score">Score TourismEco</h3>
             <div class="score-box score-$letter">$letter</div>
             <div class="trait"></div>
-HTML;
+    HTML;
             if ($typeC == 1){
                 echo <<<HTML
                     <h3 class="h3-score">Score Economique</h3>
@@ -89,7 +89,8 @@ HTML;
                     <div class="score-box score-$labelDec">$labelDec</div>
                 HTML;
             }
-echo <<<HTML
+    
+    echo <<<HTML
 
         </div>
 

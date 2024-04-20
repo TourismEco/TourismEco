@@ -47,7 +47,6 @@ if (!isset($_SERVER["HTTP_HX_REQUEST"])) {
 			
 			<script src="scripts/graph/barCompare.js"></script>
 			<script src="scripts/graph/barreLine.js"></script>
-			<script src="scripts/graph/jauge.js"></script>
 			<script src="scripts/graph/jauge_continent.js"></script>
 			<script src="scripts/graph/barreContinent.js"></script>
 			<script src="scripts/graph/scatterplotContinent.js"></script>
