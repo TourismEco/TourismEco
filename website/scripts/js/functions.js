@@ -76,8 +76,19 @@ function changeScore(option) {
         Economique:[0.14, 0.28, 0.42, 0.56, 0.7, 0.79382]
     }
 
-    $(".infos-scores").hide();
-     $("#score-" + option).show();
+    descip = {
+        Global:"Le score TourismEco évalue 6 critères essentiels comme les arrivées totales par avions, le PIB par habitant et les énergies renouvelables.",
+        Decouverte:"Le score 'Tourisme d’Exploration' tient compte des arrivées totales par avions, des gaz à effet de serre par habitant et de l’indice de développement humain.",
+        Ecologique:"Le score 'Tourisme Éco-responsable' se focalise sur les gaz à effet de serre par habitant et l’énergie renouvelable utilisée par rapport à la consommation totale.",
+        Economique:"Le score “Tourisme Moderne” examine les arrivées totales par avions, le PIB par habitant et l’indice de développement humain."
+    }
+
+    title = {
+        Global:"Global",
+        Decouverte:"Tourisme d'Exploration",
+        Ecologique:"Tourisme Éco-responsable",
+        Economique:"Tourisme Moderne"
+    }
 
     p = poids[option]
 
@@ -115,7 +126,8 @@ function changeScore(option) {
         $("#bigScore-letter").html(letter)
     }
     
-    $("#bigScore-text").html("Score "+option)
+    $("#bigScore-text").html("Score "+title[option])
+    $("#descipScore").html(descip[option])
 
     for(i=0;i<6;i++) {
         $("#lim"+i).html(inter[option][i])

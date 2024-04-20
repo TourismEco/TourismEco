@@ -1,124 +1,301 @@
 <?php require_once 'head.php'?>
 
-<script src="scripts/graph/line.js"></script>
-<script src="scripts/graph/barreContinent.js"></script>
-
-
 <body>
-<div hx-get="scripts/htmx/getContinent.php" hx-vals="js:{id_continent:'AF'}" hx-trigger="load delay:1s"></div>
-    <div class="container-map">
-        <div id="map"></div>
-    </div>
+    <div class="window">
 
-    <div class="grille" id="grille" hx-swap="outerHTML swap:2s">
+        <div id="zones">
+            <div class="zone zone-presentation display" id="home">
+                <div class="container-presentation expand-3" id="bandeau0"></div>
+                <div class="map-catalogue-continent" id="map"></div>
+                <div class="graph" id="graph_pie"></div>
+                <div class="container-presentation expand-5">
+                    <div class='container-explore-continent' id="explore">
+                        <p class="info-explore">Selectionnez un pays sur la carte ou depuis la barre de recherche pour consulter ses informations</p>
+                    </div>
+                </div>
+                <div class='container-cartePays classement-continent'  id="podium">
+                    <div class="container-classement" id="rank">
+                        
+                    </div>
+                </div>            
+            </div>
 
-        <div class="sidebar">
-            <div id="mini0"></div>
+            <div class="zone zone-basic display" id="key" style="display: none;">
+                <div class="title-zone">
+                    <img class="flag-small" src='assets/icons/bar.svg'>
+                    <div>
+                        <h2 id="paysvs"></h2>
+                        <p>Ce graphique compare l'évolution du maximum et minimum du continent et sa moyenne au fil des années sur la statistiques que vous souhaitez.</p>
+                    </div>
+                </div>
+                <div class="graph" id="barreContinent"></div>
 
-            <div class="container-side bg-52796F" hx-get="catalogue.php" hx-select="#catalogue" hx-target="#catalogue" hx-trigger="click" hx-swap="show:top" hx-vals="js:{page:'Pays'}">
-                <div class="bandeau-small">
-                    <img id=plus class="flag-small" src='assets/img/plus.svg'>
-                    <h2 class="nom-small">Choisir un continent</h2>
+                <div class=container-buttons>
+                    <img class="icon icon-active" src="assets/icons/cloud.svg" onclick="changeVarContinent('co2')" data-name="Émissions de CO2">
+                    <img class="icon" src="assets/icons/dollar.svg" onclick="changeVarContinent('pibParHab')" data-name="PIB/Habitant">
+                    <img class="icon" src="assets/icons/shield.svg" onclick="changeVarContinent('gpi')" data-name="Global Peace Index">
+                    <img class="icon" src="assets/icons/down.svg" onclick="changeVarContinent('arriveesTotal')" data-name="Arrivées touristiques">
+                    <img class="icon" src="assets/icons/up.svg" onclick="changeVarContinent('departs')" data-name="Départs">
+                    <img class="icon" src="assets/icons/transfer.svg" onclick="changeVarContinent('cpi')" data-name="CPI">
+                    <img class="icon" src="assets/icons/leaf.svg" onclick="changeVarContinent('elecRenew')" data-name="% d'énergies renouvellables">
                 </div>
 
-            </div>
-        </div>
+                <div class="table">
+                    <div class="legende">
+                        <div class="icon_name legende-element">
+                            <img src="assets/icons/courbe.svg" class="square">
+                            <p class="name" id="icon_name">Émissions de CO2</p>
+                        </div>
+                    </div>
 
-        <div class="main" id="main">
+                    <div class="container-info">
+                        <p>La moyenne</p>
+                        <p id="avg0" class="big">-</p>
+                        <p id="avg_detail">-</p>
+                    </div>
+
+                    <div class="container-info">
+                        <p>Le pays médian médiane</p>
+                        <p id="med0" class="big">-</p>
+                        <p id="med_detail">-</p>
+                    </div>
+                    <div class="container-info">
+                        <p>Minimum atteint en</p>
+                        <p id="min0" class="big">-</p>
+                        <p id="min_detail">-</p>
+                    </div>
+                    <div class="container-info">
+                        <p>Maximum atteint en</p>
+                        <p id="max0" class="big">-</p>
+                        <p id="max_detail">-</p>
+                    </div>
+                    
+                    
+                </div>
+            </div>
+
+            <div class="zone zone-basic display" id="courbe" style="display: none;">
+                <div class="title-zone">
+                    <img class="flag-small" src='assets/icons/scatter-white.svg'>
+                    <div>
+                        <h2 id="paysvs"></h2>
+                        <p>Ce graphique compare l'évolution du maximum et minimum du continent et sa moyenne au fil des années sur la statistiques que vous souhaitez.</p>
+                    </div>
+                </div>
+                <div class="graph" id="scatter"></div>
+            </div>
+
+            <div class="zone  zone-basic display" id="barl" style="display:none">
+                <div class="title-zone">
+                    <img class="flag-small" src='assets/icons/sort.svg'>
+                    <div>
+                        <h2 id="paysvs"></h2>
+                        <p>Ce graphique compare l'évolution du maximum et minimum du continent et sa moyenne au fil des années sur la statistiques que vous souhaitez.</p>
+                    </div>
+                </div>
+                
+                <div class="graph" id="line"></div>
+
+                <div class=container-buttons>
+                    <img class="icon icon-active" src="assets/icons/cloud.svg" onclick="changeVarL('co2')" data-name="Émissions de CO2">
+                    <img class="icon" src="assets/icons/dollar.svg" onclick="changeVarL('pibParHab')" data-name="PIB/Habitant">
+                    <img class="icon" src="assets/icons/shield.svg" onclick="changeVarL('gpi')" data-name="Global Peace Index">
+                    <img class="icon" src="assets/icons/down.svg" onclick="changeVarL('arriveesTotal')" data-name="Arrivées touristiques">
+                    <img class="icon" src="assets/icons/up.svg" onclick="changeVarL('departs')" data-name="Départs">
+                    <img class="icon" src="assets/icons/transfer.svg" onclick="changeVarL('cpi')" data-name="CPI">
+                    <img class="icon" src="assets/icons/leaf.svg" onclick="changeVarL('elecRenew')" data-name="% d'énergies renouvellables">
+                </div>
+
+                <div class="table">
+                    <div class="legende">
+                        <div class="icon_name legende-element">
+                            <img src="assets/icons/courbe.svg" class="square">
+                            <p class="name" id="icon_name2">Émissions de CO2</p>
+                        </div>
+                        <div class="legende-element">
+                            <div class="square bg-52796F"></div>
+                            <p class ="name">Moyenne</p>
+                            
+                        </div>
+
+                        <div class="legende-element">
+                            <div class="square bg-83A88B"></div>
+                            <p class="name" id="nom0"></p>
+                        </div>
+                    </div>
+                    <div class="container-info">
+                        <p>Maximum atteint pour</p>
+                        <p id="maxLine" class="big">-</p>
+                        <p id="maxLine_detail">-</p>
+                    </div>
+
+                    <div class="container-info">
+                        <p>Evolution du Maximum</p>
+                        <p id="maxEvol" class="big">-</p>
+                        <p id="maxEvol_detail">-</p>
+                    </div>
+
+                    <div class="container-info">
+                        <p>Minimum atteint pour</p>
+                        <p id="minLine" class="big">-</p>
+                        <p id="minLine_detail">-</p>
+                    </div>
+
+                    <div class="container-info">
+                        <p>Evolution du Minimum</p>
+                        <p id="minEvol" class="big">-</p>
+                        <p id="minEvol_detail">-</p>
+                    </div>
+                    
+                </div>
+            </div>
 
             <?php
                 $cur = getDB();
 
-                $continent = "";
-                if (isset($_SESSION["continent"]) && count($_SESSION["continent"]) != 0) {
-                    $query = "SELECT * FROM continents WHERE code = :id_continent";
+                if (!isset($_SESSION["pays"])) {
+                    $_SESSION["pays"] = array();
+                }
+
+                if (isset($_GET["id_pays"])) {
+                    $_SESSION["pays"][0] = $_GET["id_pays"];
+                }
+
+                $pays = "";
+                if (count($_SESSION["pays"]) != 0) {
+                    $query = "SELECT * FROM pays WHERE id = :id_pays";
                     $sth = $cur->prepare($query);
-                    $sth->bindParam(":id_continent", $_SESSION["continent"][0], PDO::PARAM_STR);
+                    $sth->bindParam(":id_pays", $_SESSION["pays"][0], PDO::PARAM_STR);
                     $sth->execute();
 
                     $ligne = $sth->fetch();
                     if ($ligne) {
-                        $continent = $_SESSION["continent"][0];
+                        $pays = $_SESSION["pays"][0];
                     }
-                } else {
-                    $_SESSION["continent"] = array();
                 }
 
-                if ($continent == "") {
-                    echo <<<HTML
-                        <div hx-get="catalogue.php" hx-trigger="load" hx-select="#catalogue" hx-target="#catalogue" hx-vals="js:{page:'Continent'}"></div>
-                    HTML;
-                } else {
-                    echo <<<HTML
-                        <div hx-get="scripts/htmx/getContinent.php" hx-vals="js:{id_continent:'$continent'}" hx-trigger="load delay:1s"></div>
-                    HTML;
-                }
             ?>
-
-            <div id="catalogue"></div>
-
-            <div class="container-bandeaux">
-                <div id="bandeau0"></div>
-            </div>
-
-            <div class="container-simple bg-52796F">
-                <h2 class="title-section">Scores EcoTourism</h2>
-                <div class="score"> 
-                    <div id="score0"></div>
-                    <div class="trait"></div>
-                    <div id="score1"></div>
-                </div>
-            </div>
-
-            <div class="container-simple bg-354F52">
-                <h2 class="title-section">Evolution du PIB de la France dans le temps</h2>
-                <div class="section">
-                    <div class="text">
-                        <p>Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500, quand un imprimeur anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte. Il n'a pas fait que survivre cinq siècles, mais s'est aussi adapté à la bureautique informatique, sans que son contenu n'en soit modifié. Il a été popularisé dans les années 1960 grâce à la vente de feuilles Letraset contenant des passages du Lorem Ipsum, et, plus récemment, par son inclusion dans des applications de mise en page de texte, comme Aldus PageMaker.
-                            Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500, quand un imprimeur anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte. Il n'a pas fait que survivre cinq siècles, mais s'est aussi adapté à la bureautique informatique, sans que son contenu n'en soit modifié. Il a été popularisé dans les années 1960 grâce à la vente de feuilles Letraset contenant des passages du Lorem Ipsum, et, plus récemment, par son inclusion dans des applications de mise en page de texte, comme Aldus PageMaker.                
-                        </p>
-                        
-                    </div>
-                    
-
-                </div>
-            </div>
-
-            <div class="container-simple bg-354F52">
-                <h2 class="title-section">Comparaison de chaque indicateur</h2>
-                <div class=container-buttons>
-                    <button onclick="changeVar('co2')" class=button-compare>Émissions de CO2</button>
-                    <button onclick="changeVar('pibParHab')" class=button-compare>PIB par habitant</button>
-                    <button onclick="changeVar('gpi')" class=button-compare>Indice de paix</button>
-                    <button onclick="changeVar('arriveesTotal')" class=button-compare>Arrivées</button>
-                    <button onclick="changeVar('departs')" class=button-compare>Départs</button>
-                    <button onclick="changeVar('cpi')" class=button-compare>Consumer Price Index</button>
-                    <button onclick="changeVar('elecRenew')" class=button-compare>% énergies renouvellables</button>
-                </div>
-                <div class="graph" id="barContinent"></div>
-                <div class="graph" id="lineContinent"></div>
-
-            </div>
-
-            <div class="container-simple bg-52796F">
-                <h2 class="title-section">Comparateur rapide</h2>
-                <p>
-                    Voici quelques pays pertinents que vous pouvez comparer avec la France
-                </p> 
-
-
-            </div>
-
-            <script id=scripting>
-                createMapContinent()
-                barreContinent("barContinent")
-                line('lineContinent')
-            </script>
+        
 
         </div>
+
+        <div class="zone mask"></div>
+
+        <div class="nav-bottom" id="nav-bot" hx-swap-oob="outerHTML">
+            <div class="nav-categ">
+            <div class="pack-categ">
+                    <div class="container-bottom active page" data-switch="europe" data-id_continent="5" data-index="0" data-name="Europe" hx-get="scripts/htmx/getContinent.php" hx-vals="js:{id_continent:5}" hx-swap="beforeend">
+                        <span>Europe</span>
+                        <img class="flag-small" src='assets/icons/europe.svg'>
+                    </div>
+
+                    <div class="container-bottom page" data-switch="africa" data-id_continent="1" data-index="1" data-name="Afrique" hx-get="scripts/htmx/getContinent.php" hx-vals="js:{id_continent:1}" hx-swap="beforeend">
+                        <span>Afrique</span>
+                        <img class="flag-small" src='assets/icons/afrique.svg'>
+                    </div>
+
+                    <div class="container-bottom page" data-switch="america" data-id_continent="2" data-index="2" data-name="Amérique" hx-get="scripts/htmx/getContinent.php" hx-vals="js:{id_continent:2}" hx-swap="beforeend">
+                        <span>Amérique</span>
+                        <img class="flag-small" src='assets/icons/amerique.svg'>
+                    </div>
+
+                    <div class="container-bottom page" data-switch="asia" data-id_continent="4" data-index="3" data-name="Asie" hx-get="scripts/htmx/getContinent.php" hx-vals="js:{id_continent:4}" hx-swap="beforeend">
+                        <span>Asie</span>
+                        <img class="flag-small" src='assets/icons/asie.svg'>
+                    </div>
+
+                    <div class="container-bottom page" data-switch="oceania" data-id_continent="6" data-index="4" data-name="Océanie" hx-get="scripts/htmx/getContinent.php" hx-vals="js:{id_continent:6}" hx-swap="beforeend">
+                        <span>Océanie</span>
+                        <img class="flag-small" src='assets/icons/oceanie.svg'>
+                    </div>
+
+                    <div id="trans-page" class="active-bg"></div>
+                </div>
+
+                <div class="nav-trait"></div>
+
+                <div id="name-page" class="nav-text">Statistiques</div>
+            </div>
+
+            <div class="nav-categ">
+
+                <div class="pack-categ">
+                    <div class="container-bottom active switch" data-switch="home" data-index="0" data-name="Présentation">
+                        <img class="flag-small" src='assets/icons/info.svg'>
+                    </div>
+
+                    <div class="container-bottom switch" data-switch="key" data-index="1" data-name="Indicateurs clés">
+                        <img class="flag-small" src='assets/icons/bar.svg'>
+                    </div>
+
+                    <div class="container-bottom switch" data-switch="courbe" data-index="2" data-name="Courbes d'évolution">
+                        <img class="flag-small" src='assets/icons/scatter-white.svg'>
+                    </div>
+
+                    <div class="container-bottom switch" data-switch="barl" data-index="3" data-name="PIB et tourisme">
+                        <img class="flag-small" src='assets/icons/stats.svg'>
+                    </div>
+
+                    <div class="container-bottom switch" data-switch="more" data-index="4" data-name="Informations complémentaires">
+                        <img class="flag-small" src='assets/icons/plus.svg'>
+                    </div>
+
+                    <div id="trans" class="active-bg"></div>
+                </div>
+
+                <div class="nav-trait"></div>
+
+                <div id="name-switch" class="nav-text">Présentation</div>
+            </div>
+        </div>
+            
+
+            <script id="scripting" hx-swap-oob="outerHTML">
+                createMapCatalogue("continent")
+                halfpie("graph_pie")
+                barreContinent("barreContinent")
+                line("line")
+                scatterplotContinent("scatter") 
+            </script>
+            <script id="orders" hx-swap-oob="outerHTML"></script>
+
+            <div id="htmxing" hx-swap-oob="outerHTML">
+                <div hx-get="scripts/htmx/getContinent.php" hx-vals="js:{id_continent:5}" hx-trigger="load delay:.1s"></div>
+            </div>
+
+            <script id="behave" hx-swap-oob="outerHTML">
+                $(".icon").on("click", function () {
+                    $(".icon-active").removeClass("icon-active")
+                    $(this).addClass("icon-active")
+                    $("#icon_name").text($(this).data("name"));
+                })
+
+                $(".icon").on("click", function () {
+                    $(".icon-active").removeClass("icon-active")
+                    $(this).addClass("icon-active")
+                    $("#icon_name2").text($(this).data("name"));
+                })
+                $(".switch").on("click", function () {
+                    $(".switch").removeClass("active")
+                    $(this).addClass("active")
+                    $(".display").css("display","none")
+
+                    $("#"+$(this).data("switch")).css("display","grid")
+                    nb = $(this).data("index")*53
+                    $("#trans").css("transform","translateX("+nb+"px)")
+                    $("#name-switch").html($(this).data("name"))
+                })
+
+                $(".page").removeClass("active")
+                $("#s-stats").addClass("active")
+                $("#name-page").text("Statistiques");
+
+                nb = 0
+                $("#trans-page").css("transform","translateX("+nb+"px)")
+                
+            </script>
+
     </div>
 
-    
-            
-    <?php require_once 'footer.html'?>
 </body>
+</html>

@@ -40,9 +40,8 @@
 
     echo <<<HTML
 
-    <div id="pays" class="container-explore-continent" hx-swap-oob="outerHTML">
+    <div id="explore" class="container-explore-continent" hx-swap-oob="outerHTML">
 
-        
         <div class="bandeau col1"> 
             <img class="img-bandeau" src='assets/img/$id_pays.jpg' alt="Bandeau">
             <div class="flag-plus-nom">

@@ -342,23 +342,6 @@ if (count($pays) <= 1) {
                     <div class="cube">
                         <div class="el-cube">
                             <img class="flag-tiny" id="flag0">
-                            <div id="bar_gpi_0"></div>
-                        </div>
-                        <div class="tooltip">
-                            <img class="icon" src="assets/icons/shield.svg">
-                            <div class="top">
-                                <h3>GPI</h3>
-                            </div>
-                        </div>
-                        <div class="el-cube">
-                            <img class="flag-tiny" id="flag1">
-                            <div id="bar_gpi_1"></div>
-                        </div>
-                    </div>
-
-                    <div class="cube">
-                        <div class="el-cube">
-                            <img class="flag-tiny" id="flag0">
                             <div id="bar_arriveesTotal_0"></div>
                         </div>
                         <div class="tooltip">
@@ -370,6 +353,23 @@ if (count($pays) <= 1) {
                         <div class="el-cube">
                             <img class="flag-tiny" id="flag1">
                             <div id="bar_arriveesTotal_1"></div>
+                        </div>
+                    </div>
+
+                    <div class="cube">
+                        <div class="el-cube">
+                            <img class="flag-tiny" id="flag0">
+                            <div id="bar_gpi_0"></div>
+                        </div>
+                        <div class="tooltip">
+                            <img class="icon" src="assets/icons/shield.svg">
+                            <div class="top">
+                                <h3>GPI</h3>
+                            </div>
+                        </div>
+                        <div class="el-cube">
+                            <img class="flag-tiny" id="flag1">
+                            <div id="bar_gpi_1"></div>
                         </div>
                     </div>
 

@@ -1,6 +1,6 @@
 function barreContinent(id){
     bc = new Graphique(id, "bar")
-    bc.createXAxis("name")
+    bc.createXAxis("name","Pays")
     bc.createYAxis()
     bc.setType("co2")
     bc.addSerie("bar","name", "co2", null,"{name} : {valueY}",null );

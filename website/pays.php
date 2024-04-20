@@ -9,7 +9,7 @@ if (!isset($_SESSION["pays"])) {
 
 if (isset($_GET["id_pays"])) {
     $_SESSION["pays"][0] = $_GET["id_pays"];
-} elseif (isset($_POST["id_pays"])) {
+} else if (isset($_POST["id_pays"])) {
     $_SESSION["pays"][0] = $_POST["id_pays"];
 }
 
@@ -31,7 +31,7 @@ if ($pays == "") {
     exit();
 }
 
-echo <<<HTML
+?>
 
 <body>
 
@@ -313,26 +313,13 @@ echo <<<HTML
                         <div id="lim4">0</div>
                         <div id="lim5">1</div>
                     </div>
+
                     <div class="trait-scores" id="tscor"></div>
             
-
-                    <div class="infos-scores  score-active" id="score-Global">
+                    <div class="infos-scores score-active">
                         <img src="assets/icons/info.svg" class="score-B">
-                        <p>Le score TourismEco évalue 6 critères essentiels comme les arrivées totales par avions, le PIB par habitant et les énergies renouvelables.</p>
+                        <p id="descipScore"></p>
                     </div>
-                    <div class="infos-scores" id="score-Decouverte">
-                        <img src="assets/icons/info.svg" class="score-B">
-                        <p>Le score “Tourisme d’Exploration” tient compte des arrivées totales par avions, des gaz à effet de serre par habitant et de l’indice de développement humain.</p>
-                    </div>
-                    <div class="infos-scores" id="score-Ecologique">
-                        <img src="assets/icons/info.svg" class="score-B">
-                        <p>Le score "Tourisme Éco-responsable” se focalise sur les gaz à effet de serre par habitant et l’énergie renouvelable utilisée par rapport à la consommation totale.</p>
-                    </div>
-                    <div class="infos-scores" id="score-Economique">
-                        <img src="assets/icons/info.svg" class="score-B">
-                        <p>Le score “Tourisme Moderne” examine les arrivées totales par avions, le PIB par habitant et l’indice de développement humain.</p>
-                    </div>
-
 
                 </div>
                 <div class="scores-column">
@@ -408,104 +395,91 @@ echo <<<HTML
             </div>
         </div>
 
+        <script id="scripting" hx-swap-oob="outerHTML">
+            createMiniMap(0,"pays")
+            spider("spider",1)
+            createLine("line")
+            barreLine("barreLine")
+        </script>
 
-HTML;
+        <script id="orders" hx-swap-oob="outerHTML"></script>
 
-echo <<<JS
-            <script id="scripting" hx-swap-oob="outerHTML">
-                createMiniMap(0,"pays")
-                spider("spider",1)
-                createLine("line")
-                barreLine("barreLine")
-            </script>
+        <script id="behave" hx-swap-oob="outerHTML">
 
-            <script id="orders" hx-swap-oob="outerHTML"></script>
+            $(".icon").on("click", function () {
+                $(".icon-active").removeClass("icon-active")
+                $(this).addClass("icon-active")
+                $("#icon_name").text($(this).data("name"));
+            })
 
-            <script id="behave" hx-swap-oob="outerHTML">
+            $(".switch").on("click", function () {
+                $(".switch").removeClass("active")
+                $(this).addClass("active")
+                $(".display").css("display","none")
 
-                $(".icon").on("click", function () {
-                    $(".icon-active").removeClass("icon-active")
-                    $(this).addClass("icon-active")
-                    $("#icon_name").text($(this).data("name"));
-                })
+                $("#"+$(this).data("switch")).css("display","grid")
+                nb = $(this).data("index")*53
+                $("#trans").css("transform","translateX("+nb+"px)")
+                $("#name-switch").html($(this).data("name"))
+            })
 
-                $(".switch").on("click", function () {
-                    $(".switch").removeClass("active")
-                    $(this).addClass("active")
-                    $(".display").css("display","none")
+            $(".page").removeClass("active")
+            $("#s-stats").addClass("active")
+            $("#name-page").text("Statistiques");
 
-                    $("#"+$(this).data("switch")).css("display","grid")
-                    nb = $(this).data("index")*53
-                    $("#trans").css("transform","translateX("+nb+"px)")
-                    $("#name-switch").html($(this).data("name"))
-                })
+            nb = 0
+            $("#trans-page").css("transform","translateX("+nb+"px)")
+            $("#nav-bot").css("transform","translateY(0)")
 
-                $(".page").removeClass("active")
-                $("#s-stats").addClass("active")
-                $("#name-page").text("Statistiques");
+            var i = 0
+            var sens = 1
+            $("#scr").on("scroll", function() {
+                el = document.getElementById("scr")
+                h = el.clientHeight.toFixed(0)
+                s = el.scrollTop
 
-                nb = 0
-                $("#trans-page").css("transform","translateX("+nb+"px)")
-                $("#nav-bot").css("transform","translateY(0)")
+                console.log(h, s, s/h, s%h);
+                f = false
+                if (s > h*i && s < h*(i-1)) {
+                    i++
+                    f = true
+                } else if (s < h*i && s > h*(i+1)) {
+                    i--
+                    f = true
+                }
 
-                var i = 0
-                var sens = 1
-                $("#scr").on("scroll", function() {
-                    el = document.getElementById("scr")
-                    h = el.clientHeight.toFixed(0)
-                    s = el.scrollTop
-
-                    console.log(h, s, s/h, s%h);
-                    f = false
-                    if (s > h*i && s < h*(i-1)) {
-                        i++
-                        f = true
-                    } else if (s < h*i && s > h*(i+1)) {
-                        i--
-                        f = true
+                if (f) {
+                    if (i == 0) {
+                        $(".scroll-dot").removeClass("dot-active")
+                        $("#scrb0").addClass("dot-active")
+                        console.log("0");
+                    } else if (i == 2) {
+                        $(".scroll-dot").removeClass("dot-active")
+                        $("#scrb2").addClass("dot-active")
+                        console.log("400");
+                    } else if (i == 1) {
+                        $(".scroll-dot").removeClass("dot-active")
+                        $("#scrb1").addClass("dot-active")
+                        console.log("200");
                     }
+                }
+                f = false
 
-                    if (f) {
-                        if (i == 0) {
-                            $(".scroll-dot").removeClass("dot-active")
-                            $("#scrb0").addClass("dot-active")
-                            console.log("0");
-                        } else if (i == 2) {
-                            $(".scroll-dot").removeClass("dot-active")
-                            $("#scrb2").addClass("dot-active")
-                            console.log("400");
-                        } else if (i == 1) {
-                            $(".scroll-dot").removeClass("dot-active")
-                            $("#scrb1").addClass("dot-active")
-                            console.log("200");
-                        }
-                    }
-                    f = false
+            })
 
-                })
+            $(".scroll-dot").on("click", function() {
+                nb = $(this).data("index")
+                h = el.clientHeight.toFixed(0)
+                document.getElementById('scr').scroll({top:h*nb,behavior:"smooth"})
+            })
 
-                $(".scroll-dot").on("click", function() {
-                    nb = $(this).data("index")
-                    h = el.clientHeight.toFixed(0)
-                    document.getElementById('scr').scroll({top:h*nb,behavior:"smooth"})
-                })
-
-
-
-
-            </script>
-JS;
-echo <<<HTML
-    <div id="htmxing" hx-swap-oob="outerHTML">
-HTML;
-echo <<<HTML
-    <div hx-get="scripts/htmx/getPays.php" hx-vals="js:{id_pays:'$pays'}" hx-trigger="load"></div>
-HTML;
-?>
-            </div>
+        </script>
+        
+        <div id="htmxing" hx-swap-oob="outerHTML">
+            <div hx-get="scripts/htmx/getPays.php" hx-vals="js:{id_pays:'<?=$pays?>'}" hx-trigger="load"></div>
+        </div>
 
     </div>
 
 </body>
 </html>
-HTML;

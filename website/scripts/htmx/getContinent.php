@@ -17,41 +17,6 @@ $cur = getDB();
 $id_continent = $_GET["id_continent"];
 $_SESSION["continent"][0] = $id_continent;
 
-
-if (!isset($_SESSION["historique"]) || !is_array($_SESSION["historique"])) {
-    $_SESSION["historique"] = array();
-}
-if (!in_array($id_continent, $_SESSION["historique"])) {
-    // Ajoutez le nouvel élément à l'historique
-    $_SESSION["historique"][] = $id_continent;
-  
-    $maxHistoriqueSize = 3;  // Définir la taille maximale de l'historique
-    while (count($_SESSION["historique"]) > $maxHistoriqueSize) {
-        array_shift($_SESSION["historique"]);
-    }
-}
-
-if (isset($_GET["map"])) {
-    $map = false;
-} else {
-    $map = true;
-}
-//halfpie
-$query = "SELECT score FROM pays WHERE id_continent = :id_continent";
-$sth = $cur->prepare($query);
-$sth->bindParam(":id_continent", $id_continent , PDO::PARAM_INT);
-$sth->execute();
-$dataHalfPie = array("A" => array("name"=>"A", "value"=>0), "B" => array("name"=>"B", "value"=>0), "C" => array("name"=>"C", "value"=>0), "D" => array("name"=>"D", "value"=>0), "E" => array("name"=>"E", "value"=>0));    
-while ($rs = $sth->fetch(PDO::FETCH_ASSOC)) {
-        $letter= getLetter($rs["score"]);
-        $dataHalfPie[$letter]["value"]++;
-    }
-    $i = 0;
-    foreach ($dataHalfPie as $key => $value) {
-        $dataHalfPie[$i++] = $dataHalfPie[$key];
-        unset($dataHalfPie[$key]);
-    }
-
 // Nom
 $query = "SELECT * FROM continents WHERE id = :id_continent";
 $sth = $cur->prepare($query);
@@ -61,10 +26,26 @@ $ligne = $sth->fetch();
 
 if ($ligne !== false) {
     $nom = $ligne["nom"];
-    $code = $ligne["code"];
+    $am = $ligne["am"];
 } else {
-    $nom = null;
-    $code = null;
+    header("HTTP/1.1 400");
+    exit;
+}
+
+//halfpie
+$query = "SELECT score FROM pays WHERE id_continent = :id_continent";
+$sth = $cur->prepare($query);
+$sth->bindParam(":id_continent", $id_continent , PDO::PARAM_INT);
+$sth->execute();
+$dataHalfPie = array("A" => array("name"=>"A", "value"=>0), "B" => array("name"=>"B", "value"=>0), "C" => array("name"=>"C", "value"=>0), "D" => array("name"=>"D", "value"=>0), "E" => array("name"=>"E", "value"=>0));    
+while ($rs = $sth->fetch(PDO::FETCH_ASSOC)) {
+    $letter= getLetter($rs["score"]);
+    $dataHalfPie[$letter]["value"]++;
+}
+$i = 0;
+foreach ($dataHalfPie as $key => $value) {
+    $dataHalfPie[$i++] = $dataHalfPie[$key];
+    unset($dataHalfPie[$key]);
 }
 
 //Top 3
@@ -81,15 +62,15 @@ $ligne = $sth->fetch();
 $top = $ligne["nom"];
 
 //scatter arrivées
-$query = "SELECT p.nom AS nom_pays, SUM(t.arriveesTotal) AS somme_arrivees, SUM(e.co2) AS total_co2
-        FROM tourisme t
-        JOIN pays p ON t.id_pays = p.id
-        JOIN continents c ON p.id_continent = c.id
-        JOIN ecologie e ON t.annee = e.annee AND t.id_pays = e.id_pays
-        WHERE t.annee = 2020
-        AND  c.id = :id_continent 
-        GROUP BY p.nom;
-    ";
+$query = "SELECT p.nom AS nom_pays, SUM(arriveesTotal) AS somme_arrivees, SUM(co2) AS total_co2
+    FROM alldata
+    JOIN pays p ON id_pays = p.id
+    JOIN continents c ON p.id_continent = c.id
+    WHERE annee = 2020
+    AND  c.id = :id_continent 
+    GROUP BY p.nom;
+";
+
 $sth = $cur->prepare($query);
 $sth->bindParam(":id_continent", $id_continent, PDO::PARAM_STR);
 $sth->execute();
@@ -103,26 +84,6 @@ $dataScatter = array();
         }
 }
 
-//graph en barre
-// $query = "SELECT pays.nom AS nom_pays, economie.pibParHab FROM pays JOIN economie ON pays.id = economie.id_pays WHERE pays.id_continent = :id_continent AND economie.annee = 2020 ORDER BY economie.pibParHab DESC;
-// ";
-// $sth = $cur->prepare($query);
-// $sth->bindParam(":id_continent", $id_continent, PDO::PARAM_STR);
-// $sth->execute();
-// $dataBar = array();
-//     while ($rs = $sth->fetch(PDO::FETCH_ASSOC)) {
-//         foreach (array("nom_pays","pibParHab") as $key => $value) {
-//             if (!isset($rs[$value])){
-//                 $rs[$value]=null;
-//             }
-//         }
-//         $dataBar[] = array("name" => $rs["nom_pays"], "value" => $rs["pibParHab"]);
-// }
-
-//---------- Line chart mean, max and min
-
-
-
 // Min
 $data_Min = json_encode(dataOptContient($cur,$id_continent,"MIN"),JSON_NUMERIC_CHECK);
 $data_Max = json_encode(dataOptContient($cur,$id_continent,"MAX"),JSON_NUMERIC_CHECK);
@@ -133,10 +94,8 @@ $dataScatterContinent = json_encode($dataScatter,JSON_NUMERIC_CHECK );
 $dataHalfPie= json_encode($dataHalfPie,JSON_NUMERIC_CHECK);
 
 
-$dataBarContinent = databarreContinent($id_continent, $cur);
+$dataBarContinent = dataBarreContinent($id_continent, $cur);
 $dataBarContinent = json_encode ($dataBarContinent,JSON_NUMERIC_CHECK);
-
-
 
 $query = "SELECT pays.nom, score, pays.id
 FROM continents
@@ -185,7 +144,6 @@ $randomCountryId = $sth->fetchColumn();
 
 echo <<<HTML
 
-
 <div class="container-presentation expand-3" id="bandeau0" hx-swap-oob="outerHTML">
     <div class="bandeau"> 
         <img class="img-bandeau" src='assets/img/$randomCountryId.jpg' alt="Bandeau">
@@ -204,6 +162,7 @@ echo <<<HTML
     barreContinentHTMX($dataBarContinent, "data")
     lineHTMXContient($data_Mean, $data_Max, $data_Min)
     scatterHTMX($dataScatterContinent, "Emission de CO2 ")
+    map.zoomToContinent("$am")
 </script>
 
 HTML;

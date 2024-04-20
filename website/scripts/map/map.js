@@ -299,17 +299,6 @@ function createMapCatalogue(option) {
     })
 }
 
-function createMapCatalogueC(option) {
-    map = new EcoMap("map",option,false)
-    map.addContinents()
-    
-
-    map.root.events.on("frameended",() => {
-        map.zoomToContinent("europe")
-        map.root.events.off("frameended")
-    })
-}
-
 function createMapExplorer(data) {
     map = new EcoMap("map","explorer",false)
     map.addCountries()

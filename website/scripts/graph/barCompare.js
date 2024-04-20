@@ -3,7 +3,7 @@ var year;
 function barCompare(id) {
     b = new Graphique(id, "bar")
     b.createXAxis("var")
-    b.createYAxis()
+    b.createYAxis(null,"% de croissance")
     b.setDataXAxis([{"var":"pibParHab"},{"var":"co2"},{"var":"arriveesTotal"},{"var":"gpi"},{"var":"cpi"}])
     b.addSlider(updateBar,700,10,50,50,0,2008,2020)
     b.setNumberFormat("# '%'")

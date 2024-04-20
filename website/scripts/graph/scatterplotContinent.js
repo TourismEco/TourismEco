@@ -1,7 +1,7 @@
 function scatterplotContinent(id) {
     s = new Graphique(id, "xy")
-    s.createXAxis()
-    s.createYAxis()
+    s.createXAxis(null, {}, "Arrivées Touristiques")
+    s.createYAxis(null, {}, false, "Emissions de CO2")
     s.addLegend()
     s.addSerie("dot","var", "value", null,"{nom}",color[0] );
 }
