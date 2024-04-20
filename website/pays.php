@@ -267,7 +267,60 @@ if ($pays == "") {
             </div>
 
             <div class="zone zone-basic display" id="barl" style="display:none">
+                <div class="title-zone">
+                    <img class="flag-small" src='assets/icons/stats.svg'>
+                    <div>
+                        <h2>PIB vs Tourisme</h2>
+                        <p>Ce graphique compare l'évolution entre le PIB Par Habitant et les Arrivées totales dans le pays au fil des années.</p>
+                    </div>
+                </div>
+
                 <div class="graph" id="barreLine"></div>
+                <div class="table">
+                    <div class="legende">
+                        <div class="icon_name legende-element">
+                            <img src="assets/icons/bar-black.svg" class="square">
+                            <p class="name" id="icon_name"> PIB Par Habitant</p>
+                        </div>
+                      
+                        <div class="legende-element">
+                            <img src="assets/icons/courbe.svg" class="square">
+                            <p class ="name"> Arrivée totale dans le pays</p>
+                        </div>
+                    </div>
+
+                    <div class="container-info">
+                        <p>Minimum tourisme atteint en</p>
+                        <p id="minTourisme1" class="big">-</p>
+                        <p id="minTourisme_detail1">-</p>
+                    </div>
+
+                    <div class="container-info">
+                        <p>Maximum tourisme atteint en</p>
+                        <p id="maxTourisme1" class="big">-</p>
+                        <p id="maxTourisme_detail1">-</p>
+                    </div>
+
+                    <div class="container-info">
+                        <p>Minimum PIB atteint en</p>
+                        <p id="minPib1" class="big">-</p>
+                        <p id="min_detail1">-</p>
+                    </div>
+                    <div class="container-info">
+                        <p>Maximum PIB atteint en</p>
+                        <p id="maxPib1" class="big">-</p>
+                        <p id="max_detail1">-</p>
+                    </div>
+                    <div class="container-info">
+                        <p>Impact du COVID sur le tourisme en 2020</p>
+                        <p id="covidImpactTourisme1" class="big">-</p>
+                    </div>
+                    <div class="container-info">
+                        <p>Impact du COVID sur le PIB en 2020</p>
+                        <p id="covidImpactPib1" class="big">-</p>
+                    </div>
+                    
+                </div>
             </div>
 
             <div class="zone zone-scores display" id="scores" style="display:none">

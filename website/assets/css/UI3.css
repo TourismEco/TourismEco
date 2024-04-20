@@ -853,8 +853,12 @@ html {
 #line {
     grid-row: 2 / 4;
 }
+
 #barreContinent {
     grid-row: 2 / 4;
+}
+#barreLine {
+    grid-row: 2 / 4
 }
 .active {
     filter: invert();
@@ -2034,11 +2038,14 @@ input {
     color: white;
 }
 
+
 .preference-item {
     display: flex;
     align-items: center;
     gap: 10px;
     margin-bottom: 10px;
+    padding: 5px;
+    width: 300px;
 }
 
 .preference-item input {

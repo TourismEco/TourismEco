@@ -255,14 +255,15 @@ function dataBarreLine($pays, $conn) {
     $covidImpactTourisme = 0;
 
     while ($rs = $result->fetch(PDO::FETCH_ASSOC)) {
-        $data[] = array(
-            "year" => $rs['annee'],
-            "value" => $rs['pibParHab'],
-            "valueLeft" => $rs['arriveesTotal']
-        );
-
+        if ( $rs['pibParHab']!=null && $rs['arriveesTotal']!=null && $rs['annee']!=null){
+            $data[] = array(
+                "year" => $rs['annee'],
+                "value" => $rs['pibParHab'],
+                "valueLeft" => $rs['arriveesTotal']
+            );
+        }
         // Min et Max pour les indicateurs
-        if (count($minPib) == 0 || $rs['pibParHab'] < $minPib['value']) {
+        if ((count($minPib) == 0 || $rs['pibParHab'] < $minPib['value']) && $rs['pibParHab']!=null) {
             $minPib = array("year" => $rs["annee"], "value" => $rs['pibParHab']);
         }
         if (count($maxPib) == 0 || $rs['pibParHab'] > $maxPib['value']) {
@@ -276,12 +277,27 @@ function dataBarreLine($pays, $conn) {
         }
 
         // Impact du covid
-        if ($rs['annee'] == 2020 && $rs['arriveesTotal'] != null) {
-            if ($data[count($data)-1]['value'] != 0) {
-                $covidImpactPib = 100*($rs['pibParHab'] - $data[count($data)-1]['value']) / $data[count($data)-1]['value'];
+        if ($rs["annee"] == 2020 && $rs["arriveesTotal"] != null) {
+            $covidImpactPib =
+                (100 * ($rs["pibParHab"] - $data[count($data) - 1]["value"])) /
+                $data[count($data) - 1]["value"];
+            $covidImpactTourisme =
+                (100 *
+                    ($rs["arriveesTotal"] -
+                        $data[count($data) - 1]["valueLeft"])) /
+                $data[count($data) - 1]["valueLeft"];
+            if ($data[count($data) - 1]["value"] != 0) {
+                $covidImpactPib =
+                    (100 *
+                        ($rs["pibParHab"] - $data[count($data) - 1]["value"])) /
+                    $data[count($data) - 1]["value"];
             }
-            if ($data[count($data)-1]['valueLeft'] != 0) {
-                $covidImpactTourisme = 100*($rs['arriveesTotal'] - $data[count($data)-1]['valueLeft']) / $data[count($data)-1]['valueLeft'];
+            if ($data[count($data) - 1]["valueLeft"] != null) {
+                $covidImpactTourisme =
+                    (100 *
+                        ($rs["arriveesTotal"] -
+                            $data[count($data) - 1]["valueLeft"])) /
+                    $data[count($data) - 1]["valueLeft"];
             }
         }
     }

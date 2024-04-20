@@ -247,7 +247,7 @@ $dataTab = json_encode(dataTab($id_pays, $cur),JSON_NUMERIC_CHECK);
 //Graphique Barre Line
 $allBareLine = dataBarreLine($id_pays, $cur);
 
-$dataBarreLine= json_encode($allBareLine['data'],JSON_NUMERIC_CHECK);
+$dataBarreLine= json_encode($allBareLine,JSON_NUMERIC_CHECK);
 $dataBLMinYearPIB= json_encode($allBareLine['minPib']['year'],JSON_NUMERIC_CHECK);
 $dataBLMinValPIB= json_encode($allBareLine['minPib']['value'],JSON_NUMERIC_CHECK);
 $dataBLMaxYearPIB= json_encode($allBareLine['maxPib']['year'],JSON_NUMERIC_CHECK);

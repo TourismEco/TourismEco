@@ -54,6 +54,8 @@
             <div class="score-box score-$letter" id="mar0">$letter</div>
         </div>
         
+        <div class="explore-rang" id="rang"></div>
+
         <div class="explore-more col3" hx-post="pays.php" hx-vals="js:{id_pays:'$id_pays'}" hx-swap="outerHTML swap:0.5s" hx-target="#zones" hx-select="#zones" hx-push-url="true">
             <img src="assets/icons/plus.svg" alt="icon plus">
             <p class="more-text">Voir plus</p>
@@ -61,5 +63,12 @@
 
     </div>
 
+    <script id="scripting" hx-swap-oob="outerHTML">
+        map.zoomTo("$id_pays")
+        map.addCities($cities)
+        map.addCapitals($capitals)
+        id_pays = "$id_pays"
+        updateRanking(id_pays,typeC,map.data)
+    </script>
     HTML;
 ?>
