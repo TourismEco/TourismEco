@@ -76,6 +76,9 @@ function changeScore(option) {
         Economique:[0.14, 0.28, 0.42, 0.56, 0.7, 0.79382]
     }
 
+    $(".infos-scores").hide();
+     $("#score-" + option).show();
+
     p = poids[option]
 
     $(".poids-active").removeClass("poids-active")

@@ -1181,6 +1181,7 @@ input {
     background-color: #d9d9d9;
 }
 
+
 #compare-switch {
     width: 20px;
     margin: 5px 12.5px;
@@ -1760,7 +1761,7 @@ input {
     display: flex;
     background-color: #d9d9d9;
     border-radius: 10px;
-    height: 70px;
+    max-height:100%;
     width: 300px;
     align-items: center;
     border: solid 2px #b8b8b8;
