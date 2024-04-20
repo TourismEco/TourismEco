@@ -72,20 +72,7 @@ function addSlimCountry($id,$nom,$letter,$page) {
 }
 
 function dataLine($pays, $conn) {
-    $query = "SELECT allk.id_pays, allk.annee AS year, co2, elecRenew, pibParHab, idh, gpi, arriveesTotal*1000 AS arriveesTotal, departs*1000 AS departs
-    FROM (SELECT id_pays, annee FROM economie UNION 
-            SELECT id_pays, annee FROM tourisme UNION
-            SELECT id_pays, annee FROM surete UNION
-            SELECT id_pays, annee FROM idh UNION
-            SELECT id_pays, annee FROM ecologie
-            ) allk 
-    LEFT OUTER JOIN economie ON allk.id_pays = economie.id_pays AND allk.annee = economie.annee 
-    LEFT OUTER JOIN ecologie ON allk.id_pays = ecologie.id_pays AND allk.annee = ecologie.annee 
-    LEFT OUTER JOIN surete ON allk.id_pays = surete.id_pays AND allk.annee = surete.annee 
-    LEFT OUTER JOIN idh ON allk.id_pays = idh.id_pays AND allk.annee = idh.annee 
-    LEFT OUTER JOIN tourisme ON allk.id_pays = tourisme.id_pays AND allk.annee = tourisme.annee
-    WHERE allk.id_pays = '$pays'
-    ORDER BY allk.annee;";
+    $query = "SELECT annee AS year, co2, elecRenew, pibParHab, idh, gpi, arriveesTotal, departs FROM alldata WHERE id_pays = '$pays' ORDER BY annee;";
 
     $result = $conn->query($query);
 
@@ -126,7 +113,6 @@ function dataLine($pays, $conn) {
     $evol = array();
     $rank = array();
 
-    $tables = array("economie","ecologie","ecologie","tourisme","tourisme","surete","idh");
     $cols = array("pibParHab","elecRenew","co2","arriveesTotal","departs","gpi","idh");
     foreach ($cols as $key => $value) {
         $start = 0;
@@ -146,7 +132,7 @@ function dataLine($pays, $conn) {
             $year = $data[$end]['year'];
             $evol[$value] = array("val" => round(100*($data[$end][$value] - $data[$start][$value]) / $data[$start][$value], 2), "start" => $data[$start]['year'], "end" => $year);
 
-            $query = "SELECT * FROM (SELECT id_pays, $cols[$key], RANK() OVER (ORDER BY $cols[$key] DESC) AS 'rank' FROM $tables[$key] WHERE annee =  $year) AS t WHERE id_pays = '$pays';";
+            $query = "SELECT $value AS `rank` FROM alldata_rank WHERE id_pays = '$pays' AND annee = $year;";
             if ($data[$start][$value] == 0) {
                 $evol[$value] = "N/A";
             } else {
@@ -214,20 +200,7 @@ function dataCompareLine($data1, $data2) {
 
 
 function dataSpider($pays, $conn) {
-    $query = "SELECT allk.id_pays, allk.annee AS annee, co2 AS 'Emissions de CO2', elecRenew AS '% énergies ren.', pibParHab AS 'PIB/Hab', idh AS 'IDH', gpi AS 'Global Peace Index', arriveesTotal AS 'Arrivées touristiques', departs AS 'Départs'
-    FROM (SELECT id_pays, annee FROM economie_norm UNION 
-            SELECT id_pays, annee FROM tourisme_norm UNION
-            SELECT id_pays, annee FROM surete_norm UNION
-            SELECT id_pays, annee FROM idh_norm UNION
-            SELECT id_pays, annee FROM ecologie_norm
-            ) allk 
-    LEFT OUTER JOIN economie_norm ON allk.id_pays = economie_norm.id_pays AND allk.annee = economie_norm.annee 
-    LEFT OUTER JOIN ecologie_norm ON allk.id_pays = ecologie_norm.id_pays AND allk.annee = ecologie_norm.annee 
-    LEFT OUTER JOIN surete_norm ON allk.id_pays = surete_norm.id_pays AND allk.annee = surete_norm.annee 
-    LEFT OUTER JOIN idh_norm ON allk.id_pays = idh_norm.id_pays AND allk.annee = idh_norm.annee 
-    LEFT OUTER JOIN tourisme_norm ON allk.id_pays = tourisme_norm.id_pays AND allk.annee = tourisme_norm.annee
-    WHERE allk.id_pays = '$pays'
-    ORDER BY allk.annee;";
+    $query = "SELECT annee, co2 AS 'Emissions de CO2', elecRenew AS '% énergies ren.', pibParHab AS 'PIB/Hab', idh AS 'IDH', gpi AS 'Global Peace Index', arriveesTotal AS 'Arrivées touristiques', departs AS 'Départs' FROM alldata_norm WHERE id_pays = '$pays' ORDER BY annee;";
 
     $result = $conn->query($query);
     
@@ -249,20 +222,7 @@ function dataSpider($pays, $conn) {
 
 function dataBar($pays, $conn) {
    
-    $query = "SELECT allk.id_pays, allk.annee AS annee, co2, pibParHab, idh, gpi, arriveesTotal
-    FROM (SELECT id_pays, annee FROM economie_grow UNION 
-            SELECT id_pays, annee FROM tourisme_grow UNION
-            SELECT id_pays, annee FROM surete_grow UNION
-            SELECT id_pays, annee FROM idh_grow UNION
-            SELECT id_pays, annee FROM ecologie_grow
-            ) allk 
-    LEFT OUTER JOIN economie_grow ON allk.id_pays = economie_grow.id_pays AND allk.annee = economie_grow.annee 
-    LEFT OUTER JOIN ecologie_grow ON allk.id_pays = ecologie_grow.id_pays AND allk.annee = ecologie_grow.annee 
-    LEFT OUTER JOIN surete_grow ON allk.id_pays = surete_grow.id_pays AND allk.annee = surete_grow.annee 
-    LEFT OUTER JOIN idh_grow ON allk.id_pays = idh_grow.id_pays AND allk.annee = idh_grow.annee 
-    LEFT OUTER JOIN tourisme_grow ON allk.id_pays = tourisme_grow.id_pays AND allk.annee = tourisme_grow.annee
-    WHERE allk.id_pays = '$pays' AND allk.annee >= 1995 AND allk.annee <= 2021
-    ORDER BY allk.annee;
+    $query = "SELECT annee, co2, elecRenew, pibParHab, idh, gpi, arriveesTotal, departs FROM alldata_grow WHERE id_pays = '$pays' ORDER BY annee;
     ";
 
     $result = $conn->query($query);
@@ -282,17 +242,7 @@ function dataBar($pays, $conn) {
 }
 
 function dataBarreLine($pays, $conn) {
-    $query = "SELECT tourisme.annee as annee, pibParHab, arriveesTotal
-
-    FROM economie, tourisme, pays
-    WHERE economie.id_pays = tourisme.id_pays
-    AND economie.id_pays = pays.id
-    AND pays.id = '$pays'
-   
-    AND economie.annee = tourisme.annee
-
-    ORDER BY `tourisme`.`annee` ASC;
-    ";
+    $query = "SELECT annee, pibParHab, arriveesTotal FROM alldata WHERE id_pays = '$pays' ORDER BY annee;";
 
     $result = $conn->query($query);
 
@@ -349,21 +299,9 @@ function dataBarreLine($pays, $conn) {
     );
 }
 
-function dataBarreContinent($continent, $conn) {
-    $query = "SELECT allk.id_pays, pays.nom AS `name`, allk.annee AS year, co2, elecRenew, pibParHab, cpi, gpi, arriveesTotal*1000 AS arriveesTotal, departs*1000 AS departs
-    FROM (SELECT id_pays, annee FROM economie UNION 
-            SELECT id_pays, annee FROM tourisme UNION
-            SELECT id_pays, annee FROM surete UNION
-            SELECT id_pays, annee FROM ecologie
-            ) allk 
-    LEFT OUTER JOIN economie ON allk.id_pays = economie.id_pays AND allk.annee = economie.annee 
-    LEFT OUTER JOIN ecologie ON allk.id_pays = ecologie.id_pays AND allk.annee = ecologie.annee 
-    LEFT OUTER JOIN surete ON allk.id_pays = surete.id_pays AND allk.annee = surete.annee 
-    LEFT OUTER JOIN tourisme ON allk.id_pays = tourisme.id_pays AND allk.annee = tourisme.annee
-    LEFT OUTER JOIN pays ON allk.id_pays = pays.id
-    WHERE pays.id_continent = '$continent' AND 
-     allk.annee = 2020";
 
+function dataBarreContinent($pays, $conn) {
+    $query = "SELECT id_pays, annee, co2, elecRenew, pibParHab, gpi, idh, arriveesTotal, departs FROM alldata WHERE id_pays = '$pays' ORDER BY annee;";
     $result = $conn->query($query);
 
     $data = array();
@@ -377,14 +315,14 @@ function dataBarreContinent($continent, $conn) {
         "arriveesTotal" => array("sum" => 0, "count" => 0),
         "departs" => array("sum" => 0, "count" => 0),
         "gpi" => array("sum" => 0, "count" => 0),
-        "cpi" => array("sum" => 0, "count" => 0)
+        "idh" => array("sum" => 0, "count" => 0)
     );
 
 
     while ($rs = $result->fetch(PDO::FETCH_ASSOC)) {
         $data[] = $rs;
 
-        foreach (array("pibParHab", "elecRenew", "co2", "arriveesTotal", "departs", "gpi", "cpi") as $value) {
+        foreach (array("pibParHab", "elecRenew", "co2", "arriveesTotal", "departs", "gpi", "idh") as $value) {
             if ((!isset($minAnnee[$value]) || $rs[$value] < $minAnnee[$value]["val"]) && $rs[$value] != null) {
                 $minAnnee[$value] = array("val" => $rs[$value], "name" => $rs["name"]);
             }
@@ -431,8 +369,7 @@ function dataBarreContinent($continent, $conn) {
 
 
 function dataOptContient($conn, $id_continent, $option) {
-    $tables = array("economie", "ecologie", "ecologie", "tourisme", "tourisme", "surete", "economie");
-    $cols = array("pibParHab", "elecRenew", "co2", "arriveesTotal", "departs", "gpi", "cpi");
+    $cols = array("pibParHab", "elecRenew", "co2", "arriveesTotal", "departs", "gpi", "idh");
 
     $data = array();
     $minAnnee = array();
@@ -440,7 +377,7 @@ function dataOptContient($conn, $id_continent, $option) {
     $evol = array();
     // Boucle sur les colonnes
     foreach ($cols as $key => $value) {
-        $table = $tables[$key];
+        $table = "alldata";
 
         $query = "SELECT annee, p.nom AS nom_pays, $value
         FROM $table
@@ -515,70 +452,36 @@ function dataOptContient($conn, $id_continent, $option) {
 }
 
 function dataMOYContient($conn, $id_continent) {
+    $query = "SELECT annee AS year, AVG(co2) AS co2, AVG(pibParHab) AS pibParHab, AVG(idh) AS idh, AVG(gpi) AS gpi, AVG(arriveesTotal) AS arriveesTotal, AVG(departs) AS departs FROM alldata, pays WHERE pays.id = id_pays AND id_continent = :id_continent GROUP BY annee
+    ORDER BY annee ASC;";
 
-        $query = "SELECT allk.annee AS year, AVG(co2) AS co2, AVG(pibParHab) AS pibParHab, AVG(cpi) AS cpi, AVG(gpi) AS gpi, AVG(arriveesTotal) AS arriveesTotal,AVG(departs) AS departs
-        FROM (SELECT id_pays, annee FROM economie UNION 
-                SELECT id_pays, annee FROM tourisme UNION
-                SELECT id_pays, annee FROM surete UNION
-                SELECT id_pays, annee FROM ecologie
-                ) allk 
-        LEFT OUTER JOIN economie ON allk.id_pays = economie.id_pays AND allk.annee = economie.annee 
-        LEFT OUTER JOIN ecologie ON allk.id_pays = ecologie.id_pays AND allk.annee = ecologie.annee 
-        LEFT OUTER JOIN surete ON allk.id_pays = surete.id_pays AND allk.annee = surete.annee 
-        LEFT OUTER JOIN tourisme ON allk.id_pays = tourisme.id_pays AND allk.annee = tourisme.annee
-        LEFT OUTER JOIN pays ON allk.id_pays = pays.id
-        WHERE id_continent = :id_continent
-        GROUP BY allk.annee
-        ORDER BY allk.annee ASC;
-        ";
+    $sth = $conn->prepare($query);
+    $sth->bindParam(":id_continent", $id_continent, PDO::PARAM_INT);
+    $sth->execute();
 
-        $sth = $conn->prepare($query);
-        $sth->bindParam(":id_continent", $id_continent, PDO::PARAM_INT);
-        $sth->execute();
+    $data = array();
+    while ($rs = $sth->fetch(PDO::FETCH_ASSOC)) {
+        $data[] = $rs;
+    }
 
-        $data = array();
-        while ($rs = $sth->fetch(PDO::FETCH_ASSOC)) {
-            $data[] = $rs;
-        }
-
-        return $data;
+    return $data;
 }
 
-
-
-
-
 function dataTab($pays, $conn) {
-    $query = "SELECT allk.id_pays, allk.annee AS annee, co2, elecRenew, pibParHab, gpi, idh,arriveesTotal*1000 AS 'arriveesTotal', departs*1000 AS 'departs'
-    FROM (SELECT id_pays, annee FROM economie UNION 
-            SELECT id_pays, annee FROM tourisme UNION
-            SELECT id_pays, annee FROM surete UNION
-            SELECT id_pays, annee FROM idh UNION
-            SELECT id_pays, annee FROM ecologie
-            ) allk 
-    LEFT OUTER JOIN economie ON allk.id_pays = economie.id_pays AND allk.annee = economie.annee 
-    LEFT OUTER JOIN ecologie ON allk.id_pays = ecologie.id_pays AND allk.annee = ecologie.annee 
-    LEFT OUTER JOIN surete ON allk.id_pays = surete.id_pays AND allk.annee = surete.annee 
-    LEFT OUTER JOIN idh ON allk.id_pays = idh.id_pays AND allk.annee = idh.annee 
-    LEFT OUTER JOIN tourisme ON allk.id_pays = tourisme.id_pays AND allk.annee = tourisme.annee
-    WHERE allk.id_pays = '$pays'
-    ORDER BY allk.annee;";
-
+    $query = "SELECT id_pays, annee, co2, elecRenew, pibParHab, gpi, idh, arriveesTotal, departs FROM alldata WHERE id_pays = '$pays' ORDER BY annee;";
     $result = $conn->query($query);
-
-    $tables = array("economie","ecologie","ecologie","tourisme","tourisme","surete","idh");
     $cols = array("pibParHab","elecRenew","co2","arriveesTotal","departs","gpi","idh");
 
     $data = array();
     while ($rs = $result->fetch(PDO::FETCH_ASSOC)) {
         $year = $rs["annee"];
         $data[$year] = array();
-        foreach (array("pibParHab","elecRenew","co2","arriveesTotal","departs","gpi","idh") as $key => $value) {
+        foreach ($cols as $key => $value) {
             if (!isset($rs[$value])){
                 $rs[$value]=null;
                 $rank = null;
             } else {
-                $queryR = "SELECT * FROM (SELECT id_pays, $cols[$key], RANK() OVER (ORDER BY $cols[$key] DESC) AS 'rank' FROM $tables[$key] WHERE annee =  $year) AS t WHERE id_pays = '$pays';";
+                $queryR = "SELECT $value AS `rank` FROM alldata_rank WHERE id_pays = '$pays' AND annee = $year;";
                 $resRank = $conn->query($queryR);
                 $rsR = $resRank->fetch(PDO::FETCH_ASSOC);
                 $rank = $rsR["rank"];
@@ -591,7 +494,6 @@ function dataTab($pays, $conn) {
 }
 
 function dataExplorer($conn) {
-    $tables = array("economie","ecologie","ecologie","tourisme","tourisme","surete","idh");
     $cols = array("pibParHab","elecRenew","co2","arriveesTotal","departs","gpi","idh");
     $years = array("pibParHab"=>2021,"elecRenew"=>2020,"co2"=>2020,"arriveesTotal"=>2022,"departs"=>2022,"gpi"=>2023,"idh"=>2022);
     $data = array();
@@ -603,7 +505,7 @@ function dataExplorer($conn) {
     }
 
     foreach ($cols as $key => $value) {
-        $query = "SELECT id_pays, $value, RANK() OVER (ORDER BY $value DESC) AS 'rank' FROM $tables[$key] WHERE annee = $years[$value];";
+        $query = "SELECT id_pays, $value, RANK() OVER (ORDER BY $value DESC) AS 'rank' FROM alldata WHERE annee = $years[$value];";
         $result = $conn->query($query);
         while ($rs = $result->fetch(PDO::FETCH_ASSOC)) {
             if (isset($rs[$value])){
@@ -860,9 +762,8 @@ function cardScore($option, $value) {
                 </div>
             </div>
         HTML;
+        }
     }
-}
-
 
 function scoreBox($option, $value, $letter) {
     if ($value != null) {
@@ -881,7 +782,7 @@ function scoreBox($option, $value, $letter) {
 }
 
 function addSafety($cur, $id_pays, $id_html) {
-    $query = "SELECT id_pays, safety, id_guerre FROM surete, pays WHERE pays.id = id_pays AND annee = 2023 AND id_pays = :id_pays;";
+    $query = "SELECT id_pays, safety, id_guerre FROM alldata, pays WHERE pays.id = id_pays AND annee = 2023 AND id_pays = :id_pays;";
     $id_pays = $_GET["id_pays"];
     $sth = $cur -> prepare($query);
     $sth -> bindParam(":id_pays", $id_pays, PDO::PARAM_STR);
