@@ -6,4 +6,4 @@ ignore/
 plotly/
 */private.php
 *.ipynb
-/config.php
+*config.php
