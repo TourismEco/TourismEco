@@ -554,22 +554,18 @@ function carousel($conn) {
 
     foreach ($images as $image):
         echo <<<HTML
-        <div class="custom-slider">
-            <img class="slide-img" src="assets/img/$image[id].jpg" alt="Illustration de $image[nom]">
-            <a class="slide-link" hx-post="pays.php" hx-push-url="true" hx-target="#zones" hx-select="#zones" hx-swap="outerHTML swap:0.5s" hx-vals="js:{id_pays:'$image[id]'}">
-                <div class="slide-text">
-                    <img class="slide-logo" src="assets/twemoji/$image[id].svg" alt="Drapeau de $image[nom]">
-                    <p>$image[nom]</p>
-                </div>
-            </a>
-            
-        </div>
+            <div class="custom-slider">
+                <img class="slide-img" src="assets/img/$image[id].jpg" alt="Illustration de $image[nom]">
+                <a class="slide-link" hx-post="pays.php" hx-push-url="true" hx-target="#zones" hx-select="#zones" hx-swap="outerHTML swap:0.5s" hx-vals="js:{id_pays:'$image[id]'}">
+                    <div class="slide-text">
+                        <p>$image[nom]</p>
+                    </div>
         HTML;
+        
     endforeach;
-
     echo <<<HTML
-    </div>
-HTML;
+      </div>
+    HTML;
 }
 
 function inputPays($value, $sens) {

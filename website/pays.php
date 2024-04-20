@@ -314,11 +314,25 @@ echo <<<HTML
                         <div id="lim5">1</div>
                     </div>
                     <div class="trait-scores" id="tscor"></div>
+            
 
-                    <div class="infos-scores">
+                    <div class="infos-scores  score-active" id="score-Global">
                         <img src="assets/icons/info.svg" class="score-B">
-                        <p>Le score global représente...</p>
+                        <p>Le score TourismEco évalue 6 critères essentiels comme les arrivées totales par avions, le PIB par habitant et les énergies renouvelables.</p>
                     </div>
+                    <div class="infos-scores" id="score-Decouverte">
+                        <img src="assets/icons/info.svg" class="score-B">
+                        <p>Le score “Tourisme d’Exploration” tient compte des arrivées totales par avions, des gaz à effet de serre par habitant et de l’indice de développement humain.</p>
+                    </div>
+                    <div class="infos-scores" id="score-Ecologique">
+                        <img src="assets/icons/info.svg" class="score-B">
+                        <p>Le score "Tourisme Éco-responsable” se focalise sur les gaz à effet de serre par habitant et l’énergie renouvelable utilisée par rapport à la consommation totale.</p>
+                    </div>
+                    <div class="infos-scores" id="score-Economique">
+                        <img src="assets/icons/info.svg" class="score-B">
+                        <p>Le score “Tourisme Moderne” examine les arrivées totales par avions, le PIB par habitant et l’indice de développement humain.</p>
+                    </div>
+
 
                 </div>
                 <div class="scores-column">
@@ -326,7 +340,6 @@ echo <<<HTML
                     <div class="container-scores" id="sco-gesHab"></div>
                     <div class="container-scores" id="sco-arriveesTotal"></div>
                 </div>
-
             </div>
         </div>
 
@@ -476,6 +489,7 @@ echo <<<JS
                     h = el.clientHeight.toFixed(0)
                     document.getElementById('scr').scroll({top:h*nb,behavior:"smooth"})
                 })
+
 
 
 
