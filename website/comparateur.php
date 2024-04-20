@@ -34,20 +34,15 @@ if (count($pays) <= 1) {
     <div class="window">
 
         <div id="zones">
-
             <div class="zone zone-presentation display" id="home">
                 <div class="container-presentation expand-2" id="bandeau0"></div>
                 <div class="container-presentation expand-2" id="bandeau1"></div>
-
                 <div class="container-presentation" id="score0"></div>
                 <div class="container-presentation" id="miniMap0"></div>
-
                 <div class="container-presentation" id="score1"></div>
                 <div class="container-presentation" id="miniMap1"></div>
-
-                <div class="container-presentation"></div>
-                <div class="container-presentation expand-2"></div>
-                <div class="container-presentation"></div>
+                <div class="container-presentation expand-2" id="bestRank0"></div>
+                <div class="container-presentation expand-2" id="bestRank1"></div>
             </div>
 
             <div class="zone zone-basic display" id="courbe" style="display:none">
