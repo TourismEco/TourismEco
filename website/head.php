@@ -51,9 +51,6 @@ if (!isset($_SERVER["HTTP_HX_REQUEST"])) {
 			<script src="scripts/graph/barreContinent.js"></script>
 			<script src="scripts/graph/scatterplotContinent.js"></script>
 			<script src="scripts/graph/line.js"></script>
-
-
-			<script src="scripts/graph/barre.js"></script>
 			<script src="scripts/graph/linePays.js"></script>
 
 			<script src="scripts/js/functions.js"></script>

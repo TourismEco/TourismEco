@@ -505,9 +505,9 @@ if (count($pays) <= 1) {
 
         <div id="htmxing" hx-swap-oob="outerHTML">
             <?php echo <<<HTML
-    <div hx-get="scripts/htmx/getCompare.php" hx-vals="js:{incr:0,id_pays:'$pays[0]'}" hx-trigger="load"></div>
-    <div hx-get="scripts/htmx/getCompare.php" hx-vals="js:{incr:1,id_pays:'$pays[1]'}" hx-trigger="load"></div>
-HTML; ?>
+                <div hx-get="scripts/htmx/getCompare.php" hx-vals="js:{incr:0,id_pays:'$pays[0]',load:true}" hx-trigger="load"></div>
+                <div hx-get="scripts/htmx/getCompare.php" hx-vals="js:{incr:1,id_pays:'$pays[1]',load:true}" hx-trigger="load"></div>
+            HTML; ?>
         </div>
 
     </div>

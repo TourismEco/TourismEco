@@ -88,9 +88,6 @@ function dataLine($pays, $conn) {
                     $covid[$value] = "N/A";
                 }
             } else {
-                if ($rs["year"] == 2020 && count($data) != 0) {
-                    $covid[$value] = round(100*($rs[$value] - $data[count($data)-1][$value]) / $data[count($data)-1][$value],2);
-                }
                 if ($rs["year"] == 2020 && count($data) > 1) {
                     if ($data[count($data)-1][$value] == 0) {
                         $covid[$value] = "N/A";
@@ -130,7 +127,6 @@ function dataLine($pays, $conn) {
             $rank[$value] = "N/A";
         } else {
             $year = $data[$end]['year'];
-            $evol[$value] = array("val" => round(100*($data[$end][$value] - $data[$start][$value]) / $data[$start][$value], 2), "start" => $data[$start]['year'], "end" => $year);
 
             $query = "SELECT $value AS `rank` FROM alldata_rank WHERE id_pays = '$pays' AND annee = $year;";
             if ($data[$start][$value] == 0) {
@@ -832,8 +828,6 @@ function addSafety($cur, $id_pays, $id_html) {
         </div>
     HTML;
 }
-<<<<<<< HEAD
-=======
 
 function getStatMajeure($id_pays, $cur) {
     $query = "SELECT * FROM alldata_rank WHERE id_pays = :id_pays ORDER BY annee DESC;";
@@ -841,16 +835,17 @@ function getStatMajeure($id_pays, $cur) {
     $sth->bindParam(":id_pays", $id_pays, PDO::PARAM_STR);
     $sth->execute();
 
-    $variables = ["co2", "elecRenew", "pibParHab", "gpi", "arriveesTotal", "idh", "ges", "safety"];
+    $variables = ["co2" => true, "elecRenew" => true, "pibParHab" => true, "gpi" => true, "arriveesTotal" => true, "idh" => true, "ges" => true, "safety" => true];
     $rankings = [];
 
     // Parcourez le résultat de la requête.
     while ($ligne = $sth->fetch(PDO::FETCH_ASSOC)) {
         // Pour chaque ligne, parcourez les noms des variables.
-        foreach ($variables as $variable) {
+        foreach ($variables as $variable => $val) {
             // Si la valeur dans la ligne pour cette variable est non nulle et que nous n'avons rien stocké pour celle-ci, stockez le classement et l'année.
-            if ($ligne[$variable] !== null && !isset($rankings[$variable])) {
-                $rankings[$variable] = ["ranking" => $ligne[$variable], "year" => $ligne["annee"]];
+            if ($ligne[$variable] !== null && $val) {
+                $rankings[] = ["variable" => $variable, "ranking" => $ligne[$variable], "year" => $ligne["annee"]];
+                $variables[$variable] = false;
             }
         }
         // Si toutes les variables ont un classement stocké, arrêtez-vous.
@@ -859,10 +854,17 @@ function getStatMajeure($id_pays, $cur) {
         }
     }
 
-    $minRanking = min(array_column($rankings, "ranking"));
-    $keys = array_keys($rankings, min($rankings));
-    $minVariable = $keys[0];
+    array_multisort(array_column($rankings, 'ranking'), SORT_ASC, $rankings);
 
-    return ["rank" => $minRanking, "year" => $rankings[$minVariable]['year'], "var" => $minVariable];
+    return ["rank" => $rankings[0]['ranking'], "year" => $rankings[0]['year'], "var" => $rankings[0]['variable'], "second" => $rankings[1]['variable'], "rankSecond" => $rankings[1]['ranking'], "yearSecond" => $rankings[1]['year']];
 }
->>>>>>> 30d851a023191ed97d34373de9ba2a697dc47f03
+
+function getSpecific($id_pays, $year, $var, $cur) {
+    $query = "SELECT a.$var AS val, r.$var AS `rank` FROM alldata AS a, alldata_rank AS r WHERE a.id_pays = r.id_pays AND a.annee = r.annee AND a.id_pays = :id_pays AND a.annee = :annee ORDER BY a.annee DESC;";
+    $sth = $cur->prepare($query);
+    $sth->bindParam(":id_pays", $id_pays, PDO::PARAM_STR);
+    $sth->bindParam(":annee", $year, PDO::PARAM_INT);
+    $sth->execute();
+
+    return $sth->fetch(PDO::FETCH_ASSOC);
+}
