@@ -68,14 +68,19 @@
             </div>
 
             <div class="zone zone-triple display" id="score" style="display: none;">
-            <div class="container-presentation expandrow-2 score">
+            <div class="container-presentation expandrow-2 score ">
+                <div class="sectionAnalyse">
+                    <img class="flag-small" src='assets/icons/analyseScore.svg'>
                     <h2> Score </h2>
                     <p> Le projet vise à attribuer un score à chaque pays pour fournir une identité supplémentaire. Ce score, basé sur des critères éthiques, permet aux utilisateurs de découvrir facilement des informations sur leur future destination en fonction de leurs préférences. Quatre scores sont mis en place : "Tourismeco" pour une vue d'ensemble par défaut, et trois autres ("Tourisme moderne", "Tourisme Éco-responsable", et "Tourisme d'Exploration et de Découverte") pour des préférences spécifiques.</p>
                     <p>Les critères de chaque score incluent des indicateurs tels que les arrivées d'avions, l'Indice de Développement Humain (IDH), les émissions de gaz à effet de serre (GES), etc. Chaque score est normalisé entre 0 et 1, puis noté de A à E, de parfait à mauvais.</p>
                 </div>
+            </div>
                 <div class="container-presentation expandrow-2 expand-2 score">
+               
                     <p> La mise en place des scores s'est faite en utilisant Python. Les données ont été traitées et des poids ont été attribués à chaque critère. Une moyenne pondérée a été utilisée pour obtenir le score final. Les intervalles de score ont été définis en fonction de la variance et appliqués aux données. Enfin, une vérification de cohérence a été réalisée à l'aide d'une visualisation par une carte du monde. </p>
                     <p> De plus nous avons normaliser les données en utilisant la méthode multicritère, cela nous a permis de comparer différents critères. Elle consiste à attribuer des poids différents à chaque critère, certains augmentant le score tandis que d'autres le diminuent. Les valeurs résultantes sont comprises entre 0 et 1. Par exemple, les variables telles que les arrivées d'avions, le PIB par habitant, les énergies renouvelables et l'IDH augmentent le score (cf. calcul 2), tandis que le GPI et les émissions de GES par habitant le diminuent (cf. calcul 1). </p>
+                   
                     <div class="math">
                         <div class="frac">
                             <div class="num">Valeur du critère de l’élément</div>
@@ -280,7 +285,7 @@
 
 </div>
                         <div class="container-presentation expandrow-2">
-                        <div>
+                        <div class="arima1">
                         <p> ARIMA tire son efficacité de la combinaison de trois concepts principaux : l'autorégression (AR), l'intégration (I) et la moyenne mobile (MA). 
                         </p><p>Comprendre ces composantes est essentiel pour maîtriser ARIMA et
 exploiter ses capacités dans l'analyse des séries temporelles.
@@ -308,7 +313,7 @@ temporelles avec précision. En comprenant ces concepts fondamentaux, nous somme
                             <p> Ensembles de données indexées par le temps, reflétant ainsi l'évolution d'un phénomène au fil du temps. </p>
                         </div></div></div>
                         <div class="container-presentation expand-2">
-                        <div>
+                        <div class="arima1">
                         <p> Les séries temporelles représentent un aspect interessant de l'analyse des données, offrant un aperçu des phénomènes qui évoluent avec le temps. Avant de plonger dans les détails du modèle ARIMA, il est important de comprendre les fondamentaux des séries temporelles.
 Elles sont décomposées en trois composantes principales :</p><p>
 - Tendance (Tt) : Représente la variation à long terme de la série, pouvant être croissante, décroissante ou stable.
@@ -325,14 +330,14 @@ Cette décomposition permet une compréhension approfondie de la structure des d
                         <div class="container-presentation">
                         <div class="sectionAnalyse2">
                                 <img class="flag-small" src="assets/icons/arimaFav.svg">
-                            <div>
+                            <div class="arima1">
                             <h2>DÉTERTMINER LES PARAMÈTRES ARIMA</h2>
                             <p> La configuration d'un modèle ARIMA implique de choisir les valeurs appropriées pour le paramètres p, d et q, qui déterminent l'ordre de l'autorégression, le degré de différenciation et l'ordre de la moyenne mobile, respectivement. </p>
                             </div>
                         </div>
                         </div>
                         <div class="container-presentation expandrow-2">
-                            <div>
+                            <div class="arima2">
                             <p> Pour simplifier et accélérer le processus de configuration des modèles ARIMA, l'automatisation à
 l'aide de la recherche en grille est souvent utilisée. Cette approche implique de spécifier une grille
 de valeurs pour les paramètres p, d et q, puis d'évaluer la performance de chaque combinaison
@@ -344,10 +349,11 @@ une grille de valeurs pour chaque paramètre, d'évaluer les performances de cha
 de paramètres et de sélectionner celle qui donne les meilleures performances prévisionnelles. </p>
                         </div></div>
                         <div class="container-presentation">
+                        <div class="arima2">
                             <p> En raison de la complexité de l'estimation des paramètres ARIMA, des méthodes d'essais et d'erreurs itératifs sont souvent utilisées pour trouver les valeurs optimales. Cela implique d'ajuster différents modèles ARIMA avec des combinaisons de paramètres et de sélectionner celui qui
 minimise les erreurs de performance, telles que l'erreur quadratique moyenne (RMSE) ou l'erreur
 absolue moyenne (MAE). </p>
-                        </div>
+                        </div></div>
                     </div>
                     <div class="allow-scroll allow-scroll-full zone-arima">
                         <div class="container-presentation ">
@@ -362,7 +368,7 @@ absolue moyenne (MAE). </p>
                         <img src="assets/img_Analyse/prediction_ech.png">
                         </div>
                         <div class="container-presentation expand-2 ">
-                            <div>
+                            <div class="arima1">
                             <p> Les données portent sur le pourcentage de production d’énergies renouvelables aux États-Unis de 1995 à 2020. Ces données sont divisées en deux ensembles : un ensemble d'entraînement, qui comprend environ 80 % des données, et un ensemble de test, qui contient les 20 % restants. Cette division permet d'évaluer la performance du modèle sur des données qu'il n'a pas encore rencontrées lors de l'entraînement.
                             </p>
                             <p> Le coefficient de détermination R2 (R-carré) est utilisé pour évaluer la qualité de l'ajustement du modèle aux données. Un R2 de 0,88 indique que le modèle explique environ 88 % de la variance dans les données. En d'autres termes, il montre que le modèle ARIMA est assez bon pour représenter et prédire la tendance pour cet ensemble de donnée.
@@ -374,12 +380,13 @@ En outre, il est important de noter que ces données peuvent être étendues pou
                                 <img class="flag-small" src="assets/icons/arimaWrite.svg">
 
                            <div> <h2> PRÉDICTIONS HORS ÉCHANTILLION </h2>
+
                             <p> Une fois que les paramètre du modèle ARIMA ont été configuré et que les prédictions sur l'échantillon de test ont été jugé bon à l’aide du calcul des erreurs métriques. Nous pouvons faire des prédictions hors échantillon, ce sont des prévisions faites pour des périodes futures qui ne font pas partie de l'ensemble de données d'entraînement initial. Ces prédictions sont importantes pour évaluer la capacité du modèle ARIMA à généraliser de nouvelles données et à maintenir sa performance prédictive dans des conditions réelles.</p>
                         </div></div>
                         </div>
                         <div class="container-presentation img-pred">  <img src="assets/img_Analyse/hors_ech.png"> </div>
                         <div class="container-presentation expand-2 ">
-                        <div>
+                        <div class="arima1">
                             <p> En conclusion, le graphique présente en rouge le pourcentage de production d'énergie renouvelable aux États-Unis de 1995 à 2020, tandis que les prévisions du pourcentage d'énergie renouvelable pour les sept années suivantes sont représentées en bleu. En outre, il est important de noter que ces données peuvent être étendues pour inclure d'autres pays et d'autres années. Cela signifie que le modèle ARIMA peut être adapté pour étudier et prédire les tendances de la production d'énergies renouvelables à l'échelle mondiale et sur des périodes plus étendues. </p>
                         </div></div>
                     </div>
@@ -389,11 +396,12 @@ En outre, il est important de noter que ces données peuvent être étendues pou
 
             <div class="zone zone-triple display" id="regr" style="display:none">
 
-                <div class="container-presentation expand-2 regression1">
-                    <h2> Régression Linéaire </h2>
-                    <p> La régression linéaire constitue une approche utile pour prédire ou estimer des valeurs en se basant sur une relation linéaire entre une variable dépendante et une ou plusieurs variables explicatives.
-                        Notre approche consiste à trouver des relations entre différentes variables de notre base de données, pour qu’elles soient de prédictions intéressantes à mettre en place. Pour cela nous avons utiliser principalement la variable PIB comme variable explicative et on a exploré d’autres variables supplémentaires comme variable explicative.
-                        Pour mettre en place cette régression linéaire, nous avons utilisé le langage de programmation python. On a utilisé des fonctions et des méthodes similaires pour chaque régression, en prenant à chaque fois des données sur une intervalle de 2 ans. On a veillé à prendre des données les plus récentes, en général jusqu'à 2022 et parfois jusqu'à 2020 seulement. </p>
+            <div class="container-presentation expand-2 regression1">
+                    <div class="sectionAnalyse">
+                        <img class="flag-small" src='assets/icons/stats.svg'>
+                        <h2> Régression Linéaire </h2>
+                        <p> La régression linéaire est une méthode de prédiction. Nous avons principalement utilisé le PIB comme variable explicative, tout en explorant d’autres variables dans notre base de données. Le langage de programmation Python a été utilisé pour mettre en œuvre cette régression linéaire. Nous avons appliqué des méthodes similaires pour chaque régression, en utilisant des données sur une période de 2 ans, généralement jusqu’à 2022.</p>
+                    </div>
                 </div>
                 <div class="scroll">
 
