@@ -1186,7 +1186,8 @@ h1 {
 }
 
 .tooltip .top {
-    min-width: 300px;
+    min-width: 500px;
+    max-height: 40px;
     top: -20px;
     left: 50%;
     transform: translate(-50%, -100%);

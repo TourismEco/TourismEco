@@ -76,8 +76,16 @@ if ($pays == "") {
                         <div id="td_idh_0"></div>
                         <div id="td_idh_grow" class="small"></div>
                     </div>
-
-                    <img class="icon" src="assets/icons/idh.svg">
+                    
+                    <div class="tooltip">
+                        <img class="icon" src="assets/icons/idh.svg">
+                        <div class="top">
+                            <h3>IDH (Indice de Développement Humain)</h3>
+                            <p>Indicateur composite mesurant le bien-être socio-économique des populations.</p>
+                            <i></i>
+                        </div>
+                    </div>
+                    
 
                     <div class="el-cube">
                         <div id="td_idh_rank"></div>
@@ -91,7 +99,14 @@ if ($pays == "") {
                         <div id="td_pibParHab_grow" class="small"></div>
                     </div>
 
-                    <img class="icon" src="assets/icons/dollar.svg">
+                    <div class="tooltip">
+                        <img class="icon" src="assets/icons/dollar.svg">
+                        <div class="top">
+                            <h3>PIB/HAB</h3>
+                            <p>Moyenne de richesse produite par personne dans un pays.</p>
+                            <i></i>
+                        </div>
+                    </div>
 
                     <div class="el-cube">
                         <div id="td_pibParHab_rank"></div>
@@ -106,8 +121,14 @@ if ($pays == "") {
                         <div id="td_gpi_grow" class="small"></div>
                     </div>
 
-                    <img class="icon" src="assets/icons/shield.svg">
-
+                    <div class="tooltip">
+                        <img class="icon" src="assets/icons/shield.svg">
+                        <div class="top">
+                            <h3>GPI</h3>
+                            <p>Mesure comparative du niveau de paix dans différents pays.</p>
+                            <i></i>
+                        </div>
+                    </div>
                     <div class="el-cube">
                         <div id="td_gpi_rank"></div>
                         <div id="td_gpi_rankEvol" class="small"></div>
@@ -120,7 +141,14 @@ if ($pays == "") {
                         <div id="td_elecRenew_grow" class="small"></div>
                     </div>
 
-                    <img class="icon" src="assets/icons/elec.svg">
+                    <div class="tooltip">
+                        <img class="icon" src="assets/icons/elec.svg">
+                        <div class="top">
+                            <h3>Pourcentage d'energie renouvelable</h3>
+                            <p>Part de l'énergie produite à partir de sources renouvelables dans l'ensemble.</p>
+                            <i></i>
+                        </div>
+                    </div>
 
                     <div class="el-cube">
                         <div id="td_elecRenew_rank"></div>
@@ -135,8 +163,14 @@ if ($pays == "") {
                         <div id="td_departs_grow" class="small"></div>
                     </div>
 
-                    <img class="icon" src="assets/icons/up.svg">
-
+                    <div class="tooltip">
+                        <img class="icon" src="assets/icons/up.svg">
+                        <div class="top">
+                            <h3>Départ</h3>
+                            <p>Nombre de visiteurs partant du pays donné.</p>
+                            <i></i>
+                        </div>
+                    </div>
                     <div class="el-cube">
                         <div id="td_departs_rank"></div>
                         <div id="td_departs_rankEvol" class="small"></div>
@@ -149,7 +183,14 @@ if ($pays == "") {
                         <div id="td_co2_grow" class="small"></div>
                     </div>
 
-                    <img class="icon" src="assets/icons/cloud.svg">
+                    <div class="tooltip">
+                        <img class="icon" src="assets/icons/cloud.svg">
+                        <div class="top">
+                            <h3>Emission de CO2</h3>
+                            <p>kilo de dioxyde de carbone dans l'atmosphère par activités humaines.</p>
+                            <i></i>
+                        </div>
+                    </div>
 
                     <div class="el-cube">
                         <div id="td_co2_rank"></div>
@@ -163,8 +204,14 @@ if ($pays == "") {
                         <div id="td_arriveesTotal_grow" class="small"></div>
                     </div>
 
-                    <img class="icon" src="assets/icons/down.svg">
-
+                    <div class="tooltip">
+                        <img class="icon" src="assets/icons/down.svg">
+                        <div class="top">
+                            <h3>Arrivées touristiques</h3>
+                            <p>Nombre de visiteurs arrivant dans le pays donné.</p>
+                            <i></i>
+                        </div>
+                    </div>
                     <div class="el-cube">
                         <div id="td_arriveesTotal_rank"></div>
                         <div id="td_arriveesTotal_rankEvol" class="small"></div>
