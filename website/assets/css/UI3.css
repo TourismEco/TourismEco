@@ -2240,6 +2240,7 @@ span {
         font-size: 15px;
         margin-top: 30px;
         margin-right: 30px;
+        
     }
 }
 
@@ -2270,7 +2271,7 @@ span {
     }
     p {
         margin: 10px;
-        font-size: 10px;
+        font-size: 14px;
     }
 }
 
@@ -2792,3 +2793,21 @@ ul {
     }
 
 }
+
+.arima1 p {
+    margin: 10px;
+    padding: 5px;
+    padding-top: 12px ;
+    padding-right: 30px;
+    text-align: justify;
+}
+
+.arima2 p {
+    margin: 12px;
+    padding: 6px;
+    padding-top: 20px ;
+    text-align: justify;
+    padding-right: 40px;
+}
+
+
