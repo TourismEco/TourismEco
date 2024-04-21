@@ -24,8 +24,8 @@ if (!isset($_SESSION["csrf_token"])) {
                         <div class="container-input">
                             <label for="country_src">Pays de départ</label>
                             <input type="text" id="country_src" name="country_src" placeholder=<?php echo $_SESSION[
-                            "user"
-                        ]["country"]; ?> required autocomplete="off"
+                                "user"
+                            ]["country"]; ?> required autocomplete="off"
                             hx-get="scripts/htmx/listPays.php" hx-trigger="keyup[this.value.trim().length > 0] changed delay:0.5s" hx-vals='js:{search: getSearchValue("country_src"), sens:"src"}' >
                             <div id="country_options_src" class="option-container"></div>
                         </div>
@@ -33,8 +33,8 @@ if (!isset($_SESSION["csrf_token"])) {
                         <div class="container-input">
                             <label for="city_src">Ville de départ</label>
                             <input type="text" id="city_src" name="city_src" placeholder=<?php echo $_SESSION[
-                            "user"
-                        ]["city"]; ?> required disabled autocomplete="off">
+                                "user"
+                            ]["city"]; ?> required disabled autocomplete="off">
                             <div id="city_options_src" class="option-container"></div>
                         </div>
                     </div>
