@@ -165,3 +165,14 @@ function changeScore(option) {
     
 
 }
+
+
+function getMulti() {
+    if (this.innerWidth <= 430) {
+        return 35
+    } else if (this.innerWidth <= 660) {
+        return 44
+    } else {
+        return 53
+    }
+}

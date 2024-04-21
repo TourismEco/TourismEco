@@ -476,7 +476,7 @@ if (count($pays) <= 1) {
                 $(".display").css("display","none")
 
                 $("#"+$(this).data("switch")).css("display","grid")
-                nb = $(this).data("index")*53
+                nb = $(this).data("index")*getMulti()
                 $("#trans").css("transform","translateX("+nb+"px)")
                 $("#name-switch").html($(this).data("name"))
             })
@@ -485,8 +485,7 @@ if (count($pays) <= 1) {
             $("#s-stats").addClass("active")
             $("#name-page").text("Comparateur");
 
-            nb = 0
-            $("#trans-page").css("transform","translateX("+nb+"px)")
+            $("#trans-page").css("transform","translateX(0)")
             $("#nav-bot").css("transform","translateY(0)")
 
         </script>

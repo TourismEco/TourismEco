@@ -218,7 +218,7 @@
 
                 $("#txt").val("")
 
-                nb = $(this).data("index")*53
+                nb = $(this).data("index")*getMulti()
                 $("#trans").css("transform","translateX("+nb+"px)")
                 $("#name-switch").html($(this).data("name"))
             })
@@ -226,7 +226,7 @@
             $(".switch-compare").on("click", function () {
                 $(".switch-compare").removeClass("active")
                 $(this).addClass("active")
-                nb = $(this).data("incr")*53
+                nb = $(this).data("incr")*getMulti()
                 $("#trans-compare").css("transform","translateX("+nb+"px)")
                 incr = $(this).data("incr")
             })
@@ -235,10 +235,17 @@
             $("#s-explorer").addClass("active")
             $("#name-page").text("Explorer");
 
-            nb = 53
-            $("#trans-page").css("transform","translateX("+nb+"px)")
-            $("#trans-compare").css("transform","translateX("+(53*incr)+"px)")
             $("#nav-bot").css("transform","translateY(0)")
+
+            function getMulti() {
+                if (this.innerWidth <= 430) {
+                    return 20
+                } else if (this.innerWidth <= 660) {
+                    return 40
+                } else {
+                    return 53
+                }
+            }
         </script>
 
         <script id="orders" hx-swap-oob="outerHTML"></script>

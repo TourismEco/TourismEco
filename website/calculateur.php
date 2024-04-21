@@ -5,9 +5,19 @@
     <div class="window">
         <?php // Générer un nouveau token CSRF si la variable de session n'existe pas
 
-if (!isset($_SESSION["csrf_token"])) {
+        if (!isset($_SESSION["csrf_token"])) {
             $_SESSION["csrf_token"] = bin2hex(random_bytes(32));
-        } ?>
+        } 
+
+        if (isset($_SESSION["user"])) {
+            $ville = $_SESSION["user"]["city"];
+            $pays = $_SESSION["user"]["country"];
+        } else {
+            $ville = "";
+            $pays = "";
+        }
+        
+        ?>
 
         <script>
             function getValues() {
@@ -23,18 +33,14 @@ if (!isset($_SESSION["csrf_token"])) {
                     <div class="dual-input">
                         <div class="container-input">
                             <label for="country_src">Pays de départ</label>
-                            <input type="text" id="country_src" name="country_src" placeholder=<?php echo $_SESSION[
-                                "user"
-                            ]["country"]; ?> required autocomplete="off"
-                            hx-get="scripts/htmx/listPays.php" hx-trigger="keyup[this.value.trim().length > 0] changed delay:0.5s" hx-vals='js:{search: getSearchValue("country_src"), sens:"src"}' >
+                            <input type="text" id="country_src" name="country_src" placeholder="Saisissez un pays" required autocomplete="off"
+                            hx-get="scripts/htmx/listPays.php" hx-trigger="keyup[this.value.trim().length > 0] changed delay:0.5s" hx-vals='js:{search: getSearchValue("country_src"), sens:"src"}' value="<?=$pays?>">
                             <div id="country_options_src" class="option-container"></div>
                         </div>
 
                         <div class="container-input">
                             <label for="city_src">Ville de départ</label>
-                            <input type="text" id="city_src" name="city_src" placeholder=<?php echo $_SESSION[
-                                "user"
-                            ]["city"]; ?> required disabled autocomplete="off">
+                            <input type="text" id="city_src" name="city_src" placeholder="Saisissez une ville" value="<?=$ville?>" required disabled autocomplete="off">
                             <div id="city_options_src" class="option-container"></div>
                         </div>
                     </div>

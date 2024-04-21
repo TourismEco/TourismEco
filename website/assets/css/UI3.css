@@ -1580,7 +1580,7 @@ input {
     flex-direction: column;
     background-color: #d9d9d9;
     border-radius: 10px;
-    justify-content: center;
+    justify-content: space-evenly;
 }
 
 .rank-text {
@@ -2714,6 +2714,14 @@ ul {
         height: 45px;
         border-radius: 10px;
     }
+
+    .container-rank {
+        flex-direction: column;
+    }
+
+    .container-rank .trait {
+        display: none;
+    }
 }
 
 @media screen and (max-width: 550px) {
@@ -2781,6 +2789,15 @@ ul {
         margin:2.5px;
         width:30px;
         height:30px;
+        margin-bottom: 7px;
+    }
+
+    .container-bottom {
+        height: unset;
+    }
+
+    .pack-categ span {
+        display: none;
     }
 }
 

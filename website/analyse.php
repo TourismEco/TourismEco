@@ -488,7 +488,7 @@ En outre, il est important de noter que ces données peuvent être étendues pou
 
                 $("#"+$(this).data("switch")).css("display","grid")
                 if ($(this).data("index") != 0) {
-                    nb = $(this).data("index")*53+9.5
+                    nb = $(this).data("index")*getMulti()+9.5
                 } else {
                     nb = 0
                 }

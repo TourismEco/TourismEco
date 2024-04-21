@@ -524,7 +524,7 @@ if ($pays == "") {
                 $(".display").css("display","none")
 
                 $("#"+$(this).data("switch")).css("display","grid")
-                nb = $(this).data("index")*53
+                nb = $(this).data("index")*getMulti()
                 $("#trans").css("transform","translateX("+nb+"px)")
                 $("#name-switch").html($(this).data("name"))
             })
@@ -533,8 +533,7 @@ if ($pays == "") {
             $("#s-stats").addClass("active")
             $("#name-page").text("Statistiques");
 
-            nb = 0
-            $("#trans-page").css("transform","translateX("+nb+"px)")
+            $("#trans-page").css("transform","translateX(0px)")
             $("#nav-bot").css("transform","translateY(0)")
 
             var i = 0

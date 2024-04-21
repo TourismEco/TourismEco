@@ -19,7 +19,7 @@ if (!isset($_SESSION["csrf_token"])) {
             <img class="logo" src="assets/icons/profil.png" alt="LogoProfil">
 
             <div class="connexion-container">
-                <form id="loginForm" hx-post="scripts/login/connecter.php">
+                <form id="loginForm" hx-post="scripts/login/connecter.php" hx-swap="beforeend">
                     <label for="username">Nom d'utilisateur</label>
                     <input type="text" id="username" name="username" placeholder="Saisissez votre nom d'utilisateur" required autocomplete="off">
                     <div id="errorUsername" class="error"></div>
@@ -34,7 +34,7 @@ if (!isset($_SESSION["csrf_token"])) {
                     ]; ?>">
 
                     <input type="submit" value="Se connecter" class="submit">
-                    <div id="errorMessages" class="error"></div>
+                    <div id="error" class="form-warning"></div>
                 </form>
             </div>
         </div>

@@ -206,7 +206,7 @@ HTML;
 
                 map.zoomToContinent($(this).data("switch"))
 
-                nb = $(this).data("index")*53
+                nb = $(this).data("index")*getMulti()
                 $("#trans").css("transform","translateX("+nb+"px)")
                 $("#name-switch").html($(this).data("name"))
 
@@ -216,7 +216,7 @@ HTML;
             $(".switch-compare").on("click", function () {
                 $(".switch-compare").removeClass("active")
                 $(this).addClass("active")
-                nb = $(this).data("incr")*53
+                nb = $(this).data("incr")*getMulti()
                 $("#trans-compare").css("transform","translateX("+nb+"px)")
                 incr = $(this).data("incr")
             })
@@ -225,9 +225,9 @@ HTML;
             $("#s-catalogue").addClass("active")
             $("#name-page").text("Catalogue");
 
-            nb = 53
+            nb = getMulti()
             $("#trans-page").css("transform","translateX("+nb+"px)")
-            $("#trans-compare").css("transform","translateX("+(53*incr)+"px)")
+            $("#trans-compare").css("transform","translateX("+(getMulti()*incr)+"px)")
             $("#nav-bot").css("transform","translateY(0)")
         </script>
 
