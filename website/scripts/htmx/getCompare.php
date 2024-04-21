@@ -56,7 +56,7 @@ $id = $_SESSION["pays"][0];
 
 if ((isset($_GET["load"]) && $incr == 1) || !isset($_GET["load"])) {
     $icons = array("pibParHab" =>"dollar", "ges" =>"cloud", "co2" =>"cloud", "arriveesTotal" =>"down", "idh" =>"idh", "gpi" =>"shield", "elecRenew" =>"elec", "safety" =>"shield",);
-    $texts = array("pibParHab" =>"PIB par Habitant", "gesHab" =>"Émissions de GES par habitant", "arriveesTotal" =>"Arrivées touristiques", "idh" =>"Indice de développement humain", "gpi" => "Global peace index", "elecRenew" =>"Production d'énergies renouvellables", "safety" => "Score de sécurité", "co2" => "Emissions de CO2");
+    $texts = array("pibParHab" =>"PIB par Habitant", "ges" =>"Émissions de GES par habitant", "arriveesTotal" =>"Arrivées touristiques", "idh" =>"Indice de développement humain", "gpi" => "Global peace index", "elecRenew" =>"Production d'énergies renouvellables", "safety" => "Score de sécurité", "co2" => "Emissions de CO2");
 
     $maj0 = getStatMajeure($_SESSION["pays"][0], $cur);
     $maj1 = getStatMajeure($_SESSION["pays"][1], $cur);
@@ -90,14 +90,14 @@ if ((isset($_GET["load"]) && $incr == 1) || !isset($_GET["load"])) {
         <div class="container-presentation expand-2" id="bestRank0" hx-swap-oob="outerHTML">
             <div class="compareRank">
                 <h3>Statistique majeure <img class="flag-tiny" src='assets/twemoji/$id.svg'></h3>
-                <p class="rank-textRank"> $maj0[rank] $suffix0</p>
+                <p class="rank-textRank"> $maj0[rank]$suffix0</p>
                 <p class="rank-textRank">$maj0[val0]</p> </p>
                 <p class="rank-text">pour $text0 en $maj0[year] </p>
             </div>
             <div class="trait"></div>
             <div class="compareRank">
                 <h3><img class="flag-tiny" src='assets/twemoji/$id_pays.svg'> VS. <img class="flag-tiny" src='assets/twemoji/{$_SESSION["pays"][($incr+1)%2]}.svg'></h3>
-                <p class="rank-textRank">$maj0[rank1] $suffix01</p>
+                <p class="rank-textRank">$maj0[rank1]$suffix01</p>
                 <p class="rank-textRank">$maj0[val1]</p>
                 <p class="rank-text">pour $text0</p>
             </div>
@@ -106,14 +106,14 @@ if ((isset($_GET["load"]) && $incr == 1) || !isset($_GET["load"])) {
         <div class="container-presentation expand-2" id="bestRank1" hx-swap-oob="outerHTML">
             <div class="compareRank">
                 <h3>Statistique majeure <img class="flag-tiny" src='assets/twemoji/$id_pays.svg'></h3>
-                <p class="rank-textRank"> $maj1[rank] $suffix1</p>
+                <p class="rank-textRank"> $maj1[rank]$suffix1</p>
                 <p class="rank-textRank">$maj1[val0]</p> </p>
                 <p class="rank-text">pour $text1 en $maj1[year] </p>
             </div>
             <div class="trait"></div>
             <div class="compareRank">
                 <h3><img class="flag-tiny" src='assets/twemoji/$id_pays.svg'> VS. <img class="flag-tiny" src='assets/twemoji/{$_SESSION["pays"][($incr+1)%2]}.svg'></h3>
-                <p class="rank-textRank">$maj1[rank1] $suffix11</p>
+                <p class="rank-textRank">$maj1[rank1]$suffix11</p>
                 <p class="rank-textRank">$maj1[val1]</p> 
                 <p class="rank-text">pour $text1 </p>
             </div>

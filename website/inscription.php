@@ -14,7 +14,7 @@
             $_SESSION["csrf_token"] = bin2hex(random_bytes(32));
         }
         ?>
-        <div class="zone-totale" id="zones">
+        <div class="zone zone-totale" id="zones">
             <div class="left-section">
                 <form hx-post="scripts/login/ajouter.php" hx-swap="beforeend">
                     <input type="hidden" name="csrf_token" value="<?php echo $_SESSION[
@@ -63,7 +63,6 @@
                     <li>Calculez le coût écologique de vos trajets depuis votre lieu de résidence plus rapidement</li>
                     <li>Consultez l’historique de vos recherches</li>
                     <li>Désignez des pays favoris, et comparez-les entre eux</li>
-                    <li>Téléchargez les données et les graphiques</li>
                 </ul>
             </div>
         </div>

@@ -34,7 +34,7 @@ if (count($pays) <= 1) {
     <div class="window">
 
         <div id="zones">
-            <div class="zone zone-presentation display" id="home">
+            <div class="zone zone-presentation home-compare display" id="home">
                 <div class="container-presentation expand-2" id="bandeau0"></div>
                 <div class="container-presentation expand-2" id="bandeau1"></div>
                 <div class="container-presentation" id="score0"></div>
@@ -131,13 +131,23 @@ if (count($pays) <= 1) {
                     </div>
 
                     <div class="container-info expand-2">
-                        <p>,ndicnzepidfncisjndcvisndpicnpiAKBNDOUnaepifdhnpzenf</p>
+                        <p>Dernière valeur</p>
+                        <p id="comp0" class="big">-</p>
+                        <p id="comp_detail">-</p>
                     </div>
                 </div>
 
             </div>
 
             <div class="zone zone-spider display" style="display:none" id="key">
+
+                <div class="title-zone">
+                    <img class="flag-small" src='assets/icons/lamp.svg'>
+                    <div>
+                        <h2>Indicateurs clés</h2>
+                        <p>Ce <i>Spider Chart</i> compare la position des deux pays pour 7 variables, normalisées.</p>
+                    </div>
+                </div>
 
                 <div class="graph" id="spider"></div>
                 <div></div>
@@ -275,14 +285,6 @@ if (count($pays) <= 1) {
                     </div>
                 </div>
 
-                <div class="title-zone">
-                    <img class="flag-small" src='assets/icons/lamp.svg'>
-                    <div>
-                        <h2>Indicateurs clés</h2>
-                        <p>Ce <i>Spider Chart</i> compare la position des deux pays pour 7 variables, normalisées.</p>
-                    </div>
-                </div>
-
                 <div class="legende-key">
                     <div class="square bg-52796F"></div>
                     <p id="nom0"></p>
@@ -393,8 +395,6 @@ if (count($pays) <= 1) {
                 </div>
             </div>
 
-            <div class="zone zone-basic display" style="display:none" id="more">
-            </div>
         </div>
 
         <div class="zone mask"></div>
@@ -447,11 +447,6 @@ if (count($pays) <= 1) {
                     <div class="container-bottom switch" data-switch="grow" data-index="3" data-name="Croissances">
                         <span>Croissances</span>
                         <img class="flag-small" src='assets/icons/stats.svg'>
-                    </div>
-
-                    <div class="container-bottom switch" data-switch="more" data-index="4" data-name="Informations complémentaires">
-                        <span>Informations complémentaires</span>
-                        <img class="flag-small" src='assets/icons/plus.svg'>
                     </div>
 
                     <div id="trans" class="active-bg"></div>

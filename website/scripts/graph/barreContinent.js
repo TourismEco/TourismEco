@@ -7,13 +7,10 @@ function barreContinent(id){
 }
 
 function barreContinentHTMX(data, name){
-    console.log(data)
     dataFilter = filterData(data["data"], bc.getType())
     bc.setDataXAxis(dataFilter)
     bc.updateSerie(0, dataFilter, name, data)
-    console.log(data["max"]);
     updateInfoBC(0, data, bc.getType())
-    
 }
 
 function changeVarContinent(type) {
@@ -56,11 +53,21 @@ function updateInfoBC(index, data, type) {
             $("#avg_detail").html(`(${data["avg"][type]})`)
         }
 
-        if (!("median" in data) || isNaN(data["median"][type]["value"])) {
+        if (!("median" in data) || isNaN(data["median"][type]["val"])) {
             $("#med"+index).html("-")
         } else{
             $("#med"+index).html(data["median"][type]["name"])
-            $("#med_detail").html(`(${formatNumber(data["median"][type]["value"],type)})`)
+            $("#med_detail").html(`(${formatNumber(data["median"][type]["val"],type)})`)
         }
+    }
+}
+
+
+function addDetail(data,name,nameValue,index,type) {
+    if (data == undefined) {
+        $("#"+name+index).html("-")
+    } else{
+        $("#"+name+index).html(data[name][type]["name"])
+        $("#"+name+"_detail").html(`(${formatNumber(data[name][type]["value"],type)})`)
     }
 }

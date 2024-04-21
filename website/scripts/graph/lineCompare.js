@@ -31,6 +31,31 @@ function resetAnnees() {
     l.setDataXAxis(getAnnees(min,max))
 }
 
+function updateComp(data0,data1,type) {
+    end = data0.length-1;
+    while (end >= 0 && data1[end][type] == null) {
+        end--;
+    }
+
+    if (end == -1) {
+        return
+    } else {
+        year = data1.length-1;
+        i = count(data2)-1;
+        while (i >= 0 && data1[i]["year"] != year) {
+            i--;
+        }
+
+        if ($i == -1 || data1[i][type] == 0) {
+            return
+        } else {
+            comparaison = data0[end][type]/data1[i][type];
+        }   
+    } 
+
+    
+}
+
 function updateInfo(index, data, type) {
     if (data) {      
         if (!("rank" in data) || isNaN(data["rank"][type]["rank"])) {

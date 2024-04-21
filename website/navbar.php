@@ -19,4 +19,11 @@
             echo '<a href="connexion.php" aria-label="Connexion" id="n2">Se connecter</a>';
         } ?>
     </div>
+
+    <script>
+        $("a").on("click",function() {
+            $("#nav-bot").css("z-index","1")
+            $("#nav-bot").css("transform","translateX(-3000px)")
+        })
+    </script>
 </nav>

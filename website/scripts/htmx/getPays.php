@@ -202,26 +202,26 @@ foreach (array("Global","Decouverte","Economique","Ecologique") as $key => $valu
 
 if ($ligneS["labelGlobal"] != null) {
     echo <<<HTML
-        <div class="container-presentation" id="score0" hx-swap-oob="outerHTML">
+        <div class="container-presentation" id="score" hx-swap-oob="outerHTML">
             <div class="score-box score-$ligneS[labelGlobal]">$ligneS[labelGlobal]</div>
         </div>
     HTML;
 } else {
     echo <<<HTML
-        <div class="container-presentation" id="score0" hx-swap-oob="outerHTML">
+        <div class="container-presentation" id="score" hx-swap-oob="outerHTML">
             <div class="score-box score-NA"><img src='assets/icons/bd.svg'></div>
         </div>
     HTML;
 }
 
 $icons = array("pibParHab" =>"dollar", "ges" =>"cloud", "co2" =>"cloud", "arriveesTotal" =>"down", "idh" =>"idh", "gpi" =>"shield", "elecRenew" =>"elec", "safety" =>"shield",);
-$texts = array("pibParHab" =>"PIB par Habitant", "gesHab" =>"Émissions de GES par habitant", "arriveesTotal" =>"Arrivées touristiques", "idh" =>"Indice de développement humain", "gpi" => "Global peace index", "elecRenew" =>"Production d'énergies renouvellables", "safety" => "Score de sécurité", "co2" => "Emissions de CO2");
+$texts = array("pibParHab" =>"PIB par Habitant", "ges" =>"Émissions de GES par habitant", "arriveesTotal" =>"Arrivées touristiques", "idh" =>"Indice de développement humain", "gpi" => "Global peace index", "elecRenew" =>"Production d'énergies renouvellables", "safety" => "Score de sécurité", "co2" => "Emissions de CO2");
 $suffix = ($minRanking == 1) ? 'er' : 'ème';
 $suffixPrev = ($rankingPreviousYear['ranking'] == 1) ? 'er' : 'ème';
 
 echo <<<HTML
 
-<div class="container-presentation expand-3" id="bandeau0" hx-swap-oob="outerHTML">
+<div class="container-presentation expand-3" id="bandeau" hx-swap-oob="outerHTML">
     <div class="bandeau"> 
         <img class="img-bandeau" src='assets/img/$id_pays.jpg' alt="Bandeau">
             <img class="favorite" id="favorite" src="$favorite" hx-get="scripts/htmx/getFavorite.php" hx-trigger="click" hx-swap="outerHTML" hx-vals="js:{id_pays:'$id_pays'}">
@@ -286,59 +286,43 @@ echo <<<HTML
     </div>
 </div>
 
-<div class="scroll expand-3" id="description1" hx-swap-oob="outerHTML">
-    <div class="scroll-buttons">
-        <div class="scroll-dot dot-active" id="scrb0" data-index="0"></div>
-        <div class="scroll-dot" id="scrb1" data-index="1"></div>
-        <div class="scroll-dot" id="scrb2" data-index="2"></div>
-        <div class="scroll-dot" id="scrb3" data-index="3"></div>
+<div class="container-scrollable" id="indices" hx-swap-oob="outerHTML">
+    <div class="allow-scroll-pays">
+        <h3 class="h3-scroll">Espérance de vie moyenne</h3>
+        <p class="indic">$esp ans</p>
     </div>
-
-    <div class="container-scrollable" id="scr" hx-swap-oob="outerHTML">
-        <div class="allow-scroll-pays">
-            <h3 class="h3-scroll">Espérance de vie moyenne</h3>
-            <p class="indic">$esp ans</p>
-        </div>
-        <div class="allow-scroll-pays">
-            <h3 class="h3-scroll">Indice de développement humain</h3>
-            <p class="indic">$hdi</p>
-        </div>
-        
-        <div class="allow-scroll-pays">
-            <h3 class="h3-scroll">Revenu par habitant / par an</h3>
-            <p class="indic">$rnb $</p>
-        </div>
+    <div class="allow-scroll-pays">
+        <h3 class="h3-scroll">Indice de développement humain</h3>
+        <p class="indic">$hdi</p>
+    </div>
+    
+    <div class="allow-scroll-pays">
+        <h3 class="h3-scroll">Revenu par habitant / par an</h3>
+        <p class="indic">$rnb $</p>
     </div>
 </div>
 
-<div class="scroll container-presentation expand-3" id="description0" hx-swap-oob="outerHTML">
-    <div class="scroll-buttons">
-        <div class="scroll-dot dot-active" id="scrb0" data-index="0"></div>
-        <div class="scroll-dot" id="scrb1" data-index="1"></div>
-        <div class="scroll-dot" id="scrb2" data-index="2"></div>
-        <div class="scroll-dot" id="scrb3" data-index="3"></div>
+
+<div class="container-scrollable" id="description" hx-swap-oob="outerHTML">
+    <div class="allow-scroll-pays" id="srcDesc">
+        <h3 class="h3-scrollDescrib">Description</h3>
+        <p class="anec">$description</p>
     </div>
-    <div class="container-scrollable" id="scrAnec" hx-swap-oob="outerHTML">
-        <div class="allow-scroll-pays" id="srcDesc">
-            <h3 class="h3-scrollDescrib">Description</h3>
-            <p class="anec">$description</p>
-        </div>
-        <div class="allow-scroll-pays">
-            <h3 class="h3-scrollDescrib">$sv1[0]</h3>
-            <p class="anec">$sv1Value</p>
-        </div>
-        <div class="allow-scroll-pays">
-            <h3 class="h3-scrollDescrib">$sv2[0]</h3>
-            <p class="anec">$sv2Value</p>
-        </div>
-        <div class="allow-scroll-pays">
-            <h3 class="h3-scrollDescrib">$sv3[0]</h3>
-            <p class="anec">$sv3Value</p>
-        </div>
+    <div class="allow-scroll-pays">
+        <h3 class="h3-scrollDescrib">$sv1[0]</h3>
+        <p class="anec">$sv1Value</p>
+    </div>
+    <div class="allow-scroll-pays">
+        <h3 class="h3-scrollDescrib">$sv2[0]</h3>
+        <p class="anec">$sv2Value</p>
+    </div>
+    <div class="allow-scroll-pays">
+        <h3 class="h3-scrollDescrib">$sv3[0]</h3>
+        <p class="anec">$sv3Value</p>
     </div>
 </div>
 
-<p class="name" id="nom0" hx-swap-oob="outerHTML">$nom</p>
+<p class="name" id="nom" hx-swap-oob="outerHTML">$nom</p>
 
 <img class="flag-small" id="flag-bot" hx-swap-oob="outerHTML" src='assets/twemoji/$id_pays.svg'>
 
@@ -357,6 +341,6 @@ echo <<<HTML
 
 HTML;
 
-echo addSafety($cur, $id_pays, "safe0");
+echo addSafety($cur, $id_pays, "safe");
 
 ?>

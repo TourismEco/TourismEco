@@ -280,7 +280,7 @@
                     $(".display").css("display","none")
 
                     $("#"+$(this).data("switch")).css("display","grid")
-                    nb = $(this).data("index")*getMulti()
+                    nb = $(this).data("index")*53
                     $("#trans").css("transform","translateX("+nb+"px)")
                     $("#name-switch").html($(this).data("name"))
                 })
@@ -289,7 +289,7 @@
                     $(".page").removeClass("active")
                     $(this).addClass("active")
 
-                    nb = $(this).data("index")*getMulti()
+                    nb = $(this).data("index")*53
                     $("#trans-page").css("transform","translateX("+nb+"px)")
                     $("#name-page").html($(this).data("name"))
                 })
@@ -299,13 +299,6 @@
 
                 nb = 0
                 $("#trans-page").css("transform","translateX("+nb+"px)")
-
-                function getMulti(){
-                    if (this.innerWidth < 1020) {
-                        return 38
-                    }
-                    return 53
-                }
                 
             </script>
 

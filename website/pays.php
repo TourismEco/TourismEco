@@ -39,25 +39,31 @@ if ($pays == "") {
 
         <div id="zones">
 
-            <div class="zone zone-presentation display" id="home">
-                <div class="container-presentation expand-3" id="bandeau0"></div>
+            <div class="zone zone-presentation home-pays display" id="home">
+                <div class="container-presentation expand-3" id="bandeau"></div>
                 <div class="container-presentation" id="miniMap0"></div>
-                <div class="container-presentation" id="score0"></div>
-                <div class="container-presentation" id="safe0"></div>
+                <div class="container-presentation" id="score"></div>
+                <div class="container-presentation" id="safe"></div>
                 <div class="container-presentation expand-2" id="rankPays"></div>
+
                 <div class="scroll">
                     <div class="scroll-buttons">
-                        <div class="scroll-dot dot-active" id="scrb0" data-index="0"></div>
-                        <div class="scroll-dot" id="scrb1" data-index="1"></div>
-                        <div class="scroll-dot" id="scrb2" data-index="2"></div>
+                        <div class="scroll-dot dot-active" data-index="0"></div>
+                        <div class="scroll-dot" data-index="1"></div>
+                        <div class="scroll-dot" data-index="2"></div>
                     </div>
-                    <div class="container-scrollable" id="scr">
-                        <div class="allow-scroll-pays" id="src1"></div>
-                        <div class="allow-scroll-pays" id="src2"></div>
-                        <div class="allow-scroll-pays" id="src3"></div>
-                    </div>
+                    <div class="container-scrollable" id="indices"></div>
                 </div>
-                <div class="container-presentation expand-3" id="description0"></div>
+
+                <div class="scroll expand-3">
+                    <div class="scroll-buttons">
+                        <div class="scroll-dot dot-active" data-index="0"></div>
+                        <div class="scroll-dot" data-index="1"></div>
+                        <div class="scroll-dot" data-index="2"></div>
+                        <div class="scroll-dot" data-index="3"></div>
+                    </div>
+                    <div class="container-scrollable" id="description"></div>
+                </div>
             </div>
 
             <div class="zone zone-spider display" id="key" style="display: none;">
