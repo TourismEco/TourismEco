@@ -1,5 +1,6 @@
 <?php
 
+// Sécurité
 if (!isset($_SERVER["HTTP_HX_REQUEST"])) {
     header("HTTP/1.1 401");
     exit;
@@ -19,6 +20,7 @@ if (!checkHTMX("pays", $_SERVER["HTTP_HX_CURRENT_URL"])) {
 
 $cur = getDB();
 
+// Mise en historique
 $id_pays = $_GET["id_pays"];
 $_SESSION["pays"][0] = $id_pays;
 
@@ -35,7 +37,7 @@ if (!in_array($id_pays, $_SESSION["historique"])) {
     }
 }
 
-// Nom
+// Informations de base
 $query = "SELECT * FROM pays WHERE id = :id_pays";
 $sth = $cur->prepare($query);
 $sth->bindParam(":id_pays", $id_pays, PDO::PARAM_STR);
@@ -50,7 +52,7 @@ $sv1Value = isset($sv1[1]) ? $sv1[1] : null;
 $sv2Value = isset($sv2[1]) ? $sv2[1] : null;
 $sv3Value = isset($sv3[1]) ? $sv3[1] : null;
 
-// Capitale
+// Villes pour la carte
 $c = getCities($id_pays, $cur);
 $cities = json_encode($c["cities"]);
 $capitals = json_encode($c["capitals"]);
@@ -61,208 +63,110 @@ $sth = $cur->prepare($queryIndic);
 $sth->bindParam(":id_pays", $id_pays, PDO::PARAM_STR);
 $sth->execute();
 $ligne = $sth->fetch(PDO::FETCH_ASSOC);
-$rnb=$ligne["RNB par hab"];
-$esp=$ligne["Espérance de vie"];
-$hdi=$ligne["Value"];
 
-$queryIndicT="SELECT * FROM `alldata` WHERE id_pays= :id_pays ORDER BY annee DESC LIMIT 1";
-$sth = $cur->prepare($queryIndicT);
-$sth->bindParam(":id_pays", $id_pays, PDO::PARAM_STR);
-$sth->execute();
-$ligne = $sth->fetch(PDO::FETCH_ASSOC);
-if (is_array($ligne)) {
-    $arriveesT = $ligne["arriveesTotal"];
-    $anneeT = $ligne["annee"];
-    $departT = $ligne["departs"];
+if ($ligne) {
+    $rnb=$ligne["RNB par hab"];
+    $esp=$ligne["Espérance de vie"];
+    $hdi=$ligne["Value"];
 } else {
-    $arriveesT = null;
-    $anneeT = null;
-    $departT = null;
+    $rnb = "NA"; $esp = "NA"; $hdi = "NA";
 }
+
 
 // Rank
-// requête SQL pour récupérer toutes les années pour le pays dans l'ordre décroissant.
-$queryRank = "SELECT *
-FROM alldata_rank
-WHERE id_pays = :id_pays
-ORDER BY annee DESC;";
-$sth = $cur->prepare($queryRank);
-$sth->bindParam(":id_pays", $id_pays, PDO::PARAM_STR);
-$sth->execute();
+$statMaj = getStatMajeure($id_pays, $cur);
+$minRanking = $statMaj["rank"];
+$minVariable = $statMaj["var"];
+$minYear = $statMaj["year"];
 
-// Créez un tableau pour stocker les classements pour chaque variable.
-$variables = ["co2", "elecRenew", "pibParHab", "gpi", "arriveesTotal", "departs", "idh", "ges", "safety"];
-$rankings = [];
-
-// Parcourez le résultat de la requête.
-while ($ligne = $sth->fetch(PDO::FETCH_ASSOC)) {
-    // Pour chaque ligne, parcourez les noms des variables.
-    foreach ($variables as $variable) {
-        // Si la valeur dans la ligne pour cette variable est non nulle et que nous n'avons rien stocké pour celle-ci, stockez le classement et l'année.
-        if ($ligne[$variable] !== null && !isset($rankings[$variable])) {
-            $rankings[$variable] = ["ranking" => $ligne[$variable], "year" => $ligne["annee"]];
-        }
-    }
-
-    // Si toutes les variables ont un classement stocké, arrêtez-vous.
-    if (count($rankings) == count($variables)) {
-        break;
-    }
-}
-
-$minRanking = min(array_column($rankings, "ranking"));
-$keys = array_keys($rankings, min($rankings));
-$minVariable = null;
-if (!empty($keys)) {
-    $minVariable = $keys[0];
-}$minYear = $rankings[$minVariable]['year'];
-
-if ($minRanking == 1) {
-    $minRanking = "1er";
-} else {
-    $minRanking = $minRanking . " ème";
-}
-
-// On récupère le premier pays, le pays juste avant le $id_pays, notre pays et le pays juste après.
-$querySup=" SELECT alldata_rank.id_pays, $minYear, $minVariable, pays.nom AS nom
-FROM `alldata_rank`
-JOIN pays ON alldata_rank.id_pays = pays.id
-where annee = $minYear
-AND $minVariable IS NOT NULL
-ORDER BY $minVariable ASC
-LIMIT 2;";
-$sth = $cur->prepare($querySup);
-$sth->execute();
-
-// Créez un tableau pour stocker les classements pour chaque pays.
-$coutriesClassements = [];
-
-// Parcourez le résultat de la requête.
-while ($ligne = $sth->fetch(PDO::FETCH_ASSOC)) {
-    $coutriesClassements[] = ["nom" => $ligne["nom"], "ranking" => $ligne[$minVariable], 'flag' => $ligne['id_pays']];
-}
-
-// Pays avant $id_pays
-$queryPreviousCountry = "
-SELECT alldata_rank.id_pays, $minYear, $minVariable, pays.nom AS nom
-FROM `alldata_rank`
-JOIN pays ON alldata_rank.id_pays = pays.id
-WHERE annee = $minYear
-AND $minVariable IS NOT NULL
-AND $minVariable < :rank
-ORDER BY $minVariable DESC
-LIMIT 1;
-";
-$sth = $cur->prepare($queryPreviousCountry);
-$sth->bindParam(":rank", $minRanking, PDO::PARAM_INT);
-$sth->execute();
-$previousCountry = $sth->fetch(PDO::FETCH_ASSOC);
-$CountryPrev = [];
-if ($previousCountry !== false) {
-    $CountryPrev = [
-        "nom" => $previousCountry["nom"],
-        "ranking" => $previousCountry[$minVariable],
-        'flag' => $previousCountry['id_pays']
-    ];
-}
-
-// Pays après $id_pays
-$queryNextCountry = "SELECT alldata_rank.id_pays, $minYear, $minVariable, pays.nom AS nom
-FROM `alldata_rank`
-JOIN pays ON alldata_rank.id_pays = pays.id
-WHERE annee = $minYear
-AND $minVariable IS NOT NULL
-AND $minVariable > :rank
-ORDER BY $minVariable ASC
-LIMIT 1;
-";
-$sth = $cur->prepare($queryNextCountry);
-$sth->bindParam(":rank", $minRanking, PDO::PARAM_INT);
-$sth->execute();
-$nextCountry = $sth->fetch(PDO::FETCH_ASSOC);
-$CountryNext = [];
-$CountryNext = ["id" => $nextCountry["id_pays"], "nom" => $nextCountry["nom"], "ranking" => $nextCountry[$minVariable], 'flag' => $nextCountry['id_pays']];
-
-
-
-// Si le pays concerné est dans les 5 premiers
-$queryCountriesTop = " SELECT alldata_rank.id_pays, $minYear, $minVariable, pays.nom AS nom
-    FROM `alldata_rank`
+$countriesBars = [];
+if ($minRanking <= 5) {
+    // Si le pays concerné est dans les 5 premiers
+    $query = "SELECT alldata_rank.id_pays, $minYear, $minVariable, pays.nom AS nom FROM `alldata_rank`
     JOIN pays ON alldata_rank.id_pays = pays.id
-    WHERE annee = $minYear
-    AND $minVariable IS NOT NULL
-    ORDER BY $minVariable ASC
-    LIMIT 5;
-";
+    WHERE annee = $minYear AND $minVariable IS NOT NULL
+    ORDER BY $minVariable ASC LIMIT 5;
+    ";
 
-$sth = $cur->prepare($queryCountriesTop);
-$sth->execute();
+    $sth = $cur->prepare($query);
+    $sth->execute();
 
-// Créez un tableau pour stocker les classements pour chaque pays.
-$CountriesTop = [];
+    while ($ligne = $sth->fetch(PDO::FETCH_ASSOC)) {
+        $countriesBars[] = ["nom" => $ligne["nom"], "ranking" => $ligne[$minVariable], 'flag' => $ligne['id_pays']];
+    }
 
-// Parcourez le résultat de la requête.
-while ($ligne = $sth->fetch(PDO::FETCH_ASSOC)) {
-    $CountriesTop[] = ["id" => $ligne["id_pays"], "nom" => $ligne["nom"], "ranking" => $ligne[$minVariable], 'flag' => $ligne['id_pays']];
+} else {
+    $query = "SELECT alldata_rank.id_pays, $minYear, $minVariable, pays.nom AS nom FROM `alldata_rank`
+    JOIN pays ON alldata_rank.id_pays = pays.id 
+    WHERE annee = $minYear AND $minVariable IS NOT NULL
+    ORDER BY $minVariable ASC LIMIT 2;";
+    $sth = $cur->prepare($query);
+    $sth->execute();
+
+    while ($ligne = $sth->fetch(PDO::FETCH_ASSOC)) {
+        $countriesBars[] = ["nom" => $ligne["nom"], "ranking" => $ligne[$minVariable], 'flag' => $ligne['id_pays']];
+    }
+
+    // Pays avant $id_pays
+    $query = "SELECT alldata_rank.id_pays, $minYear, $minVariable, pays.nom AS nom FROM `alldata_rank`
+    JOIN pays ON alldata_rank.id_pays = pays.id
+    WHERE annee = $minYear AND $minVariable IS NOT NULL AND $minVariable < :rank
+    ORDER BY $minVariable DESC LIMIT 1;";
+    $sth = $cur->prepare($query);
+    $sth->bindParam(":rank", $minRanking, PDO::PARAM_INT);
+    $sth->execute();
+    $previousCountry = $sth->fetch(PDO::FETCH_ASSOC);
+    if ($previousCountry !== false) {
+        $countriesBars[] = [
+            "nom" => $previousCountry["nom"],
+            "ranking" => $previousCountry[$minVariable],
+            'flag' => $previousCountry['id_pays']
+        ];
+    }
+
+    $countriesBars[] = ["nom" => $nom, "ranking" => $minRanking, 'flag' => $id_pays];
+
+    // Pays après $id_pays
+    $query = "SELECT alldata_rank.id_pays, $minYear, $minVariable, pays.nom AS nom FROM `alldata_rank`
+    JOIN pays ON alldata_rank.id_pays = pays.id
+    WHERE annee = $minYear AND $minVariable IS NOT NULL AND $minVariable > :rank ORDER BY $minVariable ASC LIMIT 1;
+    ";
+    $sth = $cur->prepare($query);
+    $sth->bindParam(":rank", $minRanking, PDO::PARAM_INT);
+    $sth->execute();
+    $nextCountry = $sth->fetch(PDO::FETCH_ASSOC);
+    $countriesBars[] = ["nom" => $nextCountry["nom"], "ranking" => $nextCountry[$minVariable], 'flag' => $nextCountry['id_pays']];
 }
 
-//Evolution du classement
+// Evolution du classement
 $previousYear = $minYear - 1;
-$selectedCountryId = $id_pays;
-$queryRankingPreviousYear = "SELECT alldata_rank.id_pays as id, annee, $minVariable, pays.nom AS nom
-FROM `alldata_rank`
-JOIN pays ON alldata_rank.id_pays = pays.id
-WHERE annee = :prevYear
-AND id_pays = :id_pays
-AND $minVariable IS NOT NULL
-ORDER BY $minVariable ASC
-LIMIT 1;
-";
+$queryRankingPreviousYear = "SELECT annee, $minVariable FROM `alldata_rank` WHERE annee = :prevYear AND id_pays = :id_pays AND $minVariable IS NOT NULL LIMIT 1;";
 
 $sth2 = $cur->prepare($queryRankingPreviousYear);
-$sth2->bindParam(":id_pays", $selectedCountryId, PDO::PARAM_STR);
+$sth2->bindParam(":id_pays", $id_pays, PDO::PARAM_STR);
 $sth2->bindParam(":prevYear", $previousYear, PDO::PARAM_INT);
 $sth2->execute();
 
 $rankingPrevious = $sth2->fetch(PDO::FETCH_ASSOC);
 
+$rankingPreviousYear = null;
 if ($rankingPrevious) {
-    $rankingPreviousYear = ["id" => $rankingPrevious["id"], "annee" => $rankingPrevious["annee"], "nom" => $rankingPrevious["nom"], "ranking" => $rankingPrevious[$minVariable], 'flag' => $rankingPrevious['id']];
-} else {
-    echo "No data for previous year";
+    $rankingPreviousYear = ["annee" => $rankingPrevious["annee"], "ranking" => $rankingPrevious[$minVariable]];
 }
 
-
-// Graphiques
+// Données des graphiques
 $dataLine = dataLine($id_pays, $cur);
 $dataLineMean = dataMean($cur);
 $dataLine["comp"] = dataCompareLine($dataLine["data"],$dataLineMean);
-
 $dataSpider = json_encode(dataSpider($id_pays, $cur),JSON_NUMERIC_CHECK);
 $dataLine = json_encode($dataLine,JSON_NUMERIC_CHECK);
 $dataLineMean = json_encode($dataLineMean,JSON_NUMERIC_CHECK);
 $dataBar = json_encode(dataBar($id_pays, $cur),JSON_NUMERIC_CHECK);
 $dataTab = json_encode(dataTab($id_pays, $cur),JSON_NUMERIC_CHECK);
+$dataBarreLine= json_encode(dataBarreLine($id_pays, $cur),JSON_NUMERIC_CHECK);
 
-//Graphique Barre Line
-$allBareLine = dataBarreLine($id_pays, $cur);
 
-$dataBarreLine= json_encode($allBareLine,JSON_NUMERIC_CHECK);
-$dataBLMinYearPIB= json_encode($allBareLine['minPib']['year'],JSON_NUMERIC_CHECK);
-$dataBLMinValPIB= json_encode($allBareLine['minPib']['value'],JSON_NUMERIC_CHECK);
-$dataBLMaxYearPIB= json_encode($allBareLine['maxPib']['year'],JSON_NUMERIC_CHECK);
-$dataBLMaxValPIB= json_encode($allBareLine['maxPib']['value'],JSON_NUMERIC_CHECK);
-
-$dataBLMinValTourism= json_encode($allBareLine['minTourisme']['value'],JSON_NUMERIC_CHECK);
-$dataBLMinYearTourism= json_encode($allBareLine['minTourisme']['year'],JSON_NUMERIC_CHECK);
-$dataBLMaxValTourism= json_encode($allBareLine['maxTourisme']['value'],JSON_NUMERIC_CHECK);
-$dataBLMaxYearTourism= json_encode($allBareLine['maxTourisme']['year'],JSON_NUMERIC_CHECK);
-
-$dataBLcovidImpactPib= json_encode($allBareLine['covidImpactPib'],JSON_NUMERIC_CHECK);
-$dataBLcovidImpactTourisme= json_encode($allBareLine['covidImpactTourisme'],JSON_NUMERIC_CHECK);
-
-//$dataBarPays = json_encode(dataBarPays($id_pays, $cur),JSON_NUMERIC_CHECK);
-
+// Pays favori
 if (isset($_SESSION["user"])) {
     $id_client = $_SESSION['user']['username'];
     $id_pays = $_GET['id_pays'];
@@ -281,8 +185,7 @@ if (isset($_SESSION["user"])) {
     $favorite = "";
 }
 
-echo addSafety($cur, $id_pays, "safe0");
-
+// Scores
 $query = "SELECT * FROM pays_score WHERE id = :id_pays";
 $sth = $cur->prepare($query);
 $sth->bindParam(":id_pays", $id_pays, PDO::PARAM_STR);
@@ -296,7 +199,25 @@ foreach (array("Global","Decouverte","Economique","Ecologique") as $key => $valu
     echo scoreBox($value,$ligneS["score".$value],$ligneS["label".$value]);
 }
 
-$letter = $ligneS["labelGlobal"];
+
+if ($ligneS["labelGlobal"] != null) {
+    echo <<<HTML
+        <div class="container-presentation" id="score0" hx-swap-oob="outerHTML">
+            <div class="score-box score-$ligneS[labelGlobal]">$ligneS[labelGlobal]</div>
+        </div>
+    HTML;
+} else {
+    echo <<<HTML
+        <div class="container-presentation" id="score0" hx-swap-oob="outerHTML">
+            <div class="score-box score-NA"><img src='assets/icons/bd.svg'></div>
+        </div>
+    HTML;
+}
+
+$icons = array("pibParHab" =>"dollar", "ges" =>"cloud", "co2" =>"cloud", "arriveesTotal" =>"down", "idh" =>"idh", "gpi" =>"shield", "elecRenew" =>"elec", "safety" =>"shield",);
+$texts = array("pibParHab" =>"PIB par Habitant", "gesHab" =>"Émissions de GES par habitant", "arriveesTotal" =>"Arrivées touristiques", "idh" =>"Indice de développement humain", "gpi" => "Global peace index", "elecRenew" =>"Production d'énergies renouvellables", "safety" => "Score de sécurité", "co2" => "Emissions de CO2");
+$suffix = ($minRanking == 1) ? 'er' : 'ème';
+$suffixPrev = ($rankingPreviousYear['ranking'] == 1) ? 'er' : 'ème';
 
 echo <<<HTML
 
@@ -311,137 +232,56 @@ echo <<<HTML
     </div>
 </div>
 
-<div class="container-presentation" id="score0" hx-swap-oob="outerHTML">
-    <div class="score-box score-$letter">$letter</div>
-</div>
-
-<div class="rankPays expand-2 rank" id="rankPays"  hx-swap-oob="outerHTML">
-    <div class="left-column">
+<div class="rank expand-2" id="rankPays"  hx-swap-oob="outerHTML">
+    <div class="title-scores">
+        <img class="score-NA" src="assets/icons/$icons[$minVariable].svg">
+        <p>Statistique majeure : $texts[$minVariable]</p>
+    </div>
+    
+    <div class="container-rank">
+    <div>
+        <p>Placé $minRanking$suffix mondialement en $minYear.</p>
+        <p class="rank-text">En $rankingPreviousYear[annee], le pays était $rankingPreviousYear[ranking]$suffixPrev</p>
 HTML;
-        if($minVariable == "co2"){
+
+if ($minVariable == "co2" || $minVariable == "ges") {
+    echo '<p class="rank-textRank" style="color:red;"><img class="iconClassement" src="assets/icons/dangerClassement.svg" title="Un rang élevé en émissions signifie que le pays émet beaucoup de gaz polluants pour l\'atmosphère, ce qui contribue au réchauffement climatique.">Cette statistique est négative.</p>';
+} else if ($minVariable == "safety" || $minVariable == "gpi") {
+    echo '<p class="rank-textRank" style="color:red;"><img class="iconClassement" src="assets/icons/dangerClassement.svg" title="Un rang élevé dans les scores de paix et de sécurité révèlent un pays dangereux et/ou en crise.">Cette statistique est négative.</p>';
+}
+
+$rankDifferenceSup = $rankingPreviousYear['ranking'] - $minRanking;
+$rankDifferenceInf =  $minRanking - $rankingPreviousYear['ranking'];
+
+if ($minRanking < $rankingPreviousYear['ranking']) {
+    echo '<p class="rank-text" style="font-size: 13px; color:green;">Le pays a gagné ' . $rankDifferenceSup . ' places dans le classement</p>';
+} elseif ($minRanking > $rankingPreviousYear['ranking']) {
+    echo '<p class="rank-text" style="font-size: 13px; color:darkorange;">Le pays a perdu ' . $rankDifferenceInf . ' places dans le classement</p>';
+} elseif ($minRanking == $rankingPreviousYear['ranking']){
+    echo '<p class="rank-text" style="font-size: 13px; color:darkgrey;">Le pays n\'a pas bougé du classement</p>';
+}
+
+echo "</div><div class='trait'></div><div class='chart'>";
+
+    $barHeights2 = [80, 70, 60, 50, 40];
+    $barWidths2 = [38, 35,32,30,28];
+    foreach ($countriesBars as $index => $country) {
+        $backgroundColor = ($country['flag'] == $id_pays) ? 'grey' : 'darkgrey';
+        $suffix = ($country['ranking'] == 1) ? 'er' : 'ème';
+        if ($index == 2 && $minRanking > 5) {
             echo <<<HTML
-                <p class="rank-text"> Le rang du pays: </p>
-                <p class="rank-textRank" style="color:red;">$minRanking <img class="iconClassement" src="assets/icons/dangerClassement.svg" title="Un rang élevé en émissions de CO2 signifie que le pays émet beaucoup de CO2, ce qui est mauvais pour l'environnement."></p>
-                <p class="rank-text">pour les émissions de CO2 en $minYear </p>
-            HTML;
-        }elseif($minVariable == "elecRenew"){
-            echo <<<HTML
-                <p class="rank-text"> Le meilleur rang du pays: </p>
-                <p class="rank-textRank" style="color:green;">$minRanking </p>
-                <p class="rank-text">pour les énergies renouvelables en $minYear</p>
-            HTML;
-        }elseif($minVariable == "pibParHab"){
-            echo <<<HTML
-                <p class="rank-text"> Le meilleur rang du pays: </p>
-                <p class="rank-textRank" style="color:green;">$minRanking </p>
-                <p class="rank-text">pour le PIB par habitant en $minYear</p>
-            HTML;
-        }elseif($minVariable == "gpi"){
-            echo <<<HTML
-                <p class="rank-text"> Le meilleur rang du pays: </p>
-                <p class="rank-textRank" style="color:green;">$minRanking </p>
-                <p class="rank-text">pour l'indice de paix global en $minYear</p>
-            HTML;
-        }elseif($minVariable == "arriveesTotal"){
-            echo <<<HTML
-                <p class="rank-text"> Le meilleur rang du pays: </p>
-                <p class="rank-textRank" style="color:green;">$minRanking </p>
-                <p class="rank-text">pour le total d'arrivées sur le territoire en $minYear</p>
-            HTML;
-        }elseif($minVariable == "departs"){
-            echo <<<HTML
-                <p class="rank-text"> Le meilleur rang du pays: </p>
-                <p class="rank-textRank" style="color:green;">$minRanking </p>
-                <p class="rank-text">pour le total de départ du territoire en $minYear</p>
-            HTML;
-        }elseif($minVariable == "idh"){
-            echo <<<HTML
-                <p class="rank-text"> Le meilleur rang du pays: </p>
-                <p class="rank-textRank" style="color:green;">$minRanking </p>
-                <p class="rank-text">pour l'indice de développement humain en $minYear</p>
-            HTML;
-        }elseif($minVariable == "ges"){
-            echo <<<HTML
-                <p class="rank-text"> Le rang du pays: </p>
-                <p class="rank-textRank" style="color:red;">$minRanking <img class="iconClassement" src="assets/icons/dangerClassement.svg" title="Un rang élevé en émissions de gaz à effet de serre signifie que le pays émet beaucoup de ces gaz, ce qui contribue au réchauffement climatique."></p>
-                <p class="rank-text">pour les gaz à effet de serre en $minYear </p>
-            HTML;
-        }elseif($minVariable == "safety"){
-            echo <<<HTML
-                <p class="rank-text"> Le meilleur rang du pays: </p>
-                <p class="rank-textRank" style="color:green;" >$minRanking </p>
-                <p class="rank-text">pour l'indice de sureté en $minYear</p>
+                <div class="txt_class"> ... </div>
             HTML;
         }
-echo <<<HTML
-        </div>
-    <div class="center-column">
-        <div class="ranking-evolution">
-HTML;
-        if ($rankingPreviousYear) {
-            $minRanking2 = intval($minRanking);
-            $rankDifferenceSup = $rankingPreviousYear['ranking'] - $minRanking2;
-            $rankDifferenceInf =  $minRanking2 - $rankingPreviousYear['ranking'];
-
-            $suffix = ($rankingPreviousYear['ranking'] == 1) ? 'er' : 'ème';
-            echo <<<HTML
-            <p class="rank-text">En {$rankingPreviousYear['annee']}, le pays était {$rankingPreviousYear['ranking']}$suffix</p>
-            HTML;
-            if ($minRanking2 < $rankingPreviousYear['ranking']) {
-                echo '<p class="rank-text" style="font-size: 13px; color:green;">Le pays a gagné ' . $rankDifferenceSup . ' places dans le classement</p>';
-            } elseif ($minRanking2 > $rankingPreviousYear['ranking']) {
-                echo '<p class="rank-text" style="font-size: 13px; color:darkorange;">Le pays a perdu ' . $rankDifferenceInf . ' places dans le classement</p>';
-            } elseif ($minRanking2 == $rankingPreviousYear['ranking']){
-                echo '<p class="rank-text" style="font-size: 13px; color:darkgrey;">Le pays n\'a pas bougé du classement</p>';
-            }
-        }
-echo <<<HTML
-
-    </div>
-        
-    </div>
-    <div class="right-column">
-        <div class="chart">
-HTML;
-        if($minRanking == "1er" || $minRanking == "2 ème" || $minRanking == "3 ème" || $minRanking == "4 ème" || $minRanking == "5 ème"){
-            $selectedCountryId = $id_pays;
-            $barHeights2 = [80, 70, 60, 50, 40];
-            $barWidths2=[38, 35,32,30,28];
-            foreach ($CountriesTop as $index => $country) {
-                $backgroundColor = ($country['id'] == $selectedCountryId) ? 'grey' : 'darkgrey';
-                $suffix = ($index == 0) ? 'er' : 'ème';
-                echo <<<HTML
-                <div class="bar" style="height: {$barHeights2[$index]}%; background-color: $backgroundColor; margin-bottom:5%; width:{$barWidths2[$index]}px;">
-                    <img style="width:{$barWidths2[$index]}px;" src="assets/twemoji/{$country['flag']}.svg" alt="{$country['nom']}" /> {$country['ranking']} $suffix
-                </div>
-                HTML;
-            }
-        } else {
-            $barHeights2 = [80, 70];
-            $barWidths=[38, 35];
-            foreach ($coutriesClassements as $index => $country) {
-                $suffix = ($index == 0) ? 'er' : 'ème';
-                echo <<<HTML
-                <div class="bar" style="height: {$barHeights2[$index]}%; background-color: darkgrey; margin-bottom:5%; width:{$barWidths[$index]}px;">
-                    <img style="width:{$barWidths[$index]}px;" src="assets/twemoji/{$country['flag']}.svg" alt="{$country['nom']}" /> {$country['ranking']} $suffix
-                </div>
-                HTML;
-            }
-            echo <<<HTML
-            <div class="txt_class"> ... </div>
-            <div class="bar" style="height: 60%; background-color: darkgrey;margin-bottom:5%; width:32px;">
-                <img src="assets/twemoji/{$CountryPrev['flag']}.svg" alt="{$CountryPrev['nom']}" /> {$CountryPrev['ranking']} ème
-            </div>            
-            <div class="bar" style="height: 50%; background-color: grey; margin-bottom:5%; width:30px;">
-                <img src="assets/twemoji/$id_pays.svg" alt="{$nom}" /> $minRanking
+        echo <<<HTML
+            <div class="bar" style="height: {$barHeights2[$index]}%; background-color: $backgroundColor; width:{$barWidths2[$index]}px;">
+                <img style="width:{$barWidths2[$index]}px;" src="assets/twemoji/{$country['flag']}.svg" alt="{$country['nom']}" /> {$country['ranking']}$suffix
             </div>
-            <div class="bar" style="height: 40%; background-color: darkgrey; margin-bottom:5%; width:28px;">
-                <img src="assets/twemoji/{$CountryNext['flag']}.svg" alt="{$CountryNext['nom']}" /> {$CountryNext['ranking']} ème
-            </div>  
-            HTML;
-        }
+        HTML;
+    }
 
 echo <<<HTML
+</div>
         </div>
     </div>
 </div>
@@ -455,18 +295,18 @@ echo <<<HTML
     </div>
 
     <div class="container-scrollable" id="scr" hx-swap-oob="outerHTML">
-        <div class="allow-scroll-pays" id="src2">
-            <h3 class="h3-scroll" id="src1">Espérance de vie moyenne</h3>
+        <div class="allow-scroll-pays">
+            <h3 class="h3-scroll">Espérance de vie moyenne</h3>
             <p class="indic">$esp ans</p>
         </div>
         <div class="allow-scroll-pays">
-            <h3 class="h3-scroll" id="src1">Indice de développement humain</h3>
+            <h3 class="h3-scroll">Indice de développement humain</h3>
             <p class="indic">$hdi</p>
         </div>
         
-        <div class="allow-scroll-pays" id="src3">
-            <h3 class="h3-scroll" id="src1">Revenu par habitant / par an</h3>
-            <p class="indic">$rnb</p>
+        <div class="allow-scroll-pays">
+            <h3 class="h3-scroll">Revenu par habitant / par an</h3>
+            <p class="indic">$rnb $</p>
         </div>
     </div>
 </div>
@@ -480,26 +320,22 @@ echo <<<HTML
     </div>
     <div class="container-scrollable" id="scrAnec" hx-swap-oob="outerHTML">
         <div class="allow-scroll-pays" id="srcDesc">
-            <h3 class="h3-scrollDescrib" id="srcDesc">Description</h3>
+            <h3 class="h3-scrollDescrib">Description</h3>
             <p class="anec">$description</p>
         </div>
         <div class="allow-scroll-pays">
-            <h3 class="h3-scrollDescrib" id="src1Anec">$sv1[0]</h3>
+            <h3 class="h3-scrollDescrib">$sv1[0]</h3>
             <p class="anec">$sv1Value</p>
         </div>
-        <div class="allow-scroll-pays" id="src2Anec">
-            <h3 class="h3-scrollDescrib" id="src1Anec">$sv2[0]</h3>
+        <div class="allow-scroll-pays">
+            <h3 class="h3-scrollDescrib">$sv2[0]</h3>
             <p class="anec">$sv2Value</p>
         </div>
-        <div class="allow-scroll-pays" id="src3Anec">
-            <h3 class="h3-scrollDescrib" id="src1Anec">$sv3[0]</h3>
+        <div class="allow-scroll-pays">
+            <h3 class="h3-scrollDescrib">$sv3[0]</h3>
             <p class="anec">$sv3Value</p>
         </div>
     </div>
-</div>
-
-<div class="container-presentation" id="score0" hx-swap-oob="outerHTML">
-    <div class="score-box score-$letter">$letter</div>
 </div>
 
 <p class="name" id="nom0" hx-swap-oob="outerHTML">$nom</p>
@@ -513,7 +349,6 @@ echo <<<HTML
     barreLineHTMX($dataBarreLine, "$nom")
     linePaysHTMX($dataLine, $dataLineMean, "$nom")
     changeScore('Global')
-    // topHTMX($dataBar, "$nom")
 
     miniMap[0].zoomTo("$id_pays")
     miniMap[0].addCities($cities)
@@ -521,5 +356,7 @@ echo <<<HTML
 </script>
 
 HTML;
+
+echo addSafety($cur, $id_pays, "safe0");
 
 ?>

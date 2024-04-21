@@ -31,7 +31,7 @@ if (!in_array($id_pays,$_SESSION["pays"])) {
 }
 
 // Nom
-$query = "SELECT * FROM pays WHERE id = :id_pays";
+$query = "SELECT * FROM pays, pays_score WHERE pays.id = pays_score.id AND pays.id = :id_pays";
 $sth = $cur->prepare($query);
 $sth->bindParam(":id_pays", $id_pays, PDO::PARAM_STR);
 $sth->execute();
@@ -40,106 +40,6 @@ $nom = $ligne["nom"];
 $sv1 = explode(" : ",htmlspecialchars($ligne["sv1"]));
 $sv2 = explode(" : ",htmlspecialchars($ligne["sv2"]));
 $sv3 = explode(" : ",htmlspecialchars($ligne["sv3"]));
-
-$letter = getLetter($ligne["score"]);
-
-
-$queryRank = "SELECT *
-FROM alldata_rank
-WHERE id_pays = :id_pays
-ORDER BY annee DESC;";
-$sth = $cur->prepare($queryRank);
-$sth->bindParam(":id_pays", $id_pays, PDO::PARAM_STR);
-$sth->execute();
-
-// Créez un tableau pour stocker les classements pour chaque variable.
-$variables = ["co2", "elecRenew", "pibParHab", "gpi", "arriveesTotal", "departs", "idh", "ges", "safety"];
-$rankings = [];
-
-// Parcourez le résultat de la requête.
-while ($ligne = $sth->fetch(PDO::FETCH_ASSOC)) {
-    // Pour chaque ligne, parcourez les noms des variables.
-    foreach ($variables as $variable) {
-        // Si la valeur dans la ligne pour cette variable est non nulle et que nous n'avons rien stocké pour celle-ci, stockez le classement et l'année.
-        if ($ligne[$variable] !== null && !isset($rankings[$variable])) {
-            $rankings[$variable] = ["ranking" => $ligne[$variable], "year" => $ligne["annee"]];
-        }
-    }
-
-    // Si toutes les variables ont un classement stocké, arrêtez-vous.
-    if (count($rankings) == count($variables)) {
-        break;
-    }
-}
-
-$rankCountry = min(array_column($rankings, "ranking"));
-$keys = array_keys($rankings, min($rankings));
-$variableCountry = null;
-if (!empty($keys)) {
-    $variableCountry = $keys[0];
-}
-$yearCountry = $rankings[$variableCountry]['year'];
-
-if ($rankCountry == 1) {
-    $rankCountry = "1er";
-} else {
-    $rankCountry = $rankCountry . " ème";
-}
-
-
-$queryVal = "SELECT p.id, t.annee,t.departs, t.arriveesTotal, e.pib, e.pibParHab, s.gpi, s.safety, i.idh, ec.co2, ec.ges, ec.elecRenew
-    FROM pays p
-    JOIN tourisme t ON t.id_pays = p.id
-    JOIN economie e ON e.id_pays = p.id
-    JOIN ecologie ec ON ec.id_pays = p.id
-    JOIN surete s ON s.id_pays = p.id
-    JOIN idh i ON i.id_pays = p.id
-    WHERE p.id = :id_pays
-    AND t.annee = :yearCountry
-    GROUP BY t.annee;
-";
-$sth = $cur->prepare($queryVal); 
-$sth->bindParam(":id_pays", $id_pays, PDO::PARAM_STR);
-$sth->bindParam(":yearCountry", $yearCountry, PDO::PARAM_INT);
-$sth->execute();
-$country = $sth->fetch(PDO::FETCH_ASSOC);
-$valCountry = ["nom" => $country["id"], "val" => $country[$variableCountry]];
-
-$queryRankCountryCompare="SELECT $variableCountry, annee
-FROM alldata_rank
-WHERE id_pays = :id_pays_compare
-AND annee = :yearCountry
-ORDER BY annee DESC;";
-$sth = $cur->prepare($queryRankCountryCompare);
-$sth->bindParam(":id_pays_compare", $_SESSION["pays"][($incr+1)%2], PDO::PARAM_STR);
-$sth->bindParam(":yearCountry", $yearCountry, PDO::PARAM_INT);
-$sth->execute();
-$ligneCompare = $sth->fetch(PDO::FETCH_ASSOC);
-$rankCountryCompare =  $ligneCompare[$variableCountry];
-
-if ($rankCountryCompare == 1) {
-    $rankCountryCompare = "1er";
-} else {
-    $rankCountryCompare = $rankCountryCompare . " ème";
-}
-
-$queryValCompare = "SELECT p.id, t.annee,t.departs, t.arriveesTotal, e.pib, e.pibParHab, s.gpi, s.safety, i.idh, ec.co2, ec.ges, ec.elecRenew
-    FROM pays p
-    JOIN tourisme t ON t.id_pays = p.id
-    JOIN economie e ON e.id_pays = p.id
-    JOIN ecologie ec ON ec.id_pays = p.id
-    JOIN surete s ON s.id_pays = p.id
-    JOIN idh i ON i.id_pays = p.id
-    WHERE p.id = :id_pays
-    AND t.annee = :yearCountry
-    GROUP BY t.annee;
-";
-$sth = $cur->prepare($queryValCompare); 
-$sth->bindParam(":id_pays", $_SESSION["pays"][($incr+1)%2], PDO::PARAM_STR);
-$sth->bindParam(":yearCountry", $yearCountry, PDO::PARAM_INT);
-$sth->execute();
-$country = $sth->fetch(PDO::FETCH_ASSOC);
-$valCountryCompare = ["nom" => $country["id"], "val" => $country[$variableCountry]];
 
 $dataLine = json_encode(dataLine($id_pays, $cur),JSON_NUMERIC_CHECK);
 $dataSpider = json_encode(dataSpider($id_pays, $cur),JSON_NUMERIC_CHECK);
@@ -152,16 +52,78 @@ $capitals = json_encode($c["capitals"]);
 
 $incrP = $incr+1;
 
+if ((isset($_GET["load"]) && $incr == 1) || !isset($_GET["load"])) {
+    $icons = array("pibParHab" =>"dollar", "ges" =>"cloud", "co2" =>"cloud", "arriveesTotal" =>"down", "idh" =>"idh", "gpi" =>"shield", "elecRenew" =>"elec", "safety" =>"shield",);
+    $texts = array("pibParHab" =>"PIB par Habitant", "gesHab" =>"Émissions de GES par habitant", "arriveesTotal" =>"Arrivées touristiques", "idh" =>"Indice de développement humain", "gpi" => "Global peace index", "elecRenew" =>"Production d'énergies renouvellables", "safety" => "Score de sécurité", "co2" => "Emissions de CO2");
 
-function majeurCompare($id_pays, $id_pays_compare, $cur){
-    // faire le nécessaire pour récupérer la stat majeur de $id_pays = $id_pays
-    // faire le nécessaire pour récupérer la stat majeur de $id_pays_compare = $_SESSION["pays"][($incr+1)%2]
+    $maj0 = getStatMajeure($_SESSION["pays"][0], $cur);
+    $maj1 = getStatMajeure($_SESSION["pays"][1], $cur);
+    
+    $maj0["val0"] = getSpecific($_SESSION["pays"][0],$maj0["year"],$maj0["var"],$cur)["val"];
+    $val1 = getSpecific($_SESSION["pays"][1],$maj0["year"],$maj0["var"],$cur);
+    $maj0["val1"] = $val1["val"];
+    $maj0["rank1"] = $val1["rank"];
 
-    // trouver un moyen de ne pas avoir deux fois la meme stat
+    if ($maj0["var"] == $maj1["var"]) {
+        $maj1["var"] = $maj1["second"];
+        $maj1["rank"] = $maj1["rankSecond"];
+        $maj1["year"] = $maj1["yearSecond"];
+    }
+    
+    $maj1["val0"] = getSpecific($_SESSION["pays"][1],$maj1["year"],$maj1["var"],$cur)["val"];
+    $val0 = getSpecific($_SESSION["pays"][0],$maj1["year"],$maj1["var"],$cur);
+    $maj1["val1"] = $val0["val"];
+    $maj1["rank1"] = $val0["rank"];
 
-    //pour notre $id_pays, faire requêtes pour avoir les valeurs pour les deux stats majeures
-    //les mettre correctement dans du HTML avec HTMX, et les bons ID
+    echo <<<HTML
 
+        <div class="container-presentation expand-2" id="bestRank0" hx-swap-oob="outerHTML">
+            <div class="compareRank">
+                <h3>Statistique majeure <img class="flag-tiny" src='assets/twemoji/$id_pays.svg'></h3>
+                <p class="rank-textRank"> $maj0[rank]</p>
+                <p class="rank-textRank">$maj0[val0]</p> </p>
+                <p class="rank-text">pour $maj0[var] en $maj0[year] </p>
+            </div>
+            <div class="trait"></div>
+            <div class="compareRank">
+                <h3><img class="flag-tiny" src='assets/twemoji/$id_pays.svg'> VS. <img class="flag-tiny" src='assets/twemoji/{$_SESSION["pays"][($incr+1)%2]}.svg'></h3>
+                <p class="rank-textRank">$maj0[rank1]</p>
+                <p class="rank-textRank">$maj0[val1]</p> </p>
+             
+            </div>
+        </div>
+
+        <div class="container-presentation expand-2" id="bestRank1" hx-swap-oob="outerHTML">
+            <div class="compareRank">
+                <h3>Statistique majeure <img class="flag-tiny" src='assets/twemoji/$id_pays.svg'></h3>
+                <p class="rank-textRank"> $maj1[rank]</p>
+                <p class="rank-textRank">$maj1[val0]</p> </p>
+                <p class="rank-text">pour $maj1[var] en $maj1[year] </p>
+            </div>
+            <div class="trait"></div>
+            <div class="compareRank">
+                <h3><img class="flag-tiny" src='assets/twemoji/$id_pays.svg'> VS. <img class="flag-tiny" src='assets/twemoji/{$_SESSION["pays"][($incr+1)%2]}.svg'></h3>
+                <p class="rank-textRank">$maj1[rank1]</p>
+                <p class="rank-textRank">$maj1[val1]</p> </p>
+                
+            </div>
+        </div>
+
+    HTML;
+}
+
+if ($ligne["labelGlobal"] != null) {
+    echo <<<HTML
+        <div class="container-presentation" id="score$incr" hx-swap-oob="outerHTML">
+            <div class="score-box score-$ligne[labelGlobal]">$ligne[labelGlobal]</div>
+        </div>
+    HTML;
+} else {
+    echo <<<HTML
+        <div class="container-presentation" id="score$incr" hx-swap-oob="outerHTML">
+            <div class="score-box score-NA"><img src='assets/icons/bd.svg'></div>
+        </div>
+    HTML;
 }
 
 echo <<<HTML
@@ -173,27 +135,6 @@ echo <<<HTML
             <img class="flag-bandeau" src='assets/twemoji/$id_pays.svg'>
             <h2>$nom</h2>
         </div>
-    </div>
-</div>
-
-<div class="container-presentation" id="score$incr" hx-swap-oob="outerHTML">
-    <div class="score-box score-$letter">$letter</div>
-</div>
-
-
-<div class="container-presentation expand-2" id="bestRank$incr" hx-swap-oob="outerHTML">
-    <div class="compareRank">
-        <h3>Statistique majeure <img class="flag-tiny" src='assets/twemoji/$id_pays.svg'></h3>
-        <p class="rank-textRank"> $rankCountry</p>
-        <p class="rank-textRank">{$valCountry["val"]}</p> </p>
-        <p class="rank-text">pour $variableCountry en $yearCountry </p>
-    </div>
-    <div class="trait"></div>
-    <div class="compareRank">
-        <h3><img class="flag-tiny" src='assets/twemoji/$id_pays.svg'> VS. <img class="flag-tiny" src='assets/twemoji/{$_SESSION["pays"][($incr+1)%2]}.svg'></h3>
-        <p class="rank-textRank"> $rankCountryCompare</p>
-        <p class="rank-textRank">{$valCountryCompare["val"]}</p> </p>
-        <p class="rank-text">pour $variableCountry en $yearCountry </p>
     </div>
 </div>
 

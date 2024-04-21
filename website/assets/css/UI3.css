@@ -1574,11 +1574,11 @@ input {
 }
 
 .rank {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(2, 1fr);
+    display: flex;
+    flex-direction: column;
     background-color: #d9d9d9;
     border-radius: 10px;
+    justify-content: center;
 }
 
 .rank-text {
@@ -1595,54 +1595,19 @@ input {
     margin: auto;
 }
 
-.ranking-evolution {
-    max-width: 180px;
-    align-self: center;
-    align-items: center;
+.iconClassement {
+    max-width: 15px;
 }
-
-/* .left-column {
-    grid-column: 1;
-    display: flex;
-    flex-direction: column;
-    align-self: center;
-} */
-/* .right-column {
-    grid-column: 3;
-    display: flex;
-    flex-direction: column;
-    align-self: center;
-}
-
-.center-column {
-    grid-column: 2;
-    display: flex;
-    flex-direction: column;
-    align-self: center;
-}
-*/
 
 .flag_classement {
     width: 38px;
 }
 
-.txt_class {
-    font-size: 20px;
-    align-items: center;
-    text-align: center;
-    margin-bottom: 10px;
-}
-
 .chart {
     display: flex;
     justify-content: space-around;
-    height: 170px;
+    height: 130px;
     align-items: flex-end;
-    padding-bottom: 18%;
-}
-
-.iconClassement {
-    max-width: 15px;
 }
 
 .bar {
@@ -1651,6 +1616,13 @@ input {
     color: white;
     font-size: 12px;
     border-radius: 5px 5px 0 0;
+    margin: 0 5px;
+}
+
+.container-rank {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 }
 
 .container-scrollable-x {
