@@ -5,9 +5,10 @@
     <div class="window">
         <?php // Générer un nouveau token CSRF si la variable de session n'existe pas
 
+
         if (!isset($_SESSION["csrf_token"])) {
             $_SESSION["csrf_token"] = bin2hex(random_bytes(32));
-        } 
+        }
 
         if (isset($_SESSION["user"])) {
             $ville = $_SESSION["user"]["city"];
@@ -16,7 +17,6 @@
             $ville = "";
             $pays = "";
         }
-        
         ?>
 
         <script>
@@ -25,22 +25,22 @@
                 return htmx.values(htmx.find("#calc"));
             }
         </script>
-        <div class="zone zone-totale" id="zones">
+        <div class="zone calculateur" id="zones">
+        <h1 class="titre">Prévoyez vos prochaines vacances</h1>
             <div class="left-section">
-                <h1 class="titre">Prévoyez vos prochaines vacances</h1>
                 <form name="Calculateur" id="calc">
 
                     <div class="dual-input">
                         <div class="container-input">
                             <label for="country_src">Pays de départ</label>
                             <input type="text" id="country_src" name="country_src" placeholder="Saisissez un pays" required autocomplete="off"
-                            hx-get="scripts/htmx/listPays.php" hx-trigger="keyup[this.value.trim().length > 0] changed delay:0.5s" hx-vals='js:{search: getSearchValue("country_src"), sens:"src"}' value="<?=$pays?>">
+                            hx-get="scripts/htmx/listPays.php" hx-trigger="keyup[this.value.trim().length > 0] changed delay:0.5s" hx-vals='js:{search: getSearchValue("country_src"), sens:"src"}' value="<?= $pays ?>">
                             <div id="country_options_src" class="option-container"></div>
                         </div>
 
                         <div class="container-input">
                             <label for="city_src">Ville de départ</label>
-                            <input type="text" id="city_src" name="city_src" placeholder="Saisissez une ville" value="<?=$ville?>" required disabled autocomplete="off">
+                            <input type="text" id="city_src" name="city_src" placeholder="Saisissez une ville" value="<?= $ville ?>" required disabled autocomplete="off">
                             <div id="city_options_src" class="option-container"></div>
                         </div>
                     </div>
@@ -81,7 +81,7 @@
                 </form>
             </div>
 
-            <div class="big-trait"></div>
+            <!-- <div class="big-trait"></div> -->
 
             <div class="right-section" id="calculateur-right-section">
                 <div>

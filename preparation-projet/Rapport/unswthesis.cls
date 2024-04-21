@@ -430,7 +430,7 @@
                 {\rmfamily\normalsize \@author}\\
         \end{center}
 \begin{figure} \begin{center}
-\includegraphics[width=5cm]{logo-upvm_4.jpg}
+\includegraphics[width=5cm]{logo-miashs.png}
 \end{center} \end{figure}
         \vskip1cm
         \begin{center}
@@ -442,7 +442,7 @@
         \vfill
         \begin{center}
                 \small\textsc{Soumis comme contribution partielle\\
-                      pour le cours Gestion de Projet}
+                      pour le cours Sciences de Données}
         \end{center}
         \newpage}
 
