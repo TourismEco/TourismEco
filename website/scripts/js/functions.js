@@ -134,27 +134,34 @@ function changeScore(option) {
     }
 
     value = $("#score"+option).data("value")
-    for(i=1;i<6;i++) {
-        if (value <= inter[option][i]) {
-            min = inter[option][i-1]
-            max = inter[option][i] - min
-            val = value - min
-            plus = val*60/max
-            if (i <= 2) {
-                tr = -30-plus-60*(i-1)
-            } else if (i >= 4) {
-                tr = 30+plus+60*(i-4)
-            } else {
-                if (plus > 30) {
-                    tr = plus/2
+    
+    if (value != "NA") {
+        $("#tscor").css("opacity",100)
+        for(i=1;i<6;i++) {
+            if (value <= inter[option][i]) {
+                min = inter[option][i-1]
+                max = inter[option][i] - min
+                val = value - min
+                plus = val*60/max
+                if (i <= 2) {
+                    tr = -30-plus-60*(i-1)
+                } else if (i >= 4) {
+                    tr = 30+plus+60*(i-4)
                 } else {
-                    tr = -plus/2
+                    if (plus > 30) {
+                        tr = plus/2
+                    } else {
+                        tr = -plus/2
+                    }
                 }
+                i = 100
             }
-            i = 100
         }
+    
+        $("#tscor").css("transform",`translateX(${tr}px)`)
+    } else {
+        $("#tscor").css("opacity",0)
     }
-
-    $("#tscor").css("transform",`translateX(${tr}px)`)
+    
 
 }

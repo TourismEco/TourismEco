@@ -20,12 +20,12 @@
                 </div>            
             </div>
 
-            <div class="zone zone-basic display" id="key" style="display: none;">
+            <div class="zone zone-basic display" id="bar" style="display: none;">
                 <div class="title-zone">
                     <img class="flag-small" src='assets/icons/bar.svg'>
                     <div>
-                        <h2 id="paysvs"></h2>
-                        <p>Ce graphique compare l'évolution du maximum et minimum du continent et sa moyenne au fil des années sur la statistiques que vous souhaitez.</p>
+                        <h2>Classement des pays</h2>
+                        <p>Ce graphique compare les pays du continent selon la statistique que vous souhaitez.</p>
                     </div>
                 </div>
                 <div class="graph" id="barreContinent"></div>
@@ -36,7 +36,7 @@
                     <img class="icon" src="assets/icons/shield.svg" onclick="changeVarContinent('gpi')" data-name="Global Peace Index">
                     <img class="icon" src="assets/icons/down.svg" onclick="changeVarContinent('arriveesTotal')" data-name="Arrivées touristiques">
                     <img class="icon" src="assets/icons/up.svg" onclick="changeVarContinent('departs')" data-name="Départs">
-                    <img class="icon" src="assets/icons/transfer.svg" onclick="changeVarContinent('cpi')" data-name="CPI">
+                    <img class="icon" src="assets/icons/idh.svg" onclick="changeVarContinent('idh')" data-name="IDH">
                     <img class="icon" src="assets/icons/leaf.svg" onclick="changeVarContinent('elecRenew')" data-name="% d'énergies renouvellables">
                 </div>
 
@@ -74,22 +74,22 @@
                 </div>
             </div>
 
-            <div class="zone zone-basic display" id="courbe" style="display: none;">
+            <div class="zone zone-basic display" id="scatter" style="display: none;">
                 <div class="title-zone">
                     <img class="flag-small" src='assets/icons/scatter-white.svg'>
                     <div>
-                        <h2 id="paysvs"></h2>
-                        <p>Ce graphique compare l'évolution du maximum et minimum du continent et sa moyenne au fil des années sur la statistiques que vous souhaitez.</p>
+                        <h2>Nuage de points</h2>
+                        <p>Ce graphique place chaque pays du continent selon leurs arrivées touristiques et leur PIB par habitant.</p>
                     </div>
                 </div>
-                <div class="graph" id="scatter"></div>
+                <div class="graph" id="scatterPlot"></div>
             </div>
 
-            <div class="zone  zone-basic display" id="barl" style="display:none">
+            <div class="zone  zone-basic display" id="courbe" style="display:none">
                 <div class="title-zone">
                     <img class="flag-small" src='assets/icons/sort.svg'>
                     <div>
-                        <h2 id="paysvs"></h2>
+                        <h2>Courbes d'évolution</h2>
                         <p>Ce graphique compare l'évolution du maximum et minimum du continent et sa moyenne au fil des années sur la statistiques que vous souhaitez.</p>
                     </div>
                 </div>
@@ -102,7 +102,7 @@
                     <img class="icon" src="assets/icons/shield.svg" onclick="changeVarL('gpi')" data-name="Global Peace Index">
                     <img class="icon" src="assets/icons/down.svg" onclick="changeVarL('arriveesTotal')" data-name="Arrivées touristiques">
                     <img class="icon" src="assets/icons/up.svg" onclick="changeVarL('departs')" data-name="Départs">
-                    <img class="icon" src="assets/icons/transfer.svg" onclick="changeVarL('cpi')" data-name="CPI">
+                    <img class="icon" src="assets/icons/idh.svg" onclick="changeVarL('idh')" data-name="IDH">
                     <img class="icon" src="assets/icons/leaf.svg" onclick="changeVarL('elecRenew')" data-name="% d'énergies renouvellables">
                 </div>
 
@@ -120,11 +120,11 @@
 
                         <div class="legende-element">
                             <div class="square bg-83A88B"></div>
-                            <p class="name" id="nom0"></p>
+                            <p class="name">Maximum</p>
                         </div>
                     </div>
                     <div class="container-info">
-                        <p>Maximum atteint pour</p>
+                        <p>Maximum atteint en</p>
                         <p id="maxLine" class="big">-</p>
                         <p id="maxLine_detail">-</p>
                     </div>
@@ -136,7 +136,7 @@
                     </div>
 
                     <div class="container-info">
-                        <p>Minimum atteint pour</p>
+                        <p>Minimum atteint en</p>
                         <p id="minLine" class="big">-</p>
                         <p id="minLine_detail">-</p>
                     </div>
@@ -183,8 +183,8 @@
 
         <div class="nav-bottom" id="nav-bot" hx-swap-oob="outerHTML">
             <div class="nav-categ">
-            <div class="pack-categ">
-                    <div class="container-bottom active page" data-switch="europe" data-id_continent="5" data-index="0" data-name="Europe" hx-get="scripts/htmx/getContinent.php" hx-vals="js:{id_continent:5}" hx-swap="beforeend">
+                <div class="pack-categ">
+                    <div class="container-bottom page active" data-switch="europe" data-id_continent="5" data-index="0" data-name="Europe" hx-get="scripts/htmx/getContinent.php" hx-vals="js:{id_continent:5}" hx-swap="beforeend">
                         <span>Europe</span>
                         <img class="flag-small" src='assets/icons/europe.svg'>
                     </div>
@@ -214,7 +214,7 @@
 
                 <div class="nav-trait"></div>
 
-                <div id="name-page" class="nav-text">Statistiques</div>
+                <div id="name-page" class="nav-text">Europe</div>
             </div>
 
             <div class="nav-categ">
@@ -224,20 +224,19 @@
                         <img class="flag-small" src='assets/icons/info.svg'>
                     </div>
 
-                    <div class="container-bottom switch" data-switch="key" data-index="1" data-name="Indicateurs clés">
+                    <div class="container-bottom switch" data-switch="bar" data-index="1" data-name="Classements">
+                        <span>Classements</span>
                         <img class="flag-small" src='assets/icons/bar.svg'>
                     </div>
 
-                    <div class="container-bottom switch" data-switch="courbe" data-index="2" data-name="Courbes d'évolution">
+                    <div class="container-bottom switch" data-switch="scatter" data-index="2" data-name="Nuage de points">
+                        <span>Nuage de points</span>
                         <img class="flag-small" src='assets/icons/scatter-white.svg'>
                     </div>
 
-                    <div class="container-bottom switch" data-switch="barl" data-index="3" data-name="PIB et tourisme">
+                    <div class="container-bottom switch" data-switch="courbe" data-index="3" data-name="Courbes d'évolution">
+                        <span>Courbes d'évolution</span>
                         <img class="flag-small" src='assets/icons/stats.svg'>
-                    </div>
-
-                    <div class="container-bottom switch" data-switch="more" data-index="4" data-name="Informations complémentaires">
-                        <img class="flag-small" src='assets/icons/plus.svg'>
                     </div>
 
                     <div id="trans" class="active-bg"></div>
@@ -255,7 +254,7 @@
                 halfpie("graph_pie")
                 barreContinent("barreContinent")
                 line("line")
-                scatterplotContinent("scatter") 
+                scatterplotContinent("scatterPlot") 
             </script>
             <script id="orders" hx-swap-oob="outerHTML"></script>
 
@@ -281,17 +280,32 @@
                     $(".display").css("display","none")
 
                     $("#"+$(this).data("switch")).css("display","grid")
-                    nb = $(this).data("index")*53
+                    nb = $(this).data("index")*getMulti()
                     $("#trans").css("transform","translateX("+nb+"px)")
                     $("#name-switch").html($(this).data("name"))
                 })
 
-                $(".page").removeClass("active")
+                $(".page").on("click", function () {
+                    $(".page").removeClass("active")
+                    $(this).addClass("active")
+
+                    nb = $(this).data("index")*getMulti()
+                    $("#trans-page").css("transform","translateX("+nb+"px)")
+                    $("#name-page").html($(this).data("name"))
+                })
+
                 $("#s-stats").addClass("active")
                 $("#name-page").text("Statistiques");
 
                 nb = 0
                 $("#trans-page").css("transform","translateX("+nb+"px)")
+
+                function getMulti(){
+                    if (this.innerWidth < 1020) {
+                        return 38
+                    }
+                    return 53
+                }
                 
             </script>
 

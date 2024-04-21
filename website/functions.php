@@ -277,27 +277,13 @@ function dataBarreLine($pays, $conn) {
         }
 
         // Impact du covid
-        if ($rs["annee"] == 2020 && $rs["arriveesTotal"] != null) {
-            $covidImpactPib =
-                (100 * ($rs["pibParHab"] - $data[count($data) - 1]["value"])) /
-                $data[count($data) - 1]["value"];
-            $covidImpactTourisme =
-                (100 *
-                    ($rs["arriveesTotal"] -
-                        $data[count($data) - 1]["valueLeft"])) /
-                $data[count($data) - 1]["valueLeft"];
-            if ($data[count($data) - 1]["value"] != 0) {
-                $covidImpactPib =
-                    (100 *
-                        ($rs["pibParHab"] - $data[count($data) - 1]["value"])) /
-                    $data[count($data) - 1]["value"];
+        if ($rs["annee"] == 2020) {
+            
+            if (count($data) > 1 && $data[count($data) - 2]["value"] != 0) {
+                $covidImpactPib = (100 * ($rs["pibParHab"] - $data[count($data) - 2]["value"])) / $data[count($data) - 1]["value"];
             }
-            if ($data[count($data) - 1]["valueLeft"] != null) {
-                $covidImpactTourisme =
-                    (100 *
-                        ($rs["arriveesTotal"] -
-                            $data[count($data) - 1]["valueLeft"])) /
-                    $data[count($data) - 1]["valueLeft"];
+            if (count($data) > 1 && $data[count($data) - 2]["valueLeft"] != 0) {
+                $covidImpactTourisme = (100 * ($rs["arriveesTotal"] - $data[count($data) - 2]["valueLeft"])) / $data[count($data) - 1]["valueLeft"];
             }
         }
     }
@@ -853,7 +839,7 @@ function getStatMajeure($id_pays, $cur) {
     $sth->bindParam(":id_pays", $id_pays, PDO::PARAM_STR);
     $sth->execute();
 
-    $variables = ["co2", "elecRenew", "pibParHab", "gpi", "arriveesTotal", "departs", "idh", "ges", "safety"];
+    $variables = ["co2", "elecRenew", "pibParHab", "gpi", "arriveesTotal", "idh", "ges", "safety"];
     $rankings = [];
 
     // Parcourez le résultat de la requête.
