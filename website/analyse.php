@@ -68,12 +68,14 @@
             </div>
 
             <div class="zone zone-triple display" id="score" style="display: none;">
-            <div class="container-presentation expandrow-2 score">
-                
+            <div class="container-presentation expandrow-2 score ">
+                <div class="sectionAnalyse">
+                    <img class="flag-small" src='assets/icons/analyseScore.svg'>
                     <h2> Score </h2>
                     <p> Le projet vise à attribuer un score à chaque pays pour fournir une identité supplémentaire. Ce score, basé sur des critères éthiques, permet aux utilisateurs de découvrir facilement des informations sur leur future destination en fonction de leurs préférences. Quatre scores sont mis en place : "Tourismeco" pour une vue d'ensemble par défaut, et trois autres ("Tourisme moderne", "Tourisme Éco-responsable", et "Tourisme d'Exploration et de Découverte") pour des préférences spécifiques.</p>
                     <p>Les critères de chaque score incluent des indicateurs tels que les arrivées d'avions, l'Indice de Développement Humain (IDH), les émissions de gaz à effet de serre (GES), etc. Chaque score est normalisé entre 0 et 1, puis noté de A à E, de parfait à mauvais.</p>
-</div>
+                </div>
+            </div>
                 <div class="container-presentation expandrow-2 expand-2 score">
                
                     <p> La mise en place des scores s'est faite en utilisant Python. Les données ont été traitées et des poids ont été attribués à chaque critère. Une moyenne pondérée a été utilisée pour obtenir le score final. Les intervalles de score ont été définis en fonction de la variance et appliqués aux données. Enfin, une vérification de cohérence a été réalisée à l'aide d'une visualisation par une carte du monde. </p>
@@ -394,11 +396,12 @@ En outre, il est important de noter que ces données peuvent être étendues pou
 
             <div class="zone zone-triple display" id="regr" style="display:none">
 
-                <div class="container-presentation expand-2 regression1">
-                    <h2> Régression Linéaire </h2>
-                    <p> La régression linéaire constitue une approche utile pour prédire ou estimer des valeurs en se basant sur une relation linéaire entre une variable dépendante et une ou plusieurs variables explicatives.
-                        Notre approche consiste à trouver des relations entre différentes variables de notre base de données, pour qu’elles soient de prédictions intéressantes à mettre en place. Pour cela nous avons utiliser principalement la variable PIB comme variable explicative et on a exploré d’autres variables supplémentaires comme variable explicative.
-                        Pour mettre en place cette régression linéaire, nous avons utilisé le langage de programmation python. On a utilisé des fonctions et des méthodes similaires pour chaque régression, en prenant à chaque fois des données sur une intervalle de 2 ans. On a veillé à prendre des données les plus récentes, en général jusqu'à 2022 et parfois jusqu'à 2020 seulement. </p>
+            <div class="container-presentation expand-2 regression1">
+                    <div class="sectionAnalyse">
+                        <img class="flag-small" src='assets/icons/stats.svg'>
+                        <h2> Régression Linéaire </h2>
+                        <p> La régression linéaire est une méthode de prédiction. Nous avons principalement utilisé le PIB comme variable explicative, tout en explorant d’autres variables dans notre base de données. Le langage de programmation Python a été utilisé pour mettre en œuvre cette régression linéaire. Nous avons appliqué des méthodes similaires pour chaque régression, en utilisant des données sur une période de 2 ans, généralement jusqu’à 2022.</p>
+                    </div>
                 </div>
                 <div class="scroll">
 
