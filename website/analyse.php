@@ -466,7 +466,7 @@ En outre, il est important de noter que ces données peuvent être étendues pou
 
 
         <script id="scripting" hx-swap-oob="outerHTML">
-            createMapCatalogue("pays")
+            createMapAnalyse("analyse")
         </script>
 
         <script id="orders" hx-swap-oob="outerHTML"></script>

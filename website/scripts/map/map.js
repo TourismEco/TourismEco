@@ -305,3 +305,84 @@ function createMapExplorer(data) {
     map.addZoom()
     map.addHeat(data)
 }
+
+function createMapAnalyse(option) {
+    map = new EcoMap("map",option,false)
+    // map.addCountries()
+    map.addZoom()
+
+    clusters = [{"name":"Cluster 1", "data":[{"id":'EC'}, {"id":'MU'}, {"id":'MY'}, {"id":'PA'}, {"id":'BY'}, {"id":'UY'}, {"id":'CR'}, {"id":'TT'}, {"id":'KZ'}, {"id":'OM'}, {"id":'RO'}, {"id":'RU'}, {"id":'ME'}, {"id":'TR'}, {"id":'AR'}, {"id":'SK'}, {"id":'CL'}, {"id":'HR'}, {"id":'LV'}, {"id":'SA'}, {"id":'LT'}, {"id":'GR'}, {"id":'EE'}, {"id":'CY'}, {"id":'IL'}, {"id":'GE'}, {"id":'RS'}, {"id":'MN'}, {"id":'RS'}, {"id":'EG'}, {"id":'UZ'}, {"id":'JO'}, {"id":'PY'}, {"id":'GY'}, {"id":'ZA'}, {"id":'JM'}, {"id":'LB'}, {"id":'ID'}, {"id":'VN'}, {"id":'AZ'}, {"id":'DZ'}, {"id":'CO'}, {"id":'BR'}, {"id":'MX'}, {"id":'PE'}, {"id":'DO'}, {"id":'CN'}, {"id":'UA'}, {"id":'BA'}, {"id":'LK'}, {"id":'BG'}, {"id":'AL'}, {"id":'AM'}]},
+    {"name":"Cluster 2", "data":[{"id":'NP'}, {"id":'LA'}, {"id":'ZW'}, {"id":'KH'}, {"id":'HN'}, {"id":'AO'}, {"id":'MM'}, {"id":'NA'}, {"id":'BD'}, {"id":'GT'}, {"id":'GH'}, {"id":'IN'}, {"id":'KE'}, {"id":'BT'}, {"id":'NI'}, {"id":'SV'}, {"id":'MA'}, {"id":'TJ'}, {"id":'CM'}, {"id":'NG'}, {"id":'ZM'}, {"id":'PG'}, {"id":'ML'}, {"id":'MZ'}, {"id":'BF'}, {"id":'SL'}, {"id":'GW'}, {"id":'ET'}, {"id":'MG'}, {"id":'DJ'}, {"id":'MW'}, {"id":'PH'}, {"id":'LS'}, {"id":'UG'}, {"id":'BJ'}, {"id":'RW'}, {"id":'CF'}, {"id":'HT'}, {"id":'TG'}, {"id":'KG'}, {"id":'NE'}]},
+    {"name":"Cluster 3","data":[{"id":'CH'}, {"id":'US'}, {"id":'IS'}, {"id":'KW'}, {"id":'QA'}, {"id":'BH'}, {"id":'PL'}, {"id":'IT'}, {"id":'FR'}, {"id":'ES'}, {"id":'AE'}, {"id":'AT'}, {"id":'HU'}, {"id":'JP'}, {"id":'GB'}, {"id":'CA'}, {"id":'NZ'}, {"id":'BE'}, {"id":'IE'}, {"id":'SG'}, {"id":'DK'}, {"id":'NL'}, {"id":'DE'}, {"id":'AU'}]}]
+
+    // Add legend
+var legend = map.map.children.push(am5.Legend.new(map.root, {
+    useDefaultMarker: true,
+    centerX: am5.p50,
+    x: am5.p50,
+    centerY: am5.p100,
+    y: am5.p100,
+    dy: -20,
+    background: am5.RoundedRectangle.new(map.root, {
+      fill: am5.color(0xffffff),
+      fillOpacity: 0.2
+    })
+  }));
+  
+  legend.valueLabels.template.set("forceHidden", true)
+  
+  
+  // Create series for each group
+  var colors = am5.ColorSet.new(map.root, {
+    step: 2
+  });
+  colors.next();
+  
+  am5.array.each(clusters, function(group) {
+    var countries = [];
+    var color = colors.next();
+  
+    am5.array.each(group.data, function(country) {
+      countries.push(country.id)
+    });
+  
+    var polygonSeries = map.map.series.push(am5map.MapPolygonSeries.new(map.root, {
+      geoJSON: am5geodata_worldLow,
+      include: countries,
+      name: group.name,
+      geodataNames:am5geodata_lang_FR,
+      fill: color
+    }));
+  
+  
+    polygonSeries.mapPolygons.template.setAll({
+      tooltipText: "[bold]{name}[/]",
+      interactive: true,
+      fill: color,
+      strokeWidth: 1,
+    });
+  
+    polygonSeries.mapPolygons.template.states.create("hover", {
+      fill: am5.Color.brighten(color, -0.3)
+    });
+  
+    polygonSeries.mapPolygons.template.events.on("pointerover", function(ev) {
+      ev.target.series.mapPolygons.each(function(polygon) {
+        polygon.states.applyAnimate("hover");
+      });
+    });
+  
+    polygonSeries.mapPolygons.template.events.on("pointerout", function(ev) {
+      ev.target.series.mapPolygons.each(function(polygon) {
+        polygon.states.applyAnimate("default");
+      });
+    });
+    polygonSeries.data.setAll(group.data);
+  
+    legend.data.push(polygonSeries);
+  });
+
+    
+}
+
+
