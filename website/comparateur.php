@@ -160,8 +160,7 @@ if (count($pays) <= 1) {
                         <img class="icon" src="assets/icons/idh.svg">
                         <div class="top">
                             <h3>IDH</h3>
-                            <p>Ce pays a obtenu un score de sûreté et de sécurité très élevé pour l'année 2023.<br>Faites attention si vous vous y rendez.</p>
-                            <p>Obtenez plus d'informations auprès de <a class="lien" href="https://www.diplomatie.gouv.fr/fr/conseils-aux-voyageurs/">France Diplomacie</a> pour voyager en sécurité.</p>
+                            <p>Indicateur composite mesurant le bien-être socio-économique des populations.</p>
                             <i></i>
                         </div>
                     </div>
@@ -179,8 +178,7 @@ if (count($pays) <= 1) {
                         <img class="icon" src="assets/icons/dollar.svg">
                         <div class="top">
                             <h3>PIB/Habitant</h3>
-                            <p>Ce pays a obtenu un score de sûreté et de sécurité très élevé pour l'année 2023.<br>Faites attention si vous vous y rendez.</p>
-                            <p>Obtenez plus d'informations auprès de <a class="lien" href="https://www.diplomatie.gouv.fr/fr/conseils-aux-voyageurs/">France Diplomacie</a> pour voyager en sécurité.</p>
+                            <p>Moyenne de richesse produite par personne dans un pays.</p>
                             <i></i>
                         </div>
                     </div>
@@ -198,8 +196,7 @@ if (count($pays) <= 1) {
                         <img class="icon" src="assets/icons/shield.svg">
                         <div class="top">
                             <h3>Global Peace Index</h3>
-                            <p>Ce pays a obtenu un score de sûreté et de sécurité très élevé pour l'année 2023.<br>Faites attention si vous vous y rendez.</p>
-                            <p>Obtenez plus d'informations auprès de <a class="lien" href="https://www.diplomatie.gouv.fr/fr/conseils-aux-voyageurs/">France Diplomacie</a> pour voyager en sécurité.</p>
+                            <p>Mesure comparative du niveau de paix dans différents pays.</p>
                             <i></i>
                         </div>
                     </div>
@@ -216,9 +213,8 @@ if (count($pays) <= 1) {
                     <div class="tooltip">
                         <img class="icon" src="assets/icons/elec.svg">
                         <div class="top">
-                            <h3>% d'énergies renouvellables</h3>
-                            <p>Ce pays a obtenu un score de sûreté et de sécurité très élevé pour l'année 2023.<br>Faites attention si vous vous y rendez.</p>
-                            <p>Obtenez plus d'informations auprès de <a class="lien" href="https://www.diplomatie.gouv.fr/fr/conseils-aux-voyageurs/">France Diplomacie</a> pour voyager en sécurité.</p>
+                            <h3>Pourcentage d'energie renouvelable</h3>
+                            <p>Part de l'énergie produite à partir de sources renouvelables dans l'ensemble.</p>
                             <i></i>
                         </div>
                     </div>
@@ -236,8 +232,7 @@ if (count($pays) <= 1) {
                         <img class="icon" src="assets/icons/up.svg">
                         <div class="top">
                             <h3>Départs touristiques</h3>
-                            <p>Ce pays a obtenu un score de sûreté et de sécurité très élevé pour l'année 2023.<br>Faites attention si vous vous y rendez.</p>
-                            <p>Obtenez plus d'informations auprès de <a class="lien" href="https://www.diplomatie.gouv.fr/fr/conseils-aux-voyageurs/">France Diplomacie</a> pour voyager en sécurité.</p>
+                            <p>Nombre de visiteurs partant du pays donné.</p>
                             <i></i>
                         </div>
                     </div>
@@ -255,8 +250,7 @@ if (count($pays) <= 1) {
                         <img class="icon" src="assets/icons/cloud.svg">
                         <div class="top">
                             <h3>Emissions de CO2</h3>
-                            <p>Ce pays a obtenu un score de sûreté et de sécurité très élevé pour l'année 2023.<br>Faites attention si vous vous y rendez.</p>
-                            <p>Obtenez plus d'informations auprès de <a class="lien" href="https://www.diplomatie.gouv.fr/fr/conseils-aux-voyageurs/">France Diplomacie</a> pour voyager en sécurité.</p>
+                            <p>kilo de dioxyde de carbone dans l'atmosphère par activités humaines.</p>
                             <i></i>
                         </div>
                     </div>
@@ -274,8 +268,7 @@ if (count($pays) <= 1) {
                         <img class="icon" src="assets/icons/down.svg">
                         <div class="top">
                             <h3>Arrivées tourstiques</h3>
-                            <p>Ce pays a obtenu un score de sûreté et de sécurité très élevé pour l'année 2023.<br>Faites attention si vous vous y rendez.</p>
-                            <p>Obtenez plus d'informations auprès de <a class="lien" href="https://www.diplomatie.gouv.fr/fr/conseils-aux-voyageurs/">France Diplomacie</a> pour voyager en sécurité.</p>
+                            <p>Nombre de visiteurs arrivant dans le pays donné.</p>
                             <i></i>
                         </div>
                     </div>
