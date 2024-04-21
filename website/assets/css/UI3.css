@@ -13,10 +13,10 @@
     --main-color-background: #eed;
 }
 
-img {
+/* img {
     max-width: 100%;
     height: auto;
-}
+} */
 
 html {
     font-family: "Roboto", Arial, Helvetica, sans-serif;
@@ -860,7 +860,7 @@ html {
     grid-row: 2 / 4;
 }
 #barreLine {
-    grid-row: 2 / 4
+    grid-row: 2 / 4;
 }
 .active {
     filter: invert();
@@ -916,36 +916,38 @@ h1 {
 
 .navbar {
     display: flex;
-    margin: auto;
+    flex-shrink: 0;
+    min-height: 40px;
+    margin: 10px 8%;
+    padding: 0px 10px;
+    background-color: #eed;
     filter: drop-shadow(10px 20px 10px #222);
-    margin: 10px;
-    justify-content: center;
+    justify-content: space-between;
+    border-radius: 10px;
+    vertical-align: middle;
 }
 
 .navbar div {
     display: flex;
     gap: 20px;
-    padding: 0 15px;
-    border-radius: 10px;
-    background-color: #eed;
+    align-items: center;
+    vertical-align: middle;
 }
 
 .navbar div a {
     text-decoration: none;
     color: #222;
-    line-height: 3;
-    height: 50px;
-}
-
-.navbar div a:hover {
-    background-color: #ddd;
-    color: black;
-    border-radius: inherit;
+    line-height: 40px;
+    &:hover {
+        background-color: #ddd;
+        color: black;
+        border-radius: inherit;
+    }
 }
 
 .img-nav {
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
 }
 
 .icon {
@@ -1374,15 +1376,14 @@ input {
     margin: 5px 12.5px;
 }
 
-.compareRank{
+.compareRank {
     display: flex;
     flex-direction: column;
     align-self: center;
-    margin:10%;
+    margin: 10%;
     max-width: 50%;
-    h3{
+    h3 {
         text-align: center;
-        
     }
 }
 
@@ -1617,7 +1618,7 @@ input {
     grid-column: 2;
     display: flex;
     flex-direction: column;
-    align-self: center; 
+    align-self: center;
 }
 */
 
@@ -2041,7 +2042,6 @@ input {
     color: white;
 }
 
-
 .preference-item {
     display: flex;
     align-items: center;
@@ -2371,69 +2371,14 @@ span {
     }
 }
 
-@media screen and (max-height: 900px) {
-    #logo-carousel {
-        display: none;
+@media screen and (max-width: 1250px) {
+    .zone-presentation {
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(4, calc(33% - 12px));
     }
 }
-@media screen and (max-width: 768px) {
-    #logo-carousel {
-        display: none;
-    }
-}
-@media screen and (max-width: 720px) {
-    .home {
-        .sectionHome {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            grid-template-rows: 8fr 1fr;
-            img {
-                display: none;
-            }
-            .content {
-                grid-row: 1;
-                grid-column: 1/3;
-            }
-            .btnIndex {
-                grid-row: 2;
-                grid-column: 2;
-            }
-            &:nth-of-type(even) {
-                grid-template-columns: 1fr 1fr;
-                grid-template-rows: 8fr 1fr;
-                .content {
-                    grid-row: 1;
-                    grid-column: 1/3;
-                }
-                .btnIndex {
-                    grid-row: 2;
-                    grid-column: 1;
-                }
-            }
-        }
-    }
-}
-@media screen and (max-width: 480px) {
-    .window {
-        margin: 0;
-    }
-    .home {
-        padding: 0;
-        gap: 0;
-        margin-bottom: 0;
-        .sectionHome {
-            border-radius: 0;
-        }
-    }
 
-    .slide-img {
-        border-radius: 0;
-    }
-}
-<<<<<<< HEAD
-=======
-
-@media screen and (max-width:1100px) {
+@media screen and (max-width: 1100px) {
     .zone-basic {
         grid-template-columns: 1fr;
         grid-template-rows: unset;
@@ -2455,8 +2400,8 @@ span {
     }
 
     .table {
-        grid-row:unset;
-        grid-column:unset;
+        grid-row: unset;
+        grid-column: unset;
     }
 
     .zone-spider {
@@ -2474,10 +2419,16 @@ span {
         height: 50vh;
     }
 
-    .zone-spider #cube-1, .zone-spider #cube-2, .zone-spider #cube-3, .zone-spider #cube-4, .zone-spider #cube-5, .zone-spider #cube-6, .zone-spider #cube-7 {
+    .zone-spider #cube-1,
+    .zone-spider #cube-2,
+    .zone-spider #cube-3,
+    .zone-spider #cube-4,
+    .zone-spider #cube-5,
+    .zone-spider #cube-6,
+    .zone-spider #cube-7 {
         grid-column: unset;
         grid-row: unset;
-        margin:0
+        margin: 0;
     }
 
     .zone-scores {
@@ -2523,40 +2474,28 @@ span {
     .legende {
         grid-column: 1 / 3;
     }
-
 }
 
-@media screen and (max-width:800px) { 
-    .zone-spider .title-zone {
-        grid-column: 1 / 3;
+@media screen and (max-width: 1020px) {
+    .container-bottom {
+        height: 30px;
     }
 
-    #spider {
-        grid-column: 1 / 3;
-    }
-}
-
-@media screen and (max-width:550px) {
-
-    .table {
-        grid-template-columns: unset;
+    .flag-small {
+        width: 20px;
     }
 
-    .legende {
-        grid-column: unset;
+    .active-bg {
+        width: 30px;
+        height: 40px;
+    }
+
+    .nav-trait {
+        height: 20px;
     }
 }
 
-@media screen and (max-width:1250px) {
-
-    .zone-presentation {
-        grid-template-columns: repeat(3, 1fr);
-        grid-template-rows: repeat(4, calc(33% - 12px));
-    }
-}
-
-@media screen and (max-width:960px) {
-
+@media screen and (max-width: 960px) {
     .zone-presentation {
         grid-template-columns: repeat(2, 1fr);
         grid-template-rows: repeat(5, calc(33% - 12px));
@@ -2567,16 +2506,32 @@ span {
     }
 
     #rankPays {
-        order:1;
+        order: 1;
     }
 
     #description0 {
-        order:2
+        order: 2;
+    }
+
+    .navbar {
+        margin: 10px 0;
     }
 }
 
-@media screen and (max-width:770px) {
+@media screen and (max-width: 800px) {
+    .zone-spider .title-zone {
+        grid-column: 1 / 3;
+    }
 
+    #spider {
+        grid-column: 1 / 3;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    #logo-carousel {
+        display: none;
+    }
     .zone-presentation {
         grid-template-columns: repeat(1, 1fr);
         grid-template-rows: repeat(7, calc(33% - 12px));
@@ -2607,10 +2562,46 @@ span {
         grid-column: 1 / 3;
     }
 
+    .navbar {
+        gap: 20px;
+        overflow-x: auto;
+    }
 }
 
+@media screen and (max-width: 720px) {
+    .home {
+        .sectionHome {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 8fr 1fr;
+            img {
+                display: none;
+            }
+            .content {
+                grid-row: 1;
+                grid-column: 1/3;
+            }
+            .btnIndex {
+                grid-row: 2;
+                grid-column: 2;
+            }
+            &:nth-of-type(even) {
+                grid-template-columns: 1fr 1fr;
+                grid-template-rows: 8fr 1fr;
+                .content {
+                    grid-row: 1;
+                    grid-column: 1/3;
+                }
+                .btnIndex {
+                    grid-row: 2;
+                    grid-column: 1;
+                }
+            }
+        }
+    }
+}
 
-@media screen and (max-width:660px) {
+@media screen and (max-width: 660px) {
     .zone-scores {
         grid-template-columns: 1fr;
     }
@@ -2636,30 +2627,46 @@ span {
     }
 }
 
-@media screen and (max-width:400px) {
-    .quatrieme, .premier, .deuxieme, .troisieme {
+@media screen and (max-width: 550px) {
+    .table {
+        grid-template-columns: unset;
+    }
+
+    .legende {
+        grid-column: unset;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .window {
+        margin: 0;
+    }
+    .home {
+        padding: 0;
+        gap: 0;
+        margin-bottom: 0;
+        .sectionHome {
+            border-radius: 0;
+        }
+    }
+    .slide-container {
+        .slide-img {
+            border-radius: 0;
+        }
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .quatrieme,
+    .premier,
+    .deuxieme,
+    .troisieme {
         width: 50px;
     }
-
 }
 
-@media screen and (max-width:1020px) {
-    .container-bottom {
-        height: 30px;
+@media screen and (max-height: 900px) {
+    #logo-carousel {
+        display: none;
     }
-
-    .flag-small {
-        width: 20px;
-    }
-
-    .active-bg {
-        width: 30px;
-        height: 40px;
-    }
-
-    .nav-trait {
-        height: 20px;
-    }
-
 }
->>>>>>> 30d851a023191ed97d34373de9ba2a697dc47f03
