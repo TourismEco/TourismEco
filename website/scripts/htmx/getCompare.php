@@ -43,14 +43,58 @@ $sv3 = explode(" : ",htmlspecialchars($ligne["sv3"]));
 
 $letter = getLetter($ligne["score"]);
 
-$statMaj = getStatMajeure($id_pays, $cur);
-$minRanking = $statMaj["rank"];
-$minVariable = $statMaj["var"];
-$minYear = $statMaj["year"];
+
+$queryRank = "SELECT *
+FROM alldata_rank
+WHERE id_pays = :id_pays
+ORDER BY annee DESC;";
+$sth = $cur->prepare($queryRank);
+$sth->bindParam(":id_pays", $id_pays, PDO::PARAM_STR);
+$sth->execute();
+
+// Créez un tableau pour stocker les classements pour chaque variable.
+$variables = ["co2", "elecRenew", "pibParHab", "gpi", "arriveesTotal", "departs", "idh", "ges", "safety"];
+$rankings = [];
+
+// Parcourez le résultat de la requête.
+while ($ligne = $sth->fetch(PDO::FETCH_ASSOC)) {
+    // Pour chaque ligne, parcourez les noms des variables.
+    foreach ($variables as $variable) {
+        // Si la valeur dans la ligne pour cette variable est non nulle et que nous n'avons rien stocké pour celle-ci, stockez le classement et l'année.
+        if ($ligne[$variable] !== null && !isset($rankings[$variable])) {
+            $rankings[$variable] = ["ranking" => $ligne[$variable], "year" => $ligne["annee"]];
+        }
+    }
+
+    // Si toutes les variables ont un classement stocké, arrêtez-vous.
+    if (count($rankings) == count($variables)) {
+        break;
+    }
+}
+
+$rankCountry = min(array_column($rankings, "ranking"));
+$keys = array_keys($rankings, min($rankings));
+$variableCountry = null;
+if (!empty($keys)) {
+    $variableCountry = $keys[0];
+}
+$yearCountry = $rankings[$variableCountry]['year'];
+
+if ($rankCountry == 1) {
+    $rankCountry = "1er";
+} else {
+    $rankCountry = $rankCountry . " ème";
+}
+
 
 $queryVal = "SELECT p.id, t.annee,t.departs, t.arriveesTotal, e.pib, e.pibParHab, s.gpi, s.safety, i.idh, ec.co2, ec.ges, ec.elecRenew
-    FROM alldata, pays
-    WHERE id_pays = :id_pays
+    FROM pays p
+    JOIN tourisme t ON t.id_pays = p.id
+    JOIN economie e ON e.id_pays = p.id
+    JOIN ecologie ec ON ec.id_pays = p.id
+    JOIN surete s ON s.id_pays = p.id
+    JOIN idh i ON i.id_pays = p.id
+    WHERE p.id = :id_pays
     AND t.annee = :yearCountry
     GROUP BY t.annee;
 ";
