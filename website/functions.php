@@ -574,6 +574,7 @@ function carousel($conn) {
                     <div class="slide-text">
                         <p>$image[nom]</p>
                     </div>
+                </a>
             </div>
         HTML;
         
