@@ -15,7 +15,7 @@ if (!isset($_SESSION["csrf_token"])) {
                 return htmx.values(htmx.find("#calc"));
             }
         </script>
-        <div class="zone-totale" id="zones">
+        <div class="zone zone-totale" id="zones">
             <div class="left-section">
                 <h1 class="titre">Prévoyez vos prochaines vacances</h1>
                 <form name="Calculateur" id="calc">
@@ -74,9 +74,11 @@ if (!isset($_SESSION["csrf_token"])) {
             <div class="big-trait"></div>
 
             <div class="right-section" id="calculateur-right-section">
+                <div>
                 <p>Bienvenue sur notre puissant calculateur de trajet et de séjour, votre compagnon de voyage ultime. Vous êtes en quête de l'expérience de voyage parfaite? Notre outil offre une approche inégalée pour planifier vos aventures.</p>
-                <p>Pour chaque destination, choisissez entre train, avion et voiture pour découvrir les itinéraires les plus adaptés. Obtenez des estimations précises des coûts, du temps de trajet et de l'empreinte carbone, vous aidant à prendre des décisions éclairées pour des voyages durables et abordables. De plus, avec la possibilité d'ajouter la durée de votre séjour, vous obtiendrez une estimation du prix total de votre aventure.</p>
-                <p>Préparez-vous à explorer le monde en toute confiance, grâce à des informations complètes pour des voyages inoubliables.</p>
+                <br>
+                <p>Découvrez quel sera le moyen de transport le plus adapté pour votre prochain voyage entre le train, l'avion et la voiture. Obtenez des estimations précises des coûts, du temps de trajet et de l'empreinte carbone, vous aidant à prendre des décisions éclairées pour des voyages durables et abordables. De plus, avec la possibilité d'ajouter la durée de votre séjour, vous obtiendrez une estimation du prix total de votre aventure.</p>
+                </div>
             </div>
 
         </div>
