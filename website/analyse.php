@@ -73,11 +73,10 @@
                     <img class="flag-small" src='assets/icons/analyseScore.svg'>
                     <h2> Score </h2>
                     <p> Le projet vise à attribuer un score à chaque pays pour fournir une identité supplémentaire. Ce score, basé sur des critères éthiques, permet aux utilisateurs de découvrir facilement des informations sur leur future destination en fonction de leurs préférences. Quatre scores sont mis en place : "Tourismeco" pour une vue d'ensemble par défaut, et trois autres ("Tourisme moderne", "Tourisme Éco-responsable", et "Tourisme d'Exploration et de Découverte") pour des préférences spécifiques.</p>
-                    <p>Les critères de chaque score incluent des indicateurs tels que les arrivées d'avions, l'Indice de Développement Humain (IDH), les émissions de gaz à effet de serre (GES), etc. Chaque score est normalisé entre 0 et 1, puis noté de A à E, de parfait à mauvais.</p>
                 </div>
             </div>
-                <div class="container-presentation expandrow-2 expand-2 score">
-               
+            <div class="container-presentation expandrow-2 expand-2 score">
+                    <p>Les critères de chaque score incluent des indicateurs tels que les arrivées d'avions, l'Indice de Développement Humain (IDH), les émissions de gaz à effet de serre (GES), etc. Chaque score est normalisé entre 0 et 1, puis noté de A à E, de parfait à mauvais.</p>
                     <p> La mise en place des scores s'est faite en utilisant Python. Les données ont été traitées et des poids ont été attribués à chaque critère. Une moyenne pondérée a été utilisée pour obtenir le score final. Les intervalles de score ont été définis en fonction de la variance et appliqués aux données. Enfin, une vérification de cohérence a été réalisée à l'aide d'une visualisation par une carte du monde. </p>
                     <p> De plus nous avons normaliser les données en utilisant la méthode multicritère, cela nous a permis de comparer différents critères. Elle consiste à attribuer des poids différents à chaque critère, certains augmentant le score tandis que d'autres le diminuent. Les valeurs résultantes sont comprises entre 0 et 1. Par exemple, les variables telles que les arrivées d'avions, le PIB par habitant, les énergies renouvelables et l'IDH augmentent le score (cf. calcul 2), tandis que le GPI et les émissions de GES par habitant le diminuent (cf. calcul 1). </p>
                    
