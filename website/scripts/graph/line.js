@@ -1,18 +1,17 @@
-var color = ["#52796F","#eb984e","#7fb3d5"]
-
 function line(id) {
+    color = ["#52796F","#eb984e","#7fb3d5"]
     l = new Graphique(id, "line")
     l.createXAxis("year")
     l.createYAxis()
     l.setType("co2")
-    l.addSerie("line","year", "co2", null,"Moyenne : {valueY}",color[0] );
-    l.addSerie("line","year", "co2", "nom","Maximum : {valueY}",color[1] );
-    l.addSerie("line","year", "co2", "nom","Minimum : {valueY}",color[2] );
+    l.addSerie("line","year", "co2", null,"Moyenne : {valueY} ", color[0] );
+    l.addSerie("line","year", "co2", null,"Maximum : {valueY}", color[1] );
+    l.addSerie("line","year", "co2", null,"Minimum : {valueY}", color[2] );
 }
 
 
 function lineHTMXContient(data0, data1, data2) {
-    // console.log(data0,data1,data2)
+    console.log("m",data0,data1,data2)
     l.updateSerie(0, data0, "Moyenne")
     l.updateSerie(1, data1["data"], "Maximum", data1)
     l.updateSerie(2, data2["data"], "Minimum", data2)
