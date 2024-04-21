@@ -844,3 +844,34 @@ function addSafety($cur, $id_pays, $id_html) {
         </div>
     HTML;
 }
+
+function getStatMajeure($id_pays, $cur) {
+    $query = "SELECT * FROM alldata_rank WHERE id_pays = :id_pays ORDER BY annee DESC;";
+    $sth = $cur->prepare($query);
+    $sth->bindParam(":id_pays", $id_pays, PDO::PARAM_STR);
+    $sth->execute();
+
+    $variables = ["co2", "elecRenew", "pibParHab", "gpi", "arriveesTotal", "departs", "idh", "ges", "safety"];
+    $rankings = [];
+
+    // Parcourez le résultat de la requête.
+    while ($ligne = $sth->fetch(PDO::FETCH_ASSOC)) {
+        // Pour chaque ligne, parcourez les noms des variables.
+        foreach ($variables as $variable) {
+            // Si la valeur dans la ligne pour cette variable est non nulle et que nous n'avons rien stocké pour celle-ci, stockez le classement et l'année.
+            if ($ligne[$variable] !== null && !isset($rankings[$variable])) {
+                $rankings[$variable] = ["ranking" => $ligne[$variable], "year" => $ligne["annee"]];
+            }
+        }
+        // Si toutes les variables ont un classement stocké, arrêtez-vous.
+        if (count($rankings) == count($variables)) {
+            break;
+        }
+    }
+
+    $minRanking = min(array_column($rankings, "ranking"));
+    $keys = array_keys($rankings, min($rankings));
+    $minVariable = $keys[0];
+
+    return ["rank" => $minRanking, "year" => $rankings[$minVariable]['year'], "var" => $minVariable];
+}
