@@ -18,114 +18,54 @@
             <h2 style="font-size:20px;">Modifier votre profil</h2>
 
             <div class="connexion-container">
-                    <form id="loginForm" action="scripts/login/modif.php" method="post" onsubmit="return validateForm()">
-                        <label for="country">Pays actuel</label>
-                        <input type="text" id="country_register" name="country" placeholder=<?php echo $_SESSION[
-                            "user"
-                        ]["country"]; ?> required autocomplete="off"
-                            hx-get="scripts/htmx/listPays.php" hx-trigger="keyup[this.value.trim().length > 0] changed delay:0.5s" hx-vals='js:{search: getSearchValue("country_register"), sens:"register"}'>
-                            <div id="country_options_register" class="option-container"></div>
-                            <div id="errorCountry" class="error"></div>
-                        <br>
+                <form id="loginForm" hx-post="scripts/login/modif.php" hx-swap="beforeend">
+                    <label for="country">Pays actuel</label>
+                    <input type="text" id="country_register" name="country" placeholder=<?php echo $_SESSION[
+                        "user"
+                    ]["country"]; ?> required autocomplete="off"
+                        hx-get="scripts/htmx/listPays.php" hx-trigger="keyup[this.value.trim().length > 0] changed delay:0.5s" hx-vals='js:{search: getSearchValue("country_register"), sens:"register"}'>
+                        <div id="country_options_register" class="option-container"></div>
+                    <br>
 
-                        <label for="cityInput">Ville actuelle</label>
-                        <input type="text" id="city_register" name="city" placeholder=<?php echo $_SESSION[
-                            "user"
-                        ]["city"]; ?> required autocomplete="off">
-                            <div id="city_options_register" class="option-container"></div>
-                            <div id="errorCity" class="error"></div>
-                        <br>
+                    <label for="cityInput">Ville actuelle</label>
+                    <input type="text" id="city_register" name="city" disabled placeholder=<?php echo $_SESSION[
+                        "user"
+                    ]["city"]; ?> required autocomplete="off">
+                        <div id="city_options_register" class="option-container"></div>
+                    <br>
 
-                        <input type="hidden" name="csrf_token" id="csrf_token" value="<?php echo $_SESSION[
-                            "csrf_token"
-                        ]; ?>">
+                    <input type="hidden" name="csrf_token" id="csrf_token" value="<?php echo $_SESSION[
+                        "csrf_token"
+                    ]; ?>">
 
-                        <input type="submit" value="Modifier" style="background-color: #52796F; color: white; border: 1px solid #52796F; border-radius: 8px; font-size: 16px; width:150px; display: block; margin: 0 auto;">
-                        <div id="errorMessages" class="error"></div>
-                    </form>
-
-
-                    <script>
-                        $(document).ready(function () {
-                            var count = 0
-                            // Fonction pour afficher une alerte et mettre en surbrillance le champ en erreur
-                            function showErrorAlert(message, field) {
-                                $(field).html(message)
-                                count++
-                            }
-
-                            function clearError(field) {
-                                $(field).empty()
-                            }
-
-
-                            // Fonction pour mettre à jour le statut du champ (valide/invalide)
-                            function updateFieldStatus(field, isValid, errorMessage) {
-                                if (!isValid) {
-                                    showErrorAlert(errorMessage, field);
-                                }
-                            }
-
-                            // Fonction pour valider le formulaire
-                            function validateForm() {
-                                count = 0
-                                var countryField = $('input[name="country_register"]');
-                                var cityInputField = $('input[name="city_register"]');
-
-                                // Validation du pays
-                                var country = countryField.val();
-                                if (country.trim() === "") {
-                                    showErrorAlert("Veuillez sélectionner ou saisir un pays.", $("#errorCountry"));
-                                } else {
-                                    clearError($("#errorCountry"))
-                                }
-
-                                // Validation de la ville
-                                var cityInput = cityInputField.val();
-                                var selectedCity = $("#selectedCity").val();
-                                if (cityInput.trim() === "" && selectedCity === "") {
-                                    showErrorAlert("Veuillez sélectionner ou saisir une ville.", $("#errorCity"));
-                                } else {
-                                    clearError($("#errorCity"))
-                                }
-                                // Si au moins un champ a une erreur, empêcher la soumission du formulaire
-                                if (count > 0) {
-                                    return false;
-                                }
-                                return true;
-                            }
-
-                            // Gestionnaire de soumission du formulaire
-                            $('form').submit(function () {
-                                return validateForm();
-                            });
-                        });
-                    </script>
+                    <input type="submit" value="Modifier" style="background-color: #52796F; color: white; border: 1px solid #52796F; border-radius: 8px; font-size: 16px; width:150px; display: block; margin: 0 auto;">
+                    <div id="error" class="form-warning"></div>
+                </form>
             </div>
         </div>
 
         <div class="right-section">
             <h2 style="font-size:20px;">Modifier vos préférences</h2>
             <div class="connexion-container">
-                <form id="preference">
+                <form id="preference" hx-post="scripts/login/ajouter.php" hx-swap="beforeend">
                     <div class="preference-item">
                         <label for="tourisme_moderne">Tourisme Moderne (economique)</label>
-                        <input type="checkbox" id="tourisme_moderne" name="preferences[]" value="Tourisme Moderne (economique)">
+                        <input type="radio" id="tourisme_moderne" name="tourisme_moderne" value="Tourisme Moderne (economique)">
                     </div>
 
                     <div class="preference-item">
                         <label for="tourisme_decouverte">Tourisme d'Exploration et de Découverte</label>
-                        <input type="checkbox" id="tourisme_decouverte" name="preferences[]" value="Tourisme d'Exploration et de Découverte">
+                        <input type="radio" id="tourisme_decouverte" name="tourisme_decouverte" value="Tourisme d'Exploration et de Découverte">
                     </div>
 
                     <div class="preference-item">
                         <label for="tourisme_eco">Tourisme Éco-responsable</label>
-                        <input type="checkbox" id="tourisme_eco" name="preferences[]" value="Tourisme Éco-responsable">
+                        <input type="radio" id="tourisme_eco" name="tourisme_eco" value="Tourisme Éco-responsable">
                     </div>
 
                     <div class="preference-item">
-                        <label for="pas_preference">Pas de préference particuliere</label>
-                        <input type="checkbox" id="pas_preference" name="preferences[]" value="Pas de préference particuliere">
+                        <label for="pas_preference">Pas de préference particulière</label>
+                        <input type="radio" id="pas_preference" name="pas_preference" value="Pas de préference particuliere">
                     </div>
 
                     <input type="submit" value="Mettre à jour" style="background-color: #52796F; color: white; border: 1px solid #52796F; border-radius: 8px; font-size: 16px; width:150px; display: block; margin: 0 auto;">

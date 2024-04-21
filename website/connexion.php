@@ -22,11 +22,9 @@ if (!isset($_SESSION["csrf_token"])) {
                 <form id="loginForm" hx-post="scripts/login/connecter.php" hx-swap="beforeend">
                     <label for="username">Nom d'utilisateur</label>
                     <input type="text" id="username" name="username" placeholder="Saisissez votre nom d'utilisateur" required autocomplete="off">
-                    <div id="errorUsername" class="error"></div>
 
                     <label for="password">Mot de passe</label>
                     <input type="password" id="password" name="password" placeholder="Saisissez votre mot de passe" required autocomplete="off">
-                    <div id="errorPassword" class="error"></div>
 
                     <!-- Ajouter un champ pour le token CSRF -->
                     <input type="hidden" name="csrf_token" id="csrf_token" value="<?php echo $_SESSION[

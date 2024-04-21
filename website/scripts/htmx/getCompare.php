@@ -99,11 +99,11 @@ if ((isset($_GET["load"]) && $incr == 1) || !isset($_GET["load"])) {
     $div0 = number_format($maj0["val0"] / $maj0["val1"], 2);
     if ($maj0["val0"] < $maj0["val1"]){
         $txtdiv0 = "plus grand";
-        $icon0 = "up";
+        $icon0 = "up.svg";
     }
     else {
         $txtdiv0 = "plus petit";
-        $icon0 = "down";
+        $icon0 = "down.svg";
     }
     $div1 = number_format($maj1["val0"] / $maj1["val1"], 2);
     if ($maj1["val0"] < $maj1["val1"]){
@@ -112,7 +112,7 @@ if ((isset($_GET["load"]) && $incr == 1) || !isset($_GET["load"])) {
     }
     else {
         $txtdiv1 = "plus petit";
-        $icon1 = "down";
+        $icon1 = "down.svg";
     }
     echo <<<HTML
 

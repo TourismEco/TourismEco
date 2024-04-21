@@ -2181,6 +2181,12 @@ span {
     font-style: italic;
 }
 
+.form-success {
+    color: rgb(0, 170, 57);
+    font-size: 18px;
+    font-style: italic;
+}
+
 .container-safe {
     display: flex;
     flex-direction: column;
