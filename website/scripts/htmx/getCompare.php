@@ -54,9 +54,20 @@ $incrP = $incr+1;
 
 $id = $_SESSION["pays"][0];
 
+
+// Effectuer une requête pour récupérer le nom du pays correspondant à l'identifiant
+$query_nom0 = "SELECT nom FROM pays WHERE id = :id";
+$sth_nom0= $cur->prepare($query_nom0);
+$sth_nom0->bindParam(":id", $id, PDO::PARAM_STR);
+$sth_nom0->execute();
+$ligne_nom0 = $sth_nom0->fetch();
+$nom0 = $ligne_nom0["nom"];
+
+
+
 if ((isset($_GET["load"]) && $incr == 1) || !isset($_GET["load"])) {
     $icons = array("pibParHab" =>"dollar", "ges" =>"cloud", "co2" =>"cloud", "arriveesTotal" =>"down", "idh" =>"idh", "gpi" =>"shield", "elecRenew" =>"elec", "safety" =>"shield",);
-    $texts = array("pibParHab" =>"PIB par Habitant", "ges" =>"Émissions de GES par habitant", "arriveesTotal" =>"Arrivées touristiques", "idh" =>"Indice de développement humain", "gpi" => "Global peace index", "elecRenew" =>"Production d'énergies renouvellables", "safety" => "Score de sécurité", "co2" => "Emissions de CO2");
+    $texts = array("pibParHab" =>"PIB par Habitant", "ges" =>"Émissions de gaz à effet de serre par habitant", "arriveesTotal" =>"Arrivées touristiques", "idh" =>"Indice de développement humain", "gpi" => "Global peace index", "elecRenew" =>"Production d'énergies renouvellables", "safety" => "Score de sécurité", "co2" => "Emissions de CO2");
 
     $maj0 = getStatMajeure($_SESSION["pays"][0], $cur);
     $maj1 = getStatMajeure($_SESSION["pays"][1], $cur);
@@ -85,37 +96,57 @@ if ((isset($_GET["load"]) && $incr == 1) || !isset($_GET["load"])) {
     $text0 =  $texts[$maj0['var']];
     $text1 =  $texts[$maj1['var']];
 
+    $div0 = number_format($maj0["val0"] / $maj0["val1"], 2);
+    if ($maj0["val0"] < $maj0["val1"]){
+        $txtdiv0 = "plus grand";
+        $icon0 = "up";
+    }
+    else {
+        $txtdiv0 = "plus petit";
+        $icon0 = "down";
+    }
+    $div1 = number_format($maj1["val0"] / $maj1["val1"], 2);
+    if ($maj1["val0"] < $maj1["val1"]){
+        $txtdiv1 = "plus grand";
+        $icon1 = "up";
+    }
+    else {
+        $txtdiv1 = "plus petit";
+        $icon1 = "down";
+    }
     echo <<<HTML
 
         <div class="container-presentation expand-2" id="bestRank0" hx-swap-oob="outerHTML">
             <div class="compareRank">
-                <h3>Statistique majeure <img class="flag-tiny" src='assets/twemoji/$id.svg'></h3>
-                <p class="rank-textRank"> $maj0[rank]$suffix0</p>
-                <p class="rank-textRank">$maj0[val0]</p> </p>
-                <p class="rank-text">pour $text0 en $maj0[year] </p>
+                <h3>Statistique majeure <img class="flag-compare" src='assets/twemoji/$id.svg'></h3>
+                <p class="rank-text">pour <strong style="color:#862213;"> $text0 </strong> en $maj0[year] </p>
+                <p class="rank-textRank"> $maj0[rank] $suffix0</p>
+                <p class="rank-textRank">$maj0[val0]  </p>
             </div>
             <div class="trait"></div>
             <div class="compareRank">
-                <h3><img class="flag-tiny" src='assets/twemoji/$id_pays.svg'> VS. <img class="flag-tiny" src='assets/twemoji/{$_SESSION["pays"][($incr+1)%2]}.svg'></h3>
-                <p class="rank-textRank">$maj0[rank1]$suffix01</p>
+                <h3>Comparaison avec $nom <img class="flag-compare" src='assets/twemoji/$id_pays.svg'></h3>
+                <p class="rank-textRank">$maj0[rank1] $suffix01</p>
                 <p class="rank-textRank">$maj0[val1]</p>
-                <p class="rank-text">pour $text0</p>
+                <p class="rank-textRank"><img class="small-icon" src="assets/icons/mini$icon0">$div0 fois</p>
+                <p class="rank-text">$txtdiv0 que $nom0</p>
             </div>
         </div>
 
         <div class="container-presentation expand-2" id="bestRank1" hx-swap-oob="outerHTML">
             <div class="compareRank">
-                <h3>Statistique majeure <img class="flag-tiny" src='assets/twemoji/$id_pays.svg'></h3>
-                <p class="rank-textRank"> $maj1[rank]$suffix1</p>
+                <h3>Statistique majeure <img class="flag-compare" src='assets/twemoji/$id_pays.svg'></h3>
+                <p class="rank-text">pour <strong style="color:#862213;"> $text1 </strong> en $maj1[year] </p>
+                <p class="rank-textRank"> $maj1[rank] $suffix1</p>
                 <p class="rank-textRank">$maj1[val0]</p> </p>
-                <p class="rank-text">pour $text1 en $maj1[year] </p>
             </div>
             <div class="trait"></div>
             <div class="compareRank">
-                <h3><img class="flag-tiny" src='assets/twemoji/$id_pays.svg'> VS. <img class="flag-tiny" src='assets/twemoji/{$_SESSION["pays"][($incr+1)%2]}.svg'></h3>
-                <p class="rank-textRank">$maj1[rank1]$suffix11</p>
+                <h3>Comparaison avec $nom0 <img class="flag-compare" src='assets/twemoji/{$_SESSION["pays"][($incr+1)%2]}.svg'></h3>
+                <p class="rank-textRank">$maj1[rank1] $suffix11</p>
                 <p class="rank-textRank">$maj1[val1]</p> 
-                <p class="rank-text">pour $text1 </p>
+                <p class="rank-textRank"><img class="small-icon"  src="assets/icons/mini$icon1">$div1 fois</p>
+                <p class="rank-text">$txtdiv1 que $nom</p>
             </div>
         </div>
 
@@ -151,7 +182,7 @@ echo <<<HTML
 
 <p class="name" id="nom$incr" hx-swap-oob="outerHTML">$nom</p>
 <span id="paysvs$incr" hx-swap-oob="outerHTML">$nom</span>
-<img class="flag-tiny" src="assets/twemoji/$id_pays.svg" id="flag$incr" hx-swap-oob="outerHTML">
+<img class="flag-compare" src="assets/twemoji/$id_pays.svg" id="flag$incr" hx-swap-oob="outerHTML">
 <img class="flag-small" id="flag-bot$incr" hx-swap-oob="outerHTML" src='assets/twemoji/$id_pays.svg'>
 
 <script id="orders" hx-swap-oob="outerHTML">

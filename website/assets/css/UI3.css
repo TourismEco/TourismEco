@@ -291,6 +291,12 @@ html {
     padding: 5px;
     box-sizing: content-box;
 }
+
+.small-icon{
+    width:10%;
+    margin:auto;
+}
+
 .flag-down {
     grid-row: 1;
     grid-column: 1;
@@ -480,6 +486,11 @@ html {
 
 .flag-tiny {
     width: 20px;
+}
+
+.flag-compare{
+    width: 20px;
+    margin-top: 5%;
 }
 
 .bold {
@@ -1382,10 +1393,11 @@ input {
     display: flex;
     flex-direction: column;
     align-self: center;
-    margin: 10%;
+    margin: 10px;
     width: 50%;
     h3 {
         text-align: center;
+        font-size: 1em;
     }
 }
 
@@ -1717,6 +1729,7 @@ input {
     flex-direction: column;
     border: solid 2px var(--color1);
 }
+
 
 .title-scores {
     display: flex;
