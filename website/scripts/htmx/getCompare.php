@@ -114,6 +114,11 @@ if ((isset($_GET["load"]) && $incr == 1) || !isset($_GET["load"])) {
         $txtdiv1 = "plus petit";
         $icon1 = "down.svg";
     }
+    $maj0["val0"]= formatNumber($maj0["val0"], $maj0["var"]);
+    $maj0["val1"]= formatNumber($maj0["val1"], $maj0["var"]);
+
+    $maj1["val0"]= formatNumber($maj1["val0"], $maj1["var"]);
+    $maj1["val1"]= formatNumber($maj1["val1"], $maj1["var"]);
     echo <<<HTML
 
         <div class="container-presentation expand-2" id="bestRank0" hx-swap-oob="outerHTML">
