@@ -33,4 +33,5 @@
 .img-nav {
     width: 40px;
     height: 40px;
+    max-width: unset;
 }

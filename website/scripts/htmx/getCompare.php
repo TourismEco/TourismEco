@@ -137,16 +137,15 @@ if ((isset($_GET["load"]) && $incr == 1) || !isset($_GET["load"])) {
 
         <div class="container-presentation expand-2" id="bestRank0" hx-swap-oob="outerHTML">
             <div class="compareRank">
-                <h3>Statistique majeure <img class="flag-compare" src='assets/twemoji/$id.svg'></h3>
+                <div class="majstat-compare"><h3>Statistique majeure</h3><img style="margin:0 5px" class="flag-compare" src='assets/twemoji/$id.svg'></div>
                 <p class="rank-text">pour <strong style="color:#862213;"> $text0 </strong> en $maj0[year] </p>
-                <p class="rank-textRank"> $maj0[rank] $suffix0</p>
+                <p class="rank-textRank"> $maj0[rank]$suffix0</p>
                 <p class="rank-textRank">$maj0[val0]  </p>
             </div>
             <div class="trait"></div>
             <div class="compareRank">
-                <h3>Comparaison avec $nom <img class="flag-compare" src='assets/twemoji/$id_pays.svg'></h3>
-                <p class="rank-textRank">$maj0[rank1] $suffix01</p>
-                <p class="rank-textRank">$maj0[val1]</p>
+                <div class="majstat-compare"><h3>Comparaison avec $nom</h3><img style="margin:0 5px" class="flag-compare" src='assets/twemoji/$id_pays.svg'></div>
+                <p class="rank-textRank">$maj0[rank1]$suffix01, $maj0[val1]</p>
                 <p class="rank-textRank"><img class="small-icon" src="assets/icons/mini$icon0">$div0 fois</p>
                 <p class="rank-text">$txtdiv0 que $nom0</p>
             </div>
@@ -154,16 +153,15 @@ if ((isset($_GET["load"]) && $incr == 1) || !isset($_GET["load"])) {
 
         <div class="container-presentation expand-2" id="bestRank1" hx-swap-oob="outerHTML">
             <div class="compareRank">
-                <h3>Statistique majeure <img class="flag-compare" src='assets/twemoji/$id_pays.svg'></h3>
+                <div class="majstat-compare"><h3>Statistique majeure</h3><img style="margin:0 5px" class="flag-compare" src='assets/twemoji/$id_pays.svg'></div>
                 <p class="rank-text">pour <strong style="color:#862213;"> $text1 </strong> en $maj1[year] </p>
-                <p class="rank-textRank"> $maj1[rank] $suffix1</p>
+                <p class="rank-textRank"> $maj1[rank]$suffix1</p>
                 <p class="rank-textRank">$maj1[val0]</p> </p>
             </div>
             <div class="trait"></div>
             <div class="compareRank">
-                <h3>Comparaison avec $nom0 <img class="flag-compare" src='assets/twemoji/{$_SESSION["pays"][($incr+1)%2]}.svg'></h3>
-                <p class="rank-textRank">$maj1[rank1] $suffix11</p>
-                <p class="rank-textRank">$maj1[val1]</p> 
+                <div class="majstat-compare"><h3>Comparaison avec $nom0</h3><img style="margin:0 5px" class="flag-compare" src='assets/twemoji/{$_SESSION["pays"][($incr+1)%2]}.svg'></div>
+                <p class="rank-textRank">$maj1[rank1]$suffix11, $maj1[val1]</p>
                 <p class="rank-textRank"><img class="small-icon"  src="assets/icons/mini$icon1">$div1 fois</p>
                 <p class="rank-text">$txtdiv1 que $nom</p>
             </div>

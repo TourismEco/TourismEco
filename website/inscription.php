@@ -34,7 +34,7 @@
                     <div id="country_options_register" class="option-container"></div>
 
                     <label for="country_src">Votre ville</label>
-                    <input type="text" id="city_register" name="city" placeholder="Saisissez une ville" required autocomplete="off">
+                    <input type="text" id="city_register" name="city" placeholder="Saisissez une ville" disabled required autocomplete="off">
                     <div id="city_options_register" class="option-container"></div>
 
                     <input type="submit" value="S'inscrire" class="submit">

@@ -6,9 +6,9 @@
         <div id="zones">
             <div class="zone zone-presentation display" id="home">
                 <div class="container-presentation expand-3" id="bandeau0"></div>
-                <div class="expand-2 expandrow-2" id="map"></div>
+                <div class="expand-2 expandrow-2 expresp" id="map"></div>
                 <div class="graph" id="graph_pie"></div>
-                <div class="container-presentation expandrow-2">
+                <div class="container-presentation expandrow-2 expresp">
                     <div class='container-explore-continent' id="explore">
                         <p class="info-explore">Selectionnez un pays sur la carte ou depuis la barre de recherche pour consulter ses informations</p>
                     </div>

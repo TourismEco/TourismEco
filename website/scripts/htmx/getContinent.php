@@ -148,7 +148,7 @@ echo <<<HTML
     <div class="bandeau"> 
         <img class="img-bandeau" src='assets/img/$randomCountryId.jpg' alt="Bandeau">
         <div class="flag-plus-nom">
-            <img class="flag-bandeau" src="assets/icons/$nom.svg">
+            <img class="flag-bandeau" src="assets/icons/$am.svg">
             <h2 class="nom">$nom</h2>
         </div>
         <img class="flag-down" src="assets/twemoji/$randomCountryId.svg">

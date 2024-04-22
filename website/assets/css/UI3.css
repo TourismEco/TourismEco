@@ -430,7 +430,7 @@ p {
     display: grid;
     background-color: #eed;
     border-radius: var(--border-radius);
-    gap: var(--spacing-large);
+    gap: var(--spacing-medium);
     z-index: 5;
     color: #222;
     overflow-y: auto;
@@ -569,6 +569,7 @@ p {
 }
 
 .column {
+    display: flex;
     flex-direction: column;
 }
 
@@ -615,7 +616,7 @@ p {
 
 .flag-compare {
     width: 20px;
-    margin-top: 5%;
+    margin: auto
 }
 
 .bold {
@@ -707,7 +708,7 @@ p {
 
 .container-explore {
     overflow-y: auto;
-    gap: var(--spacing-large);
+    gap: var(--spacing-small);
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(4, 100px);
@@ -769,7 +770,7 @@ p {
 
 .container-classement {
     overflow-y: auto;
-    gap: var(--spacing-large);
+    gap: var(--spacing-small);
     display: grid;
     justify-content: center;
     grid-template-columns: 1fr 1fr;
@@ -1077,7 +1078,7 @@ p {
     grid-template-columns: 1fr 1fr;
     grid-row: 2 / 4;
     grid-column: 2;
-    gap: var(--spacing-large);
+    gap: var(--spacing-medium);
     align-self: center;
     line-height: 1.25;
 }
@@ -1137,7 +1138,7 @@ p {
     display: flex;
     overflow-y: auto;
     flex-flow: wrap;
-    gap: var(--spacing-large);
+    gap: var(--spacing-medium);
     margin-top: 20px;
     transition: opacity 0.5s ease-out;
 }
@@ -1325,16 +1326,6 @@ p {
     }
 }
 
-@media screen and (width <) .right-section {
-    text-align: justify;
-    width: 50%;
-    line-height: 1.25;
-    display: grid;
-    div {
-        align-self: center;
-    }
-}
-
 @media screen and (max-width: 1100px) {
     .tooltip .top {
         min-width: auto;
@@ -1423,12 +1414,10 @@ input {
 
 .right-section {
     text-align: justify;
-    width: 50%;
     line-height: 1.25;
     display: grid;
     div {
         align-self: center;
-        width:70%;
     }
     
 }
@@ -1722,11 +1711,17 @@ input {
     font-size: var(--fs-400);
 }
 
+.majstat-compare {
+    display: flex;
+    justify-content: center;
+}
+
 .rank-textRank {
     font-size: var(--fs-500);
     text-align: center;
     align-self: center;
     margin: auto;
+    display: flex;
 }
 
 .iconClassement {
@@ -1919,7 +1914,7 @@ input {
     grid-column: 2;
     flex-direction: column;
     justify-content: center;
-    gap: var(--spacing-large);
+    gap: var(--spacing-medium);
 }
 
 .big-score div {
@@ -2073,6 +2068,7 @@ input {
 
 .preference-item input[type="radio"] {
     margin-right: 10px; /* Ajoute un espace entre le bouton radio et le texte */
+    width: 20px;
 }
 
 .preference-item input {
@@ -2498,6 +2494,10 @@ ul {
         grid-row: 3;
         height: auto;
     }
+
+    #scatterPlot {
+        grid-row: 2;
+    }
 }
 
 @media screen and (max-width: 960px) {
@@ -2635,6 +2635,10 @@ ul {
         grid-column: span 1;
     }
 
+    .expresp {
+        grid-column: span 2;
+    }
+
     #description0 {
         height: 250px;
     }
@@ -2655,6 +2659,11 @@ ul {
     #score1 {
         grid-row: unset;
         grid-column: unset;
+    }
+
+    #graph_pie  {
+        grid-row: 2;
+        grid-column: 1/3;
     }
 }
 

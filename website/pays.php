@@ -276,7 +276,7 @@ if ($pays == "") {
                         </div>
                         <div class="legende-element">
                             <div class="square bg-52796F"></div>
-                            <p class="name" id="nom0"></p>
+                            <p class="name" id="nom"></p>
                         </div>
 
                         <div class="legende-element">
