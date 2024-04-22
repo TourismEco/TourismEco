@@ -277,12 +277,11 @@ p {
     .content-zone {
         margin: 5px;
     }
-    h3{
-        font-size:var(--fs-500);
+    h3 {
+        font-size: var(--fs-500);
     }
-    h2{
-        font-size:var(--fs-500);
-    
+    h2 {
+        font-size: var(--fs-500);
     }
 }
 
@@ -314,7 +313,7 @@ p {
     display: flex;
     flex-flow: column;
     justify-content: center;
-    gap: 20px;
+    gap: var(--spacing-large);
 }
 
 .container-cartePays {
@@ -322,7 +321,7 @@ p {
     flex-flow: column;
     height: 100%;
     justify-content: center;
-    gap: 20px;
+    gap: var(--spacing-large);
 }
 
 .bandeau {
@@ -431,7 +430,7 @@ p {
     display: grid;
     background-color: #eed;
     border-radius: var(--border-radius);
-    gap: 20px;
+    gap: var(--spacing-large);
     z-index: 5;
     color: #222;
     overflow-y: auto;
@@ -454,6 +453,7 @@ p {
 
 .zone-totale {
     display: grid;
+    grid-template-columns: 1fr 1px 1fr;
     justify-content: center;
     text-align: center;
 }
@@ -490,7 +490,7 @@ p {
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(2, 1fr);
     display: grid;
-    gap: 20px;
+    gap: var(--spacing-large);
 }
 
 .zone-scores {
@@ -508,7 +508,7 @@ p {
 
 #score {
     grid-template-rows: 1fr 2fr;
-    gap: 20px;
+    gap: var(--spacing-large);
 }
 
 #cluster {
@@ -525,15 +525,15 @@ p {
 }
 
 .section-cluster {
-    display:grid;
+    display: grid;
     grid-template-columns: 1fr 1fr;
-    gap:20px
+    gap: var(--spacing-large);
 }
 
 @container window-layout (width < 70ch) {
     .zone-double {
         grid-template-columns: 1fr;
-        gap: 20px;
+        gap: var(--spacing-large);
         .zone-double {
             grid-template-columns: 1fr 1fr;
         }
@@ -550,6 +550,11 @@ p {
     .container-presentation {
         grid-column: span 2;
     }
+}
+
+#regr {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 50%);
 }
 
 #arima .container-scrollable {
@@ -702,7 +707,7 @@ p {
 
 .container-explore {
     overflow-y: auto;
-    gap: 20px;
+    gap: var(--spacing-large);
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(4, 100px);
@@ -727,7 +732,7 @@ p {
     flex-flow: column;
     height: 100%;
     justify-content: center;
-    gap: 20px;
+    gap: var(--spacing-large);
 }
 
 .explore-more {
@@ -746,20 +751,12 @@ p {
     grid-row: span 2;
     color: #222;
 }
-@media screen and (max-width: 760px) {
-    .expandrow-2{
-        grid-column: 1/3;
-    }
-    
-}
 
 @media screen and (max-width: 500px) {
-    .zone{
+    .zone {
         display: grid;
         grid-template-columns: 1fr;
     }
-    
-    
 }
 
 .more-text {
@@ -772,7 +769,7 @@ p {
 
 .container-classement {
     overflow-y: auto;
-    gap: 20px;
+    gap: var(--spacing-large);
     display: grid;
     justify-content: center;
     grid-template-columns: 1fr 1fr;
@@ -877,7 +874,7 @@ p {
 .otherDiv {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 20px;
+    gap: var(--spacing-large);
 }
 
 .premier {
@@ -953,7 +950,7 @@ p {
     border-radius: var(--border-radius);
     display: grid;
     grid-template-rows: 1fr;
-    gap: 20px;
+    gap: var(--spacing-large);
 }
 
 .info-explore {
@@ -1019,7 +1016,7 @@ p {
     display: flex;
     height: 20px;
     padding: 10px 15px;
-    gap: 20px;
+    gap: var(--spacing-large);
     align-items: center;
     grid-column: 1 / 3;
     justify-content: space-between;
@@ -1080,7 +1077,7 @@ p {
     grid-template-columns: 1fr 1fr;
     grid-row: 2 / 4;
     grid-column: 2;
-    gap: 20px;
+    gap: var(--spacing-large);
     align-self: center;
     line-height: 1.25;
 }
@@ -1122,7 +1119,7 @@ p {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 20px;
+    gap: var(--spacing-large);
     margin-bottom: 20px;
 }
 
@@ -1140,7 +1137,7 @@ p {
     display: flex;
     overflow-y: auto;
     flex-flow: wrap;
-    gap: 20px;
+    gap: var(--spacing-large);
     margin-top: 20px;
     transition: opacity 0.5s ease-out;
 }
@@ -1384,7 +1381,7 @@ form {
 
 label {
     white-space: nowrap;
-    margin-bottom: var(--spacing-medium);
+    margin-bottom: var(--spacing-small);
     font-size: var(--fs-400);
 }
 
@@ -1425,7 +1422,6 @@ input {
 }
 
 .left-section {
-    width: 50%;
     margin: auto 0;
 }
 
@@ -1454,7 +1450,7 @@ input {
 .nav-bottom {
     justify-content: center;
     display: flex;
-    gap: 20px;
+    gap: var(--spacing-large);
     z-index: 8;
     transition: all 1s ease-in-out;
 }
@@ -1761,7 +1757,6 @@ input {
 }
 
 .allow-scroll img {
-    height: 100%;
     width: 100%;
     object-fit: cover;
     color: #222;
@@ -1825,7 +1820,7 @@ input {
 
 .scores-column {
     display: grid;
-    gap: 20px;
+    gap: var(--spacing-large);
     padding: 20px;
     grid-template-rows: 1fr 1fr 1fr;
 }
@@ -1912,7 +1907,7 @@ input {
     grid-column: 2;
     flex-direction: column;
     justify-content: center;
-    gap: 20px;
+    gap: var(--spacing-large);
 }
 
 .big-score div {
@@ -2121,14 +2116,6 @@ span {
     background-color: #d9d9d9;
     border-radius: var(--border-radius);
 }
-
-@media screen and (max-width: 770px) {
-    #graph_pie  {
-        grid-row: 2;
-        grid-column: 1/3;
-    }
-    
-}
 #haut {
     grid-row: 1;
     margin: 0px;
@@ -2137,12 +2124,6 @@ span {
 #scatter {
     grid-row: 2/10;
     grid-column: 1/3;
-}
-@media screen and (max-width: 1130px) {
-    #scatterPlot {
-        grid-row: 2;
-    }
-    
 }
 
 .dual-input {
@@ -2289,9 +2270,6 @@ span {
     h2 {
         margin-top: 5px;
     }
-    p {
-        font-size: 13px;
-    }
 }
 
 .math {
@@ -2350,7 +2328,7 @@ ul {
 
     .cubes-bar {
         grid-template-columns: repeat(3, 1fr);
-        gap: 20px;
+        gap: var(--spacing-large);
     }
 }
 
@@ -2566,6 +2544,10 @@ ul {
             grid-row: 3;
         }
     }
+
+    #regr {
+        grid-template-columns: 1fr;
+    }
 }
 
 @media screen and (max-width: 910px) {
@@ -2591,7 +2573,7 @@ ul {
     }
 
     .zone-totale {
-        flex-direction: column;
+        grid-template-columns: 1fr;
         .right-section {
             order: 1;
             width: 100%;
@@ -2641,7 +2623,7 @@ ul {
     }
 
     .navbar {
-        gap: 20px;
+        gap: var(--spacing-large);
         overflow-x: auto;
     }
 
@@ -2798,8 +2780,8 @@ ul {
     .container-explore div {
         grid-column: 1;
     }
-    .explore-more{
-        grid-row:7;
+    .explore-more {
+        grid-row: 7;
     }
 }
 

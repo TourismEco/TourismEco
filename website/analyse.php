@@ -421,7 +421,7 @@ En outre, il est important de noter que ces données peuvent être étendues pou
                         </div>
 
                     </div>
-                    <div class="container-presentation expand-3 regression2">
+                    <div class="container-presentation regression2">
                     <p>L'analyse des relations entre le PIB par habitant et diverses variables explicatives a révélé des résultats significatifs, montrant le PIB comme un prédicteur efficace du Revenu National Brut par habitant et de l'Indice de Développement Humain. Bien que moins précis
                     pour prédire les émissions de Gaz à Effet de Serre (GES). L'exploration de variables supplémentaires comme l'IDH, l'espérance de vie, le GPI et l'énergie renouvelable a mis en évidence des liens intéressants, notamment la forte corrélation entre l'IDH et l'espérance de vie et la corrélation négative entre l'énergie renouvelable et les émissions de GES par habitant.</p>
                     </div>
@@ -504,7 +504,7 @@ En outre, il est important de noter que ces données peuvent être étendues pou
                     $("#sectionClusterPlus").css("display","none")
                 }
 
-                
+
                 if ($(this).data("index") != 0) {
                     nb = $(this).data("index")*getMulti()+9.5
                 } else {
