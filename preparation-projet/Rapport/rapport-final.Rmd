@@ -1,6 +1,6 @@
 ---
 title: "Rapport de Sciences de Données"
-author: 
+author:
 - BRANSOLLE Line,
 - GILIBERT Rémy,
 - GONÇALVES Hugo,
@@ -8,25 +8,24 @@ author:
 - SÉNÉCAILLE Cassandra,
 - TRIOZON Lucas
 date: "`r Sys.Date()`"
-output: 
+output:
   pdf_document:
-    toc: true
+    toc: yes
     toc_depth: 2
-    fig_caption: true
-    keep_md: false
-    keep_tex: false
+    fig_caption: yes
+    keep_md: no
+    keep_tex: no
     template: template.tex
-    pandoc_args:
-    - --top-level-division="chapter"
-    # pas encore utile- --bibliography="references.bib"
-toc_title: "Table des matières"
+    pandoc_args: "--top-level-division=\"chapter\""
+  html_document:
+    toc: yes
+    toc_depth: '2'
+    df_print: paged
+toc_title: Table des matières
 coursecode: TE5PR1MI
-#csl: iso690-author-date-fr-no-abstract.csl
-#biblio-style: elsarticle-harv
 session: 2024
 team: Groupe TourismEco
-header-includes:
-  - \usepackage{wrapfig}
+header-includes: \usepackage{wrapfig}
 ---
 
 # Introduction {.unnumbered}
@@ -99,6 +98,12 @@ Pour mettre en place nos scores, nous avons utilisé le langage de programmation
 Ensuite, nous avons attribué des poids à chaque variable, puis nous avons utilisé une moyenne pondérée pour obtenir le score final : \\
 `df['score'] = df.apply(lambda row: sum(float(row[var]) * poids[var] for var in poids) / sum(poids.values()), axis=1)`. \\
 Puis, pour définir les intervalles du score pour définir les lettres nous l’avons séquencé par la variance, en partant du score minimum (E) et terminant par le score maximum (A). Nous avons appliqué ces intervalles avec la fonction `pd.cut()`. Enfin, pour vérifier si nos scores étaient cohérents, nous avons utilisé une visualisation par une carte du monde avec les fonctions : `px.choropleth()` et `fig.update_geos()`.
+
+## Résultats du score
+
+Grâce à des visualisations par des histogrammes et des cartes mondiales, nous pouvons observer la distribution des scores. Après visualisation, on observe que très peu se situent aux deux extrêmes. Pour le score touristique qui prend en compte toutes les variables, seulement un pays possède un score de catégorie E, et 12 ont un score de catégorie A, sachant que 130 pays sont comptabilisés. De manière plus générale, c’est surtout le score de catégorie A qui comporte très peu de pays pour tous les scores confondus. Cependant, le score de catégorie D est celui où l’on retrouve le plus de pays, montrant qu’une majorité des pays sont en dessous de C, qui est le score médian. Une majorité a un score plutôt mauvais dans les quatre scores.  
+
+Malgré tout, on remarque que le score le plus équilibré est le score touristique (cf. figure 1.1 et figure 1.2).
 
 # ACP
 
@@ -227,7 +232,7 @@ Tout d’abord, nous utilisons la fonction `DataFrame()` pour créer un tableau 
 
 ## Le PIB comme variable explicative
 
-Nous avons utilisé le PIB par habitant comme variable explicative dans notre régression linéaire. Nous avons observé une corrélation positive entre le PIB par habitant et le Revenu National Brut (RNB) par habitant, ce qui suggère que le PIB par habitant est un prédicteur efficace du RNB par habitant (R² = 0.98).
+Nous avons utilisé le PIB par habitant comme variable explicative dans notre régression linéaire. Nous avons observé une corrélation positive entre le PIB par habitant et le Revenu National Brut (RNB) par habitant, ce qui suggère que le PIB par habitant est un prédicteur efficace du RNB par habitant (R² = 0.98). (cf.figure 1.8)
 
 Nous avons également constaté une corrélation positive entre le PIB par habitant et l’IDH (Indice de Développement Humain), indiquant que lorsque les conditions de vie s’améliorent, cela peut entraîner une augmentation des revenus et de la richesse au niveau individuel et national (R² = 0.68).
 
@@ -239,7 +244,7 @@ En conclusion, le PIB par habitant peut être une variable intéressante pour d�
 
 Nous avons exploré d’autres variables explicatives pour notre régression linéaire.
 
-1. **IDH et espérance de vie** : Nous avons observé une forte corrélation positive entre l’IDH et l’espérance de vie, confirmée par un score R² de 0.794. Cela suggère que l’IDH est un bon prédicteur de l’espérance de vie.
+1. **IDH et espérance de vie** : Nous avons observé une forte corrélation positive entre l’IDH et l’espérance de vie, confirmée par un score R² de 0.794. Cela suggère que l’IDH est un bon prédicteur de l’espérance de vie.(cf. figure 1.9)
 2. **IDH et GPI** : Nous avons constaté une corrélation négative entre l’IDH et le GPI, indiquant que plus le pays est paisible (GPI faible), plus le développement du pays (IDH) est important. Cependant, le score R² de 0.376 montre que cette relation est moins forte.
 3. **Énergie renouvelable et GES par habitant** : Nous avons observé une corrélation négative entre l’énergie renouvelable et les GES par habitant, indiquant que plus il y a d’énergie renouvelable mise en place dans le pays, plus le GES par habitant est faible. Cependant, cette relation est faible (score R² de 0.125), en partie à cause de deux valeurs aberrantes.
 
