@@ -55,7 +55,7 @@
                     </div>
 
                     <div class="container-info">
-                        <p>Le pays médian médiane</p>
+                        <p>Le pays médian</p>
                         <p id="med0" class="big">-</p>
                         <p id="med_detail">-</p>
                     </div>
