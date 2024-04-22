@@ -199,17 +199,28 @@ foreach (array("Global","Decouverte","Economique","Ecologique") as $key => $valu
     echo scoreBox($value,$ligneS["score".$value],$ligneS["label".$value]);
 }
 
+if (isset($_SESSION["user"])) {
+    $score = "label".$_SESSION["user"]["score"];
+    $sc = $_SESSION["user"]["score"];
+} else {
+    $score = "labelGlobal";
+    $sc = "Global";
+}
 
-if ($ligneS["labelGlobal"] != null) {
+$nomsScore = array("labelGlobal" => "Global", "labelDecouverte" => "Tourisme d'exploration", "labelEcologique" => "Tourisme éco-responsable", "labelEconomique" => "Tourisme moderne");
+
+if ($ligneS[$score] != null) {
     echo <<<HTML
-        <div class="container-presentation" id="score" hx-swap-oob="outerHTML">
-            <div class="score-box score-$ligneS[labelGlobal]">$ligneS[labelGlobal]</div>
+        <div class="container-presentation score-home" id="score" hx-swap-oob="outerHTML">
+            <div class="score-box score-$ligneS[$score]">$ligneS[$score]</div>
+            <div>Score $nomsScore[$score]</div>
         </div>
     HTML;
 } else {
     echo <<<HTML
         <div class="container-presentation" id="score" hx-swap-oob="outerHTML">
             <div class="score-box score-NA"><img src='assets/icons/bd.svg'></div>
+            <div>Score $nomsScore[$score] - données manquantes</div>
         </div>
     HTML;
 }
@@ -332,7 +343,7 @@ echo <<<HTML
     spiderHTMX(0, $dataSpider, $dataTab, "$nom")
     barreLineHTMX($dataBarreLine, "$nom")
     linePaysHTMX($dataLine, $dataLineMean, "$nom")
-    changeScore('Global')
+    changeScore('$sc')
 
     miniMap[0].zoomTo("$id_pays")
     miniMap[0].addCities($cities)

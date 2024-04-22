@@ -77,10 +77,10 @@ function changeScore(option) {
     }
 
     descip = {
-        Global:"Le score TourismEco évalue 6 critères essentiels comme les arrivées totales par avions, le PIB par habitant et les énergies renouvelables.",
-        Decouverte:"Le score 'Tourisme d’Exploration' tient compte des arrivées totales par avions, des gaz à effet de serre par habitant et de l’indice de développement humain.",
+        Global:"Le score TourismEco évalue 6 critères essentiels comme les arrivées totales, le PIB par habitant et les énergies renouvelables.",
+        Decouverte:"Le score 'Tourisme d’Exploration' tient compte des arrivées totales, des gaz à effet de serre par habitant et de l’indice de développement humain.",
         Ecologique:"Le score 'Tourisme Éco-responsable' se focalise sur les gaz à effet de serre par habitant et l’énergie renouvelable utilisée par rapport à la consommation totale.",
-        Economique:"Le score “Tourisme Moderne” examine les arrivées totales par avions, le PIB par habitant et l’indice de développement humain."
+        Economique:"Le score “Tourisme Moderne” examine les arrivées totales, le PIB par habitant et l’indice de développement humain."
     }
 
     title = {

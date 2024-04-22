@@ -96,29 +96,43 @@ if ((isset($_GET["load"]) && $incr == 1) || !isset($_GET["load"])) {
     $text0 =  $texts[$maj0['var']];
     $text1 =  $texts[$maj1['var']];
 
-    $div0 = number_format($maj0["val0"] / $maj0["val1"], 2);
-    if ($maj0["val0"] < $maj0["val1"]){
-        $txtdiv0 = "plus grand";
-        $icon0 = "up.svg";
+    if ($maj0["val1"] != 0) {
+        $div0 = number_format($maj0["val0"] / $maj0["val1"], 2);
+        if ($maj0["val0"] < $maj0["val1"]){
+            $txtdiv0 = "plus grand";
+            $icon0 = "up.svg";
+        } else {
+            $txtdiv0 = "plus petit";
+            $icon0 = "down.svg";
+        }
+    } else {
+        $div0 = "-";
+        $txtdiv0 = "-";
+        $icon0 = "";
     }
-    else {
-        $txtdiv0 = "plus petit";
-        $icon0 = "down.svg";
+
+    if ($maj1["val1"] != 0) {
+        $div1 = number_format($maj1["val0"] / $maj1["val1"], 2);
+        if ($maj1["val0"] < $maj1["val1"]){
+            $txtdiv1 = "plus grand";
+            $icon1 = "up";
+        }
+        else {
+            $txtdiv1 = "plus petit";
+            $icon1 = "down.svg";
+        }
+    } else {
+        $div1 = "-";
+        $txtdiv1 = "-";
+        $icon1 = "";
     }
-    $div1 = number_format($maj1["val0"] / $maj1["val1"], 2);
-    if ($maj1["val0"] < $maj1["val1"]){
-        $txtdiv1 = "plus grand";
-        $icon1 = "up";
-    }
-    else {
-        $txtdiv1 = "plus petit";
-        $icon1 = "down.svg";
-    }
+    
     $maj0["val0"]= formatNumber($maj0["val0"], $maj0["var"]);
     $maj0["val1"]= formatNumber($maj0["val1"], $maj0["var"]);
 
     $maj1["val0"]= formatNumber($maj1["val0"], $maj1["var"]);
     $maj1["val1"]= formatNumber($maj1["val1"], $maj1["var"]);
+    
     echo <<<HTML
 
         <div class="container-presentation expand-2" id="bestRank0" hx-swap-oob="outerHTML">
@@ -158,16 +172,25 @@ if ((isset($_GET["load"]) && $incr == 1) || !isset($_GET["load"])) {
     HTML;
 }
 
-if ($ligne["labelGlobal"] != null) {
+$nomsScore = array("labelGlobal" => "Global", "labelDecouverte" => "Tourisme d'exploration", "labelEcologique" => "Tourisme éco-responsable", "labelEconomique" => "Tourisme moderne");
+if (isset($_SESSION["user"])) {
+    $score = "label".$_SESSION["user"]["score"];
+} else {
+    $score = "labelGlobal";
+}
+
+if ($ligne[$score] != null) {
     echo <<<HTML
-        <div class="container-presentation" id="score$incr" hx-swap-oob="outerHTML">
-            <div class="score-box score-$ligne[labelGlobal]">$ligne[labelGlobal]</div>
+        <div class="container-presentation score-home" id="score$incr" hx-swap-oob="outerHTML">
+            <div class="score-box score-$ligne[$score]">$ligne[$score]</div>
+            <div>Score $nomsScore[$score]</div>
         </div>
     HTML;
 } else {
     echo <<<HTML
         <div class="container-presentation" id="score$incr" hx-swap-oob="outerHTML">
             <div class="score-box score-NA"><img src='assets/icons/bd.svg'></div>
+            <div>Score $nomsScore[$score] - données manquantes</div>
         </div>
     HTML;
 }

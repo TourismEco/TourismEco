@@ -42,7 +42,7 @@ if ($pays == "") {
             <div class="zone zone-presentation home-pays display" id="home">
                 <div class="container-presentation expand-3" id="bandeau"></div>
                 <div class="container-presentation" id="miniMap0"></div>
-                <div class="container-presentation" id="score"></div>
+                <div class="container-presentation score-home" id="score"></div>
                 <div class="container-presentation" id="safe"></div>
                 <div class="container-presentation expand-2" id="rankPays"></div>
 

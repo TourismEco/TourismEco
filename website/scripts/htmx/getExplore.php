@@ -48,11 +48,16 @@
     $sth->bindParam(":id_pays", $id_pays, PDO::PARAM_STR);
     $sth->execute();
     $ligne = $sth->fetch(PDO::FETCH_ASSOC);
-    $labelEcolo = $ligne["labelEcologique"];
-    $labelEco = $ligne["labelEconomique"];
-    $labelDec = $ligne["labelDecouverte"];
-    $random = array(1,2,3);
-    $typeC = $random[array_rand($random)];
+
+    $nomsScore = array("labelGlobal" => "Global", "labelDecouverte" => "Tourisme d'exploration", "labelEcologique" => "Tourisme éco-responsable", "labelEconomique" => "Tourisme moderne");
+    if (!isset($_SESSION["user"]) || $_SESSION["user"]["score"] == "Global") {
+        $random = array("labelEcologique","labelEconomique","labelDecouverte");
+        $score = $random[array_rand($random)];
+    } else {
+        $score = "label".$_SESSION["user"]["score"];
+    }
+
+    
 
     echo <<<HTML
 
@@ -69,31 +74,13 @@
         </div>
 
         <div class="container-presentation expand-2 flex-column">
-            <h3>Score TourismEco</h3>
+            <h3>Score Global</h3>
             <div class="score-box score-$letter">$letter</div>
         </div>
 
         <div class="container-presentation flex-column">
-    HTML;
-            if ($typeC == 1){
-                echo <<<HTML
-                    <h3>Score Economique</h3>
-                    <div class="score-box score-$labelEco">$labelEco</div>
-                HTML;
-            } elseif ($typeC == 2){
-                echo <<<HTML
-                    <h3>Score Ecologique</h3>
-                    <div class="score-box score-$labelEcolo">$labelEcolo</div>
-                HTML;
-            } else {
-                echo <<<HTML
-                    <h3>Score Découverte</h3>
-                    <div class="score-box score-$labelDec">$labelDec</div>
-                HTML;
-            }
-    
-    echo <<<HTML
-
+            <h3>Score $nomsScore[$score]</h3>
+            <div class="score-box score-$ligne[$score]">$ligne[$score]</div>
         </div>
 
         <div class="container-presentation centered-content" id="rang"></div>
