@@ -11,7 +11,6 @@ var color = ["#52796F","#83A88B"]
 
 
 function barreLineHTMX(data,name) {
-    console.log(data)
     b.updateSerie(0, data["data"], name);
     b.updateSerie(1, data["data"], name);
     b.setDataXAxis(data["data"])

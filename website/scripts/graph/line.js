@@ -11,7 +11,6 @@ function line(id) {
 
 
 function lineHTMXContient(data0, data1, data2) {
-    console.log("m",data0,data1,data2)
     l.updateSerie(0, data0, "Moyenne")
     l.updateSerie(1, data1["data"], "Maximum", data1)
     l.updateSerie(2, data2["data"], "Minimum", data2)
@@ -22,8 +21,7 @@ function lineHTMXContient(data0, data1, data2) {
 
 
 function updateInfoMax(data, type) {
-    if (data) {      
-        console.log(data);
+    if (data) {
         if (!("max" in data) || isNaN(data["max"][type]["year"])) {
             $("#maxLine").html("-")
         } else{
