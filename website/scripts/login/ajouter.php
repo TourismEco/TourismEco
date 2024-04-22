@@ -55,7 +55,7 @@ if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['conf
         $passwordHashed = password_hash($password, PASSWORD_DEFAULT);
 
         // Préparer et exécuter la requête SQL pour insérer les données dans la base de données
-        $stmt = $connexion->prepare("INSERT INTO client (nom, mdp, pays, ville) VALUES (?, ?, ?, ?)");
+        $stmt = $connexion->prepare("INSERT INTO client (nom, mdp, pays, ville, score) VALUES (?, ?, ?, ?, 'Global')");
         $stmt->bindParam(1, $username);
         $stmt->bindParam(2, $passwordHashed);
         $stmt->bindParam(3, $country);
@@ -66,6 +66,7 @@ if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['conf
             $_SESSION['user']['username'] = $username;
             $_SESSION['user']['country'] = $country;
             $_SESSION['user']['city'] = $city;
+            $_SESSION['user']['score'] = "Global";
 
 
             echo <<<HTML

@@ -38,7 +38,7 @@
                         "csrf_token"
                     ]; ?>">
 
-                    <input type="submit" value="Modifier" style="background-color: #52796F; color: white; border: 1px solid #52796F; border-radius: 8px; font-size: 16px; width:150px; display: block; margin: 0 auto;">
+                    <input type="submit" value="Modifier" class="submit">
                     <div id="error" class="form-warning"></div>
                 </form>
             </div>
@@ -47,28 +47,29 @@
         <div class="right-section">
             <h2 style="font-size:20px;">Modifier vos préférences</h2>
             <div class="connexion-container">
-                <form id="preference" hx-post="scripts/login/ajouter.php" hx-swap="beforeend">
+                <form id="preference" hx-post="scripts/login/choixScore.php" hx-swap="beforeend">
                     <div class="preference-item">
                         <label for="tourisme_moderne">Tourisme Moderne (economique)</label>
-                        <input type="radio" id="tourisme_moderne" name="tourisme_moderne" value="Tourisme Moderne (economique)">
+                        <input type="radio" id="tourisme_moderne" name="preference" value="1" <?php $_SESSION["user"]["score"] == "Economique" ? $v = "checked" : $v = ""; echo $v;?>>
                     </div>
 
                     <div class="preference-item">
                         <label for="tourisme_decouverte">Tourisme d'Exploration et de Découverte</label>
-                        <input type="radio" id="tourisme_decouverte" name="tourisme_decouverte" value="Tourisme d'Exploration et de Découverte">
+                        <input type="radio" id="tourisme_decouverte" name="preference" value="2" <?php $_SESSION["user"]["score"] == "Decouverte" ? $v = "checked" : $v = ""; echo $v;?>>
                     </div>
 
                     <div class="preference-item">
                         <label for="tourisme_eco">Tourisme Éco-responsable</label>
-                        <input type="radio" id="tourisme_eco" name="tourisme_eco" value="Tourisme Éco-responsable">
+                        <input type="radio" id="tourisme_eco" name="preference" value="3" <?php $_SESSION["user"]["score"] == "Ecologique" ? $v = "checked" : $v = ""; echo $v;?>>
                     </div>
 
                     <div class="preference-item">
                         <label for="pas_preference">Pas de préference particulière</label>
-                        <input type="radio" id="pas_preference" name="pas_preference" value="Pas de préference particuliere">
+                        <input type="radio" id="pas_preference" name="preference" value="0" <?php $_SESSION["user"]["score"] == "Global" ? $v = "checked" : $v = ""; echo $v;?>>
                     </div>
 
-                    <input type="submit" value="Mettre à jour" style="background-color: #52796F; color: white; border: 1px solid #52796F; border-radius: 8px; font-size: 16px; width:150px; display: block; margin: 0 auto;">
+                    <input type="submit" class="submit" value="Mettre à jour">
+                    <div id="errorScore" class="form-warning"></div>
                 </form>
             </div>
         </div>

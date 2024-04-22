@@ -29,6 +29,7 @@ if ($user && password_verify($password, $user['mdp'])) {
     $_SESSION['user']['username'] = $user['nom'];
     $_SESSION['user']['country'] = $user['pays'];
     $_SESSION['user']['city'] = $user['ville'];
+    $_SESSION['user']['score'] = $user['score'];
     echo <<<HTML
         <div id="htmxing" hx-swap-oob="true">
             <div hx-get="profil.php" hx-target="#zones" hx-select="#zones" hx-swap="outerHTML swap:0.5s show:window:top" hx-push-url="true" hx-trigger="load"></div>
