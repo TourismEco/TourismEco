@@ -99,130 +99,237 @@
 
             <div id="cluster" class="zone display" style="display: none;">
                 <div id="map" class="map-cluster"></div>
-                <div class="container-presentation">
-                    <div class="title-zone">
-                        <img class="flag-small" src='assets/icons/analyseCluster.svg'>
-                        <div>
-                            <h2>Clustering</h2>
-                            <p>Le clustering regroupe les pays en trois groupes distincts à l’aide de ces six variables. Les centroides, points centraux, sont déplacés pour minimiser les distances avec les données jusqu'à former des groupes bien définis.</p>
+
+                <div id="sectionCluster" class="section-cluster">
+                    <div class="container-presentation">
+                        <div class="title-zone">
+                            <img class="flag-small" src='assets/icons/analyseCluster.svg'>
+                            <div>
+                                <h2>Clustering</h2>
+                                <p>Le clustering regroupe les pays en trois groupes distincts à l’aide de ces six variables. Les centroides, points centraux, sont déplacés pour minimiser les distances avec les données jusqu'à former des groupes bien définis.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="zone-choix">
+                        <div class="container-scores border-NA">
+                            <div class="title-scores">
+                                <img src="assets/icons/up.svg" class="score-NA">
+                                <p>Arrivées Total </p>
+                            </div>
+
+                            <div class="stats-scores">
+                                <div class="stats-scores-minmax">
+                                <p>Centroide 1<br>0.066</p>
+                                    <div class="trait-small"></div>
+                                    <p>Centroide 2<br>0.012</p>
+                                    <div class="trait-small"></div>
+                                    <p>Centroide 3<br>0.210</p>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container-scores border-NA">
+                            <div class="title-scores">
+                                <img src="assets/icons/dollar.svg" class="score-NA">
+                                <p>PIB/hab</p>
+                            </div>
+
+                            <div class="stats-scores">
+                                <div class="stats-scores-minmax">
+                                <p>Centroide 1<br>0.214</p>
+                                    <div class="trait-small"></div>
+                                    <p>Centroide 2<br>0.045</p>
+                                    <div class="trait-small"></div>
+                                    <p>Centroide 3<br>0.566</p>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container-scores border-NA">
+                            <div class="title-scores">
+                                <img src="assets/icons/shield.svg" class="score-NA">
+                                <p>Global Peace Index</p>
+                            </div>
+
+                            <div class="stats-scores">
+                                <div class="stats-scores-minmax">
+                                <p>Centroide 1<br>0.561</p>
+                                    <div class="trait-small"></div>
+                                    <p>Centroide 2<br>0.522</p>
+                                    <div class="trait-small"></div>
+                                    <p>Centroide 3<br>0.722</p>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container-scores border-NA">
+                            <div class="title-scores">
+                                <img src="assets/icons/idh.svg" class="score-NA">
+                                <p>Indice de Développement Humain</p>
+                            </div>
+
+                            <div class="stats-scores">
+                                <div class="stats-scores-minmax">
+                                <p>Centroide 1<br>0.823</p>
+                                    <div class="trait-small"></div>
+                                    <p>Centroide 2<br>0.588</p>
+                                    <div class="trait-small"></div>
+                                    <p>Centroide 3<br>0.952</p>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container-scores border-NA">
+                            <div class="title-scores">
+                                <img src="assets/icons/cloud.svg" class="score-NA">
+                                <p>Emissions de GES/hab</p>
+                            </div>
+
+                            <div class="stats-scores">
+                                <div class="stats-scores-minmax">
+                                    <p>Centroide 1<br>0.114</p>
+                                    <div class="trait-small"></div>
+                                    <p>Centroide 2<br>0.268</p>
+                                    <div class="trait-small"></div>
+                                    <p>Centroide 3<br>0.063</p>
+
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                        <div class="container-scores border-NA">
+                            <div class="title-scores">
+                                <img src="assets/icons/danger.svg" class="score-NA">
+                                <p>Emission de CO2</p>
+                            </div>
+
+                            <div class="stats-scores">
+                                <div class="stats-scores-minmax">
+                                <p>Centroide 1<br>0.014</p>
+                                    <div class="trait-small"></div>
+                                    <p>Centroide 2<br>0.099</p>
+                                    <div class="trait-small"></div>
+                                    <p>Centroide 3<br>0.009</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="zone-choix">
-                    <div class="container-scores border-NA">
-                        <div class="title-scores">
-                            <img src="assets/icons/up.svg" class="score-NA">
-                            <p>Arrivées Total </p>
-                        </div>
+                <div id="sectionClusterPlus" style="display:none" class="section-cluster">
 
-                        <div class="stats-scores">
-                            <div class="stats-scores-minmax">
-                            <p>Centroide 1<br>0.066</p>
-                                <div class="trait-small"></div>
-                                <p>Centroide 2<br>0.012</p>
-                                <div class="trait-small"></div>
-                                <p>Centroide 3<br>0.210</p>
-
+                    <div class="container-presentation">
+                        <div class="title-zone">
+                            <img class="flag-small" src='assets/icons/analyseCluster.svg'>
+                            <div>
+                                <h2>Clustering+</h2>
+                                <p>Le clustering regroupe les pays en trois groupes distincts à l’aide de ces six variables. Les centroides, points centraux, sont déplacés pour minimiser les distances avec les données jusqu'à former des groupes bien définis.</p>
                             </div>
                         </div>
                     </div>
 
-                    <div class="container-scores border-NA">
+                    <div class="zone-choix">
+                        <div class="container-scores border-NA">
                         <div class="title-scores">
-                            <img src="assets/icons/dollar.svg" class="score-NA">
-                            <p>PIB/hab</p>
-                        </div>
+                                <img src="assets/icons/up.svg" class="score-NA">
+                                <p>Arrivées Total </p>
+                                <div class="stats-scores">
+                                <div class="stats-scores-minmax">
+                                <p>Centroide 1<br>0.014</p>
+                                    <div class="trait-small"></div>
+                                    <p>Centroide 2<br>0.099</p>
+                                    <div class="trait-small"></div>
+                                    <p>Centroide 3<br>0.009</p>
 
-                        <div class="stats-scores">
-                            <div class="stats-scores-minmax">
-                            <p>Centroide 1<br>0.214</p>
-                                <div class="trait-small"></div>
-                                <p>Centroide 2<br>0.045</p>
-                                <div class="trait-small"></div>
-                                <p>Centroide 3<br>0.566</p>
-
+                                </div>
+                            </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="container-scores border-NA">
+                        <div class="container-scores border-NA">
                         <div class="title-scores">
-                            <img src="assets/icons/shield.svg" class="score-NA">
-                            <p>Global Peace Index</p>
-                        </div>
+                                <img src="assets/icons/up.svg" class="score-NA">
+                                <p>Arrivées Total </p>
+                                <div class="stats-scores">
+                                <div class="stats-scores-minmax">
+                                <p>Centroide 1<br>0.014</p>
+                                    <div class="trait-small"></div>
+                                    <p>Centroide 2<br>0.099</p>
+                                    <div class="trait-small"></div>
+                                    <p>Centroide 3<br>0.009</p>
 
-                        <div class="stats-scores">
-                            <div class="stats-scores-minmax">
-                            <p>Centroide 1<br>0.561</p>
-                                <div class="trait-small"></div>
-                                <p>Centroide 2<br>0.522</p>
-                                <div class="trait-small"></div>
-                                <p>Centroide 3<br>0.722</p>
+                                </div>
+                            </div>
+                            </div>
+                        </div><div class="container-scores border-NA">
+                        <div class="title-scores">
+                                <img src="assets/icons/up.svg" class="score-NA">
+                                <p>Arrivées Total </p>
+                                <div class="stats-scores">
+                                <div class="stats-scores-minmax">
+                                <p>Centroide 1<br>0.014</p>
+                                    <div class="trait-small"></div>
+                                    <p>Centroide 2<br>0.099</p>
+                                    <div class="trait-small"></div>
+                                    <p>Centroide 3<br>0.009</p>
 
+                                </div>
+                            </div>
+                            </div>
+                        </div><div class="container-scores border-NA">
+                        <div class="title-scores">
+                                <img src="assets/icons/up.svg" class="score-NA">
+                                <p>Arrivées Total </p>
+                                <div class="stats-scores">
+                                <div class="stats-scores-minmax">
+                                <p>Centroide 1<br>0.014</p>
+                                    <div class="trait-small"></div>
+                                    <p>Centroide 2<br>0.099</p>
+                                    <div class="trait-small"></div>
+                                    <p>Centroide 3<br>0.009</p>
+
+                                </div>
+                            </div>
+                            </div>
+                        </div><div class="container-scores border-NA">
+                        <div class="title-scores">
+                                <img src="assets/icons/up.svg" class="score-NA">
+                                <p>Arrivées Total </p>
+                                <div class="stats-scores">
+                                <div class="stats-scores-minmax">
+                                <p>Centroide 1<br>0.014</p>
+                                    <div class="trait-small"></div>
+                                    <p>Centroide 2<br>0.099</p>
+                                    <div class="trait-small"></div>
+                                    <p>Centroide 3<br>0.009</p>
+
+                                </div>
+                            </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="container-scores border-NA">
-                        <div class="title-scores">
-                            <img src="assets/icons/idh.svg" class="score-NA">
-                            <p>Indice de Développement Humain</p>
-                        </div>
-
-                        <div class="stats-scores">
-                            <div class="stats-scores-minmax">
-                            <p>Centroide 1<br>0.823</p>
-                                <div class="trait-small"></div>
-                                <p>Centroide 2<br>0.588</p>
-                                <div class="trait-small"></div>
-                                <p>Centroide 3<br>0.952</p>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="container-scores border-NA">
-                        <div class="title-scores">
-                            <img src="assets/icons/cloud.svg" class="score-NA">
-                            <p>Emissions de GES/hab</p>
-                        </div>
-
-                        <div class="stats-scores">
-                            <div class="stats-scores-minmax">
-                                <p>Centroide 1<br>0.114</p>
-                                <div class="trait-small"></div>
-                                <p>Centroide 2<br>0.268</p>
-                                <div class="trait-small"></div>
-                                <p>Centroide 3<br>0.063</p>
-
-                            </div>
-
-
-                        </div>
-                    </div>
-
-                    <div class="container-scores border-NA">
-                        <div class="title-scores">
-                            <img src="assets/icons/danger.svg" class="score-NA">
-                            <p>Emission de CO2</p>
-                        </div>
-
-                        <div class="stats-scores">
-                            <div class="stats-scores-minmax">
-                            <p>Centroide 1<br>0.014</p>
-                                <div class="trait-small"></div>
-                                <p>Centroide 2<br>0.099</p>
-                                <div class="trait-small"></div>
-                                <p>Centroide 3<br>0.009</p>
+                        <div class="container-scores border-NA">
+                            <div class="title-scores">
+                                <img src="assets/icons/up.svg" class="score-NA">
+                                <p>Arrivées Total </p>
+                                <div class="stats-scores">
+                                    <div class="stats-scores-minmax">
+                                    <p>Centroide 1<br>0.014</p>
+                                        <div class="trait-small"></div>
+                                        <p>Centroide 2<br>0.099</p>
+                                        <div class="trait-small"></div>
+                                        <p>Centroide 3<br>0.009</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <div id="clusterPlus" class="zone zone-basic display" style="display:none">
-
             </div>
 
             <div id="arima" class="zone display" style="display: none;">
@@ -474,7 +581,22 @@ En outre, il est important de noter que ces données peuvent être étendues pou
                 $(this).addClass("active")
                 $(".display").css("display","none")
 
-                $("#"+$(this).data("switch")).css("display","grid")
+                if ($(this).data("switch") == "clusterPlus") {
+                    changeCluster(8)
+                    $("#cluster").css("display","grid")
+                    $("#sectionCluster").css("display","none")
+                    $("#sectionClusterPlus").css("display","grid")
+                } else {
+                    $("#"+$(this).data("switch")).css("display","grid")
+                }
+
+                if ($(this).data("switch") == "cluster") {
+                    changeCluster(3)
+                    $("#sectionCluster").css("display","grid")
+                    $("#sectionClusterPlus").css("display","none")
+                }
+
+                
                 if ($(this).data("index") != 0) {
                     nb = $(this).data("index")*getMulti()+9.5
                 } else {
@@ -483,6 +605,7 @@ En outre, il est important de noter que ces données peuvent être étendues pou
 
                 $("#trans").css("transform","translateX("+nb+"px)")
                 $("#name-switch").html($(this).data("name"))
+
             })
 
             $(".page").removeClass("active")
