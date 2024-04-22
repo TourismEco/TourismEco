@@ -129,12 +129,6 @@ if (count($pays) <= 1) {
                         <p>Impact du COVID :</p>
                         <p id="covid1" class="big">-</p>
                     </div>
-
-                    <div class="container-info expand-2">
-                        <p>Dernière valeur</p>
-                        <p id="comp0" class="big">-</p>
-                        <p id="comp_detail">-</p>
-                    </div>
                 </div>
 
             </div>

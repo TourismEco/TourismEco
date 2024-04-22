@@ -14,6 +14,11 @@ class EcoMap {
         this.index = index
         this.heatLegend = null
         this.data = null
+        
+        this.cluster3 = null
+        this.cluster3Legend = null
+        this.cluster8 = null
+        this.cluster8Legend = null
 
         this.root.setThemes([
             am5themes_Animated.new(this.root)
@@ -288,6 +293,134 @@ class EcoMap {
         this.countries.data.setAll(data)
         updatePodium("score",data)
     }
+
+    addCluster(nb) {
+        var base = this
+        if (nb == 3 && this.cluster3 == undefined) {
+            var build = true
+            var data = [{"name":"Cluster 1", "data":[{"id":'EC'}, {"id":'MU'}, {"id":'MY'}, {"id":'PA'}, {"id":'BY'}, {"id":'UY'}, {"id":'CR'}, {"id":'TT'}, {"id":'KZ'}, {"id":'OM'}, {"id":'RO'}, {"id":'RU'}, {"id":'ME'}, {"id":'TR'}, {"id":'AR'}, {"id":'SK'}, {"id":'CL'}, {"id":'HR'}, {"id":'LV'}, {"id":'SA'}, {"id":'LT'}, {"id":'GR'}, {"id":'EE'}, {"id":'CY'}, {"id":'IL'}, {"id":'GE'}, {"id":'RS'}, {"id":'MN'}, {"id":'RS'}, {"id":'EG'}, {"id":'UZ'}, {"id":'JO'}, {"id":'PY'}, {"id":'GY'}, {"id":'ZA'}, {"id":'JM'}, {"id":'LB'}, {"id":'ID'}, {"id":'VN'}, {"id":'AZ'}, {"id":'DZ'}, {"id":'CO'}, {"id":'BR'}, {"id":'MX'}, {"id":'PE'}, {"id":'DO'}, {"id":'CN'}, {"id":'UA'}, {"id":'BA'}, {"id":'LK'}, {"id":'BG'}, {"id":'AL'}, {"id":'AM'}]},
+            {"name":"Cluster 2", "data":[{"id":'NP'}, {"id":'LA'}, {"id":'ZW'}, {"id":'KH'}, {"id":'HN'}, {"id":'AO'}, {"id":'MM'}, {"id":'NA'}, {"id":'BD'}, {"id":'GT'}, {"id":'GH'}, {"id":'IN'}, {"id":'KE'}, {"id":'BT'}, {"id":'NI'}, {"id":'SV'}, {"id":'MA'}, {"id":'TJ'}, {"id":'CM'}, {"id":'NG'}, {"id":'ZM'}, {"id":'PG'}, {"id":'ML'}, {"id":'MZ'}, {"id":'BF'}, {"id":'SL'}, {"id":'GW'}, {"id":'ET'}, {"id":'MG'}, {"id":'DJ'}, {"id":'MW'}, {"id":'PH'}, {"id":'LS'}, {"id":'UG'}, {"id":'BJ'}, {"id":'RW'}, {"id":'CF'}, {"id":'HT'}, {"id":'TG'}, {"id":'KG'}, {"id":'NE'}]},
+            {"name":"Cluster 3","data":[{"id":'CH'}, {"id":'US'}, {"id":'IS'}, {"id":'KW'}, {"id":'QA'}, {"id":'BH'}, {"id":'PL'}, {"id":'IT'}, {"id":'FR'}, {"id":'ES'}, {"id":'AE'}, {"id":'AT'}, {"id":'HU'}, {"id":'JP'}, {"id":'GB'}, {"id":'CA'}, {"id":'NZ'}, {"id":'BE'}, {"id":'IE'}, {"id":'SG'}, {"id":'DK'}, {"id":'NL'}, {"id":'DE'}, {"id":'AU'}]}]
+        } else if (nb == 8 && this.cluster8 == undefined) {
+            var build = true
+            var data = [{'name':'Cluster 1','data':[{'id':'RS'}, {'id':'MN'}, {'id':'CO'}, {'id':'BR'}, {'id':'PY'}, {'id':'DO'}, {'id':'ZA'}, {'id':'UA'}, {'id':'LB'}, {'id':'BA'}, {'id':'RS'}, {'id':'DZ'}, {'id':'BY'}, {'id':'CR'}, {'id':'TT'}, {'id':'KZ'}, {'id':'RU'}, {'id':'ME'}, {'id':'TR'}, {'id':'AR'}, {'id':'AZ'}]},
+            {'name':'Cluster 2','data':[{'id':'TG'}, {'id':'CM'}, {'id':'KE'}, {'id':'MM'}, {'id':'ZM'}, {'id':'PG'}, {'id':'NP'}, {'id':'NG'}, {'id':'BJ'}, {'id':'LS'}, {'id':'MG'}, {'id':'ET'}, {'id':'BF'}, {'id':'MZ'}, {'id':'ML'}, {'id':'UG'}, {'id':'NE'}, {'id':'ZW'}, {'id':'GH'}, {'id':'BD'}]},
+            {'name':'Cluster 3','data':[{'id':'CH'}, {'id':'CA'}, {'id':'DK'}, {'id':'SG'}, {'id':'NZ'}, {'id':'NL'}, {'id':'DE'}, {'id':'IE'}, {'id':'QA'}, {'id':'AE'}, {'id':'IS'}, {'id':'AT'}, {'id':'AU'}, {'id':'BE'}]},
+            {'name':'Cluster 4','data':[{'id':'DJ'}, {'id':'GW'}, {'id':'CF'}]},
+            {'name':'Cluster 5','data':[{'id':'PL'}, {'id':'IT'}, {'id':'FR'}, {'id':'ES'}, {'id':'US'}, {'id':'CN'}, {'id':'MX'}]},
+            {'name':'Cluster 6','data':[{'id':'MA'}, {'id':'GY'}, {'id':'UZ'}, {'id':'TJ'}, {'id':'JO'}, {'id':'PE'}, {'id':'KG'}, {'id':'GE'}, {'id':'JM'}, {'id':'ID'}, {'id':'LK'}, {'id':'AL'}, {'id':'VN'}, {'id':'PH'}, {'id':'AM'}, {'id':'SV'}, {'id':'HN'}, {'id':'AO'}, {'id':'KH'}, {'id':'LA'}, {'id':'NI'}, {'id':'NA'}, {'id':'EC'}, {'id':'GT'}, {'id':'IN'}, {'id':'BT'}, {'id':'EG'}]},
+            {'name':'Cluster 7','data':[{'id':'SK'}, {'id':'CL'}, {'id':'MU'}, {'id':'BH'}, {'id':'LT'}, {'id':'SA'}, {'id':'LV'}, {'id':'HR'}, {'id':'HU'}, {'id':'MY'}, {'id':'EE'}, {'id':'PA'}, {'id':'UY'}, {'id':'KW'}, {'id':'RO'}, {'id':'GR'}, {'id':'OM'}, {'id':'BG'}, {'id':'IL'}, {'id':'JP'}, {'id':'CY'}, {'id':'GB'}]},
+            {'name':'Cluster 8','data':[{'id':'SL'}, {'id':'MW'}, {'id':'RW'}, {'id':'HT'}]}]
+        }
+
+        if (build) {
+
+            // Add legend
+            var legend = map.map.children.push(am5.Legend.new(base.root, {
+                useDefaultMarker: true,
+                centerX: am5.p50,
+                x: am5.p50,
+                centerY: am5.p100,
+                y: am5.p100,
+                dy: -20,
+                background: am5.RoundedRectangle.new(base.root, {
+                fill: am5.color(0xffffff),
+                fillOpacity: 0.2
+                })
+            }));
+            
+            legend.valueLabels.template.set("forceHidden", true)
+            
+            // Create series for each group
+            var colors = am5.ColorSet.new(base.root, {
+                step: 1
+            });
+            colors.next();
+
+            var listSeries = []
+            
+            am5.array.each(data, function(group) {
+                var countries = [];
+                colors.next()
+                colors.next()
+                var color = colors.next();
+            
+                am5.array.each(group.data, function(country) {
+                countries.push(country.id)
+                });
+            
+                var polygonSeries = base.map.series.push(am5map.MapPolygonSeries.new(base.root, {
+                geoJSON: am5geodata_worldLow,
+                include: countries,
+                name: group.name,
+                geodataNames:am5geodata_lang_FR,
+                fill: color
+                }));
+            
+            
+                polygonSeries.mapPolygons.template.setAll({
+                tooltipText: "[bold]{name}[/]",
+                interactive: true,
+                fill: color,
+                strokeWidth: 1,
+                });
+            
+                polygonSeries.mapPolygons.template.states.create("hover", {
+                fill: am5.Color.brighten(color, -0.3)
+                });
+            
+                polygonSeries.mapPolygons.template.events.on("pointerover", function(ev) {
+                ev.target.series.mapPolygons.each(function(polygon) {
+                    polygon.states.applyAnimate("hover");
+                });
+                });
+            
+                polygonSeries.mapPolygons.template.events.on("pointerout", function(ev) {
+                ev.target.series.mapPolygons.each(function(polygon) {
+                    polygon.states.applyAnimate("default");
+                });
+                });
+                polygonSeries.data.setAll(group.data);
+            
+                legend.data.push(polygonSeries);
+                listSeries.push(polygonSeries)
+            });
+
+            if (nb == 3) {
+                this.cluster3 = listSeries
+                this.cluster3Legend = legend
+            } else {
+                this.cluster8 = listSeries
+                this.cluster8Legend = legend
+            }
+        }
+
+        if (nb == 3) {
+            if (this.cluster8 != undefined) {
+                this.cluster8.forEach(element => {
+                    element.hide()
+                });
+                this.cluster8Legend.hide()
+            }
+
+            this.cluster3.forEach(element => {
+                element.show()
+            });
+            this.cluster3Legend.show()
+        } else if (nb == 8) {
+            if (this.cluster3 != undefined) {
+                this.cluster3.forEach(element => {
+                    element.hide()
+                });
+                this.cluster3Legend.hide()
+            }
+
+            this.cluster8.forEach(element => {
+                element.show()
+            });
+            this.cluster8Legend.show()
+        }
+    }
 }
 
 var map = undefined
@@ -319,83 +452,11 @@ function createMapExplorer(data) {
 
 function createMapAnalyse(option) {
     map = new EcoMap("map",option,false)
-    // map.addCountries()
     map.addZoom()
+}
 
-    clusters = [{"name":"Cluster 1", "data":[{"id":'EC'}, {"id":'MU'}, {"id":'MY'}, {"id":'PA'}, {"id":'BY'}, {"id":'UY'}, {"id":'CR'}, {"id":'TT'}, {"id":'KZ'}, {"id":'OM'}, {"id":'RO'}, {"id":'RU'}, {"id":'ME'}, {"id":'TR'}, {"id":'AR'}, {"id":'SK'}, {"id":'CL'}, {"id":'HR'}, {"id":'LV'}, {"id":'SA'}, {"id":'LT'}, {"id":'GR'}, {"id":'EE'}, {"id":'CY'}, {"id":'IL'}, {"id":'GE'}, {"id":'RS'}, {"id":'MN'}, {"id":'RS'}, {"id":'EG'}, {"id":'UZ'}, {"id":'JO'}, {"id":'PY'}, {"id":'GY'}, {"id":'ZA'}, {"id":'JM'}, {"id":'LB'}, {"id":'ID'}, {"id":'VN'}, {"id":'AZ'}, {"id":'DZ'}, {"id":'CO'}, {"id":'BR'}, {"id":'MX'}, {"id":'PE'}, {"id":'DO'}, {"id":'CN'}, {"id":'UA'}, {"id":'BA'}, {"id":'LK'}, {"id":'BG'}, {"id":'AL'}, {"id":'AM'}]},
-    {"name":"Cluster 2", "data":[{"id":'NP'}, {"id":'LA'}, {"id":'ZW'}, {"id":'KH'}, {"id":'HN'}, {"id":'AO'}, {"id":'MM'}, {"id":'NA'}, {"id":'BD'}, {"id":'GT'}, {"id":'GH'}, {"id":'IN'}, {"id":'KE'}, {"id":'BT'}, {"id":'NI'}, {"id":'SV'}, {"id":'MA'}, {"id":'TJ'}, {"id":'CM'}, {"id":'NG'}, {"id":'ZM'}, {"id":'PG'}, {"id":'ML'}, {"id":'MZ'}, {"id":'BF'}, {"id":'SL'}, {"id":'GW'}, {"id":'ET'}, {"id":'MG'}, {"id":'DJ'}, {"id":'MW'}, {"id":'PH'}, {"id":'LS'}, {"id":'UG'}, {"id":'BJ'}, {"id":'RW'}, {"id":'CF'}, {"id":'HT'}, {"id":'TG'}, {"id":'KG'}, {"id":'NE'}]},
-    {"name":"Cluster 3","data":[{"id":'CH'}, {"id":'US'}, {"id":'IS'}, {"id":'KW'}, {"id":'QA'}, {"id":'BH'}, {"id":'PL'}, {"id":'IT'}, {"id":'FR'}, {"id":'ES'}, {"id":'AE'}, {"id":'AT'}, {"id":'HU'}, {"id":'JP'}, {"id":'GB'}, {"id":'CA'}, {"id":'NZ'}, {"id":'BE'}, {"id":'IE'}, {"id":'SG'}, {"id":'DK'}, {"id":'NL'}, {"id":'DE'}, {"id":'AU'}]}]
-
-    // Add legend
-var legend = map.map.children.push(am5.Legend.new(map.root, {
-    useDefaultMarker: true,
-    centerX: am5.p50,
-    x: am5.p50,
-    centerY: am5.p100,
-    y: am5.p100,
-    dy: -20,
-    background: am5.RoundedRectangle.new(map.root, {
-      fill: am5.color(0xffffff),
-      fillOpacity: 0.2
-    })
-  }));
-  
-  legend.valueLabels.template.set("forceHidden", true)
-  
-  
-  // Create series for each group
-  var colors = am5.ColorSet.new(map.root, {
-    step: 1
-  });
-  colors.next();
-  
-  am5.array.each(clusters, function(group) {
-    var countries = [];
-    colors.next()
-    colors.next()
-    var color = colors.next();
-  
-    am5.array.each(group.data, function(country) {
-      countries.push(country.id)
-    });
-  
-    var polygonSeries = map.map.series.push(am5map.MapPolygonSeries.new(map.root, {
-      geoJSON: am5geodata_worldLow,
-      include: countries,
-      name: group.name,
-      geodataNames:am5geodata_lang_FR,
-      fill: color
-    }));
-  
-  
-    polygonSeries.mapPolygons.template.setAll({
-      tooltipText: "[bold]{name}[/]",
-      interactive: true,
-      fill: color,
-      strokeWidth: 1,
-    });
-  
-    polygonSeries.mapPolygons.template.states.create("hover", {
-      fill: am5.Color.brighten(color, -0.3)
-    });
-  
-    polygonSeries.mapPolygons.template.events.on("pointerover", function(ev) {
-      ev.target.series.mapPolygons.each(function(polygon) {
-        polygon.states.applyAnimate("hover");
-      });
-    });
-  
-    polygonSeries.mapPolygons.template.events.on("pointerout", function(ev) {
-      ev.target.series.mapPolygons.each(function(polygon) {
-        polygon.states.applyAnimate("default");
-      });
-    });
-    polygonSeries.data.setAll(group.data);
-  
-    legend.data.push(polygonSeries);
-  });
-
-    
+function changeCluster(nb) {
+    map.addCluster(nb)
 }
 
 

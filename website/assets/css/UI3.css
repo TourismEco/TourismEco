@@ -277,6 +277,13 @@ p {
     .content-zone {
         margin: 5px;
     }
+    h3{
+        font-size:var(--fs-500);
+    }
+    h2{
+        font-size:var(--fs-500);
+    
+    }
 }
 
 .section-analyse {
@@ -330,7 +337,7 @@ p {
     grid-column: 1 / 2;
     grid-row: 1;
     width: 100%;
-    height: 200px;
+    height: 175px;
     object-fit: cover;
     filter: brightness(50%);
     z-index: 1;
@@ -388,6 +395,7 @@ p {
     align-self: center;
     display: flex;
     flex-direction: column;
+    text-align: center;
 }
 
 .flag-plus-nom h2 {
@@ -451,7 +459,7 @@ p {
 }
 
 .zone-presentation {
-    grid-template-rows: repeat(3, 200px);
+    grid-template-rows: repeat(3, 175px);
     grid-template-columns: repeat(4, 1fr);
 }
 
@@ -504,7 +512,6 @@ p {
 }
 
 #cluster {
-    grid-template-columns: repeat(2, 1fr);
     grid-template-rows: 2fr 1fr;
     .map-cluster {
         min-height: 300px;
@@ -515,6 +522,12 @@ p {
         display: grid;
         gap: var(--spacing-small);
     }
+}
+
+.section-cluster {
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap:20px
 }
 
 @container window-layout (width < 70ch) {
@@ -570,6 +583,11 @@ p {
     margin: auto 0;
     width: 50%;
     text-align: center;
+    font-size: var(--fs-400);
+}
+
+.el-cube p {
+    font-size: var(--fs-300);
 }
 
 .trait-small {
@@ -727,6 +745,15 @@ p {
 .expandrow-2 {
     grid-row: span 2;
     color: #222;
+}
+
+@media screen and (max-width: 500px) {
+    .zone{
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+    
+    
 }
 
 .more-text {
@@ -1049,6 +1076,7 @@ p {
     grid-column: 2;
     gap: 20px;
     align-self: center;
+    line-height: 1.25;
 }
 
 .container-info {
@@ -1500,6 +1528,7 @@ input {
 .title-zone h2 {
     margin: 0;
     margin-left: 5px;
+    font-size: var(--fs-500);
 }
 
 .title-zone p {
@@ -1633,19 +1662,19 @@ input {
 
 .h3-scroll {
     text-align: center;
-    font-size: var(--fs-700);
+    font-size: var(--fs-500);
     margin: 0;
     font-weight: 500;
 }
 
 .h3-scrollAnec {
-    font-size: var(--fs-700);
+    font-size: var(--fs-500);
     margin: 0;
     font-weight: 500;
 }
 
 .h3-scrollDescrib {
-    font-size: var(--fs-700);
+    font-size: var(--fs-500);
     margin: 0;
     margin-top: 10px;
     font-weight: 500;
@@ -1905,7 +1934,6 @@ input {
 
 .choice-scores {
     display: flex;
-    gap: 30px;
     flex-direction: column;
     grid-row: span 3;
     .score-box {
@@ -2312,10 +2340,6 @@ ul {
         grid-template-rows: repeat(4, 175px);
     }
 
-    .img-bandeau {
-        height: 175px;
-    }
-
     .home {
         padding: 0;
         gap: 0;
@@ -2562,6 +2586,10 @@ ul {
     .big-trait {
         display: none;
     }
+
+    .section-cluster {
+        grid-template-columns: 1fr;
+    }
 }
 
 @media screen and (max-width: 768px) {
@@ -2741,6 +2769,17 @@ ul {
 
     .zone-spider {
         grid-template-columns: 1fr;
+    }
+
+    .container-explore {
+        grid-template-columns: 1fr;
+    }
+
+    .container-explore div {
+        grid-column: 1;
+    }
+    .explore-more{
+        grid-row:7;
     }
 }
 
