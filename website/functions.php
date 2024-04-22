@@ -868,3 +868,30 @@ function getSpecific($id_pays, $year, $var, $cur) {
 
     return $sth->fetch(PDO::FETCH_ASSOC);
 }
+
+function formatNumber($value, $variable) {
+    if ($value == null) {
+        return "/";
+    }
+    if ($variable == "%" || $variable == "elecRenew") {
+        return number_format($value, 2)." %";
+    } 
+    if ($variable == "gpi" || $variable == "idh") {
+        return $value;
+    }
+
+    if ($value > pow(10, 9)) {
+        $st = number_format($value/pow(10, 9), 2)."Ma";
+    } else if ($value > pow(10, 6)) {
+        $st = number_format($value/pow(10, 6), 2)."M";
+    } else if ($value > pow(10, 3)) {
+        $st = number_format($value, 0, ".", " ");
+    } else {
+        $st = number_format($value, 0);
+    }
+
+    if ($variable == "pib" || $variable == "pibParHab") {
+        $st .= " $";
+    }
+    return $st;
+}
