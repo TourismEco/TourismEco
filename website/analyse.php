@@ -6,30 +6,21 @@
 
         <div id="zones">
 
-            <div class="zone zone-double display" id="home">
+            <div id="home" class="zone zone-double display">
                 <div class="container-presentation">
-                    <div class="sectionAnalyse">
+                    <div class="section-analyse ">
                         <img class="flag-small" src='assets/icons/analyseHome.svg'>
                         <div>
                             <h2>Analyse</h2>
-                            <p> Cette page va vous permettre de mieux comprendre le processus de création du score, vous dévoilant les étapes et les méthodes utilisées pour évaluer et attribuer une valeur à différents pays. </p>
-                            <p> De plus, cette section met en avant une analyse approfondie de notre site. Vous aurez l'opportunité d'explorer les modèles de prédictions élaborés à partir de nos données. </p>
-                            <p> En parcourant cette partie dédiée à l'analyse, vous pourrez également vous familiariser avec les différentes techniques de regroupement de nos données, notamment le clustering. </p>
+                            <p> En naviguant à travers cette partie dédiée à l'analyse de données,  vous aurez l'occasion de vous familiariser avec une gamme de techniques de traitement de données. Cette page va vous permettre de mieux comprendre le processus de création du score, vous dévoilant les étapes et les méthodes utilisées pour évaluer et attribuer une valeur à différents pays.</p>
+                            <p> Vous aurez également l'occasion de découvrir des techniques de traitement de données avancées, telles que l’acp ou le clustering+. Ces méthodes vous permettront de mieux comprendre la structure et les tendances sous-jacentes à nos données, ouvrant ainsi la voie à des analyses plus approfondies. </p>
+                            <p>Enfin, vous plongerez dans les détails des méthodes de prédiction utilisée. Cette section est une ressource essentielle pour une compréhension de la régression linaire et de la mise en place du modèle Arima.Cette exploration approfondie vous permettra de saisir pleinement la logique et les nuances de ces méthodes, renforçant ainsi votre capacité à interpréter et à tirer des conclusions significatives à partir des résultats obtenus.</p>
                         </div>
                     </div>
                 </div>
-                <div class="section">
-                    <div class="container-presentation" id="one">
-                        <div class="sectionAnalyse">
-                            <img class="flag-small" src='assets/icons/analyseArima.svg'>
-                            <div>
-                                <h2>ARIMA</h2>
-                                <p> ARIMA (Autoregressive Integrated Moving Average) est un modèle statistique utilisé pour analyser et prévoir des séries temporelles.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="container-presentation" id="two">
-                        <div class="sectionAnalyse">
+                <div class="section zone-double">
+                    <div class="container-presentation">
+                        <div class="section-analyse">
                             <img class="flag-small" src='assets/icons/analyseScore.svg'>
                             <div>
                                 <h2>Score</h2>
@@ -37,8 +28,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="container-presentation" id="one">
-                        <div class="sectionAnalyse">
+                    <div class="container-presentation">
+                        <div class="section-analyse">
                             <img class="flag-small" src='assets/icons/analyseCluster.svg'>
                             <div>
                                 <h2>Clustering</h2>
@@ -46,17 +37,17 @@
                             </div>
                         </div>
                     </div>
-                    <div class="container-presentation" id="two">
-                        <div class="sectionAnalyse">
+                    <div class="container-presentation">
+                        <div class="section-analyse">
                             <img class="flag-small" src='assets/icons/analyseClusterPlus.svg'>
                             <div>
                                 <h2>Clustering+</h2>
-                                <p> Le Clustering + va au-delà du clustering traditionnel en intégrant d'autres techniques pour une analyse plus approfondie des données.</p>
+                                <p> Le Clustering + va au-delà du clustering traditionnel en créant des groupes plus petits afin de mettre en évidence davantage les différences.</p>
                             </div>
                         </div>
                     </div>
-                    <div class="container-presentation" id="three">
-                        <div class="sectionAnalyse">
+                    <div class="container-presentation">
+                        <div class="section-analyse">
                             <img class="flag-small" src='assets/icons/stats.svg'>
                             <div>
                                 <h2>Régression Linéaire</h2>
@@ -64,22 +55,31 @@
                             </div>
                         </div>
                     </div>
+                    <div class="container-presentation">
+                        <div class="section-analyse">
+                            <img class="flag-small" src='assets/icons/analyseArima.svg'>
+                            <div>
+                                <h2>ARIMA</h2>
+                                <p> (Autoregressive Integrated Moving Average) est un modèle statistique utilisé pour analyser et prévoir des séries temporelles.</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <div class="zone zone-triple display" id="score" style="display: none;">
-            <div class="container-presentation expandrow-2 score ">
-                <div class="sectionAnalyse">
-                    <img class="flag-small" src='assets/icons/analyseScore.svg'>
-                    <h2> Score </h2>
-                    <p> Le projet vise à attribuer un score à chaque pays pour fournir une identité supplémentaire. Ce score, basé sur des critères éthiques, permet aux utilisateurs de découvrir facilement des informations sur leur future destination en fonction de leurs préférences. Quatre scores sont mis en place : "Tourismeco" pour une vue d'ensemble par défaut, et trois autres ("Tourisme moderne", "Tourisme Éco-responsable", et "Tourisme d'Exploration et de Découverte") pour des préférences spécifiques.</p>
+            <div id="score" class="zone display" style="display: none;">
+                <div class="container-presentation score ">
+                    <div class="section-analyse">
+                        <img class="flag-small" src='assets/icons/analyseScore.svg'>
+                        <h2> Score </h2>
+                        <p> Le projet vise à attribuer un score à chaque pays pour fournir une identité supplémentaire.     Ce score, basé sur des critères éthiques, permet aux utilisateurs de découvrir facilement des   informations sur leur future destination en fonction de leurs préférences. Quatre scores sont mis   en place : "Tourismeco" pour une vue d'ensemble par défaut, et trois autres ("Tourisme moderne",    "Tourisme Éco-responsable", et "Tourisme d'Exploration et de Découverte") pour des préférences  spécifiques.</p>
+                    </div>
                 </div>
-            </div>
-            <div class="container-presentation expandrow-2 expand-2 score">
+                <div class="container-presentation score">
                     <p>Les critères de chaque score incluent des indicateurs tels que les arrivées d'avions, l'Indice de Développement Humain (IDH), les émissions de gaz à effet de serre (GES), etc. Chaque score est normalisé entre 0 et 1, puis noté de A à E, de parfait à mauvais.</p>
                     <p> La mise en place des scores s'est faite en utilisant Python. Les données ont été traitées et des poids ont été attribués à chaque critère. Une moyenne pondérée a été utilisée pour obtenir le score final. Les intervalles de score ont été définis en fonction de la variance et appliqués aux données. Enfin, une vérification de cohérence a été réalisée à l'aide d'une visualisation par une carte du monde. </p>
                     <p> De plus nous avons normaliser les données en utilisant la méthode multicritère, cela nous a permis de comparer différents critères. Elle consiste à attribuer des poids différents à chaque critère, certains augmentant le score tandis que d'autres le diminuent. Les valeurs résultantes sont comprises entre 0 et 1. Par exemple, les variables telles que les arrivées d'avions, le PIB par habitant, les énergies renouvelables et l'IDH augmentent le score (cf. calcul 2), tandis que le GPI et les émissions de GES par habitant le diminuent (cf. calcul 1). </p>
-                   
+
                     <div class="math">
                         <div class="frac">
                             <div class="num">Valeur du critère de l’élément</div>
@@ -97,8 +97,8 @@
                 </div>
             </div>
 
-            <div class="zone zone-cluster display" id="cluster" style="display: none;">
-
+            <div id="cluster" class="zone display" style="display: none;">
+                <div id="map" class="map-cluster"></div>
                 <div class="container-presentation">
                     <div class="title-zone">
                         <img class="flag-small" src='assets/icons/analyseCluster.svg'>
@@ -108,9 +108,6 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="map-cluster" id="map"></div>
-
 
                 <div class="zone-choix">
                     <div class="container-scores border-NA">
@@ -218,12 +215,10 @@
                                 <p>Centroide 2<br>0.099</p>
                                 <div class="trait-small"></div>
                                 <p>Centroide 3<br>0.009</p>
-
                             </div>
                         </div>
                     </div>
                 </div>
-
             </div>
 
             <div class="zone zone-basic display" id="clusterPlus" style="display:none">
@@ -237,44 +232,46 @@
                     <img class="scroll-img" data-index="2" src="assets/icons/arimaFav.svg">
                     <img class="scroll-img" data-index="3" src="assets/icons/arimaLook.svg">
                     <img class="scroll-img" data-index="4" src="assets/icons/arimaWrite.svg">
-          </div>
+                </div>
 
                 <div class="container-scrollable container-scrollable-x" id="scrArima">
                     <div class="allow-scroll allow-scroll-full zone-arima">
 
                     <div class="section">
-                        <div class="container-presentation" id="four">
-                        <div class="sectionAnalyse2">
-                        <img class="flag-small" src='assets/icons/arimaHome.svg'>
-                        <div>
-                        <h2>ARIMA</h2>
-                            <p> (AutoRegressive Integrated Moving Average)
-                                est un modèle statistique puissant utilisé pour analyser et prévoir les séries temporelles.</p>
-                       </div>
+                        <div class="container-presentation">
+                            <div class="section-analyse">
+                                <img class="flag-small" src='assets/icons/arimaHome.svg'>
+                                <div>
+                                    <h2>ARIMA</h2>
+                                    <p> (AutoRegressive Integrated Moving Average)
+                                        est un modèle statistique puissant utilisé pour analyser et prévoir les séries temporelles.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container-presentation">
+                            <div class="section-analyse">
+                        <img class="flag-small " src='assets/icons/arimaTemp.svg'>
+                            <div>
+                                <h2>SÉRIE TEMPORELLE</h2>
+                                    <p> Les séries temporelles représentent un aspect interessant de l'analyse des données, offrant un aperçu des phénomènes qui évoluent avec le temps. </p>
+                            </div>
+                        </div>
                     </div>
-                    </div>
-                    <div class="container-presentation" id="five">  <div class="sectionAnalyse2">
-                    <img class="flag-small " src='assets/icons/arimaTemp.svg'>
-                        <div>
-                        <h2>SÉRIE TEMPORELLE</h2>
-                            <p> Les séries temporelles représentent un aspect interessant de l'analyse des données, offrant un aperçu des phénomènes qui évoluent avec le temps. </p>
-                       </div>
-                    </div> </div>
-                    <div class="container-presentation" id="five">   <div class="sectionAnalyse2">
+                    <div class="container-presentation" id="five">   <div class="section-analyse">
                     <img class="flag-small " src='assets/icons/arimaFav.svg'>
                         <div>
                         <h2>DÉTERTMINER LES PARAMÈTRES ARIMA</h2>
                             <p> Le processus de configuration et d'évaluation des modèles ARIMA est essentiel pour obtenir des prévisions précises et fiables des séries temporelles.</p>
                        </div>
                     </div></div>
-                    <div class="container-presentation" id="five">   <div class="sectionAnalyse2">
+                    <div class="container-presentation" id="five">   <div class="section-analyse">
                     <img class="flag-small " src='assets/icons/arimaLook.svg'>
                         <div>
                         <h2>PRÉDICTIONS SUR L’ÉCHANTILLION</h2>
                             <p> Après que le modèle ARIMA soit ajusté aux données d'entraînement, il peut être utilisé pour faire des prédictions.</p>
                        </div>
                     </div></div>
-                    <div class="container-presentation" id="five">  <div class="sectionAnalyse2">
+                    <div class="container-presentation">  <div class="section-analyse">
                     <img class="flag-small" src='assets/icons/arimaWrite.svg'>
                         <div>
                         <h2>PRÉDICTIONS HORS ÉCHANTILLION </h2>
@@ -283,37 +280,37 @@
                     </div> </div>
 
 </div>
-                        <div class="container-presentation expandrow-2">
-                        <div class="arima1">
-                        <p> ARIMA tire son efficacité de la combinaison de trois concepts principaux : l'autorégression (AR), l'intégration (I) et la moyenne mobile (MA). 
-                        </p><p>Comprendre ces composantes est essentiel pour maîtriser ARIMA et
+<div class="container-presentation expandrow-2">
+<div class="arima1">
+<p> ARIMA tire son efficacité de la combinaison de trois concepts principaux : l'autorégression (AR), l'intégration (I) et la moyenne mobile (MA).
+</p><p>Comprendre ces composantes est essentiel pour maîtriser ARIMA et
 exploiter ses capacités dans l'analyse des séries temporelles.
 </p><p>
-- (AR) qui capture la dépendance des observations précédentes,
+- (AR) capture la dépendance des observations précédentes,
 </p><p>
-- (I) qui rend la série stationnaire en différenciant les données,
+- (I) rend la série stationnaire en différenciant les données,
 </p><p>
-- (MA) qui modélise les erreurs résiduelles.
+- (MA) modélise les erreurs résiduelles.
 </p><p>
 
 En définissant les paramètres notées respectivement 'p', 'd' et 'q', le modèle ARIMA peut s'adapter aux structures temporelles spécifiques des données, capturant à la fois les tendances à long terme et les variations aléatoires.
 </p><p>
 Cette flexibilité permet à ARIMA de modéliser une grande variété de séries
 temporelles avec précision. En comprenant ces concepts fondamentaux, nous sommes prêts à explorer plus en profondeur le fonctionnement et les applications pratiques du modèle ARIMA dans l'analyse et la prévision des séries temporelles. </p>
-                        </div></div>
-
-                    </div>
-                    <div class="allow-scroll allow-scroll-full zone-arima">
-                        <div class="container-presentation expand-2">
-                            <div class="sectionAnalyse2">
-                            <img class="flag-small" src="assets/icons/arimaTemp.svg">
-                                <div>
-                            <h2>SÉRIE TEMPORELLE</h2>
-                            <p> Ensembles de données indexées par le temps, reflétant ainsi l'évolution d'un phénomène au fil du temps. </p>
-                        </div></div></div>
-                        <div class="container-presentation expand-2">
-                        <div class="arima1">
-                        <p> Les séries temporelles représentent un aspect interessant de l'analyse des données, offrant un aperçu des phénomènes qui évoluent avec le temps. Avant de plonger dans les détails du modèle ARIMA, il est important de comprendre les fondamentaux des séries temporelles.
+</div>
+</div>
+</div>
+<div class="allow-scroll allow-scroll-full zone-arima">
+<div class="container-presentation expand-2">
+<div class="section-analyse">
+<img class="flag-small" src="assets/icons/arimaTemp.svg">
+    <div>
+<h2>SÉRIE TEMPORELLE</h2>
+<p> Les séries temporelles représentent un aspect intéressant de l’analyse des données, offrant un aperçu des phénomènes qui évoluent avec le temps. Avant de plonger dans les détails du modèle ARIMA, il est important de comprendre les fondamentaux des séries temporelles. Les séries temporelles sont des ensembles de données indexées par le temps, reflétant ainsi l’évolution d’un phénomène au fil du temps.  Les séries temporelles peuvent être utilisées pour analyser et prédire une grande variété de phénomènes, tels que les prix, les taux de change et bien d’autres. Elles sont couramment utilisées dans de nombreux domaines, notamment la finance, l’économie, la météorologie et la santé. </p>
+</div></div></div>
+<div class="container-presentation expand-2">
+<div class="arima1">
+<p>Les séries temporelles peuvent être décomposées en trois composantes principales : tendance, saisonnalité et résidu. Cette décomposition permet de mieux comprendre la structure des données et d’identifier les tendances et les modèles sous-jacents.
 Elles sont décomposées en trois composantes principales :</p><p>
 - Tendance (Tt) : Représente la variation à long terme de la série, pouvant être croissante, décroissante ou stable.
 </p><p>- Saisonnalité (St) : Indique les variations périodiques qui se répètent à des intervalles réguliers, comme les saisons ou
@@ -327,7 +324,7 @@ Cette décomposition permet une compréhension approfondie de la structure des d
 
                     <div class="allow-scroll allow-scroll-full zone-arima">
                         <div class="container-presentation">
-                        <div class="sectionAnalyse2">
+                        <div class="section-analyse">
                                 <img class="flag-small" src="assets/icons/arimaFav.svg">
                             <div class="arima1">
                             <h2>DÉTERTMINER LES PARAMÈTRES ARIMA</h2>
@@ -356,7 +353,7 @@ absolue moyenne (MAE). </p>
                     </div>
                     <div class="allow-scroll allow-scroll-full zone-arima">
                         <div class="container-presentation ">
-                        <div class="sectionAnalyse2">
+                        <div class="section-analyse">
                                 <img class="flag-small" src="assets/icons/arimaLook.svg">
                             <div><h2> PRÉDICTIONS SUR L’ÉCHANTILLION </h2>
                             <p> Une fois que le modèle ARIMA a été configuré et ajusté aux données d'entraînement, il est prêt à être utilisé pour faire des prédictions sur l'échantillon de test. Cette étape est cruciale pour évaluer la performance du modèle et sa capacité à généraliser les tendances observées dans les données d'entraînement. </p>
@@ -375,18 +372,18 @@ En outre, il est important de noter que ces données peuvent être étendues pou
                 </div>
                     <div class="allow-scroll allow-scroll-full zone-arima">
                         <div class="container-presentation">
-                        <div class="sectionAnalyse2">
+                        <div class="section-analyse">
                                 <img class="flag-small" src="assets/icons/arimaWrite.svg">
 
                            <div> <h2> PRÉDICTIONS HORS ÉCHANTILLION </h2>
 
-                            <p> Une fois que les paramètre du modèle ARIMA ont été configuré et que les prédictions sur l'échantillon de test ont été jugé bon à l’aide du calcul des erreurs métriques. Nous pouvons faire des prédictions hors échantillon, ce sont des prévisions faites pour des périodes futures qui ne font pas partie de l'ensemble de données d'entraînement initial. Ces prédictions sont importantes pour évaluer la capacité du modèle ARIMA à généraliser de nouvelles données et à maintenir sa performance prédictive dans des conditions réelles.</p>
+                            <p> Une fois que les paramètre du modèle ARIMA ont été configuré et que les prédictions sur l'échantillon de test ont été jugé bon à l’aide du calcul des erreurs métriques. Nous pouvons faire des prédictions hors échantillon, ce sont des prévisions faites pour des périodes futures qui ne font pas partie de l'ensemble de données d'entraînement initial. </p>
                         </div></div>
                         </div>
                         <div class="container-presentation img-pred">  <img src="assets/img_Analyse/hors_ech.png"> </div>
                         <div class="container-presentation expand-2 ">
                         <div class="arima1">
-                            <p> En conclusion, le graphique présente en rouge le pourcentage de production d'énergie renouvelable aux États-Unis de 1995 à 2020, tandis que les prévisions du pourcentage d'énergie renouvelable pour les sept années suivantes sont représentées en bleu. En outre, il est important de noter que ces données peuvent être étendues pour inclure d'autres pays et d'autres années. Cela signifie que le modèle ARIMA peut être adapté pour étudier et prédire les tendances de la production d'énergies renouvelables à l'échelle mondiale et sur des périodes plus étendues. </p>
+                            <p> Ces prédictions sont importantes pour évaluer la capacité du modèle ARIMA à généraliser de nouvelles données et à maintenir sa performance prédictive dans des conditions réelles. En conclusion, le graphique présente en rouge le pourcentage de production d'énergie renouvelable aux États-Unis de 1995 à 2020, tandis que les prévisions du pourcentage d'énergie renouvelable pour les sept années suivantes sont représentées en bleu. </p><p> En outre, il est important de noter que ces données peuvent être étendues pour inclure d'autres pays et d'autres années. Cela signifie que le modèle ARIMA peut être adapté pour étudier et prédire les tendances de la production d'énergies renouvelables à l'échelle mondiale et sur des périodes plus étendues. </p>
                         </div></div>
                     </div>
                 </div>
@@ -396,7 +393,7 @@ En outre, il est important de noter que ces données peuvent être étendues pou
             <div class="zone zone-triple display" id="regr" style="display:none">
 
             <div class="container-presentation expand-2 regression1">
-                    <div class="sectionAnalyse">
+                    <div class="section-analyse">
                         <img class="flag-small" src='assets/icons/stats.svg'>
                         <h2> Régression Linéaire </h2>
                         <p> La régression linéaire est une méthode de prédiction. Nous avons principalement utilisé le PIB comme variable explicative, tout en explorant d’autres variables dans notre base de données. Le langage de programmation Python a été utilisé pour mettre en œuvre cette régression linéaire. Nous avons appliqué des méthodes similaires pour chaque régression, en utilisant des données sur une période de 2 ans, généralement jusqu’à 2022.</p>

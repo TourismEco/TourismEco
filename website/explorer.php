@@ -25,7 +25,7 @@
             <div class="title-zone">
                 <img class="flag-small" src='assets/icons/map.svg'>
                 <div>
-                    <h2>Explorateur</h2>
+                    <h1>Explorateur</h1>
                     <p>Un aperçu statistique mondial, pour vous faire découvrir de nouvelles destinations.</p>
                 </div>
             </div>

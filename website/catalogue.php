@@ -14,7 +14,7 @@
                 $page = substr(explode(".", $_SERVER["REQUEST_URI"])[0], 1);
             }
 
-            $page = "comparateur";
+            $page = "pays";
 
             // if ($page != "pays" && $page != "comparateur") {
             //     header("HTTP/1.1 401");
@@ -25,24 +25,24 @@
 
             if ($page == "pays") {
                 echo <<<HTML
-                    <div class="title-zone">
-                        <img class="flag-small" src='assets/icons/catalogue.svg'>
-                        <div>
-                            <h2>Catalogue</h2>
-                            <p>Voici la liste de nos pays, triés par continents. Choisissez un pays pour consulter toutes ses informations.</p>
-                        </div>
-                    </div>
-                HTML;
+    <div class="title-zone">
+        <img class="flag-small" src='assets/icons/catalogue.svg'>
+        <div>
+            <h2>Catalogue</h2>
+            <p>Voici la liste de nos pays, triés par continents. Choisissez un pays pour consulter toutes ses informations.</p>
+        </div>
+    </div>
+HTML;
             } else {
                 echo <<<HTML
-                    <div class="title-zone">
-                        <img class="flag-small" src='assets/icons/catalogue.svg'>
-                        <div>
-                            <h2>Catalogue</h2>
-                            <p>Voici la liste de nos pays, triés par continents. Choisissez deux pays puis retournez sur la section 'Statistiques' pour les comparer.</p>
-                        </div>
-                    </div>
-                HTML;
+    <div class="title-zone">
+        <img class="flag-small" src='assets/icons/catalogue.svg'>
+        <div>
+            <h2>Catalogue</h2>
+            <p>Voici la liste de nos pays, triés par continents. Choisissez deux pays puis retournez sur la section 'Statistiques' pour les comparer.</p>
+        </div>
+    </div>
+HTML;
             }
             ?>
 
