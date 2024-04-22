@@ -177,7 +177,7 @@ html {
 
     .slide-img {
         width: 100%;
-        height: 100%;
+        height: 28vh;
         object-fit: cover;
         border-radius: 10px;
         filter: brightness(70%);
@@ -268,18 +268,27 @@ html {
     grid-template-columns: 1fr;
     transition: all 0.5s;
     color: white;
+    width: 100%;
 }
 
 .img-bandeau {
     grid-column: 1 / 2;
     grid-row: 1;
     width: 100%;
-    height: 100%;
+    height: 200px;
     object-fit: cover;
     filter: brightness(50%);
     z-index: 1;
     transition: all 0.5s;
     border-radius: 10px;
+}
+
+.container-explore .img-bandeau {
+    height: 100px;
+}
+
+.container-explore-continent .img-bandeau {
+    height: 80px;
 }
 
 .flag-small {
@@ -293,8 +302,7 @@ html {
 }
 
 .small-icon{
-    width:10%;
-    margin:auto;
+    width:20px;
 }
 
 .flag-down {
@@ -376,8 +384,9 @@ html {
 }
 
 .zone-presentation {
-    grid-template-rows: repeat(3, calc(33% - 12px));
+    grid-template-rows: repeat(3, 200px);
     grid-template-columns: repeat(4, 1fr);
+    
 }
 
 .zone-cataloguePays {
@@ -964,8 +973,8 @@ h1 {
 }
 
 .icon {
-    width: 25px;
-    height: 25px;
+    width: 35px;
+    height: 35px;
     border-radius: 10px;
     padding: 5px;
     transition: all 0.5s;
@@ -1129,6 +1138,7 @@ h1 {
     opacity: 100%;
     transition: all 0.5s;
     color: white;
+    word-wrap: anywhere;
 }
 
 .score-home {
@@ -2403,6 +2413,11 @@ ul {
         grid-template-columns: repeat(3, 1fr);
         grid-template-rows: repeat(4, 175px);
     }
+
+    .img-bandeau {
+        height: 175px;
+    }
+
     .home {
         padding: 0;
         gap: 0;
@@ -2657,7 +2672,7 @@ ul {
     }
 
     .home-pays {
-        grid-template-rows: 150px 200px 100px 100px 100px 300px 300px;
+        grid-template-rows: 175px 200px 100px 100px 100px 300px 300px;
     }
 
     .home-compare {
@@ -2876,6 +2891,11 @@ ul {
         width: 50px;
     }
 
+    .icon {
+        width: 25px;
+        height: 25px;
+    }
+
 }
 
 .arima1 p {
@@ -2893,5 +2913,7 @@ ul {
     text-align: justify;
     padding-right: 40px;
 }
+
+
 
 

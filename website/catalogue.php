@@ -14,7 +14,7 @@
                 $page = substr(explode(".", $_SERVER["REQUEST_URI"])[0], 1);
             }
 
-            $page = "comparateur";
+            $page = "pays";
 
             // if ($page != "pays" && $page != "comparateur") {
             //     header("HTTP/1.1 401");

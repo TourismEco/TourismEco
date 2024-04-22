@@ -60,6 +60,7 @@ class EcoMap {
         if (id == "asia") {
             json = am5geodata_region_world_asiaLow
         } else if (id == "america") {
+            this.addThisContinent("southAmerica")
             json = am5geodata_region_world_northAmericaLow
         } else if (id == "africa") {
             json = am5geodata_region_world_africaLow
@@ -67,6 +68,8 @@ class EcoMap {
             json = am5geodata_region_world_europeLow
         } else if (id == "oceania") {
             json = am5geodata_region_world_oceaniaLow
+        } else if (id == "southAmerica") {
+            json = am5geodata_region_world_southAmericaLow
         }
 
         var s = this.map.series.push(am5map.MapPolygonSeries.new(base.root, {
@@ -221,11 +224,19 @@ class EcoMap {
         }
         if (this.continentActive != null) {
             this.allContinents[this.continentActive].hide()
+            if (this.continentActive == "america") {
+                this.allContinents["southAmerica"].hide()
+            }
         }
         
         this.continentActive = id_continent
         this.allContinents[id_continent].show()
-        var elem = this.continents.getDataItemById(id_continent)
+        if (id_continent != "america") {
+            var elem = this.continents.getDataItemById(id_continent)
+        } else {
+            this.allContinents["southAmerica"].show()
+            var elem = this.continents.getDataItemById("northAmerica")
+        }
         this.continents.zoomToDataItem(elem)
     }
 
@@ -334,12 +345,14 @@ var legend = map.map.children.push(am5.Legend.new(map.root, {
   
   // Create series for each group
   var colors = am5.ColorSet.new(map.root, {
-    step: 2
+    step: 1
   });
   colors.next();
   
   am5.array.each(clusters, function(group) {
     var countries = [];
+    colors.next()
+    colors.next()
     var color = colors.next();
   
     am5.array.each(group.data, function(country) {
