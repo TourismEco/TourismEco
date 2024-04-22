@@ -190,25 +190,26 @@ En utilisant l’algorithme KMeans avec différents nombres de clusters, nous av
 
 ## Interprétation des Clusters
 
-Avec 3 Clusters :
+Carte avec 3 Clusters :
 
 - Cluster 1 : Regroupe l’Amérique du Sud, une partie de l’Asie et quelques pays d’Afrique du Nord (y compris l’Afrique du Sud).
 - Cluster 2 : Inclut l’Amérique du Nord, une grande partie de l’Europe et l’Océanie.
 - Cluster 3 : Rassemble les pays d’Afrique centrale, d’Amérique centrale et d’Asie du Sud.
 Les clusters démontrent des regroupements géographiques et économiques intéressants, bien visualisés dans la figure tridimensionnelle.
 
-Avec 8 Clusters :
+Carte avec 8 Clusters :
 
 - Les clusters sont encore plus détaillés, répartissant les pays en groupes plus spécifiques selon leurs caractéristiques communes.
 - Par exemple, un cluster peut regrouper l’Australie, le Canada et les pays d’Europe de l’Est, tandis qu’un autre peut inclure certains pays d’Amérique du Sud, l’Algérie et des pays de l’Europe du Nord avec la Russie.
 
 ## Conclusion du Clustering
 
-Le clustering des pays en fonction de leurs caractéristiques économiques, environnementales et touristiques offre des perspectives intéressantes sur les similarités et les différences entre les nations. Ces analyses fournissent des informations utiles pour la compréhension des tendances mondiales et peuvent être utilisées pour recommander un pays à partir d’un autre pays.
+Le clustering des pays en fonction de leurs caractéristiques économiques, environnementales et touristiques offre des perspectives intéressantes sur les similarités et les différences entre les nations. Ces analyses fournissent des informations utiles pour la compréhension des tendances mondiales et peuvent être utilisées pour recommander un pays à partir d’un autre pays. Cette analyse se base sur un ensemble spécifique de variables, mais il est important de noter que l'ajout ou la suppression de certaines variables peuvent affiner ou élargir les résultats, les rendant ainsi plus pertinents pour d'autres domaines ou perspectives. 
 
 ## Perspectives Futures
 
-Pour approfondir notre compréhension, des analyses supplémentaires pourraient explorer les tendances temporelles, les interactions non linéaires entre les variables et les implications politiques et économiques des résultats présentés ici.
+Pour approfondir notre compréhension, des analyses supplémentaires pourraient être explorées. Ces analyses pourraient également tester différentes combinaisons de variables pour mieux comprendre les facteurs sous-jacents qui influencent les regroupements des pays. Une telle approche permettrait une meilleure contextualisation des résultats et une application plus précise dans divers domaines de recherche. En examinant de près les relations entre les variables et en explorant des méthodes analytiques avancées telles que l'apprentissage automatique et l'analyse de réseaux, nous pourrions découvrir des schémas et des tendances encore plus nuancés. 
+
 
 # Régression linéaire
 
@@ -262,7 +263,7 @@ Cette analyse met en évidence les différentes variables utilisées dans notre 
 
 ## Introduction aux séries temporelles et ARIMA
 
-(A) Introduction générale aux séries temporelles
+### Introduction générale aux séries temporelles
 Les séries temporelles représentent un aspect intéressant de l'analyse des données, offrant un aperçu des phénomènes qui évoluent avec le temps. Avant de plonger dans les détails du modèle ARIMA, il est important de comprendre les fondamentaux des séries temporelles.
 Les séries temporelles sont des ensembles de données indexées par le temps, reflétant ainsi l'évolution d'un phénomène au fil du temps. Ces données jouent un rôle important dans de nombreux domaines, de la finance à la météorologie, en passant par l'économie et la santé publique. Leur analyse et leur prédiction ont une importance pour la prise de décisions. Les séries temporelles sont décomposées en trois composantes principales :
 
@@ -272,7 +273,7 @@ Les séries temporelles sont des ensembles de données indexées par le temps, r
 
 Cette décomposition permet une compréhension approfondie de la structure des données temporelles, facilitant ainsi la modélisation et la prédiction.
 
-(B) Introduction à ARIMA
+### Introduction à ARIMA
 L'approche ARIMA (AutoRegressive Integrated Moving Average) est un modèle statistique puissant utilisé pour analyser et prévoir les séries temporelles. ARIMA tire son efficacité de la combinaison de trois concepts principaux : l'autorégression (AR), l'intégration (I) et la moyenne mobile (MA). Comprendre ces composantes est essentiel pour maîtriser ARIMA et exploiter ses capacités dans l'analyse des séries temporelles.
 
 - Autorégression (AR) met l'accent sur la dépendance des observations actuelles avec les observations précédentes dans la série temporelle. Un modèle utilise les 'p' observations précédentes pour prédire la prochaine observation.
@@ -284,10 +285,10 @@ En définissant les paramètres 'p', 'd' et 'q', le modèle ARIMA peut s'adapter
 
 Le processus de configuration et d'évaluation des modèles ARIMA est essentiel pour obtenir des prévisions précises et fiables des séries temporelles. Cette partie aborde les étapes clés de ce processus avec le paramétrage initial du modèle et l'évaluation de sa performance.
 
-(A) Paramétrage et évaluation du modèle ARIMA
+### Paramétrage et évaluation du modèle ARIMA
 La configuration d'un modèle ARIMA implique de choisir les valeurs appropriées pour les paramètres p, d et q, qui déterminent l'ordre de l'auto régression, le degré de différenciation et l'ordre de la moyenne mobile, respectivement. Cependant, estimer ces paramètres peut être un défi, nécessitant souvent des méthodes d'essais et d'erreurs itératifs. Cela implique d'ajuster différents modèles ARIMA avec des combinaisons de paramètres et de sélectionner celui qui minimise les erreurs de performance, telles que l'erreur quadratique moyenne (RMSE) ou l'erreur absolue moyenne (MAE).
 
-(B) Recherche en grille des hyperparamètres ARIMA
+### Recherche en grille des hyperparamètres ARIMA
 Pour simplifier et accélérer le processus de configuration des modèles ARIMA, l'automatisation à l'aide de la recherche en grille est souvent utilisée. Cette approche implique de spécifier une grille de valeurs pour les paramètres p, d et q, puis d'évaluer la performance de chaque combinaison de paramètres à l'aide d'une métrique de performance définie.
 Une fois que les modèles ARIMA ont été configurés, il est essentiel d'évaluer leur performance avant de les utiliser pour faire des prévisions. Cela implique de diviser les données en ensembles de formation et de test, d'ajuster les modèles sur l'ensemble de formation, de faire des prévisions sur l'ensemble de test et d'évaluer la précision des prévisions à l'aide de mesures d'évaluation appropriées.
 L'évaluation des modèles ARIMA peut être réalisée en utilisant des bibliothèques Python telles que statsmodels et pandas. Ces bibliothèques offrent des fonctionnalités pour ajuster les modèles ARIMA, faire des prévisions et évaluer la performance des modèles à l'aide de différentes métriques.
@@ -297,18 +298,18 @@ La recherche en grille des hyperparamètres ARIMA est une approche systématique
 
 ## Application et prédictions avec ARIMA
 
-(A) Mise en place du modèle ARIMA
+### Mise en place du modèle ARIMA
 Une fois que le modèle ARIMA a été configuré et ajusté aux données d'entraînement, il est prêt à être utilisé pour faire des prédictions sur l'échantillon de test. Les données portent sur le pourcentage de production d’énergies renouvelables aux États-Unis de 1995 à 2020. L'utilisation du modèle ARIMA pour faire des prédictions implique plusieurs étapes.
 La première étape consiste à importer les bibliothèques nécessaires. Dans ce cas, la bibliothèque sklearn.metrics est utilisée pour calculer le score R² et l'erreur quadratique moyenne (RMSE), qui sont des mesures couramment utilisées pour évaluer la précision des prédictions.
 Les données sont divisées en un ensemble d'entraînement et un ensemble de test. L'ensemble d'entraînement contient environ 80 % des données, tandis que l'ensemble de test contient les 20 % restants. Cette division permet d'évaluer la performance du modèle sur des données qu'il n'a pas vues pendant l’entraînement. Deux listes sont initialisées : history, qui contient les valeurs de la série temporelle jusqu'à présent, et predictions, qui contiendra les prédictions du modèle. Ces listes sont utilisées pour stocker les données réelles et prédites au fur et à mesure que le modèle est évalué sur l'ensemble de test.
 
-(B) Prédictions avec ARIMA
+### Prédictions avec ARIMA
 Après que le modèle ARIMA soit ajusté aux données d'entraînement, il peut être utilisé pour faire des prédictions. Pour ce faire, nous pouvons utiliser la fonction `ARIMA.predict()` pour générer des prévisions.
 Pour chaque donnée dans l'ensemble de test, le modèle ARIMA génère une prévision pour le prochain point de données, et cette prévision est ajoutée à la liste des prédictions. Ensuite, la valeur réelle correspondante est ajoutée à la liste d’historique. Ce processus se poursuit jusqu'à ce que toutes les données de l'ensemble de test soient prédites. Une fois que toutes les prédictions ont été générées, l'erreur quadratique moyenne (RMSE) et le score R² sont calculés entre les prédictions et les valeurs réelles de l'ensemble de test. Ces mesures fournissent une indication de la précision du modèle par rapport aux données observées.
 Le coefficient de détermination R²  est utilisé pour évaluer la qualité de l'ajustement du modèle aux données. Nous obtenons un R² de 0,88 ce qui indique que le modèle explique environ 88 % de la variance dans les données. En d'autres termes, il montre que le modèle ARIMA est assez bon pour représenter et prédire la tendance pour cet ensemble de donnée.
 Enfin, les résultats sont affichés à l'aide d'un graphique qui compare les valeurs réelles de l'ensemble de test aux prédictions du modèle. Cela permet de visualiser la performance du modèle.
 
-(C) Prédictions hors échantillon
+### Prédictions hors échantillon
 Une fois que les paramètre du modèle ARIMA ont été configuré et que les prédictions sur l'échantillon de test ont été jugé bon à l’aide du calcul des erreurs métriques. Nous pouvons faire des prédictions hors échantillon, ce sont des prévisions faites pour des périodes futures qui ne font pas partie de l'ensemble de données d'entraînement initial. Ces prédictions sont importantes pour évaluer la capacité du modèle ARIMA à généraliser de nouvelles données et à maintenir sa performance prédictive dans des conditions réelles.
 Pour faire des prédictions hors échantillon, nous pouvons utiliser la fonction `ARIMA.forecast()` dans les bibliothèques Python comme statsmodels. Cette fonction permet de générer des prédictions pour un certain nombre de pas de temps dans le futur. Pour cela de nombreuses étapes sont utilisées, la fonction `difference(dataset)`  calcule la différence entre chaque point de données et le point de données précédent, nous l’avons utilisée pour rendre une série temporelle stationnaire. Un modèle ARIMA est créé avec l’ordre déterminé lors du processus de paramétrage du modèle et la fonction `model_fit = model.fit()` est utilisée pour l’apprentissage supervisé du modèle ARIMA sur les données ajustées.
 Des prévisions sont générées pour un nombre spécifié de pas de temps dans le futur avec `forecast = model_fit.forecast(steps=7)` . Chaque prévision est inversée avec la fonction `inverse_difference(history, prediction)`  qui inverse la différenciation de départ appliquée à la série temporelle, transformant ainsi les prédictions faites sur la série différenciée en prédictions sur la série originale.
@@ -334,3 +335,41 @@ Dans l’ensemble, ce projet a démontré l’importance de l’analyse des donn
 
 # Annexe {.unnumbered}
 \setcounter{page}{1}
+\setcounter{chapter}{1}
+\setcounter{section}{0}
+## Score 
+
+![Représentation mondiale du Score Touristique](img-rapport-final/score.png){width=400px, height=280px }
+
+![Distribution du Score Touristique](img-rapport-final/score-2.png){width=400px, height=280px }
+
+\newpage
+
+## Analyse en Composantes Principales (ACP)
+
+![Cercle de corrélation](img-rapport-final/acp){width=500px, height=500px }
+
+## Clustering
+
+![Représentation des clusters et des centroïdes dans un espace tridimensionnel défini par le PIB par habitant, les émissions de CO2 par habitant et le GPI](img-rapport-final/clustering){width=500px, height=300px }
+
+![Carte Géographique des 3 Clusters](img-rapport-final/carte-clustering){width=500px, height=300px }
+
+## Clustering+
+![Représentation des clusters et des centroïdes dans un espace tridimensionnel défini par le PIB par habitant, les émissions de CO2 par habitant et le GPI](img-rapport-final/clustering-8){width=500px, height=300px }
+
+![Carte Géographique des 8 Clusters](img-rapport-final/carte-clustering-8){width=500px, height=300px }
+
+
+## Régression linéaire 
+![ Régression linéaire 1 ](img-rapport-final/regression-1){width=500px, height=300px }
+
+![ Régression linéaire 2 ](img-rapport-final/regression-2){width=500px, height=300px }
+
+## ARIMA
+![Prédiction sur l'échantillion](img-rapport-final/arima-1){width=500px, height=300px }
+
+![Prédiction sur l'échantillion pour l'année n-1](img-rapport-final/arima-2){width=500px, height=300px }
+
+![Prédiction hors échantillion](img-rapport-final/arima-3){width=500px, height=300px }
+

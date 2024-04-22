@@ -37,9 +37,9 @@ if (count($pays) <= 1) {
             <div class="zone zone-presentation home-compare display" id="home">
                 <div class="container-presentation expand-2" id="bandeau0"></div>
                 <div class="container-presentation expand-2" id="bandeau1"></div>
-                <div class="container-presentation" id="score0"></div>
+                <div class="container-presentation score-home" id="score0"></div>
                 <div class="container-presentation" id="miniMap0"></div>
-                <div class="container-presentation" id="score1"></div>
+                <div class="container-presentation score-home" id="score1"></div>
                 <div class="container-presentation" id="miniMap1"></div>
                 <div class="container-presentation expand-2" id="bestRank0"></div>
                 <div class="container-presentation expand-2" id="bestRank1"></div>
@@ -279,10 +279,14 @@ if (count($pays) <= 1) {
                 </div>
 
                 <div class="legende-key">
-                    <div class="square bg-52796F"></div>
-                    <p id="nom0"></p>
-                    <div class="square bg-83A88B"></div>
-                    <p id="nom1"></p>
+                    <div class="legende-element">
+                        <div class="square bg-52796F"></div>
+                        <p id="nom0"></p> 
+                    </div>
+                    <div class="legende-element">
+                        <div class="square bg-83A88B"></div>
+                        <p id="nom1"></p>
+                    </div>
                 </div>
 
             </div>

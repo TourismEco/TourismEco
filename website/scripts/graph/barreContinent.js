@@ -53,11 +53,11 @@ function updateInfoBC(index, data, type) {
             $("#avg_detail").html(`(${data["avg"][type]})`)
         }
 
-        if (!("median" in data) || isNaN(data["median"][type]["val"])) {
+        if (!("median" in data) || isNaN(data["median"][type]["value"])) {
             $("#med"+index).html("-")
         } else{
             $("#med"+index).html(data["median"][type]["name"])
-            $("#med_detail").html(`(${formatNumber(data["median"][type]["val"],type)})`)
+            $("#med_detail").html(`(${formatNumber(data["median"][type]["value"],type)})`)
         }
     }
 }

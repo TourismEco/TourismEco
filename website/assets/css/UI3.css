@@ -254,6 +254,111 @@ p {
     }
 }
 
+<<<<<<< HEAD
+=======
+/* Carrousel */
+
+.slide-container {
+    display: grid;
+    height: 28vh;
+    grid-template-columns: 5% 90% 5%;
+    grid-template-rows: 1fr 1fr 1fr;
+    margin-bottom: 30px;
+    h2 {
+        color: #fff;
+        text-align: center;
+        font-size: 1.6em;
+        font-weight: 400;
+        letter-spacing: -0.64px;
+        margin-top: 1%;
+        font-weight: 300;
+    }
+    .custom-slider {
+        display: none;
+        grid-row: 1 / 4;
+        grid-column: 1 / 4;
+    }
+    .prev,
+    .next {
+        cursor: pointer;
+        width: 60px;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        color: white;
+        font-size: 30px;
+        background-color: rgba(0, 0, 0, 0);
+        transition: background-color 0.6s ease;
+        grid-row: 2;
+        align-self: center;
+        z-index: 20;
+        margin: 10px;
+        &:hover {
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+    }
+
+    .prev {
+        grid-column: 1;
+    }
+
+    .next {
+        grid-column: 3;
+        justify-self: end;
+    }
+
+    .slide-text {
+        color: white;
+        font-size: 1em;
+        grid-column: 3;
+        margin-bottom: 0;
+    }
+
+    .slide-img {
+        width: 100%;
+        height: 28vh;
+        object-fit: cover;
+        border-radius: 10px;
+        filter: brightness(70%);
+        grid-column: 1 / 4;
+        grid-row: 1 / 4;
+    }
+
+    .text-center {
+        grid-column: 2;
+        grid-row: 1 /4;
+        z-index: 50;
+        align-self: center;
+        display: flex;
+        flex-direction: column;
+    }
+
+    #logo-carousel {
+        margin: auto;
+        width: 12vh;
+        border-radius: 8%;
+        opacity: 80%;
+    }
+
+    .slide-link {
+        grid-row: 3;
+        grid-column: 3;
+        z-index: 50;
+        justify-self: end;
+        padding: 20px;
+        cursor: pointer;
+    }
+}
+
+.hHome {
+    color: #222;
+    margin: 0;
+    font-size: 25px;
+}
+
+>>>>>>> 848fb1023a3c6b3ea161c75a3280ddd47265f7f2
 .container-bottom {
     z-index: 10;
     transition:
@@ -322,18 +427,27 @@ p {
     grid-template-columns: 1fr;
     transition: all 0.5s;
     color: white;
+    width: 100%;
 }
 
 .img-bandeau {
     grid-column: 1 / 2;
     grid-row: 1;
     width: 100%;
-    height: 100%;
+    height: 200px;
     object-fit: cover;
     filter: brightness(50%);
     z-index: 1;
     transition: all 0.5s;
     border-radius: var(--border-radius);
+}
+
+.container-explore .img-bandeau {
+    height: 100px;
+}
+
+.container-explore-continent .img-bandeau {
+    height: 80px;
 }
 
 .flag-small {
@@ -346,9 +460,14 @@ p {
     box-sizing: content-box;
 }
 
+<<<<<<< HEAD
 .small-icon {
     width: 10%;
     margin: auto;
+=======
+.small-icon{
+    width:20px;
+>>>>>>> 848fb1023a3c6b3ea161c75a3280ddd47265f7f2
 }
 
 .flag-down {
@@ -440,8 +559,9 @@ p {
 }
 
 .zone-presentation {
-    grid-template-rows: repeat(3, calc(33% - 12px));
+    grid-template-rows: repeat(3, 200px);
     grid-template-columns: repeat(4, 1fr);
+    
 }
 
 .zone-cataloguePays {
@@ -1008,9 +1128,15 @@ p {
 }
 
 .icon {
+<<<<<<< HEAD
     width: 25px;
     height: 25px;
     border-radius: var(--border-radius);
+=======
+    width: 35px;
+    height: 35px;
+    border-radius: 10px;
+>>>>>>> 848fb1023a3c6b3ea161c75a3280ddd47265f7f2
     padding: 5px;
     transition: all 0.5s;
 }
@@ -1173,7 +1299,22 @@ p {
     opacity: 100%;
     transition: all 0.5s;
     color: white;
+    word-wrap: anywhere;
 }
+
+.score-home {
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    text-align: center;
+}
+
+.score-home .score-box {
+    margin: 0;
+}
+
 
 .score-box-small {
     border-radius: 7px;
@@ -1259,6 +1400,13 @@ p {
     color: #eed;
 }
 
+@media screen and (max-width: 1100px) {
+    .tooltip .top {
+        min-width: auto;
+        max-height: 500px;
+    }
+  }
+
 .tooltip:hover .top {
     display: block;
 }
@@ -1286,13 +1434,19 @@ p {
 
 .legende-key {
     display: flex;
-    height: 20px;
-    padding: 10px 15px;
+    height:   auto ;
     background-color: #d9d9d9d9;
+<<<<<<< HEAD
     border-radius: var(--border-radius);
     gap: 20px;
     align-items: center;
     align-self: end;
+=======
+    border-radius: 10px;
+    align-items: baseline;
+    flex-direction: column;
+    justify-content: center;
+>>>>>>> 848fb1023a3c6b3ea161c75a3280ddd47265f7f2
 }
 
 .name {
@@ -2248,6 +2402,12 @@ ul {
     margin-left: 15px;
 }
 
+@media screen and (max-width: 1400px) {
+    .title-zone {
+        grid-row: 1;
+    }
+}
+
 @media screen and (max-width: 1350px) {
     .cubes-bar .cube {
         grid-row: unset;
@@ -2264,6 +2424,11 @@ ul {
         grid-template-columns: repeat(3, 1fr);
         grid-template-rows: repeat(4, 175px);
     }
+
+    .img-bandeau {
+        height: 175px;
+    }
+
     .home {
         padding: 0;
         gap: 0;
@@ -2285,6 +2450,30 @@ ul {
     #score1 {
         grid-row: 2;
         grid-column: 3;
+    }
+}
+
+@media screen and (max-width:1165px) {
+    .zone-scores {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .zone-scores .title-zone {
+        grid-column: 1 / 3;
+    }
+
+    .scores-column:nth-of-type(2) {
+        grid-column: 1;
+    }
+
+    .scores-column:nth-of-type(3) {
+        grid-column: 1 / 3;
+        grid-row: 2;
+        grid-template-columns: 1fr 5fr 1fr;
+    }
+
+    .scores-column:nth-of-type(4) {
+        grid-column: 2;
     }
 }
 
@@ -2339,28 +2528,8 @@ ul {
         grid-column: unset;
         grid-row: unset;
         margin: 0;
-    }
-
-    .zone-scores {
-        grid-template-columns: 1fr 1fr;
-    }
-
-    .zone-scores .title-zone {
-        grid-column: 1 / 3;
-    }
-
-    .scores-column:nth-of-type(2) {
-        grid-column: 1;
-    }
-
-    .scores-column:nth-of-type(3) {
-        grid-column: 1 / 3;
-        grid-row: 2;
-        grid-template-columns: 1fr 5fr 1fr;
-    }
-
-    .scores-column:nth-of-type(4) {
-        grid-column: 2;
+        width: unset;
+        justify-self: unset;
     }
 
     .zone-cartePays {
@@ -2397,6 +2566,11 @@ ul {
 
     .zone-explore .title-zone {
         grid-column: 1 / 3;
+    }
+
+    .legende-key{
+        grid-row: 3;
+        height: auto;
     }
 }
 
@@ -2454,7 +2628,15 @@ ul {
 }
 
 @media screen and (max-width: 800px) {
+
+    .zone-spider {
+        grid-template-columns: 1fr 1fr;
+    }
     .zone-spider .title-zone {
+        grid-column: 1 / 3;
+    }
+
+    .zone-spider .legende-key {
         grid-column: 1 / 3;
     }
 
@@ -2489,7 +2671,7 @@ ul {
     }
 
     .home-pays {
-        grid-template-rows: 150px 200px 100px 100px 100px 300px 300px;
+        grid-template-rows: 175px 200px 100px 100px 100px 300px 300px;
     }
 
     .home-compare {
@@ -2626,6 +2808,41 @@ ul {
     }
 }
 
+@media screen and (max-width: 630px) {
+    .cubes-bar {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .zone-spider #cube-1,
+    .zone-spider #cube-2,
+    .zone-spider #cube-3,
+    .zone-spider #cube-4,
+    .zone-spider #cube-5,
+    .zone-spider #cube-6,
+    .zone-spider #cube-7 {
+        grid-column: 1;
+    }
+
+    .zone-spider .legende-key {
+        grid-column: 1;
+    }
+
+    .zone-spider .title-zone {
+        grid-column: 1;
+    }
+
+    #spider {
+        grid-column: 1;
+    }
+
+    .zone-spider {
+        grid-template-columns: 1fr;
+    }
+
+}
+
 @media screen and (max-width: 550px) {
     .table {
         grid-template-columns: unset;
@@ -2700,6 +2917,10 @@ ul {
     .pack-categ span {
         display: none;
     }
+
+    .container-buttons span {
+        display: none;
+    }
 }
 
 @media screen and (max-width: 400px) {
@@ -2709,6 +2930,20 @@ ul {
     .troisieme {
         width: 50px;
     }
+<<<<<<< HEAD
+=======
+
+    .icon {
+        width: 25px;
+        height: 25px;
+    }
+
+    .cube .icon {
+        width: 35px;
+        height: 35px;
+    } 
+
+>>>>>>> 848fb1023a3c6b3ea161c75a3280ddd47265f7f2
 }
 
 .arima1 p {
@@ -2726,3 +2961,10 @@ ul {
     text-align: justify;
     padding-right: 40px;
 }
+<<<<<<< HEAD
+=======
+
+
+
+
+>>>>>>> 848fb1023a3c6b3ea161c75a3280ddd47265f7f2

@@ -18,24 +18,15 @@ $more = $_GET["more"];
 $page = $_GET["page"];
 $offset = 10+6*$more++; 
 
-if ($id_continent == 2) {
-    $queryCount = "SELECT COUNT(*) AS Count FROM pays WHERE id_continent = 3 OR id_continent = 2";
-    $resultCount = $cur->query($queryCount);
-    
-    $queryPays = "SELECT * FROM pays WHERE id_continent = 2 OR id_continent = 3 ORDER BY score DESC LIMIT $offset, 6";
-    $resultPays = $cur->query($queryPays);
-}
-else{
-    $queryCount = "SELECT COUNT(*) AS Count FROM pays WHERE id_continent = :id_continent";
-    $resultCount = $cur->prepare($queryCount);
-    $resultCount->bindParam(":id_continent", $id_continent, PDO::PARAM_INT);
-    $resultCount->execute();
-    
-    $queryPays = "SELECT * FROM pays WHERE id_continent = :id_continent ORDER BY score DESC LIMIT $offset, 6";
-    $resultPays = $cur->prepare($queryPays);
-    $resultPays->bindParam(":id_continent", $id_continent, PDO::PARAM_INT);
-    $resultPays->execute();
-}
+$queryCount = "SELECT COUNT(*) AS Count FROM pays WHERE id_continent = :id_continent";
+$resultCount = $cur->prepare($queryCount);
+$resultCount->bindParam(":id_continent", $id_continent, PDO::PARAM_INT);
+$resultCount->execute();
+
+$queryPays = "SELECT * FROM pays WHERE id_continent = :id_continent ORDER BY score DESC LIMIT $offset, 6";
+$resultPays = $cur->prepare($queryPays);
+$resultPays->bindParam(":id_continent", $id_continent, PDO::PARAM_INT);
+$resultPays->execute();
 
 $rsCount = $resultCount->fetch(PDO::FETCH_ASSOC);
 $count = $rsCount["Count"];
