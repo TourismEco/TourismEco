@@ -13,7 +13,6 @@ function barCompare(id) {
 
 function barHTMX(index,data,name) {
     b.updateSerie(index, data, name)
-    console.log(data)
     updateTable_bar(index,data[b.getYear()]);
 }
 

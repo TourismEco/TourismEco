@@ -25,10 +25,10 @@
                 return htmx.values(htmx.find("#calc"));
             }
         </script>
-        <div class="zone calculateur" id="zones">
+        <div id="zones" class="zone calculateur-layout">
         <h1 class="titre">Prévoyez vos prochaines vacances</h1>
-            <div class="left-section">
-                <form name="Calculateur" id="calc">
+            <div>
+                <form id="calc" name="Calculateur" >
 
                     <div class="dual-input">
                         <div class="container-input">
@@ -66,8 +66,6 @@
                         </div>
 
                         <div class="container-input">
-                            <!-- <label for="return_date">Date de retour</label>
-                            <input type="date" id="return_date" name="return_date" placeholder="Saisissez une date" required autocomplete="off"> -->
                             <label for="country">Nombre de voyageurs</label>
                             <input type="number" id="passengers" name="passengers" placeholder="Saisissez un nombre" required autocomplete="off" value=2 min=1 max=69>
                         </div>
@@ -80,10 +78,8 @@
 
                 </form>
             </div>
-
-            <!-- <div class="big-trait"></div> -->
-
-            <div class="right-section" id="calculateur-right-section">
+            <div class="big-trait"></div>
+            <div id="calculateur-right-section">
                 <div>
                 <p>Bienvenue sur notre puissant calculateur de trajet et de séjour, votre compagnon de voyage ultime. Vous êtes en quête de l'expérience de voyage parfaite? Notre outil offre une approche inégalée pour planifier vos aventures.</p>
                 <br>

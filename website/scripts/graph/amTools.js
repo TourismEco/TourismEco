@@ -331,7 +331,6 @@ class Graphique {
         colors.forEach(element => {
             c.push(am5.color(parseInt(element,16)))
         })
-        console.log(c);
         this.graph.set("colors", c)
     }
 

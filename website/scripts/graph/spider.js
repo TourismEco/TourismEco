@@ -12,7 +12,6 @@ function spider(id, nb) {
 
 var color = ["#52796F", "#83A88B"];
 function spiderHTMX(index, data, dataComp, name) {
-    console.log("s",data);
     g.updateSerie(index, data, name, dataComp);
     updateTable(index, dataComp[g.getYear()]);
 
