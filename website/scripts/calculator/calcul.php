@@ -20,7 +20,7 @@ $passengers = isset($_GET["passengers"]) ? $_GET["passengers"] : null;
 $is_round_trip = isset($_GET["round_trip"]) ? $_GET["round_trip"] : false;
 ?>
 
-<div class="right-section" id="calculateur-right-section" style="display: block">
+<div  id="calculateur-right-section" style="grid-row: 3;">
     <div hx-get="scripts/calculator/transport-car.php" hx-trigger="load" hx-vals=<?= json_encode(
         $_GET
     ) ?>>
