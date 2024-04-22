@@ -1230,6 +1230,13 @@ h1 {
     color: #eed;
 }
 
+@media screen and (max-width: 1100px) {
+    .tooltip .top {
+        min-width: auto;
+        max-height: 500px;
+    }
+  }
+
 .tooltip:hover .top {
     display: block;
 }
@@ -1257,13 +1264,12 @@ h1 {
 
 .legende-key {
     display: flex;
-    height: 20px;
-    padding: 10px 15px;
+    height:   auto ;
     background-color: #d9d9d9d9;
     border-radius: 10px;
-    gap: 20px;
-    align-items: center;
-    align-self: end;
+    align-items: baseline;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .name {
@@ -2581,12 +2587,38 @@ ul {
         display: none;
     }
 }
-
+@media screen and (max-width: 600px) {
+    .zone-spider #cube-1,
+    .zone-spider #cube-2,
+    .zone-spider #cube-3,
+    .zone-spider #cube-4,
+    .zone-spider #cube-5,
+    .zone-spider #cube-6,
+    .zone-spider #cube-7 {
+        grid-column: 1;
+    }
+}
 @media screen and (max-width: 910px) {
     .cubes-bar {
         grid-template-columns: repeat(2,1fr);
     }
+    .legende-key{
+        grid-row: 3;
+        height: auto;
+    }
     
+}
+@media screen and (max-width: 1400px) {
+    .title-zone {
+        grid-row: 1;
+    }
+    
+}
+
+@media screen and (max-width: 630px) {
+    .cubes-bar {
+        grid-template-columns: 1fr;
+    }
 }
 
 @media screen and (max-width: 800px) {

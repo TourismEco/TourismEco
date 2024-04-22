@@ -279,10 +279,14 @@ if (count($pays) <= 1) {
                 </div>
 
                 <div class="legende-key">
-                    <div class="square bg-52796F"></div>
-                    <p id="nom0"></p>
-                    <div class="square bg-83A88B"></div>
-                    <p id="nom1"></p>
+                    <div class="legende-element">
+                        <div class="square bg-52796F"></div>
+                        <p id="nom0"></p> 
+                    </div>
+                    <div class="legende-element">
+                        <div class="square bg-83A88B"></div>
+                        <p id="nom1"></p>
+                    </div>
                 </div>
 
             </div>
