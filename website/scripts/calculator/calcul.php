@@ -23,11 +23,45 @@ $is_round_trip = isset($_GET["round_trip"]) ? $_GET["round_trip"] : false;
 <div class="right-section" id="calculateur-right-section" style="display: block">
     <div hx-get="scripts/calculator/transport-car.php" hx-trigger="load" hx-vals=<?= json_encode(
         $_GET
-    ) ?>></div>
+    ) ?>>
+        <div class="container-scores border-GR">
+            <div class="title-calc">
+                <img src="assets/icons/car.svg">
+                <p>Voiture</p>
+            </div>
+
+            <div class="stats-calc">
+            <img alt="Chargement du résultat... Cela peut prendre du temps..." class="htmx-indicator" width="150" src="assets/icons/load.gif"/>
+            </div>
+        </div>
+
+    </div>
     <div hx-get="scripts/calculator/transport-train.php" hx-trigger="load" hx-vals=<?= json_encode(
         $_GET
-    ) ?>></div>
+    ) ?>>
+        <div class="container-scores border-GR">
+            <div class="title-calc">
+                <img src="assets/icons/train.svg">
+                <p>Train</p>
+            </div>
+
+            <div class="stats-calc">
+            <img alt="Chargement du résultat... Cela peut prendre du temps..." class="htmx-indicator" width="150" src="assets/icons/load.gif"/>
+            </div>
+        </div>
+    </div>
     <div hx-get="scripts/calculator/transport-plane.php" hx-trigger="load" hx-vals=<?= json_encode(
         $_GET
-    ) ?>></div>
+    ) ?>>
+        <div class="container-scores border-GR">
+            <div class="title-calc">
+                <img src="assets/icons/plane.svg">
+                <p>Avion</p>
+            </div>
+
+            <div class="stats-calc">
+            <img alt="Chargement du résultat... Cela peut prendre du temps..." class="htmx-indicator" width="150" src="assets/icons/load.gif"/>
+            </div>
+        </div>
+    </div>
 </div>
