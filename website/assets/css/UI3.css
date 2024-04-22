@@ -277,6 +277,13 @@ p {
     .content-zone {
         margin: 5px;
     }
+    h3{
+        font-size:var(--fs-500);
+    }
+    h2{
+        font-size:var(--fs-500);
+    
+    }
 }
 
 .section-analyse {
@@ -738,6 +745,15 @@ p {
 .expandrow-2 {
     grid-row: span 2;
     color: #222;
+}
+
+@media screen and (max-width: 500px) {
+    .zone{
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+    
+    
 }
 
 .more-text {
@@ -2724,6 +2740,17 @@ ul {
 
     .zone-spider {
         grid-template-columns: 1fr;
+    }
+
+    .container-explore {
+        grid-template-columns: 1fr;
+    }
+
+    .container-explore div {
+        grid-column: 1;
+    }
+    .explore-more{
+        grid-row:7;
     }
 }
 
