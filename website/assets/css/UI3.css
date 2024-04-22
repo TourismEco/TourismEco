@@ -1314,6 +1314,27 @@ p {
     color: #eed;
 }
 
+.calculateur-layout {
+    container: calculateur / inline-size;
+    grid-template-rows: var(--fs-xl) 1fr;
+    grid-template-columns: 1fr 1px 1fr;
+    align-items: center;
+    h1 {
+        text-align: left;
+        grid-column: 1 / 4;
+    }
+}
+
+@media screen and (width <) .right-section {
+    text-align: justify;
+    width: 50%;
+    line-height: 1.25;
+    display: grid;
+    div {
+        align-self: center;
+    }
+}
+
 @media screen and (max-width: 1100px) {
     .tooltip .top {
         min-width: auto;
@@ -1400,25 +1421,16 @@ input {
     text-align: center;
 }
 
-.calculateur-layout {
-    container: calculateur / inline-size;
-    grid-template-rows: var(--fs-xl) 1fr;
-    grid-template-columns: 1fr 1px 1fr;
-    align-items: center;
-    h1 {
-        text-align: left;
-        grid-column: 1 / 4;
-    }
-}
-
-@media screen and (width <) .right-section {
+.right-section {
     text-align: justify;
     width: 50%;
     line-height: 1.25;
     display: grid;
     div {
         align-self: center;
+        width:70%;
     }
+    
 }
 
 .left-section {
@@ -2056,15 +2068,20 @@ input {
     gap: 10px;
     margin-bottom: 10px;
     padding: 5px;
-    width: 300px;
+    width: 400px;
+}
+
+.preference-item input[type="radio"] {
+    margin-right: 10px; /* Ajoute un espace entre le bouton radio et le texte */
 }
 
 .preference-item input {
-    order: 2;
+    order: 1;
 }
 
 .preference-item label {
-    order: 1;
+    order: 2;
+    max-width: 150px;
 }
 
 .container-bottom:hover {

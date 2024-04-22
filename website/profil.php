@@ -45,27 +45,27 @@
         </div>
 
         <div class="right-section">
-            <h2 style="font-size:20px;">Modifier vos préférences</h2>
+            <h2 class="titre">Modifier vos préférences</h2>
             <div class="connexion-container">
                 <form id="preference" hx-post="scripts/login/choixScore.php" hx-swap="beforeend">
-                    <div class="preference-item">
-                        <label for="tourisme_moderne">Tourisme Moderne (economique)</label>
-                        <input type="radio" id="tourisme_moderne" name="preference" value="1" <?php $_SESSION["user"]["score"] == "Economique" ? $v = "checked" : $v = ""; echo $v;?>>
+                    <div class="preference-item container-presentation">
+                        <input type="radio" id="tourisme_moderne"  name="preference" value="1" <?php $_SESSION["user"]["score"] == "Economique" ? $v = "checked" : $v = ""; echo $v;?>>
+                        <label for="tourisme_moderne">Tourisme Moderne (économique)</label>
                     </div>
 
-                    <div class="preference-item">
-                        <label for="tourisme_decouverte">Tourisme d'Exploration et de Découverte</label>
+                    <div class="preference-item container-presentation">
                         <input type="radio" id="tourisme_decouverte" name="preference" value="2" <?php $_SESSION["user"]["score"] == "Decouverte" ? $v = "checked" : $v = ""; echo $v;?>>
+                        <label for="tourisme_decouverte">Tourisme d'Exploration et de Découverte</label>
                     </div>
 
-                    <div class="preference-item">
-                        <label for="tourisme_eco">Tourisme Éco-responsable</label>
+                    <div class="preference-item container-presentation">
                         <input type="radio" id="tourisme_eco" name="preference" value="3" <?php $_SESSION["user"]["score"] == "Ecologique" ? $v = "checked" : $v = ""; echo $v;?>>
+                        <label for="tourisme_eco">Tourisme Éco-responsable</label>
                     </div>
 
-                    <div class="preference-item">
-                        <label for="pas_preference">Pas de préference particulière</label>
+                    <div class="preference-item container-presentation">
                         <input type="radio" id="pas_preference" name="preference" value="0" <?php $_SESSION["user"]["score"] == "Global" ? $v = "checked" : $v = ""; echo $v;?>>
+                        <label for="pas_preference">Pas de préférence particulière</label>
                     </div>
 
                     <input type="submit" class="submit" value="Mettre à jour">
@@ -74,6 +74,7 @@
             </div>
         </div>
 
+</div>
         <div class="zone mask"></div>
 
         <div id="nav-bot" hx-swap-oob="outerHTML"></div>
