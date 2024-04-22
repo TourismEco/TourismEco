@@ -225,110 +225,18 @@
 
                 <div id="sectionClusterPlus" style="display:none" class="section-cluster">
 
-                    <div class="container-presentation">
+                    <div class="container-presentation expand-2">
                         <div class="title-zone">
                             <img class="flag-small" src='assets/icons/analyseCluster.svg'>
                             <div>
                                 <h2>Clustering+</h2>
-                                <p>Le clustering regroupe les pays en trois groupes distincts à l’aide de ces six variables. Les centroides, points centraux, sont déplacés pour minimiser les distances avec les données jusqu'à former des groupes bien définis.</p>
+                                <p>Le Clustering + va au-delà du clustering traditionnel en créant des groupes plus petits afin de mettre en évidence davantage les différences.
+                                Ce clustering regroupe les pays en huit groupes distincts à l’aide de six variables. Les centroides, points centraux, sont déplacés pour minimiser les distances avec les données jusqu'à former des groupes bien définis.
+                                </p>
                             </div>
                         </div>
                     </div>
 
-                    <div class="zone-choix">
-                        <div class="container-scores border-NA">
-                        <div class="title-scores">
-                                <img src="assets/icons/up.svg" class="score-NA">
-                                <p>Arrivées Total </p>
-                                <div class="stats-scores">
-                                <div class="stats-scores-minmax">
-                                <p>Centroide 1<br>0.014</p>
-                                    <div class="trait-small"></div>
-                                    <p>Centroide 2<br>0.099</p>
-                                    <div class="trait-small"></div>
-                                    <p>Centroide 3<br>0.009</p>
-
-                                </div>
-                            </div>
-                            </div>
-                        </div>
-                        <div class="container-scores border-NA">
-                        <div class="title-scores">
-                                <img src="assets/icons/up.svg" class="score-NA">
-                                <p>Arrivées Total </p>
-                                <div class="stats-scores">
-                                <div class="stats-scores-minmax">
-                                <p>Centroide 1<br>0.014</p>
-                                    <div class="trait-small"></div>
-                                    <p>Centroide 2<br>0.099</p>
-                                    <div class="trait-small"></div>
-                                    <p>Centroide 3<br>0.009</p>
-
-                                </div>
-                            </div>
-                            </div>
-                        </div><div class="container-scores border-NA">
-                        <div class="title-scores">
-                                <img src="assets/icons/up.svg" class="score-NA">
-                                <p>Arrivées Total </p>
-                                <div class="stats-scores">
-                                <div class="stats-scores-minmax">
-                                <p>Centroide 1<br>0.014</p>
-                                    <div class="trait-small"></div>
-                                    <p>Centroide 2<br>0.099</p>
-                                    <div class="trait-small"></div>
-                                    <p>Centroide 3<br>0.009</p>
-
-                                </div>
-                            </div>
-                            </div>
-                        </div><div class="container-scores border-NA">
-                        <div class="title-scores">
-                                <img src="assets/icons/up.svg" class="score-NA">
-                                <p>Arrivées Total </p>
-                                <div class="stats-scores">
-                                <div class="stats-scores-minmax">
-                                <p>Centroide 1<br>0.014</p>
-                                    <div class="trait-small"></div>
-                                    <p>Centroide 2<br>0.099</p>
-                                    <div class="trait-small"></div>
-                                    <p>Centroide 3<br>0.009</p>
-
-                                </div>
-                            </div>
-                            </div>
-                        </div><div class="container-scores border-NA">
-                        <div class="title-scores">
-                                <img src="assets/icons/up.svg" class="score-NA">
-                                <p>Arrivées Total </p>
-                                <div class="stats-scores">
-                                <div class="stats-scores-minmax">
-                                <p>Centroide 1<br>0.014</p>
-                                    <div class="trait-small"></div>
-                                    <p>Centroide 2<br>0.099</p>
-                                    <div class="trait-small"></div>
-                                    <p>Centroide 3<br>0.009</p>
-
-                                </div>
-                            </div>
-                            </div>
-                        </div>
-                        <div class="container-scores border-NA">
-                            <div class="title-scores">
-                                <img src="assets/icons/up.svg" class="score-NA">
-                                <p>Arrivées Total </p>
-                                <div class="stats-scores">
-                                    <div class="stats-scores-minmax">
-                                    <p>Centroide 1<br>0.014</p>
-                                        <div class="trait-small"></div>
-                                        <p>Centroide 2<br>0.099</p>
-                                        <div class="trait-small"></div>
-                                        <p>Centroide 3<br>0.009</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
 
