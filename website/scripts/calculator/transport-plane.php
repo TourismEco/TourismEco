@@ -12,8 +12,10 @@ $departure_date = isset($_GET["departure_date"])
     : null;
 $passengers = isset($_GET["passengers"]) ? intval($_GET["passengers"]) : 1;
 
-$command = "../../.venv/bin/google-flights --origin '$city_src' --destination '$city_dst' -p '$passengers' -dd '$departure_date'";
+putenv("PATH=/var/www/html/php/venv/bin:/usr/lib/anaconda3/bin:/usr/lib/anaconda3/condabin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin");
+$command = "/var/www/html/php/venv/bin/google-flights --origin '$city_src' --destination '$city_dst' -p '$passengers' -dd '$departure_date' 2>&1";
 exec($command, $output, $result_code);
+
 $output = $output ? json_decode($output[0], true) : null;
 
 $best_flight = $output["meilleurs_vols"][0];

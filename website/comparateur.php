@@ -49,8 +49,8 @@ if (count($pays) <= 1) {
                 <div class="title-zone">
                     <img class="flag-small" src='assets/icons/sort.svg'>
                     <div>
-                        <h2>.. VS ..</h2>
-                        <p>Ce graphique compare l'évolution entre .. et .. au fil des années sur la statistiques que vous souhaitez.</p>
+                        <h2><t id="nomversus0">..</t> VS <t id="nomversus1">..</t></h2>
+                        <p>Ce graphique compare l'évolution entre <t id="nomversus0">..</t> et <t id="nomversus1">..</t> au fil des années sur la statistiques que vous souhaitez.</p>
                     </div>
                 </div>
 

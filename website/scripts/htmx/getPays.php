@@ -218,7 +218,7 @@ if ($ligneS[$score] != null) {
     HTML;
 } else {
     echo <<<HTML
-        <div class="container-presentation" id="score" hx-swap-oob="outerHTML">
+        <div class="container-presentation score-home" id="score" hx-swap-oob="outerHTML">
             <div class="score-box score-NA"><img src='assets/icons/bd.svg'></div>
             <div>Score $nomsScore[$score] - données manquantes</div>
         </div>

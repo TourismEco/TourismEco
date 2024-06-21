@@ -6,9 +6,9 @@
         <a href="explorer.php" aria-label="MONDE">Explorer</a>
         <a href="pays.php" aria-label="Pays">Pays</a>
         <a href="comparateur.php" aria-label="Comparateur">Comparateur</a>
-        <a href="continent.php" aria-label="Continent">Continent</a>
         <a href="analyse.php" aria-label="MONDE">Analyse</a>
         <a href="calculateur.php" aria-label="Calculateur">Calculateur</a>
+        <a href="continent.php" aria-label="Continent">Continent</a>
     </div>
     <div id="log-in">
         <?php if (isset($_SESSION["user"])) {

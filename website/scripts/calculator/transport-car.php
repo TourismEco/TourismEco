@@ -80,7 +80,6 @@ class Car
     function _fetchDistance($origin, $destination)
     {
         $url = distanceMatrixRequestBuilder($origin, $destination, "driving");
-        echo "<script>console.log('".$url."')</script>";
         $response = file_get_contents($url);
         return json_decode($response, true);
     }

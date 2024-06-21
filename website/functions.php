@@ -34,7 +34,6 @@ function addSlimCountry($id,$nom,$letter,$page) {
     if ($page == "pays") {
         return <<<HTML
             <div class="bandeau-slim" hx-get="pays.php" hx-vals="js:{id_pays:'$id'}" hx-swap="outerHTML swap:0.5s" hx-target="#zones" hx-select="#zones"> 
-                <!-- <div class="mini-score-box score-$letter">$letter</div> -->
                 <img class="img-slim" src='assets/mini/$id.jpg' alt="Illustration de $nom">
                 <img class="flag-slim" src='assets/twemoji/$id.svg' alt="Drapeau de $nom">
                 <h2 class="nom-slim">$nom</h2>
@@ -43,7 +42,6 @@ function addSlimCountry($id,$nom,$letter,$page) {
     } else if ($page == "comparateur") {
         return <<<HTML
             <div class="bandeau-slim" hx-get="scripts/htmx/appendCompare.php" hx-vals="js:{id_pays:'$id',incr:getIncr()}" hx-swap="beforeend"> 
-                <!-- <div class="mini-score-box score-$letter">$letter</div> -->
                 <img class="img-slim" src='assets/mini/$id.jpg' alt="Illustration de $nom">
                 <img class="flag-slim" src='assets/twemoji/$id.svg' alt="Drapeau de $nom">
                 <h2 class="nom-slim">$nom</h2>
@@ -52,7 +50,6 @@ function addSlimCountry($id,$nom,$letter,$page) {
     } else if ($page == "explorer") {
         return <<<HTML
             <div class="bandeau-slim" hx-get="scripts/htmx/getExplore.php" hx-vals="js:{id_pays:'$id'}" hx-swap="beforeend"> 
-                <!-- <div class="mini-score-box score-$letter">$letter</div> -->
                 <img class="img-slim" src='assets/mini/$id.jpg' alt="Illustration de $nom">
                 <img class="flag-slim" src='assets/twemoji/$id.svg' alt="Drapeau de $nom">
                 <h2 class="nom-slim">$nom</h2>
@@ -61,7 +58,6 @@ function addSlimCountry($id,$nom,$letter,$page) {
     } else if ($page == "explorerFav") {
         return <<<HTML
             <div class="bandeau-slim" hx-post="pays.php" hx-vals="js:{id_pays:'$id'}" hx-swap="outerHTML swap:0.5s" hx-target="#zones" hx-select="#zones" hx-push-url="true"> 
-                <!-- <div class="mini-score-box score-$letter">$letter</div> -->
                 <img class="img-slim" src='assets/mini/$id.jpg' alt="Illustration de $nom">
                 <img class="flag-slim" src='assets/twemoji/$id.svg' alt="Drapeau de $nom">
                 <h2 class="nom-slim">$nom</h2>
@@ -494,7 +490,7 @@ function dataExplorer($conn) {
     $years = array("pibParHab"=>2021,"elecRenew"=>2020,"co2"=>2020,"arriveesTotal"=>2022,"departs"=>2022,"gpi"=>2023,"idh"=>2022);
     $data = array();
 
-    $query = "SELECT id, score, nom, RANK() OVER (ORDER BY score DESC) AS 'scorerank' FROM pays;";
+    $query = "SELECT pays.id, scoreGlobal*100 AS score, nom, RANK() OVER (ORDER BY scoreGlobal DESC) AS 'scorerank' FROM pays, pays_score WHERE pays.id = pays_score.id;";
     $result = $conn->query($query);
     while ($rs = $result->fetch(PDO::FETCH_ASSOC)) {
         $data[$rs["id"]] = array("id"=>$rs["id"], "score"=>$rs["score"], "scorerank"=>$rs["scorerank"], "nom"=>$rs["nom"],"pibParHab"=>null,"elecRenew"=>null,"co2"=>null,"arriveesTotal"=>null,"departs"=>null,"gpi"=>null,"idh"=>null,"pibParHabrank"=>667,"elecRenewrank"=>667,"co2rank"=>667,"arriveesTotalrank"=>667,"departsrank"=>667,"gpirank"=>667,"idhrank"=>667);

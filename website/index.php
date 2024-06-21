@@ -12,7 +12,7 @@
     <div class="sectionHome">
       <div class="content">
           <h2>Explorez le monde en équilibre</h2>
-          <p>Bienvenue sur le site Écotourisme, votre destination en ligne pour explorer et comprendre les données économiques et écologiques de différentes régions du monde. Notre plateforme offre un éventail de fonctionnalités pour vous aider à planifier des voyages plus responsables, basés sur des informations pertinentes.</p>
+          <p>Bienvenue sur TourismEco, votre destination en ligne pour explorer et comprendre les données économiques et écologiques de différentes régions du monde. Notre plateforme offre un éventail de fonctionnalités pour vous aider à planifier des voyages plus responsables, basés sur des informations pertinentes.</p>
       </div>
       <img src="assets/icons/airBalloon.svg" alt="Logo 3">
       <a hx-post="explorer.php" hx-push-url="true" hx-target="#zones" hx-select="#zones" hx-swap="outerHTML swap:0.5s" class="btnIndex">Explorez maintenant</a>
@@ -20,7 +20,7 @@
 
     <div class="sectionHome">
     <img src="assets/icons/loupeIndex.svg" alt="Logo 3">
-    <a hx-get="analyse.php" hx-push-url="true" hx-target="#zones" hx-select="#zones" hx-swap="outerHTML swap:0.5s" class="btnIndex">Page analyse</a>
+    <a hx-get="analyse.php" hx-push-url="true" hx-target="#zones" hx-select="#zones" hx-swap="outerHTML swap:0.5s" class="btnIndex">Notre analyse des données</a>
       <div class="content">
         <h2>Comprendre en profondeur</h2>
         <p>Accédez à des rapports d'analyse statistique complets basés sur nos données, vous permettant de découvrir des tendances, des corrélations et des informations essentielles pour des décisions de voyage éclairées.</p>

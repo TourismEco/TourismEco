@@ -28,7 +28,6 @@
     $ligne = $sth->fetch();
     $nom = $ligne["nom"];
     $description = $ligne["description"];
-    $letter = getLetter($ligne["score"]);
 
     $a = array("sv1","sv2","sv3");
     $sv = array_rand($a);
@@ -40,7 +39,7 @@
     $capitals = json_encode($c["capitals"]);
 
     // Indicateurs
-    $queryIndic="SELECT pays_score.labelEcologique, pays_score.labelEconomique, pays_score.labelDecouverte
+    $queryIndic="SELECT pays_score.labelEcologique, pays_score.labelEconomique, pays_score.labelDecouverte, pays_score.labelGlobal
                 FROM `pays_score`
                 JOIN pays ON pays_score.id = pays.id
                 WHERE pays_score.id = :id_pays;";
@@ -57,7 +56,7 @@
         $score = "label".$_SESSION["user"]["score"];
     }
 
-    
+    $letter = $ligne["labelGlobal"];    
 
     echo <<<HTML
 
@@ -72,11 +71,26 @@
                 </div>
             </div>
         </div>
+    
+    HTML;
 
-        <div class="container-presentation expand-2 flex-column">
-            <h3>Score Global</h3>
-            <div class="score-box score-$letter">$letter</div>
-        </div>
+    if ($letter != null) {
+        echo <<<HTML
+            <div class="container-presentation expand-2 flex-column">
+                <h3>Score Global</h3>
+                <div class="score-box score-$letter">$letter</div>
+            </div>
+        HTML;
+    } else {
+        echo <<<HTML
+            <div class="container-presentation expand-2 flex-column">
+                <h3>Score Global</h3>
+                <div class="score-box score-NA"><img src='assets/icons/bd.svg'></div>
+            </div>
+        HTML;
+    }
+
+    echo <<<HTML
 
         <div class="container-presentation flex-column">
             <h3>Score $nomsScore[$score]</h3>

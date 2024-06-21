@@ -55,5 +55,9 @@ function autoSlide() {
     
 }
 
+if (refresh) {
+    clearInterval(refresh)
+}
+
 var refresh = setInterval(autoSlide, 3000);
 

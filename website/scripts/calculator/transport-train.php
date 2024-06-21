@@ -46,9 +46,10 @@ class Train {
 }
 
 // echo "../../.venv/bin/trainline_cli.py -d '$city_src' -a '$city_dst' -dd '$departure_date 08:00'";
-exec("../../.venv/bin/trainline_cli.py -d '$city_src' -a '$city_dst' -dd '$departure_date 08:00'", $output);
-$output = $output ? json_decode($output[0], True) : null;
+putenv("PATH=/var/www/html/php/venv/bin:/usr/lib/anaconda3/bin:/usr/lib/anaconda3/condabin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin");
+exec("/var/www/html/php/venv/bin/trainline_cli.py -d '$city_src' -a '$city_dst' -dd '$departure_date 08:00' 2>&1", $output);
 
+$output = $output ? json_decode($output[0], True) : null;
 
 $train = new Train();
 if ($output) {

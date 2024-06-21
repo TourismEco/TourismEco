@@ -48,18 +48,6 @@ foreach ($dataHalfPie as $key => $value) {
     unset($dataHalfPie[$key]);
 }
 
-//Top 3
-$query = "SELECT pays.nom
-FROM continents
-JOIN pays ON pays.id_continent = continents.id
-WHERE continents.id = :id_continent
-ORDER BY pays.score DESC
-LIMIT 3;";
-$sth = $cur->prepare($query);
-$sth->bindParam(":id_continent", $id_continent, PDO::PARAM_STR);
-$sth->execute();
-$ligne = $sth->fetch();
-$top = $ligne["nom"];
 
 //scatter arrivées
 $query = "SELECT p.nom AS nom_pays, SUM(arriveesTotal) AS somme_arrivees, SUM(co2) AS total_co2
@@ -97,11 +85,9 @@ $dataHalfPie= json_encode($dataHalfPie,JSON_NUMERIC_CHECK);
 $dataBarContinent = dataBarreContinent($id_continent, $cur);
 $dataBarContinent = json_encode ($dataBarContinent,JSON_NUMERIC_CHECK);
 
-$query = "SELECT pays.nom, score, pays.id
-FROM continents
-JOIN pays ON pays.id_continent = continents.id
-WHERE continents.id = :id_continent
-ORDER BY pays.score DESC
+$query = "SELECT pays.nom, scoreGlobal*100 AS score, pays.id
+FROM pays, pays_score WHERE pays.id = pays_score.id AND id_continent = :id_continent
+ORDER BY scoreGlobal DESC
 LIMIT 4;";
 $sth = $cur->prepare($query);
 $sth->bindParam(":id_continent", $id_continent, PDO::PARAM_STR);
